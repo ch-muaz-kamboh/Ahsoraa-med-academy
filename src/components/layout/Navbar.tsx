@@ -89,7 +89,7 @@ export default function Navbar() {
                   style={{
                     fontSize: '0.9375rem',
                     fontWeight: 600,
-                    color: isActive ? '#2563EB' : '#334155',
+                   color: isActive ? '#22C55E' : '#334155',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '6px',
@@ -176,7 +176,7 @@ export default function Navbar() {
                 style={{
                   fontSize: '1rem',
                   fontWeight: 600,
-                  color: pathname === link.href ? '#2563EB' : '#334155',
+                  color: pathname === link.href ? '#22C55E' : '#334155',
                   padding: '8px 0',
                   borderBottom: '1px solid #F1F5F9',
                   display: 'flex',

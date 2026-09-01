@@ -104,8 +104,8 @@ export default function AdminApplicationsPage() {
             padding: '12px 20px',
             fontSize: '0.9375rem',
             fontWeight: 700,
-            color: activeTab === 'enrollments' ? '#2563EB' : '#64748B',
-            borderBottom: activeTab === 'enrollments' ? '3px solid #2563EB' : '3px solid transparent',
+            color: activeTab === 'enrollments' ? '#0D7C7A' : '#64748B',
+            borderBottom: activeTab === 'enrollments' ? '3px solid #0D7C7A' : '3px solid transparent',
             background: 'none',
             borderTop: 'none',
             borderLeft: 'none',
@@ -127,8 +127,8 @@ export default function AdminApplicationsPage() {
             padding: '12px 20px',
             fontSize: '0.9375rem',
             fontWeight: 700,
-            color: activeTab === 'cases' ? '#2563EB' : '#64748B',
-            borderBottom: activeTab === 'cases' ? '3px solid #2563EB' : '3px solid transparent',
+            color: activeTab === 'cases' ? '#0D7C7A' : '#64748B',
+            borderBottom: activeTab === 'cases' ? '3px solid #0D7C7A' : '3px solid transparent',
             background: 'none',
             borderTop: 'none',
             borderLeft: 'none',
@@ -212,10 +212,10 @@ export default function AdminApplicationsPage() {
                     </div>
                     <div style={{ fontSize: '0.8125rem', color: '#64748B', marginTop: '4px', display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
                       <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <Mail size={14} color="#2563EB" /> {student.email}
+                        <Mail size={14} color="#0D7C7A" /> {student.email}
                       </span>
                       <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <Phone size={14} color="#2563EB" /> {student.phone}
+                        <Phone size={14} color="#0D7C7A" /> {student.phone}
                       </span>
                       <span>Enrolled Date: <strong>{student.enrollmentDate}</strong></span>
                     </div>
@@ -277,7 +277,7 @@ export default function AdminApplicationsPage() {
                           style={{
                             width: `${student.progressPercent}%`,
                             height: '100%',
-                            backgroundColor: '#2563EB',
+                            backgroundColor: '#0D7C7A',
                           }}
                         />
                       </div>

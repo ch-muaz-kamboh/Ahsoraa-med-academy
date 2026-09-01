@@ -5,44 +5,44 @@
   --font-heading: 'Plus Jakarta Sans', sans-serif;
   --font-body: 'Inter', sans-serif;
 
-  /* Luxury Teal / Emerald Theme (From Reference) */
-  --primary-50: #f0fdf9;
-  --primary-100: #ccfbf1;
-  --primary-200: #99f6e4;
-  --primary-300: #5eead4;
-  --primary-400: #2dd4bf;
-  --primary-500: #14b8a6;
-  --primary-600: #0d7c7a;  /* Main Brand Teal */
-  --primary-700: #0a6866;  /* Hover Teal */
-  --primary-800: #085250;
-  --primary-900: #053b3a;
+  /* Light Green Brand Palette — #5CED73 */
+  --primary-50: #f0fff4;
+  --primary-100: #dcfce7;
+  --primary-200: #bbf7d0;
+  --primary-300: #86efac;
+  --primary-400: #5CED73;   /* Main Brand Green */
+  --primary-500: #3EDB5E;   /* Slightly deeper */
+  --primary-600: #22C55E;   /* Button / Active */
+  --primary-700: #16A34A;   /* Hover state */
+  --primary-800: #166534;
+  --primary-900: #14532D;
 
   /* Gold Accents */
   --gold-50: #fbf8eb;
   --gold-500: #d4af37;
   --gold-600: #c59b27;
 
-  /* Neutral Slates & Warm Minimal Backgrounds */
+  /* Neutral Backgrounds */
   --bg-main: #ffffff;
-  --bg-subtle: #fafbfb;
+  --bg-subtle: #fafcfa;
   --bg-card: #ffffff;
-  --bg-hover: #f1f5f5;
-  
-  --border-light: #e5e7eb;
-  --border-medium: #cbd5e1;
-  --border-focus: #0d7c7a;
+  --bg-hover: #f0fff4;
+
+  --border-light: #e2e8f0;
+  --border-medium: #bbf7d0;
+  --border-focus: #5CED73;
 
   --text-primary: #0f172a;
   --text-secondary: #334155;
   --text-muted: #64748b;
   --text-light: #94a3b8;
-  --text-teal: #0d7c7a;
+  --text-green: #16A34A;
 
-  /* Status Accents */
-  --success: #0d7c7a;
-  --success-bg: #f0fdf9;
-  --success-border: #99f6e4;
-  --success-text: #064e4b;
+  /* Status */
+  --success: #22C55E;
+  --success-bg: #f0fff4;
+  --success-border: #bbf7d0;
+  --success-text: #14532D;
 
   --warning: #f59e0b;
   --warning-bg: #fffbeb;
@@ -54,18 +54,18 @@
   --danger-border: #fecaca;
   --danger-text: #991b1b;
 
-  --info: #0d7c7a;
-  --info-bg: #f0fdf9;
-  --info-border: #99f6e4;
-  --info-text: #064e4b;
+  --info: #22C55E;
+  --info-bg: #f0fff4;
+  --info-border: #bbf7d0;
+  --info-text: #14532D;
 
   /* Shadows */
-  --shadow-xs: 0 1px 2px 0 rgba(13, 124, 122, 0.05);
+  --shadow-xs: 0 1px 2px 0 rgba(92, 237, 115, 0.08);
   --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
-  --shadow-lg: 0 10px 15px -3px rgba(13, 124, 122, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
-  --shadow-xl: 0 20px 25px -5px rgba(13, 124, 122, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
-  --shadow-teal-glow: 0 8px 20px -4px rgba(13, 124, 122, 0.35);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(92, 237, 115, 0.12), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(92, 237, 115, 0.18), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  --shadow-green-glow: 0 8px 24px -4px rgba(92, 237, 115, 0.45);
 
   --radius-sm: 6px;
   --radius-md: 10px;
@@ -82,7 +82,7 @@
 
 body {
   font-family: var(--font-body);
-  background-color: var(--bg-subtle);
+  background-color: #FFFFFF;
   color: var(--text-secondary);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -137,20 +137,20 @@ button {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background-color: var(--primary-600);
+  background-color: #22C55E;
   color: #ffffff;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.9375rem;
-  padding: 12px 26px;
+  padding: 14px 32px;
   border-radius: var(--radius-full);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 14px rgba(13, 124, 122, 0.28);
+  box-shadow: 0 4px 18px rgba(92, 237, 115, 0.35);
 }
 
 .btn-primary:hover {
-  background-color: var(--primary-700);
-  box-shadow: var(--shadow-teal-glow);
-  transform: translateY(-1px);
+  background-color: #16A34A;
+  box-shadow: var(--shadow-green-glow);
+  transform: translateY(-2px);
 }
 
 .btn-primary:active {

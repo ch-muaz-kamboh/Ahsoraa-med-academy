@@ -65,7 +65,7 @@ export default function HomePage() {
             transform: 'translateX(-50%)',
             width: '1000px',
             height: '400px',
-            background: 'radial-gradient(ellipse at top, rgba(37, 99, 235, 0.08) 0%, rgba(255,255,255,0) 70%)',
+            background: 'radial-gradient(ellipse at top, rgba(92, 237, 115, 0.06) 0%, rgba(255,255,255,0) 70%)',
             pointerEvents: 'none',
           }}
         />
@@ -77,21 +77,16 @@ export default function HomePage() {
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-            {/* Badge */}
-            <div
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
                 gap: '8px',
-                backgroundColor: '#F0FDF9',
-                color: '#0D7C7A',
-                border: '1px solid #99F6E4',
+                backgroundColor: '#F0FFF4',
+                color: '#16A34A',
+                border: '1px solid #BBF7D0',
                 borderRadius: '9999px',
                 padding: '6px 18px',
                 fontSize: '0.8125rem',
                 fontWeight: 700,
                 marginBottom: '24px',
-                boxShadow: '0 1px 2px rgba(13, 124, 122, 0.08)',
+                boxShadow: '0 1px 2px rgba(92, 237, 115, 0.15)',
               }}
             >
               <Sparkles size={16} />
@@ -111,7 +106,7 @@ export default function HomePage() {
               }}
             >
               Your future in medicine{' '}
-              <span style={{ fontStyle: 'italic', color: '#0D7C7A', fontWeight: 700 }}>
+              <span style={{ fontStyle: 'italic', color: '#5CED73', fontWeight: 700 }}>
                 starts with a plan.
               </span>
             </h1>
@@ -148,8 +143,8 @@ export default function HomePage() {
                   padding: '16px 36px',
                   fontSize: '1.0625rem',
                   borderRadius: '9999px',
-                  backgroundColor: '#0D7C7A',
-                  boxShadow: '0 8px 20px -4px rgba(13, 124, 122, 0.35)',
+                  backgroundColor: '#22C55E',
+                  boxShadow: '0 8px 24px -4px rgba(92, 237, 115, 0.45)',
                 }}
               >
                 <span>Explore programs</span>
@@ -240,7 +235,7 @@ export default function HomePage() {
       <section style={{ padding: '80px 0', backgroundColor: '#F8FAFC' }}>
         <div className="container">
           <div style={{ textAlign: 'center', maxWidth: '680px', margin: '0 auto 50px auto' }}>
-            <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#2563EB', textTransform: 'uppercase', letterSpacing: '1px' }}>
+            <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#22C55E', textTransform: 'uppercase', letterSpacing: '1px' }}>
               End-to-End Ecosystem
             </span>
             <h2 style={{ fontSize: '2rem', color: '#0F172A', marginTop: '6px', marginBottom: '12px' }}>
@@ -260,25 +255,25 @@ export default function HomePage() {
           >
             {[
               {
-                icon: <BookOpen size={24} color="#2563EB" />,
+                icon: <BookOpen size={24} color="#22C55E" />,
                 step: '01. Preparation',
                 title: 'High-Yield Courses & LMS',
                 desc: 'Organ-systems video modules, clinical vignettes, and downloadable high-yield summary sheets.',
               },
               {
-                icon: <FileCheck size={24} color="#2563EB" />,
+                icon: <FileCheck size={24} color="#22C55E" />,
                 step: '02. Assessment',
                 title: 'CBT Exam Simulation Engine',
                 desc: 'Timed computer-based tests with exact negative marking, question palettes, and topic weakness analytics.',
               },
               {
-                icon: <Building size={24} color="#2563EB" />,
+                icon: <Building size={24} color="#22C55E" />,
                 step: '03. Admissions',
                 title: 'University Shortlisting',
                 desc: 'Direct applications to top medical faculties in Italy, Hungary, the UK, and Germany with verified deadlines.',
               },
               {
-                icon: <GraduationCap size={24} color="#2563EB" />,
+                icon: <GraduationCap size={24} color="#22C55E" />,
                 step: '04. Visa & Arrival',
                 title: 'Document & Visa Vault',
                 desc: 'DOV/CIMEA legalization, financial sponsor declarations, and embassy appointment interview prep.',
@@ -299,7 +294,7 @@ export default function HomePage() {
                     width: '48px',
                     height: '48px',
                     borderRadius: '12px',
-                    backgroundColor: '#EFF6FF',
+                    backgroundColor: '#F0FFF4',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -308,7 +303,7 @@ export default function HomePage() {
                 >
                   {item.icon}
                 </div>
-                <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#2563EB', textTransform: 'uppercase', marginBottom: '6px' }}>
+                <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#22C55E', textTransform: 'uppercase', marginBottom: '6px' }}>
                   {item.step}
                 </div>
                 <h3 style={{ fontSize: '1.125rem', color: '#0F172A', marginBottom: '10px' }}>
@@ -337,7 +332,7 @@ export default function HomePage() {
             }}
           >
             <div>
-              <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#2563EB', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#22C55E', textTransform: 'uppercase' }}>
                 Academic Programs
               </span>
               <h2 style={{ fontSize: '2rem', color: '#0F172A', marginTop: '6px' }}>
@@ -383,7 +378,7 @@ export default function HomePage() {
                       position: 'absolute',
                       top: '14px',
                       left: '14px',
-                      backgroundColor: '#2563EB',
+                      backgroundColor: '#22C55E',
                       color: '#FFFFFF',
                       fontSize: '0.75rem',
                       fontWeight: 700,

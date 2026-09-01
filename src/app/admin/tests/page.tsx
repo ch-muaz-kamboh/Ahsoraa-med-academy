@@ -135,8 +135,8 @@ export default function AdminTestsPage() {
                   style={{
                     padding: '14px',
                     borderRadius: '10px',
-                    backgroundColor: isSelected ? '#EFF6FF' : '#F8FAFC',
-                    border: isSelected ? '2px solid #2563EB' : '1px solid #E2E8F0',
+                    backgroundColor: isSelected ? '#F0FDF9' : '#F8FAFC',
+                    border: isSelected ? '2px solid #0D7C7A' : '1px solid #E2E8F0',
                     cursor: 'pointer',
                     position: 'relative',
                   }}
@@ -158,7 +158,7 @@ export default function AdminTestsPage() {
                       LIVE NOW
                     </span>
                   )}
-                  <div style={{ fontWeight: 700, color: isSelected ? '#1D4ED8' : '#0F172A', fontSize: '0.875rem', marginBottom: '4px' }}>
+                  <div style={{ fontWeight: 700, color: isSelected ? '#0A6866' : '#0F172A', fontSize: '0.875rem', marginBottom: '4px' }}>
                     {t.title}
                   </div>
                   <div style={{ fontSize: '0.75rem', color: '#64748B' }}>
@@ -208,7 +208,7 @@ export default function AdminTestsPage() {
                   style={{
                     padding: '10px 20px',
                     fontSize: '0.875rem',
-                    backgroundColor: '#2563EB',
+                    backgroundColor: '#0D7C7A',
                     borderRadius: '10px',
                   }}
                 >
@@ -273,7 +273,7 @@ export default function AdminTestsPage() {
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                  <strong style={{ color: '#2563EB', fontSize: '0.875rem' }}>
+                  <strong style={{ color: '#0D7C7A', fontSize: '0.875rem' }}>
                     Q{idx + 1}: {q.subject} - {q.topic}
                   </strong>
                   <span className="badge badge-green">Correct: {q.correctOption}</span>

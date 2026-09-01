@@ -44,7 +44,7 @@ export default function AdminDashboardPage() {
         <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '20px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
             <span style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>Active CRM Leads</span>
-            <Users size={18} color="#2563EB" />
+            <Users size={18} color="#0D7C7A" />
           </div>
           <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A' }}>{activeLeadsCount}</div>
           <div style={{ fontSize: '0.75rem', color: '#10B981', fontWeight: 600, marginTop: '4px' }}>
@@ -66,10 +66,10 @@ export default function AdminDashboardPage() {
         <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '20px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
             <span style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>Active Admissions</span>
-            <GraduationCap size={18} color="#2563EB" />
+            <GraduationCap size={18} color="#0D7C7A" />
           </div>
           <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A' }}>142</div>
-          <div style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 600, marginTop: '4px' }}>
+          <div style={{ fontSize: '0.75rem', color: '#0D7C7A', fontWeight: 600, marginTop: '4px' }}>
             Italy, Hungary, UK, Germany
           </div>
         </div>
@@ -92,7 +92,7 @@ export default function AdminDashboardPage() {
         <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '24px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
             <h3 style={{ fontSize: '1.125rem', color: '#0F172A' }}>Recent Enquiry Leads</h3>
-            <Link href="/admin/leads" style={{ fontSize: '0.8125rem', color: '#2563EB', fontWeight: 600 }}>
+            <Link href="/admin/leads" style={{ fontSize: '0.8125rem', color: '#0D7C7A', fontWeight: 600 }}>
               Open CRM Pipeline →
             </Link>
           </div>
