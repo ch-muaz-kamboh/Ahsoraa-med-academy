@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Stethoscope, Mail, Phone, MapPin, ShieldCheck } from 'lucide-react';
 
+import Logo from '@/components/brand/Logo';
+
 export default function Footer() {
   const pathname = usePathname();
 
@@ -34,16 +36,8 @@ export default function Footer() {
         >
           {/* Brand Col */}
           <div>
-            <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', marginBottom: '16px', textDecoration: 'none' }}>
-              <img
-                src="/logo.png"
-                alt="Ahsora Meds Academy"
-                style={{
-                  height: '48px',
-                  width: 'auto',
-                  objectFit: 'contain',
-                }}
-              />
+            <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', marginBottom: '16px', textDecoration: 'none' }}>
+              <Logo height={44} />
             </Link>
             <p style={{ color: '#64748B', fontSize: '0.875rem', lineHeight: 1.6, marginBottom: '16px' }}>
               Complete exam preparation, admissions consultancy, and university placement support across Italy, the UK, Germany, Hungary, and the USA.

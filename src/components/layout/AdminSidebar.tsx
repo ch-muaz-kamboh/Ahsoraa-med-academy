@@ -18,6 +18,8 @@ import {
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 
+import Logo from '@/components/brand/Logo';
+
 export default function AdminSidebar() {
   const pathname = usePathname();
   const { currentRole } = useAppStore();
@@ -56,34 +58,7 @@ export default function AdminSidebar() {
           gap: '10px',
         }}
       >
-        <div
-          style={{
-            backgroundColor: '#FFFFFF',
-            borderRadius: '6px',
-            padding: '2px 4px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <img
-            src="/logo.png"
-            alt="Ahsora Meds Academy"
-            style={{
-              height: '34px',
-              width: 'auto',
-              objectFit: 'contain',
-            }}
-          />
-        </div>
-        <div>
-          <div style={{ fontWeight: 800, fontSize: '1rem', color: '#FFFFFF' }}>
-            AHSORA <span style={{ color: '#60A5FA' }}>OPS</span>
-          </div>
-          <div style={{ fontSize: '0.6875rem', color: '#94A3B8', fontWeight: 600 }}>
-            Staff & Admin Platform
-          </div>
-        </div>
+        <Logo height={36} textColor="#FFFFFF" subtextColor="#D4AF37" />
       </div>
 
       {/* Role Badge */}

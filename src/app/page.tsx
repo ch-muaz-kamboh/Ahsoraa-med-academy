@@ -77,16 +77,21 @@ export default function HomePage() {
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
+            {/* Badge */}
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
                 gap: '8px',
-                backgroundColor: '#EFF6FF',
-                color: '#1D4ED8',
-                border: '1px solid #BFDBFE',
+                backgroundColor: '#F0FDF9',
+                color: '#0D7C7A',
+                border: '1px solid #99F6E4',
                 borderRadius: '9999px',
-                padding: '6px 16px',
+                padding: '6px 18px',
                 fontSize: '0.8125rem',
                 fontWeight: 700,
                 marginBottom: '24px',
-                boxShadow: '0 1px 2px rgba(37, 99, 235, 0.1)',
+                boxShadow: '0 1px 2px rgba(13, 124, 122, 0.08)',
               }}
             >
               <Sparkles size={16} />
@@ -96,30 +101,33 @@ export default function HomePage() {
             {/* Headline */}
             <h1
               style={{
-                fontSize: 'clamp(2.2rem, 4.5vw, 3.4rem)',
+                fontSize: 'clamp(2.5rem, 5.5vw, 4rem)',
                 fontWeight: 800,
                 color: '#0F172A',
                 letterSpacing: '-1.5px',
                 lineHeight: 1.15,
-                marginBottom: '20px',
+                marginBottom: '24px',
+                fontFamily: "var(--font-serif), Georgia, serif",
               }}
             >
-              Achieve Your Global Goals with{' '}
-              <span style={{ color: '#2563EB' }}>Expert Admissions & Exam Prep</span>
+              Your future in medicine{' '}
+              <span style={{ fontStyle: 'italic', color: '#0D7C7A', fontWeight: 700 }}>
+                starts with a plan.
+              </span>
             </h1>
 
             {/* Subtext */}
             <p
               style={{
-                fontSize: 'clamp(1rem, 2vw, 1.2rem)',
+                fontSize: 'clamp(1.05rem, 2vw, 1.25rem)',
                 color: '#475569',
-                lineHeight: 1.6,
+                lineHeight: 1.65,
                 marginBottom: '36px',
-                maxWidth: '720px',
+                maxWidth: '680px',
                 margin: '0 auto 36px auto',
               }}
             >
-              From standardized exam prep and university shortlisting to verified admissions in Italy, the UK, Germany, and Hungary — we guide your entire academic journey.
+              Academic preparation, admissions guidance, and a community that keeps you moving forward—wherever your ambition takes you.
             </p>
 
             {/* CTAs */}
@@ -128,27 +136,70 @@ export default function HomePage() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: '16px',
+                gap: '20px',
                 flexWrap: 'wrap',
+                marginBottom: '32px',
+              }}
+            >
+              <Link
+                href="/courses"
+                className="btn-primary"
+                style={{
+                  padding: '16px 36px',
+                  fontSize: '1.0625rem',
+                  borderRadius: '9999px',
+                  backgroundColor: '#0D7C7A',
+                  boxShadow: '0 8px 20px -4px rgba(13, 124, 122, 0.35)',
+                }}
+              >
+                <span>Explore programs</span>
+                <ArrowRight size={18} />
+              </Link>
+
+              <button
+                onClick={() => setLeadModalOpen(true)}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '1.0625rem',
+                  fontWeight: 700,
+                  color: '#0F172A',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: '12px 18px',
+                  transition: 'color 0.2s ease',
+                }}
+              >
+                <span>How admissions works</span>
+                <span style={{ fontSize: '1.2rem' }}>↗</span>
+              </button>
+            </div>
+
+            {/* Social Proof Pill from Reference */}
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '12px',
+                padding: '8px 18px',
+                backgroundColor: '#FFFFFF',
+                border: '1px solid #E2E8F0',
+                borderRadius: '9999px',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
                 marginBottom: '48px',
               }}
             >
-              <button
-                onClick={() => setLeadModalOpen(true)}
-                className="btn-primary"
-                style={{ padding: '14px 28px', fontSize: '1rem', borderRadius: '12px' }}
-              >
-                <span>Book Free Counselling</span>
-                <ArrowRight size={18} />
-              </button>
-
-              <Link
-                href="/courses"
-                className="btn-secondary"
-                style={{ padding: '14px 26px', fontSize: '1rem', borderRadius: '12px' }}
-              >
-                <span>Explore Medical Courses</span>
-              </Link>
+              <div style={{ display: 'flex', alignItems: 'center', marginLeft: '-4px' }}>
+                <div style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#E0F2F1', color: '#004D40', fontSize: '0.6875rem', fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid #FFFFFF' }}>AM</div>
+                <div style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#E0E7FF', color: '#3730A3', fontSize: '0.6875rem', fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid #FFFFFF', marginLeft: '-8px' }}>LA</div>
+                <div style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#FEF3C7', color: '#92400E', fontSize: '0.6875rem', fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid #FFFFFF', marginLeft: '-8px' }}>SB</div>
+                <div style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#EDE9FE', color: '#5B21B6', fontSize: '0.6875rem', fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid #FFFFFF', marginLeft: '-8px' }}>+</div>
+              </div>
+              <span style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>
+                Built for serious students, globally.
+              </span>
             </div>
 
             {/* Trust Metrics Grid */}
@@ -158,13 +209,14 @@ export default function HomePage() {
                 gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
                 gap: '16px',
                 padding: '24px',
-                backgroundColor: '#F8FAFC',
+                backgroundColor: '#FFFFFF',
                 border: '1px solid #E2E8F0',
                 borderRadius: '16px',
+                boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)',
               }}
             >
               <div>
-                <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#2563EB' }}>96.8%</div>
+                <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0D7C7A' }}>96.8%</div>
                 <div style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>Licensing Pass Rate</div>
               </div>
               <div>
@@ -172,7 +224,7 @@ export default function HomePage() {
                 <div style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>Student Scholarships Won</div>
               </div>
               <div>
-                <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#2563EB' }}>1,850+</div>
+                <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0D7C7A' }}>1,850+</div>
                 <div style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>Doctors & Students Trained</div>
               </div>
               <div>

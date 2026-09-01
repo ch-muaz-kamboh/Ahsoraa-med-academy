@@ -17,6 +17,8 @@ import {
 } from 'lucide-react';
 import LeadCaptureModal from '../public/LeadCaptureModal';
 
+import Logo from '@/components/brand/Logo';
+
 export default function Navbar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -54,7 +56,7 @@ export default function Navbar() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            height: '74px',
+            height: '76px',
           }}
         >
           {/* Brand Logo */}
@@ -63,19 +65,10 @@ export default function Navbar() {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '12px',
               textDecoration: 'none',
             }}
           >
-            <img
-              src="/logo.png"
-              alt="Ahsora Meds Academy"
-              style={{
-                height: '46px',
-                width: 'auto',
-                objectFit: 'contain',
-              }}
-            />
+            <Logo height={48} />
           </Link>
 
           {/* Desktop Nav Links */}

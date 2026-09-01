@@ -1,0 +1,33 @@
+<svg width="360" height="240" viewBox="0 0 360 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Main Triangular 'A' in Rich Navy -->
+  <path d="M180 18L104 174H136L180 82L224 174H256L180 18Z" fill="#0B2B5C" />
+  
+  <!-- Golden Swoosh Arc -->
+  <path d="M100 114C100 90 144 70 190 58C216 50 240 50 260 66" stroke="#D4AF37" stroke-width="8" stroke-linecap="round" fill="none" />
+  
+  <!-- Graduation Cap -->
+  <g transform="translate(228, 34) rotate(12) scale(1.3)">
+    <polygon points="20,0 40,8 20,16 0,8" fill="#0B2B5C" />
+    <polygon points="12,12 12,22 28,22 28,12 20,15" fill="#0B2B5C" />
+    <line x1="36" y1="8" x2="38" y2="24" stroke="#D4AF37" stroke-width="2" />
+    <circle cx="38" cy="25" r="2" fill="#D4AF37" />
+  </g>
+
+  <!-- Medical Caduceus Wings -->
+  <path d="M144 102C156 94 172 96 180 104C188 96 204 94 216 102C210 114 196 118 180 110C164 118 150 114 144 102Z" fill="#0B2B5C" />
+  <line x1="180" y1="94" x2="180" y2="166" stroke="#0B2B5C" stroke-width="6" stroke-linecap="round" />
+  <circle cx="180" cy="92" r="6" fill="#D4AF37" />
+  
+  <!-- Serpents -->
+  <path d="M170 114C170 106 190 106 190 118C190 130 170 130 170 142C170 154 190 154 190 166" stroke="#0B2B5C" stroke-width="4" stroke-linecap="round" fill="none" />
+  <path d="M190 114C190 106 170 106 170 118C170 130 190 130 190 142C190 154 170 154 170 166" stroke="#0B2B5C" stroke-width="4" stroke-linecap="round" fill="none" />
+
+  <!-- Open Book Base -->
+  <path d="M132 178C148 172 168 170 180 176C192 170 212 172 228 178L220 186C208 180 190 178 180 184C170 178 152 180 140 186L132 178Z" fill="#D4AF37" />
+  <path d="M140 166C154 160 170 158 180 164C190 158 206 160 220 166L216 176C204 170 190 168 180 174C170 168 156 170 144 176L140 166Z" fill="#0B2B5C" />
+
+  <!-- AHSORA Text -->
+  <text x="180" y="210" text-anchor="middle" font-family="'Playfair Display', Georgia, serif" font-size="30" font-weight="900" letter-spacing="4" fill="#0B2B5C">AHSORA</text>
+  <!-- MEDS ACADEMY Text -->
+  <text x="180" y="230" text-anchor="middle" font-family="'Playfair Display', Georgia, serif" font-size="12" font-weight="700" letter-spacing="6" fill="#C59B27">MEDS ACADEMY</text>
+</svg>

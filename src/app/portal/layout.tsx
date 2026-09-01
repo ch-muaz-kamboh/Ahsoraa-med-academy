@@ -6,6 +6,8 @@ import { useAppStore } from '@/lib/store';
 import { Bell, Lock, Mail, User, Eye, EyeOff, Check, GraduationCap, ChevronRight, Phone } from 'lucide-react';
 import Link from 'next/link';
 
+import Logo from '@/components/brand/Logo';
+
 export default function PortalLayout({ children }: { children: React.ReactNode }) {
   const { currentUser, studentLoggedIn, setStudentLoggedIn, registerStudent, liveTestSession } = useAppStore();
   const [isRegister, setIsRegister] = useState(false);
@@ -85,16 +87,9 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
 
           {/* Logo / Header */}
           <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-            <img
-              src="/logo.png"
-              alt="Ahsora Meds Academy"
-              style={{
-                height: '70px',
-                width: 'auto',
-                objectFit: 'contain',
-                marginBottom: '16px',
-              }}
-            />
+            <div style={{ display: 'inline-flex', justifyContent: 'center', marginBottom: '16px' }}>
+              <Logo height={56} />
+            </div>
             <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', letterSpacing: '-0.5px' }}>
               {isRegister ? 'Create Your Account' : 'Student Portal Sign In'}
             </h2>

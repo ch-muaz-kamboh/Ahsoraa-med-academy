@@ -17,21 +17,22 @@ import {
   PlaneTakeoff,
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
+import Logo from '@/components/brand/Logo';
 
 export default function PortalSidebar() {
   const pathname = usePathname();
-  const { currentUser } = useAppStore();
+  const { currentRole, setRole, currentUser } = useAppStore();
 
   const links = [
     { href: '/portal/dashboard', label: 'Dashboard', icon: <LayoutDashboard size={18} /> },
-    { href: '/portal/courses', label: 'My Courses & Lectures', icon: <BookOpen size={18} /> },
-    { href: '/portal/tests', label: 'Mock Test Series', icon: <FileCheck2 size={18} /> },
-    { href: '/portal/mentorship', label: '1-on-1 Mentorship', icon: <Users2 size={18} /> },
-    { href: '/portal/doubts', label: 'Ask a Doubt', icon: <HelpCircle size={18} /> },
+    { href: '/portal/courses', label: 'My Courses & LMS', icon: <BookOpen size={18} /> },
+    { href: '/portal/tests', label: 'CBT Mock Tests', icon: <FileCheck2 size={18} /> },
+    { href: '/portal/mentorship', label: 'Doctor Mentorship', icon: <Users2 size={18} /> },
+    { href: '/portal/doubts', label: '1-on-1 Doubt Clearing', icon: <HelpCircle size={18} /> },
+    { href: '/portal/documents', label: 'Document Legalization', icon: <FolderLock size={18} /> },
     { href: '/portal/applications', label: 'University Applications', icon: <Globe2 size={18} /> },
-    { href: '/portal/documents', label: 'Document Vault', icon: <FolderLock size={18} /> },
-    { href: '/portal/visa', label: 'Visa Roadmap', icon: <PlaneTakeoff size={18} /> },
-    { href: '/portal/billing', label: 'Orders & Invoices', icon: <Receipt size={18} /> },
+    { href: '/portal/visa', label: 'Visa & Embassy Roadmap', icon: <PlaneTakeoff size={18} /> },
+    { href: '/portal/billing', label: 'Tuition & Billing', icon: <Receipt size={18} /> },
   ];
 
   return (
@@ -50,31 +51,14 @@ export default function PortalSidebar() {
       <Link
         href="/portal/dashboard"
         style={{
-          padding: '20px',
+          padding: '18px 20px',
           borderBottom: '1px solid #E2E8F0',
           display: 'flex',
           alignItems: 'center',
-          gap: '10px',
           textDecoration: 'none',
         }}
       >
-        <img
-          src="/logo.png"
-          alt="Ahsora Meds Academy"
-          style={{
-            height: '40px',
-            width: 'auto',
-            objectFit: 'contain',
-          }}
-        />
-        <div>
-          <div style={{ fontWeight: 800, fontSize: '0.9375rem', color: '#0F172A' }}>
-            AHSORA <span style={{ color: '#2563EB' }}>MEDS</span>
-          </div>
-          <div style={{ fontSize: '0.6875rem', color: '#64748B', fontWeight: 600 }}>
-            Student Portal
-          </div>
-        </div>
+        <Logo height={38} />
       </Link>
 
       {/* User Badge */}

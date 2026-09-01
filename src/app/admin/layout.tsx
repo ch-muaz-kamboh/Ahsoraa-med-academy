@@ -6,6 +6,8 @@ import { useAppStore } from '@/lib/store';
 import { Shield, Bell, Lock, Key, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 
+import Logo from '@/components/brand/Logo';
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const { currentUser, currentRole, adminLoggedIn, setAdminLoggedIn } = useAppStore();
   const [username, setUsername] = useState('');
@@ -58,24 +60,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           {/* Logo / Header */}
           <div style={{ textAlign: 'center', marginBottom: '32px' }}>
             <div style={{
-              backgroundColor: '#FFFFFF',
-              borderRadius: '16px',
-              padding: '8px 16px',
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
               marginBottom: '16px',
-              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.2)',
             }}>
-              <img
-                src="/logo.png"
-                alt="Ahsora Meds Academy"
-                style={{
-                  height: '60px',
-                  width: 'auto',
-                  objectFit: 'contain',
-                }}
-              />
+              <Logo height={56} textColor="#FFFFFF" subtextColor="#D4AF37" />
             </div>
             <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#FFFFFF', letterSpacing: '-0.5px' }}>
               Staff & Admin Portal
