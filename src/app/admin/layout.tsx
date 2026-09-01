@@ -65,7 +65,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               justifyContent: 'center',
               marginBottom: '16px',
             }}>
-              <Logo height={56} textColor="#FFFFFF" subtextColor="#D4AF37" />
+              <Logo height={56} />
             </div>
             <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#FFFFFF', letterSpacing: '-0.5px' }}>
               Staff & Admin Portal
