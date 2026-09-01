@@ -195,7 +195,7 @@ export default function AdminTestsPage() {
                 {selectedTest.title}
               </h2>
               <p style={{ fontSize: '0.8125rem', color: '#64748B', margin: '4px 0 0 0' }}>
-                Duration: {selectedTest.durationMinutes} Mins • Total Questions: {selectedTest.questions.length} • Passing Score: {selectedTest.passingScore}%
+                Duration: {selectedTest.durationMinutes} Mins • Total Questions: {selectedTest.questions.length} • Passing Score: {selectedTest.passingPercentage}%
               </p>
             </div>
 
