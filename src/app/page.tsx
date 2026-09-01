@@ -211,7 +211,7 @@ export default function HomePage() {
               }}
             >
               <div>
-                <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0D7C7A' }}>96.8%</div>
+                <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#22C55E' }}>96.8%</div>
                 <div style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>Licensing Pass Rate</div>
               </div>
               <div>
@@ -219,7 +219,7 @@ export default function HomePage() {
                 <div style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>Student Scholarships Won</div>
               </div>
               <div>
-                <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0D7C7A' }}>1,850+</div>
+                <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#22C55E' }}>1,850+</div>
                 <div style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>Doctors & Students Trained</div>
               </div>
               <div>

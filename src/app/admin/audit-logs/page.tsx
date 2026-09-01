@@ -40,7 +40,7 @@ export default function AdminAuditLogsPage() {
                 <td style={{ padding: '14px 18px' }}>
                   <span className="badge badge-blue">{log.actorRole.replace('_', ' ')}</span>
                 </td>
-                <td style={{ padding: '14px 18px', fontWeight: 600, color: '#0D7C7A' }}>
+                <td style={{ padding: '14px 18px', fontWeight: 600, color: '#22C55E' }}>
                   {log.action}
                 </td>
                 <td style={{ padding: '14px 18px', color: '#334155' }}>

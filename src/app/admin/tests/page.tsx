@@ -136,7 +136,7 @@ export default function AdminTestsPage() {
                     padding: '14px',
                     borderRadius: '10px',
                     backgroundColor: isSelected ? '#F0FDF9' : '#F8FAFC',
-                    border: isSelected ? '2px solid #0D7C7A' : '1px solid #E2E8F0',
+                    border: isSelected ? '2px solid #22C55E' : '1px solid #E2E8F0',
                     cursor: 'pointer',
                     position: 'relative',
                   }}
@@ -208,7 +208,7 @@ export default function AdminTestsPage() {
                   style={{
                     padding: '10px 20px',
                     fontSize: '0.875rem',
-                    backgroundColor: '#0D7C7A',
+                    backgroundColor: '#22C55E',
                     borderRadius: '10px',
                   }}
                 >
@@ -273,7 +273,7 @@ export default function AdminTestsPage() {
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                  <strong style={{ color: '#0D7C7A', fontSize: '0.875rem' }}>
+                  <strong style={{ color: '#22C55E', fontSize: '0.875rem' }}>
                     Q{idx + 1}: {q.subject} - {q.topic}
                   </strong>
                   <span className="badge badge-green">Correct: {q.correctOption}</span>

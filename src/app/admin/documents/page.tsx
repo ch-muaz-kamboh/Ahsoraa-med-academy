@@ -60,7 +60,7 @@ export default function AdminDocumentsPage() {
                     height: '44px',
                     borderRadius: '10px',
                     backgroundColor: '#F0FDF9',
-                    color: '#0D7C7A',
+                    color: '#22C55E',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',

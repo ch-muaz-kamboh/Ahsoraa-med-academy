@@ -72,7 +72,7 @@ export default function AdminLeadsPage() {
                 borderRadius: '6px',
                 fontSize: '0.8125rem',
                 fontWeight: 600,
-                backgroundColor: viewMode === 'kanban' ? '#0D7C7A' : 'transparent',
+                backgroundColor: viewMode === 'kanban' ? '#22C55E' : 'transparent',
                 color: viewMode === 'kanban' ? '#FFFFFF' : '#64748B',
               }}
             >
@@ -85,7 +85,7 @@ export default function AdminLeadsPage() {
                 borderRadius: '6px',
                 fontSize: '0.8125rem',
                 fontWeight: 600,
-                backgroundColor: viewMode === 'table' ? '#0D7C7A' : 'transparent',
+                backgroundColor: viewMode === 'table' ? '#22C55E' : 'transparent',
                 color: viewMode === 'table' ? '#FFFFFF' : '#64748B',
               }}
             >
@@ -176,7 +176,7 @@ export default function AdminLeadsPage() {
                       onClick={() => setSelectedLead(ld)}
                     >
                       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                        <span style={{ fontSize: '0.6875rem', fontWeight: 700, color: '#0D7C7A' }}>
+                        <span style={{ fontSize: '0.6875rem', fontWeight: 700, color: '#22C55E' }}>
                           {ld.leadCode}
                         </span>
                         <span className={ld.priority === 'hot' ? 'badge badge-red' : 'badge badge-amber'} style={{ padding: '1px 6px', fontSize: '0.6875rem' }}>
@@ -241,7 +241,7 @@ export default function AdminLeadsPage() {
             <tbody>
               {leads.map((ld) => (
                 <tr key={ld.id} style={{ borderBottom: '1px solid #F1F5F9' }}>
-                  <td style={{ padding: '14px 16px', fontWeight: 600, color: '#0D7C7A' }}>
+                  <td style={{ padding: '14px 16px', fontWeight: 600, color: '#22C55E' }}>
                     {ld.leadCode}
                   </td>
                   <td style={{ padding: '14px 16px', fontWeight: 600, color: '#0F172A' }}>

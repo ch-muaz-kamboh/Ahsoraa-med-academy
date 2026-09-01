@@ -11,7 +11,7 @@ export default function AboutPage() {
       <div className="container">
         {/* Hero */}
         <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 50px auto' }}>
-          <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#0D7C7A', textTransform: 'uppercase' }}>
+          <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#22C55E', textTransform: 'uppercase' }}>
             About Ahsora Meds Academy
           </span>
           <h1 style={{ fontSize: '2.5rem', color: '#0F172A', marginTop: '6px', marginBottom: '16px' }}>
@@ -25,7 +25,7 @@ export default function AboutPage() {
         {/* 3 Pillars */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', marginBottom: '60px' }}>
           <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '28px' }}>
-            <div style={{ width: '44px', height: '44px', borderRadius: '10px', backgroundColor: '#F0FDF9', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px', color: '#0D7C7A' }}>
+            <div style={{ width: '44px', height: '44px', borderRadius: '10px', backgroundColor: '#F0FDF9', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px', color: '#22C55E' }}>
               <Award size={22} />
             </div>
             <h3 style={{ fontSize: '1.2rem', color: '#0F172A', marginBottom: '10px' }}>
@@ -37,7 +37,7 @@ export default function AboutPage() {
           </div>
 
           <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '28px' }}>
-            <div style={{ width: '44px', height: '44px', borderRadius: '10px', backgroundColor: '#F0FDF9', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px', color: '#0D7C7A' }}>
+            <div style={{ width: '44px', height: '44px', borderRadius: '10px', backgroundColor: '#F0FDF9', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px', color: '#22C55E' }}>
               <Users size={22} />
             </div>
             <h3 style={{ fontSize: '1.2rem', color: '#0F172A', marginBottom: '10px' }}>
@@ -49,7 +49,7 @@ export default function AboutPage() {
           </div>
 
           <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '28px' }}>
-            <div style={{ width: '44px', height: '44px', borderRadius: '10px', backgroundColor: '#F0FDF9', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px', color: '#0D7C7A' }}>
+            <div style={{ width: '44px', height: '44px', borderRadius: '10px', backgroundColor: '#F0FDF9', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px', color: '#22C55E' }}>
               <ShieldCheck size={22} />
             </div>
             <h3 style={{ fontSize: '1.2rem', color: '#0F172A', marginBottom: '10px' }}>
@@ -92,7 +92,7 @@ export default function AboutPage() {
                 />
                 <div>
                   <h4 style={{ fontSize: '1.125rem', color: '#0F172A', marginBottom: '4px' }}>{m.name}</h4>
-                  <div style={{ fontSize: '0.8125rem', color: '#0D7C7A', fontWeight: 600, marginBottom: '6px' }}>
+                  <div style={{ fontSize: '0.8125rem', color: '#22C55E', fontWeight: 600, marginBottom: '6px' }}>
                     {m.title}
                   </div>
                   <div style={{ fontSize: '0.75rem', color: '#64748B', marginBottom: '10px' }}>
