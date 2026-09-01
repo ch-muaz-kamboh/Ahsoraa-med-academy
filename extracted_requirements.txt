@@ -1,0 +1,813 @@
+﻿AHSORA MEDS ACADEMY
+COMPLETE WEBSITE + DIGITAL PLATFORM ARCHITECTURE & DEVELOPER REQUIREMENTS
+A developer-ready Product Requirements Document (PRD), Functional Specification, Technical Architecture and Acceptance Criteria. This document is intended to be handed directly to the web development team.
+Product
+Ahsora Meds Academy
+Primary domain
+ahsoramedacademy.com (final domain to be confirmed by owner)
+Primary users
+Prospective students, enrolled students, parents/guardians where applicable, mentors/faculty, admissions/counselling staff, visa staff, finance staff, administrators
+Business model
+Medical education + test preparation + mentorship + university/
+admissions consultancy + document workflow + visa support + digital resources
+Architecture target
+Public marketing site + student portal + admissions CRM + test engine + admin/faculty platform + API/backend
+Priority
+Production-grade, scalable, secure, mobile-first, SEO-friendly, easy for
+non-technical staff to manage
+IMPORTANT: This is a requirements baseline. The developer may recommend implementation details, but must not remove or silently reinterpret a requirement. Any change in functionality, security, privacy, data ownership, or workflow requires explicit written approval by the project owner.
+Executive Summary
+Ahsora Meds Academy should be built as a complete digital education and admissions platform rather than a simple brochure website. The public website must acquire and educate leads; the student portal must deliver courses, tests, mentorship and resources; the admissions layer must track university applications, documents, scholarships and visa stages; and the administration layer must allow staff to operate the business without requiring developer intervention for routine tasks.
+The platform must have one central user identity, one source of truth for pricing and course data, one centralized backend, role-based permissions, audit logs, secure document storage, a reusable CMS, analytics and a scalable API layer.
+Product Vision
+The platform should make Ahsora Meds Academy feel like one unified system from the first website visit through course purchase, exam preparation, university selection, application management, visa processing and post-admission support.
+Visitor -> Lead -> Counselling -> Student Account -> Course -> Tests/Mentorship -> University Shortlist -> Documents -> Application -> Scholarship -> Visa -> Admission -> Student Support
+Core Business Objectives
+Generate qualified leads from search, social media, direct traffic, referrals and paid campaigns. Convert leads into paid academic and consultancy services.
+Deliver a professional student learning experience with courses, lectures, notes, tests, analytics and mentorship.
+Manage admissions and consultancy operations in a structured CRM instead of spreadsheets and scattered chats.
+Give students visibility into the status of documents, applications, scholarship and visa processes. Provide staff with role-specific dashboards and only the permissions they need.
+Create a content engine that can rank for medical education, admission, scholarship and visa searches. Ensure that all critical information such as prices, dates, programme features and deadlines comes from centralized data and cannot silently conflict across pages.
+Build for future expansion to additional exams, countries, universities, courses and services without redesigning the core architecture.
+User Roles & Permissions
+Visitor
+Public website, courses, resources, universities, articles, FAQs, contact
+forms, calculators/tools that are intentionally public.
+Lead
+Own profile, submitted enquiries, counselling status, communications
+relevant to the lead.
+Student
+Courses, lectures, notes, tests, results, mentor bookings, doubts, payments, documents, applications, university shortlist, scholarship
+and visa tracker.
+Parent/Guardian (optional)
+Limited view of assigned student information with explicit consent
+and separate permission model.
+Faculty/Mentor
+Assigned students, teaching content, sessions, doubts, assigned tests,
+grading where applicable; no unrestricted finance/admin access.
+Counsellor
+Leads, counselling records, student profiles, follow-ups, university
+guidance, notes and assigned application cases.
+Admissions Officer
+University applications, document checklist, deadlines, application
+status, correspondence, verification tasks.
+Visa Officer
+Visa workflow, visa documents, appointments, case notes, status
+updates; access limited to visa-related data.
+Finance Staff
+Invoices, payments, refunds, payment reconciliation, financial reports;
+no unrestricted academic-content admin.
+Content Editor
+Pages, blogs, resources, FAQs, SEO metadata, media library,
+announcements; cannot access sensitive student data.
+Faculty Admin / Academic Manager
+Courses, batches, tests, faculty assignments, student academic
+performance and moderation.
+Administrator
+Operational management across users, content, applications, products
+and reporting within business policy.
+Super Admin / Owner
+Full system control, role/permission management, configuration, audit
+logs, integrations, exports and security settings.
+Permission principle: deny by default. Access must be granted by role and, where useful, by assignment (for example, counsellor sees only assigned leads). Critical actions such as deleting student records, changing payment state, changing permissions or permanently deleting files must require elevated permission and produce an audit-log entry.
+High-Level System Architecture
+AHSORA MEDS ACADEMY
+|
++--------------------------++
+|||
+PUBLIC WEBSITESTUDENT PORTALADMIN PORTAL
+|||
+SEO / CMS / LEADSLMS / TESTS / MENTORCRM / CMS / OPS
+|||
++--------------------------++
+|
+API / BACKEND
+|
++------------+-------------+-------------++
+||||
+DATABASEFILE STORAGEAUTH/RBACJOB QUEUE
+||||
++------------+-------------+-------------++
+|
++----------------++
+|||
+PAYMENTSEMAIL/SMSANALYTICS
+|||
+WEBHOOKSWHATSAPP*REPORTING
+*Use only with approved provider, consent and compliance controls.
+Recommended deployment model
+Separate public frontend and authenticated application shell, but keep a unified brand and identity. Use a single backend/API layer as the system of record.
+Use a relational database for transactional entities and relationships.
+Use private object storage for student documents and media that should not be publicly accessible. Use CDN/image optimization for public media.
+Use a queue/background job system for email, reminders, report generation, imports and other non-blocking tasks.
+Use centralized logs, monitoring, error tracking and uptime monitoring.
+Use separate development, staging and production environments with separate credentials and data boundaries.
+Technology selection rule
+The developer may choose the exact programming language/framework/database/cloud provider, but the choice must satisfy the requirements in this document. The developer must provide the proposed stack, architecture diagram, reason for each major technology, licensing implications, estimated running costs and migration/lock-in considerations before production deployment.
+Public Website Information Architecture
+Home
+Hero, value proposition, courses, outcomes, results, testimonials, faculty, services, university/admission support, resources, FAQs, CTA, footer.
+About
+Company overview, mission, values, team, why Ahsora, process,
+offices/contact, trust information.
+Courses
+All programmes, filters/categories, comparison, detail pages, inclusions, pricing, duration, FAQs, enrolment CTA.
+Course Detail
+Overview, curriculum, schedule, format, faculty, tests, resources,
+mentorship, pricing, eligibility, FAQs, CTA.
+Mock Tests
+Public product overview, test-series information, features, sample question/test where desired, pricing, CTA.
+Resources
+Articles, guides, notes, public papers, videos, downloadable materials,
+filters and search.
+Universities
+Searchable university database, filters, university profiles, fees, duration, admissions information, intake/country/category fields.
+Admissions
+How it works, eligibility, process, services, required documents,
+timelines, counselling CTA.
+Scholarships
+Scholarship database/guides, eligibility, deadlines, documents, reminders, counselling CTA.
+Visa
+Visa process guides, document requirements, country-specific
+guidance, status-service CTA, disclaimers.
+News/Blog
+Categories, search, archive, author, date, related articles, SEO metadata.
+Faculty/Mentors
+Profiles, credentials, subjects, programmes, optional booking CTA.
+Results/Success
+Verified student outcomes, ranks, admissions and testimonials; privacy-safe display.
+FAQs
+Global and topic-specific FAQs with structured data where applicable.
+Contact
+Form, office/contact details, map if used, business hours, WhatsApp/ phone/email CTA.
+Legal
+Privacy policy, terms, refund policy, cookie notice/settings, disclaimer,
+academic/admissions information disclaimer.
+Global public-site components
+Responsive header with desktop/mobile navigation.
+Persistent but non-intrusive primary CTA (e.g. Book Counselling / Enrol Now). Search system.
+Breadcrumbs on deep pages. Consistent page title/meta system.
+Accessible buttons/links with keyboard navigation.
+Footer with business details, legal links, social links and contact pathways. Cookie/consent handling where legally required.
+Reusable cards, accordions, tabs, comparison tables, filter controls and forms. Global notification/announcement banner controlled by admin.
+404 and maintenance pages.
+Loading, empty, success and error states for all dynamic components.
+Lead Generation & CRM Requirements
+Lead capture
+All public enquiry forms must create a lead record rather than sending only an email.
+Lead source must be recorded: organic, direct, referral, social, campaign, WhatsApp, phone, manual, etc.
+Campaign/UTM parameters must be stored when available. Forms must validate required fields client-side and server-side.
+Duplicate lead detection should use safe matching rules such as normalized email/phone plus configurable identity fields.
+Spam protection must exist without making the form unnecessarily difficult for genuine users. Each form submission must create an audit-safe event with timestamp and form origin.
+Lead should optionally receive automatic confirmation email/WhatsApp/SMS depending on consent and provider availability.
+Lead fields
+Lead ID
+Unique internal identifier.
+Name
+Person name.
+Email
+Primary communication.
+Phone/WhatsApp
+Communication and follow-up.
+Country/City
+Location segmentation.
+Academic background
+Qualification context.
+Target exam
+Exam/product interest.
+Target country/university
+Consultancy qualification.
+Budget/service interest
+Commercial qualification.
+Source/campaign
+Marketing attribution.
+Assigned counsellor
+Ownership.
+Lead stage
+New, contacted, qualified, counselling booked, proposal, converted, lost, etc.
+Priority
+Hot/warm/cold or configurable scoring.
+Next follow-up
+Task date/time.
+Internal notes
+Staff-only notes.
+Consent status
+Marketing/communication consent and timestamp where applicable.
+CRM pipeline
+New -> Contacted -> Qualified -> Counselling Booked -> Counselling Completed -> Offer/Plan -> Payment Pending -> Converted -> Onboarding -> Closed/Lost
+Kanban pipeline view. Lead list/table with filters.
+Lead assignment/reassignment. Follow-up tasks and reminders.
+Call notes and communication history. Lead score.
+Conversion tracking.
+Duplicate merging with audit history. Import/export with permission controls.
+Unified Authentication & Identity
+One account must work across the website, student portal, courses, tests and admissions workflows. Registration via email and/or phone with verified contact channel.
+Secure password creation/reset.
+Optional social login only if approved; it must not become the only access method. Email/phone verification.
+Session management with device/session visibility for the user.
+Logout from current device and, where desired, logout from all devices.
+Optional MFA for staff and optional/mandatory MFA for high-risk student operations. Role-based access control.
+Object-level authorization so a student cannot access another student’s records by changing an ID in a URL or API request.
+Account deactivation/suspension without accidental data deletion. Consent/preferences stored independently from authentication credentials.
+Student Portal - Complete Requirements
+Student dashboard
+Welcome panel and profile completion. Current course/programme.
+Learning progress. Upcoming tests.
+Recent test results.
+Upcoming mentor/counselling sessions. Pending document tasks.
+University/application status. Scholarship/visa tasks where applicable. Outstanding payment/invoice notices.
+Important announcements. Personalized next actions.
+My Courses
+List enrolled courses/programmes. Course progress percentage.
+Modules, lessons and completion state. Video lecture playback.
+PDF/notes/download resources. Lesson-level completion tracking. Bookmarks/favorites.
+Continue-learning button.
+Course expiry/access dates when applicable.
+Certificates or completion records if the programme provides them.
+Learning content system
+Course -> module -> lesson hierarchy.
+Video, audio, PDF, image, text and embedded content support. Optional downloadable restrictions.
+Content release scheduling/drip model. Prerequisites.
+Lesson notes. Attachments. Completion tracking. Optional lesson quiz.
+Search across enrolled content.
+Test & Assessment Engine
+The test engine must be a first-class product, not merely a web page containing questions.
+Test authoring Create test.
+Clone test. Edit test. Archive test.
+Assign category/subject/topic. Set difficulty.
+Set marks and negative marking. Set duration.
+Set question order/randomization rules. Create sections.
+Create question bank.
+Import questions in bulk.
+Add images/tables where needed. Add explanations and references.
+Tag questions by topic, syllabus, difficulty and source. Version questions without breaking historical attempts.
+Student test-taking Pre-test instructions.
+Server-controlled start time and attempt state. Visible countdown timer.
+Question navigation.
+Mark for review.
+Answered/unanswered indicators. Section navigation if enabled.
+Auto-save answers.
+Network interruption recovery. Submit confirmation.
+Automatic submission at time expiry. Server-side score calculation.
+Negative marking calculation. Result generation.
+Prevention of duplicate/replayed submissions.
+Accessible keyboard/mouse interaction.
+Results & analytics Raw score.
+Percentage. Correct/incorrect/unanswered counts. Accuracy.
+Time spent.
+Average time/question.
+Subject breakdown.
+Topic breakdown.
+Difficulty breakdown.
+Historical performance.
+Rank/percentile if the assessment is configured for ranking. Cohort comparison in privacy-safe form.
+Recommended next actions. Exportable result report.
+Ranking and leaderboards Configurable public/private ranking.
+Use non-identifying candidate display name/ID for public results. Allow students to opt out where appropriate.
+Prevent exposing unnecessary personal data. Filters by test/batch/date where authorized. Tie-handling rule.
+Rank calculation must be deterministic and server-side.
+Mentorship, Doubt & Booking System
+Mentor profiles Name/profile photo. Qualifications. Subjects.
+Bio.
+Available programmes. Availability schedule. Session duration.
+Optional rating/feedback.
+Active/inactive state.
+Booking
+Calendar of available slots. Timezone-aware display.
+Student booking.
+Rescheduling.
+Cancellation policy. Automatic reminders.
+Meeting link or internal session link. Staff override.
+No-show tracking.
+Session notes.
+Post-session feedback.
+Doubts
+Submit doubt/question.
+Select subject/topic.
+Attach image/file where appropriate. Set urgency.
+Assign mentor. Conversation thread.
+Status: open/in progress/resolved. Resolution note.
+Searchable history. Privacy controls.
+University & Admissions Intelligence System
+University database University master record. Country/city.
+Programme name. Programme duration. Tuition/fee information. Application route.
+Intake. Eligibility.
+Language requirements. Seat/quota fields where applicable.
+Historical cutoff data where available. Official source URL/reference field. Last verified date.
+Data owner/editor. Active/inactive state.
+Search/filter Country. University. Programme. Budget/fee range. Language. Intake.
+Applicant category. Exam requirement.
+Optional scholarship availability. Optional admission competitiveness.
+University detail page Overview.
+Programmes. Eligibility.
+Fees.
+Deadlines.
+Required documents. Application steps.
+Scholarships.
+Visa/relocation notes where appropriate. Official sources.
+Last updated/verified date. CTA for counselling.
+Student Admissions CRM / Application Tracker
+Student case creation Convert lead to student. Create application case.
+Assign counsellor/admissions officer. Set target country/intake.
+Set service package. Set case priority.
+Create task checklist.
+Application lifecycle
+Profile -> University Shortlist -> Documents -> Eligibility Check -> Application Preparation -> Submission -> Follow-up -> Decision -> Enrolment/Pre-enrolment -> Scholarship -> Visa -> Travel/Onboarding
+Every status change must have timestamp, actor and optional note.
+Status history must be immutable except through an audited correction process. Student must see only the information intended for student visibility.
+Staff must be able to assign tasks and due dates.
+Automatic reminders must be generated for approaching deadlines. Case may have multiple applications simultaneously.
+Secure Document Management
+Document categories Identity/passport. Academic certificates. Transcripts/marksheets. Attestations/legalizations. Language test certificates. Application forms. University correspondence. Scholarship documents. Financial documents.
+Visa documents. Travel/arrival documents. Other configurable categories.
+Document lifecycle
+Requested -> Uploaded -> Under Review -> Revision Requested -> Resubmitted -> Approved -> Submitted/Used -> Archived/Expired
+Private storage; never expose permanent public URLs for sensitive files. Temporary signed access URLs.
+File type, size and malware validation. Version history.
+Reviewer name and timestamp. Rejection reason.
+Expiry date where relevant.
+Student notification when action is required. Staff task when new file is uploaded.
+Download/view permissions by role. Audit log of sensitive document actions.
+Retention/deletion policy configurable by business/legal requirements.
+Scholarship System Scholarship database. Eligibility rules. Country/category filters. Open date / deadline. Required documents. Official source/reference. Last verified date.
+Student shortlist/save function. Reminder schedule.
+Application status. Document checklist. Counsellor notes.
+Outcome/status history.
+Visa Case Management
+Visa case creation linked to student and destination. Visa type/category.
+Checklist template by country. Document tracking.
+Appointment date/time/location. Submission date.
+Case status.
+Embassy/consulate details where applicable. Additional-information requests.
+Decision date. Approval/refusal status. Internal case notes.
+Student-visible status updates. Deadline reminders.
+Disclaimers that the platform does not guarantee decisions made by authorities.
+Course Commerce, Payments & Billing
+Products Course/programme. Subscription.
+Test series. Mentorship package. Consultancy package.
+Document-review service. Visa-service package.
+Custom invoice item.
+Centralized product record
+Product ID. Name.
+Description.
+Price.
+Currency.
+Tax configuration.
+Duration.
+Access rules. Included features. Available regions. Discount eligibility. Active/inactive.
+Start/end sale dates. Version/history.
+Critical rule: price and duration must be stored once in the backend and reused everywhere. The same product must not have independently hard-coded prices on multiple pages.
+Payment workflow Create order.
+Payment initiation.
+Payment-provider redirect/API flow. Secure webhook verification.
+Payment success/failure/pending/refund states. Idempotent webhook processing.
+Invoice/receipt.
+Course/access provisioning only after trusted payment confirmation. Refund workflow.
+Manual payment entry for approved offline methods. Payment audit log.
+Notification & Communication System
+Email
+Account verification, password reset, purchase, invoice, reminders, course notices, application updates, document requests.
+SMS
+High-priority alerts where justified and provider is configured.
+WhatsApp
+Lead follow-up, reminders and approved transactional communication if the chosen provider and consent model support it.
+In-app
+Announcements, tasks, document requests, test results, mentor/session
+reminders.
+Admin alerts
+New lead, new payment, new document, failed webhook, overdue application task, system error.
+Template management in admin. Variables/placeholders.
+Localization-ready content. Delivery status.
+Failure/retry tracking.
+Consent and opt-out management.
+Do not expose sensitive information unnecessarily in notifications.
+Content Management System Pages and sections. Blog/articles.
+FAQs.
+Resources. University records. Scholarship records. Visa guides.
+Faculty profiles. Testimonials.
+Success stories. Announcements. Course catalogue. Media library.
+SEO metadata. Redirects.
+Navigation menus. Footer settings.
+Homepage section ordering. Publish/unpublish scheduling. Draft/review/published status. Revision history.
+Author/editor attribution.
+Last reviewed date.
+Source/reference fields for factual content.
+Content QA workflow
+Draft -> Review -> Fact/Source Check -> SEO Check -> Approve -> Publish -> Scheduled Re-review
+For content involving deadlines, regulations, visas, immigration, university requirements or scholarship rules, the CMS should support a mandatory “last verified” date and source/reference field.
+Admin Portal Requirements Dashboard with KPIs.
+Student management. Lead/CRM management. Course/product management. Order/payment management. Test/question management. Faculty/mentor management.
+University database management. Admissions case management.
+Document review. Scholarship management. Visa case management.
+CMS/content management. Notification templates.
+Reports. Audit logs.
+Role/permission management. System settings.
+Integrations.
+Import/export tools.
+Admin dashboard KPIs New leads.
+Qualified leads. Counselling bookings. Conversion rate.
+Revenue.
+Outstanding payments. Active students.
+Course enrollments. Test participation.
+Average score / progress. Upcoming deadlines.
+Pending documents. Active applications. Visa cases.
+Support/mentor load.
+Faculty / Mentor Portal Dashboard.
+Assigned students. Upcoming sessions. Doubts queue.
+Course content assigned.
+Create/manage assigned learning content where permitted. Question/test authoring where permitted.
+Grading/review.
+Student performance view. Session notes.
+Attendance. Announcements. Availability calendar. Faculty profile.
+Analytics & Reporting
+Marketing analytics Traffic source.
+Landing page. CTA clicks.
+Form submissions. Lead source.
+Campaign/UTM.
+Lead-to-counselling conversion. Counselling-to-enrollment conversion.
+Academic analytics Enrollment.
+Course completion. Lesson completion. Test attempts.
+Score trends. Weak topics. Drop-off points. Mentor usage.
+Admissions analytics Applications per country/university. Stage conversion.
+Document turnaround time. Pending cases.
+Deadline risk.
+Scholarship applications/outcomes. Visa case status.
+Case workload by staff.
+Business analytics Revenue by product. Revenue by country/source. Refunds.
+Outstanding invoices. Average order value. Customer acquisition source. Repeat purchase/upsell.
+Service profitability inputs where data is available.
+SEO Requirements
+Server-rendered or pre-rendered critical public content. Unique title and meta description per indexable page. Canonical URLs.
+XML sitemap.
+Robots.txt.
+Open Graph / social metadata.
+Structured data where appropriate: Organization, Article, FAQ, Course, Breadcrumb, etc., only when accurate and policy-compliant.
+Clean URL structure. Breadcrumbs.
+Internal linking.
+Image alt text.
+Image compression and next-gen formats. Redirect management.
+404 monitoring.
+Noindex controls for private/utility pages. Pagination/canonical strategy for filtered content. Search-friendly university/resource pages.
+Fast Core Web Vitals performance target.
+Performance & Accessibility Mobile-first responsive design.
+Target excellent performance on modern mobile networks. Lazy load non-critical media.
+Optimize images and video delivery.
+Minimize blocking JavaScript.
+Use caching/CDN where appropriate. Provide visible loading and error states. Keyboard accessibility.
+Visible focus states. Semantic HTML.
+Form labels and accessible error messages. Sufficient text/background contrast.
+Accessible modal/dialog behavior.
+Captions/transcripts for educational videos where appropriate. Avoid color-only status indication.
+Security Requirements HTTPS everywhere. Secure headers.
+CSRF protection where applicable. XSS prevention and output encoding.
+SQL/NoSQL injection protection through safe query mechanisms. Rate limiting.
+Brute-force protection.
+Secure session/token management. Role and object-level authorization. Admin MFA.
+Secrets stored outside source code. Separate production credentials.
+Encrypted sensitive data in transit and at rest where appropriate. Private document storage.
+Signed temporary file URLs. Virus/malware scanning of uploads. Webhook signature verification.
+Audit logs for security-sensitive operations. Regular dependency and vulnerability scanning. Backup and restore testing.
+Security incident logging and alerting.
+No hidden administrative endpoints exposed without authentication. No test/debug endpoints enabled in production.
+Do not expose stack traces, database errors, internal IDs or secrets to users.
+Privacy, Consent & Data Governance Collect only data needed for a stated purpose.
+Separate marketing consent from necessary service communications. Provide privacy policy and consent records.
+Allow users to manage relevant communication preferences. Define retention rules for inactive accounts, documents and logs.
+Provide account/data export or deletion workflow where required by applicable law and business policy. Minimize personal information displayed publicly.
+Public leaderboards should use non-identifying labels unless explicit consent and policy permit otherwise.
+Sensitive documents must never be indexed by search engines.
+Use data-processing agreements with vendors where appropriate. Maintain a data inventory for major personal-data fields.
+Recommended Database / Data Model
+User
+Identity, authentication, base profile.
+Role / Permission
+RBAC.
+StudentProfile
+Academic/contact/preferences; 1:1 with user where student.
+Lead
+Pre-student CRM record; may later convert to user/student.
+CounsellingSession
+Booking and counselling record linked to lead/student.
+Product
+Course/package/service master record.
+ProductPrice
+Versioned pricing/currency/region records.
+Order
+Commercial transaction intent.
+Payment
+Provider transaction state.
+Invoice
+Billing document.
+Enrollment
+Access relationship between student and product/course.
+Course
+Academic container.
+Module/Lesson
+Learning hierarchy.
+Resource
+Public or protected learning content.
+Test
+Assessment configuration.
+Question
+Question bank item.
+TestAttempt
+Student attempt and outcome.
+TestAnswer
+Answer per question.
+MentorProfile
+Faculty/mentor data.
+AvailabilitySlot
+Booking capacity.
+MentorSession
+Booked session.
+DoubtThread
+Student doubt conversation.
+University
+Master institution record.
+UniversityProgram
+Programme-specific data.
+UniversityFact/Source
+Verified source and last-checked information.
+ApplicationCase
+Student admission case.
+Application
+Specific university/programme application.
+Document
+Student document metadata and storage pointer.
+DocumentVersion
+Version and review history.
+Scholarship
+Scholarship master record.
+ScholarshipApplication
+Student scholarship case.
+VisaCase
+Visa workflow record.
+Task
+Staff/student task with due date and assignment.
+Notification
+In-app/email/SMS/WhatsApp event record.
+ContentPage
+CMS page.
+Article
+Blog/news content.
+FAQ
+FAQ entity.
+MediaAsset
+Public/private media metadata.
+AuditLog
+Who did what, when, and to what object.
+IntegrationConfig
+Approved external service configuration metadata.
+The final database schema must use appropriate primary keys, foreign keys, indexes, unique constraints, soft-delete strategy where appropriate, timestamps, audit fields and migration files. Sensitive fields should have stricter access patterns than ordinary public content.
+API Architecture
+Use versioned APIs (for example /api/v1/...) and consistent response/error formats. The API layer must enforce authorization independently of frontend route visibility.
+Auth
+register, verify, login, refresh, logout, reset-password, MFA, sessions
+Users
+profile, preferences, student profile, staff assignments
+CRM
+leads, pipeline, notes, tasks, follow-ups
+Products
+catalogue, prices, enrollments
+Payments
+orders, payments, invoices, refunds, webhooks
+Courses
+courses, modules, lessons, progress, resources
+Tests
+tests, questions, attempts, answers, results, rankings
+Mentoring
+availability, bookings, doubts, session records
+Universities
+search, details, programmes, filters, sources
+Admissions
+cases, applications, tasks, deadlines
+Documents
+upload, metadata, versions, review, signed access
+Scholarships
+search, shortlist, applications, tasks
+Visa
+cases, checklist, tasks, appointment/status
+CMS
+pages, articles, FAQs, media, navigation, SEO
+Notifications
+templates, preferences, delivery events
+Analytics
+events, reporting endpoints, exports
+External Integrations
+Payment gateway(s) approved for target markets. Transactional email provider.
+Optional SMS provider.
+Optional WhatsApp Business provider subject to policy/consent and provider capability. Calendar/video meeting service for counselling/mentor sessions if external meetings are used. Analytics platform.
+Search Console / webmaster tooling. Cloud storage/object storage.
+Error tracking/monitoring.
+Optional CRM or accounting integration if business chooses not to keep these functions native. Optional OCR/document-processing provider only after privacy and security review.
+External integrations must be abstracted behind service modules/interfaces so the provider can be replaced without rewriting core business logic.
+Critical Automated Workflows
+New lead
+Form submission -> lead creation -> source attribution -> assignment
+-> confirmation -> follow-up task.
+Course purchase
+Order -> trusted payment confirmation -> enrollment -> receipt -> welcome email -> portal access.
+Test completion
+Attempt submit -> server score -> result -> analytics update ->
+notification -> recommended action.
+New document
+Upload -> validation -> storage -> review task -> notification -> approve/reject -> audit.
+Deadline approaching
+Deadline engine -> reminder thresholds -> student/staff notification ->
+escalation if overdue.
+Mentor booking
+Slot reserved -> booking created -> calendar/meeting details -> reminders -> session -> feedback.
+Application status change
+Staff update -> history record -> student notification -> next task
+generation if applicable.
+Payment failed
+Provider status -> order remains pending/failed -> user notification -> retry path.
+Content publication
+Draft -> review -> approval -> publish -> sitemap/cache update ->
+analytics event.
+Configuration & Settings Business information. Contact information.
+Office locations. Currency.
+Tax settings. Payment methods.
+Notification providers. Email templates.
+Role/permission settings. Course access rules.
+Test defaults.
+Lead pipeline stages. Application stage templates. Document checklist templates. Scholarship templates.
+Visa checklist templates. Reminder rules.
+Feature flags. Maintenance mode. Legal policy links. SEO defaults.
+UI/UX & Branding Requirements
+Use official Ahsora Meds Academy branding and approved logo assets.
+Premium medical/education visual language; professional rather than generic template aesthetics. Consistent typography, spacing, card system and icon language.
+Clear hierarchy: trust -> value -> proof -> action.
+Mobile experience must be treated as a first-class product.
+Use large, high-quality optimized imagery without sacrificing performance. Avoid excessive animations, popups or visual clutter.
+Every CTA must communicate a clear next action.
+Use accessible form states and meaningful error messages.
+Student portal should prioritize tasks, progress and actions rather than decorative content. Admin portal should prioritize speed, filters, tables, bulk actions and clarity.
+Content/SEO Architecture for Growth Create pillar pages for major exams/services. Create country pages.
+Create university pages. Create scholarship pages. Create visa information pages.
+Create comparison and guide articles.
+Create frequently updated deadline/announcement content. Link informational content naturally to relevant paid services.
+Maintain author/source/verification information where factual accuracy matters. Create internal topic clusters rather than isolated blog posts.
+QA, Testing & Acceptance Requirements
+Required test levels
+Unit tests for important backend/business logic.
+Integration tests for payments, authentication, permissions and core workflows. End-to-end tests for critical student/admin journeys.
+API authorization tests. Upload/security tests. Responsive UI tests.
+Browser compatibility tests. Accessibility checks.
+Performance/load tests for expected peak usage. Backup/restore test.
+Regression test suite before production release.
+Mandatory acceptance journeys
+Visitor submits enquiry -> lead appears in CRM.
+Lead books counselling -> calendar/notification/tasks work. User registers -> verifies -> logs in -> completes profile.
+Student purchases course -> payment confirmed -> access provisioned. Student watches lesson -> progress saved -> dashboard updated.
+Student starts test -> timer/answers/save/submit/score are correct. Student books mentor -> slot cannot be double-booked.
+Student uploads document -> staff reviews -> approval/rejection is recorded. Student is added to application -> tasks/deadlines appear.
+Staff changes application status -> student sees appropriate status/notification.
+Unauthorized user attempts direct object access -> request denied and logged as appropriate. Admin changes product price -> all public and checkout displays update from same source. Published critical article shows source/last-verified date where required.
+Deployment, DevOps & Operations
+Version control repository owned by Ahsora or under an account controlled by Ahsora. Branching/review policy.
+CI/CD pipeline.
+Automated build/test/lint checks. Staging environment.
+Production environment.
+Environment-variable/secrets management. Database migrations tracked in source control. Automated backups.
+Backup retention policy.
+Restore procedure and periodic restore test. Monitoring and alerting.
+Error tracking.
+Uptime monitoring.
+Incident response procedure. Rollback procedure.
+Change log/release notes.
+Ownership & Vendor Independence Ahsora must own the production domain.
+Ahsora must own or control the source-code repository.
+Ahsora must have administrator access to hosting/cloud, database, storage, email, payment and analytics accounts.
+No critical system should be locked behind a developer-only account. Developer must provide deployment documentation.
+Developer must provide database schema/migrations or an equivalent export mechanism. Developer must provide API documentation.
+Developer must provide admin/user documentation.
+Developer must document third-party services and renewal/recurring costs.
+No proprietary dependency should prevent another qualified developer from maintaining the system without written disclosure.
+Recommended Delivery Phases
+Phase 1 - Foundation
+Brand/UI system, public website, CMS, core SEO, contact/lead CRM, authentication, course catalogue, basic admin, analytics, legal pages.
+Phase 2 - Learning
+Student portal, course content, resources, progress, test engine,
+results, mentor/doubt system.
+Phase 3 - Admissions
+University database, shortlist, application tracker, secure documents, scholarship tracker, visa case workflow.
+Phase 4 - Operations & Intelligence
+Advanced CRM, staff role dashboards, automation, detailed analytics,
+reporting, performance improvements, advanced notifications.
+Phase 5 - Expansion
+Additional exams/countries, mobile app or PWA if justified, AI-assisted academic insights, additional integrations.
+The phases do not authorize the developer to remove the long-term architecture. Phase 1 should establish the backend/data model and identity model in a way that supports later modules without a rewrite.
+Optional but Planned AI Layer
+AI must be implemented as a controlled feature layer, not as the source of truth for admissions, legal, visa or university requirements.
+Student study-plan suggestions based on performance. Weak-topic detection and study recommendations.
+Course/resource discovery.
+FAQ assistant grounded in approved Ahsora content. Lead qualification assistance with human review.
+Drafting internal summaries for counsellors.
+Document checklist suggestions subject to staff approval. Content tagging/categorization assistance.
+For high-stakes information (visa rules, university requirements, legal/immigration guidance), the system must display source-backed information and human-review controls. AI output must not silently overwrite verified facts.
+Complete Page-Level Requirement Checklist
+Homepage
+About
+Courses listing
+Course detail
+Mock tests
+Resources
+Universities listing
+University detail
+Admissions services
+Scholarships
+Visa
+News/Blog listing
+Article detail
+Faculty listing
+Faculty detail
+Results/Success stories
+FAQ
+Contact
+Login
+Register
+Forgot password
+Student dashboard
+My courses
+Course player
+My tests
+Test runner
+Test result
+Rankings
+Mentor directory
+Mentor booking
+Doubts
+My documents
+University shortlist
+My applications
+Scholarships dashboard
+Visa dashboard
+Payments/invoices
+Notifications
+Profile/settings
+Admin dashboard
+Leads
+Students
+Products/courses
+Orders/payments
+Tests/questions
+Faculty/mentors
+Universities
+Applications
+Documents
+Scholarships
+Visa cases
+CMS pages
+Blog/news
+FAQs
+Media library
+Reports
+Notifications/templates
+Roles/permissions
+Audit logs
+System settings
+Definition of Done
+All approved requirements in this document are implemented or explicitly marked as deferred with written owner approval.
+No critical workflow depends on manual database manipulation by the developer. All production pages are responsive.
+All important APIs have authorization checks.
+All sensitive documents are private and access-controlled. Payment webhooks are verified and idempotent.
+Pricing is centralized and consistent.
+Critical dates/content support source/verification metadata where needed. Admin can manage normal content/products/users without code changes. Automated backups exist and restoration has been tested.
+Critical logs and monitoring are operational.
+SEO basics are implemented and crawl/index behavior has been tested. Accessibility and performance checks have passed agreed thresholds. Critical user journeys pass end-to-end QA.
+Ahsora has access to all production accounts and source code. Documentation and training have been delivered to Ahsora staff. The final production deployment has a rollback plan.
+Developer Deliverables
+Final UI/UX design system and responsive mockups. Frontend source code.
+Backend/API source code. Database schema and migrations. Admin portal.
+Student portal. CMS.
+API documentation. Environment/setup documentation. Deployment documentation.
+Security checklist.
+QA test cases and test report. Performance test results.
+Backup/restore documentation. Admin manual.
+Staff training session(s).
+Source-code repository and account ownership transfer. List of third-party services, licenses and recurring costs. Known limitations / deferred requirements register.
+Mandatory Developer Proposal Before Coding Which frontend framework and why?
+Which backend framework and why? Which database and why?
+Which hosting/cloud architecture? How will SSR/SSG/SEO be handled?
+How will authentication and RBAC be implemented? How will private documents be stored and accessed? How will payment webhooks be secured?
+How will API authorization prevent IDOR/object-level access problems? How will backups and disaster recovery work?
+How will staging and production be separated?
+Which third-party providers are proposed and what are their recurring costs? How will analytics and consent be handled?
+How will the system scale with more students/tests/content? How will content editors update pages without developers?
+How will pricing be centralized?
+How will application/document workflow templates be configured without code changes? What is the estimated development timeline by phase?
+What is included vs excluded?
+What warranty/maintenance/support is included after launch?
+Owner Decisions Still To Be Configured Final domain name and subdomains.
+Final official brand colors/fonts.
+Exact countries/exams/universities in the initial launch. Course catalogue and exact pricing.
+Refund/cancellation rules. Consultancy service packages.
+Visa-service packages and scope disclaimers. Scholarship services scope.
+Payment methods and currencies. Communication channels and provider accounts.
+Staff roles and actual employees assigned to each role. Legal documents and privacy/retention policy.
+Whether parent/guardian accounts are required. Whether certificates are issued.
+Whether mobile app is required initially or later.
+Final Instruction to the Development Team
+Build Ahsora Meds Academy as a modular, API-driven, secure and maintainable platform. Do not implement the site as a collection of disconnected pages. The public website, student portal, testing system, admissions CRM, document workflow, scholarship and visa modules must share the same identity, core data model and business rules. Centralize data that must remain consistent (especially products, pricing, course access, deadlines and student records). Build for future expansion, but do not over-engineer features that have no current business value. Every sensitive operation must be authorization-checked on the server. Every important business state change must be auditable. Every routine content/product update that staff will need should be manageable from the admin portal without developer intervention.
+This document is the functional baseline. The developer should produce a technical solution proposal mapped back to the requirements above, with any deviations clearly identified and approved before implementation.
