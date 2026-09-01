@@ -58,17 +58,23 @@ export default function AdminSidebar() {
       >
         <div
           style={{
-            width: '36px',
-            height: '36px',
-            borderRadius: '8px',
-            backgroundColor: '#2563EB',
+            backgroundColor: '#FFFFFF',
+            borderRadius: '6px',
+            padding: '2px 4px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#FFFFFF',
           }}
         >
-          <ShieldCheck size={20} />
+          <img
+            src="/logo.png"
+            alt="Ahsora Meds Academy"
+            style={{
+              height: '34px',
+              width: 'auto',
+              objectFit: 'contain',
+            }}
+          />
         </div>
         <div>
           <div style={{ fontWeight: 800, fontSize: '1rem', color: '#FFFFFF' }}>

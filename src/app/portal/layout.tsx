@@ -85,25 +85,22 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
 
           {/* Logo / Header */}
           <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-            <div style={{
-              width: '48px',
-              height: '48px',
-              borderRadius: '12px',
-              backgroundColor: '#EFF6FF',
-              color: '#2563EB',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: '16px'
-            }}>
-              <GraduationCap size={28} />
-            </div>
+            <img
+              src="/logo.png"
+              alt="Ahsora Meds Academy"
+              style={{
+                height: '70px',
+                width: 'auto',
+                objectFit: 'contain',
+                marginBottom: '16px',
+              }}
+            />
             <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', letterSpacing: '-0.5px' }}>
               {isRegister ? 'Create Your Account' : 'Student Portal Sign In'}
             </h2>
             <p style={{ color: '#64748B', fontSize: '0.875rem', marginTop: '6px' }}>
               {isRegister 
-                ? 'Join Ahsora Meds Academy & start your medical journey' 
+                ? 'Join Ahsora Meds Academy & start your academic journey' 
                 : 'Access your courses, mock test engine, and visa roadmap'}
             </p>
           </div>

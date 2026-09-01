@@ -8,6 +8,10 @@ export const metadata: Metadata = {
   title: 'Ahsora Meds Academy | Admissions, Exam Prep & University Placement',
   description:
     'Comprehensive exam preparation, admissions consultancy and university placement support across Italy, UK, Hungary, Germany and USA. Start your global academic journey with Ahsora Meds.',
+  icons: {
+    icon: '/logo.png',
+    apple: '/logo.png',
+  },
 };
 
 export default function RootLayout({

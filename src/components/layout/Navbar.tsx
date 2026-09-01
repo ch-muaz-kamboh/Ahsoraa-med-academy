@@ -67,46 +67,15 @@ export default function Navbar() {
               textDecoration: 'none',
             }}
           >
-            <div
+            <img
+              src="/logo.png"
+              alt="Ahsora Meds Academy"
               style={{
-                width: '42px',
-                height: '42px',
-                borderRadius: '10px',
-                backgroundColor: '#2563EB',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#FFFFFF',
-                boxShadow: '0 4px 6px -1px rgba(37, 99, 235, 0.25)',
+                height: '46px',
+                width: 'auto',
+                objectFit: 'contain',
               }}
-            >
-              <GraduationCap size={24} />
-            </div>
-            <div>
-              <div
-                style={{
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: '1.2rem',
-                  fontWeight: 800,
-                  color: '#0F172A',
-                  letterSpacing: '-0.5px',
-                  lineHeight: 1.1,
-                }}
-              >
-                AHSORA <span style={{ color: '#2563EB' }}>MEDS</span>
-              </div>
-              <div
-                style={{
-                  fontSize: '0.6875rem',
-                  fontWeight: 600,
-                  color: '#64748B',
-                  letterSpacing: '1px',
-                  textTransform: 'uppercase',
-                }}
-              >
-                 Ahsora Meds Academy
-              </div>
-            </div>
+            />
           </Link>
 
           {/* Desktop Nav Links */}

@@ -34,32 +34,17 @@ export default function Footer() {
         >
           {/* Brand Col */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-              <div
+            <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', marginBottom: '16px', textDecoration: 'none' }}>
+              <img
+                src="/logo.png"
+                alt="Ahsora Meds Academy"
                 style={{
-                  width: '36px',
-                  height: '36px',
-                  borderRadius: '8px',
-                  backgroundColor: '#2563EB',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#FFFFFF',
+                  height: '48px',
+                  width: 'auto',
+                  objectFit: 'contain',
                 }}
-              >
-                <Stethoscope size={20} />
-              </div>
-              <span
-                style={{
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: '1.125rem',
-                  fontWeight: 800,
-                  color: '#0F172A',
-                }}
-              >
-                AHSORA <span style={{ color: '#2563EB' }}>MEDS</span>
-              </span>
-            </div>
+              />
+            </Link>
             <p style={{ color: '#64748B', fontSize: '0.875rem', lineHeight: 1.6, marginBottom: '16px' }}>
               Complete exam preparation, admissions consultancy, and university placement support across Italy, the UK, Germany, Hungary, and the USA.
             </p>

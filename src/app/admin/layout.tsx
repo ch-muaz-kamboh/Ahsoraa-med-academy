@@ -58,18 +58,24 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           {/* Logo / Header */}
           <div style={{ textAlign: 'center', marginBottom: '32px' }}>
             <div style={{
-              width: '56px',
-              height: '56px',
+              backgroundColor: '#FFFFFF',
               borderRadius: '16px',
-              backgroundColor: 'rgba(245, 158, 11, 0.1)',
-              color: '#F59E0B',
+              padding: '8px 16px',
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
               marginBottom: '16px',
-              border: '1px solid rgba(245, 158, 11, 0.2)'
+              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.2)',
             }}>
-              <Shield size={32} />
+              <img
+                src="/logo.png"
+                alt="Ahsora Meds Academy"
+                style={{
+                  height: '60px',
+                  width: 'auto',
+                  objectFit: 'contain',
+                }}
+              />
             </div>
             <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#FFFFFF', letterSpacing: '-0.5px' }}>
               Staff & Admin Portal

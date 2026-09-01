@@ -47,38 +47,35 @@ export default function PortalSidebar() {
       }}
     >
       {/* Brand Header */}
-      <div
+      <Link
+        href="/portal/dashboard"
         style={{
           padding: '20px',
-          borderBottom: '1px solid #F1F5F9',
+          borderBottom: '1px solid #E2E8F0',
           display: 'flex',
           alignItems: 'center',
           gap: '10px',
+          textDecoration: 'none',
         }}
       >
-        <div
+        <img
+          src="/logo.png"
+          alt="Ahsora Meds Academy"
           style={{
-            width: '36px',
-            height: '36px',
-            borderRadius: '8px',
-            backgroundColor: '#2563EB',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#FFFFFF',
+            height: '40px',
+            width: 'auto',
+            objectFit: 'contain',
           }}
-        >
-          <GraduationCap size={20} />
-        </div>
+        />
         <div>
-          <div style={{ fontWeight: 800, fontSize: '1rem', color: '#0F172A' }}>
+          <div style={{ fontWeight: 800, fontSize: '0.9375rem', color: '#0F172A' }}>
             AHSORA <span style={{ color: '#2563EB' }}>MEDS</span>
           </div>
           <div style={{ fontSize: '0.6875rem', color: '#64748B', fontWeight: 600 }}>
             Student Portal
           </div>
         </div>
-      </div>
+      </Link>
 
       {/* User Badge */}
       <div
