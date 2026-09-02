@@ -17,6 +17,7 @@ import {
   GraduationCap,
   Target,
   Zap,
+  Bell,
 } from 'lucide-react';
 import LeadCaptureModal from '@/components/public/LeadCaptureModal';
 import { useScrollAnimation, useStaggeredAnimation } from '@/hooks/useScrollAnimation';
@@ -1180,6 +1181,103 @@ export default function HomePage() {
               );
             })}
           </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          6.5 NEWS & UPDATES
+      ══════════════════════════════════════════════════ */}
+      <section style={{ padding: '80px 0', backgroundColor: '#F8FAFC' }}>
+        <div className="container" style={{ maxWidth: '800px' }}>
+          <AnimatedSection animClass="scroll-fade-up" style={{ textAlign: 'center', marginBottom: '40px' }}>
+            <h2
+              style={{
+                fontSize: 'clamp(2rem, 4vw, 2.8rem)',
+                fontWeight: 800,
+                color: '#0F172A',
+                letterSpacing: '-1px',
+                marginBottom: '16px',
+              }}
+            >
+              Latest News & Updates
+            </h2>
+            <p style={{ color: '#64748B', fontSize: '1.1rem' }}>
+              Stay informed with the latest announcements and important dates.
+            </p>
+          </AnimatedSection>
+
+          <AnimatedSection
+            animClass="scroll-fade-up"
+            delay={100}
+            style={{
+              backgroundColor: '#FFFFFF',
+              borderRadius: '20px',
+              padding: '24px 32px',
+              border: '1px solid #E2E8F0',
+              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '24px',
+            }}
+          >
+            <div
+              style={{
+                width: '60px',
+                height: '60px',
+                borderRadius: '50%',
+                backgroundColor: '#F0FFF4',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+              }}
+            >
+              <Bell size={28} color="#22C55E" />
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+                <span
+                  style={{
+                    backgroundColor: '#FEF3C7',
+                    color: '#D97706',
+                    padding: '4px 10px',
+                    borderRadius: '20px',
+                    fontSize: '0.75rem',
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px',
+                  }}
+                >
+                  Announcement
+                </span>
+                <span style={{ color: '#94A3B8', fontSize: '0.875rem', fontWeight: 500 }}>
+                  Recently Added
+                </span>
+              </div>
+              <h3
+                style={{
+                  fontSize: '1.25rem',
+                  fontWeight: 700,
+                  color: '#0F172A',
+                  marginBottom: '6px',
+                }}
+              >
+                Admissions Open in Italy 2027/2028
+              </h3>
+              <p style={{ color: '#475569', fontSize: '1rem', lineHeight: 1.5 }}>
+                Applications are now open for the upcoming academic year. Start your IMAT preparation early to secure your spot at top Italian medical universities!
+              </p>
+            </div>
+            <div style={{ flexShrink: 0, display: 'none' }} className="desktop-nav">
+              <Link
+                href="/universities"
+                className="btn-outline"
+                style={{ padding: '10px 20px', fontSize: '0.9375rem' }}
+              >
+                View Universities
+              </Link>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
 
