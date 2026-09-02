@@ -1079,6 +1079,179 @@ export default function HomePage() {
       </section>
 
       {/* ══════════════════════════════════════════════════
+          5.5 PACKAGES
+      ══════════════════════════════════════════════════ */}
+      <section style={{ padding: '90px 0', backgroundColor: '#FFFFFF' }}>
+        <div className="container">
+          <AnimatedSection style={{ textAlign: 'center', marginBottom: '60px' }}>
+            <span
+              style={{
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                color: '#22C55E',
+                textTransform: 'uppercase',
+                letterSpacing: '1.5px',
+              }}
+            >
+              Preparation Plans
+            </span>
+            <h2
+              style={{
+                fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)',
+                color: '#0F172A',
+                marginTop: '8px',
+                letterSpacing: '-0.5px',
+              }}
+            >
+              Choose your IMAT journey
+            </h2>
+          </AnimatedSection>
+
+          <div
+            className="scroll-stagger"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '30px',
+              alignItems: 'stretch',
+            }}
+            ref={useScrollAnimation() as React.RefObject<HTMLDivElement>}
+          >
+            {/* Package 1: Ascend */}
+            <div
+              style={{
+                border: '1px solid #E2E8F0',
+                borderRadius: '16px',
+                padding: '40px 30px',
+                display: 'flex',
+                flexDirection: 'column',
+                backgroundColor: '#FFFFFF',
+                transition: 'transform 0.25s, box-shadow 0.25s',
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-4px)';
+                (e.currentTarget as HTMLDivElement).style.boxShadow = '0 12px 28px -6px rgba(0,0,0,0.05)';
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)';
+                (e.currentTarget as HTMLDivElement).style.boxShadow = 'none';
+              }}
+            >
+              <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>
+                Ahsora IMAT Ascend
+              </h3>
+              <p style={{ color: '#64748B', fontSize: '0.9375rem', marginBottom: '24px' }}>
+                The perfect starter plan for self-paced study.
+              </p>
+              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px 0', flex: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {[
+                  'Full Video Library Access',
+                  'Comprehensive Study Notes',
+                  '1,000+ Practice Questions',
+                  '3 Full-Length Mock Exams',
+                ].map((feat, i) => (
+                  <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#475569', fontSize: '0.9375rem' }}>
+                    <CheckCircle2 size={18} color="#22C55E" />
+                    {feat}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/courses" className="btn-outline" style={{ width: '100%', textAlign: 'center', padding: '12px', display: 'block' }}>
+                Select Plan
+              </Link>
+            </div>
+
+            {/* Package 2: Mastery (Popular) */}
+            <div
+              style={{
+                border: '2px solid #22C55E',
+                borderRadius: '16px',
+                padding: '40px 30px',
+                display: 'flex',
+                flexDirection: 'column',
+                backgroundColor: '#F0FFF4',
+                position: 'relative',
+                boxShadow: '0 12px 28px -6px rgba(34,197,94,0.15)',
+              }}
+            >
+              <div style={{ position: 'absolute', top: '-14px', left: '50%', transform: 'translateX(-50%)', backgroundColor: '#22C55E', color: '#FFF', padding: '4px 16px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '1px' }}>
+                MOST POPULAR
+              </div>
+              <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>
+                Ahsora IMAT Mastery
+              </h3>
+              <p style={{ color: '#64748B', fontSize: '0.9375rem', marginBottom: '24px' }}>
+                Everything you need to confidently ace the exam.
+              </p>
+              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px 0', flex: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {[
+                  'Everything in Ascend',
+                  'Live Group Q&A Sessions',
+                  '2,800+ Practice Questions',
+                  '12 Full-Length Mock Exams',
+                  'In-depth Performance Analytics',
+                ].map((feat, i) => (
+                  <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#475569', fontSize: '0.9375rem', fontWeight: i === 0 ? 600 : 400 }}>
+                    <CheckCircle2 size={18} color="#22C55E" />
+                    {feat}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/courses" className="btn-primary" style={{ width: '100%', textAlign: 'center', padding: '12px', backgroundColor: '#22C55E', display: 'block' }}>
+                Select Plan
+              </Link>
+            </div>
+
+            {/* Package 3: Path Elite */}
+            <div
+              style={{
+                border: '1px solid #E2E8F0',
+                borderRadius: '16px',
+                padding: '40px 30px',
+                display: 'flex',
+                flexDirection: 'column',
+                backgroundColor: '#0F172A',
+                color: '#FFFFFF',
+                transition: 'transform 0.25s, box-shadow 0.25s',
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-4px)';
+                (e.currentTarget as HTMLDivElement).style.boxShadow = '0 12px 28px -6px rgba(0,0,0,0.15)';
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)';
+                (e.currentTarget as HTMLDivElement).style.boxShadow = 'none';
+              }}
+            >
+              <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: '#FFFFFF', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                Ahsora Path Elite <Sparkles size={18} color="#D4AF37" />
+              </h3>
+              <p style={{ color: '#94A3B8', fontSize: '0.9375rem', marginBottom: '24px' }}>
+                The ultimate 1-on-1 personalized mentorship.
+              </p>
+              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px 0', flex: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {[
+                  'Everything in Mastery',
+                  '1-on-1 Personal Mentorship',
+                  'Customized Study Plans',
+                  'University Application Assistance',
+                  'Visa & Documentation Support',
+                ].map((feat, i) => (
+                  <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#E2E8F0', fontSize: '0.9375rem', fontWeight: i === 0 ? 600 : 400 }}>
+                    <CheckCircle2 size={18} color="#D4AF37" />
+                    {feat}
+                  </li>
+                ))}
+              </ul>
+              <button onClick={() => setLeadModalOpen(true)} className="btn-primary" style={{ width: '100%', textAlign: 'center', padding: '12px', backgroundColor: '#D4AF37', color: '#0F172A', border: 'none' }}>
+                Contact Us
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
           6. FAQs
       ══════════════════════════════════════════════════ */}
       <section style={{ padding: '80px 0', backgroundColor: '#F8FAFC' }}>
