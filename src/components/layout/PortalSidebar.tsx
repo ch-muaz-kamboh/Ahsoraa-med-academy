@@ -58,7 +58,7 @@ export default function PortalSidebar() {
           textDecoration: 'none',
         }}
       >
-        <Logo height={38} showText />
+        <Logo height={48} />
       </Link>
 
       {/* User Badge */}

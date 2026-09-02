@@ -68,7 +68,7 @@ export default function Navbar() {
               textDecoration: 'none',
             }}
           >
-            <Logo height={42} showText />
+            <Logo height={56} />
           </Link>
 
           {/* Desktop Nav Links */}

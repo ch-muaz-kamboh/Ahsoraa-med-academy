@@ -88,7 +88,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
           {/* Logo / Header */}
           <div style={{ textAlign: 'center', marginBottom: '32px' }}>
             <div style={{ display: 'inline-flex', justifyContent: 'center', marginBottom: '16px' }}>
-              <Logo height={56} />
+              <Logo height={72} />
             </div>
             <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', letterSpacing: '-0.5px' }}>
               {isRegister ? 'Create Your Account' : 'Student Portal Sign In'}
