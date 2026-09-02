@@ -46,12 +46,8 @@ export function useStaggeredAnimation(count: number, options: UseScrollAnimation
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          const children = Array.from(container.children) as HTMLElement[];
-          children.forEach((child, i) => {
-            setTimeout(() => {
-              child.classList.add('is-visible');
-            }, i * 120);
-          });
+          // Add is-visible to the container — CSS handles staggered nth-child delays
+          container.classList.add('is-visible');
           observer.disconnect();
         }
       },
