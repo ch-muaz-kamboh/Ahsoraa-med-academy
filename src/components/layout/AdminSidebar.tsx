@@ -58,7 +58,7 @@ export default function AdminSidebar() {
           gap: '10px',
         }}
       >
-        <Logo height={36} textColor="#FFFFFF" subtextColor="#D4AF37" />
+        <Logo height={36} />
       </div>
 
       {/* Role Badge */}
