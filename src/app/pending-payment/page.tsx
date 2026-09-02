@@ -62,7 +62,7 @@ export default function PendingPaymentPage() {
           Your account has been successfully created, but we need to verify your payment before granting access to the student portal.
         </p>
 
-        <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '24px', marginBottom: '32px', textAlign: 'left' }}>
+        <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '24px', marginBottom: '24px', textAlign: 'left' }}>
           <div style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px' }}>
             Your Student Details
           </div>
@@ -82,6 +82,50 @@ export default function PendingPaymentPage() {
           </div>
         </div>
 
+        {/* Payment Details Card */}
+        <div style={{ backgroundColor: '#FFFBEB', border: '2px solid #FDE68A', borderRadius: '16px', padding: '24px', marginBottom: '24px', textAlign: 'left' }}>
+          <div style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#92400E', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '16px' }}>
+            💳 Complete Your Payment
+          </div>
+
+          {/* Packages */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '20px' }}>
+            {[
+              { name: 'Ahsora IMAT Ascend', price: '€299', desc: 'Essential prep package' },
+              { name: 'Ahsora IMAT Mastery', price: '€499', desc: 'Complete guided program' },
+              { name: 'Ahsora Path Elite', price: '€799', desc: 'Premium 1-on-1 mentorship' },
+            ].map((pkg) => (
+              <div key={pkg.name} style={{ backgroundColor: '#FFFFFF', border: '1px solid #FDE68A', borderRadius: '10px', padding: '12px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                  <div style={{ fontWeight: 700, fontSize: '0.9rem', color: '#0F172A' }}>{pkg.name}</div>
+                  <div style={{ fontSize: '0.8125rem', color: '#92400E' }}>{pkg.desc}</div>
+                </div>
+                <div style={{ fontWeight: 800, fontSize: '1.1rem', color: '#16A34A' }}>{pkg.price}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Bank Details */}
+          <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '16px' }}>
+            <div style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px' }}>Bank Transfer Details</div>
+            {[
+              { label: 'Account Title', value: 'Ahsora Meds Academy' },
+              { label: 'Account Number', value: '0123-4567890-001' },
+              { label: 'Bank', value: 'Demo Bank (HBL / Meezan)' },
+              { label: 'IBAN', value: 'PK01DEMO0000000001234567' },
+            ].map(({ label, value }) => (
+              <div key={label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0', borderBottom: '1px dashed #F1F5F9' }}>
+                <span style={{ color: '#64748B', fontSize: '0.875rem' }}>{label}</span>
+                <span style={{ color: '#0F172A', fontWeight: 700, fontSize: '0.875rem', fontFamily: 'monospace' }}>{value}</span>
+              </div>
+            ))}
+          </div>
+
+          <p style={{ color: '#92400E', fontSize: '0.8125rem', marginTop: '14px', lineHeight: 1.6 }}>
+            📨 After payment, send your transaction receipt to <strong>admissions@ahsorameds.com</strong> with your Student ID <strong>{profile?.ama_id}</strong>. Our team will approve your access within 24 hours.
+          </p>
+        </div>
+
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <button onClick={() => window.location.reload()} className="btn-primary" style={{ width: '100%', padding: '14px', fontSize: '1rem' }}>
             Check Verification Status
@@ -91,6 +135,7 @@ export default function PendingPaymentPage() {
             <LogOut size={18} /> Sign Out
           </button>
         </div>
+
 
       </div>
     </div>
