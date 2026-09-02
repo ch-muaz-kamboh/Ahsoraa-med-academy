@@ -83,8 +83,9 @@ function CycleNode({
         flexDirection: 'column',
         alignItems: 'center',
         gap: '12px',
-        flex: 1,
-        minWidth: '140px',
+        flex: '1 1 120px',
+        minWidth: '100px',
+        maxWidth: '160px',
       }}
     >
       <div
@@ -104,7 +105,7 @@ function CycleNode({
         {icon}
       </div>
       <div style={{ textAlign: 'center' }}>
-        <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '0.9375rem', lineHeight: 1.3 }}>
+        <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '0.875rem', lineHeight: 1.3 }}>
           {label}
         </div>
         <div style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 500, marginTop: '3px' }}>
@@ -128,16 +129,18 @@ function CycleArrow({ delay }: { delay: number }) {
   return (
     <div
       ref={ref}
-      className="scroll-fade-up"
+      className="cycle-arrow scroll-fade-up"
       style={{
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'center',
         color: '#22C55E',
         flexShrink: 0,
-        paddingTop: '6px',
       }}
     >
-      <ChevronRight size={22} strokeWidth={2.5} />
+      {/* On desktop: right arrow; on mobile: down arrow (handled via CSS) */}
+      <ChevronRight size={22} strokeWidth={2.5} className="cycle-arrow-desktop" />
+      <ChevronRight size={22} strokeWidth={2.5} style={{ transform: 'rotate(90deg)' }} className="cycle-arrow-mobile" />
     </div>
   );
 }
@@ -641,14 +644,14 @@ export default function HomePage() {
           {/* Cycle diagram */}
           <div ref={cycleRef}>
             {/* Nodes row */}
-            <div
+            <div className="cycle-nodes-row"
               style={{
                 display: 'flex',
-                alignItems: 'flex-start',
+                alignItems: 'center',
                 justifyContent: 'center',
-                gap: '8px',
-                flexWrap: 'wrap',
+                gap: '4px',
                 marginBottom: '48px',
+                flexWrap: 'nowrap',
               }}
             >
               <CycleNode

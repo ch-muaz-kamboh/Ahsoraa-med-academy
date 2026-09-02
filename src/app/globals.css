@@ -433,3 +433,56 @@ button {
 .animate-fade-in {
   animation: fadeIn 0.3s ease-out forwards;
 }
+
+/* ─── Learning Cycle Responsive ─────────────────────────── */
+
+/* Default: desktop horizontal layout */
+.cycle-nodes-row {
+  flex-direction: row;
+  align-items: center;
+}
+
+.cycle-arrow-mobile {
+  display: none;
+}
+
+.cycle-arrow-desktop {
+  display: block;
+}
+
+/* Mobile: stack vertically */
+@media (max-width: 640px) {
+  .cycle-nodes-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px !important;
+  }
+
+  /* Show the rotated (down) arrow on mobile */
+  .cycle-arrow-mobile {
+    display: block;
+  }
+
+  .cycle-arrow-desktop {
+    display: none;
+  }
+
+  /* The arrow container rotates too */
+  .cycle-arrow {
+    padding: 0;
+  }
+
+  /* Make nodes full-width row on mobile */
+  .cycle-node {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 16px !important;
+    max-width: 280px !important;
+    width: 100%;
+    text-align: left !important;
+  }
+
+  .cycle-node > div:last-child {
+    text-align: left !important;
+  }
+}
