@@ -1081,7 +1081,7 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════════
           5.5 PACKAGES
       ══════════════════════════════════════════════════ */}
-      <section style={{ padding: '90px 0', backgroundColor: '#FFFFFF' }}>
+      <section id="packages" style={{ padding: '90px 0', backgroundColor: '#FFFFFF' }}>
         <div className="container">
           <AnimatedSection style={{ textAlign: 'center', marginBottom: '60px' }}>
             <span

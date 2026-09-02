@@ -14,6 +14,11 @@ import {
   PhoneCall,
   User,
   Shield,
+  CreditCard,
+  MessageSquare,
+  Newspaper,
+  Book,
+  Scale,
 } from 'lucide-react';
 import LeadCaptureModal from '../public/LeadCaptureModal';
 
@@ -30,12 +35,15 @@ export default function Navbar() {
   }
 
   const navLinks = [
+    { href: '/', label: 'Home', icon: null },
+    { href: '/about', label: 'About', icon: null },
     { href: '/courses', label: 'Courses', icon: <BookOpen size={16} /> },
-    { href: '/mock-tests', label: 'Mock Tests', icon: <FileCheck size={16} /> },
+    { href: '/imat', label: 'IMAT', icon: <FileCheck size={16} /> },
+    { href: '/resources', label: 'Resources', icon: <Book size={16} /> },
     { href: '/universities', label: 'Universities', icon: <Globe size={16} /> },
-    { href: '/scholarships', label: 'Scholarships', icon: <Award size={16} /> },
-    { href: '/visa', label: 'Visa Support', icon: <GraduationCap size={16} /> },
-    { href: '/about', label: 'About Us', icon: null },
+    { href: '/licensing-exams', label: 'Licensing Exams', icon: <Scale size={16} /> },
+    { href: '/news', label: 'News & blogs', icon: <Newspaper size={16} /> },
+    { href: '/contact', label: 'Contact Us', icon: <MessageSquare size={16} /> },
   ];
 
   return (
@@ -76,7 +84,7 @@ export default function Navbar() {
             style={{
               display: 'none',
               alignItems: 'center',
-              gap: '24px',
+              gap: '16px',
             }}
             className="desktop-nav"
           >
@@ -104,15 +112,22 @@ export default function Navbar() {
 
           {/* Action CTAs */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <button
-              onClick={() => setLeadModalOpen(true)}
+            <Link
+              href="/#packages"
               className="btn-primary"
-              style={{ padding: '8px 16px', fontSize: '0.875rem' }}
+              style={{
+                padding: '8px 16px',
+                fontSize: '0.875rem',
+                backgroundColor: '#22C55E',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+              }}
             >
-              <PhoneCall size={16} />
-              <span className="hide-mobile">Book Counselling</span>
-              <span className="show-mobile">Counselling</span>
-            </button>
+              <CreditCard size={16} />
+              <span className="hide-mobile">View Packages</span>
+              <span className="show-mobile">Packages</span>
+            </Link>
 
             <Link
               href="/portal/dashboard"
