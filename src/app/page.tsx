@@ -1,78 +1,314 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import {
-  Stethoscope,
-  GraduationCap,
-  Award,
-  BookOpen,
-  Globe2,
-  CheckCircle2,
   ArrowRight,
   Sparkles,
-  Users,
-  Building,
-  HelpCircle,
-  FileCheck,
+  BookOpen,
+  FlaskConical,
+  Atom,
+  Brain,
+  CheckCircle2,
   ChevronRight,
+  FileCheck,
+  RotateCcw,
   TrendingUp,
+  GraduationCap,
+  Target,
+  Zap,
 } from 'lucide-react';
-import { mockCourses, mockUniversities, mockScholarships } from '@/lib/mock-data';
 import LeadCaptureModal from '@/components/public/LeadCaptureModal';
+import { useScrollAnimation, useStaggeredAnimation } from '@/hooks/useScrollAnimation';
+
+// ─── Reusable section observer wrapper ───────────────────────
+function AnimatedSection({
+  children,
+  className = '',
+  style = {},
+  animClass = 'scroll-fade-up',
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+  animClass?: string;
+  delay?: number;
+}) {
+  const ref = useScrollAnimation() as React.RefObject<HTMLDivElement>;
+  return (
+    <div
+      ref={ref}
+      className={`${animClass} ${className}`}
+      style={{ ...style, transitionDelay: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  );
+}
+
+// ─── Learning Cycle Node ──────────────────────────────────────
+function CycleNode({
+  icon,
+  label,
+  sublabel,
+  color,
+  delay,
+  isActive,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  sublabel: string;
+  color: string;
+  delay: number;
+  isActive: boolean;
+}) {
+  const ref = useScrollAnimation({ threshold: 0.2 }) as React.RefObject<HTMLDivElement>;
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (isActive) {
+      setTimeout(() => el.classList.add('is-visible'), delay);
+    }
+  }, [isActive, delay, ref]);
+
+  return (
+    <div
+      ref={ref}
+      className="cycle-node"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '12px',
+        flex: 1,
+        minWidth: '140px',
+      }}
+    >
+      <div
+        style={{
+          width: '72px',
+          height: '72px',
+          borderRadius: '50%',
+          background: color,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: `0 8px 24px -4px ${color}55`,
+          border: '3px solid #ffffff',
+          outline: `2px solid ${color}33`,
+        }}
+      >
+        {icon}
+      </div>
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '0.9375rem', lineHeight: 1.3 }}>
+          {label}
+        </div>
+        <div style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 500, marginTop: '3px' }}>
+          {sublabel}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Arrow between cycle nodes ────────────────────────────────
+function CycleArrow({ delay }: { delay: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      ref.current?.classList.add('is-visible');
+    }, delay);
+    return () => clearTimeout(timeout);
+  }, [delay]);
+
+  return (
+    <div
+      ref={ref}
+      className="scroll-fade-up"
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        color: '#22C55E',
+        flexShrink: 0,
+        paddingTop: '6px',
+      }}
+    >
+      <ChevronRight size={22} strokeWidth={2.5} />
+    </div>
+  );
+}
+
+// ─── Stat Card ────────────────────────────────────────────────
+function StatCard({
+  value,
+  label,
+  accent,
+}: {
+  value: string;
+  label: string;
+  accent?: boolean;
+}) {
+  return (
+    <div
+      style={{
+        textAlign: 'center',
+        padding: '28px 20px',
+        backgroundColor: '#FFFFFF',
+        borderRadius: '16px',
+        border: '1px solid #E2E8F0',
+        boxShadow: '0 4px 16px -4px rgba(0,0,0,0.06)',
+        flex: 1,
+        minWidth: '140px',
+      }}
+    >
+      <div
+        style={{
+          fontSize: '2.2rem',
+          fontWeight: 800,
+          color: accent ? '#22C55E' : '#0F172A',
+          letterSpacing: '-1px',
+          lineHeight: 1,
+          marginBottom: '8px',
+        }}
+      >
+        {value}
+      </div>
+      <div style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600, lineHeight: 1.4 }}>
+        {label}
+      </div>
+    </div>
+  );
+}
 
 export default function HomePage() {
   const [leadModalOpen, setLeadModalOpen] = useState(false);
-  const [selectedExam, setSelectedExam] = useState('USMLE Step 1');
+  const [cycleVisible, setCycleVisible] = useState(false);
   const [faqOpenIndex, setFaqOpenIndex] = useState<number | null>(0);
+
+  const cycleRef = useRef<HTMLDivElement>(null);
+  const statsRef = useStaggeredAnimation(4) as React.RefObject<HTMLDivElement>;
+  const subjectsRef = useStaggeredAnimation(4) as React.RefObject<HTMLDivElement>;
+  const stepsRef = useStaggeredAnimation(3) as React.RefObject<HTMLDivElement>;
+
+  // Trigger cycle animation when section enters viewport
+  useEffect(() => {
+    const el = cycleRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setCycleVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const faqs = [
     {
-      q: 'How does Ahsora Meds Academy prepare students for European medical entrance exams (IMAT)?',
-      a: 'Our IMAT curriculum covers all 4 tested sections (Biology, Chemistry, Physics & Mathematics, and Critical Reasoning/Reading). We provide 60+ hours of video lectures, 2,000+ past question decompositions, and 12 full-length simulated CBT mock tests matching the exact Italian Ministry scoring algorithm.',
+      q: 'What subjects does the IMAT test?',
+      a: 'The IMAT covers 4 sections: Biology (18 questions), Chemistry (12 questions), Physics & Mathematics (8 questions), and Critical Thinking & Problem Solving (22 questions). Our curriculum addresses every testable topic in all sections.',
     },
     {
-      q: 'Can non-EU international students apply for English-taught medical programs in Italy?',
-      a: 'Yes. Public Italian universities reserve dedicated quota seats for Non-EU students. With our admissions guidance, we assist you through Universitaly pre-enrolment, Declaration of Value (DOV)/CIMEA legalization, Italian DSU regional scholarships (up to €7,200/yr stipend), and embassy Type-D student visa applications.',
+      q: 'How does Ahsora Med Academy prepare me specifically for IMAT?',
+      a: 'Our IMAT program includes 60+ hours of subject-specific video lectures, 2,800+ authentic past-paper questions with expert decompositions, 12 full-length CBT mock tests matching the Italian Ministry scoring algorithm (+1.5/−0.4), and live weekly strategy sessions.',
     },
     {
-      q: 'How does the CBT Test & Assessment Engine work?',
-      a: 'Our mock test platform replicates real licensing test conditions with synchronized server timers, question palettes, mark-for-review flags, negative marking deductions, and instant multi-dimensional performance breakdowns across subjects, topics, and peer percentiles.',
+      q: 'How does the mock test engine replicate real IMAT conditions?',
+      a: 'Our CBT platform mirrors the exact IMAT format: 100-minute timer, 60 questions, synchronized question palette, mark-for-review flags, and the official +1.5/−0.4 scoring system. Instant analytics show you topic-by-topic breakdowns and peer percentile ranking.',
     },
     {
-      q: 'Are the course prices and university fees centralized?',
-      a: 'Yes. All pricing is synchronized in real-time from our centralized pricing registry. There are no hidden fees or discrepancies across pages.',
+      q: 'Can international (non-EU) students apply for Italian medical programs?',
+      a: "Yes. Italian public universities reserve dedicated non-EU quota seats. We guide you through Universitaly pre-enrolment, document legalization (DOV/CIMEA), and the Type-D student visa — all as part of our post-IMAT admissions support.",
+    },
+  ];
+
+  const imatSubjects = [
+    {
+      icon: <Brain size={26} color="#22C55E" />,
+      title: 'Critical Thinking',
+      desc: 'Argument analysis, problem solving, logical deduction. The highest-weighted section — 22 of 60 questions.',
+      topics: '14 core topic areas',
+      color: '#F0FFF4',
+      border: '#BBF7D0',
+    },
+    {
+      icon: <BookOpen size={26} color="#22C55E" />,
+      title: 'Biology',
+      desc: 'Cell biology, genetics, human anatomy, physiology, ecology. 18 questions aligned to the official IMAT syllabus.',
+      topics: '28 testable topics',
+      color: '#F0FFF4',
+      border: '#BBF7D0',
+    },
+    {
+      icon: <FlaskConical size={26} color="#D4AF37" />,
+      title: 'Chemistry',
+      desc: 'Organic & inorganic chemistry, stoichiometry, reactions, thermodynamics. 12 questions, high yield for score gains.',
+      topics: '22 testable topics',
+      color: '#FFFBEB',
+      border: '#FDE68A',
+    },
+    {
+      icon: <Atom size={26} color="#D4AF37" />,
+      title: 'Physics & Maths',
+      desc: 'Mechanics, waves, electricity, algebra, probability. 8 questions but often the differentiator between top scorers.',
+      topics: '18 testable topics',
+      color: '#FFFBEB',
+      border: '#FDE68A',
     },
   ];
 
   return (
     <div>
-      {/* 1. HERO SECTION */}
+      {/* ══════════════════════════════════════════════════
+          1. HERO SECTION
+      ══════════════════════════════════════════════════ */}
       <section
         style={{
           backgroundColor: '#FFFFFF',
-          borderBottom: '1px solid #E2E8F0',
-          padding: '70px 0 80px 0',
+          padding: '80px 0 90px 0',
           position: 'relative',
           overflow: 'hidden',
+          borderBottom: '1px solid #E2E8F0',
         }}
       >
+        {/* Radial glow */}
         <div
           style={{
             position: 'absolute',
-            top: 0,
+            top: '-60px',
             left: '50%',
             transform: 'translateX(-50%)',
-            width: '1000px',
-            height: '400px',
-            background: 'radial-gradient(ellipse at top, rgba(92, 237, 115, 0.06) 0%, rgba(255,255,255,0) 70%)',
+            width: '900px',
+            height: '500px',
+            background:
+              'radial-gradient(ellipse at top, rgba(92, 237, 115, 0.12) 0%, rgba(255,255,255,0) 65%)',
+            pointerEvents: 'none',
+          }}
+        />
+        {/* Subtle grid pattern */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            backgroundImage:
+              'radial-gradient(circle, #E2E8F0 1px, transparent 1px)',
+            backgroundSize: '36px 36px',
+            opacity: 0.45,
             pointerEvents: 'none',
           }}
         />
 
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <div style={{ maxWidth: '840px', margin: '0 auto', textAlign: 'center' }}>
-            {/* Badge */}
+          <div style={{ maxWidth: '860px', margin: '0 auto', textAlign: 'center' }}>
+
+            {/* IMAT badge */}
             <div
               style={{
                 display: 'inline-flex',
@@ -82,73 +318,88 @@ export default function HomePage() {
                 color: '#16A34A',
                 border: '1px solid #BBF7D0',
                 borderRadius: '9999px',
-                padding: '6px 18px',
-                fontSize: '0.8125rem',
+                padding: '6px 20px',
+                fontSize: '0.8rem',
                 fontWeight: 700,
-                marginBottom: '24px',
-                boxShadow: '0 1px 2px rgba(92, 237, 115, 0.15)',
+                marginBottom: '28px',
+                boxShadow: '0 2px 8px rgba(92,237,115,0.18)',
+                letterSpacing: '0.5px',
+                animation: 'fadeIn 0.6s ease-out forwards',
               }}
             >
-              <Sparkles size={16} />
-              <span>OFFICIAL 2026/2027 ADMISSIONS & EXAM PREP INTAKE</span>
+              <Sparkles size={15} />
+              <span>IMAT 2026 / 2027 — EXAM PREPARATION NOW OPEN</span>
             </div>
 
-            {/* Headline */}
+            {/* Main headline */}
             <h1
               style={{
-                fontSize: 'clamp(2.5rem, 5.5vw, 4rem)',
+                fontSize: 'clamp(2.6rem, 5.5vw, 4.2rem)',
                 fontWeight: 800,
                 color: '#0F172A',
-                letterSpacing: '-1.5px',
-                lineHeight: 1.15,
+                letterSpacing: '-2px',
+                lineHeight: 1.12,
                 marginBottom: '24px',
-                fontFamily: "var(--font-serif), Georgia, serif",
+                fontFamily: 'var(--font-serif), Georgia, serif',
+                animation: 'fadeInUp 0.7s 0.1s cubic-bezier(0.16,1,0.3,1) both',
               }}
             >
-              Your future in medicine{' '}
-              <span style={{ fontStyle: 'italic', color: '#5CED73', fontWeight: 700 }}>
-                starts with a plan.
+              Master the IMAT.{' '}
+              <span
+                style={{
+                  fontStyle: 'italic',
+                  color: '#22C55E',
+                  fontWeight: 700,
+                  display: 'inline-block',
+                  position: 'relative',
+                }}
+              >
+                Study Medicine in Italy.
               </span>
             </h1>
 
-            {/* Subtext */}
+            {/* Sub-headline */}
             <p
               style={{
-                fontSize: 'clamp(1.05rem, 2vw, 1.25rem)',
+                fontSize: 'clamp(1.05rem, 2vw, 1.2rem)',
                 color: '#475569',
-                lineHeight: 1.65,
-                marginBottom: '36px',
+                lineHeight: 1.7,
+                marginBottom: '40px',
                 maxWidth: '680px',
-                margin: '0 auto 36px auto',
+                margin: '0 auto 40px auto',
+                animation: 'fadeInUp 0.7s 0.2s cubic-bezier(0.16,1,0.3,1) both',
               }}
             >
-              Academic preparation, admissions guidance, and a community that keeps you moving forward—wherever your ambition takes you.
+              The only platform built exclusively around the IMAT. Structured subject courses,
+              real-condition mock tests, and a cycle of continuous improvement — until you get
+              the score to secure your seat.
             </p>
 
-            {/* CTAs */}
+            {/* CTA buttons */}
             <div
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: '20px',
+                gap: '16px',
                 flexWrap: 'wrap',
-                marginBottom: '32px',
+                marginBottom: '56px',
+                animation: 'fadeInUp 0.7s 0.3s cubic-bezier(0.16,1,0.3,1) both',
               }}
             >
               <Link
-                href="/courses"
+                href="/portal/tests/tst-01/take"
                 className="btn-primary"
                 style={{
                   padding: '16px 36px',
-                  fontSize: '1.0625rem',
+                  fontSize: '1rem',
                   borderRadius: '9999px',
                   backgroundColor: '#22C55E',
-                  boxShadow: '0 8px 24px -4px rgba(92, 237, 115, 0.45)',
+                  boxShadow: '0 8px 28px -4px rgba(92,237,115,0.5)',
                 }}
               >
-                <span>Explore programs</span>
-                <ArrowRight size={18} />
+                <FileCheck size={18} />
+                <span>Start Free IMAT Mock</span>
               </Link>
 
               <button
@@ -157,592 +408,890 @@ export default function HomePage() {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '6px',
-                  fontSize: '1.0625rem',
+                  fontSize: '1rem',
                   fontWeight: 700,
                   color: '#0F172A',
                   background: 'none',
-                  border: 'none',
+                  border: '1.5px solid #E2E8F0',
                   cursor: 'pointer',
-                  padding: '12px 18px',
-                  transition: 'color 0.2s ease',
+                  padding: '14px 28px',
+                  borderRadius: '9999px',
+                  transition: 'border-color 0.2s, background 0.2s',
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = '#22C55E';
+                  (e.currentTarget as HTMLButtonElement).style.background = '#F0FFF4';
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = '#E2E8F0';
+                  (e.currentTarget as HTMLButtonElement).style.background = 'none';
                 }}
               >
-                <span>How admissions works</span>
-                <span style={{ fontSize: '1.2rem' }}>↗</span>
+                <span>Book Free Counselling</span>
+                <ArrowRight size={17} />
               </button>
             </div>
 
-            {/* Social Proof Pill from Reference */}
+            {/* Stats strip */}
             <div
               style={{
-                display: 'inline-flex',
-                alignItems: 'center',
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
                 gap: '12px',
-                padding: '8px 18px',
-                backgroundColor: '#FFFFFF',
-                border: '1px solid #E2E8F0',
-                borderRadius: '9999px',
-                boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
-                marginBottom: '48px',
+                animation: 'fadeInUp 0.7s 0.45s cubic-bezier(0.16,1,0.3,1) both',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', marginLeft: '-4px' }}>
-                <div style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#E0F2F1', color: '#004D40', fontSize: '0.6875rem', fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid #FFFFFF' }}>AM</div>
-                <div style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#E0E7FF', color: '#3730A3', fontSize: '0.6875rem', fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid #FFFFFF', marginLeft: '-8px' }}>LA</div>
-                <div style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#FEF3C7', color: '#92400E', fontSize: '0.6875rem', fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid #FFFFFF', marginLeft: '-8px' }}>SB</div>
-                <div style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#EDE9FE', color: '#5B21B6', fontSize: '0.6875rem', fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid #FFFFFF', marginLeft: '-8px' }}>+</div>
-              </div>
-              <span style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>
-                Built for serious students, globally.
-              </span>
-            </div>
-
-            {/* Trust Metrics Grid */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
-                gap: '16px',
-                padding: '24px',
-                backgroundColor: '#FFFFFF',
-                border: '1px solid #E2E8F0',
-                borderRadius: '16px',
-                boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)',
-              }}
-            >
-              <div>
-                <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#22C55E' }}>96.8%</div>
-                <div style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>Licensing Pass Rate</div>
-              </div>
-              <div>
-                <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A' }}>$4.2M+</div>
-                <div style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>Student Scholarships Won</div>
-              </div>
-              <div>
-                <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#22C55E' }}>1,850+</div>
-                <div style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>Doctors & Students Trained</div>
-              </div>
-              <div>
-                <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A' }}>100%</div>
-                <div style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>Verified Fact-Checked Data</div>
-              </div>
+              {[
+                { v: '2,800+', l: 'IMAT Questions' },
+                { v: '12', l: 'Full Mock Tests' },
+                { v: '96.8%', l: 'Pass Rate' },
+                { v: '3,500+', l: 'Students Trained' },
+              ].map((stat) => (
+                <div
+                  key={stat.l}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px',
+                    backgroundColor: '#FFFFFF',
+                    border: '1px solid #E2E8F0',
+                    borderRadius: '9999px',
+                    padding: '8px 20px',
+                    boxShadow: '0 1px 4px rgba(0,0,0,0.05)',
+                  }}
+                >
+                  <span style={{ fontWeight: 800, color: '#22C55E', fontSize: '1rem' }}>
+                    {stat.v}
+                  </span>
+                  <span style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>
+                    {stat.l}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* 2. THE COMPLETE JOURNEY ARCHITECTURE */}
-      <section style={{ padding: '80px 0', backgroundColor: '#F8FAFC' }}>
+      {/* ══════════════════════════════════════════════════
+          2. WHAT IS THE IMAT?
+      ══════════════════════════════════════════════════ */}
+      <section style={{ padding: '90px 0', backgroundColor: '#F8FAFC' }}>
         <div className="container">
-          <div style={{ textAlign: 'center', maxWidth: '680px', margin: '0 auto 50px auto' }}>
-            <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#22C55E', textTransform: 'uppercase', letterSpacing: '1px' }}>
-              End-to-End Ecosystem
+          <AnimatedSection style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 56px auto' }}>
+            <span
+              style={{
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                color: '#22C55E',
+                textTransform: 'uppercase',
+                letterSpacing: '1.5px',
+              }}
+            >
+              The Exam
             </span>
-            <h2 style={{ fontSize: '2rem', color: '#0F172A', marginTop: '6px', marginBottom: '12px' }}>
-              One Unified System for Your Medical Career
+            <h2
+              style={{
+                fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)',
+                color: '#0F172A',
+                marginTop: '8px',
+                marginBottom: '14px',
+                letterSpacing: '-0.5px',
+              }}
+            >
+              Everything you need to know about the{' '}
+              <span style={{ color: '#22C55E', fontStyle: 'italic' }}>IMAT</span>
             </h2>
-            <p style={{ color: '#64748B', fontSize: '0.9375rem' }}>
-              We eliminate chaotic WhatsApp chats and lost spreadsheets. Every step is managed in your secure student portal.
+            <p style={{ color: '#64748B', fontSize: '1rem', lineHeight: 1.7 }}>
+              The International Medical Admissions Test is Italy's gateway to English-taught
+              medicine. 60 questions. 100 minutes. Four subjects. One chance per year. We prepare
+              you to get it right.
             </p>
-          </div>
+          </AnimatedSection>
 
+          {/* Subject cards — staggered */}
           <div
+            ref={subjectsRef}
+            className="scroll-stagger"
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-              gap: '24px',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+              gap: '20px',
             }}
           >
-            {[
-              {
-                icon: <BookOpen size={24} color="#22C55E" />,
-                step: '01. Preparation',
-                title: 'High-Yield Courses & LMS',
-                desc: 'Organ-systems video modules, clinical vignettes, and downloadable high-yield summary sheets.',
-              },
-              {
-                icon: <FileCheck size={24} color="#22C55E" />,
-                step: '02. Assessment',
-                title: 'CBT Exam Simulation Engine',
-                desc: 'Timed computer-based tests with exact negative marking, question palettes, and topic weakness analytics.',
-              },
-              {
-                icon: <Building size={24} color="#22C55E" />,
-                step: '03. Admissions',
-                title: 'University Shortlisting',
-                desc: 'Direct applications to top medical faculties in Italy, Hungary, the UK, and Germany with verified deadlines.',
-              },
-              {
-                icon: <GraduationCap size={24} color="#22C55E" />,
-                step: '04. Visa & Arrival',
-                title: 'Document & Visa Vault',
-                desc: 'DOV/CIMEA legalization, financial sponsor declarations, and embassy appointment interview prep.',
-              },
-            ].map((item, idx) => (
+            {imatSubjects.map((subj) => (
               <div
-                key={idx}
-                className="card"
+                key={subj.title}
                 style={{
                   backgroundColor: '#FFFFFF',
+                  border: `1px solid ${subj.border}`,
+                  borderRadius: '16px',
                   padding: '28px 24px',
-                  display: 'flex',
-                  flexDirection: 'column',
+                  boxShadow: '0 2px 12px -4px rgba(0,0,0,0.06)',
+                  transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+                  cursor: 'default',
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-4px)';
+                  (e.currentTarget as HTMLDivElement).style.boxShadow =
+                    '0 12px 28px -6px rgba(0,0,0,0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)';
+                  (e.currentTarget as HTMLDivElement).style.boxShadow =
+                    '0 2px 12px -4px rgba(0,0,0,0.06)';
                 }}
               >
                 <div
                   style={{
-                    width: '48px',
-                    height: '48px',
-                    borderRadius: '12px',
-                    backgroundColor: '#F0FFF4',
+                    width: '52px',
+                    height: '52px',
+                    borderRadius: '14px',
+                    backgroundColor: subj.color,
+                    border: `1px solid ${subj.border}`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     marginBottom: '16px',
                   }}
                 >
-                  {item.icon}
+                  {subj.icon}
                 </div>
-                <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#22C55E', textTransform: 'uppercase', marginBottom: '6px' }}>
-                  {item.step}
-                </div>
-                <h3 style={{ fontSize: '1.125rem', color: '#0F172A', marginBottom: '10px' }}>
-                  {item.title}
+                <h3
+                  style={{
+                    fontSize: '1.1rem',
+                    color: '#0F172A',
+                    marginBottom: '8px',
+                    fontWeight: 700,
+                  }}
+                >
+                  {subj.title}
                 </h3>
-                <p style={{ color: '#64748B', fontSize: '0.875rem', lineHeight: 1.6 }}>
-                  {item.desc}
+                <p
+                  style={{
+                    color: '#64748B',
+                    fontSize: '0.875rem',
+                    lineHeight: 1.65,
+                    marginBottom: '14px',
+                  }}
+                >
+                  {subj.desc}
                 </p>
+                <span
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '5px',
+                    fontSize: '0.75rem',
+                    fontWeight: 700,
+                    color: '#16A34A',
+                    backgroundColor: '#F0FFF4',
+                    padding: '3px 10px',
+                    borderRadius: '9999px',
+                    border: '1px solid #BBF7D0',
+                  }}
+                >
+                  <CheckCircle2 size={12} />
+                  {subj.topics}
+                </span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 3. FEATURED COURSES & LICENSING PROGRAMS */}
-      <section style={{ padding: '80px 0', backgroundColor: '#FFFFFF' }}>
+      {/* ══════════════════════════════════════════════════
+          3. LEARNING CYCLE
+      ══════════════════════════════════════════════════ */}
+      <section style={{ padding: '100px 0', backgroundColor: '#FFFFFF' }}>
         <div className="container">
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'flex-end',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              gap: '20px',
-              marginBottom: '40px',
-            }}
-          >
-            <div>
-              <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#22C55E', textTransform: 'uppercase' }}>
-                Academic Programs
-              </span>
-              <h2 style={{ fontSize: '2rem', color: '#0F172A', marginTop: '6px' }}>
-                Featured Medical Licensure & Prep Courses
-              </h2>
-            </div>
-            <Link href="/courses" className="btn-secondary">
-              <span>View All Courses</span>
-              <ChevronRight size={16} />
-            </Link>
-          </div>
+          <AnimatedSection style={{ textAlign: 'center', maxWidth: '680px', margin: '0 auto 64px auto' }}>
+            <span
+              style={{
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                color: '#22C55E',
+                textTransform: 'uppercase',
+                letterSpacing: '1.5px',
+              }}
+            >
+              Our Method
+            </span>
+            <h2
+              style={{
+                fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)',
+                color: '#0F172A',
+                marginTop: '8px',
+                marginBottom: '14px',
+                letterSpacing: '-0.5px',
+              }}
+            >
+              The Ahsora{' '}
+              <span style={{ color: '#22C55E', fontStyle: 'italic' }}>Learning Cycle</span>
+            </h2>
+            <p style={{ color: '#64748B', fontSize: '1rem', lineHeight: 1.7 }}>
+              Improvement is not linear — it's cyclical. Our platform is designed around a
+              structured loop that continuously narrows your gaps until your IMAT score is
+              where it needs to be.
+            </p>
+          </AnimatedSection>
 
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '28px',
-            }}
-          >
-            {mockCourses.slice(0, 3).map((course) => (
-              <div
-                key={course.id}
-                className="card"
-                style={{
-                  padding: 0,
-                  overflow: 'hidden',
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}
-              >
-                {/* Image */}
+          {/* Cycle diagram */}
+          <div ref={cycleRef}>
+            {/* Nodes row */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                justifyContent: 'center',
+                gap: '8px',
+                flexWrap: 'wrap',
+                marginBottom: '48px',
+              }}
+            >
+              <CycleNode
+                icon={<GraduationCap size={30} color="#FFFFFF" />}
+                label="Ahsora Med Academy"
+                sublabel="Start your IMAT journey"
+                color="#22C55E"
+                delay={0}
+                isActive={cycleVisible}
+              />
+              <CycleArrow delay={300} />
+              <CycleNode
+                icon={<Target size={30} color="#FFFFFF" />}
+                label="Analyze"
+                sublabel="Identify weak topics"
+                color="#16A34A"
+                delay={400}
+                isActive={cycleVisible}
+              />
+              <CycleArrow delay={700} />
+              <CycleNode
+                icon={<TrendingUp size={30} color="#FFFFFF" />}
+                label="Improve"
+                sublabel="Targeted practice & review"
+                color="#D4AF37"
+                delay={800}
+                isActive={cycleVisible}
+              />
+              <CycleArrow delay={1100} />
+              <CycleNode
+                icon={<RotateCcw size={30} color="#FFFFFF" />}
+                label="Repeat"
+                sublabel="Score higher each cycle"
+                color="#22C55E"
+                delay={1200}
+                isActive={cycleVisible}
+              />
+            </div>
+
+            {/* Cycle step cards */}
+            <div
+              ref={stepsRef}
+              className="scroll-stagger"
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                gap: '20px',
+              }}
+            >
+              {[
+                {
+                  step: '01',
+                  icon: <BookOpen size={20} color="#22C55E" />,
+                  title: 'Learn with structured courses',
+                  desc: 'High-yield subject modules, video lectures, and downloadable summary sheets — covering every IMAT topic in priority order.',
+                  link: '/courses',
+                  cta: 'Browse IMAT Courses',
+                },
+                {
+                  step: '02',
+                  icon: <FileCheck size={20} color="#22C55E" />,
+                  title: 'Test under real conditions',
+                  desc: '60-question, 100-minute mock tests with the exact Italian Ministry scoring: +1.5 correct, −0.4 wrong, 0 unanswered.',
+                  link: '/mock-tests',
+                  cta: 'View Mock Tests',
+                },
+                {
+                  step: '03',
+                  icon: <Zap size={20} color="#D4AF37" />,
+                  title: 'Analyze & close gaps',
+                  desc: 'Instant subject-by-subject breakdowns, peer percentile ranking, and AI-curated weak-topic drill sets after every test.',
+                  link: '/portal/tests/tst-01/take',
+                  cta: 'See Analytics Demo',
+                },
+              ].map((item) => (
                 <div
+                  key={item.step}
                   style={{
-                    height: '180px',
-                    backgroundImage: `url(${course.thumbnailUrl})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    position: 'relative',
+                    backgroundColor: '#F8FAFC',
+                    borderRadius: '16px',
+                    border: '1px solid #E2E8F0',
+                    padding: '28px 24px',
+                    transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-4px)';
+                    (e.currentTarget as HTMLDivElement).style.boxShadow =
+                      '0 12px 28px -6px rgba(0,0,0,0.09)';
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)';
+                    (e.currentTarget as HTMLDivElement).style.boxShadow = 'none';
                   }}
                 >
-                  <div
-                    style={{
-                      position: 'absolute',
-                      top: '14px',
-                      left: '14px',
-                      backgroundColor: '#22C55E',
-                      color: '#FFFFFF',
-                      fontSize: '0.75rem',
-                      fontWeight: 700,
-                      padding: '4px 10px',
-                      borderRadius: '6px',
-                    }}
-                  >
-                    {course.badge || course.category}
-                  </div>
-                  <div
-                    style={{
-                      position: 'absolute',
-                      bottom: '14px',
-                      right: '14px',
-                      backgroundColor: 'rgba(15, 23, 42, 0.85)',
-                      color: '#FFFFFF',
-                      fontSize: '0.75rem',
-                      fontWeight: 600,
-                      padding: '4px 8px',
-                      borderRadius: '6px',
-                      backdropFilter: 'blur(4px)',
-                    }}
-                  >
-                    {course.durationHours} Hours
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                  <div style={{ fontSize: '0.75rem', fontWeight: 600, color: '#64748B', marginBottom: '8px' }}>
-                    Exam: <strong style={{ color: '#0F172A' }}>{course.targetExam}</strong>
-                  </div>
-                  <h3 style={{ fontSize: '1.125rem', color: '#0F172A', marginBottom: '10px', lineHeight: 1.4 }}>
-                    {course.title}
-                  </h3>
-                  <p style={{ color: '#64748B', fontSize: '0.875rem', lineHeight: 1.5, marginBottom: '20px', flex: 1 }}>
-                    {course.summary}
-                  </p>
-
                   <div
                     style={{
                       display: 'flex',
                       alignItems: 'center',
-                      justifyContent: 'space-between',
-                      borderTop: '1px solid #F1F5F9',
-                      paddingTop: '16px',
+                      gap: '10px',
+                      marginBottom: '14px',
                     }}
                   >
-                    <div>
-                      <div style={{ fontSize: '1.375rem', fontWeight: 800, color: '#0F172A' }}>
-                        ${course.price}
-                        {course.comparePrice && (
-                          <span style={{ fontSize: '0.875rem', color: '#94A3B8', textDecoration: 'line-through', marginLeft: '6px', fontWeight: 400 }}>
-                            ${course.comparePrice}
-                          </span>
-                        )}
-                      </div>
-                      <div style={{ fontSize: '0.6875rem', color: '#10B981', fontWeight: 600 }}>
-                        ★ {course.rating} ({course.studentsCount} students)
-                      </div>
-                    </div>
-
-                    <Link
-                      href={`/courses/${course.slug}`}
-                      className="btn-primary"
-                      style={{ padding: '8px 16px', fontSize: '0.875rem' }}
+                    <span
+                      style={{
+                        fontSize: '0.7rem',
+                        fontWeight: 800,
+                        color: '#22C55E',
+                        backgroundColor: '#F0FFF4',
+                        border: '1px solid #BBF7D0',
+                        borderRadius: '6px',
+                        padding: '3px 8px',
+                        letterSpacing: '0.5px',
+                      }}
                     >
-                      Enrol Now
-                    </Link>
+                      STEP {item.step}
+                    </span>
+                    {item.icon}
                   </div>
+                  <h3
+                    style={{
+                      fontSize: '1.05rem',
+                      color: '#0F172A',
+                      fontWeight: 700,
+                      marginBottom: '10px',
+                    }}
+                  >
+                    {item.title}
+                  </h3>
+                  <p
+                    style={{
+                      color: '#64748B',
+                      fontSize: '0.875rem',
+                      lineHeight: 1.65,
+                      marginBottom: '18px',
+                    }}
+                  >
+                    {item.desc}
+                  </p>
+                  <Link
+                    href={item.link}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '5px',
+                      fontSize: '0.85rem',
+                      fontWeight: 700,
+                      color: '#16A34A',
+                      transition: 'gap 0.2s',
+                    }}
+                  >
+                    {item.cta} <ChevronRight size={15} />
+                  </Link>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 4. UNIVERSITY & SCHOLARSHIP DIRECTORY SPOTLIGHT */}
+      {/* ══════════════════════════════════════════════════
+          4. MOCK TEST BANNER
+      ══════════════════════════════════════════════════ */}
       <section style={{ padding: '80px 0', backgroundColor: '#F8FAFC' }}>
         <div className="container">
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'flex-end',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              gap: '20px',
-              marginBottom: '40px',
-            }}
-          >
-            <div>
-              <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#2563EB', textTransform: 'uppercase' }}>
-                Global Admissions Intelligence
-              </span>
-              <h2 style={{ fontSize: '2rem', color: '#0F172A', marginTop: '6px' }}>
-                Top Medical Faculties (English Taught)
-              </h2>
-            </div>
-            <Link href="/universities" className="btn-secondary">
-              <span>Search All Medical Universities</span>
-              <ChevronRight size={16} />
-            </Link>
-          </div>
-
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '24px',
-            }}
-          >
-            {mockUniversities.slice(0, 3).map((uni) => (
-              <div
-                key={uni.id}
-                className="card"
-                style={{
-                  backgroundColor: '#FFFFFF',
-                  padding: '24px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-                  <span className="badge badge-blue">{uni.country}</span>
-                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 600 }}>
-                    World Rank: #{uni.rankingWorld}
-                  </span>
-                </div>
-
-                <h3 style={{ fontSize: '1.2rem', color: '#0F172A', marginBottom: '8px' }}>
-                  {uni.name}
-                </h3>
-                <p style={{ fontSize: '0.8125rem', color: '#64748B', marginBottom: '16px', flex: 1 }}>
-                  {uni.overview}
-                </p>
-
-                <div
-                  style={{
-                    backgroundColor: '#F8FAFC',
-                    borderRadius: '8px',
-                    padding: '12px',
-                    fontSize: '0.8125rem',
-                    marginBottom: '16px',
-                  }}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                    <span style={{ color: '#64748B' }}>Annual Tuition:</span>
-                    <strong style={{ color: '#0F172A' }}>
-                      {uni.currency === 'EUR' ? '€' : '$'}
-                      {uni.tuitionFeeAnnual.toLocaleString()}/yr
-                    </strong>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <span style={{ color: '#64748B' }}>Language:</span>
-                    <strong style={{ color: '#10B981' }}>{uni.language}</strong>
-                  </div>
-                </div>
-
-                <Link
-                  href={`/universities/${uni.id}`}
-                  className="btn-outline"
-                  style={{ width: '100%', justifyContent: 'center', fontSize: '0.875rem' }}
-                >
-                  View Admission Criteria →
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 5. CBT ASSESSMENT ENGINE BANNER */}
-      <section style={{ padding: '60px 0', backgroundColor: '#FFFFFF' }}>
-        <div className="container">
-          <div
-            style={{
-              backgroundColor: '#EFF6FF',
-              border: '1px solid #BFDBFE',
-              borderRadius: '20px',
-              padding: '48px',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '40px',
-              alignItems: 'center',
-            }}
-          >
-            <div>
-              <span className="badge badge-blue" style={{ marginBottom: '12px' }}>
-                LIVE EXAM SIMULATOR
-              </span>
-              <h2 style={{ fontSize: '2.2rem', color: '#1E3A8A', marginBottom: '16px', lineHeight: 1.2 }}>
-                Test Yourself on Real USMLE & IMAT Mock Blocks
-              </h2>
-              <p style={{ color: '#334155', fontSize: '1rem', lineHeight: 1.6, marginBottom: '24px' }}>
-                Experience exact test-taking conditions: synchronized countdown timers, question palettes, mark-for-review flags, negative marking deductions, and instant subject-by-subject accuracy analytics.
-              </p>
-              <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
-                <Link
-                  href="/portal/tests/tst-01/take"
-                  className="btn-primary"
-                  style={{ padding: '12px 24px' }}
-                >
-                  <FileCheck size={18} />
-                  <span>Start Free Diagnostic Mock Block</span>
-                </Link>
-                <Link
-                  href="/mock-tests"
-                  className="btn-outline"
-                  style={{ padding: '12px 20px' }}
-                >
-                  <span>Learn More</span>
-                </Link>
-              </div>
-            </div>
-
+          <AnimatedSection animClass="scroll-scale-in">
             <div
               style={{
-                backgroundColor: '#FFFFFF',
-                borderRadius: '16px',
-                padding: '24px',
-                border: '1px solid #DBEAFE',
-                boxShadow: '0 10px 25px -5px rgba(37, 99, 235, 0.1)',
+                background: 'linear-gradient(135deg, #22C55E 0%, #16A34A 50%, #15803D 100%)',
+                borderRadius: '24px',
+                padding: '60px 48px',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: '40px',
+                alignItems: 'center',
+                position: 'relative',
+                overflow: 'hidden',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
-                <strong style={{ fontSize: '0.9375rem', color: '#0F172A' }}>Performance Analytics Engine</strong>
-                <span className="badge badge-green">98.4% Accuracy</span>
+              {/* Decorative circles */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '-60px',
+                  right: '-60px',
+                  width: '240px',
+                  height: '240px',
+                  borderRadius: '50%',
+                  background: 'rgba(255,255,255,0.07)',
+                  pointerEvents: 'none',
+                }}
+              />
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: '-40px',
+                  right: '200px',
+                  width: '160px',
+                  height: '160px',
+                  borderRadius: '50%',
+                  background: 'rgba(255,255,255,0.05)',
+                  pointerEvents: 'none',
+                }}
+              />
+
+              <div style={{ position: 'relative', zIndex: 1 }}>
+                <span
+                  style={{
+                    display: 'inline-block',
+                    fontSize: '0.75rem',
+                    fontWeight: 700,
+                    color: '#FFFFFF',
+                    backgroundColor: 'rgba(255,255,255,0.2)',
+                    borderRadius: '9999px',
+                    padding: '4px 14px',
+                    marginBottom: '16px',
+                    letterSpacing: '1px',
+                  }}
+                >
+                  LIVE IMAT SIMULATOR
+                </span>
+                <h2
+                  style={{
+                    fontSize: 'clamp(1.6rem, 3vw, 2.4rem)',
+                    color: '#FFFFFF',
+                    fontWeight: 800,
+                    letterSpacing: '-0.5px',
+                    marginBottom: '16px',
+                    lineHeight: 1.2,
+                  }}
+                >
+                  Practice Under Real IMAT Conditions
+                </h2>
+                <p
+                  style={{
+                    color: 'rgba(255,255,255,0.88)',
+                    fontSize: '1rem',
+                    lineHeight: 1.65,
+                    marginBottom: '28px',
+                  }}
+                >
+                  60 questions, 100 minutes, official scoring (+1.5/−0.4). Synchronized countdown
+                  timer, question palette, mark-for-review flags, and instant topic analytics.
+                </p>
+                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                  <Link
+                    href="/portal/tests/tst-01/take"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      backgroundColor: '#FFFFFF',
+                      color: '#15803D',
+                      fontWeight: 700,
+                      fontSize: '0.9375rem',
+                      padding: '13px 28px',
+                      borderRadius: '9999px',
+                      transition: 'transform 0.2s, box-shadow 0.2s',
+                      boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
+                    }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(-2px)';
+                      (e.currentTarget as HTMLAnchorElement).style.boxShadow =
+                        '0 8px 24px rgba(0,0,0,0.2)';
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(0)';
+                      (e.currentTarget as HTMLAnchorElement).style.boxShadow =
+                        '0 4px 16px rgba(0,0,0,0.15)';
+                    }}
+                  >
+                    <FileCheck size={18} />
+                    <span>Start Free Mock Test</span>
+                  </Link>
+                  <Link
+                    href="/mock-tests"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      backgroundColor: 'rgba(255,255,255,0.15)',
+                      color: '#FFFFFF',
+                      fontWeight: 700,
+                      fontSize: '0.9375rem',
+                      padding: '13px 28px',
+                      borderRadius: '9999px',
+                      border: '1.5px solid rgba(255,255,255,0.35)',
+                      transition: 'background 0.2s',
+                    }}
+                  >
+                    <span>View All Mocks</span>
+                    <ArrowRight size={16} />
+                  </Link>
+                </div>
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.8125rem' }}>
-                <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', color: '#64748B' }}>
-                    <span>Cardiovascular Pathology</span>
-                    <strong style={{ color: '#0F172A' }}>85%</strong>
-                  </div>
-                  <div style={{ height: '6px', backgroundColor: '#E2E8F0', borderRadius: '3px', overflow: 'hidden' }}>
-                    <div style={{ width: '85%', height: '100%', backgroundColor: '#2563EB' }} />
-                  </div>
+
+              {/* Analytics mini-card */}
+              <div
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  borderRadius: '16px',
+                  padding: '24px',
+                  boxShadow: '0 12px 32px -8px rgba(0,0,0,0.18)',
+                  position: 'relative',
+                  zIndex: 1,
+                }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    marginBottom: '18px',
+                  }}
+                >
+                  <strong style={{ fontSize: '0.9375rem', color: '#0F172A' }}>
+                    Post-Mock Analytics
+                  </strong>
+                  <span
+                    style={{
+                      fontSize: '0.7rem',
+                      fontWeight: 700,
+                      color: '#14532D',
+                      backgroundColor: '#F0FFF4',
+                      border: '1px solid #BBF7D0',
+                      borderRadius: '9999px',
+                      padding: '3px 10px',
+                    }}
+                  >
+                    LIVE REPORT
+                  </span>
                 </div>
-                <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', color: '#64748B' }}>
-                    <span>Renal Acid-Base Physiology</span>
-                    <strong style={{ color: '#0F172A' }}>92%</strong>
+                {[
+                  { label: 'Biology', pct: 84, color: '#22C55E' },
+                  { label: 'Chemistry', pct: 71, color: '#D4AF37' },
+                  { label: 'Critical Thinking', pct: 91, color: '#22C55E' },
+                  { label: 'Physics & Maths', pct: 63, color: '#F59E0B' },
+                ].map((bar) => (
+                  <div key={bar.label} style={{ marginBottom: '12px' }}>
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        marginBottom: '5px',
+                      }}
+                    >
+                      <span style={{ fontSize: '0.8rem', color: '#64748B' }}>{bar.label}</span>
+                      <strong style={{ fontSize: '0.8rem', color: '#0F172A' }}>{bar.pct}%</strong>
+                    </div>
+                    <div
+                      style={{
+                        height: '7px',
+                        backgroundColor: '#F1F5F9',
+                        borderRadius: '4px',
+                        overflow: 'hidden',
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: `${bar.pct}%`,
+                          height: '100%',
+                          backgroundColor: bar.color,
+                          borderRadius: '4px',
+                          transition: 'width 1.2s ease',
+                        }}
+                      />
+                    </div>
                   </div>
-                  <div style={{ height: '6px', backgroundColor: '#E2E8F0', borderRadius: '3px', overflow: 'hidden' }}>
-                    <div style={{ width: '92%', height: '100%', backgroundColor: '#10B981' }} />
-                  </div>
-                </div>
-                <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', color: '#64748B' }}>
-                    <span>Pharmacology & Autonomics</span>
-                    <strong style={{ color: '#0F172A' }}>74%</strong>
-                  </div>
-                  <div style={{ height: '6px', backgroundColor: '#E2E8F0', borderRadius: '3px', overflow: 'hidden' }}>
-                    <div style={{ width: '74%', height: '100%', backgroundColor: '#F59E0B' }} />
-                  </div>
+                ))}
+                <div
+                  style={{
+                    marginTop: '16px',
+                    paddingTop: '14px',
+                    borderTop: '1px solid #F1F5F9',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    fontSize: '0.8125rem',
+                  }}
+                >
+                  <span style={{ color: '#64748B' }}>IMAT Score Estimate</span>
+                  <strong style={{ color: '#22C55E', fontSize: '1rem' }}>47.4 / 90</strong>
                 </div>
               </div>
             </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          5. STATS STRIP
+      ══════════════════════════════════════════════════ */}
+      <section style={{ padding: '80px 0', backgroundColor: '#FFFFFF' }}>
+        <div className="container">
+          <AnimatedSection style={{ textAlign: 'center', marginBottom: '48px' }}>
+            <span
+              style={{
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                color: '#22C55E',
+                textTransform: 'uppercase',
+                letterSpacing: '1.5px',
+              }}
+            >
+              By the numbers
+            </span>
+            <h2
+              style={{
+                fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)',
+                color: '#0F172A',
+                marginTop: '8px',
+                letterSpacing: '-0.5px',
+              }}
+            >
+              Proven IMAT results
+            </h2>
+          </AnimatedSection>
+
+          <div
+            ref={statsRef}
+            className="scroll-stagger"
+            style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}
+          >
+            <StatCard value="2,800+" label="IMAT Questions with Full Explanations" accent />
+            <StatCard value="12" label="Full-Length CBT Mock Tests" />
+            <StatCard value="96.8%" label="Student Pass Rate" accent />
+            <StatCard value="3,500+" label="IMAT Students Trained Globally" />
           </div>
         </div>
       </section>
 
-      {/* 6. FAQS ACCORDION */}
+      {/* ══════════════════════════════════════════════════
+          6. FAQs
+      ══════════════════════════════════════════════════ */}
       <section style={{ padding: '80px 0', backgroundColor: '#F8FAFC' }}>
         <div className="container" style={{ maxWidth: '800px' }}>
-          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-            <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#2563EB', textTransform: 'uppercase' }}>
+          <AnimatedSection style={{ textAlign: 'center', marginBottom: '44px' }}>
+            <span
+              style={{
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                color: '#22C55E',
+                textTransform: 'uppercase',
+                letterSpacing: '1.5px',
+              }}
+            >
               Common Questions
             </span>
-            <h2 style={{ fontSize: '2rem', color: '#0F172A', marginTop: '6px' }}>
-              Frequently Asked Questions
+            <h2
+              style={{
+                fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)',
+                color: '#0F172A',
+                marginTop: '8px',
+                letterSpacing: '-0.5px',
+              }}
+            >
+              IMAT FAQ
             </h2>
-          </div>
+          </AnimatedSection>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {faqs.map((faq, idx) => {
               const isOpen = faqOpenIndex === idx;
               return (
-                <div
+                <AnimatedSection
                   key={idx}
+                  animClass="scroll-fade-up"
+                  delay={idx * 80}
                   style={{
                     backgroundColor: '#FFFFFF',
-                    border: '1px solid #E2E8F0',
-                    borderRadius: '12px',
+                    border: isOpen ? '1px solid #BBF7D0' : '1px solid #E2E8F0',
+                    borderRadius: '14px',
                     overflow: 'hidden',
+                    transition: 'border-color 0.25s',
                   }}
                 >
                   <button
                     onClick={() => setFaqOpenIndex(isOpen ? null : idx)}
                     style={{
                       width: '100%',
-                      padding: '18px 20px',
+                      padding: '20px 22px',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
                       textAlign: 'left',
-                      fontWeight: 600,
-                      fontSize: '1rem',
+                      fontWeight: 700,
+                      fontSize: '0.9375rem',
                       color: '#0F172A',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      gap: '16px',
                     }}
                   >
-                    <span>{faq.q}</span>
-                    <span style={{ color: '#2563EB', fontSize: '1.25rem', fontWeight: 700 }}>
+                    <span style={{ flex: 1 }}>{faq.q}</span>
+                    <span
+                      style={{
+                        flexShrink: 0,
+                        width: '28px',
+                        height: '28px',
+                        borderRadius: '50%',
+                        backgroundColor: isOpen ? '#F0FFF4' : '#F8FAFC',
+                        border: `1px solid ${isOpen ? '#BBF7D0' : '#E2E8F0'}`,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '1.1rem',
+                        color: isOpen ? '#16A34A' : '#64748B',
+                        fontWeight: 700,
+                        transition: 'all 0.2s',
+                      }}
+                    >
                       {isOpen ? '−' : '+'}
                     </span>
                   </button>
                   {isOpen && (
                     <div
                       style={{
-                        padding: '0 20px 20px 20px',
-                        color: '#64748B',
+                        padding: '0 22px 20px 22px',
+                        color: '#475569',
                         fontSize: '0.9375rem',
-                        lineHeight: 1.6,
-                        borderTop: '1px solid #F1F5F9',
-                        paddingTop: '14px',
+                        lineHeight: 1.7,
+                        borderTop: '1px solid #F0FFF4',
+                        paddingTop: '16px',
+                        animation: 'fadeInUp 0.3s ease-out forwards',
                       }}
                     >
                       {faq.a}
                     </div>
                   )}
-                </div>
+                </AnimatedSection>
               );
             })}
           </div>
         </div>
       </section>
 
-      {/* 7. BOTTOM LEAD CTA */}
-      <section
-        style={{
-          backgroundColor: '#1E3A8A',
-          color: '#FFFFFF',
-          padding: '70px 0',
-          textAlign: 'center',
-        }}
-      >
-        <div className="container" style={{ maxWidth: '700px' }}>
-          <h2 style={{ fontSize: '2.4rem', color: '#FFFFFF', marginBottom: '16px' }}>
-            Ready to Begin Your Medical Career?
-          </h2>
-          <p style={{ color: '#BFDBFE', fontSize: '1.0625rem', lineHeight: 1.6, marginBottom: '32px' }}>
-            Speak directly with our senior admissions counsellors and exam mentors. Get a personalized roadmap tailored to your budget and target country.
-          </p>
-          <button
-            onClick={() => setLeadModalOpen(true)}
-            className="btn-primary"
-            style={{
-              backgroundColor: '#FFFFFF',
-              color: '#1E3A8A',
-              padding: '14px 32px',
-              fontSize: '1.0625rem',
-              fontWeight: 700,
-            }}
-          >
-            <span>Book Free 1-on-1 Counselling</span>
-            <ArrowRight size={18} />
-          </button>
+      {/* ══════════════════════════════════════════════════
+          7. FINAL CTA
+      ══════════════════════════════════════════════════ */}
+      <section style={{ padding: '90px 0', backgroundColor: '#FFFFFF' }}>
+        <div className="container" style={{ maxWidth: '720px' }}>
+          <AnimatedSection animClass="scroll-scale-in" style={{ textAlign: 'center' }}>
+            <div
+              style={{
+                backgroundColor: '#F0FFF4',
+                border: '1px solid #BBF7D0',
+                borderRadius: '24px',
+                padding: '60px 48px',
+                position: 'relative',
+                overflow: 'hidden',
+              }}
+            >
+              {/* Decorative */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '-40px',
+                  right: '-40px',
+                  width: '180px',
+                  height: '180px',
+                  borderRadius: '50%',
+                  background: 'rgba(92,237,115,0.1)',
+                  pointerEvents: 'none',
+                }}
+              />
+
+              <div
+                style={{
+                  width: '56px',
+                  height: '56px',
+                  borderRadius: '50%',
+                  backgroundColor: '#22C55E',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 20px auto',
+                  boxShadow: '0 8px 20px -4px rgba(92,237,115,0.5)',
+                }}
+              >
+                <GraduationCap size={26} color="#FFFFFF" />
+              </div>
+
+              <h2
+                style={{
+                  fontSize: 'clamp(1.6rem, 3vw, 2.4rem)',
+                  color: '#0F172A',
+                  fontWeight: 800,
+                  letterSpacing: '-0.5px',
+                  marginBottom: '14px',
+                }}
+              >
+                Ready to crack the IMAT?
+              </h2>
+              <p
+                style={{
+                  color: '#475569',
+                  fontSize: '1rem',
+                  lineHeight: 1.7,
+                  marginBottom: '32px',
+                  maxWidth: '520px',
+                  margin: '0 auto 32px auto',
+                }}
+              >
+                Book a free 1-on-1 session with our IMAT mentors. Get a personalized study plan,
+                subject audit, and mock test schedule built around your exam date.
+              </p>
+
+              <div
+                style={{
+                  display: 'flex',
+                  gap: '14px',
+                  justifyContent: 'center',
+                  flexWrap: 'wrap',
+                }}
+              >
+                <button
+                  onClick={() => setLeadModalOpen(true)}
+                  className="btn-primary"
+                  style={{
+                    padding: '15px 36px',
+                    fontSize: '1rem',
+                    backgroundColor: '#22C55E',
+                    boxShadow: '0 8px 28px -4px rgba(92,237,115,0.45)',
+                  }}
+                >
+                  <span>Book Free 1-on-1 Counselling</span>
+                  <ArrowRight size={18} />
+                </button>
+                <Link
+                  href="/courses"
+                  className="btn-outline"
+                  style={{ padding: '15px 28px', fontSize: '1rem' }}
+                >
+                  <span>Browse IMAT Courses</span>
+                </Link>
+              </div>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
 
       <LeadCaptureModal
         isOpen={leadModalOpen}
         onClose={() => setLeadModalOpen(false)}
-        defaultExam={selectedExam}
+        defaultExam="IMAT"
       />
     </div>
   );

@@ -5,9 +5,9 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 
 export const metadata: Metadata = {
-  title: 'Ahsora Meds Academy | Admissions, Exam Prep & University Placement',
+  title: 'Ahsora Med Academy | #1 IMAT Preparation Platform — Study Medicine in Italy',
   description:
-    'Comprehensive exam preparation, admissions consultancy and university placement support across Italy, UK, Hungary, Germany and USA. Start your global academic journey with Ahsora Meds.',
+    'The most comprehensive IMAT preparation platform. Master Biology, Chemistry, Physics & Math, and Critical Reasoning with 2,800+ questions, 12 full mock tests, and expert-led courses. Get into Italian medical school.',
   icons: {
     icon: '/logo.png',
     apple: '/logo.png',
