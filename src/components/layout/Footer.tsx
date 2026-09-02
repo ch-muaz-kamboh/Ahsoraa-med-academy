@@ -117,6 +117,7 @@ export default function Footer() {
             <Link href="/about">Privacy Policy</Link>
             <Link href="/about">Terms of Service</Link>
             <Link href="/about">Admissions Disclaimer</Link>
+            <Link href="/admin/dashboard" style={{ color: '#64748B' }}>Admin Panel</Link>
           </div>
         </div>
       </div>

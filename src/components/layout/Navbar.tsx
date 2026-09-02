@@ -113,44 +113,18 @@ export default function Navbar() {
           {/* Action CTAs */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <Link
-              href="/#packages"
+              href="/portal/dashboard"
               className="btn-primary"
               style={{
                 padding: '8px 16px',
                 fontSize: '0.875rem',
-                backgroundColor: '#22C55E',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
               }}
             >
-              <CreditCard size={16} />
-              <span className="hide-mobile">View Packages</span>
-              <span className="show-mobile">Packages</span>
-            </Link>
-
-            <Link
-              href="/portal/dashboard"
-              className="btn-secondary"
-              style={{ padding: '8px 14px', fontSize: '0.875rem' }}
-            >
               <User size={16} />
-              <span className="hide-mobile">Student Portal</span>
-            </Link>
-
-            <Link
-              href="/admin/dashboard"
-              className="btn-secondary"
-              style={{
-                padding: '8px 14px',
-                fontSize: '0.875rem',
-                backgroundColor: '#1E293B',
-                color: '#FFFFFF',
-                border: '1px solid #334155',
-              }}
-            >
-              <Shield size={16} color="#F59E0B" />
-              <span className="hide-mobile">Admin Panel</span>
+              <span>Portal</span>
             </Link>
 
             {/* Mobile Hamburger toggle */}
@@ -203,20 +177,7 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <div style={{ marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <Link
-                href="/admin/dashboard"
-                onClick={() => setMobileMenuOpen(false)}
-                style={{
-                  color: '#475569',
-                  fontSize: '0.875rem',
-                  fontWeight: 600,
-                  padding: '6px 0',
-                }}
-              >
-                Staff / Admin Portal →
-              </Link>
-            </div>
+
           </div>
         )}
       </header>
