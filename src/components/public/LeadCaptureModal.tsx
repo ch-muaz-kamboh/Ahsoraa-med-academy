@@ -45,10 +45,10 @@ export default function LeadCaptureModal({
     }
 
     try {
-      // 1. Add to local store for UI reactivity (optional)
+      // 1. Add to local store for UI reactivity
       addLead(formData);
       
-      // 2. Import supabase client dynamically or statically
+      // 2. Import supabase client dynamically
       const { createClient } = await import('@/lib/supabase/client');
       const supabase = createClient();
 
@@ -66,14 +66,15 @@ export default function LeadCaptureModal({
         }]);
 
       if (error) {
-        console.error('Supabase error:', error.message);
-        // We still show success for the demo even if DB fails, or we can handle it
+        console.error('Supabase error:', error.message, error.details, error.hint);
+        alert(`Database Error: ${error.message}. Please check your Supabase table and RLS policies.`);
+        return; // Stop here, don't show success screen
       }
 
       setSubmitted(true);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error submitting form', error);
-      alert('There was an issue submitting your request. Please try again.');
+      alert(`Connection Error: ${error.message || 'There was an issue connecting to the database.'}`);
     }
   };
 
