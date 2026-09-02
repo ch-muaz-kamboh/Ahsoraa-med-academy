@@ -1120,7 +1120,7 @@ export default function HomePage() {
             {/* Package 1: Ascend */}
             <div
               style={{
-                border: '1px solid #E2E8F0',
+                border: '2px solid #94A3B8',
                 borderRadius: '16px',
                 padding: '40px 30px',
                 display: 'flex',
