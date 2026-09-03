@@ -508,6 +508,7 @@ export default function HomePage() {
 
                 {/* Floating Student Portal Visual */}
                 <div
+                  className="hero-float-portal"
                   style={{
                     position: 'absolute',
                     bottom: '40px',
