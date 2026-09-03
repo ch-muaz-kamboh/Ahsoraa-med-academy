@@ -296,7 +296,7 @@ export default function HomePage() {
       <section
         style={{
           backgroundColor: '#FFFFFF',
-          padding: '80px 0 90px 0',
+          padding: '80px 0 100px 0',
           position: 'relative',
           overflow: 'hidden',
           borderBottom: '1px solid #E2E8F0',
@@ -332,85 +332,72 @@ export default function HomePage() {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gridTemplateColumns: '1.2fr 0.8fr', // Adjusted for 55% / 45% feel
               gap: '60px',
               alignItems: 'center',
             }}
           >
             {/* ── LEFT: Copy ── */}
             <div>
-              {/* Live classes pill */}
+              {/* Eyebrow */}
               <div
                 style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  backgroundColor: '#F0FFF4',
-                  color: '#16A34A',
-                  border: '1px solid #BBF7D0',
-                  borderRadius: '9999px',
-                  padding: '6px 20px',
-                  fontSize: '0.78rem',
+                  color: '#D4AF37', // Gold text color matching the guide image
+                  fontSize: '0.8rem',
                   fontWeight: 700,
-                  marginBottom: '20px',
-                  boxShadow: '0 2px 8px rgba(92,237,115,0.18)',
-                  letterSpacing: '0.5px',
+                  marginBottom: '16px',
+                  letterSpacing: '1px',
+                  textTransform: 'uppercase',
                   animation: 'fadeIn 0.6s ease-out forwards',
                 }}
               >
-                <span
-                  style={{
-                    width: '8px',
-                    height: '8px',
-                    borderRadius: '50%',
-                    backgroundColor: '#22C55E',
-                    display: 'inline-block',
-                    animation: 'pulseGlow 1.5s ease-in-out infinite',
-                  }}
-                />
-                <span>LIVE CLASSES EVERY WEEK · IMAT 2026 / 2027 OPEN</span>
+                A COMPLETE JOURNEY TO MEDICINE IN ITALY
               </div>
 
               {/* Main headline */}
               <h1
                 style={{
-                  fontSize: 'clamp(2.4rem, 5vw, 3.8rem)',
+                  fontSize: 'clamp(2.4rem, 4.5vw, 4rem)',
                   fontWeight: 800,
                   color: '#0F172A',
-                  letterSpacing: '-2px',
+                  letterSpacing: '-1.5px',
                   lineHeight: 1.1,
-                  marginBottom: '22px',
+                  marginBottom: '24px',
                   fontFamily: 'var(--font-serif), Georgia, serif',
                   animation: 'fadeInUp 0.7s 0.1s cubic-bezier(0.16,1,0.3,1) both',
                 }}
               >
-                Master the IMAT.{' '}
-                <span
-                  style={{
-                    fontStyle: 'italic',
-                    color: '#22C55E',
-                    fontWeight: 700,
-                    display: 'inline-block',
-                    position: 'relative',
-                  }}
-                >
-                  Study Medicine in Italy.
-                </span>
+                THE IMAT IS THE TEST.<br />
+                YOUR JOURNEY IS MUCH BIGGER.
               </h1>
 
-              {/* Sub-headline */}
+              {/* Supporting copy */}
               <p
                 style={{
-                  fontSize: 'clamp(1rem, 2vw, 1.15rem)',
+                  fontSize: 'clamp(1rem, 1.8vw, 1.125rem)',
                   color: '#475569',
                   lineHeight: 1.75,
-                  marginBottom: '36px',
+                  marginBottom: '24px',
                   animation: 'fadeInUp 0.7s 0.2s cubic-bezier(0.16,1,0.3,1) both',
+                  maxWidth: '90%',
                 }}
               >
-                Not just courses — <strong style={{ color: '#0F172A' }}>live lectures by real teachers</strong>, 
-                mock tests, and complete support from prep to university admission. 
-                The only IMAT platform that stays with you until you get the score.
+                Prepare with live expert teaching, structured practice and realistic testing. 
+                Track your progress through the Ahsora Student Portal. And when the exam is over, 
+                continue with dedicated guidance through the university and admissions journey.
+              </p>
+
+              {/* Credibility Line */}
+              <p
+                style={{
+                  fontSize: '0.95rem',
+                  color: '#64748B',
+                  fontStyle: 'italic',
+                  marginBottom: '40px',
+                  animation: 'fadeInUp 0.7s 0.25s cubic-bezier(0.16,1,0.3,1) both',
+                }}
+              >
+                Built from firsthand experience of the journey to Medicine in Italy.
               </p>
 
               {/* CTA buttons */}
@@ -418,29 +405,35 @@ export default function HomePage() {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '14px',
+                  gap: '16px',
                   flexWrap: 'wrap',
-                  marginBottom: '44px',
                   animation: 'fadeInUp 0.7s 0.3s cubic-bezier(0.16,1,0.3,1) both',
                 }}
               >
                 <Link
-                  href="/portal/tests/tst-01/take"
+                  href="/courses"
                   className="btn-primary"
                   style={{
                     padding: '15px 32px',
                     fontSize: '0.9375rem',
                     borderRadius: '9999px',
-                    backgroundColor: '#22C55E',
-                    boxShadow: '0 8px 28px -4px rgba(92,237,115,0.5)',
+                    backgroundColor: '#0F172A', // Darker button for Explore Programmes
+                    boxShadow: '0 8px 24px -4px rgba(15,23,42,0.3)',
+                    color: '#FFF',
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#1E293B';
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#0F172A';
                   }}
                 >
-                  <FileCheck size={17} />
-                  <span>Start Free IMAT Mock</span>
+                  <span>EXPLORE PROGRAMMES</span>
+                  <ArrowRight size={17} />
                 </Link>
 
-                <button
-                  onClick={() => setLeadModalOpen(true)}
+                <Link
+                  href="/portal/tests/tst-01/take"
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -456,55 +449,17 @@ export default function HomePage() {
                     transition: 'border-color 0.2s, background 0.2s',
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLButtonElement).style.borderColor = '#22C55E';
-                    (e.currentTarget as HTMLButtonElement).style.background = '#F0FFF4';
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = '#22C55E';
+                    (e.currentTarget as HTMLAnchorElement).style.background = '#F0FFF4';
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLButtonElement).style.borderColor = '#E2E8F0';
-                    (e.currentTarget as HTMLButtonElement).style.background = 'none';
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = '#E2E8F0';
+                    (e.currentTarget as HTMLAnchorElement).style.background = 'none';
                   }}
                 >
-                  <span>Book Free Counselling</span>
+                  <span>TAKE A FREE IMAT MOCK</span>
                   <ArrowRight size={16} />
-                </button>
-              </div>
-
-              {/* Mini stats row */}
-              <div
-                style={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: '10px',
-                  animation: 'fadeInUp 0.7s 0.45s cubic-bezier(0.16,1,0.3,1) both',
-                }}
-              >
-                {[
-                  { v: '2,800+', l: 'IMAT Questions' },
-                  { v: '12', l: 'Mock Tests' },
-                  { v: '96.8%', l: 'Pass Rate' },
-                  { v: '3,500+', l: 'Students' },
-                ].map((stat) => (
-                  <div
-                    key={stat.l}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      backgroundColor: '#FFFFFF',
-                      border: '1px solid #E2E8F0',
-                      borderRadius: '9999px',
-                      padding: '6px 16px',
-                      boxShadow: '0 1px 4px rgba(0,0,0,0.05)',
-                    }}
-                  >
-                    <span style={{ fontWeight: 800, color: '#22C55E', fontSize: '0.9rem' }}>
-                      {stat.v}
-                    </span>
-                    <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 600 }}>
-                      {stat.l}
-                    </span>
-                  </div>
-                ))}
+                </Link>
               </div>
             </div>
 
@@ -512,100 +467,67 @@ export default function HomePage() {
             <div
               style={{
                 display: 'flex',
-                justifyContent: 'center',
+                justifyContent: 'flex-end',
                 alignItems: 'center',
                 animation: 'fadeInRight 0.8s 0.3s cubic-bezier(0.16,1,0.3,1) both',
+                position: 'relative',
               }}
             >
               <div
                 style={{
                   position: 'relative',
                   width: '100%',
-                  maxWidth: '500px',
+                  maxWidth: '420px', // slightly smaller to fit the floating portal correctly
                 }}
               >
-                {/* Main graphic card */}
+                {/* Main graphic card (Placeholder for Founder Photo) */}
                 <div
                   style={{
                     borderRadius: '24px',
                     overflow: 'hidden',
-                    boxShadow: '0 32px 64px -12px rgba(15,23,42,0.25), 0 0 0 1px rgba(34,197,94,0.15)',
-                    transform: 'perspective(1000px) rotateY(-3deg) rotateX(2deg)',
-                    transition: 'transform 0.5s ease',
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLDivElement).style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLDivElement).style.transform = 'perspective(1000px) rotateY(-3deg) rotateX(2deg)';
+                    boxShadow: '0 24px 48px -12px rgba(15,23,42,0.15)',
+                    aspectRatio: '3/4',
+                    backgroundColor: '#F1F5F9',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    border: '1px solid #E2E8F0',
+                    position: 'relative',
                   }}
                 >
-                  <Image
-                    src="/hero-proof-card.jpg"
-                    alt="IMAT live class dashboard showing student scores, live class in progress, and subject analytics"
-                    width={600}
-                    height={450}
-                    style={{ width: '100%', height: 'auto', display: 'block' }}
-                    priority
-                  />
+                  <span style={{ color: '#94A3B8', fontSize: '0.9rem', fontWeight: 600 }}>
+                    [ Replace with Professional Photo ]
+                  </span>
+                  {/* You would place the real next/image here */}
+                  {/* <Image src="/founder-photo.jpg" alt="Ahsora Founder" fill style={{ objectFit: 'cover' }} priority /> */}
                 </div>
 
-                {/* Floating badge: students enrolled */}
+                {/* Floating Student Portal Visual */}
                 <div
                   style={{
                     position: 'absolute',
-                    bottom: '-16px',
-                    left: '-20px',
-                    backgroundColor: '#FFFFFF',
-                    border: '1px solid #E2E8F0',
-                    borderRadius: '14px',
-                    padding: '10px 16px',
-                    boxShadow: '0 8px 24px -4px rgba(0,0,0,0.12)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '10px',
+                    bottom: '40px',
+                    left: '-80px', // Floating overlap
+                    width: '240px',
                     animation: 'fadeInUp 1s 0.6s cubic-bezier(0.16,1,0.3,1) both',
                   }}
                 >
                   <div
                     style={{
-                      width: '36px',
-                      height: '36px',
-                      borderRadius: '50%',
-                      backgroundColor: '#F0FFF4',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
+                      borderRadius: '16px',
+                      overflow: 'hidden',
+                      boxShadow: '0 32px 64px -12px rgba(15,23,42,0.25), 0 0 0 1px rgba(34,197,94,0.15)',
+                      backgroundColor: '#0F172A',
+                      padding: '4px',
                     }}
                   >
-                    <Users size={18} color="#22C55E" />
-                  </div>
-                  <div>
-                    <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '0.9rem' }}>3,500+</div>
-                    <div style={{ fontSize: '0.7rem', color: '#64748B' }}>Students enrolled</div>
-                  </div>
-                </div>
-
-                {/* Floating badge: pass rate */}
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: '-14px',
-                    right: '-16px',
-                    backgroundColor: '#0F172A',
-                    borderRadius: '14px',
-                    padding: '10px 16px',
-                    boxShadow: '0 8px 24px -4px rgba(0,0,0,0.25)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '10px',
-                    animation: 'fadeInDown 1s 0.7s cubic-bezier(0.16,1,0.3,1) both',
-                  }}
-                >
-                  <Star size={16} color="#D4AF37" fill="#D4AF37" />
-                  <div>
-                    <div style={{ fontWeight: 800, color: '#FFFFFF', fontSize: '0.9rem' }}>96.8%</div>
-                    <div style={{ fontSize: '0.7rem', color: '#94A3B8' }}>Pass rate</div>
+                     <Image
+                        src="/hero-proof-card.jpg"
+                        alt="Ahsora Student Portal Dashboard"
+                        width={300}
+                        height={225}
+                        style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }}
+                      />
                   </div>
                 </div>
               </div>
