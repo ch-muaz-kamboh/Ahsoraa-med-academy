@@ -310,6 +310,33 @@ button {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ─── Trust Marquee ──────────────────────────────────────── */
+.trust-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.trust-marquee-inner {
+  display: inline-flex;
+  animation: marqueeScroll 28s linear infinite;
+}
+
+.trust-marquee-inner:hover {
+  animation-play-state: paused;
+}
+
+/* ─── Hero section fadeInRight (already had fadeInLeft) ─── */
+
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(40px); }
   to   { opacity: 1; transform: translateY(0); }
