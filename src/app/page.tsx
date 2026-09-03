@@ -417,15 +417,16 @@ export default function HomePage() {
                     padding: '15px 32px',
                     fontSize: '0.9375rem',
                     borderRadius: '9999px',
-                    backgroundColor: '#0F172A', // Darker button for Explore Programmes
-                    boxShadow: '0 8px 24px -4px rgba(15,23,42,0.3)',
+                    backgroundColor: '#059669', // Emerald Green
+                    boxShadow: '0 8px 24px -4px rgba(5,150,105,0.4)',
                     color: '#FFF',
+                    transition: 'background-color 0.2s',
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#1E293B';
+                    (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#047857';
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#0F172A';
+                    (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#059669';
                   }}
                 >
                   <span>EXPLORE PROGRAMMES</span>
