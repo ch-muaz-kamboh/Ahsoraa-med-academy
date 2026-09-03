@@ -149,7 +149,7 @@ function CycleArrow({ delay }: { delay: number }) {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        color: '#22C55E',
+        color: '#059669',
         flexShrink: 0,
       }}
     >
@@ -214,20 +214,20 @@ export default function HomePage() {
 
   const imatSubjects = [
     {
-      icon: <Brain size={26} color="#22C55E" />,
+      icon: <Brain size={26} color="#059669" />,
       title: 'Critical Thinking',
       desc: 'Argument analysis, problem solving, logical deduction. The highest-weighted section — 22 of 60 questions.',
       topics: '14 core topic areas',
-      color: '#F0FFF4',
-      border: '#BBF7D0',
+      color: '#ECFDF5',
+      border: '#A7F3D0',
     },
     {
-      icon: <BookOpen size={26} color="#22C55E" />,
+      icon: <BookOpen size={26} color="#059669" />,
       title: 'Biology',
       desc: 'Cell biology, genetics, human anatomy, physiology, ecology. 18 questions aligned to the official IMAT syllabus.',
       topics: '28 testable topics',
-      color: '#F0FFF4',
-      border: '#BBF7D0',
+      color: '#ECFDF5',
+      border: '#A7F3D0',
     },
     {
       icon: <FlaskConical size={26} color="#D4AF37" />,
@@ -264,7 +264,7 @@ export default function HomePage() {
       topic: 'Cell Division & Genetics Deep Dive',
       teacher: 'Dr. Ahmed K.',
       initials: 'AK',
-      color: '#22C55E',
+      color: '#059669',
       time: 'Tomorrow — 6:00 PM',
       live: false,
     },
@@ -312,7 +312,7 @@ export default function HomePage() {
             width: '900px',
             height: '600px',
             background:
-              'radial-gradient(ellipse at top, rgba(92, 237, 115, 0.13) 0%, rgba(255,255,255,0) 65%)',
+              'radial-gradient(ellipse at top, rgba(5, 150, 105, 0.13) 0%, rgba(255,255,255,0) 65%)',
             pointerEvents: 'none',
           }}
         />
@@ -449,8 +449,8 @@ export default function HomePage() {
                     transition: 'border-color 0.2s, background 0.2s',
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor = '#22C55E';
-                    (e.currentTarget as HTMLAnchorElement).style.background = '#F0FFF4';
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = '#059669';
+                    (e.currentTarget as HTMLAnchorElement).style.background = '#ECFDF5';
                   }}
                   onMouseLeave={(e) => {
                     (e.currentTarget as HTMLAnchorElement).style.borderColor = '#E2E8F0';
@@ -480,7 +480,7 @@ export default function HomePage() {
                   maxWidth: '420px', // slightly smaller to fit the floating portal correctly
                 }}
               >
-                {/* Main graphic card (Placeholder for Founder Photo) */}
+                {/* Main graphic card (Professional Photo) */}
                 <div
                   style={{
                     borderRadius: '24px',
@@ -495,11 +495,13 @@ export default function HomePage() {
                     position: 'relative',
                   }}
                 >
-                  <span style={{ color: '#94A3B8', fontSize: '0.9rem', fontWeight: 600 }}>
-                    [ Replace with Professional Photo ]
-                  </span>
-                  {/* You would place the real next/image here */}
-                  {/* <Image src="/founder-photo.jpg" alt="Ahsora Founder" fill style={{ objectFit: 'cover' }} priority /> */}
+                  <Image 
+                    src="/founder-photo.jpg" 
+                    alt="Ahsora Founder in Medical Setting" 
+                    fill 
+                    style={{ objectFit: 'cover' }} 
+                    priority 
+                  />
                 </div>
 
                 {/* Floating Student Portal Visual */}
@@ -516,7 +518,7 @@ export default function HomePage() {
                     style={{
                       borderRadius: '16px',
                       overflow: 'hidden',
-                      boxShadow: '0 32px 64px -12px rgba(15,23,42,0.25), 0 0 0 1px rgba(34,197,94,0.15)',
+                      boxShadow: '0 32px 64px -12px rgba(15,23,42,0.25), 0 0 0 1px rgba(5,150,105,0.15)',
                       backgroundColor: '#0F172A',
                       padding: '4px',
                     }}
@@ -618,7 +620,7 @@ export default function HomePage() {
                 style={{
                   fontSize: '0.75rem',
                   fontWeight: 700,
-                  color: '#22C55E',
+                  color: '#059669',
                   textTransform: 'uppercase',
                   letterSpacing: '1.5px',
                   display: 'block',
@@ -639,7 +641,7 @@ export default function HomePage() {
                 }}
               >
                 We don&apos;t just sell courses.{' '}
-                <span style={{ color: '#22C55E', fontStyle: 'italic' }}>We teach you live.</span>
+                <span style={{ color: '#059669', fontStyle: 'italic' }}>We teach you live.</span>
               </h2>
               <p
                 style={{
@@ -675,9 +677,9 @@ export default function HomePage() {
             >
               {[
                 {
-                  icon: <Video size={22} color="#22C55E" />,
-                  bg: '#F0FFF4',
-                  border: '#BBF7D0',
+                  icon: <Video size={22} color="#059669" />,
+                  bg: '#ECFDF5',
+                  border: '#A7F3D0',
                   title: 'Real Teachers. Real Classes.',
                   desc: 'Live IMAT lectures every week — not just recordings. Ask questions, get answers.',
                 },
@@ -689,9 +691,9 @@ export default function HomePage() {
                   desc: 'Prep → mock tests → university application → visa. We stay with you end to end.',
                 },
                 {
-                  icon: <TrendingUp size={22} color="#22C55E" />,
-                  bg: '#F0FFF4',
-                  border: '#BBF7D0',
+                  icon: <TrendingUp size={22} color="#059669" />,
+                  bg: '#ECFDF5',
+                  border: '#A7F3D0',
                   title: 'Proven Results',
                   desc: '96.8% pass rate across 3,500+ IMAT students from 40+ countries worldwide.',
                 },
@@ -759,14 +761,14 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════════
           4. SIGNATURE LEARNING CYCLE
       ══════════════════════════════════════════════════ */}
-      <section style={{ padding: '100px 0', backgroundColor: '#F8FAFC' }}>
+      <section style={{ padding: '100px 0', backgroundColor: '#FFFFFF' }}>
         <div className="container">
           <AnimatedSection style={{ textAlign: 'center', maxWidth: '680px', margin: '0 auto 64px auto' }}>
             <span
               style={{
                 fontSize: '0.75rem',
                 fontWeight: 700,
-                color: '#22C55E',
+                color: '#059669',
                 textTransform: 'uppercase',
                 letterSpacing: '1.5px',
               }}
@@ -783,7 +785,7 @@ export default function HomePage() {
               }}
             >
               The Ahsora{' '}
-              <span style={{ color: '#22C55E', fontStyle: 'italic' }}>Signature Learning Cycle</span>
+              <span style={{ color: '#059669', fontStyle: 'italic' }}>Signature Learning Cycle</span>
             </h2>
             <p style={{ color: '#64748B', fontSize: '1rem', lineHeight: 1.7 }}>
               Improvement isn&apos;t linear — it&apos;s cyclical. Our platform is built around a 
@@ -809,7 +811,7 @@ export default function HomePage() {
                 icon={<BookOpen size={28} color="#FFFFFF" />}
                 label="Study"
                 sublabel="Structured courses & notes"
-                color="#22C55E"
+                color="#059669"
                 delay={0}
                 isActive={cycleVisible}
               />
@@ -818,7 +820,7 @@ export default function HomePage() {
                 icon={<FileCheck size={28} color="#FFFFFF" />}
                 label="Mock Test"
                 sublabel="Real IMAT conditions"
-                color="#16A34A"
+                color="#047857"
                 delay={300}
                 isActive={cycleVisible}
               />
@@ -845,7 +847,7 @@ export default function HomePage() {
                 icon={<TrendingUp size={28} color="#FFFFFF" />}
                 label="Improve"
                 sublabel="Score higher each cycle"
-                color="#22C55E"
+                color="#059669"
                 delay={1200}
                 isActive={cycleVisible}
               />
@@ -864,21 +866,21 @@ export default function HomePage() {
               {[
                 {
                   step: '01',
-                  icon: <BookOpen size={20} color="#22C55E" />,
+                  icon: <BookOpen size={20} color="#059669" />,
                   title: 'Learn with structured courses',
                   desc: 'High-yield subject modules, video lectures, and downloadable summary sheets — covering every IMAT topic in priority order.',
                   link: '/courses',
                   cta: 'Browse IMAT Courses',
-                  accent: '#22C55E',
+                  accent: '#059669',
                 },
                 {
                   step: '02',
-                  icon: <FileCheck size={20} color="#22C55E" />,
+                  icon: <FileCheck size={20} color="#059669" />,
                   title: 'Test under real conditions',
                   desc: '60-question, 100-minute mock tests with the exact Italian Ministry scoring: +1.5 correct, −0.4 wrong, 0 unanswered.',
                   link: '/mock-tests',
                   cta: 'View Mock Tests',
-                  accent: '#22C55E',
+                  accent: '#059669',
                 },
                 {
                   step: '03',
@@ -921,8 +923,8 @@ export default function HomePage() {
                         fontSize: '0.7rem',
                         fontWeight: 800,
                         color: item.accent,
-                        backgroundColor: item.accent === '#22C55E' ? '#F0FFF4' : '#FFFBEB',
-                        border: `1px solid ${item.accent === '#22C55E' ? '#BBF7D0' : '#FDE68A'}`,
+                        backgroundColor: item.accent === '#059669' ? '#ECFDF5' : '#FFFBEB',
+                        border: `1px solid ${item.accent === '#059669' ? '#A7F3D0' : '#FDE68A'}`,
                         borderRadius: '6px',
                         padding: '3px 8px',
                         letterSpacing: '0.5px',
@@ -960,7 +962,7 @@ export default function HomePage() {
                       gap: '5px',
                       fontSize: '0.85rem',
                       fontWeight: 700,
-                      color: '#16A34A',
+                      color: '#047857',
                       transition: 'gap 0.2s',
                     }}
                   >
@@ -983,7 +985,7 @@ export default function HomePage() {
               style={{
                 fontSize: '0.75rem',
                 fontWeight: 700,
-                color: '#22C55E',
+                color: '#059669',
                 textTransform: 'uppercase',
                 letterSpacing: '1.5px',
               }}
@@ -1027,7 +1029,7 @@ export default function HomePage() {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '6px',
-                  backgroundColor: '#F8FAFC',
+                  backgroundColor: '#FFFFFF',
                   border: '1px solid #E2E8F0',
                   borderRadius: '9999px',
                   padding: '6px 14px',
@@ -1036,17 +1038,17 @@ export default function HomePage() {
                   color: '#475569',
                 }}
               >
-                <span style={{ color: '#22C55E' }}>{s.icon}</span>
+                <span style={{ color: '#059669' }}>{s.icon}</span>
                 {s.label}
                 <span
                   style={{
-                    backgroundColor: '#F0FFF4',
-                    color: '#16A34A',
+                    backgroundColor: '#ECFDF5',
+                    color: '#047857',
                     borderRadius: '9999px',
                     padding: '1px 7px',
                     fontSize: '0.7rem',
                     fontWeight: 700,
-                    border: '1px solid #BBF7D0',
+                    border: '1px solid #A7F3D0',
                   }}
                 >
                   {s.q}
@@ -1113,7 +1115,7 @@ export default function HomePage() {
                   'Recorded Class Replays',
                 ].map((feat, i) => (
                   <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', color: '#475569', fontSize: '0.9375rem' }}>
-                    <CheckCircle2 size={18} color="#22C55E" style={{ marginTop: '1px', flexShrink: 0 }} />
+                    <CheckCircle2 size={18} color="#059669" style={{ marginTop: '1px', flexShrink: 0 }} />
                     {feat}
                   </li>
                 ))}
@@ -1126,12 +1128,12 @@ export default function HomePage() {
             {/* Package 2: Mastery (Popular) */}
             <div
               style={{
-                border: '2px solid #22C55E',
+                border: '2px solid #059669',
                 borderRadius: '20px',
                 padding: '40px 30px',
                 display: 'flex',
                 flexDirection: 'column',
-                backgroundColor: '#F0FFF4',
+                backgroundColor: '#ECFDF5',
                 position: 'relative',
                 boxShadow: '0 20px 48px -8px rgba(34,197,94,0.2)',
                 transform: 'scale(1.02)',
@@ -1143,7 +1145,7 @@ export default function HomePage() {
                   top: '-15px',
                   left: '50%',
                   transform: 'translateX(-50%)',
-                  background: 'linear-gradient(135deg, #22C55E, #16A34A)',
+                  background: 'linear-gradient(135deg, #059669, #047857)',
                   color: '#FFF',
                   padding: '5px 18px',
                   borderRadius: '20px',
@@ -1165,7 +1167,7 @@ export default function HomePage() {
                   style={{
                     fontSize: '0.7rem',
                     fontWeight: 700,
-                    color: '#16A34A',
+                    color: '#047857',
                     textTransform: 'uppercase',
                     letterSpacing: '1px',
                   }}
@@ -1189,12 +1191,12 @@ export default function HomePage() {
                   { text: 'In-depth Performance Analytics', bold: false },
                 ].map((feat, i) => (
                   <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', color: '#375', fontSize: '0.9375rem', fontWeight: feat.bold ? 700 : 400 }}>
-                    <CheckCircle2 size={18} color="#22C55E" style={{ marginTop: '1px', flexShrink: 0 }} />
+                    <CheckCircle2 size={18} color="#059669" style={{ marginTop: '1px', flexShrink: 0 }} />
                     <span style={{ color: feat.bold ? '#0F172A' : '#475569' }}>{feat.text}</span>
                   </li>
                 ))}
               </ul>
-              <Link href="/courses" className="btn-primary" style={{ width: '100%', textAlign: 'center', padding: '14px', backgroundColor: '#22C55E', display: 'block' }}>
+              <Link href="/courses" className="btn-primary" style={{ width: '100%', textAlign: 'center', padding: '14px', backgroundColor: '#059669', display: 'block' }}>
                 Select Plan
               </Link>
             </div>
@@ -1328,7 +1330,7 @@ export default function HomePage() {
                   gap: '6px',
                   fontSize: '0.75rem',
                   fontWeight: 700,
-                  color: '#22C55E',
+                  color: '#059669',
                   textTransform: 'uppercase',
                   letterSpacing: '1.5px',
                   marginBottom: '16px',
@@ -1339,7 +1341,7 @@ export default function HomePage() {
                     width: '8px',
                     height: '8px',
                     borderRadius: '50%',
-                    backgroundColor: '#22C55E',
+                    backgroundColor: '#059669',
                     display: 'inline-block',
                     animation: 'pulseGlow 1.5s ease-in-out infinite',
                   }}
@@ -1358,7 +1360,7 @@ export default function HomePage() {
                 }}
               >
                 We Don&apos;t Just Sell Courses.{' '}
-                <span style={{ color: '#22C55E', fontStyle: 'italic' }}>We Teach You Live.</span>
+                <span style={{ color: '#059669', fontStyle: 'italic' }}>We Teach You Live.</span>
               </h2>
               <p
                 style={{
@@ -1376,12 +1378,12 @@ export default function HomePage() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', marginBottom: '40px' }}>
                 {[
                   {
-                    icon: <Mic size={18} color="#22C55E" />,
+                    icon: <Mic size={18} color="#059669" />,
                     title: 'Weekly Live Subject Lectures',
                     desc: 'Biology, Chemistry, Physics & Critical Thinking — live every week.',
                   },
                   {
-                    icon: <MessageCircle size={18} color="#22C55E" />,
+                    icon: <MessageCircle size={18} color="#059669" />,
                     title: 'Teacher Q&A Sessions',
                     desc: 'Ask anything in real time. Get answers from subject experts.',
                   },
@@ -1425,7 +1427,7 @@ export default function HomePage() {
                 style={{
                   padding: '14px 30px',
                   fontSize: '0.9375rem',
-                  backgroundColor: '#22C55E',
+                  backgroundColor: '#059669',
                   boxShadow: '0 8px 28px -4px rgba(92,237,115,0.4)',
                 }}
               >
@@ -1467,9 +1469,9 @@ export default function HomePage() {
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: '5px',
-                      backgroundColor: 'rgba(34,197,94,0.15)',
+                      backgroundColor: 'rgba(5,150,105,0.15)',
                       border: '1px solid rgba(34,197,94,0.3)',
-                      color: '#22C55E',
+                      color: '#059669',
                       padding: '5px 12px',
                       borderRadius: '9999px',
                       fontSize: '0.75rem',
@@ -1481,7 +1483,7 @@ export default function HomePage() {
                         width: '6px',
                         height: '6px',
                         borderRadius: '50%',
-                        backgroundColor: '#22C55E',
+                        backgroundColor: '#059669',
                         animation: 'pulseGlow 1.5s ease-in-out infinite',
                       }}
                     />
@@ -1532,8 +1534,8 @@ export default function HomePage() {
                             style={{
                               fontSize: '0.7rem',
                               fontWeight: 700,
-                              color: session.live ? '#22C55E' : '#94A3B8',
-                              backgroundColor: session.live ? 'rgba(34,197,94,0.15)' : 'rgba(255,255,255,0.06)',
+                              color: session.live ? '#059669' : '#94A3B8',
+                              backgroundColor: session.live ? 'rgba(5,150,105,0.15)' : 'rgba(255,255,255,0.06)',
                               border: `1px solid ${session.live ? 'rgba(34,197,94,0.3)' : 'rgba(255,255,255,0.1)'}`,
                               padding: '2px 8px',
                               borderRadius: '9999px',
@@ -1561,9 +1563,9 @@ export default function HomePage() {
                         onClick={() => setLeadModalOpen(true)}
                         style={{
                           flexShrink: 0,
-                          backgroundColor: session.live ? '#22C55E' : 'rgba(255,255,255,0.08)',
+                          backgroundColor: session.live ? '#059669' : 'rgba(255,255,255,0.08)',
                           color: session.live ? '#FFFFFF' : '#94A3B8',
-                          border: `1px solid ${session.live ? '#22C55E' : 'rgba(255,255,255,0.12)'}`,
+                          border: `1px solid ${session.live ? '#059669' : 'rgba(255,255,255,0.12)'}`,
                           borderRadius: '9999px',
                           padding: '6px 14px',
                           fontSize: '0.75rem',
@@ -1597,7 +1599,7 @@ export default function HomePage() {
                     style={{
                       fontSize: '0.8rem',
                       fontWeight: 700,
-                      color: '#22C55E',
+                      color: '#059669',
                       background: 'none',
                       border: 'none',
                       cursor: 'pointer',
@@ -1618,12 +1620,12 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════════
           7. LIVE IMAT SIMULATOR (improved)
       ══════════════════════════════════════════════════ */}
-      <section style={{ padding: '100px 0', backgroundColor: '#F8FAFC' }}>
+      <section style={{ padding: '100px 0', backgroundColor: '#FFFFFF' }}>
         <div className="container">
           <AnimatedSection animClass="scroll-scale-in">
             <div
               style={{
-                background: 'linear-gradient(140deg, #15803D 0%, #22C55E 45%, #16A34A 100%)',
+                background: 'linear-gradient(140deg, #065f46 0%, #059669 45%, #047857 100%)',
                 borderRadius: '28px',
                 padding: '64px 52px',
                 display: 'grid',
@@ -1719,7 +1721,7 @@ export default function HomePage() {
                       alignItems: 'center',
                       gap: '8px',
                       backgroundColor: '#FFFFFF',
-                      color: '#15803D',
+                      color: '#065f46',
                       fontWeight: 700,
                       fontSize: '0.9375rem',
                       padding: '13px 28px',
@@ -1774,7 +1776,7 @@ export default function HomePage() {
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
-                    <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#22C55E', backgroundColor: '#F0FFF4', border: '1px solid #BBF7D0', padding: '3px 10px', borderRadius: '9999px' }}>
+                    <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#059669', backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', padding: '3px 10px', borderRadius: '9999px' }}>
                       Biology · Q14 of 60
                     </span>
                     <span style={{ fontSize: '0.8rem', color: '#EF4444', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -1792,9 +1794,9 @@ export default function HomePage() {
                         padding: '8px 12px',
                         borderRadius: '8px',
                         fontSize: '0.8rem',
-                        color: i === 0 ? '#15803D' : '#475569',
-                        backgroundColor: i === 0 ? '#F0FFF4' : '#F8FAFC',
-                        border: `1px solid ${i === 0 ? '#BBF7D0' : '#E2E8F0'}`,
+                        color: i === 0 ? '#065f46' : '#475569',
+                        backgroundColor: i === 0 ? '#ECFDF5' : '#FFFFFF',
+                        border: `1px solid ${i === 0 ? '#A7F3D0' : '#E2E8F0'}`,
                         marginBottom: '6px',
                         fontWeight: i === 0 ? 700 : 400,
                         display: 'flex',
@@ -1806,8 +1808,8 @@ export default function HomePage() {
                         width: '20px',
                         height: '20px',
                         borderRadius: '50%',
-                        border: `2px solid ${i === 0 ? '#22C55E' : '#CBD5E1'}`,
-                        backgroundColor: i === 0 ? '#22C55E' : 'transparent',
+                        border: `2px solid ${i === 0 ? '#059669' : '#CBD5E1'}`,
+                        backgroundColor: i === 0 ? '#059669' : 'transparent',
                         flexShrink: 0,
                         display: 'flex',
                         alignItems: 'center',
@@ -1831,14 +1833,14 @@ export default function HomePage() {
                 >
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
                     <strong style={{ fontSize: '0.875rem', color: '#0F172A' }}>Score Breakdown</strong>
-                    <span style={{ fontSize: '0.7rem', fontWeight: 700, color: '#14532D', backgroundColor: '#F0FFF4', border: '1px solid #BBF7D0', borderRadius: '9999px', padding: '3px 10px' }}>
+                    <span style={{ fontSize: '0.7rem', fontWeight: 700, color: '#14532D', backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', borderRadius: '9999px', padding: '3px 10px' }}>
                       LIVE REPORT
                     </span>
                   </div>
                   {[
-                    { label: 'Biology', pct: 84, color: '#22C55E' },
+                    { label: 'Biology', pct: 84, color: '#059669' },
                     { label: 'Chemistry', pct: 71, color: '#D4AF37' },
-                    { label: 'Critical Thinking', pct: 91, color: '#22C55E' },
+                    { label: 'Critical Thinking', pct: 91, color: '#059669' },
                     { label: 'Physics & Maths', pct: 63, color: '#F59E0B' },
                   ].map((bar) => (
                     <div key={bar.label} style={{ marginBottom: '10px' }}>
@@ -1853,7 +1855,7 @@ export default function HomePage() {
                   ))}
                   <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid #F1F5F9', display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem' }}>
                     <span style={{ color: '#64748B' }}>IMAT Score Estimate</span>
-                    <strong style={{ color: '#22C55E', fontSize: '1rem' }}>47.4 / 90</strong>
+                    <strong style={{ color: '#059669', fontSize: '1rem' }}>47.4 / 90</strong>
                   </div>
                 </div>
               </div>
@@ -1872,7 +1874,7 @@ export default function HomePage() {
               style={{
                 fontSize: '0.75rem',
                 fontWeight: 700,
-                color: '#22C55E',
+                color: '#059669',
                 textTransform: 'uppercase',
                 letterSpacing: '1.5px',
               }}
@@ -1918,13 +1920,13 @@ export default function HomePage() {
               },
               {
                 badge: 'Live Classes',
-                badgeColor: '#16A34A',
-                badgeBg: '#F0FFF4',
-                borderColor: '#22C55E',
+                badgeColor: '#047857',
+                badgeBg: '#ECFDF5',
+                borderColor: '#059669',
                 date: 'Sep 2026',
                 title: 'New Weekly Live Class Schedule Released',
                 desc: 'Biology, Chemistry, and Critical Thinking live sessions have been scheduled. Enroll in Mastery or Path Elite to join.',
-                icon: <Video size={18} color="#16A34A" />,
+                icon: <Video size={18} color="#047857" />,
                 link: '/courses',
                 cta: 'Enroll Now',
               },
@@ -2031,7 +2033,7 @@ export default function HomePage() {
                 paddingBottom: '2px',
                 transition: 'color 0.2s',
               }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = '#22C55E')}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = '#059669')}
               onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = '#64748B')}
             >
               <Newspaper size={15} />
@@ -2044,14 +2046,14 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════════
           9. FAQs (expanded + WhatsApp CTA)
       ══════════════════════════════════════════════════ */}
-      <section style={{ padding: '90px 0', backgroundColor: '#F8FAFC' }}>
+      <section style={{ padding: '90px 0', backgroundColor: '#FFFFFF' }}>
         <div className="container" style={{ maxWidth: '820px' }}>
           <AnimatedSection style={{ textAlign: 'center', marginBottom: '52px' }}>
             <span
               style={{
                 fontSize: '0.75rem',
                 fontWeight: 700,
-                color: '#22C55E',
+                color: '#059669',
                 textTransform: 'uppercase',
                 letterSpacing: '1.5px',
               }}
@@ -2083,7 +2085,7 @@ export default function HomePage() {
                   delay={idx * 70}
                   style={{
                     backgroundColor: '#FFFFFF',
-                    border: isOpen ? '1px solid #BBF7D0' : '1px solid #E2E8F0',
+                    border: isOpen ? '1px solid #A7F3D0' : '1px solid #E2E8F0',
                     borderRadius: '14px',
                     overflow: 'hidden',
                     transition: 'border-color 0.25s',
@@ -2115,12 +2117,12 @@ export default function HomePage() {
                         width: '28px',
                         height: '28px',
                         borderRadius: '50%',
-                        backgroundColor: isOpen ? '#F0FFF4' : '#F8FAFC',
-                        border: `1px solid ${isOpen ? '#BBF7D0' : '#E2E8F0'}`,
+                        backgroundColor: isOpen ? '#ECFDF5' : '#FFFFFF',
+                        border: `1px solid ${isOpen ? '#A7F3D0' : '#E2E8F0'}`,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        color: isOpen ? '#16A34A' : '#64748B',
+                        color: isOpen ? '#047857' : '#64748B',
                         transition: 'all 0.25s',
                         transform: isOpen ? 'rotate(0deg)' : 'rotate(0deg)',
                       }}
@@ -2141,7 +2143,7 @@ export default function HomePage() {
                         color: '#475569',
                         fontSize: '0.9375rem',
                         lineHeight: 1.75,
-                        borderTop: '1px solid #F0FFF4',
+                        borderTop: '1px solid #ECFDF5',
                         paddingTop: '16px',
                         animation: 'fadeInUp 0.3s ease-out forwards',
                       }}
@@ -2178,7 +2180,7 @@ export default function HomePage() {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '8px',
-                  backgroundColor: '#22C55E',
+                  backgroundColor: '#059669',
                   color: '#FFFFFF',
                   fontWeight: 700,
                   fontSize: '0.875rem',
@@ -2228,7 +2230,7 @@ export default function HomePage() {
                 width: '64px',
                 height: '64px',
                 borderRadius: '50%',
-                background: 'linear-gradient(135deg, #22C55E, #16A34A)',
+                background: 'linear-gradient(135deg, #059669, #047857)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -2282,8 +2284,8 @@ export default function HomePage() {
                 style={{
                   padding: '16px 36px',
                   fontSize: '1rem',
-                  backgroundColor: '#22C55E',
-                  boxShadow: '0 8px 28px -4px rgba(92,237,115,0.5)',
+                  backgroundColor: '#059669',
+                  boxShadow: '0 8px 28px -4px rgba(5,150,105,0.5)',
                 }}
               >
                 <span>Book Free 1-on-1 Counselling</span>
@@ -2337,7 +2339,7 @@ export default function HomePage() {
                     fontWeight: 500,
                   }}
                 >
-                  <span style={{ color: '#22C55E' }}>{badge.icon}</span>
+                  <span style={{ color: '#059669' }}>{badge.icon}</span>
                   {badge.text}
                 </div>
               ))}
@@ -2354,3 +2356,4 @@ export default function HomePage() {
     </div>
   );
 }
+

@@ -12,7 +12,7 @@
   --primary-300: #86efac;
   --primary-400: #5CED73;   /* Main Brand Green */
   --primary-500: #3EDB5E;   /* Slightly deeper */
-  --primary-600: #22C55E;   /* Button / Active */
+  --primary-600: #059669;   /* Button / Active */
   --primary-700: #16A34A;   /* Hover state */
   --primary-800: #166534;
   --primary-900: #14532D;
@@ -39,7 +39,7 @@
   --text-green: #16A34A;
 
   /* Status */
-  --success: #22C55E;
+  --success: #059669;
   --success-bg: #f0fff4;
   --success-border: #bbf7d0;
   --success-text: #14532D;
@@ -54,7 +54,7 @@
   --danger-border: #fecaca;
   --danger-text: #991b1b;
 
-  --info: #22C55E;
+  --info: #059669;
   --info-bg: #f0fff4;
   --info-border: #bbf7d0;
   --info-text: #14532D;
@@ -137,7 +137,7 @@ button {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background-color: #22C55E;
+  background-color: #059669;
   color: #ffffff;
   font-weight: 700;
   font-size: 0.9375rem;
