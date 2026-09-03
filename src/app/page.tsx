@@ -367,8 +367,8 @@ export default function HomePage() {
                   animation: 'fadeInUp 0.7s 0.1s cubic-bezier(0.16,1,0.3,1) both',
                 }}
               >
-                THE IMAT IS THE TEST.<br />
-                YOUR JOURNEY IS MUCH BIGGER.
+                <span>THE IMAT IS THE TEST.</span><br />
+                <span style={{ color: '#059669' }}>YOUR JOURNEY IS MUCH BIGGER.</span>
               </h1>
 
               {/* Supporting copy */}
@@ -441,21 +441,21 @@ export default function HomePage() {
                     gap: '6px',
                     fontSize: '0.9375rem',
                     fontWeight: 700,
-                    color: '#0F172A',
+                    color: '#059669',
                     background: 'none',
-                    border: '1.5px solid #E2E8F0',
+                    border: '2px solid #059669', // Bold green border
                     cursor: 'pointer',
                     padding: '13px 26px',
                     borderRadius: '9999px',
-                    transition: 'border-color 0.2s, background 0.2s',
+                    transition: 'background-color 0.2s, color 0.2s',
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor = '#059669';
-                    (e.currentTarget as HTMLAnchorElement).style.background = '#ECFDF5';
+                    (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#059669';
+                    (e.currentTarget as HTMLAnchorElement).style.color = '#FFFFFF';
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor = '#E2E8F0';
-                    (e.currentTarget as HTMLAnchorElement).style.background = 'none';
+                    (e.currentTarget as HTMLAnchorElement).style.backgroundColor = 'transparent';
+                    (e.currentTarget as HTMLAnchorElement).style.color = '#059669';
                   }}
                 >
                   <span>TAKE A FREE IMAT MOCK</span>
