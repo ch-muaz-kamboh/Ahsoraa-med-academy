@@ -330,9 +330,10 @@ export default function HomePage() {
 
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <div
+            className="hero-grid"
             style={{
               display: 'grid',
-              gridTemplateColumns: '1.2fr 0.8fr', // Adjusted for 55% / 45% feel
+              gridTemplateColumns: '1.2fr 0.8fr',
               gap: '60px',
               alignItems: 'center',
             }}
@@ -668,7 +669,7 @@ export default function HomePage() {
 
             {/* Right: 2×2 feature grid */}
             <div
-              className="scroll-stagger"
+              className="scroll-stagger why-features-grid"
               ref={useStaggeredAnimation(4) as React.RefObject<HTMLDivElement>}
               style={{
                 display: 'grid',

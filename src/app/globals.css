@@ -513,3 +513,118 @@ button {
     text-align: left !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE — Full Homepage (<= 768px)
+═══════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ── Container ── */
+  .container {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  /* ── Hero ── */
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 36px !important;
+    text-align: center;
+  }
+
+  .hero-grid > div:last-child {
+    /* right column: hide the photo panel on very small screens or stack below */
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-grid > div:last-child > div {
+    max-width: 340px !important;
+  }
+
+  /* Hero: left-align text again inside narrower viewports */
+  .hero-grid h1,
+  .hero-grid p,
+  .hero-grid div {
+    text-align: left;
+  }
+
+  /* CTA button row: stack vertically */
+  .hero-grid > div:first-child > div[style*="display: flex"][style*="gap: 16px"] {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* ── Why Ahsora — stacked layout on mobile ── */
+  .why-features-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Sections: reduce vertical padding ── */
+  section {
+    padding-top: 56px !important;
+    padding-bottom: 56px !important;
+  }
+
+  /* ── Trust Marquee: smaller text ── */
+  .trust-marquee-inner span {
+    font-size: 0.78rem !important;
+  }
+
+  /* ── Courses: single column ── */
+  [style*="minmax(300px, 1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  [style*="minmax(280px, 1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Live Classes schedule card: stack columns ── */
+  [style*="minmax(300px, 1fr)"] > div {
+    width: 100% !important;
+  }
+
+  /* ── News cards: single column ── */
+  [style*="repeat(auto-fit"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Floating badge in hero: reposition so it doesn't overflow ── */
+  [style*="left: -80px"] {
+    left: 0 !important;
+    right: 0 !important;
+    bottom: -20px !important;
+    margin: 0 auto !important;
+    width: fit-content !important;
+  }
+
+  /* ── FAQ: full width ── */
+  [style*="max-width: '680px'"] {
+    max-width: 100% !important;
+  }
+
+  /* ── Typography scale-downs ── */
+  h2 {
+    font-size: clamp(1.6rem, 6vw, 2.2rem) !important;
+  }
+
+  /* ── Final CTA buttons: stack ── */
+  [style*="gap: '20px'"] {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+}
+
+/* ─── Small phones (<= 480px) ──────────────────────────── */
+@media (max-width: 480px) {
+  .container {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* Hide right photo column entirely on tiny screens to avoid overflow */
+  .hero-grid > div:last-child {
+    display: none !important;
+  }
+}
