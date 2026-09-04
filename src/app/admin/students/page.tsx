@@ -13,12 +13,24 @@ interface StudentProfile {
   created_at: string;
 }
 
+interface StudentDocument {
+  id: string;
+  title: string;
+  category: string;
+  file_name: string;
+  file_size_bytes: number;
+  status: string;
+  created_at: string;
+}
+
 export default function AdminStudentsPage() {
   const [students, setStudents] = useState<StudentProfile[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [updating, setUpdating] = useState<string | null>(null);
   const [viewingDocs, setViewingDocs] = useState<StudentProfile | null>(null);
+  const [studentDocs, setStudentDocs] = useState<StudentDocument[]>([]);
+  const [docsLoading, setDocsLoading] = useState(false);
 
   const fetchStudents = useCallback(async () => {
     setLoading(true);
@@ -51,9 +63,18 @@ export default function AdminStudentsPage() {
     }
     setUpdating(null);
   };
-
-  const handleStartTest = (student: StudentProfile) => {
-    alert(`Mock Test assigned and started for ${student.full_name || student.email}.`);
+  const openDocs = async (student: StudentProfile) => {
+    setViewingDocs(student);
+    setDocsLoading(true);
+    setStudentDocs([]);
+    const supabase = createClient();
+    const { data } = await supabase
+      .from('documents')
+      .select('*')
+      .eq('student_id', student.id)
+      .order('created_at', { ascending: false });
+    setStudentDocs((data as StudentDocument[]) ?? []);
+    setDocsLoading(false);
   };
 
   const filtered = students.filter(s =>
@@ -196,7 +217,7 @@ export default function AdminStudentsPage() {
                   </td>
                   <td style={{ padding: '16px 20px' }}>
                     <button
-                      onClick={() => setViewingDocs(student)}
+                      onClick={() => openDocs(student)}
                       style={{
                         padding: '7px 14px',
                         borderRadius: '6px',
@@ -235,27 +256,37 @@ export default function AdminStudentsPage() {
               Viewing uploaded files for <strong>{viewingDocs.full_name || viewingDocs.email}</strong>.
             </p>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {[
-                { name: 'passport_copy_2023.pdf', size: '2.4 MB', date: 'Oct 12, 2023' },
-                { name: 'high_school_transcript.pdf', size: '4.1 MB', date: 'Oct 12, 2023' },
-                { name: 'imat_registration_receipt.png', size: '1.2 MB', date: 'Oct 14, 2023' },
-              ].map((doc, idx) => (
-                <div key={idx} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px', border: '1px solid #E2E8F0', borderRadius: '10px', backgroundColor: '#F8FAFC' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <div style={{ width: '40px', height: '40px', borderRadius: '8px', backgroundColor: '#E0E7FF', color: '#4F46E5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <FileText size={20} />
-                    </div>
-                    <div>
-                      <div style={{ fontWeight: 600, fontSize: '0.9375rem', color: '#0F172A' }}>{doc.name}</div>
-                      <div style={{ fontSize: '0.8125rem', color: '#64748B', marginTop: '2px' }}>{doc.size} • Uploaded {doc.date}</div>
-                    </div>
-                  </div>
-                  <button style={{ padding: '8px', borderRadius: '8px', border: '1px solid #E2E8F0', backgroundColor: '#FFFFFF', cursor: 'pointer', color: '#475569' }}>
-                    <Download size={16} />
-                  </button>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', minHeight: '80px' }}>
+              {docsLoading ? (
+                <div style={{ textAlign: 'center', color: '#94A3B8', padding: '24px' }}>Loading documents...</div>
+              ) : studentDocs.length === 0 ? (
+                <div style={{ textAlign: 'center', color: '#94A3B8', padding: '24px' }}>
+                  <FileText size={32} style={{ margin: '0 auto 8px', display: 'block' }} />
+                  No documents uploaded yet.
                 </div>
-              ))}
+              ) : (
+                studentDocs.map((doc) => (
+                  <div key={doc.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px', border: '1px solid #E2E8F0', borderRadius: '10px', backgroundColor: '#F8FAFC' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                      <div style={{ width: '40px', height: '40px', borderRadius: '8px', backgroundColor: '#E0E7FF', color: '#4F46E5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <FileText size={20} />
+                      </div>
+                      <div>
+                        <div style={{ fontWeight: 600, fontSize: '0.9375rem', color: '#0F172A' }}>{doc.title}</div>
+                        <div style={{ fontSize: '0.8125rem', color: '#64748B', marginTop: '2px' }}>
+                          {doc.file_name} • {doc.file_size_bytes ? `${(doc.file_size_bytes / 1024 / 1024).toFixed(1)} MB` : ''} •
+                          <span style={{ marginLeft: '6px', fontWeight: 600, color: doc.status === 'approved' ? '#16A34A' : doc.status === 'revision_requested' ? '#D97706' : '#3B82F6' }}>
+                            {doc.status.replace('_', ' ')}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <button style={{ padding: '8px', borderRadius: '8px', border: '1px solid #E2E8F0', backgroundColor: '#FFFFFF', cursor: 'pointer', color: '#475569' }}>
+                      <Download size={16} />
+                    </button>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </div>
