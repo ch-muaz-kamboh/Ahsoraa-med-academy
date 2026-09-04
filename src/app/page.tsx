@@ -188,7 +188,7 @@ export default function HomePage() {
   const faqs = [
     {
       q: 'What subjects does the IMAT test?',
-      a: 'The IMAT covers 4 sections: Biology (18 questions), Chemistry (12 questions), Physics & Mathematics (8 questions), and Critical Thinking & Problem Solving (22 questions). Our curriculum addresses every testable topic in all sections.',
+      a: 'The IMAT covers 5 sections: Reading & Acquired Knowledge (4 questions), Problem Solving (5 questions), Biology (23 questions), Chemistry (15 questions), and Physics & Mathematics (13 questions). Our curriculum addresses every testable topic in all sections.',
     },
     {
       q: 'How does Ahsora Med Academy prepare me specifically for IMAT?',
@@ -214,33 +214,41 @@ export default function HomePage() {
 
   const imatSubjects = [
     {
-      icon: <Brain size={26} color="#059669" />,
-      title: 'Critical Thinking',
-      desc: 'Argument analysis, problem solving, logical deduction. The highest-weighted section — 22 of 60 questions.',
-      topics: '14 core topic areas',
+      icon: <BookOpen size={26} color="#059669" />,
+      title: 'Reading & Acquired Knowledge',
+      desc: 'General knowledge and reading comprehension skills. 4 questions.',
+      topics: 'General knowledge topics',
       color: '#ECFDF5',
       border: '#A7F3D0',
     },
     {
-      icon: <BookOpen size={26} color="#059669" />,
-      title: 'Biology',
-      desc: 'Cell biology, genetics, human anatomy, physiology, ecology. 18 questions aligned to the official IMAT syllabus.',
-      topics: '28 testable topics',
+      icon: <Brain size={26} color="#059669" />,
+      title: 'Problem Solving',
+      desc: 'Logical reasoning and numerical problem solving. 5 questions.',
+      topics: 'Problem solving skills',
       color: '#ECFDF5',
       border: '#A7F3D0',
     },
     {
       icon: <FlaskConical size={26} color="#D4AF37" />,
-      title: 'Chemistry',
-      desc: 'Organic & inorganic chemistry, stoichiometry, reactions, thermodynamics. 12 questions, high yield for score gains.',
-      topics: '22 testable topics',
+      title: 'Biology',
+      desc: 'Cell biology, genetics, human anatomy, physiology, ecology. 23 questions aligned to the official IMAT syllabus.',
+      topics: '28 testable topics',
       color: '#FFFBEB',
       border: '#FDE68A',
     },
     {
-      icon: <Atom size={26} color="#D4AF37" />,
-      title: 'Physics & Maths',
-      desc: 'Mechanics, waves, electricity, algebra, probability. 8 questions but often the differentiator between top scorers.',
+      icon: <Atom size={26} color="#059669" />,
+      title: 'Chemistry',
+      desc: 'Organic & inorganic chemistry, stoichiometry, reactions, thermodynamics. 15 questions.',
+      topics: '22 testable topics',
+      color: '#ECFDF5',
+      border: '#A7F3D0',
+    },
+    {
+      icon: <Target size={26} color="#D4AF37" />,
+      title: 'Physics & Mathematics',
+      desc: 'Mechanics, waves, electricity, algebra, probability. 13 questions.',
       topics: '18 testable topics',
       color: '#FFFBEB',
       border: '#FDE68A',
@@ -1021,10 +1029,11 @@ export default function HomePage() {
             }}
           >
             {[
-              { icon: <Brain size={14} />, label: 'Critical Thinking', q: '22 Qs' },
-              { icon: <BookOpen size={14} />, label: 'Biology', q: '18 Qs' },
-              { icon: <FlaskConical size={14} />, label: 'Chemistry', q: '12 Qs' },
-              { icon: <Atom size={14} />, label: 'Physics & Maths', q: '8 Qs' },
+              { icon: <BookOpen size={14} />, label: 'Reading & Acquired Knowledge', q: '4 Qs' },
+              { icon: <Brain size={14} />, label: 'Problem Solving', q: '5 Qs' },
+              { icon: <FlaskConical size={14} />, label: 'Biology', q: '23 Qs' },
+              { icon: <Atom size={14} />, label: 'Chemistry', q: '15 Qs' },
+              { icon: <Target size={14} />, label: 'Physics & Mathematics', q: '13 Qs' },
             ].map((s) => (
               <div
                 key={s.label}
@@ -1239,7 +1248,7 @@ export default function HomePage() {
                 </span>
               </div>
               <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                Ahsora Path Elite <Sparkles size={18} color="#D4AF37" />
+                Ahsora MedPath elite <Sparkles size={18} color="#D4AF37" />
               </h3>
               <p style={{ color: '#94A3B8', fontSize: '0.9375rem', marginBottom: '28px', lineHeight: 1.6 }}>
                 The ultimate 1-on-1 personalized mentorship from IMAT prep to admission.
@@ -2078,7 +2087,14 @@ export default function HomePage() {
             </p>
           </AnimatedSection>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <div
+            className="faq-grid"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gap: '16px',
+            }}
+          >
             {faqs.map((faq, idx) => {
               const isOpen = faqOpenIndex === idx;
               return (
