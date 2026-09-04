@@ -256,14 +256,14 @@ export default function HomePage() {
   ];
 
   const trustItems = [
-    { icon: '🎓', text: '3,500+ Students Enrolled' },
-    { icon: '🎥', text: 'Live Weekly Classes by Real Teachers' },
-    { icon: '📊', text: '96.8% Pass Rate' },
-    { icon: '🏛️', text: 'Trusted by Students in 40+ Countries' },
+    { icon: '🎥', text: '120+ Hours Live Teaching' },
+    { icon: '🩺', text: 'Developed by 1st Hand Experience' },
+    { icon: '🌍', text: 'Trusted Globally' },
+    { icon: '👨‍🏫', text: 'Live Weekly Classes by Real Teachers' },
     { icon: '🔁', text: 'Full Support Until You Pass' },
     { icon: '📝', text: '2,800+ IMAT Practice Questions' },
     { icon: '🇮🇹', text: 'Italy Admissions Experts' },
-    { icon: '⭐', text: '4.9/5 Average Student Rating' },
+    { icon: '📚', text: 'Comprehensive Study Materials' },
   ];
 
   const liveSchedule = [
