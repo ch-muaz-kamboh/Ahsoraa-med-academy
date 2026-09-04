@@ -66,7 +66,7 @@ export async function updateSession(request: NextRequest) {
 
     if (profile?.payment_approved) {
       const url = request.nextUrl.clone();
-      url.pathname = '/portal';
+      url.pathname = '/portal/dashboard';
       return NextResponse.redirect(url);
     } else {
       const url = request.nextUrl.clone();
