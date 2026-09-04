@@ -26,14 +26,8 @@ export default function AdminSidebar() {
 
   const links = [
     { href: '/admin/dashboard', label: 'Executive Dashboard', icon: <LayoutDashboard size={18} /> },
-    { href: '/admin/leads', label: 'CRM Leads & Pipeline', icon: <KanbanSquare size={18} /> },
-    { href: '/admin/applications', label: 'Admissions Cases', icon: <GraduationCap size={18} /> },
-    { href: '/admin/documents', label: 'Document Approvals', icon: <FolderCheck size={18} /> },
-    { href: '/admin/courses', label: 'Courses & Pricing', icon: <BookOpenCheck size={18} /> },
-    { href: '/admin/tests', label: 'Test & Question Bank', icon: <FileSignature size={18} /> },
-    { href: '/admin/universities', label: 'University Database', icon: <Building2 size={18} /> },
-    { href: '/admin/visa', label: 'Visa Operations', icon: <Plane size={18} /> },
-    { href: '/admin/audit-logs', label: 'Compliance Audit Logs', icon: <History size={18} /> },
+    { href: '/admin/students', label: 'Student Management', icon: <GraduationCap size={18} /> },
+    { href: '/admin/content', label: 'Website Content', icon: <FileSignature size={18} /> },
   ];
 
   return (
@@ -59,24 +53,6 @@ export default function AdminSidebar() {
         }}
       >
         <Logo height={48} />
-      </div>
-
-      {/* Role Badge */}
-      <div style={{ padding: '16px' }}>
-        <div
-          style={{
-            backgroundColor: '#1E293B',
-            borderRadius: '8px',
-            padding: '8px 12px',
-            border: '1px solid #334155',
-            fontSize: '0.75rem',
-          }}
-        >
-          <span style={{ color: '#94A3B8' }}>Active Access: </span>
-          <strong style={{ color: '#38BDF8', textTransform: 'uppercase' }}>
-            {currentRole.replace('_', ' ')}
-          </strong>
-        </div>
       </div>
 
       {/* Navigation Links */}
