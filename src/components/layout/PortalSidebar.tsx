@@ -19,20 +19,14 @@ import {
 import { useAppStore } from '@/lib/store';
 import Logo from '@/components/brand/Logo';
 
-export default function PortalSidebar() {
+export default function PortalSidebar({ userFullName = 'Student', userInitials = 'ST' }: { userFullName?: string, userInitials?: string }) {
   const pathname = usePathname();
-  const { currentRole, setRole, currentUser } = useAppStore();
 
   const links = [
+  const links = [
     { href: '/portal/dashboard', label: 'Dashboard', icon: <LayoutDashboard size={18} /> },
-    { href: '/portal/courses', label: 'My Courses & LMS', icon: <BookOpen size={18} /> },
     { href: '/portal/tests', label: 'CBT Mock Tests', icon: <FileCheck2 size={18} /> },
-    { href: '/portal/mentorship', label: 'Doctor Mentorship', icon: <Users2 size={18} /> },
-    { href: '/portal/doubts', label: '1-on-1 Doubt Clearing', icon: <HelpCircle size={18} /> },
-    { href: '/portal/documents', label: 'Document Legalization', icon: <FolderLock size={18} /> },
-    { href: '/portal/applications', label: 'University Applications', icon: <Globe2 size={18} /> },
-    { href: '/portal/visa', label: 'Visa & Embassy Roadmap', icon: <PlaneTakeoff size={18} /> },
-    { href: '/portal/billing', label: 'Tuition & Billing', icon: <Receipt size={18} /> },
+    { href: '/portal/documents', label: 'Document Vault', icon: <FolderLock size={18} /> },
   ];
 
   return (
@@ -88,12 +82,11 @@ export default function PortalSidebar() {
             fontSize: '0.875rem',
           }}
         >
-          {currentUser.firstName[0]}
-          {currentUser.lastName[0]}
+          {userInitials}
         </div>
         <div style={{ overflow: 'hidden' }}>
           <div style={{ fontWeight: 600, fontSize: '0.875rem', color: '#0F172A', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-            {currentUser.firstName} {currentUser.lastName}
+            {userFullName}
           </div>
           <div style={{ fontSize: '0.75rem', color: '#10B981', fontWeight: 600 }}>
             ● Enrolled Student

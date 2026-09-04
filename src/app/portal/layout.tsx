@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PortalSidebar from '@/components/layout/PortalSidebar';
 import { useAppStore } from '@/lib/store';
-import { Bell, Lock, Mail, User, Eye, EyeOff, Check, GraduationCap, ChevronRight, Phone } from 'lucide-react';
+import { createClient } from '@/lib/supabase/client';
+import { Bell, Lock, Mail, User, Eye, EyeOff, Check, GraduationCap, ChevronRight, Phone, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 
 import Logo from '@/components/brand/Logo';
@@ -25,6 +26,33 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
   const [phone, setPhone] = useState('');
   const [targetExam, setTargetExam] = useState('USMLE Step 1');
   const [password, setPassword] = useState('');
+
+  // Real User State
+  const [realUser, setRealUser] = useState<{ fullName: string, firstName: string, initials: string } | null>(null);
+
+  useEffect(() => {
+    if (studentLoggedIn) {
+      const fetchUser = async () => {
+        const supabase = createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('full_name, email')
+            .eq('id', user.id)
+            .single();
+          
+          if (profile) {
+            const fullName = profile.full_name || 'Student';
+            const fName = fullName.split(' ')[0];
+            const inits = fullName.split(' ').slice(0, 2).map((n: string) => n[0]).join('').toUpperCase() || 'ST';
+            setRealUser({ fullName, firstName: fName, initials: inits });
+          }
+        }
+      };
+      fetchUser();
+    }
+  }, [studentLoggedIn]);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -411,7 +439,10 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
   return (
     <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#F8FAFC' }}>
       {/* Sidebar */}
-      <PortalSidebar />
+      <PortalSidebar 
+        userFullName={realUser?.fullName || 'Loading...'} 
+        userInitials={realUser?.initials || ''} 
+      />
 
       {/* Main Content Area */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
@@ -432,18 +463,11 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0F172A' }}>
-              Welcome back, <span style={{ color: '#2563EB' }}>{currentUser.firstName}!</span>
+              Welcome back, <span style={{ color: '#2563EB' }}>{realUser ? realUser.firstName : 'Student'}!</span>
             </span>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <Link
-              href="/portal/doubts"
-              className="btn-secondary"
-              style={{ padding: '6px 12px', fontSize: '0.75rem' }}
-            >
-              Ask a Doubt
-            </Link>
 
             <div
               style={{
@@ -476,7 +500,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                   fontSize: '0.875rem',
                 }}
               >
-                {currentUser.firstName[0]}
+                {realUser ? realUser.initials : 'ST'}
               </div>
             </div>
           </div>
