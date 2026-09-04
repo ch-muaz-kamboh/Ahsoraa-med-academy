@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import { CheckCircle2, XCircle, Clock, Search, RefreshCw, User } from 'lucide-react';
+import { CheckCircle2, XCircle, Clock, Search, RefreshCw, User, FileText, Play, Download, X } from 'lucide-react';
 
 interface StudentProfile {
   id: string;
@@ -18,6 +18,7 @@ export default function AdminStudentsPage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [updating, setUpdating] = useState<string | null>(null);
+  const [viewingDocs, setViewingDocs] = useState<StudentProfile | null>(null);
 
   const fetchStudents = useCallback(async () => {
     setLoading(true);
@@ -49,6 +50,10 @@ export default function AdminStudentsPage() {
       );
     }
     setUpdating(null);
+  };
+
+  const handleStartTest = (student: StudentProfile) => {
+    alert(`Mock Test assigned and started for ${student.full_name || student.email}.`);
   };
 
   const filtered = students.filter(s =>
@@ -146,30 +151,66 @@ export default function AdminStudentsPage() {
                     )}
                   </td>
                   <td style={{ padding: '16px 20px' }}>
-                    <button
-                      disabled={updating === student.id}
-                      onClick={() => toggleApproval(student.id, student.payment_approved)}
-                      style={{
-                        padding: '8px 16px',
-                        borderRadius: '8px',
-                        border: 'none',
-                        cursor: updating === student.id ? 'not-allowed' : 'pointer',
-                        fontWeight: 700,
-                        fontSize: '0.8125rem',
-                        backgroundColor: student.payment_approved ? '#FEF2F2' : '#F0FFF4',
-                        color: student.payment_approved ? '#DC2626' : '#16A34A',
-                        opacity: updating === student.id ? 0.6 : 1,
-                        display: 'inline-flex', alignItems: 'center', gap: '6px'
-                      }}
-                    >
-                      {updating === student.id ? 'Saving...' : (
-                        student.payment_approved ? (
-                          <><XCircle size={14} /> Revoke</>
-                        ) : (
-                          <><CheckCircle2 size={14} /> Approve</>
-                        )
-                      )}
-                    </button>
+                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                      <button
+                        disabled={updating === student.id}
+                        onClick={() => toggleApproval(student.id, student.payment_approved)}
+                        style={{
+                          padding: '6px 12px',
+                          borderRadius: '6px',
+                          border: 'none',
+                          cursor: updating === student.id ? 'not-allowed' : 'pointer',
+                          fontWeight: 600,
+                          fontSize: '0.75rem',
+                          backgroundColor: student.payment_approved ? '#FEF2F2' : '#F0FFF4',
+                          color: student.payment_approved ? '#DC2626' : '#16A34A',
+                          opacity: updating === student.id ? 0.6 : 1,
+                          display: 'inline-flex', alignItems: 'center', gap: '6px'
+                        }}
+                      >
+                        {updating === student.id ? 'Saving...' : (
+                          student.payment_approved ? (
+                            <><XCircle size={14} /> Revoke</>
+                          ) : (
+                            <><CheckCircle2 size={14} /> Approve</>
+                          )
+                        )}
+                      </button>
+
+                      <button
+                        onClick={() => setViewingDocs(student)}
+                        style={{
+                          padding: '6px 12px',
+                          borderRadius: '6px',
+                          border: '1px solid #E2E8F0',
+                          backgroundColor: '#FFFFFF',
+                          cursor: 'pointer',
+                          fontWeight: 600,
+                          fontSize: '0.75rem',
+                          color: '#475569',
+                          display: 'inline-flex', alignItems: 'center', gap: '6px'
+                        }}
+                      >
+                        <FileText size={14} /> Docs
+                      </button>
+
+                      <button
+                        onClick={() => handleStartTest(student)}
+                        style={{
+                          padding: '6px 12px',
+                          borderRadius: '6px',
+                          border: 'none',
+                          backgroundColor: '#0F172A',
+                          color: '#FFFFFF',
+                          cursor: 'pointer',
+                          fontWeight: 600,
+                          fontSize: '0.75rem',
+                          display: 'inline-flex', alignItems: 'center', gap: '6px'
+                        }}
+                      >
+                        <Play size={14} /> Test
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -177,6 +218,48 @@ export default function AdminStudentsPage() {
           </table>
         )}
       </div>
+      {/* Document Viewer Modal */}
+      {viewingDocs && (
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(15, 23, 42, 0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '20px' }}>
+          <div style={{ backgroundColor: '#FFFFFF', borderRadius: '16px', width: '100%', maxWidth: '600px', padding: '32px', position: 'relative', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}>
+            <button
+              onClick={() => setViewingDocs(null)}
+              style={{ position: 'absolute', top: '24px', right: '24px', background: 'none', border: 'none', cursor: 'pointer', color: '#94A3B8' }}
+            >
+              <X size={24} />
+            </button>
+            <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', marginBottom: '8px' }}>
+              Student Documents
+            </h2>
+            <p style={{ color: '#64748B', fontSize: '0.9375rem', marginBottom: '24px' }}>
+              Viewing uploaded files for <strong>{viewingDocs.full_name || viewingDocs.email}</strong>.
+            </p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {[
+                { name: 'passport_copy_2023.pdf', size: '2.4 MB', date: 'Oct 12, 2023' },
+                { name: 'high_school_transcript.pdf', size: '4.1 MB', date: 'Oct 12, 2023' },
+                { name: 'imat_registration_receipt.png', size: '1.2 MB', date: 'Oct 14, 2023' },
+              ].map((doc, idx) => (
+                <div key={idx} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px', border: '1px solid #E2E8F0', borderRadius: '10px', backgroundColor: '#F8FAFC' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <div style={{ width: '40px', height: '40px', borderRadius: '8px', backgroundColor: '#E0E7FF', color: '#4F46E5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <FileText size={20} />
+                    </div>
+                    <div>
+                      <div style={{ fontWeight: 600, fontSize: '0.9375rem', color: '#0F172A' }}>{doc.name}</div>
+                      <div style={{ fontSize: '0.8125rem', color: '#64748B', marginTop: '2px' }}>{doc.size} • Uploaded {doc.date}</div>
+                    </div>
+                  </div>
+                  <button style={{ padding: '8px', borderRadius: '8px', border: '1px solid #E2E8F0', backgroundColor: '#FFFFFF', cursor: 'pointer', color: '#475569' }}>
+                    <Download size={16} />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

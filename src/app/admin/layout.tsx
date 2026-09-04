@@ -204,12 +204,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <span className="badge badge-blue">
-              <Shield size={12} />
-              SYSTEM ROLE: {currentRole.toUpperCase()}
-            </span>
-            <span style={{ fontSize: '0.875rem', color: '#64748B' }}>
-              Logged in as <strong>{currentUser.firstName} {currentUser.lastName}</strong>
+            <span style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A' }}>
+              Admin Portal
             </span>
           </div>
 
