@@ -121,7 +121,7 @@ export default function AdminStudentsPage() {
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '1px solid #E2E8F0' }}>
-                {['Student ID', 'Full Name', 'Email', 'Registered', 'Status', 'Action'].map(h => (
+                {['Student ID', 'Full Name', 'Email', 'Registered', 'Status', 'Access Control', 'Documents'].map(h => (
                   <th key={h} style={{ padding: '14px 20px', textAlign: 'left', fontSize: '0.75rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{h}</th>
                 ))}
               </tr>
@@ -151,66 +151,66 @@ export default function AdminStudentsPage() {
                     )}
                   </td>
                   <td style={{ padding: '16px 20px' }}>
-                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                      {/* Approve Button */}
                       <button
-                        disabled={updating === student.id}
-                        onClick={() => toggleApproval(student.id, student.payment_approved)}
+                        disabled={updating === student.id || student.payment_approved}
+                        onClick={() => toggleApproval(student.id, false)}
+                        title="Approve Access"
                         style={{
-                          padding: '6px 12px',
+                          padding: '7px 14px',
                           borderRadius: '6px',
                           border: 'none',
-                          cursor: updating === student.id ? 'not-allowed' : 'pointer',
-                          fontWeight: 600,
-                          fontSize: '0.75rem',
-                          backgroundColor: student.payment_approved ? '#FEF2F2' : '#F0FFF4',
-                          color: student.payment_approved ? '#DC2626' : '#16A34A',
-                          opacity: updating === student.id ? 0.6 : 1,
+                          cursor: (updating === student.id || student.payment_approved) ? 'not-allowed' : 'pointer',
+                          fontWeight: 700,
+                          fontSize: '0.8125rem',
+                          backgroundColor: student.payment_approved ? '#D1FAE5' : '#059669',
+                          color: student.payment_approved ? '#059669' : '#FFFFFF',
+                          opacity: student.payment_approved ? 0.6 : 1,
                           display: 'inline-flex', alignItems: 'center', gap: '6px'
                         }}
                       >
-                        {updating === student.id ? 'Saving...' : (
-                          student.payment_approved ? (
-                            <><XCircle size={14} /> Revoke</>
-                          ) : (
-                            <><CheckCircle2 size={14} /> Approve</>
-                          )
-                        )}
+                        <CheckCircle2 size={14} /> Approve
                       </button>
-
+                      {/* Decline Button */}
                       <button
-                        onClick={() => setViewingDocs(student)}
+                        disabled={updating === student.id || !student.payment_approved}
+                        onClick={() => toggleApproval(student.id, true)}
+                        title="Decline / Revoke Access"
                         style={{
-                          padding: '6px 12px',
-                          borderRadius: '6px',
-                          border: '1px solid #E2E8F0',
-                          backgroundColor: '#FFFFFF',
-                          cursor: 'pointer',
-                          fontWeight: 600,
-                          fontSize: '0.75rem',
-                          color: '#475569',
-                          display: 'inline-flex', alignItems: 'center', gap: '6px'
-                        }}
-                      >
-                        <FileText size={14} /> Docs
-                      </button>
-
-                      <button
-                        onClick={() => handleStartTest(student)}
-                        style={{
-                          padding: '6px 12px',
+                          padding: '7px 14px',
                           borderRadius: '6px',
                           border: 'none',
-                          backgroundColor: '#0F172A',
-                          color: '#FFFFFF',
-                          cursor: 'pointer',
-                          fontWeight: 600,
-                          fontSize: '0.75rem',
+                          cursor: (updating === student.id || !student.payment_approved) ? 'not-allowed' : 'pointer',
+                          fontWeight: 700,
+                          fontSize: '0.8125rem',
+                          backgroundColor: !student.payment_approved ? '#FEE2E2' : '#DC2626',
+                          color: !student.payment_approved ? '#DC2626' : '#FFFFFF',
+                          opacity: !student.payment_approved ? 0.6 : 1,
                           display: 'inline-flex', alignItems: 'center', gap: '6px'
                         }}
                       >
-                        <Play size={14} /> Test
+                        <XCircle size={14} /> Decline
                       </button>
                     </div>
+                  </td>
+                  <td style={{ padding: '16px 20px' }}>
+                    <button
+                      onClick={() => setViewingDocs(student)}
+                      style={{
+                        padding: '7px 14px',
+                        borderRadius: '6px',
+                        border: '1px solid #E2E8F0',
+                        backgroundColor: '#FFFFFF',
+                        cursor: 'pointer',
+                        fontWeight: 600,
+                        fontSize: '0.8125rem',
+                        color: '#475569',
+                        display: 'inline-flex', alignItems: 'center', gap: '6px'
+                      }}
+                    >
+                      <FileText size={14} /> View Docs
+                    </button>
                   </td>
                 </tr>
               ))}

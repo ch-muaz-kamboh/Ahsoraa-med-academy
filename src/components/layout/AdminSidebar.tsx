@@ -25,8 +25,9 @@ export default function AdminSidebar() {
   const { currentRole } = useAppStore();
 
   const links = [
-    { href: '/admin/dashboard', label: 'Executive Dashboard', icon: <LayoutDashboard size={18} /> },
+    { href: '/admin/dashboard', label: 'Dashboard', icon: <LayoutDashboard size={18} /> },
     { href: '/admin/students', label: 'Student Management', icon: <GraduationCap size={18} /> },
+    { href: '/admin/tests', label: 'Tests', icon: <BookOpenCheck size={18} /> },
     { href: '/admin/content', label: 'Website Content', icon: <FileSignature size={18} /> },
   ];
 
