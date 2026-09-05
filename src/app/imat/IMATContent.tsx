@@ -60,6 +60,11 @@ export default function IMATContent() {
   const calcRef = useScrollAnimation();
   const timelineRef = useStaggeredAnimation(8);
   
+  const segmentRef = useStaggeredAnimation(3);
+  const euRef = useStaggeredAnimation(2);
+  const euHelperRef = useScrollAnimation();
+  const uniRef = useStaggeredAnimation(3);
+  
   const handleScoreChange = (type: 'correct' | 'incorrect' | 'blank', val: string) => {
     const num = parseInt(val) || 0;
     setScoreCalc(prev => ({ ...prev, [type]: num }));
@@ -304,16 +309,16 @@ export default function IMATContent() {
           <div style={{ textAlign: 'center', marginBottom: '40px' }}>
              <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A' }}>Is the IMAT Right for You?</h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', maxWidth: '1000px', margin: '0 auto' }}>
-             <div className="card scroll-fade-up">
+          <div ref={segmentRef as React.RefObject<HTMLDivElement>} className="scroll-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', maxWidth: '1000px', margin: '0 auto' }}>
+             <div className="card">
                <div style={{ fontWeight: 700, fontSize: '1.1rem', color: '#0F172A', marginBottom: '12px' }}>I want to study Medicine in English in Italy</div>
                <Link href="/universities" style={{ color: '#16A34A', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>See IMAT universities <ArrowRight size={16}/></Link>
              </div>
-             <div className="card scroll-fade-up" style={{ transitionDelay: '100ms' }}>
+             <div className="card">
                <div style={{ fontWeight: 700, fontSize: '1.1rem', color: '#0F172A', marginBottom: '12px' }}>I'm not sure which university fits me</div>
                <Link href="/universities" style={{ color: '#16A34A', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>Explore Universities <ArrowRight size={16}/></Link>
              </div>
-             <div className="card scroll-fade-up" style={{ transitionDelay: '200ms' }}>
+             <div className="card">
                <div style={{ fontWeight: 700, fontSize: '1.1rem', color: '#0F172A', marginBottom: '12px' }}>I'm not sure which admission category applies</div>
                <a href="#eu-noneu" style={{ color: '#16A34A', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>See EU / Non-EU guidance below <ArrowRight size={16}/></a>
              </div>
@@ -327,18 +332,18 @@ export default function IMATContent() {
       {/* 08 — EU vs Non-EU & Admission Category */}
       <section id="eu-noneu" style={{ padding: '80px 0', backgroundColor: '#FFFFFF' }}>
         <div className="container" style={{ maxWidth: '900px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px' }}>
-             <div className="card scroll-fade-up">
+          <div ref={euRef as React.RefObject<HTMLDivElement>} className="scroll-stagger" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px' }}>
+             <div className="card">
                <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', marginBottom: '12px' }}>EU Candidates</h3>
                <p style={{ color: '#475569', lineHeight: 1.6 }}>EU citizens — and non-EU citizens legally resident in Italy who meet the criteria — apply through the EU procedure and quota.</p>
              </div>
-             <div className="card scroll-fade-up" style={{ transitionDelay: '100ms' }}>
+             <div className="card">
                <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', marginBottom: '12px' }}>Non-EU Candidates</h3>
                <p style={{ color: '#475569', lineHeight: 1.6 }}>Applying from outside the EU means a separate quota and process, generally including pre-enrolment at an Italian embassy/consulate tied to your visa.</p>
              </div>
           </div>
           
-          <div className="scroll-fade-up" style={{ marginTop: '40px', backgroundColor: '#F0FFF4', border: '1px solid #BBF7D0', padding: '32px', borderRadius: '16px' }}>
+          <div ref={euHelperRef as React.RefObject<HTMLDivElement>} className="scroll-fade-up" style={{ marginTop: '40px', backgroundColor: '#F0FFF4', border: '1px solid #BBF7D0', padding: '32px', borderRadius: '16px' }}>
              <h4 style={{ fontWeight: 700, color: '#16A34A', marginBottom: '16px', fontSize: '1.1rem' }}>Which one am I?</h4>
              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', color: '#0F172A', fontWeight: 500 }}>
                <li style={{ display: 'flex', gap: '12px' }}><CheckCircle2 color="#16A34A" /> EU citizen, or non-EU legally resident in Italy meeting the criteria? → <strong>EU pool.</strong></li>
@@ -368,13 +373,13 @@ export default function IMATContent() {
              </Link>
            </div>
            
-           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+           <div ref={uniRef as React.RefObject<HTMLDivElement>} className="scroll-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
              {[
                { name: 'La Sapienza', city: 'Rome', desc: 'One of Europe\'s oldest universities, offering a prestigious 6-year program.' },
                { name: 'University of Milan', city: 'Milan', desc: 'Renowned IMS program located in Italy\'s economic and fashion capital.' },
                { name: 'University of Pavia', city: 'Pavia', desc: 'The Harvey Medicine course in a historic, student-friendly university town.' }
              ].map((uni, i) => (
-               <div key={i} className="card scroll-fade-up" style={{ backgroundColor: '#1E293B', borderColor: '#334155', color: '#F8FAFC' }}>
+               <div key={i} className="card" style={{ backgroundColor: '#1E293B', borderColor: '#334155', color: '#F8FAFC' }}>
                  <div style={{ fontWeight: 800, fontSize: '1.25rem', marginBottom: '4px' }}>{uni.name}</div>
                  <div style={{ color: '#5CED73', fontSize: '0.9rem', fontWeight: 600, marginBottom: '16px' }}>{uni.city}, Italy</div>
                  <p style={{ color: '#94A3B8', fontSize: '0.95rem', marginBottom: '24px', lineHeight: 1.5 }}>{uni.desc}</p>
