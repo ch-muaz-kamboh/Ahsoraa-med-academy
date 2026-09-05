@@ -14,12 +14,24 @@ import { useScrollAnimation, useStaggeredAnimation } from '@/hooks/useScrollAnim
 
 function AnimatedNumber({ end, suffix = '', label }: { end: number, suffix?: string, label: string }) {
   const [count, setCount] = useState(0);
-  const ref = useScrollAnimation({ threshold: 0.5 }) as React.RefObject<HTMLDivElement>;
+  const ref = React.useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (!ref.current?.classList.contains('is-visible')) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0.5 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible) return;
     let start = 0;
-    const duration = 700;
+    const duration = 1200;
     const increment = end / (duration / 16);
     
     const timer = setInterval(() => {
@@ -33,14 +45,14 @@ function AnimatedNumber({ end, suffix = '', label }: { end: number, suffix?: str
     }, 16);
 
     return () => clearInterval(timer);
-  }, [end, ref.current?.className]);
+  }, [end, isVisible]);
 
   return (
-    <div ref={ref} className="scroll-fade-up" style={{ backgroundColor: '#FFFFFF', borderRadius: '14px', border: '1px solid #E2E8F0', padding: '28px 20px', textAlign: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
-      <div style={{ fontWeight: 800, fontSize: '2.5rem', color: '#16A34A', lineHeight: 1 }}>
+    <div ref={ref} style={{ backgroundColor: '#FFFFFF', borderRadius: '16px', border: '1px solid #E2E8F0', padding: '32px 20px', textAlign: 'center', boxShadow: '0 12px 30px rgba(0,0,0,0.05)', transform: isVisible ? 'translateY(0)' : 'translateY(20px)', opacity: isVisible ? 1 : 0, transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)' }}>
+      <div style={{ fontWeight: 800, fontSize: '3.2rem', color: '#16A34A', lineHeight: 1, letterSpacing: '-1px', textShadow: '0 4px 15px rgba(22, 163, 74, 0.15)' }}>
         {count}{suffix}
       </div>
-      <div style={{ fontWeight: 700, fontSize: '1.1rem', color: '#0F172A', marginTop: '12px' }}>{label}</div>
+      <div style={{ fontWeight: 700, fontSize: '1.1rem', color: '#334155', marginTop: '16px' }}>{label}</div>
     </div>
   );
 }
@@ -237,39 +249,64 @@ export default function IMATContent() {
       {/* 05 — Exam Structure & Syllabus */}
       <section style={{ padding: '80px 0', backgroundColor: '#F8FAFC' }}>
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-            <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A' }}>Exam Structure & Syllabus</h2>
-            <p style={{ color: '#475569', marginTop: '12px' }}>Verified 60-question format across 5 subjects.</p>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxWidth: '860px', margin: '0 auto' }}>
-            {subjects.map((sub, i) => (
-              <div key={i} style={{ backgroundColor: '#FFFFFF', border: openSubject === i ? '1px solid #16A34A' : '1px solid #E2E8F0', borderRadius: '14px', overflow: 'hidden', transition: 'all 0.2s ease' }}>
-                <button 
-                  onClick={() => setOpenSubject(openSubject === i ? null : i)}
-                  style={{ width: '100%', padding: '22px 28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'none', border: 'none', cursor: 'pointer' }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                    <div style={{ backgroundColor: '#F0FFF4', padding: '10px 14px', borderRadius: '10px', color: '#16A34A', fontWeight: 800, fontSize: '1.2rem', minWidth: '48px', textAlign: 'center', border: '1px solid #BBF7D0' }}>
-                      {sub.qs}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '60px', alignItems: 'flex-start' }}>
+            {/* Left: intro + subject pie */}
+            <div>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#16A34A', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Verified Format</span>
+              <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A', marginBottom: '16px', marginTop: '12px' }}>Exam Structure &amp; Syllabus</h2>
+              <p style={{ color: '#475569', lineHeight: 1.8, marginBottom: '32px' }}>60 questions across 5 subjects, sat in a single 100-minute session. Each subject has a fixed number of questions — knowing the breakdown helps you allocate prep time strategically.</p>
+              {/* Visual subject breakdown */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {[
+                  { title: 'Biology', qs: 23, color: '#16A34A', pct: 38 },
+                  { title: 'Chemistry', qs: 15, color: '#0EA5E9', pct: 25 },
+                  { title: 'Physics & Maths', qs: 13, color: '#8B5CF6', pct: 22 },
+                  { title: 'Logical Reasoning', qs: 5, color: '#F59E0B', pct: 8 },
+                  { title: 'Reading & Knowledge', qs: 4, color: '#EC4899', pct: 7 },
+                ].map((s) => (
+                  <div key={s.title}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                      <span style={{ fontWeight: 600, color: '#334155', fontSize: '0.9rem' }}>{s.title}</span>
+                      <span style={{ fontWeight: 800, color: s.color, fontSize: '0.9rem' }}>{s.qs} Qs</span>
                     </div>
-                    <div style={{ fontWeight: 700, fontSize: '1.1rem', color: '#0F172A', textAlign: 'left' }}>
-                      {sub.title}
+                    <div style={{ height: '8px', backgroundColor: '#E2E8F0', borderRadius: '4px', overflow: 'hidden' }}>
+                      <div style={{ height: '100%', width: `${s.pct}%`, backgroundColor: s.color, borderRadius: '4px', transition: 'width 0.6s ease' }} />
                     </div>
                   </div>
-                  {openSubject === i ? <ChevronUp color="#16A34A" /> : <ChevronDown color="#64748B" />}
-                </button>
-                {openSubject === i && (
-                  <div style={{ padding: '0 28px 28px', borderTop: '1px solid #F1F5F9', marginTop: '4px', paddingTop: '20px' }}>
-                    <p style={{ color: '#475569', marginBottom: '16px', lineHeight: 1.6 }}>
-                      <strong>Core topics include:</strong> {sub.topics}
-                    </p>
-                    <Link href="/portal/courses" style={{ color: '#16A34A', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.9rem' }}>
-                      See course modules for this subject <ArrowRight size={16} />
-                    </Link>
-                  </div>
-                )}
+                ))}
               </div>
-            ))}
+            </div>
+            {/* Right: accordion */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {subjects.map((sub, i) => (
+                <div key={i} style={{ backgroundColor: '#FFFFFF', border: openSubject === i ? '1px solid #16A34A' : '1px solid #E2E8F0', borderRadius: '14px', overflow: 'hidden', transition: 'all 0.2s ease' }}>
+                  <button 
+                    onClick={() => setOpenSubject(openSubject === i ? null : i)}
+                    style={{ width: '100%', padding: '18px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'none', border: 'none', cursor: 'pointer' }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                      <div style={{ backgroundColor: '#F0FFF4', padding: '8px 12px', borderRadius: '10px', color: '#16A34A', fontWeight: 800, fontSize: '1.1rem', minWidth: '44px', textAlign: 'center', border: '1px solid #BBF7D0' }}>
+                        {sub.qs}
+                      </div>
+                      <div style={{ fontWeight: 700, fontSize: '1rem', color: '#0F172A', textAlign: 'left' }}>
+                        {sub.title}
+                      </div>
+                    </div>
+                    {openSubject === i ? <ChevronUp color="#16A34A" /> : <ChevronDown color="#64748B" />}
+                  </button>
+                  {openSubject === i && (
+                    <div style={{ padding: '0 24px 24px', borderTop: '1px solid #F1F5F9', paddingTop: '16px' }}>
+                      <p style={{ color: '#475569', marginBottom: '16px', lineHeight: 1.6, fontSize: '0.95rem' }}>
+                        <strong>Core topics:</strong> {sub.topics}
+                      </p>
+                      <Link href="/portal/courses" style={{ color: '#16A34A', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.9rem' }}>
+                        See course modules <ArrowRight size={16} />
+                      </Link>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -351,8 +388,8 @@ export default function IMATContent() {
               {/* Score display */}
               {(() => {
                 const score = inputsTotal > 60 ? null : totalScore;
-                const scoreColor = score === null ? '#F87171' : score >= 50 ? '#5CED73' : score >= 35 ? '#FCD34D' : '#F87171';
-                const scoreBand = score === null ? 'Invalid' : score >= 50 ? 'Competitive Range' : score >= 35 ? 'Moderate Range' : 'Needs Work';
+                const scoreColor = score === null ? '#F87171' : score >= 60 ? '#5CED73' : score >= 45 ? '#FCD34D' : '#F87171';
+                const scoreBand = score === null ? 'Invalid' : score >= 60 ? 'Competitive Range' : score >= 45 ? 'Moderate Range' : 'Needs Work';
                 const fillPct = score === null ? 0 : Math.max(0, Math.min(100, (score / 90) * 100));
                 return (
                   <div style={{ backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '16px', padding: '24px', border: `1px solid ${scoreColor}33` }}>
@@ -376,7 +413,7 @@ export default function IMATContent() {
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px' }}>
                       <span style={{ fontSize: '0.7rem', color: '#475569' }}>0</span>
-                      <span style={{ fontSize: '0.7rem', color: '#475569' }}>45 (competitive)</span>
+                      <span style={{ fontSize: '0.7rem', color: '#475569' }}>60 (competitive)</span>
                       <span style={{ fontSize: '0.7rem', color: '#475569' }}>90</span>
                     </div>
                     <div style={{ fontSize: '0.78rem', color: '#64748B', lineHeight: 1.5, marginTop: '12px', paddingTop: '12px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
@@ -393,25 +430,30 @@ export default function IMATContent() {
       {/* 07 — Is the IMAT Right for You? */}
       <section style={{ padding: '80px 0', backgroundColor: '#F8FAFC', borderTop: '1px solid #E2E8F0' }}>
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-             <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A' }}>Is the IMAT Right for You?</h2>
+          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#16A34A', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Find Your Path</span>
+            <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A', marginTop: '12px' }}>Is the IMAT Right for You?</h2>
           </div>
-          <div ref={segmentRef as React.RefObject<HTMLDivElement>} className="scroll-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', maxWidth: '1000px', margin: '0 auto' }}>
-             <div className="card">
-               <div style={{ fontWeight: 700, fontSize: '1.1rem', color: '#0F172A', marginBottom: '12px' }}>I want to study Medicine in English in Italy</div>
-               <Link href="/universities" style={{ color: '#16A34A', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>See IMAT universities <ArrowRight size={16}/></Link>
-             </div>
-             <div className="card">
-               <div style={{ fontWeight: 700, fontSize: '1.1rem', color: '#0F172A', marginBottom: '12px' }}>I'm not sure which university fits me</div>
-               <Link href="/universities" style={{ color: '#16A34A', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>Explore Universities <ArrowRight size={16}/></Link>
-             </div>
-             <div className="card">
-               <div style={{ fontWeight: 700, fontSize: '1.1rem', color: '#0F172A', marginBottom: '12px' }}>I'm not sure which admission category applies</div>
-               <a href="#eu-noneu" style={{ color: '#16A34A', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>See EU / Non-EU guidance below <ArrowRight size={16}/></a>
-             </div>
+          <div ref={segmentRef as React.RefObject<HTMLDivElement>} className="scroll-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+            {[
+              { icon: '🎓', title: 'I want to study Medicine in English in Italy', desc: 'The IMAT is the gateway to English-taught Medicine & Surgery at Italian public universities. If this is your goal, this exam is your path.', link: '/universities', cta: 'See IMAT universities' },
+              { icon: '🏛️', title: "I'm not sure which university fits me", desc: 'Italy has over 10 universities offering IMAT-based admission. Each has different city vibes, fees, and programme styles — explore them before deciding.', link: '/universities', cta: 'Explore Universities' },
+              { icon: '🌍', title: "I'm not sure which admission category applies", desc: 'EU and Non-EU candidates follow different quotas and processes. The distinction is based on residency and citizenship — not nationality alone.', href: '#eu-noneu', cta: 'See EU / Non-EU guidance' },
+            ].map((card, i) => (
+              <div key={i} className="card" style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <div style={{ fontSize: '2.2rem' }}>{card.icon}</div>
+                <div style={{ fontWeight: 800, fontSize: '1.15rem', color: '#0F172A', lineHeight: 1.3 }}>{card.title}</div>
+                <p style={{ color: '#64748B', fontSize: '0.95rem', lineHeight: 1.7, flex: 1 }}>{card.desc}</p>
+                {'link' in card
+                  ? <Link href={card.link!} style={{ color: '#16A34A', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.9rem' }}>{card.cta} <ArrowRight size={15}/></Link>
+                  : <a href={card.href} style={{ color: '#16A34A', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.9rem' }}>{card.cta} <ArrowRight size={15}/></a>
+                }
+              </div>
+            ))}
           </div>
-          <div style={{ textAlign: 'center', marginTop: '30px', color: '#64748B', fontSize: '0.9rem' }}>
-             Not every Italian Medicine programme uses the IMAT — confirm your target university's route.
+          <div style={{ textAlign: 'center', marginTop: '32px', color: '#94A3B8', fontSize: '0.88rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+            <AlertCircle size={14} />
+            Not every Italian Medicine programme uses the IMAT — confirm your target university's route.
           </div>
         </div>
       </section>
@@ -419,32 +461,56 @@ export default function IMATContent() {
       {/* 08 — EU vs Non-EU & Admission Category */}
       <section id="eu-noneu" style={{ padding: '80px 0', backgroundColor: '#FFFFFF' }}>
         <div className="container">
-          <div style={{ maxWidth: '960px', margin: '0 auto' }}>
-          <div ref={euRef as React.RefObject<HTMLDivElement>} className="scroll-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px' }}>
-             <div className="card">
-               <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', marginBottom: '12px' }}>EU Candidates</h3>
-               <p style={{ color: '#475569', lineHeight: 1.6 }}>EU citizens — and non-EU citizens legally resident in Italy who meet the criteria — apply through the EU procedure and quota.</p>
-             </div>
-             <div className="card">
-               <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', marginBottom: '12px' }}>Non-EU Candidates</h3>
-               <p style={{ color: '#475569', lineHeight: 1.6 }}>Applying from outside the EU means a separate quota and process, generally including pre-enrolment at an Italian embassy/consulate tied to your visa.</p>
-             </div>
+          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#16A34A', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Admission Category</span>
+            <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A', marginTop: '12px' }}>EU &amp; Non-EU Candidates</h2>
+          </div>
+          <div ref={euRef as React.RefObject<HTMLDivElement>} className="scroll-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '24px', marginBottom: '32px' }}>
+            {/* EU Card */}
+            <div style={{ background: 'linear-gradient(135deg, #F0FFF4, #DCFCE7)', border: '1px solid #86EFAC', borderRadius: '20px', padding: '36px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '20px' }}>
+                <div style={{ width: '48px', height: '48px', borderRadius: '14px', backgroundColor: '#16A34A', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.4rem' }}>🇪🇺</div>
+                <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#14532D', margin: 0 }}>EU Candidates</h3>
+              </div>
+              <p style={{ color: '#166534', lineHeight: 1.7, marginBottom: '20px' }}>EU citizens — and non-EU citizens legally resident in Italy who meet the criteria — apply through the EU procedure and quota.</p>
+              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {['Apply under the EU quota', 'No pre-enrolment via embassy required', 'Confirm residency documentation early'].map((pt, i) => (
+                  <li key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', color: '#166534', fontSize: '0.92rem', fontWeight: 500 }}>
+                    <CheckCircle2 size={16} color="#16A34A" style={{ flexShrink: 0, marginTop: '2px' }} />{pt}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {/* Non-EU Card */}
+            <div style={{ background: 'linear-gradient(135deg, #F0F9FF, #E0F2FE)', border: '1px solid #7DD3FC', borderRadius: '20px', padding: '36px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '20px' }}>
+                <div style={{ width: '48px', height: '48px', borderRadius: '14px', backgroundColor: '#0284C7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.4rem' }}>🌐</div>
+                <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0C4A6E', margin: 0 }}>Non-EU Candidates</h3>
+              </div>
+              <p style={{ color: '#0369A1', lineHeight: 1.7, marginBottom: '20px' }}>Applying from outside the EU means a separate quota and process, including pre-enrolment at an Italian embassy/consulate tied to your visa.</p>
+              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {['Apply under the Non-EU quota', 'Pre-enrolment via Universitaly required', 'Begin visa + embassy process early'].map((pt, i) => (
+                  <li key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', color: '#0369A1', fontSize: '0.92rem', fontWeight: 500 }}>
+                    <CheckCircle2 size={16} color="#0284C7" style={{ flexShrink: 0, marginTop: '2px' }} />{pt}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
           
-          <div ref={euHelperRef as React.RefObject<HTMLDivElement>} className="scroll-fade-up" style={{ marginTop: '40px', backgroundColor: '#F0FFF4', border: '1px solid #BBF7D0', padding: '32px', borderRadius: '16px' }}>
-             <h4 style={{ fontWeight: 700, color: '#16A34A', marginBottom: '16px', fontSize: '1.1rem' }}>Which one am I?</h4>
-             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', color: '#0F172A', fontWeight: 500 }}>
-               <li style={{ display: 'flex', gap: '12px' }}><CheckCircle2 color="#16A34A" /> EU citizen, or non-EU legally resident in Italy meeting the criteria? → <strong>EU pool.</strong></li>
-               <li style={{ display: 'flex', gap: '12px' }}><CheckCircle2 color="#16A34A" /> Applying from abroad on a student visa? → <strong>Non-EU pool.</strong></li>
-             </ul>
-             <div style={{ marginTop: '24px' }}>
-                <button onClick={() => setLeadOpen(true)} className="btn-secondary">Still unsure? Ask us</button>
-             </div>
+          <div ref={euHelperRef as React.RefObject<HTMLDivElement>} className="scroll-fade-up" style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', padding: '32px 40px', borderRadius: '16px', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '24px' }}>
+            <div>
+              <h4 style={{ fontWeight: 800, color: '#0F172A', marginBottom: '8px', fontSize: '1.1rem' }}>Still not sure which applies to you?</h4>
+              <p style={{ color: '#64748B', fontSize: '0.92rem', margin: 0 }}>Your status depends on citizenship and residency — not just where you're from.</p>
+            </div>
+            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+              <button onClick={() => setLeadOpen(true)} className="btn-primary">Ask us directly</button>
+              <a href="https://www.universitaly.it" target="_blank" rel="noopener noreferrer" className="btn-outline">Check Universitaly.it</a>
+            </div>
           </div>
-          <div style={{ marginTop: '20px', fontSize: '0.85rem', color: '#64748B', display: 'flex', gap: '8px' }}>
-             <AlertCircle size={16} style={{ flexShrink: 0 }} />
-             "Rules, quotas and procedures are set by MUR/Universitaly and can change — always confirm your category and process on Universitaly.it."
-          </div>
+          <div style={{ marginTop: '16px', fontSize: '0.82rem', color: '#94A3B8', display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
+            <AlertCircle size={14} style={{ flexShrink: 0, marginTop: '2px' }} />
+            Rules, quotas and procedures are set by MUR/Universitaly and can change — always confirm on Universitaly.it.
           </div>
         </div>
       </section>
@@ -496,55 +562,98 @@ export default function IMATContent() {
 
       {/* 10 — Cost */}
       <section style={{ padding: '80px 0', backgroundColor: '#F8FAFC' }}>
-        <div className="container" style={{ textAlign: 'center' }}>
-          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-           <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A', marginBottom: '24px' }}>What Does It Cost to Study Medicine in Italy?</h2>
-           <p style={{ color: '#475569', fontSize: '1.15rem', lineHeight: 1.8, marginBottom: '32px' }}>
-             Italian public universities generally charge tuition scaled to family income (ISEE), often notably lower than private medical programmes elsewhere in Europe. Regional scholarships (DSU) can reduce or cover tuition and include a living stipend for eligible students, including international applicants.
-           </p>
-           <Link href="/scholarships" className="btn-outline">Explore Costs & Scholarships <ArrowRight size={18}/></Link>
-           </div>
+        <div className="container">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '60px', alignItems: 'center' }}>
+            <div>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#16A34A', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Affordability</span>
+              <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A', marginBottom: '20px', marginTop: '12px' }}>What Does It Cost to Study Medicine in Italy?</h2>
+              <p style={{ color: '#475569', fontSize: '1.05rem', lineHeight: 1.85, marginBottom: '12px' }}>
+                Italian public universities generally charge tuition scaled to family income (ISEE), often notably lower than private medical programmes elsewhere in Europe.
+              </p>
+              <p style={{ color: '#475569', fontSize: '1.05rem', lineHeight: 1.85, marginBottom: '32px' }}>
+                Regional scholarships (DSU) can reduce or cover tuition entirely and include a living stipend for eligible students, including international applicants.
+              </p>
+              <Link href="/scholarships" className="btn-primary">Explore Costs &amp; Scholarships <ArrowRight size={18}/></Link>
+            </div>
+            {/* Fact cards */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              {[
+                { label: 'Average annual tuition (public)', value: '€156 – €3,000+', note: 'Scaled to ISEE household income', color: '#16A34A' },
+                { label: 'DSU scholarship (living stipend)', value: 'Up to €8,000/yr', note: 'Accommodation + cash allowance for eligible students', color: '#0EA5E9' },
+                { label: 'Exam registration fee', value: '~€130', note: 'Paid at time of IMAT registration (TBC annually)', color: '#8B5CF6' },
+                { label: 'vs. UK private Medicine', value: '5–10× cheaper', note: 'Typical comparison against private UK med school fees', color: '#F59E0B' },
+              ].map((fact, i) => (
+                <div key={i} style={{ backgroundColor: '#FFFFFF', borderRadius: '14px', border: '1px solid #E2E8F0', padding: '20px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '20px' }}>
+                  <div>
+                    <div style={{ fontWeight: 600, color: '#475569', fontSize: '0.85rem', marginBottom: '4px' }}>{fact.label}</div>
+                    <div style={{ fontSize: '0.8rem', color: '#94A3B8' }}>{fact.note}</div>
+                  </div>
+                  <div style={{ fontWeight: 900, fontSize: '1.15rem', color: fact.color, whiteSpace: 'nowrap', textAlign: 'right' }}>{fact.value}</div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
       {/* 11 — How Ahsora Prepares You */}
       <section id="preparation" style={{ padding: '80px 0', backgroundColor: '#FFFFFF' }}>
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '50px' }}>
-            <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A' }}>How Ahsora Prepares You</h2>
+          <div style={{ textAlign: 'center', marginBottom: '56px' }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#16A34A', textTransform: 'uppercase', letterSpacing: '1.5px' }}>The Ahsora Method</span>
+            <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A', marginTop: '12px' }}>How Ahsora Prepares You</h2>
             <p style={{ color: '#64748B', marginTop: '12px' }}>The Ahsora Signature Learning Cycle</p>
           </div>
           
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '20px', marginBottom: '60px' }}>
-             {['Learn', 'Practice', 'Test', 'Analyze', 'Improve', 'Repeat'].map((step, i) => (
-                <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
-                   <div style={{ width: '60px', height: '60px', borderRadius: '50%', backgroundColor: '#F0FFF4', border: '2px solid #5CED73', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, color: '#16A34A' }}>
-                     {i+1}
-                   </div>
-                   <div style={{ fontWeight: 700, color: '#0F172A' }}>{step}</div>
-                </div>
-             ))}
+          {/* Learning cycle strip */}
+          <div style={{ display: 'flex', overflowX: 'auto', gap: '0', marginBottom: '64px', borderRadius: '16px', overflow: 'hidden', border: '1px solid #E2E8F0' }}>
+            {['Learn', 'Practice', 'Test', 'Analyze', 'Improve', 'Repeat'].map((step, i, arr) => (
+              <div key={i} style={{ flex: '1 1 0', minWidth: '100px', textAlign: 'center', padding: '24px 12px', backgroundColor: i % 2 === 0 ? '#F0FFF4' : '#FFFFFF', borderRight: i < arr.length - 1 ? '1px solid #E2E8F0' : 'none', position: 'relative' }}>
+                <div style={{ width: '44px', height: '44px', borderRadius: '50%', backgroundColor: '#16A34A', color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '1rem', margin: '0 auto 12px' }}>{i + 1}</div>
+                <div style={{ fontWeight: 700, color: '#0F172A', fontSize: '0.95rem' }}>{step}</div>
+              </div>
+            ))}
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px' }}>
-            <div className="card">
-               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-                 <PlayCircle size={28} color="#16A34A" />
-                 <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A' }}>Live Teaching</h3>
-               </div>
-               <p style={{ color: '#475569', lineHeight: 1.7, marginBottom: '24px' }}>
-                 Ahsora combines structured digital preparation with live, teacher-led classes — difficult concepts explained, questions discussed, and doubts resolved in real time. Recordings available for every session.
-               </p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '32px' }}>
+            <div className="card" style={{ padding: '36px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '20px' }}>
+                <div style={{ width: '48px', height: '48px', borderRadius: '14px', backgroundColor: '#F0FFF4', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <PlayCircle size={26} color="#16A34A" />
+                </div>
+                <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>Live Teaching</h3>
+              </div>
+              <p style={{ color: '#475569', lineHeight: 1.7, marginBottom: '24px' }}>
+                Ahsora combines structured digital preparation with live, teacher-led classes — difficult concepts explained, questions discussed, and doubts resolved in real time.
+              </p>
+              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {['Live sessions for every IMAT subject', 'Full recordings available after each class', 'Direct Q&A with subject teachers', 'Structured weekly timetable'].map((pt, i) => (
+                  <li key={i} style={{ display: 'flex', gap: '10px', color: '#334155', fontSize: '0.92rem', fontWeight: 500 }}>
+                    <CheckCircle2 size={16} color="#16A34A" style={{ flexShrink: 0, marginTop: '2px' }} />{pt}
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className="card">
-               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-                 <Target size={28} color="#16A34A" />
-                 <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A' }}>Mocks & Analytics</h3>
-               </div>
-               <p style={{ color: '#475569', lineHeight: 1.7, marginBottom: '24px' }}>
-                 Full-length timed mocks with official-style scoring, detailed question review, subject/topic performance breakdown, and timing analysis so you know exactly what to fix before the real exam.
-               </p>
-               <Link href="/portal/courses" style={{ color: '#16A34A', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>View the IMAT Course <ArrowRight size={16}/></Link>
+            <div className="card" style={{ padding: '36px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '20px' }}>
+                <div style={{ width: '48px', height: '48px', borderRadius: '14px', backgroundColor: '#F0FFF4', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Target size={26} color="#16A34A" />
+                </div>
+                <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>Mocks &amp; Analytics</h3>
+              </div>
+              <p style={{ color: '#475569', lineHeight: 1.7, marginBottom: '24px' }}>
+                Full-length timed mocks with official-style scoring, detailed question review, and subject performance breakdown so you know exactly what to fix.
+              </p>
+              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {['Official-format timed mock exams', 'Per-topic accuracy & timing analysis', 'Personalised weak-area feedback', 'Unlimited question bank practice'].map((pt, i) => (
+                  <li key={i} style={{ display: 'flex', gap: '10px', color: '#334155', fontSize: '0.92rem', fontWeight: 500 }}>
+                    <CheckCircle2 size={16} color="#16A34A" style={{ flexShrink: 0, marginTop: '2px' }} />{pt}
+                  </li>
+                ))}
+              </ul>
+              <div style={{ marginTop: '24px' }}>
+                <Link href="/portal/courses" style={{ color: '#16A34A', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>View the IMAT Course <ArrowRight size={16}/></Link>
+              </div>
             </div>
           </div>
         </div>
@@ -597,20 +706,46 @@ export default function IMATContent() {
       </section>
 
       {/* 14 — Free IMAT Starter Kit */}
-      <section style={{ padding: '80px 0', backgroundColor: '#16A34A', color: '#FFFFFF' }}>
-        <div className="container" style={{ textAlign: 'center' }}>
-          <div style={{ maxWidth: '700px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '20px' }}>Get the Free IMAT Starter Kit</h2>
-          <p style={{ fontSize: '1.1rem', lineHeight: 1.7, marginBottom: '40px', color: '#DCFCE7' }}>
-            Syllabus overview, subject checklist, recommended study order, a study timeline, mock-test strategy, and a university-planning checklist — sent straight to your inbox.
-          </p>
-          <div style={{ display: 'flex', gap: '12px', flexDirection: 'column', maxWidth: '400px', margin: '0 auto' }}>
-            <input type="text" placeholder="Your Name" className="form-input" style={{ backgroundColor: '#FFFFFF', border: 'none' }} />
-            <input type="email" placeholder="Your Email" className="form-input" style={{ backgroundColor: '#FFFFFF', border: 'none' }} />
-            <button className="btn-primary" style={{ backgroundColor: '#0F172A', color: '#FFFFFF', width: '100%', marginTop: '8px' }}>
-              Get the Free Starter Kit <ArrowRight size={18}/>
-            </button>
-          </div>
+      <section style={{ padding: '80px 0', backgroundColor: '#0F172A' }}>
+        <div className="container">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '60px', alignItems: 'center' }}>
+            {/* Left: what's inside */}
+            <div>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#5CED73', textTransform: 'uppercase', letterSpacing: '1.5px' }}>100% Free</span>
+              <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#FFFFFF', marginTop: '12px', marginBottom: '20px' }}>Get the Free IMAT Starter Kit</h2>
+              <p style={{ fontSize: '1.05rem', lineHeight: 1.7, marginBottom: '32px', color: '#94A3B8' }}>
+                Everything you need to understand the exam and start preparing with confidence — sent straight to your inbox.
+              </p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                {[
+                  'Full IMAT syllabus overview',
+                  'Subject-by-subject topic checklist',
+                  'Recommended study order & timeline',
+                  'Mock-test strategy guide',
+                  'University planning checklist',
+                ].map((item, i) => (
+                  <div key={i} style={{ display: 'flex', gap: '12px', alignItems: 'center', color: '#CBD5E1', fontWeight: 500 }}>
+                    <div style={{ width: '24px', height: '24px', borderRadius: '50%', backgroundColor: 'rgba(92,237,115,0.15)', border: '1px solid rgba(92,237,115,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <CheckCircle2 size={14} color="#5CED73" />
+                    </div>
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+            {/* Right: form */}
+            <div style={{ backgroundColor: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(8px)', borderRadius: '24px', padding: '40px', border: '1px solid rgba(255,255,255,0.1)' }}>
+              <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '8px' }}>Send it to my inbox</h3>
+              <p style={{ color: '#64748B', fontSize: '0.9rem', marginBottom: '28px' }}>Join 2,000+ students who've already downloaded it.</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                <input type="text" placeholder="Your Name" className="form-input" style={{ backgroundColor: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', color: '#FFFFFF' }} />
+                <input type="email" placeholder="Your Email" className="form-input" style={{ backgroundColor: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', color: '#FFFFFF' }} />
+                <button className="btn-primary" style={{ width: '100%', marginTop: '4px', padding: '16px', fontSize: '1rem' }}>
+                  Get the Free Starter Kit <ArrowRight size={18}/>
+                </button>
+              </div>
+              <p style={{ color: '#475569', fontSize: '0.78rem', marginTop: '16px', textAlign: 'center' }}>No spam. Unsubscribe anytime.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -618,27 +753,58 @@ export default function IMATContent() {
       {/* 15 — FAQ + Final CTA */}
       <section style={{ padding: '80px 0', backgroundColor: '#F8FAFC' }}>
         <div className="container">
-          <div style={{ maxWidth: '860px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '50px' }}>
-            <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A' }}>Frequently Asked Questions</h2>
+          <div style={{ textAlign: 'center', marginBottom: '56px' }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#16A34A', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Got Questions?</span>
+            <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A', marginTop: '12px' }}>Frequently Asked Questions</h2>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '80px' }}>
-            {faqs.map((faq, i) => (
-              <div key={i} style={{ backgroundColor: '#FFFFFF', border: openFaq === i ? '1px solid #16A34A' : '1px solid #E2E8F0', borderRadius: '12px', overflow: 'hidden' }}>
-                <button 
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  style={{ width: '100%', padding: '20px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 700, fontSize: '1rem', color: '#0F172A', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', gap: '16px' }}
-                >
-                  <span style={{ flex: 1 }}>{faq.q}</span>
-                  {openFaq === i ? <ChevronUp size={20} color="#16A34A" /> : <ChevronDown size={20} color="#64748B" />}
-                </button>
-                {openFaq === i && (
-                  <div style={{ padding: '0 24px 24px', color: '#475569', fontSize: '0.95rem', lineHeight: 1.7, borderTop: '1px solid #F1F5F9', paddingTop: '16px' }}>
-                    {faq.a}
-                  </div>
-                )}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '48px', alignItems: 'flex-start', marginBottom: '80px' }}>
+            {/* FAQ accordion */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {faqs.map((faq, i) => (
+                <div key={i} style={{ backgroundColor: '#FFFFFF', border: openFaq === i ? '1px solid #16A34A' : '1px solid #E2E8F0', borderRadius: '12px', overflow: 'hidden' }}>
+                  <button 
+                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                    style={{ width: '100%', padding: '18px 22px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 700, fontSize: '0.95rem', color: '#0F172A', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', gap: '16px' }}
+                  >
+                    <span style={{ flex: 1 }}>{faq.q}</span>
+                    {openFaq === i ? <ChevronUp size={18} color="#16A34A" /> : <ChevronDown size={18} color="#64748B" />}
+                  </button>
+                  {openFaq === i && (
+                    <div style={{ padding: '0 22px 20px', color: '#475569', fontSize: '0.92rem', lineHeight: 1.7, borderTop: '1px solid #F1F5F9', paddingTop: '14px' }}>
+                      {faq.a}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+            {/* Sidebar */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', position: 'sticky', top: '100px' }}>
+              {/* Quick facts */}
+              <div style={{ backgroundColor: '#0F172A', borderRadius: '20px', padding: '32px' }}>
+                <h4 style={{ color: '#FFFFFF', fontWeight: 800, fontSize: '1.1rem', marginBottom: '20px' }}>IMAT Quick Facts</h4>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                  {[
+                    { label: 'Questions', value: '60 MCQ' },
+                    { label: 'Duration', value: '100 min' },
+                    { label: 'Max Score', value: '90 pts' },
+                    { label: 'Correct', value: '+1.5 pts' },
+                    { label: 'Incorrect', value: '−0.4 pts' },
+                    { label: 'Language', value: 'English' },
+                  ].map((f, i) => (
+                    <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: i < 5 ? '14px' : 0, borderBottom: i < 5 ? '1px solid rgba(255,255,255,0.06)' : 'none' }}>
+                      <span style={{ color: '#94A3B8', fontSize: '0.88rem' }}>{f.label}</span>
+                      <span style={{ color: '#5CED73', fontWeight: 700, fontSize: '0.95rem' }}>{f.value}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            ))}
+              {/* CTA card */}
+              <div style={{ backgroundColor: '#FFFFFF', borderRadius: '20px', padding: '28px', border: '1px solid #E2E8F0', boxShadow: '0 4px 12px rgba(0,0,0,0.06)' }}>
+                <h4 style={{ fontWeight: 800, color: '#0F172A', marginBottom: '8px' }}>Still have questions?</h4>
+                <p style={{ color: '#64748B', fontSize: '0.88rem', marginBottom: '20px', lineHeight: 1.6 }}>Our advisors are happy to help you navigate the IMAT, programme selection, and admissions process.</p>
+                <button onClick={() => setLeadOpen(true)} className="btn-primary" style={{ width: '100%' }}>Talk to an Advisor</button>
+              </div>
+            </div>
           </div>
 
           <div style={{ backgroundColor: '#FFFFFF', padding: '60px 40px', borderRadius: '24px', textAlign: 'center', border: '1px solid #E2E8F0', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.05)' }}>
@@ -650,7 +816,6 @@ export default function IMATContent() {
                <button onClick={() => setLeadOpen(true)} className="btn-primary">Take the Free IMAT Mock</button>
                <Link href="/#packages" className="btn-outline">Explore Programmes</Link>
              </div>
-          </div>
           </div>
         </div>
       </section>
