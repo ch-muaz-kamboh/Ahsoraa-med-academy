@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   ArrowRight, Clock, Target, CheckCircle2, ChevronDown, ChevronUp,
   BookOpen, Brain, Activity, TestTube, Scale, Info, AlertCircle, PlayCircle, MapPin
@@ -158,12 +159,39 @@ export default function IMATContent() {
 
       {/* 03 — What Is the IMAT */}
       <section style={{ padding: '80px 0', backgroundColor: '#FFFFFF' }}>
-        <div className="container" style={{ textAlign: 'center' }}>
-          <div ref={introRef as React.RefObject<HTMLDivElement>} className="scroll-fade-up" style={{ maxWidth: '820px', margin: '0 auto' }}>
-            <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A', marginBottom: '24px' }}>What Is the IMAT?</h2>
-            <p style={{ color: '#475569', fontSize: '1.15rem', lineHeight: 1.8 }}>
-              The International Medical Admissions Test (IMAT) is an English-language entrance examination used for admission to participating English-taught Medicine & Surgery programmes at Italian public universities. It tests scientific knowledge alongside logical reasoning, problem solving and reading-related skills, in a single 100-minute sitting. The exam is time-limited, so effective preparation requires both subject mastery and exam strategy — not one or the other. Not every Italian Medicine programme uses the IMAT, so confirming your target university's admission route is an important early step.
-            </p>
+        <div className="container">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '60px', alignItems: 'center' }}>
+            {/* Text */}
+            <div ref={introRef as React.RefObject<HTMLDivElement>} className="scroll-fade-up">
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#16A34A', textTransform: 'uppercase', letterSpacing: '1.5px' }}>About the Exam</span>
+              <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A', marginBottom: '24px', marginTop: '12px' }}>What Is the IMAT?</h2>
+              <p style={{ color: '#475569', fontSize: '1.1rem', lineHeight: 1.85 }}>
+                The International Medical Admissions Test (IMAT) is an English-language entrance examination used for admission to participating English-taught Medicine &amp; Surgery programmes at Italian public universities. It tests scientific knowledge alongside logical reasoning, problem solving and reading-related skills, in a single 100-minute sitting.
+              </p>
+              <p style={{ color: '#475569', fontSize: '1.1rem', lineHeight: 1.85, marginTop: '16px' }}>
+                The exam is time-limited, so effective preparation requires both subject mastery and exam strategy — not one or the other. Not every Italian Medicine programme uses the IMAT, so confirming your target university's admission route is an important early step.
+              </p>
+              <div style={{ marginTop: '32px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                <Link href="#dates" className="btn-primary">See Key Dates</Link>
+                <Link href="#preparation" className="btn-outline">How to Prepare</Link>
+              </div>
+            </div>
+            {/* Image */}
+            <div className="scroll-fade-left is-visible" style={{ borderRadius: '24px', overflow: 'hidden', boxShadow: '0 30px 60px -15px rgba(0,0,0,0.15)', position: 'relative' }}>
+              <Image
+                src="/imat-student-studying.jpg"
+                alt="Medical student studying for the IMAT exam"
+                width={700}
+                height={467}
+                style={{ width: '100%', height: 'auto', display: 'block' }}
+                priority
+              />
+              {/* Floating stat badge */}
+              <div style={{ position: 'absolute', bottom: '20px', left: '20px', backgroundColor: 'rgba(15,23,42,0.85)', backdropFilter: 'blur(8px)', borderRadius: '14px', padding: '14px 20px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                <div style={{ color: '#5CED73', fontWeight: 800, fontSize: '1.5rem', lineHeight: 1 }}>60 Qs</div>
+                <div style={{ color: '#94A3B8', fontSize: '0.8rem', marginTop: '4px' }}>in 100 minutes</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -422,13 +450,26 @@ export default function IMATContent() {
       </section>
 
       {/* 09 — Where Can You Study */}
-      <section style={{ padding: '80px 0', backgroundColor: '#0F172A' }}>
+      <section style={{ padding: '0 0 80px', backgroundColor: '#0F172A' }}>
+        {/* Full-width Italy city banner */}
+        <div style={{ position: 'relative', width: '100%', height: '400px', overflow: 'hidden', marginBottom: '60px' }}>
+          <Image
+            src="/imat-italy-city.jpg"
+            alt="Aerial view of an Italian university city at golden hour"
+            fill
+            style={{ objectFit: 'cover', objectPosition: 'center 60%' }}
+          />
+          {/* Dark gradient overlay */}
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(15,23,42,0.3) 0%, rgba(15,23,42,0.7) 60%, #0F172A 100%)' }} />
+          {/* Centred heading on image */}
+          <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', paddingBottom: '48px', textAlign: 'center' }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#5CED73', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '12px' }}>Study Medicine in Italy</span>
+            <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', fontWeight: 800, color: '#FFFFFF', margin: 0, letterSpacing: '-0.5px' }}>Where Can You Study?</h2>
+            <p style={{ color: '#94A3B8', marginTop: '12px', fontSize: '1.05rem' }}>A snapshot of top universities participating in the IMAT.</p>
+          </div>
+        </div>
         <div className="container">
-           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '40px', flexWrap: 'wrap', gap: '20px' }}>
-             <div>
-               <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#FFFFFF' }}>Where Can You Study?</h2>
-               <p style={{ color: '#94A3B8', marginTop: '12px' }}>A snapshot of top universities participating in the IMAT.</p>
-             </div>
+           <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '32px' }}>
              <Link href="/universities" className="btn-secondary" style={{ backgroundColor: 'rgba(255,255,255,0.1)', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.2)' }}>
                View All Universities
              </Link>
