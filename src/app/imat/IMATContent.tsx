@@ -659,7 +659,7 @@ export default function IMATContent() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {[
                 { label: 'Average annual tuition (public)', value: '€156 – €3,000+', note: 'Scaled to ISEE household income', color: '#16A34A' },
-                { label: 'DSU scholarship (living stipend)', value: 'Up to €8,000/yr', note: 'Accommodation + cash allowance for eligible students', color: '#0EA5E9' },
+                { label: 'Regional Scholarship (living stipend)', value: 'Up to €11,000/yr', note: 'Accommodation + cash allowance for eligible students', color: '#0EA5E9' },
                 { label: 'Exam registration fee', value: '~€130', note: 'Paid at time of IMAT registration (TBC annually)', color: '#8B5CF6' },
                 { label: 'vs. UK private Medicine', value: '5–10× cheaper', note: 'Typical comparison against private UK med school fees', color: '#F59E0B' },
               ].map((fact, i) => (
