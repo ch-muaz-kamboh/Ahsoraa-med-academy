@@ -32,8 +32,8 @@ export default function LoginPage() {
       return;
     }
 
-    // Success! The middleware will handle redirecting to portal or pending-payment
-    router.push('/portal');
+    // Success! The middleware will handle redirecting to portal/dashboard or pending-payment
+    router.push('/portal/dashboard');
     router.refresh();
   };
 

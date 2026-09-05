@@ -28,7 +28,7 @@ export default function PendingPaymentPage() {
 
       if (data) {
         if (data.payment_approved) {
-          router.push('/portal'); // Already approved
+          router.push('/portal/dashboard'); // Already approved
         } else {
           setProfile(data);
         }
