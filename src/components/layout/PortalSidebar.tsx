@@ -5,16 +5,9 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard,
-  BookOpen,
   FileCheck2,
-  Users2,
-  HelpCircle,
   FolderLock,
-  Globe2,
-  Receipt,
   LogOut,
-  GraduationCap,
-  PlaneTakeoff,
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import Logo from '@/components/brand/Logo';
@@ -22,7 +15,6 @@ import Logo from '@/components/brand/Logo';
 export default function PortalSidebar({ userFullName = 'Student', userInitials = 'ST' }: { userFullName?: string, userInitials?: string }) {
   const pathname = usePathname();
 
-  const links = [
   const links = [
     { href: '/portal/dashboard', label: 'Dashboard', icon: <LayoutDashboard size={18} /> },
     { href: '/portal/tests', label: 'CBT Mock Tests', icon: <FileCheck2 size={18} /> },
