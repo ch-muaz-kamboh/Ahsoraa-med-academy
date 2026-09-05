@@ -12,6 +12,37 @@ import { useScrollAnimation, useStaggeredAnimation } from '@/hooks/useScrollAnim
 
 // Section components to keep the main file readable
 
+function RegionCard({ group, defaultOpen = false }: { group: { region: string; color: string; bg: string; border: string; centres: string[] }; defaultOpen?: boolean }) {
+  const [open, setOpen] = React.useState(defaultOpen);
+  return (
+    <div style={{ backgroundColor: '#FFFFFF', borderRadius: '16px', border: `1px solid ${group.border}`, overflow: 'hidden' }}>
+      <button
+        onClick={() => setOpen(!open)}
+        style={{ width: '100%', padding: '18px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: group.bg, border: 'none', cursor: 'pointer' }}
+      >
+        <span style={{ fontWeight: 700, color: '#0F172A', fontSize: '0.95rem' }}>{group.region}</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span style={{ fontSize: '0.78rem', fontWeight: 700, color: group.color, backgroundColor: `${group.color}18`, padding: '2px 10px', borderRadius: '20px' }}>{group.centres.length} centres</span>
+          {open
+            ? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={group.color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+            : <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          }
+        </div>
+      </button>
+      {open && (
+        <div style={{ padding: '20px 24px', display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: '10px' }}>
+          {group.centres.map((centre, ci) => (
+            <div key={ci} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: group.color, flexShrink: 0 }} />
+              <span style={{ color: '#475569', fontSize: '0.88rem', fontWeight: 500 }}>{centre}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function AnimatedNumber({ end, suffix = '', label }: { end: number, suffix?: string, label: string }) {
   const [count, setCount] = useState(0);
   const ref = React.useRef<HTMLDivElement>(null);
@@ -241,6 +272,55 @@ export default function IMATContent() {
                <p style={{ color: '#CBD5E1', fontSize: '0.95rem', margin: 0, lineHeight: 1.5 }}>
                  "Dates, fees and procedures are set annually by the Italian Ministry of University and Research (MUR) — always verify current information on Universitaly.it. Last verified: September 2026."
                </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 04b — IMAT Test Centres */}
+      <section id="test-centres" style={{ padding: '80px 0', backgroundColor: '#F8FAFC' }}>
+        <div className="container">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '60px', alignItems: 'flex-start' }}>
+            {/* Left: heading + intro */}
+            <div>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#16A34A', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Where to Sit the Exam</span>
+              <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A', marginBottom: '20px', marginTop: '12px' }}>IMAT Test Centres</h2>
+              <p style={{ color: '#475569', fontSize: '1.05rem', lineHeight: 1.85, marginBottom: '24px' }}>
+                The IMAT is sat simultaneously worldwide on the same day each September. Candidates choose a test centre when registering — Italian residents sit at their chosen university, while candidates abroad sit at designated Italian Embassies, Consulates, or cultural institutes.
+              </p>
+              <p style={{ color: '#475569', fontSize: '1.05rem', lineHeight: 1.85, marginBottom: '32px' }}>
+                Centre availability varies each year and is confirmed through the official Universitaly portal at the time of registration. Always verify your nearest centre before applying.
+              </p>
+              <div style={{ backgroundColor: '#FEF3C7', border: '1px solid #FCD34D', borderRadius: '12px', padding: '16px 20px', display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                <AlertCircle size={18} color="#D97706" style={{ flexShrink: 0, marginTop: '2px' }} />
+                <p style={{ color: '#92400E', fontSize: '0.88rem', lineHeight: 1.6, margin: 0 }}>
+                  Test centre lists are updated annually by MUR. Confirm your centre on <strong>Universitaly.it</strong> before registration closes.
+                </p>
+              </div>
+            </div>
+
+            {/* Right: centre cards by region */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <RegionCard defaultOpen={true} group={{
+                region: '🇮🇹 Italy — University Campuses',
+                color: '#16A34A', bg: '#F0FFF4', border: '#86EFAC',
+                centres: ['Rome — La Sapienza', 'Milan — Università degli Studi', 'Pavia — Harvey Campus', 'Bologna', 'Pisa', 'Turin — Torino', 'Naples — Federico II', 'Bari', 'Catania', 'Messina', 'Genoa', 'Foggia'],
+              }} />
+              <RegionCard group={{
+                region: '🌍 Europe — Embassy & Cultural Centres',
+                color: '#0284C7', bg: '#F0F9FF', border: '#7DD3FC',
+                centres: ['London, United Kingdom', 'Paris, France', 'Berlin, Germany', 'Madrid, Spain', 'Athens, Greece', 'Warsaw, Poland', 'Vienna, Austria', 'Brussels, Belgium'],
+              }} />
+              <RegionCard group={{
+                region: '🌏 Asia & Middle East',
+                color: '#7C3AED', bg: '#F5F3FF', border: '#C4B5FD',
+                centres: ['Islamabad, Pakistan', 'Ankara, Turkey', 'Beirut, Lebanon', 'Cairo, Egypt', 'Tehran, Iran', 'Riyadh, Saudi Arabia', 'Dubai, UAE', 'New Delhi, India'],
+              }} />
+              <RegionCard group={{
+                region: '🌎 Americas & Africa',
+                color: '#EA580C', bg: '#FFF7ED', border: '#FDBA74',
+                centres: ['New York, USA', 'Toronto, Canada', 'Buenos Aires, Argentina', 'Lagos, Nigeria', 'Nairobi, Kenya', 'Addis Ababa, Ethiopia'],
+              }} />
             </div>
           </div>
         </div>
