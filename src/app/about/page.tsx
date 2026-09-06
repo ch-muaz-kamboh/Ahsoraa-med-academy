@@ -56,7 +56,7 @@ export default function AboutPage() {
         .reveal-delay-3 { transition-delay: 240ms; }
         .reveal-delay-4 { transition-delay: 320ms; }
 
-        .about-narrow { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+        .container { max-width: 760px; margin: 0 auto; padding: 0 24px; }
 
         .about-value-card {
           background: #fff;
@@ -117,7 +117,7 @@ export default function AboutPage() {
           .about-story-grid { grid-template-columns: 1fr !important; }
           .method-row { flex-wrap: wrap !important; }
           .method-step { min-width: 140px; }
-          .about-narrow { padding: 0 16px; }
+          .container { padding: 0 16px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -160,7 +160,7 @@ export default function AboutPage() {
 
         {/* ── 02 OUR STORY ─────────────────────────────────────────────── */}
         <section id="story" style={{ padding: '100px 0', backgroundColor: '#FFFFFF' }}>
-          <div className="about-narrow">
+          <div className="container">
             <span className="reveal section-tagline">Our Story</span>
             <h2 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: 800, color: 'var(--text-primary)', marginTop: '16px', marginBottom: '40px', lineHeight: 1.2 }}>
               Before Ahsora, There Was a Student Trying to Find the Way.
@@ -193,7 +193,7 @@ export default function AboutPage() {
 
         {/* ── 03 THE TURNING POINT ─────────────────────────────────────── */}
         <section style={{ padding: '100px 0', backgroundColor: 'var(--bg-subtle)' }}>
-          <div className="about-narrow">
+          <div className="container">
             <span className="reveal section-tagline">The Turning Point</span>
             <h2 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: 800, color: 'var(--text-primary)', marginTop: '16px', marginBottom: '20px', lineHeight: 1.2 }}>
               The Problem Wasn't Always the Student.
@@ -216,7 +216,7 @@ export default function AboutPage() {
                 </div>
               ))}
             </div>
-            <div className="about-narrow reveal" style={{ marginTop: '48px' }}>
+            <div className="container reveal" style={{ marginTop: '48px' }}>
               <p style={{ fontSize: '1.3rem', fontWeight: 700, color: 'var(--text-primary)', fontStyle: 'italic', textAlign: 'center' }}>
                 "I believed there had to be a better way."
               </p>
@@ -264,7 +264,7 @@ export default function AboutPage() {
         {/* ── 05 THE PHILOSOPHY ────────────────────────────────────────── */}
         <section style={{ padding: '100px 0', backgroundColor: 'var(--text-primary)', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, rgba(92,237,115,0.12) 0%, transparent 70%)', zIndex: 0 }} />
-          <div className="about-narrow" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
+          <div className="container" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
             <span className="reveal section-tagline" style={{ color: 'var(--primary-400)' }}>The Philosophy</span>
             <h2 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(2.2rem, 5vw, 3.2rem)', fontWeight: 900, color: '#FFFFFF', marginTop: '16px', marginBottom: '32px', letterSpacing: '-1px', lineHeight: 1.2 }}>
               A Journey Built Around Shared Experience.
@@ -430,7 +430,7 @@ export default function AboutPage() {
 
         {/* ── 11 WHAT WE WILL NEVER PROMISE ───────────────────────────── */}
         <section style={{ padding: '100px 0', backgroundColor: 'var(--bg-subtle)' }}>
-          <div className="about-narrow">
+          <div className="container">
             <span className="reveal section-tagline">Our Commitment to Honesty</span>
             <h2 className="reveal reveal-delay-1" style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '16px', marginBottom: '40px' }}>What We Will Never Promise</h2>
             <div className="reveal reveal-delay-2" style={{ backgroundColor: '#FFFFFF', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', padding: '40px', boxShadow: 'var(--shadow-sm)' }}>
@@ -454,7 +454,7 @@ export default function AboutPage() {
 
         {/* ── 12 WHERE WE'RE GOING ─────────────────────────────────────── */}
         <section style={{ padding: '100px 0', backgroundColor: '#FFFFFF' }}>
-          <div className="about-narrow">
+          <div className="container">
             <span className="reveal section-tagline">The Road Ahead</span>
             <h2 className="reveal reveal-delay-1" style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '16px', marginBottom: '40px' }}>Where Ahsora Is Headed</h2>
             <div className="reveal reveal-delay-2">
@@ -480,7 +480,7 @@ export default function AboutPage() {
 
         {/* ── 13 FAQ ───────────────────────────────────────────────────── */}
         <section style={{ padding: '100px 0', backgroundColor: 'var(--bg-subtle)' }}>
-          <div className="about-narrow">
+          <div className="container">
             <div style={{ textAlign: 'center', marginBottom: '56px' }}>
               <span className="reveal section-tagline">Questions About Ahsora</span>
               <h2 className="reveal reveal-delay-1" style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '12px' }}>Frequently Asked Questions</h2>
@@ -509,7 +509,7 @@ export default function AboutPage() {
         {/* ── 14 FINAL CTA ─────────────────────────────────────────────── */}
         <section style={{ padding: '120px 0', backgroundColor: 'var(--text-primary)', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, rgba(92,237,115,0.15) 0%, transparent 70%)', zIndex: 0 }} />
-          <div className="about-narrow" style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
+          <div className="container" style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
             <h2 className="reveal" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 900, color: '#FFFFFF', marginBottom: '24px', letterSpacing: '-1px' }}>
               Start Your Journey With Ahsora.
             </h2>
