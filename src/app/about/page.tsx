@@ -128,33 +128,79 @@ export default function AboutPage() {
       <div style={{ backgroundColor: 'var(--bg-main)', minHeight: '100vh' }}>
 
         {/* ── 01 HERO ─────────────────────────────────────────────────────── */}
-        <section style={{ padding: '120px 0 80px', position: 'relative', overflow: 'hidden', background: 'linear-gradient(160deg, var(--primary-50) 0%, #ffffff 60%)' }}>
-          <div style={{ position: 'absolute', top: 0, right: 0, width: '45%', height: '100%', opacity: 0.08, zIndex: 0 }}>
-            <Image src="/messina-university.jpg" alt="" fill style={{ objectFit: 'cover' }} />
+        <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
+          {/* Full-bleed background */}
+          <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+            <Image src="/messina-university.jpg" alt="" fill style={{ objectFit: 'cover', objectPosition: 'center 30%' }} priority />
           </div>
-          <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-            <div className="about-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center', maxWidth: '1200px', margin: '0 auto' }}>
+          {/* Dark overlay */}
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(8,18,10,0.92) 0%, rgba(5,50,30,0.78) 50%, rgba(15,23,42,0.85) 100%)', zIndex: 1 }} />
+          {/* Green glow orb */}
+          <div style={{ position: 'absolute', top: '15%', left: '3%', width: '600px', height: '600px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(92,237,115,0.13) 0%, transparent 70%)', zIndex: 2, pointerEvents: 'none' }} />
+          {/* Content */}
+          <div className="container" style={{ position: 'relative', zIndex: 3, padding: '120px 20px 100px' }}>
+            <div className="about-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: '80px', alignItems: 'center', maxWidth: '1300px', margin: '0 auto' }}>
+              {/* Left — headline */}
               <div>
-                <span className="reveal section-tagline">Why Ahsora Exists</span>
-                <h1 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(2.4rem, 5vw, 3.8rem)', fontWeight: 900, color: 'var(--text-primary)', lineHeight: 1.1, letterSpacing: '-1.5px', marginBottom: '28px', marginTop: '16px' }}>
-                  I Know What It Feels Like to Figure It All Out Alone.
+                <div className="reveal" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', backgroundColor: 'rgba(92,237,115,0.1)', border: '1px solid rgba(92,237,115,0.28)', borderRadius: 'var(--radius-full)', padding: '8px 20px', marginBottom: '32px' }}>
+                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--primary-400)', display: 'inline-block', flexShrink: 0, boxShadow: '0 0 8px var(--primary-400)' }} />
+                  <span style={{ color: 'var(--primary-400)', fontWeight: 700, fontSize: '0.82rem', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Why Ahsora Exists</span>
+                </div>
+                <h1 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(2.8rem, 5.5vw, 5rem)', fontWeight: 900, color: '#FFFFFF', lineHeight: 1.05, letterSpacing: '-2px', marginBottom: '32px' }}>
+                  I Know What It<br />Feels Like{' '}
+                  <span style={{ color: 'var(--primary-400)' }}>to Figure<br />It All Out Alone.</span>
                 </h1>
-                <p className="reveal reveal-delay-2" style={{ color: 'var(--text-secondary)', fontSize: '1.2rem', lineHeight: 1.85, marginBottom: '40px', maxWidth: '520px' }}>
-                  Ahsora was built from firsthand experience of the journey to Medicine in Italy — the uncertainty, the decisions, the preparation and everything that comes after the exam. We built Ahsora to make that journey clearer, more structured and less lonely for the students who come after us.
+                <p className="reveal reveal-delay-2" style={{ color: 'rgba(255,255,255,0.68)', fontSize: '1.2rem', lineHeight: 1.85, marginBottom: '48px', maxWidth: '540px' }}>
+                  Ahsora was built from firsthand experience of the journey to Medicine in Italy — the uncertainty, the decisions, the preparation and everything that comes after the exam.
                 </p>
-                <div className="reveal reveal-delay-3" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                  <a href="#story" className="btn-primary" style={{ padding: '16px 36px' }}>Meet the Founder <ArrowRight size={18} /></a>
-                  <Link href="/courses" className="btn-outline" style={{ padding: '16px 28px', backgroundColor: '#fff' }}>Explore Ahsora</Link>
+                <div className="reveal reveal-delay-3" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginBottom: '56px' }}>
+                  <a href="#story" className="btn-primary" style={{ padding: '18px 40px', fontSize: '1.05rem' }}>Meet the Founder <ArrowRight size={18} /></a>
+                  <Link href="/courses"
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '18px 32px', borderRadius: 'var(--radius-full)', border: '1.5px solid rgba(255,255,255,0.22)', color: '#fff', fontWeight: 700, fontSize: '1.05rem', backgroundColor: 'rgba(255,255,255,0.07)', backdropFilter: 'blur(10px)', transition: 'background 0.2s' }}
+                    onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.14)')}
+                    onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.07)')}>
+                    Explore Ahsora
+                  </Link>
+                </div>
+                {/* Stats strip */}
+                <div className="reveal reveal-delay-4" style={{ display: 'flex', gap: '40px', flexWrap: 'wrap', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '32px' }}>
+                  {[
+                    { value: 'Italy', label: 'Study Destination' },
+                    { value: 'IMAT', label: 'Focused Exam Prep' },
+                    { value: '3', label: 'Programmes' },
+                  ].map((stat, i) => (
+                    <div key={i}>
+                      <div style={{ fontSize: '1.8rem', fontWeight: 900, color: '#FFFFFF', letterSpacing: '-1px' }}>{stat.value}</div>
+                      <div style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.82rem', fontWeight: 600, marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{stat.label}</div>
+                    </div>
+                  ))}
                 </div>
               </div>
-              <div className="reveal reveal-delay-2" style={{ position: 'relative', height: '540px', borderRadius: 'var(--radius-xl)', overflow: 'hidden', boxShadow: 'var(--shadow-xl)' }}>
-                <Image src="/founder-about.jpg" alt="Ahsora founder at the University of Messina, Italy" fill style={{ objectFit: 'cover' }} priority />
-                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '32px', background: 'linear-gradient(to top, rgba(15,23,42,0.92) 0%, transparent 100%)' }}>
-                  <div style={{ color: 'var(--primary-400)', fontWeight: 800, fontSize: '0.9rem' }}>Final-Year Medicine &amp; Surgery Student</div>
-                  <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.85rem', marginTop: '4px' }}>University of Messina, Italy · Founder, Ahsora Med Academy</div>
+              {/* Right — floating founder card */}
+              <div className="reveal reveal-delay-2" style={{ position: 'relative' }}>
+                <div style={{ borderRadius: 'var(--radius-xl)', overflow: 'hidden', boxShadow: '0 32px 80px -12px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.08)', border: '1.5px solid rgba(255,255,255,0.1)' }}>
+                  <div style={{ position: 'relative', height: '440px' }}>
+                    <Image src="/founder-about.jpg" alt="Ahsora founder at the University of Messina, Italy" fill style={{ objectFit: 'cover', objectPosition: 'top' }} />
+                  </div>
+                  <div style={{ background: 'rgba(8,18,10,0.94)', backdropFilter: 'blur(20px)', padding: '24px 28px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                    <div style={{ color: 'var(--primary-400)', fontWeight: 800, fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Founder</div>
+                    <div style={{ color: '#FFFFFF', fontWeight: 700, fontSize: '1.05rem', marginTop: '6px' }}>Ahsora Med Academy</div>
+                    <div style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.82rem', marginTop: '4px' }}>Final-Year Medicine &amp; Surgery · University of Messina, Italy</div>
+                  </div>
                 </div>
+                {/* Floating badge */}
+                <div style={{ position: 'absolute', top: '20px', left: '20px', backgroundColor: 'var(--primary-400)', color: '#0a140c', fontWeight: 900, fontSize: '0.72rem', padding: '6px 14px', borderRadius: 'var(--radius-full)', textTransform: 'uppercase', letterSpacing: '1px', boxShadow: '0 4px 20px rgba(92,237,115,0.55)' }}>
+                  Founder-Led
+                </div>
+                {/* Glow behind card */}
+                <div style={{ position: 'absolute', bottom: '-60px', right: '-60px', width: '280px', height: '280px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(92,237,115,0.18) 0%, transparent 70%)', zIndex: -1, pointerEvents: 'none' }} />
               </div>
             </div>
+          </div>
+          {/* Scroll indicator */}
+          <div style={{ position: 'absolute', bottom: '36px', left: '50%', transform: 'translateX(-50%)', zIndex: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', opacity: 0.5 }}>
+            <span style={{ color: '#fff', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase' }}>Scroll</span>
+            <div style={{ width: '1px', height: '44px', background: 'linear-gradient(to bottom, rgba(255,255,255,0.7), transparent)' }} />
           </div>
         </section>
 
