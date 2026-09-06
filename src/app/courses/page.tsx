@@ -657,7 +657,6 @@ export default function CoursesPage() {
         <LeadCaptureModal
           isOpen={leadOpen}
           onClose={() => setLeadOpen(false)}
-          source="Programme Recommendation Quiz"
         />
       )}
     </div>
