@@ -458,7 +458,7 @@ export default function AboutPage() {
             <span className="reveal section-tagline">The Road Ahead</span>
             <h2 className="reveal reveal-delay-1" style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '16px', marginBottom: '40px' }}>Where Ahsora Is Headed</h2>
             <div className="reveal reveal-delay-2">
-              <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: 1.85, marginBottom: '32px', fontWeight: 600, color: 'var(--text-primary)' }}>Near-term — known and confirmed:</p>
+              <p style={{ fontSize: '1.1rem', lineHeight: 1.85, marginBottom: '32px', fontWeight: 600, color: 'var(--text-primary)' }}>Near-term — known and confirmed:</p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '48px' }}>
                 {[
                   'Continue improving the IMAT preparation ecosystem — better content, better feedback, better support.',
