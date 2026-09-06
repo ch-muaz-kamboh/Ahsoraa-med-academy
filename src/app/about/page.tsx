@@ -142,13 +142,12 @@ export default function AboutPage() {
             <div className="about-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: '80px', alignItems: 'center', maxWidth: '1300px', margin: '0 auto' }}>
               {/* Left — headline */}
               <div>
-                <div className="reveal" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', backgroundColor: 'rgba(92,237,115,0.1)', border: '1px solid rgba(92,237,115,0.28)', borderRadius: 'var(--radius-full)', padding: '8px 20px', marginBottom: '32px' }}>
-                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--primary-400)', display: 'inline-block', flexShrink: 0, boxShadow: '0 0 8px var(--primary-400)' }} />
-                  <span style={{ color: 'var(--primary-400)', fontWeight: 700, fontSize: '0.82rem', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Why Ahsora Exists</span>
+                <div className="reveal" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', backgroundColor: 'rgba(92,237,115,0.1)', border: '1px solid rgba(92,237,115,0.28)', borderRadius: 'var(--radius-full)', padding: '8px 20px', marginBottom: '24px' }}>
+                  <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: 'var(--primary-400)', display: 'inline-block', flexShrink: 0 }} />
+                  <span style={{ color: 'var(--primary-400)', fontWeight: 700, fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Why Ahsora Exists</span>
                 </div>
-                <h1 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(2.4rem, 4.5vw, 4.2rem)', fontWeight: 900, color: '#FFFFFF', lineHeight: 1.12, letterSpacing: '-1.5px', marginBottom: '32px' }}>
-                  I Know What It Feels Like<br />
-                  <span style={{ color: 'var(--primary-400)' }}>to Figure It All Out Alone.</span>
+                <h1 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(2rem, 3vw, 3rem)', fontWeight: 900, color: '#FFFFFF', lineHeight: 1.2, letterSpacing: '-1px', marginBottom: '24px' }}>
+                  I Know What It Feels Like to Figure It All Out Alone.
                 </h1>
                 <p className="reveal reveal-delay-2" style={{ color: 'rgba(255,255,255,0.68)', fontSize: '1.2rem', lineHeight: 1.85, marginBottom: '48px', maxWidth: '540px' }}>
                   Ahsora was built from firsthand experience of the journey to Medicine in Italy — the uncertainty, the decisions, the preparation and everything that comes after the exam.
