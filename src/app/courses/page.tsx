@@ -6,10 +6,10 @@ import Link from 'next/link';
 import {
   Compass, GraduationCap, Globe2, ArrowRight, CheckCircle2,
   ChevronDown, ChevronUp, PlayCircle, Target, BarChart2, MessageCircle, AlertCircle, Star,
-  Users
+  Users, Zap, TrendingUp, CheckCircle
 } from 'lucide-react';
 import LeadCaptureModal from '@/components/public/LeadCaptureModal';
-import './courses.css'; // Import premium styles
+import './courses.css';
 
 // ─── Intersection Observer Hook ──────────────────────────────────────────────
 function useIntersectionObserver(options = {}) {
@@ -20,10 +20,9 @@ function useIntersectionObserver(options = {}) {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
-          // Optional: observer.unobserve(entry.target) if we only want it to run once
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px', ...options });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px', ...options });
 
     elements.forEach(el => observer.observe(el));
     return () => observer.disconnect();
@@ -38,29 +37,331 @@ function useIntersectionObserver(options = {}) {
   return { observe };
 }
 
-// ─── Sticky mobile bar ──────────────────────────────────────────────────────
-function StickyMobileBar({ onTrial }: { onTrial: () => void }) {
+// ─── Floating Corner Actions (Compact, Transparent & Unobtrusive) ─────────────
+function FloatingCornerBar({ onTrial }: { onTrial: () => void }) {
   const [show, setShow] = useState(false);
   useEffect(() => {
-    const handler = () => setShow(window.scrollY > 400);
+    const handler = () => setShow(window.scrollY > 300);
     window.addEventListener('scroll', handler, { passive: true });
     return () => window.removeEventListener('scroll', handler);
   }, []);
-  return show ? (
+
+  if (!show) return null;
+
+  return (
     <div style={{
-      position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 100,
-      backgroundColor: 'rgba(15, 23, 42, 0.95)', backdropFilter: 'blur(10px)', borderTop: '1px solid rgba(255,255,255,0.1)',
-      padding: '12px 20px', display: 'flex', gap: '10px', justifyContent: 'center',
-      paddingBottom: 'env(safe-area-inset-bottom, 12px)',
-      boxShadow: '0 -4px 20px rgba(0,0,0,0.15)'
-    }} className="mobile-only scroll-fade-up is-visible">
-      <button onClick={onTrial} className="btn-primary" style={{ flex: 1, maxWidth: '180px', fontSize: '0.85rem', padding: '10px', boxShadow: 'none' }}>Try Free Mock</button>
-      <a href="https://wa.me/923000000000" target="_blank" rel="noopener noreferrer"
-        style={{ flex: 1, maxWidth: '180px', backgroundColor: '#16A34A', color: '#fff', borderRadius: 'var(--radius-full)', fontWeight: 700, fontSize: '0.85rem', padding: '10px', textAlign: 'center', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
-        <MessageCircle size={16} /> WhatsApp
+      position: 'fixed',
+      bottom: '24px',
+      right: '24px',
+      zIndex: 999,
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '8px',
+      alignItems: 'flex-end',
+      pointerEvents: 'auto',
+      animation: 'fadeInUp 0.3s ease-out'
+    }}>
+      <a
+        href="https://wa.me/923000000000"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '6px',
+          backgroundColor: 'rgba(22, 163, 74, 0.88)',
+          backdropFilter: 'blur(10px)',
+          WebkitBackdropFilter: 'blur(10px)',
+          color: '#ffffff',
+          padding: '7px 14px',
+          borderRadius: '9999px',
+          fontSize: '0.8rem',
+          fontWeight: 700,
+          textDecoration: 'none',
+          boxShadow: '0 4px 14px rgba(0,0,0,0.18)',
+          border: '1px solid rgba(255,255,255,0.25)',
+          transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
+        }}
+        onMouseEnter={e => {
+          e.currentTarget.style.transform = 'scale(1.04) translateY(-1px)';
+          e.currentTarget.style.backgroundColor = 'rgba(22, 163, 74, 1)';
+        }}
+        onMouseLeave={e => {
+          e.currentTarget.style.transform = 'scale(1) translateY(0)';
+          e.currentTarget.style.backgroundColor = 'rgba(22, 163, 74, 0.88)';
+        }}
+      >
+        <MessageCircle size={15} />
+        <span>WhatsApp</span>
       </a>
+
+      <button
+        onClick={onTrial}
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '6px',
+          backgroundColor: 'rgba(15, 23, 42, 0.82)',
+          backdropFilter: 'blur(10px)',
+          WebkitBackdropFilter: 'blur(10px)',
+          color: '#5CED73',
+          padding: '7px 14px',
+          borderRadius: '9999px',
+          fontSize: '0.8rem',
+          fontWeight: 700,
+          border: '1px solid rgba(92, 237, 115, 0.35)',
+          cursor: 'pointer',
+          boxShadow: '0 4px 14px rgba(0,0,0,0.2)',
+          transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
+        }}
+        onMouseEnter={e => {
+          e.currentTarget.style.transform = 'scale(1.04) translateY(-1px)';
+          e.currentTarget.style.borderColor = 'rgba(92, 237, 115, 0.8)';
+          e.currentTarget.style.backgroundColor = 'rgba(15, 23, 42, 0.95)';
+        }}
+        onMouseLeave={e => {
+          e.currentTarget.style.transform = 'scale(1) translateY(0)';
+          e.currentTarget.style.borderColor = 'rgba(92, 237, 115, 0.35)';
+          e.currentTarget.style.backgroundColor = 'rgba(15, 23, 42, 0.82)';
+        }}
+      >
+        <Zap size={14} color="#5CED73" />
+        <span>Try Free Mock</span>
+      </button>
     </div>
-  ) : null;
+  );
+}
+
+// ─── Animated Dashboard Mockup Component ─────────────────────────────────────
+function AnimatedDashboardMockup() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+  const [questions, setQuestions] = useState(0);
+  const [accuracy, setAccuracy] = useState(0);
+  const [score, setScore] = useState(0);
+  const [hours, setHours] = useState(0);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setInView(true);
+        obs.disconnect();
+      }
+    }, { threshold: 0.2 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!inView) return;
+    
+    const duration = 1500;
+    const start = performance.now();
+    const targetQ = 2480;
+    const targetAcc = 89;
+    const targetScore = 54.8;
+    const targetHours = 142;
+
+    const frame = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3); // Cubic ease out
+      setQuestions(Math.floor(ease * targetQ));
+      setAccuracy(Math.floor(ease * targetAcc));
+      setScore(Number((ease * targetScore).toFixed(1)));
+      setHours(Math.floor(ease * targetHours));
+
+      if (progress < 1) {
+        requestAnimationFrame(frame);
+      }
+    };
+    requestAnimationFrame(frame);
+  }, [inView]);
+
+  const weeklyActivity = [
+    { day: 'M', height: 60, questions: 45 },
+    { day: 'T', height: 85, questions: 62 },
+    { day: 'W', height: 50, questions: 38 },
+    { day: 'T', height: 100, questions: 78 },
+    { day: 'F', height: 70, questions: 50 },
+    { day: 'S', height: 90, questions: 70 },
+    { day: 'S', height: 95, questions: 75 },
+  ];
+
+  const subjects = [
+    { name: 'Biology', pct: 94, color: '#10B981' },
+    { name: 'Chemistry', pct: 88, color: '#3B82F6' },
+    { name: 'Physics & Math', pct: 78, color: '#F59E0B' },
+    { name: 'Logical Reasoning', pct: 92, color: '#8B5CF6' },
+  ];
+
+  return (
+    <div
+      ref={containerRef}
+      style={{
+        width: '100%',
+        backgroundColor: '#0F172A',
+        borderRadius: 'var(--radius-xl)',
+        boxShadow: '0 20px 40px -15px rgba(15, 23, 42, 0.4)',
+        border: '1px solid rgba(255, 255, 255, 0.1)',
+        overflow: 'hidden',
+        color: '#FFFFFF',
+        fontFamily: 'inherit',
+        display: 'flex',
+        flexDirection: 'column'
+      }}
+    >
+      {/* Top OS Window Header */}
+      <div style={{
+        backgroundColor: '#1E293B',
+        padding: '10px 16px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#EF4444' }} />
+          <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#F59E0B' }} />
+          <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#10B981' }} />
+          <span style={{ fontSize: '0.75rem', color: '#94A3B8', marginLeft: '8px', fontWeight: 600 }}>
+            Ahsora Student OS • Live Dashboard
+          </span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#10B981', boxShadow: '0 0 8px #10B981' }} />
+          <span style={{ fontSize: '0.7rem', color: '#10B981', fontWeight: 700, letterSpacing: '0.5px' }}>
+            STUDY SYNC ACTIVE
+          </span>
+        </div>
+      </div>
+
+      {/* Main Dashboard Content */}
+      <div style={{ padding: '18px 20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        {/* KPI Counter Cards Row */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(4, 1fr)',
+          gap: '10px'
+        }}>
+          <div style={{ backgroundColor: 'rgba(30, 41, 59, 0.7)', borderRadius: '10px', padding: '10px 12px', border: '1px solid rgba(255,255,255,0.06)' }}>
+            <div style={{ fontSize: '0.7rem', color: '#94A3B8', fontWeight: 600, marginBottom: '2px' }}>Solved Questions</div>
+            <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#38BDF8', letterSpacing: '-0.5px' }}>
+              {questions.toLocaleString()}
+            </div>
+            <div style={{ fontSize: '0.65rem', color: '#10B981', fontWeight: 700, marginTop: '2px' }}>↑ +14 today</div>
+          </div>
+
+          <div style={{ backgroundColor: 'rgba(30, 41, 59, 0.7)', borderRadius: '10px', padding: '10px 12px', border: '1px solid rgba(255,255,255,0.06)' }}>
+            <div style={{ fontSize: '0.7rem', color: '#94A3B8', fontWeight: 600, marginBottom: '2px' }}>Accuracy Rate</div>
+            <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#5CED73', letterSpacing: '-0.5px' }}>
+              {accuracy}%
+            </div>
+            <div style={{ fontSize: '0.65rem', color: '#94A3B8', fontWeight: 600, marginTop: '2px' }}>Top 5% Cohort</div>
+          </div>
+
+          <div style={{ backgroundColor: 'rgba(30, 41, 59, 0.7)', borderRadius: '10px', padding: '10px 12px', border: '1px solid rgba(255,255,255,0.06)' }}>
+            <div style={{ fontSize: '0.7rem', color: '#94A3B8', fontWeight: 600, marginBottom: '2px' }}>Diagnostic Score</div>
+            <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#FBBF24', letterSpacing: '-0.5px' }}>
+              {score}<span style={{ fontSize: '0.75rem', color: '#94A3B8', fontWeight: 600 }}>/60</span>
+            </div>
+            <div style={{ fontSize: '0.65rem', color: '#5CED73', fontWeight: 700, marginTop: '2px' }}>Qualified Track</div>
+          </div>
+
+          <div style={{ backgroundColor: 'rgba(30, 41, 59, 0.7)', borderRadius: '10px', padding: '10px 12px', border: '1px solid rgba(255,255,255,0.06)' }}>
+            <div style={{ fontSize: '0.7rem', color: '#94A3B8', fontWeight: 600, marginBottom: '2px' }}>Study Hours</div>
+            <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#C084FC', letterSpacing: '-0.5px' }}>
+              {hours}h
+            </div>
+            <div style={{ fontSize: '0.65rem', color: '#F59E0B', fontWeight: 700, marginTop: '2px' }}>🔥 28-day streak</div>
+          </div>
+        </div>
+
+        {/* 2-Column Section: Subject Mastery & Weekly Bar Chart */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1.15fr 0.85fr',
+          gap: '14px',
+          alignItems: 'stretch'
+        }}>
+          {/* Subject Mastery Progress Bars */}
+          <div style={{ backgroundColor: 'rgba(30, 41, 59, 0.5)', borderRadius: '10px', padding: '12px 14px', border: '1px solid rgba(255,255,255,0.05)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#E2E8F0' }}>Subject Mastery & Syllabus</span>
+              <span style={{ fontSize: '0.68rem', color: '#94A3B8' }}>Target: 85%+</span>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {subjects.map((sub, i) => (
+                <div key={i}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem', marginBottom: '3px' }}>
+                    <span style={{ color: '#CBD5E1', fontWeight: 600 }}>{sub.name}</span>
+                    <span style={{ color: sub.color, fontWeight: 800 }}>{inView ? sub.pct : 0}%</span>
+                  </div>
+                  <div style={{ height: '6px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '3px', overflow: 'hidden' }}>
+                    <div style={{
+                      height: '100%',
+                      width: inView ? `${sub.pct}%` : '0%',
+                      backgroundColor: sub.color,
+                      borderRadius: '3px',
+                      transition: `width 1.2s cubic-bezier(0.16, 1, 0.3, 1) ${0.1 + i * 0.1}s`,
+                      boxShadow: `0 0 8px ${sub.color}80`
+                    }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Weekly Practice Bar Graph */}
+          <div style={{ backgroundColor: 'rgba(30, 41, 59, 0.5)', borderRadius: '10px', padding: '12px 14px', border: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#E2E8F0' }}>Weekly Activity</span>
+              <span style={{ fontSize: '0.65rem', color: '#10B981', fontWeight: 700 }}>420 Qs this wk</span>
+            </div>
+            {/* Graph Bars */}
+            <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', height: '64px', padding: '4px 0 0', gap: '4px' }}>
+              {weeklyActivity.map((bar, i) => (
+                <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1, height: '100%', justifyContent: 'flex-end', gap: '4px' }}>
+                  <div
+                    title={`${bar.questions} questions`}
+                    style={{
+                      width: '100%',
+                      maxWidth: '14px',
+                      height: inView ? `${bar.height}%` : '0%',
+                      backgroundColor: i === 6 ? '#5CED73' : '#38BDF8',
+                      borderRadius: '3px 3px 0 0',
+                      transition: `height 1s cubic-bezier(0.16, 1, 0.3, 1) ${0.15 + i * 0.08}s`,
+                      opacity: i === 6 ? 1 : 0.75
+                    }}
+                  />
+                  <span style={{ fontSize: '0.62rem', color: '#94A3B8', fontWeight: 600 }}>{bar.day}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Status Banner */}
+        <div style={{
+          backgroundColor: 'rgba(92, 237, 115, 0.08)',
+          border: '1px solid rgba(92, 237, 115, 0.2)',
+          borderRadius: '8px',
+          padding: '8px 12px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          fontSize: '0.75rem'
+        }}>
+          <span style={{ color: '#E2E8F0', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <CheckCircle size={14} color="#5CED73" />
+            <span>Target Match: <strong>University of Messina (Medicine)</strong></span>
+          </span>
+          <span style={{ color: '#5CED73', fontWeight: 700 }}>Next Mock: Sun 10:00 CET</span>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 // ─── Programme Recommendation Quiz ─────────────────────────────────────────
@@ -101,41 +402,41 @@ function ProgrammeQuiz({ onLead }: { onLead: () => void }) {
   if (result) {
     const meta = resultMeta[result];
     return (
-      <div className="scroll-scale-in is-visible" style={{ textAlign: 'center', padding: '40px 20px' }}>
-        <div style={{ marginBottom: '16px', display: 'flex', justifyContent: 'center' }}>
-          <div style={{ padding: '16px', background: `${meta.color}15`, borderRadius: '50%' }}>
+      <div className="scroll-scale-in is-visible" style={{ textAlign: 'center', padding: '36px 20px' }}>
+        <div style={{ marginBottom: '14px', display: 'flex', justifyContent: 'center' }}>
+          <div style={{ padding: '14px', background: `${meta.color}15`, borderRadius: '50%' }}>
             {meta.icon}
           </div>
         </div>
-        <div style={{ fontSize: '0.8rem', color: 'var(--text-light)', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '8px' }}>Your recommended programme</div>
-        <div style={{ fontSize: '2.2rem', fontWeight: 900, color: meta.color, marginBottom: '12px', letterSpacing: '-0.5px' }}>{result}</div>
-        <p style={{ color: 'var(--text-secondary)', marginBottom: '28px', lineHeight: 1.6 }}>{meta.desc}</p>
-        <button onClick={onLead} style={{ backgroundColor: meta.color, color: '#fff', border: 'none', borderRadius: 'var(--radius-full)', padding: '14px 28px', fontWeight: 700, cursor: 'pointer', fontSize: '1rem', marginBottom: '16px', width: '100%', transition: 'transform 0.2s', boxShadow: `0 8px 24px -4px ${meta.color}40` }}
+        <div style={{ fontSize: '0.75rem', color: 'var(--text-light)', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '6px' }}>Your recommended programme</div>
+        <div style={{ fontSize: '2rem', fontWeight: 900, color: meta.color, marginBottom: '10px', letterSpacing: '-0.5px' }}>{result}</div>
+        <p style={{ color: 'var(--text-secondary)', marginBottom: '24px', lineHeight: 1.6, fontSize: '0.95rem' }}>{meta.desc}</p>
+        <button onClick={onLead} style={{ backgroundColor: meta.color, color: '#fff', border: 'none', borderRadius: 'var(--radius-full)', padding: '12px 24px', fontWeight: 700, cursor: 'pointer', fontSize: '0.95rem', marginBottom: '14px', width: '100%', transition: 'transform 0.2s', boxShadow: `0 8px 24px -4px ${meta.color}40` }}
           onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(-2px)')}
           onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}>
           Save My Result &amp; Get Free IMAT Guide
         </button>
-        <button onClick={() => { setStep(0); setAnswers([]); setResult(null); }} style={{ background: 'none', border: 'none', color: 'var(--text-light)', fontSize: '0.88rem', cursor: 'pointer', textDecoration: 'underline' }}>Retake quiz</button>
+        <button onClick={() => { setStep(0); setAnswers([]); setResult(null); }} style={{ background: 'none', border: 'none', color: 'var(--text-light)', fontSize: '0.85rem', cursor: 'pointer', textDecoration: 'underline' }}>Retake quiz</button>
       </div>
     );
   }
 
   return (
-    <div style={{ padding: '40px 32px' }} className="scroll-fade-up is-visible">
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '28px', alignItems: 'center' }}>
-        <span style={{ fontSize: '0.8rem', color: 'var(--text-light)', fontWeight: 600 }}>Question {step + 1} of {questions.length}</span>
+    <div style={{ padding: '32px 28px' }} className="scroll-fade-up is-visible">
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px', alignItems: 'center' }}>
+        <span style={{ fontSize: '0.75rem', color: 'var(--text-light)', fontWeight: 600 }}>Question {step + 1} of {questions.length}</span>
         <div style={{ display: 'flex', gap: '6px' }}>
           {questions.map((_, i) => (
-            <div key={i} style={{ width: '32px', height: '6px', borderRadius: '3px', backgroundColor: i <= step ? 'var(--primary-400)' : 'var(--border-light)', transition: 'background 0.4s ease' }} />
+            <div key={i} style={{ width: '28px', height: '5px', borderRadius: '3px', backgroundColor: i <= step ? 'var(--primary-400)' : 'var(--border-light)', transition: 'background 0.4s ease' }} />
           ))}
         </div>
       </div>
-      <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '28px', lineHeight: 1.4 }}>{questions[step].q}</h3>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+      <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '20px', lineHeight: 1.4 }}>{questions[step].q}</h3>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         {questions[step].opts.map((opt, i) => (
           <button key={i} onClick={() => handleAnswer(i)}
-            style={{ padding: '18px 24px', borderRadius: 'var(--radius-md)', border: '1.5px solid var(--border-light)', backgroundColor: '#FFFFFF', textAlign: 'left', fontWeight: 600, color: 'var(--text-secondary)', cursor: 'pointer', fontSize: '0.95rem', transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)', boxShadow: 'var(--shadow-sm)' }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--primary-400)'; e.currentTarget.style.backgroundColor = 'var(--bg-hover)'; e.currentTarget.style.transform = 'translateX(4px)'; }}
+            style={{ padding: '14px 20px', borderRadius: 'var(--radius-md)', border: '1.5px solid var(--border-light)', backgroundColor: '#FFFFFF', textAlign: 'left', fontWeight: 600, color: 'var(--text-secondary)', cursor: 'pointer', fontSize: '0.9rem', transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)', boxShadow: 'var(--shadow-sm)' }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--primary-400)'; e.currentTarget.style.backgroundColor = 'var(--bg-hover)'; e.currentTarget.style.transform = 'translateX(3px)'; }}
             onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border-light)'; e.currentTarget.style.backgroundColor = '#FFFFFF'; e.currentTarget.style.transform = 'translateX(0)'; }}>
             {opt}
           </button>
@@ -155,7 +456,7 @@ export default function CoursesPage() {
     {
       id: 'ascent',
       name: 'IMAT Ascent',
-      icon: <Compass size={28} color="#3B82F6" />,
+      icon: <Compass size={24} color="#3B82F6" />,
       accentColor: '#3B82F6',
       accentBg: '#EFF6FF',
       badge: null,
@@ -169,7 +470,7 @@ export default function CoursesPage() {
     {
       id: 'mastery',
       name: 'IMAT Mastery',
-      icon: <GraduationCap size={28} color="#d4af37" />,
+      icon: <GraduationCap size={24} color="#d4af37" />,
       accentColor: '#d4af37',
       accentBg: '#fbf8eb',
       badge: 'Recommended',
@@ -184,7 +485,7 @@ export default function CoursesPage() {
     {
       id: 'elite',
       name: 'MedPath Elite',
-      icon: <Globe2 size={28} color="#1E3A8A" />,
+      icon: <Globe2 size={24} color="#1E3A8A" />,
       accentColor: '#1E3A8A',
       accentBg: '#EFF6FF',
       badge: 'Flagship',
@@ -222,61 +523,61 @@ export default function CoursesPage() {
     <div style={{ backgroundColor: 'var(--bg-main)', minHeight: '100vh' }}>
 
       {/* ── 01 HERO ─────────────────────────────────────────────────────── */}
-      <section className="courses-hero" style={{ position: 'relative', overflow: 'hidden' }}>
+      <section className="courses-hero" style={{ position: 'relative', overflow: 'hidden', padding: '90px 0 60px' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
           <Image src="/courses-hero-bg.jpg" alt="" fill style={{ objectFit: 'cover', opacity: 0.45 }} priority />
         </div>
         <div className="container" style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
           <span ref={observe} className="section-tagline scroll-fade-up">IMAT Preparation Programmes</span>
-          <h1 ref={observe} className="section-title scroll-fade-up" style={{ transitionDelay: '100ms' }}>
+          <h1 ref={observe} className="section-title scroll-fade-up" style={{ transitionDelay: '100ms', marginBottom: '18px' }}>
             Your Journey to Medicine<br />in Italy Starts Here
           </h1>
-          <p ref={observe} className="scroll-fade-up" style={{ color: 'var(--text-secondary)', fontSize: '1.2rem', lineHeight: 1.8, marginBottom: '16px', transitionDelay: '200ms', padding: '0 20px' }}>
+          <p ref={observe} className="scroll-fade-up" style={{ color: 'var(--text-secondary)', fontSize: '1.15rem', lineHeight: 1.7, marginBottom: '14px', transitionDelay: '200ms', padding: '0 20px' }}>
             Prepare for the IMAT. Learn from experienced instructors. Measure your progress. And, when you're ready, let Ahsora guide you through the journey beyond the exam.
           </p>
-          <p ref={observe} className="scroll-fade-up" style={{ color: 'var(--text-light)', fontSize: '1rem', marginBottom: '40px', transitionDelay: '300ms' }}>
+          <p ref={observe} className="scroll-fade-up" style={{ color: 'var(--text-light)', fontSize: '0.95rem', marginBottom: '32px', transitionDelay: '300ms' }}>
             Three programmes. One complete ecosystem. Your choice of support.
           </p>
-          <div ref={observe} className="scroll-fade-up" style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', transitionDelay: '400ms' }}>
-            <a href="#programmes" className="btn-primary" style={{ padding: '16px 36px', fontSize: '1.05rem' }}>Explore Our Programmes</a>
-            <a href="#quiz" className="btn-outline" style={{ padding: '16px 28px', fontSize: '1.05rem', backgroundColor: '#fff' }}>Not Sure Which Is Right For Me?</a>
+          <div ref={observe} className="scroll-fade-up" style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap', transitionDelay: '400ms' }}>
+            <a href="#programmes" className="btn-primary" style={{ padding: '14px 32px', fontSize: '1rem' }}>Explore Our Programmes</a>
+            <a href="#quiz" className="btn-outline" style={{ padding: '14px 26px', fontSize: '1rem', backgroundColor: '#fff' }}>Not Sure Which Is Right For Me?</a>
           </div>
         </div>
       </section>
 
       {/* ── 02 CHOOSE YOUR PATH ─────────────────────────────────────────── */}
-      <section id="programmes" style={{ padding: '100px 0', backgroundColor: '#FFFFFF' }}>
+      <section id="programmes" style={{ padding: '70px 0', backgroundColor: '#FFFFFF' }}>
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '20px' }}>
             <span ref={observe} className="section-tagline scroll-fade-up">Choose Your Path</span>
-            <h2 ref={observe} className="scroll-fade-up" style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '8px' }}>Choose Your Ahsora Programme</h2>
+            <h2 ref={observe} className="scroll-fade-up" style={{ fontSize: '2.3rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '6px' }}>Choose Your Ahsora Programme</h2>
           </div>
-          <p ref={observe} className="scroll-fade-up" style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '60px', fontSize: '1.05rem', transitionDelay: '100ms' }}>
+          <p ref={observe} className="scroll-fade-up" style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '48px', fontSize: '1rem', transitionDelay: '100ms' }}>
             Every programme includes <strong style={{ color: 'var(--primary-600)' }}>12 months of full portal access</strong> — mocks, question banks, and resources for every subject, at your own pace.
           </p>
           
-          <div ref={observe} className="scroll-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '32px' }}>
+          <div ref={observe} className="scroll-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))', gap: '28px' }}>
             {programmes.map((prog) => (
-              <div key={prog.id} className={`prog-card ${prog.isFeatured ? 'prog-card-featured' : ''}`} style={{ '--card-accent': prog.accentColor, '--card-bg': prog.accentBg } as React.CSSProperties}>
+              <div key={prog.id} className={`prog-card ${prog.isFeatured ? 'prog-card-featured' : ''}`} style={{ '--card-accent': prog.accentColor, '--card-bg': prog.accentBg, padding: '32px' } as React.CSSProperties}>
                 {prog.badge && (
                   <span className="prog-badge">{prog.badge}</span>
                 )}
-                <div className="prog-icon-wrap">
+                <div className="prog-icon-wrap" style={{ width: '50px', height: '50px', marginBottom: '18px' }}>
                   {prog.icon}
                 </div>
                 <div>
-                  <div style={{ fontWeight: 900, fontSize: '1.4rem', color: 'var(--text-primary)', letterSpacing: '-0.5px' }}>{prog.name}</div>
-                  <div style={{ fontWeight: 700, color: prog.accentColor, fontSize: '0.95rem', marginTop: '4px', marginBottom: '16px' }}>{prog.tagline}</div>
+                  <div style={{ fontWeight: 900, fontSize: '1.3rem', color: 'var(--text-primary)', letterSpacing: '-0.5px' }}>{prog.name}</div>
+                  <div style={{ fontWeight: 700, color: prog.accentColor, fontSize: '0.9rem', marginTop: '2px', marginBottom: '12px' }}>{prog.tagline}</div>
                 </div>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: 1.7, flex: 1, marginBottom: '24px' }}>{prog.desc}</p>
-                <div style={{ fontSize: '2.2rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '20px', letterSpacing: '-1px' }}>{prog.price}</div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: 'auto' }}>
-                  <a href={`#${prog.id}`} style={{ display: 'block', textAlign: 'center', backgroundColor: prog.isFeatured ? prog.accentColor : 'transparent', color: prog.isFeatured ? '#fff' : prog.accentColor, border: `1.5px solid ${prog.accentColor}`, borderRadius: 'var(--radius-full)', padding: '14px', fontWeight: 700, textDecoration: 'none', fontSize: '0.95rem', transition: 'all 0.2s', boxShadow: prog.isFeatured ? `0 8px 20px -4px ${prog.accentColor}40` : 'none' }}
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.65, flex: 1, marginBottom: '20px' }}>{prog.desc}</p>
+                <div style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '16px', letterSpacing: '-1px' }}>{prog.price}</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: 'auto' }}>
+                  <a href={`#${prog.id}`} style={{ display: 'block', textAlign: 'center', backgroundColor: prog.isFeatured ? prog.accentColor : 'transparent', color: prog.isFeatured ? '#fff' : prog.accentColor, border: `1.5px solid ${prog.accentColor}`, borderRadius: 'var(--radius-full)', padding: '12px', fontWeight: 700, textDecoration: 'none', fontSize: '0.9rem', transition: 'all 0.2s', boxShadow: prog.isFeatured ? `0 8px 20px -4px ${prog.accentColor}40` : 'none' }}
                      onMouseEnter={e => !prog.isFeatured && (e.currentTarget.style.backgroundColor = prog.accentBg)}
                      onMouseLeave={e => !prog.isFeatured && (e.currentTarget.style.backgroundColor = 'transparent')}>
                     {prog.cta}
                   </a>
-                  <Link href="/portal/tests" style={{ display: 'block', textAlign: 'center', color: 'var(--text-light)', fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none', padding: '8px' }}>
+                  <Link href="/portal/tests" style={{ display: 'block', textAlign: 'center', color: 'var(--text-light)', fontSize: '0.82rem', fontWeight: 600, textDecoration: 'none', padding: '6px' }}>
                     Try a Free Diagnostic Mock First →
                   </Link>
                 </div>
@@ -287,11 +588,11 @@ export default function CoursesPage() {
       </section>
 
       {/* ── 03 SEE IT IN ACTION ─────────────────────────────────────────── */}
-      <section style={{ padding: '100px 0', backgroundColor: 'var(--bg-subtle)' }}>
+      <section style={{ padding: '70px 0', backgroundColor: 'var(--bg-subtle)' }}>
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '80px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '50px' }}>
             <span ref={observe} className="section-tagline scroll-fade-up">The Platform</span>
-            <h2 ref={observe} className="scroll-fade-up" style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '8px' }}>See Exactly What You're Getting</h2>
+            <h2 ref={observe} className="scroll-fade-up" style={{ fontSize: '2.3rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '6px' }}>See Exactly What You're Getting</h2>
           </div>
 
           {[
@@ -299,60 +600,65 @@ export default function CoursesPage() {
               label: 'Live Classes', question: 'Will I actually be taught?',
               title: "Don't Just Watch. Learn.",
               desc: 'Ask questions in real time, get concepts clarified on the spot, and apply what you learn through IMAT-style problem solving.',
-              icon: <PlayCircle size={48} color="var(--primary-600)" />, flip: false,
+              icon: <PlayCircle size={44} color="var(--primary-600)" />, flip: false,
             },
             {
               label: 'Student Portal', question: 'What will I use every day?',
               title: 'Your Entire Preparation. One Dashboard.',
-              desc: 'Question bank, topic-wise practice, full mock exams, and a personal dashboard that tracks everything in one place.',
-              icon: <BarChart2 size={48} color="#3B82F6" />, flip: true,
+              desc: 'Question bank, topic-wise practice, full mock exams, and a personal dashboard that tracks everything in one place with real-time score animations and insights.',
+              icon: <BarChart2 size={44} color="#3B82F6" />, flip: true,
+              isAnimatedDashboard: true,
             },
             {
               label: 'CBT Mock System', question: 'What will practising the IMAT actually feel like?',
               title: 'Practice on the Real Exam Format.',
               desc: 'Timed, scored with the exact IMAT marking formula, so exam day feels familiar before you ever sit the real thing.',
-              icon: <Target size={48} color="#7C3AED" />, flip: false,
+              icon: <Target size={44} color="#7C3AED" />, flip: false,
             },
           ].map((block, i) => (
-            <div key={i} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '60px', alignItems: 'center', marginBottom: '100px', direction: block.flip ? 'rtl' : 'ltr' }}>
+            <div key={i} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '48px', alignItems: 'center', marginBottom: i === 2 ? '60px' : '70px', direction: block.flip ? 'rtl' : 'ltr' }}>
               <div style={{ direction: 'ltr' }} ref={observe} className={`scroll-fade-${block.flip ? 'right' : 'left'}`}>
                 <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--primary-600)', textTransform: 'uppercase', letterSpacing: '1.5px' }}>{block.label}</span>
-                <p style={{ color: 'var(--text-light)', fontStyle: 'italic', fontSize: '0.95rem', margin: '8px 0 16px' }}>"{block.question}"</p>
-                <h3 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '20px', lineHeight: 1.25, letterSpacing: '-0.5px' }}>{block.title}</h3>
-                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, fontSize: '1.1rem' }}>{block.desc}</p>
+                <p style={{ color: 'var(--text-light)', fontStyle: 'italic', fontSize: '0.9rem', margin: '6px 0 12px' }}>"{block.question}"</p>
+                <h3 style={{ fontSize: '1.85rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '16px', lineHeight: 1.25, letterSpacing: '-0.5px' }}>{block.title}</h3>
+                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.75, fontSize: '1.05rem' }}>{block.desc}</p>
                 {i === 2 && (
-                  <div style={{ marginTop: '32px' }}>
-                    <Link href="/portal/tests" className="btn-primary">Try a Free Diagnostic Mock →</Link>
+                  <div style={{ marginTop: '24px' }}>
+                    <Link href="/portal/tests" className="btn-primary" style={{ padding: '12px 24px', fontSize: '0.95rem' }}>Try a Free Diagnostic Mock →</Link>
                   </div>
                 )}
               </div>
               <div style={{ direction: 'ltr' }} ref={observe} className={`scroll-fade-${block.flip ? 'left' : 'right'}`}>
-                <div style={{ position: 'relative', width: '100%', aspectRatio: '16/9', borderRadius: 'var(--radius-xl)', overflow: 'hidden', boxShadow: 'var(--shadow-xl)', border: '1px solid var(--border-light)' }}>
-                  <Image
-                    src={i === 0 ? '/live-classes.jpg' : i === 1 ? '/portal-dashboard.jpg' : '/cbt-mock-exam.jpg'}
-                    alt={block.title}
-                    fill
-                    style={{ objectFit: 'cover' }}
-                  />
-                </div>
+                {block.isAnimatedDashboard ? (
+                  <AnimatedDashboardMockup />
+                ) : (
+                  <div style={{ position: 'relative', width: '100%', aspectRatio: '16/9', borderRadius: 'var(--radius-xl)', overflow: 'hidden', boxShadow: 'var(--shadow-xl)', border: '1px solid var(--border-light)' }}>
+                    <Image
+                      src={i === 0 ? '/live-classes.jpg' : '/cbt-mock-exam.jpg'}
+                      alt={block.title}
+                      fill
+                      style={{ objectFit: 'cover' }}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           ))}
 
           {/* Growing Content Library */}
-          <div ref={observe} className="scroll-fade-up" style={{ backgroundColor: '#FFFFFF', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', padding: '56px', boxShadow: 'var(--shadow-md)' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '48px', alignItems: 'center' }}>
+          <div ref={observe} className="scroll-fade-up" style={{ backgroundColor: '#FFFFFF', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', padding: '40px', boxShadow: 'var(--shadow-md)' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '36px', alignItems: 'center' }}>
               <div>
                 <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--primary-600)', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Growing Content Library</span>
-                <p style={{ color: 'var(--text-light)', fontStyle: 'italic', fontSize: '0.95rem', margin: '8px 0 16px' }}>"What's available right now, and what's coming?"</p>
-                <h3 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '20px', lineHeight: 1.25, letterSpacing: '-0.5px' }}>A Library That Grows With Every Class.</h3>
-                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, fontSize: '1.1rem' }}>Every live session becomes a permanent part of your resource library — so the archive of recorded lectures grows continuously, alongside the question banks and mock tests you have full access to from day one.</p>
+                <p style={{ color: 'var(--text-light)', fontStyle: 'italic', fontSize: '0.9rem', margin: '6px 0 12px' }}>"What's available right now, and what's coming?"</p>
+                <h3 style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '14px', lineHeight: 1.25, letterSpacing: '-0.5px' }}>A Library That Grows With Every Class.</h3>
+                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.7, fontSize: '1.02rem' }}>Every live session becomes a permanent part of your resource library — so the archive of recorded lectures grows continuously, alongside the question banks and mock tests you have full access to from day one.</p>
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {contentLibrary.map((item, i) => (
-                  <div key={i} className="lib-item">
-                    <span style={{ fontWeight: 600, color: 'var(--text-secondary)' }}>{item.subject}</span>
-                    <span style={{ fontSize: '0.75rem', fontWeight: 700, color: item.color, backgroundColor: item.bg, padding: '6px 14px', borderRadius: 'var(--radius-full)', border: `1px solid ${item.border}`, textTransform: 'uppercase', letterSpacing: '0.5px' }}>{item.status}</span>
+                  <div key={i} className="lib-item" style={{ padding: '12px 18px' }}>
+                    <span style={{ fontWeight: 600, color: 'var(--text-secondary)', fontSize: '0.92rem' }}>{item.subject}</span>
+                    <span style={{ fontSize: '0.72rem', fontWeight: 700, color: item.color, backgroundColor: item.bg, padding: '4px 12px', borderRadius: 'var(--radius-full)', border: `1px solid ${item.border}`, textTransform: 'uppercase', letterSpacing: '0.5px' }}>{item.status}</span>
                   </div>
                 ))}
               </div>
@@ -360,53 +666,53 @@ export default function CoursesPage() {
           </div>
 
           {/* Pipeline connector */}
-          <div ref={observe} className="scroll-scale-in" style={{ marginTop: '64px', backgroundColor: 'var(--text-primary)', borderRadius: 'var(--radius-xl)', padding: '24px 40px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', flexWrap: 'wrap', boxShadow: '0 20px 40px -10px rgba(15,23,42,0.3)' }}>
+          <div ref={observe} className="scroll-scale-in" style={{ marginTop: '48px', backgroundColor: 'var(--text-primary)', borderRadius: 'var(--radius-xl)', padding: '20px 32px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', flexWrap: 'wrap', boxShadow: '0 16px 36px -10px rgba(15,23,42,0.3)' }}>
             {['Course', 'Live Class', 'Question Bank', 'Mock Exam', 'Analytics', 'Improvement'].map((step, i, arr) => (
               <React.Fragment key={i}>
-                <span style={{ color: 'var(--primary-400)', fontWeight: 700, fontSize: '0.95rem' }}>{step}</span>
-                {i < arr.length - 1 && <span style={{ color: 'var(--text-muted)', fontSize: '1rem' }}>→</span>}
+                <span style={{ color: 'var(--primary-400)', fontWeight: 700, fontSize: '0.9rem' }}>{step}</span>
+                {i < arr.length - 1 && <span style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>→</span>}
               </React.Fragment>
             ))}
-            <span style={{ color: 'var(--text-light)', fontSize: '0.85rem', width: '100%', textAlign: 'center', marginTop: '8px' }}>One connected system — not three separate tools.</span>
+            <span style={{ color: 'var(--text-light)', fontSize: '0.8rem', width: '100%', textAlign: 'center', marginTop: '6px' }}>One connected system — not three separate tools.</span>
           </div>
         </div>
       </section>
 
       {/* ── 04 FOUNDER ──────────────────────────────────────────────────── */}
-      <section style={{ padding: '100px 0', backgroundColor: '#FFFFFF' }}>
+      <section style={{ padding: '70px 0', backgroundColor: '#FFFFFF' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '80px', alignItems: 'center' }}>
-            <div ref={observe} className="scroll-fade-right" style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-xl)', minHeight: '400px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '20px', padding: '48px', border: '1px solid var(--border-light)', position: 'relative' }}>
-              <div style={{ width: '120px', height: '120px', borderRadius: '50%', backgroundColor: '#E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '4px solid #fff', boxShadow: 'var(--shadow-md)' }}>
-                <Users size={48} color="var(--text-light)" />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '56px', alignItems: 'center' }}>
+            <div ref={observe} className="scroll-fade-right" style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-xl)', minHeight: '340px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '16px', padding: '36px', border: '1px solid var(--border-light)', position: 'relative' }}>
+              <div style={{ width: '100px', height: '100px', borderRadius: '50%', backgroundColor: '#E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '4px solid #fff', boxShadow: 'var(--shadow-md)' }}>
+                <Users size={40} color="var(--text-light)" />
               </div>
-              <div style={{ color: 'var(--text-light)', fontSize: '0.85rem', fontStyle: 'italic', textAlign: 'center' }}>Real founder photo — coming soon</div>
-              <div style={{ backgroundColor: 'var(--text-primary)', borderRadius: 'var(--radius-md)', padding: '16px 24px', textAlign: 'center', width: '100%', marginTop: '20px' }}>
-                <div style={{ color: 'var(--primary-400)', fontWeight: 700, fontSize: '0.9rem' }}>Final-Year Medicine & Surgery Student</div>
-                <div style={{ color: 'var(--text-light)', fontSize: '0.85rem', marginTop: '6px' }}>University of Messina, Italy · Founder, Ahsora Med Academy</div>
+              <div style={{ color: 'var(--text-light)', fontSize: '0.82rem', fontStyle: 'italic', textAlign: 'center' }}>Real founder photo — coming soon</div>
+              <div style={{ backgroundColor: 'var(--text-primary)', borderRadius: 'var(--radius-md)', padding: '14px 20px', textAlign: 'center', width: '100%', marginTop: '12px' }}>
+                <div style={{ color: 'var(--primary-400)', fontWeight: 700, fontSize: '0.88rem' }}>Final-Year Medicine & Surgery Student</div>
+                <div style={{ color: 'var(--text-light)', fontSize: '0.8rem', marginTop: '4px' }}>University of Messina, Italy · Founder, Ahsora Med Academy</div>
               </div>
             </div>
             <div ref={observe} className="scroll-fade-left">
               <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--primary-600)', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Meet the Founder</span>
-              <h2 style={{ fontSize: '2.4rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '12px', marginBottom: '24px', lineHeight: 1.2 }}>Built From Firsthand Experience of the Journey to Medicine in Italy</h2>
-              <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.1rem', marginBottom: '32px' }}>
+              <h2 style={{ fontSize: '2.1rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '10px', marginBottom: '18px', lineHeight: 1.25 }}>Built From Firsthand Experience of the Journey to Medicine in Italy</h2>
+              <p style={{ color: 'var(--text-secondary)', lineHeight: 1.75, fontSize: '1.05rem', marginBottom: '24px' }}>
                 Ahsora was founded by a final-year Medicine and Surgery student at the University of Messina — one of Italy's public medical universities admitting through the IMAT. The programmes are shaped by firsthand experience of studying for the exam and living the result of it, not built at a distance from the process.
               </p>
-              <div style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-light)', padding: '24px', marginBottom: '32px' }}>
-                <div style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '0.95rem', marginBottom: '16px' }}>Founder access — by programme:</div>
+              <div style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-light)', padding: '18px 20px', marginBottom: '24px' }}>
+                <div style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '0.9rem', marginBottom: '12px' }}>Founder access — by programme:</div>
                 {[
                   { prog: 'Ascent', access: 'No direct access — programme built on the founder\'s method' },
                   { prog: 'Mastery', access: 'Scheduled group guidance and motivation sessions' },
                   { prog: 'MedPath Elite', access: 'Defined direct advisory access as part of admissions support' },
                 ].map((row, i) => (
-                  <div key={i} style={{ display: 'flex', gap: '12px', marginBottom: '12px', fontSize: '0.95rem', alignItems: 'flex-start' }}>
-                    <span style={{ fontWeight: 800, color: 'var(--text-secondary)', minWidth: '100px' }}>{row.prog}</span>
+                  <div key={i} style={{ display: 'flex', gap: '10px', marginBottom: '8px', fontSize: '0.88rem', alignItems: 'flex-start' }}>
+                    <span style={{ fontWeight: 800, color: 'var(--text-secondary)', minWidth: '95px' }}>{row.prog}</span>
                     <span style={{ color: 'var(--text-muted)' }}>— {row.access}</span>
                   </div>
                 ))}
               </div>
-              <a href="https://wa.me/923000000000" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', color: 'var(--primary-600)', fontWeight: 800, textDecoration: 'none', fontSize: '1rem', transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--primary-700)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--primary-600)'}>
-                Have a question before you enrol? Ask the Founder <ArrowRight size={18} />
+              <a href="https://wa.me/923000000000" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'var(--primary-600)', fontWeight: 800, textDecoration: 'none', fontSize: '0.95rem', transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--primary-700)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--primary-600)'}>
+                Have a question before you enrol? Ask the Founder <ArrowRight size={16} />
               </a>
             </div>
           </div>
@@ -414,44 +720,44 @@ export default function CoursesPage() {
       </section>
 
       {/* ── 05 LEARNING CYCLE ───────────────────────────────────────────── */}
-      <section style={{ padding: '100px 0', backgroundColor: 'var(--bg-subtle)' }}>
-        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 24px', textAlign: 'center', marginBottom: '60px' }}>
+      <section style={{ padding: '60px 0', backgroundColor: 'var(--bg-subtle)' }}>
+        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 24px', textAlign: 'center', marginBottom: '40px' }}>
           <span ref={observe} className="section-tagline scroll-fade-up">The Method</span>
-          <h2 ref={observe} className="scroll-fade-up" style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '8px', marginBottom: '20px' }}>More Than an IMAT Course</h2>
-          <p ref={observe} className="scroll-fade-up" style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: 1.8 }}>Every Ahsora programme runs on the same core method, whether you study independently or alongside live instructors:</p>
+          <h2 ref={observe} className="scroll-fade-up" style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '6px', marginBottom: '14px' }}>More Than an IMAT Course</h2>
+          <p ref={observe} className="scroll-fade-up" style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: 1.7 }}>Every Ahsora programme runs on the same core method, whether you study independently or alongside live instructors:</p>
         </div>
         <div className="container">
           <div ref={observe} className="scroll-stagger" style={{ display: 'flex', overflow: 'hidden', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', boxShadow: 'var(--shadow-md)' }}>
             {['Learn', 'Practice', 'Test', 'Analyze', 'Improve'].map((step, i, arr) => (
-              <div key={i} style={{ flex: '1 1 0', minWidth: '80px', textAlign: 'center', padding: '36px 16px', backgroundColor: i % 2 === 0 ? 'var(--primary-50)' : '#FFFFFF', borderRight: i < arr.length - 1 ? '1px solid var(--border-light)' : 'none', position: 'relative' }}>
-                <div style={{ width: '48px', height: '48px', borderRadius: '50%', backgroundColor: 'var(--primary-600)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: '1.2rem', margin: '0 auto 16px', boxShadow: '0 4px 12px rgba(5, 150, 105, 0.3)' }}>{i + 1}</div>
-                <div style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '1.05rem' }}>{step}</div>
+              <div key={i} style={{ flex: '1 1 0', minWidth: '70px', textAlign: 'center', padding: '24px 12px', backgroundColor: i % 2 === 0 ? 'var(--primary-50)' : '#FFFFFF', borderRight: i < arr.length - 1 ? '1px solid var(--border-light)' : 'none', position: 'relative' }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: 'var(--primary-600)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: '1.05rem', margin: '0 auto 10px', boxShadow: '0 4px 12px rgba(5, 150, 105, 0.3)' }}>{i + 1}</div>
+                <div style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '0.95rem' }}>{step}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── 06 COMPARISON TABLE ─────────────────────────────────────────── */}
-      <section style={{ padding: '100px 0', backgroundColor: '#FFFFFF' }}>
+      {/* ── 06 COMPACT SIDE-BY-SIDE COMPARISON TABLE ─────────────────────── */}
+      <section style={{ padding: '50px 0', backgroundColor: '#FFFFFF' }}>
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '28px' }}>
             <span ref={observe} className="section-tagline scroll-fade-up">Compare Programmes</span>
-            <h2 ref={observe} className="scroll-fade-up" style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '8px' }}>Side-by-Side Comparison</h2>
+            <h2 ref={observe} className="scroll-fade-up" style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '4px' }}>Side-by-Side Comparison</h2>
           </div>
-          <div ref={observe} className="scroll-fade-up" style={{ overflowX: 'auto', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', boxShadow: 'var(--shadow-md)' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '700px', backgroundColor: '#fff' }}>
+          <div ref={observe} className="scroll-fade-up" style={{ overflowX: 'auto', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', boxShadow: 'var(--shadow-sm)' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '650px', backgroundColor: '#fff' }}>
               <thead>
                 <tr style={{ backgroundColor: 'var(--bg-subtle)' }}>
-                  <th style={{ padding: '24px', textAlign: 'left', fontWeight: 800, color: 'var(--text-muted)', fontSize: '0.9rem', borderBottom: '2px solid var(--border-light)', textTransform: 'uppercase', letterSpacing: '1px' }}>Feature</th>
+                  <th style={{ padding: '12px 18px', textAlign: 'left', fontWeight: 800, color: 'var(--text-muted)', fontSize: '0.78rem', borderBottom: '2px solid var(--border-light)', textTransform: 'uppercase', letterSpacing: '0.8px' }}>Core Feature</th>
                   {programmes.map((p) => (
-                    <th key={p.id} style={{ padding: '24px', textAlign: 'center', borderBottom: `2px solid ${p.isFeatured ? p.accentColor : 'var(--border-light)'}`, backgroundColor: p.isFeatured ? `${p.accentColor}08` : 'transparent', width: '22%' }}>
-                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-                        <div style={{ padding: '12px', background: p.accentBg, borderRadius: 'var(--radius-md)' }}>
+                    <th key={p.id} style={{ padding: '12px 16px', textAlign: 'center', borderBottom: `2px solid ${p.isFeatured ? p.accentColor : 'var(--border-light)'}`, backgroundColor: p.isFeatured ? `${p.accentColor}08` : 'transparent', width: '22%' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                        <div style={{ padding: '6px', background: p.accentBg, borderRadius: 'var(--radius-sm)', display: 'inline-flex' }}>
                           {p.icon}
                         </div>
-                        <span style={{ fontWeight: 900, color: 'var(--text-primary)', fontSize: '1.1rem' }}>{p.name}</span>
-                        <span style={{ fontWeight: 900, color: p.accentColor, fontSize: '1.25rem' }}>{p.price}</span>
+                        <span style={{ fontWeight: 900, color: 'var(--text-primary)', fontSize: '0.95rem' }}>{p.name}</span>
+                        <span style={{ fontWeight: 900, color: p.accentColor, fontSize: '1.05rem', marginLeft: '4px' }}>{p.price}</span>
                       </div>
                     </th>
                   ))}
@@ -459,34 +765,33 @@ export default function CoursesPage() {
               </thead>
               <tbody>
                 {[
-                  { feature: 'Portal access duration', vals: ['12 months', '12 months', '12 months'], highlight: true },
-                  { feature: 'Full question bank', vals: ['✓', '✓', '✓'] },
-                  { feature: 'IMAT mock exams', vals: ['✓', '✓', '✓'] },
-                  { feature: 'Performance analytics', vals: ['✓', '✓', '✓'] },
-                  { feature: 'Study plan & timeline', vals: ['✓', '✓', '✓'] },
-                  { feature: 'Live instructor-led classes', vals: ['—', '✓', '✓'] },
-                  { feature: 'Recorded session library', vals: ['—', '✓', '✓'] },
-                  { feature: 'Founder group guidance sessions', vals: ['—', '✓', '✓'] },
-                  { feature: 'University application guidance', vals: ['—', '—', '✓'] },
-                  { feature: 'Pre-enrolment / Universitaly support', vals: ['—', '—', '✓'] },
-                  { feature: 'Visa process orientation', vals: ['—', '—', '✓'] },
-                  { feature: 'Scholarship guidance', vals: ['—', '—', '✓'] },
-                  { feature: 'Direct founder advisory access', vals: ['—', '—', '✓'] },
+                  { feature: '12 Months Full Portal Access', vals: ['✓ 12 Mo', '✓ 12 Mo', '✓ 12 Mo'], highlight: true },
+                  { feature: 'Full Question Bank (All Subjects)', vals: ['✓', '✓', '✓'] },
+                  { feature: 'Timed IMAT Mock Exams & Scoring', vals: ['✓', '✓', '✓'] },
+                  { feature: 'Live AI & Performance Analytics', vals: ['✓', '✓', '✓'] },
+                  { feature: 'Personalized Study Plan Guide', vals: ['✓', '✓', '✓'] },
+                  { feature: 'Live Instructor-Led Masterclasses', vals: ['—', '✓', '✓'] },
+                  { feature: 'Recorded Lecture Archive Library', vals: ['—', '✓', '✓'] },
+                  { feature: 'Founder Group Guidance & Motivation', vals: ['—', '✓', '✓'] },
+                  { feature: 'University Application Strategy', vals: ['—', '—', '✓'] },
+                  { feature: 'Universitaly Pre-Enrolment & CIMEA Support', vals: ['—', '—', '✓'] },
+                  { feature: 'Italian Visa & Scholarship Orientation', vals: ['—', '—', '✓'] },
+                  { feature: 'Direct 1-on-1 Founder Advisory Access', vals: ['—', '—', '✓'] },
                 ].map((row, i) => (
-                  <tr key={i} style={{ backgroundColor: row.highlight ? 'var(--primary-50)' : i % 2 === 0 ? 'var(--bg-subtle)' : '#FFFFFF', transition: 'background-color 0.2s' }} onMouseEnter={e => !row.highlight && (e.currentTarget.style.backgroundColor = '#f8fafc')} onMouseLeave={e => !row.highlight && (e.currentTarget.style.backgroundColor = i % 2 === 0 ? 'var(--bg-subtle)' : '#FFFFFF')}>
-                    <td style={{ padding: '18px 24px', color: 'var(--text-secondary)', fontWeight: row.highlight ? 800 : 600, fontSize: '0.95rem', borderBottom: '1px solid var(--border-light)' }}>{row.feature}</td>
+                  <tr key={i} style={{ backgroundColor: row.highlight ? 'var(--primary-50)' : i % 2 === 0 ? 'var(--bg-subtle)' : '#FFFFFF', transition: 'background-color 0.15s' }} onMouseEnter={e => !row.highlight && (e.currentTarget.style.backgroundColor = '#f8fafc')} onMouseLeave={e => !row.highlight && (e.currentTarget.style.backgroundColor = i % 2 === 0 ? 'var(--bg-subtle)' : '#FFFFFF')}>
+                    <td style={{ padding: '7px 18px', color: 'var(--text-secondary)', fontWeight: row.highlight ? 800 : 600, fontSize: '0.85rem', borderBottom: '1px solid var(--border-light)' }}>{row.feature}</td>
                     {row.vals.map((val, j) => (
-                      <td key={j} style={{ padding: '18px 24px', textAlign: 'center', borderBottom: '1px solid var(--border-light)', backgroundColor: j === 1 && !row.highlight ? `${programmes[1].accentColor}05` : 'transparent' }}>
-                        <span style={{ fontWeight: 800, color: val === '✓' ? 'var(--primary-600)' : val === '—' ? 'var(--text-light)' : 'var(--text-primary)', fontSize: val === '✓' || val === '—' ? '1.2rem' : '0.95rem' }}>{val}</span>
+                      <td key={j} style={{ padding: '7px 16px', textAlign: 'center', borderBottom: '1px solid var(--border-light)', backgroundColor: j === 1 && !row.highlight ? `${programmes[1].accentColor}05` : 'transparent' }}>
+                        <span style={{ fontWeight: 800, color: val.includes('✓') ? 'var(--primary-600)' : val === '—' ? 'var(--text-light)' : 'var(--text-primary)', fontSize: val === '✓' || val === '—' ? '1.05rem' : '0.85rem' }}>{val}</span>
                       </td>
                     ))}
                   </tr>
                 ))}
                 <tr style={{ backgroundColor: 'var(--bg-subtle)' }}>
-                  <td style={{ padding: '24px' }} />
+                  <td style={{ padding: '10px 18px' }} />
                   {programmes.map((p) => (
-                    <td key={p.id} style={{ padding: '24px', textAlign: 'center' }}>
-                      <a href={`#${p.id}`} style={{ display: 'inline-block', backgroundColor: p.isFeatured ? p.accentColor : '#fff', color: p.isFeatured ? '#fff' : p.accentColor, border: `1.5px solid ${p.accentColor}`, borderRadius: 'var(--radius-full)', padding: '12px 24px', fontWeight: 800, fontSize: '0.9rem', textDecoration: 'none', transition: 'transform 0.2s', boxShadow: p.isFeatured ? `0 4px 14px ${p.accentColor}30` : 'none' }} onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(-2px)')} onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}>{p.cta}</a>
+                    <td key={p.id} style={{ padding: '10px 16px', textAlign: 'center' }}>
+                      <a href={`#${p.id}`} style={{ display: 'inline-block', backgroundColor: p.isFeatured ? p.accentColor : '#fff', color: p.isFeatured ? '#fff' : p.accentColor, border: `1.5px solid ${p.accentColor}`, borderRadius: 'var(--radius-full)', padding: '6px 16px', fontWeight: 800, fontSize: '0.8rem', textDecoration: 'none', transition: 'transform 0.2s', boxShadow: p.isFeatured ? `0 4px 12px ${p.accentColor}25` : 'none' }} onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(-1px)')} onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}>{p.cta}</a>
                     </td>
                   ))}
                 </tr>
@@ -498,40 +803,40 @@ export default function CoursesPage() {
 
       {/* ── 07-09 PROGRAMME DETAILS ─────────────────────────────────────── */}
       {programmes.map((prog, pi) => (
-        <section key={prog.id} id={prog.id} style={{ padding: '100px 0', backgroundColor: pi % 2 === 0 ? 'var(--bg-subtle)' : '#FFFFFF', borderTop: '1px solid var(--border-light)' }}>
+        <section key={prog.id} id={prog.id} style={{ padding: '60px 0', backgroundColor: pi % 2 === 0 ? 'var(--bg-subtle)' : '#FFFFFF', borderTop: '1px solid var(--border-light)' }}>
           <div className="container">
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '80px', alignItems: 'flex-start' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '56px', alignItems: 'flex-start' }}>
               <div ref={observe} className="scroll-fade-right">
-                <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '24px' }}>
-                  <div style={{ width: '64px', height: '64px', borderRadius: 'var(--radius-lg)', backgroundColor: prog.accentBg, display: 'flex', alignItems: 'center', justifyContent: 'center', border: `1px solid ${prog.accentColor}33`, boxShadow: `0 4px 12px ${prog.accentColor}20` }}>{prog.icon}</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '18px' }}>
+                  <div style={{ width: '52px', height: '52px', borderRadius: 'var(--radius-lg)', backgroundColor: prog.accentBg, display: 'flex', alignItems: 'center', justifyContent: 'center', border: `1px solid ${prog.accentColor}33`, boxShadow: `0 4px 12px ${prog.accentColor}20` }}>{prog.icon}</div>
                   <div>
-                    {prog.badge && <span style={{ fontSize: '0.75rem', fontWeight: 800, backgroundColor: prog.accentColor, color: '#fff', borderRadius: 'var(--radius-sm)', padding: '4px 12px', marginBottom: '6px', display: 'inline-block', textTransform: 'uppercase', letterSpacing: '1px' }}>{prog.badge}</span>}
-                    <div style={{ fontWeight: 900, fontSize: '2rem', color: 'var(--text-primary)', letterSpacing: '-0.5px' }}>{prog.name}</div>
+                    {prog.badge && <span style={{ fontSize: '0.72rem', fontWeight: 800, backgroundColor: prog.accentColor, color: '#fff', borderRadius: 'var(--radius-sm)', padding: '3px 10px', marginBottom: '4px', display: 'inline-block', textTransform: 'uppercase', letterSpacing: '1px' }}>{prog.badge}</span>}
+                    <div style={{ fontWeight: 900, fontSize: '1.8rem', color: 'var(--text-primary)', letterSpacing: '-0.5px' }}>{prog.name}</div>
                   </div>
                 </div>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '1.15rem', lineHeight: 1.8, marginBottom: '32px' }}>{prog.desc}</p>
-                {pi > 0 && <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '32px', fontStyle: 'italic', fontWeight: 600 }}>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: 1.7, marginBottom: '24px' }}>{prog.desc}</p>
+                {pi > 0 && <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '24px', fontStyle: 'italic', fontWeight: 600 }}>
                   {pi === 1 ? 'Everything in Ascent, plus:' : 'Same core IMAT academic preparation as Mastery, plus:'}
                 </p>}
-                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '40px' }}>
+                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '32px' }}>
                   {prog.features.map((f, i) => (
-                    <li key={i} style={{ display: 'flex', gap: '14px', alignItems: 'flex-start', color: 'var(--text-primary)', fontSize: '1rem', fontWeight: 600 }}>
-                      <CheckCircle2 size={22} color={prog.accentColor} style={{ flexShrink: 0, marginTop: '2px' }} />{f}
+                    <li key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', color: 'var(--text-primary)', fontSize: '0.95rem', fontWeight: 600 }}>
+                      <CheckCircle2 size={18} color={prog.accentColor} style={{ flexShrink: 0, marginTop: '2px' }} />{f}
                     </li>
                   ))}
                 </ul>
-                <div style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-light)', padding: '16px 20px', marginBottom: '24px', fontSize: '0.9rem', color: 'var(--text-muted)', display: 'flex', gap: '12px', alignItems: 'center' }}>
-                  <AlertCircle size={20} style={{ flexShrink: 0 }} color="var(--text-light)" />
+                <div style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-light)', padding: '14px 18px', marginBottom: '20px', fontSize: '0.85rem', color: 'var(--text-muted)', display: 'flex', gap: '10px', alignItems: 'center' }}>
+                  <AlertCircle size={18} style={{ flexShrink: 0 }} color="var(--text-light)" />
                   <span style={{ fontWeight: 500 }}>Founder access: <strong>{prog.founderAccess}</strong></span>
                 </div>
               </div>
-              <div ref={observe} className={`sticky-pricing scroll-fade-left ${prog.isFeatured ? 'prog-card-featured' : ''}`} style={{ '--card-accent': prog.accentColor } as React.CSSProperties}>
-                <div style={{ fontSize: '0.85rem', color: 'var(--text-light)', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '8px', fontWeight: 700 }}>Starting from</div>
-                <div style={{ fontSize: '3.5rem', fontWeight: 900, color: prog.accentColor, letterSpacing: '-1.5px', marginBottom: '8px' }}>{prog.price}</div>
-                <div style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '40px', fontWeight: 600 }}>12 months full portal access included</div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <a href="https://wa.me/923000000000" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textAlign: 'center', backgroundColor: prog.accentColor, color: '#fff', borderRadius: 'var(--radius-full)', padding: '18px', fontWeight: 800, fontSize: '1rem', textDecoration: 'none', transition: 'transform 0.2s', boxShadow: `0 8px 24px -4px ${prog.accentColor}40` }} onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(-2px)')} onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}>{prog.cta}</a>
-                  <Link href="/portal/tests" style={{ display: 'block', textAlign: 'center', color: prog.accentColor, border: `2px solid ${prog.accentColor}`, borderRadius: 'var(--radius-full)', padding: '16px', fontWeight: 800, fontSize: '0.95rem', textDecoration: 'none', transition: 'background-color 0.2s' }} onMouseEnter={e => (e.currentTarget.style.backgroundColor = `${prog.accentColor}10`)} onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}>Try Free Diagnostic Mock</Link>
+              <div ref={observe} className={`sticky-pricing scroll-fade-left ${prog.isFeatured ? 'prog-card-featured' : ''}`} style={{ '--card-accent': prog.accentColor, padding: '32px' } as React.CSSProperties}>
+                <div style={{ fontSize: '0.8rem', color: 'var(--text-light)', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '6px', fontWeight: 700 }}>Starting from</div>
+                <div style={{ fontSize: '3rem', fontWeight: 900, color: prog.accentColor, letterSpacing: '-1.5px', marginBottom: '6px' }}>{prog.price}</div>
+                <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '30px', fontWeight: 600 }}>12 months full portal access included</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <a href="https://wa.me/923000000000" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textAlign: 'center', backgroundColor: prog.accentColor, color: '#fff', borderRadius: 'var(--radius-full)', padding: '14px', fontWeight: 800, fontSize: '0.95rem', textDecoration: 'none', transition: 'transform 0.2s', boxShadow: `0 8px 24px -4px ${prog.accentColor}40` }} onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(-2px)')} onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}>{prog.cta}</a>
+                  <Link href="/portal/tests" style={{ display: 'block', textAlign: 'center', color: prog.accentColor, border: `2px solid ${prog.accentColor}`, borderRadius: 'var(--radius-full)', padding: '12px', fontWeight: 800, fontSize: '0.9rem', textDecoration: 'none', transition: 'background-color 0.2s' }} onMouseEnter={e => (e.currentTarget.style.backgroundColor = `${prog.accentColor}10`)} onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}>Try Free Diagnostic Mock</Link>
                 </div>
               </div>
             </div>
@@ -540,23 +845,23 @@ export default function CoursesPage() {
       ))}
 
       {/* ── 10 QUIZ ─────────────────────────────────────────────────────── */}
-      <section id="quiz" style={{ padding: '100px 0', backgroundColor: 'var(--text-primary)', position: 'relative', overflow: 'hidden' }}>
+      <section id="quiz" style={{ padding: '70px 0', backgroundColor: 'var(--text-primary)', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'radial-gradient(circle at top right, rgba(92, 237, 115, 0.1) 0%, transparent 60%)', zIndex: 0 }} />
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '80px', alignItems: 'center' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '60px', alignItems: 'center' }}>
             <div ref={observe} className="scroll-fade-right">
               <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--primary-400)', textTransform: 'uppercase', letterSpacing: '1.5px' }}>20-Second Quiz</span>
-              <h2 style={{ fontSize: '2.5rem', fontWeight: 800, color: '#FFFFFF', marginTop: '12px', marginBottom: '24px', letterSpacing: '-0.5px' }}>Which Programme Is Right for You?</h2>
-              <p style={{ color: 'var(--text-light)', lineHeight: 1.8, fontSize: '1.1rem' }}>Four quick questions. Immediate result. No sign-up required to see your recommendation.</p>
-              <div style={{ marginTop: '40px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <h2 style={{ fontSize: '2.3rem', fontWeight: 800, color: '#FFFFFF', marginTop: '10px', marginBottom: '18px', letterSpacing: '-0.5px' }}>Which Programme Is Right for You?</h2>
+              <p style={{ color: 'var(--text-light)', lineHeight: 1.7, fontSize: '1.05rem' }}>Four quick questions. Immediate result. No sign-up required to see your recommendation.</p>
+              <div style={{ marginTop: '32px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 {[
-                  { icon: <Compass size={20} color="#3B82F6" />, label: 'Ascent', desc: 'Self-paced prep' },
-                  { icon: <GraduationCap size={20} color="#d4af37" />, label: 'Mastery', desc: 'Live classes' },
-                  { icon: <Globe2 size={20} color="var(--text-light)" />, label: 'MedPath Elite', desc: 'Full journey support' },
+                  { icon: <Compass size={18} color="#3B82F6" />, label: 'Ascent', desc: 'Self-paced prep' },
+                  { icon: <GraduationCap size={18} color="#d4af37" />, label: 'Mastery', desc: 'Live classes' },
+                  { icon: <Globe2 size={18} color="var(--text-light)" />, label: 'MedPath Elite', desc: 'Full journey support' },
                 ].map((t, i) => (
-                  <div key={i} style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-                    <div style={{ padding: '10px', background: 'rgba(255,255,255,0.05)', borderRadius: 'var(--radius-md)' }}>{t.icon}</div>
-                    <span style={{ color: '#E2E8F0', fontWeight: 700, fontSize: '1rem' }}>{t.label} — <span style={{ fontWeight: 400, color: 'var(--text-light)' }}>{t.desc}</span></span>
+                  <div key={i} style={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
+                    <div style={{ padding: '8px', background: 'rgba(255,255,255,0.05)', borderRadius: 'var(--radius-md)' }}>{t.icon}</div>
+                    <span style={{ color: '#E2E8F0', fontWeight: 700, fontSize: '0.95rem' }}>{t.label} — <span style={{ fontWeight: 400, color: 'var(--text-light)' }}>{t.desc}</span></span>
                   </div>
                 ))}
               </div>
@@ -569,20 +874,20 @@ export default function CoursesPage() {
       </section>
 
       {/* ── 11 FACULTY ──────────────────────────────────────────────────── */}
-      <section style={{ padding: '100px 0', backgroundColor: 'var(--bg-subtle)' }}>
+      <section style={{ padding: '60px 0', backgroundColor: 'var(--bg-subtle)' }}>
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
             <span ref={observe} className="section-tagline scroll-fade-up">The Team</span>
-            <h2 ref={observe} className="scroll-fade-up" style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '8px' }}>Meet Your Ahsora Faculty</h2>
+            <h2 ref={observe} className="scroll-fade-up" style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '6px' }}>Meet Your Ahsora Faculty</h2>
           </div>
-          <div ref={observe} className="scroll-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '32px' }}>
+          <div ref={observe} className="scroll-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '24px' }}>
             {['Leadership Team', 'Academic Faculty', 'Student Success & Admissions'].map((group, i) => (
-              <div key={i} style={{ backgroundColor: '#FFFFFF', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', padding: '40px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', transition: 'transform 0.3s, box-shadow 0.3s' }} onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = 'var(--shadow-md)'; }} onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}>
-                <div style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: 'var(--bg-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--border-light)' }}>
-                  <Users size={32} color="var(--text-light)" />
+              <div key={i} style={{ backgroundColor: '#FFFFFF', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', padding: '32px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px', transition: 'transform 0.3s, box-shadow 0.3s' }} onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = 'var(--shadow-md)'; }} onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}>
+                <div style={{ width: '70px', height: '70px', borderRadius: '50%', backgroundColor: 'var(--bg-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--border-light)' }}>
+                  <Users size={28} color="var(--text-light)" />
                 </div>
-                <div style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '1.1rem' }}>{group}</div>
-                <div style={{ color: 'var(--text-light)', fontSize: '0.9rem', fontStyle: 'italic' }}>Faculty profiles — coming soon</div>
+                <div style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '1.05rem' }}>{group}</div>
+                <div style={{ color: 'var(--text-light)', fontSize: '0.85rem', fontStyle: 'italic' }}>Faculty profiles — coming soon</div>
               </div>
             ))}
           </div>
@@ -590,45 +895,45 @@ export default function CoursesPage() {
       </section>
 
       {/* ── 12 TESTIMONIALS ─────────────────────────────────────────────── */}
-      <section style={{ padding: '100px 0', backgroundColor: '#FFFFFF' }}>
+      <section style={{ padding: '60px 0', backgroundColor: '#FFFFFF' }}>
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
             <span ref={observe} className="section-tagline scroll-fade-up">Results</span>
-            <h2 ref={observe} className="scroll-fade-up" style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '8px' }}>Verified Testimonials</h2>
+            <h2 ref={observe} className="scroll-fade-up" style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '6px' }}>Verified Testimonials</h2>
           </div>
-          <div ref={observe} className="scroll-scale-in" style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', padding: '64px 40px', textAlign: 'center', boxShadow: 'var(--shadow-sm)' }}>
-            <div style={{ display: 'inline-flex', padding: '16px', background: '#fffbeb', borderRadius: '50%', marginBottom: '24px' }}>
-              <Star size={40} color="#d4af37" />
+          <div ref={observe} className="scroll-scale-in" style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', padding: '48px 32px', textAlign: 'center', boxShadow: 'var(--shadow-sm)' }}>
+            <div style={{ display: 'inline-flex', padding: '14px', background: '#fffbeb', borderRadius: '50%', marginBottom: '18px' }}>
+              <Star size={34} color="#d4af37" />
             </div>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '1.15rem', lineHeight: 1.8, maxWidth: '640px', margin: '0 auto 16px', fontWeight: 500 }}>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: 1.75, maxWidth: '640px', margin: '0 auto 12px', fontWeight: 500 }}>
               Student outcomes — coming soon. We'll share real results in the format: <br/>
               <em style={{ color: 'var(--primary-600)', fontWeight: 700, fontStyle: 'normal' }}>Starting point → Programme → IMAT result → University</em>.
             </p>
-            <p style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>We'll never publish invented testimonials or inflated scores.</p>
+            <p style={{ color: 'var(--text-light)', fontSize: '0.85rem' }}>We'll never publish invented testimonials or inflated scores.</p>
           </div>
         </div>
       </section>
 
       {/* ── 13 FAQ ──────────────────────────────────────────────────────── */}
-      <section style={{ padding: '100px 0', backgroundColor: 'var(--bg-subtle)' }}>
+      <section style={{ padding: '60px 0', backgroundColor: 'var(--bg-subtle)' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 24px' }}>
-          <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
             <span ref={observe} className="section-tagline scroll-fade-up">Got Questions?</span>
-            <h2 ref={observe} className="scroll-fade-up" style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '8px' }}>Frequently Asked Questions</h2>
+            <h2 ref={observe} className="scroll-fade-up" style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '6px' }}>Frequently Asked Questions</h2>
           </div>
-          <div ref={observe} className="scroll-stagger" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div ref={observe} className="scroll-stagger" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {faqs.map((faq, i) => (
               <div key={i} style={{ backgroundColor: '#FFFFFF', border: openFaq === i ? '1px solid var(--primary-400)' : '1px solid var(--border-light)', borderRadius: 'var(--radius-lg)', overflow: 'hidden', transition: 'all 0.3s ease', boxShadow: openFaq === i ? 'var(--shadow-sm)' : 'none' }}>
                 <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  style={{ width: '100%', padding: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 800, fontSize: '1.05rem', color: openFaq === i ? 'var(--primary-700)' : 'var(--text-primary)', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', gap: '20px', transition: 'color 0.2s' }}>
+                  style={{ width: '100%', padding: '18px 22px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 800, fontSize: '0.98rem', color: openFaq === i ? 'var(--primary-700)' : 'var(--text-primary)', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', gap: '16px', transition: 'color 0.2s' }}>
                   <span style={{ flex: 1, letterSpacing: '-0.3px' }}>{faq.q}</span>
-                  <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: openFaq === i ? 'var(--primary-50)' : 'var(--bg-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'background 0.3s' }}>
-                    {openFaq === i ? <ChevronUp size={20} color="var(--primary-600)" /> : <ChevronDown size={20} color="var(--text-light)" />}
+                  <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: openFaq === i ? 'var(--primary-50)' : 'var(--bg-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'background 0.3s' }}>
+                    {openFaq === i ? <ChevronUp size={18} color="var(--primary-600)" /> : <ChevronDown size={18} color="var(--text-light)" />}
                   </div>
                 </button>
                 <div style={{ maxHeight: openFaq === i ? '500px' : '0', opacity: openFaq === i ? 1 : 0, overflow: 'hidden', transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)' }}>
-                  <div style={{ padding: '0 24px 24px', color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.8 }}>
-                    <div style={{ paddingTop: '16px', borderTop: '1px solid var(--border-light)' }}>
+                  <div style={{ padding: '0 22px 20px', color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: 1.75 }}>
+                    <div style={{ paddingTop: '14px', borderTop: '1px solid var(--border-light)' }}>
                       {faq.a}
                     </div>
                   </div>
@@ -640,26 +945,27 @@ export default function CoursesPage() {
       </section>
 
       {/* ── 14 FINAL CTA ────────────────────────────────────────────────── */}
-      <section style={{ padding: '120px 0', backgroundColor: 'var(--text-primary)', position: 'relative', overflow: 'hidden' }}>
+      <section style={{ padding: '80px 0', backgroundColor: 'var(--text-primary)', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, rgba(92, 237, 115, 0.15) 0%, transparent 70%)', zIndex: 0 }} />
         <div className="container" style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
-          <h2 ref={observe} className="scroll-fade-up" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 900, color: '#FFFFFF', marginBottom: '24px', letterSpacing: '-1px' }}>
+          <h2 ref={observe} className="scroll-fade-up" style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.2rem)', fontWeight: 900, color: '#FFFFFF', marginBottom: '18px', letterSpacing: '-1px' }}>
             Your Goal Is Medicine.<br />Your Path Starts With Ahsora.
           </h2>
-          <p ref={observe} className="scroll-fade-up" style={{ color: 'var(--text-light)', fontSize: '1.2rem', marginBottom: '48px', transitionDelay: '100ms' }}>Choose the level of preparation and support that fits your journey.</p>
-          <div ref={observe} className="scroll-fade-up" style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '40px', transitionDelay: '200ms' }}>
-            <a href="#ascent" className="btn-outline" style={{ color: '#fff', borderColor: 'rgba(255,255,255,0.2)', padding: '16px 32px' }} onMouseEnter={e => {e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'}} onMouseLeave={e => {e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'}}>Ascent</a>
-            <a href="#mastery" className="btn-primary" style={{ padding: '16px 40px' }}>Mastery</a>
-            <a href="#elite" className="btn-outline" style={{ color: '#fff', borderColor: 'rgba(255,255,255,0.2)', padding: '16px 32px' }} onMouseEnter={e => {e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'}} onMouseLeave={e => {e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'}}>MedPath Elite</a>
+          <p ref={observe} className="scroll-fade-up" style={{ color: 'var(--text-light)', fontSize: '1.1rem', marginBottom: '36px', transitionDelay: '100ms' }}>Choose the level of preparation and support that fits your journey.</p>
+          <div ref={observe} className="scroll-fade-up" style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '32px', transitionDelay: '200ms' }}>
+            <a href="#ascent" className="btn-outline" style={{ color: '#fff', borderColor: 'rgba(255,255,255,0.2)', padding: '14px 28px' }} onMouseEnter={e => {e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'}} onMouseLeave={e => {e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'}}>Ascent</a>
+            <a href="#mastery" className="btn-primary" style={{ padding: '14px 36px' }}>Mastery</a>
+            <a href="#elite" className="btn-outline" style={{ color: '#fff', borderColor: 'rgba(255,255,255,0.2)', padding: '14px 28px' }} onMouseEnter={e => {e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'}} onMouseLeave={e => {e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'}}>MedPath Elite</a>
           </div>
           <div ref={observe} className="scroll-fade-up" style={{ transitionDelay: '300ms' }}>
-            <span style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>Not sure which programme is right for you? </span>
+            <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Not sure which programme is right for you? </span>
             <a href="https://wa.me/923000000000" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary-400)', fontWeight: 700, textDecoration: 'none' }}>Talk to an Ahsora Advisor</a>
           </div>
         </div>
       </section>
 
-      <StickyMobileBar onTrial={() => {}} />
+      {/* Floating corner quick action buttons */}
+      <FloatingCornerBar onTrial={() => setLeadOpen(true)} />
 
       {leadOpen && (
         <LeadCaptureModal
@@ -670,3 +976,4 @@ export default function CoursesPage() {
     </div>
   );
 }
+
