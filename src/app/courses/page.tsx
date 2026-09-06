@@ -157,7 +157,8 @@ function AnimatedDashboardMockup() {
   useEffect(() => {
     if (!inView) return;
     
-    const duration = 1500;
+    // Slow, smooth ease-out count up animation (2.2 seconds)
+    const duration = 2200;
     const start = performance.now();
     const targetQ = 2480;
     const targetAcc = 89;
@@ -304,7 +305,7 @@ function AnimatedDashboardMockup() {
                       width: inView ? `${sub.pct}%` : '0%',
                       backgroundColor: sub.color,
                       borderRadius: '3px',
-                      transition: `width 1.2s cubic-bezier(0.16, 1, 0.3, 1) ${0.1 + i * 0.1}s`,
+                      transition: `width 1.8s cubic-bezier(0.16, 1, 0.3, 1) ${0.15 + i * 0.15}s`,
                       boxShadow: `0 0 8px ${sub.color}80`
                     }} />
                   </div>
@@ -331,7 +332,7 @@ function AnimatedDashboardMockup() {
                       height: inView ? `${bar.height}%` : '0%',
                       backgroundColor: i === 6 ? '#5CED73' : '#38BDF8',
                       borderRadius: '3px 3px 0 0',
-                      transition: `height 1s cubic-bezier(0.16, 1, 0.3, 1) ${0.15 + i * 0.08}s`,
+                      transition: `height 1.6s cubic-bezier(0.16, 1, 0.3, 1) ${0.2 + i * 0.1}s`,
                       opacity: i === 6 ? 1 : 0.75
                     }}
                   />
@@ -473,11 +474,11 @@ export default function CoursesPage() {
       icon: <GraduationCap size={24} color="#d4af37" />,
       accentColor: '#d4af37',
       accentBg: '#fbf8eb',
-      badge: 'Recommended',
+      badge: 'Most Popular',
       tagline: 'Prepare Without Compromise.',
       desc: 'For students who want structured preparation, live teaching and continuous support.',
       price: '$499',
-      features: ['Everything in Ascent', 'Live instructor-led classes (all subjects)', 'Recorded session library', 'Scheduled founder group guidance sessions', 'Direct Q&A during live classes', 'Structured weekly timetable'],
+      features: ['Everything in Ascent', 'Live instructor-led classes (all subjects)', 'Recorded session library (Coming Soon)', 'Scheduled founder group guidance sessions', 'Direct Q&A during live classes', 'Structured weekly timetable'],
       cta: 'Join Mastery',
       founderAccess: 'Scheduled group guidance and motivation sessions',
       isFeatured: true
@@ -488,7 +489,7 @@ export default function CoursesPage() {
       icon: <Globe2 size={24} color="#1E3A8A" />,
       accentColor: '#1E3A8A',
       accentBg: '#EFF6FF',
-      badge: 'Flagship',
+      badge: 'Recommended',
       tagline: 'Your Complete Journey.',
       desc: 'For students who want IMAT preparation plus university and admissions support.',
       price: '$999',
@@ -513,10 +514,10 @@ export default function CoursesPage() {
   ];
 
   const contentLibrary = [
-    { subject: 'Biology', status: 'Available', color: '#16A34A', bg: 'var(--success-bg)', border: 'var(--success-border)' },
-    { subject: 'Chemistry', status: 'Available', color: '#16A34A', bg: 'var(--success-bg)', border: 'var(--success-border)' },
-    { subject: 'Physics', status: 'Adding this month', color: '#d4af37', bg: 'var(--warning-bg)', border: 'var(--warning-border)' },
-    { subject: 'Logical Reasoning', status: 'In production', color: '#7C3AED', bg: '#F5F3FF', border: '#C4B5FD' },
+    { subject: 'Biology', status: 'In Production', color: '#7C3AED', bg: '#F5F3FF', border: '#C4B5FD' },
+    { subject: 'Chemistry', status: 'In Production', color: '#7C3AED', bg: '#F5F3FF', border: '#C4B5FD' },
+    { subject: 'Physics', status: 'In Production', color: '#7C3AED', bg: '#F5F3FF', border: '#C4B5FD' },
+    { subject: 'Logical Reasoning', status: 'In Production', color: '#7C3AED', bg: '#F5F3FF', border: '#C4B5FD' },
   ];
 
   return (
@@ -558,28 +559,30 @@ export default function CoursesPage() {
           
           <div ref={observe} className="scroll-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))', gap: '28px' }}>
             {programmes.map((prog) => (
-              <div key={prog.id} className={`prog-card ${prog.isFeatured ? 'prog-card-featured' : ''}`} style={{ '--card-accent': prog.accentColor, '--card-bg': prog.accentBg, padding: '32px' } as React.CSSProperties}>
+              <div key={prog.id} className={`prog-card ${prog.isFeatured ? 'prog-card-featured' : ''}`} style={{ '--card-accent': prog.accentColor, '--card-bg': prog.accentBg, padding: '28px 24px', borderRadius: 'var(--radius-xl)' } as React.CSSProperties}>
                 {prog.badge && (
-                  <span className="prog-badge">{prog.badge}</span>
+                  <span className="prog-badge" style={{ backgroundColor: prog.accentColor }}>{prog.badge}</span>
                 )}
-                <div className="prog-icon-wrap" style={{ width: '50px', height: '50px', marginBottom: '18px' }}>
+                <div className="prog-icon-wrap" style={{ width: '48px', height: '48px', marginBottom: '16px' }}>
                   {prog.icon}
                 </div>
                 <div>
-                  <div style={{ fontWeight: 900, fontSize: '1.3rem', color: 'var(--text-primary)', letterSpacing: '-0.5px' }}>{prog.name}</div>
-                  <div style={{ fontWeight: 700, color: prog.accentColor, fontSize: '0.9rem', marginTop: '2px', marginBottom: '12px' }}>{prog.tagline}</div>
+                  <div style={{ fontWeight: 900, fontSize: '1.25rem', color: 'var(--text-primary)', letterSpacing: '-0.5px' }}>{prog.name}</div>
+                  <div style={{ fontWeight: 700, color: prog.accentColor, fontSize: '0.88rem', marginTop: '2px', marginBottom: '10px' }}>{prog.tagline}</div>
                 </div>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.65, flex: 1, marginBottom: '20px' }}>{prog.desc}</p>
-                <div style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '16px', letterSpacing: '-1px' }}>{prog.price}</div>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', lineHeight: 1.6, flex: 1, marginBottom: '18px' }}>{prog.desc}</p>
+                <div style={{ fontSize: '1.9rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '16px', letterSpacing: '-1px' }}>{prog.price}</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: 'auto' }}>
-                  <a href={`#${prog.id}`} style={{ display: 'block', textAlign: 'center', backgroundColor: prog.isFeatured ? prog.accentColor : 'transparent', color: prog.isFeatured ? '#fff' : prog.accentColor, border: `1.5px solid ${prog.accentColor}`, borderRadius: 'var(--radius-full)', padding: '12px', fontWeight: 700, textDecoration: 'none', fontSize: '0.9rem', transition: 'all 0.2s', boxShadow: prog.isFeatured ? `0 8px 20px -4px ${prog.accentColor}40` : 'none' }}
+                  <a href={`#${prog.id}`} style={{ display: 'block', textAlign: 'center', backgroundColor: prog.isFeatured ? prog.accentColor : 'transparent', color: prog.isFeatured ? '#fff' : prog.accentColor, border: `1.5px solid ${prog.accentColor}`, borderRadius: 'var(--radius-full)', padding: '11px', fontWeight: 700, textDecoration: 'none', fontSize: '0.88rem', transition: 'all 0.2s', boxShadow: prog.isFeatured ? `0 8px 20px -4px ${prog.accentColor}40` : 'none' }}
                      onMouseEnter={e => !prog.isFeatured && (e.currentTarget.style.backgroundColor = prog.accentBg)}
                      onMouseLeave={e => !prog.isFeatured && (e.currentTarget.style.backgroundColor = 'transparent')}>
                     {prog.cta}
                   </a>
-                  <Link href="/portal/tests" style={{ display: 'block', textAlign: 'center', color: 'var(--text-light)', fontSize: '0.82rem', fontWeight: 600, textDecoration: 'none', padding: '6px' }}>
-                    Try a Free Diagnostic Mock First →
-                  </Link>
+                  <a href={`#${prog.id}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px', color: prog.accentColor, fontSize: '0.82rem', fontWeight: 700, textDecoration: 'none', padding: '6px', transition: 'transform 0.2s' }}
+                     onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(1px)')}
+                     onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}>
+                    Jump to details ↓
+                  </a>
                 </div>
               </div>
             ))}
@@ -696,7 +699,7 @@ export default function CoursesPage() {
               <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--primary-600)', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Meet the Founder</span>
               <h2 style={{ fontSize: '2.1rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '10px', marginBottom: '18px', lineHeight: 1.25 }}>Built From Firsthand Experience of the Journey to Medicine in Italy</h2>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.75, fontSize: '1.05rem', marginBottom: '24px' }}>
-                Ahsora was founded by a final-year Medicine and Surgery student at the University of Messina — one of Italy's public medical universities admitting through the IMAT. The programmes are shaped by firsthand experience of studying for the exam and living the result of it, not built at a distance from the process.
+                Ahsora was founded by <strong>Ahsan Jahangir</strong>, a final-year Medicine and Surgery student at the University of Messina — one of Italy's public medical universities admitting through the IMAT. The programmes are shaped by firsthand experience of studying for the exam and living the result of it, not built at a distance from the process.
               </p>
               <div style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-light)', padding: '18px 20px', marginBottom: '24px' }}>
                 <div style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '0.9rem', marginBottom: '12px' }}>Founder access — by programme:</div>
@@ -775,14 +778,21 @@ export default function CoursesPage() {
                   { feature: 'Founder Group Guidance & Motivation', vals: ['—', '✓', '✓'] },
                   { feature: 'University Application Strategy', vals: ['—', '—', '✓'] },
                   { feature: 'Universitaly Pre-Enrolment & CIMEA Support', vals: ['—', '—', '✓'] },
-                  { feature: 'Italian Visa & Scholarship Orientation', vals: ['—', '—', '✓'] },
+                  { feature: 'Italian Visa & Scholarship Orientation', vals: ['—', '—', 'VISA_ELITE_NOTE'] },
                   { feature: 'Direct 1-on-1 Founder Advisory Access', vals: ['—', '—', '✓'] },
                 ].map((row, i) => (
                   <tr key={i} style={{ backgroundColor: row.highlight ? 'var(--primary-50)' : i % 2 === 0 ? 'var(--bg-subtle)' : '#FFFFFF', transition: 'background-color 0.15s' }} onMouseEnter={e => !row.highlight && (e.currentTarget.style.backgroundColor = '#f8fafc')} onMouseLeave={e => !row.highlight && (e.currentTarget.style.backgroundColor = i % 2 === 0 ? 'var(--bg-subtle)' : '#FFFFFF')}>
                     <td style={{ padding: '7px 18px', color: 'var(--text-secondary)', fontWeight: row.highlight ? 800 : 600, fontSize: '0.85rem', borderBottom: '1px solid var(--border-light)' }}>{row.feature}</td>
                     {row.vals.map((val, j) => (
                       <td key={j} style={{ padding: '7px 16px', textAlign: 'center', borderBottom: '1px solid var(--border-light)', backgroundColor: j === 1 && !row.highlight ? `${programmes[1].accentColor}05` : 'transparent' }}>
-                        <span style={{ fontWeight: 800, color: val.includes('✓') ? 'var(--primary-600)' : val === '—' ? 'var(--text-light)' : 'var(--text-primary)', fontSize: val === '✓' || val === '—' ? '1.05rem' : '0.85rem' }}>{val}</span>
+                        {val === 'VISA_ELITE_NOTE' ? (
+                          <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--primary-700)' }}>
+                            ✓ <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>enhanced for eligible Pakistani applicants — </span>
+                            <a href="#elite" style={{ color: 'var(--primary-600)', textDecoration: 'underline', fontWeight: 700 }}>see details</a>
+                          </span>
+                        ) : (
+                          <span style={{ fontWeight: 800, color: val.includes('✓') ? 'var(--primary-600)' : val === '—' ? 'var(--text-light)' : 'var(--text-primary)', fontSize: val === '✓' || val === '—' ? '1.05rem' : '0.85rem' }}>{val}</span>
+                        )}
                       </td>
                     ))}
                   </tr>
@@ -976,4 +986,5 @@ export default function CoursesPage() {
     </div>
   );
 }
+
 
