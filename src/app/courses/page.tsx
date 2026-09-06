@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import {
   Compass, GraduationCap, Globe2, ArrowRight, CheckCircle2,
@@ -221,8 +222,11 @@ export default function CoursesPage() {
     <div style={{ backgroundColor: 'var(--bg-main)', minHeight: '100vh' }}>
 
       {/* ── 01 HERO ─────────────────────────────────────────────────────── */}
-      <section className="courses-hero">
-        <div className="container" style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
+      <section className="courses-hero" style={{ position: 'relative', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+          <Image src="/courses-hero-bg.jpg" alt="" fill style={{ objectFit: 'cover', opacity: 0.45 }} priority />
+        </div>
+        <div className="container" style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
           <span ref={observe} className="section-tagline scroll-fade-up">IMAT Preparation Programmes</span>
           <h1 ref={observe} className="section-title scroll-fade-up" style={{ transitionDelay: '100ms' }}>
             Your Journey to Medicine<br />in Italy Starts Here
@@ -322,11 +326,15 @@ export default function CoursesPage() {
                   </div>
                 )}
               </div>
-              <div style={{ direction: 'ltr' }} ref={observe} className={`showcase-block scroll-fade-${block.flip ? 'left' : 'right'}`}>
-                <div style={{ padding: '24px', background: 'var(--bg-subtle)', borderRadius: '50%', marginBottom: '16px' }}>
-                  {block.icon}
+              <div style={{ direction: 'ltr' }} ref={observe} className={`scroll-fade-${block.flip ? 'left' : 'right'}`}>
+                <div style={{ position: 'relative', width: '100%', aspectRatio: '16/9', borderRadius: 'var(--radius-xl)', overflow: 'hidden', boxShadow: 'var(--shadow-xl)', border: '1px solid var(--border-light)' }}>
+                  <Image
+                    src={i === 0 ? '/live-classes.jpg' : i === 1 ? '/portal-dashboard.jpg' : '/cbt-mock-exam.jpg'}
+                    alt={block.title}
+                    fill
+                    style={{ objectFit: 'cover' }}
+                  />
                 </div>
-                <div style={{ color: 'var(--text-light)', fontSize: '0.85rem', textAlign: 'center', fontStyle: 'italic' }}>Illustrative preview — screenshots coming soon</div>
               </div>
             </div>
           ))}
