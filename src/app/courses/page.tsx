@@ -850,6 +850,39 @@ export default function CoursesPage() {
                 </div>
               </div>
             </div>
+            {prog.id === 'elite' && (
+              <div ref={observe} className="scroll-fade-up" style={{ marginTop: '56px', backgroundColor: '#F8FAFC', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-xl)', padding: '40px', boxShadow: 'var(--shadow-sm)' }}>
+                <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--primary-600)', textTransform: 'uppercase', letterSpacing: '1.5px', display: 'block', marginBottom: '8px' }}>Pakistani Applicants — Specialist Visa & Financial File Support</span>
+                <h3 style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '16px', letterSpacing: '-0.5px' }}>Ahsora Med Academy × LeyNexo Law Firm</h3>
+                <p style={{ color: 'var(--text-primary)', fontWeight: 700, fontSize: '1.05rem', marginBottom: '16px', fontStyle: 'italic' }}>"An additional level of specialist support for eligible Pakistani students applying to study in Italy."</p>
+                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.7, fontSize: '1rem', marginBottom: '32px' }}>
+                  Through our collaboration with LeyNexo Law Firm, eligible Pakistani MedPath Elite students receive specialist assistance with the preparation, organization and review of their financial and visa documentation:
+                </p>
+                
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', marginBottom: '36px' }}>
+                  {[
+                    { title: 'Financial File Preparation', desc: 'Organizing financial documentation into a clear, coherent file' },
+                    { title: 'Income & Tax Documentation', desc: 'Guidance on relevant income-tax and revenue documentation where applicable' },
+                    { title: 'Bank Statement Supporting Documentation', desc: 'Organizing and supporting the financial evidence presented' },
+                    { title: 'Financial Justification', desc: 'Preparing appropriate explanations for the financial information included' },
+                    { title: 'Visa File Organization', desc: 'Reviewing and organizing supporting documentation so the file is coherent and professionally prepared' },
+                    { title: 'Immigration/Visa Expertise', desc: 'Specialist input from LeyNexo Law Firm on the relevant documentation aspects' }
+                  ].map((item, idx) => (
+                    <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '14px' }}>
+                      <CheckCircle2 size={20} color="var(--primary-600)" style={{ flexShrink: 0, marginTop: '2px' }} />
+                      <div>
+                        <div style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '0.95rem', marginBottom: '4px' }}>{item.title}</div>
+                        <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.5 }}>{item.desc}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                
+                <div style={{ backgroundColor: 'var(--text-primary)', color: '#fff', borderRadius: 'var(--radius-md)', padding: '18px 24px', fontSize: '0.95rem', fontWeight: 500, fontStyle: 'italic', display: 'inline-block', lineHeight: 1.6 }}>
+                  "Ahsora guides the overall admissions journey. LeyNexo provides specialist financial-file and documentation expertise for eligible Pakistani applicants."
+                </div>
+              </div>
+            )}
           </div>
         </section>
       ))}
