@@ -146,9 +146,9 @@ export default function AboutPage() {
                   <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--primary-400)', display: 'inline-block', flexShrink: 0, boxShadow: '0 0 8px var(--primary-400)' }} />
                   <span style={{ color: 'var(--primary-400)', fontWeight: 700, fontSize: '0.82rem', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Why Ahsora Exists</span>
                 </div>
-                <h1 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(2.8rem, 5.5vw, 5rem)', fontWeight: 900, color: '#FFFFFF', lineHeight: 1.05, letterSpacing: '-2px', marginBottom: '32px' }}>
-                  I Know What It<br />Feels Like{' '}
-                  <span style={{ color: 'var(--primary-400)' }}>to Figure<br />It All Out Alone.</span>
+                <h1 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(2.4rem, 4.5vw, 4.2rem)', fontWeight: 900, color: '#FFFFFF', lineHeight: 1.12, letterSpacing: '-1.5px', marginBottom: '32px' }}>
+                  I Know What It Feels Like<br />
+                  <span style={{ color: 'var(--primary-400)' }}>to Figure It All Out Alone.</span>
                 </h1>
                 <p className="reveal reveal-delay-2" style={{ color: 'rgba(255,255,255,0.68)', fontSize: '1.2rem', lineHeight: 1.85, marginBottom: '48px', maxWidth: '540px' }}>
                   Ahsora was built from firsthand experience of the journey to Medicine in Italy — the uncertainty, the decisions, the preparation and everything that comes after the exam.
