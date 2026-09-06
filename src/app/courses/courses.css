@@ -1,0 +1,186 @@
+.courses-hero {
+  background: linear-gradient(135deg, var(--primary-50) 0%, #ffffff 55%, var(--bg-subtle) 100%);
+  padding: 120px 0 100px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.courses-hero::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 50%;
+  height: 50%;
+  background: radial-gradient(circle, var(--primary-200) 0%, transparent 70%);
+  opacity: 0.3;
+  z-index: 0;
+}
+
+.courses-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Typography refinements */
+.section-tagline {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--primary-600);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 900;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+  line-height: 1.15;
+  letter-spacing: -1px;
+}
+
+/* Programme Cards */
+.prog-card {
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  border: 1.5px solid var(--border-light);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  height: 100%;
+}
+
+.prog-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: var(--card-accent, transparent);
+  transition: height 0.3s ease;
+}
+
+.prog-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--card-accent, var(--primary-300));
+}
+
+.prog-card:hover::before {
+  height: 8px;
+}
+
+.prog-card-featured {
+  border-color: var(--card-accent);
+  box-shadow: 0 12px 40px -10px rgba(217, 119, 6, 0.15); /* Gold shadow */
+}
+
+.prog-icon-wrap {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  margin-bottom: 24px;
+  transition: transform 0.3s ease;
+}
+
+.prog-card:hover .prog-icon-wrap {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.prog-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--card-accent);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.75rem;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Showcase Section */
+.showcase-block {
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-light);
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 260px;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.showcase-block:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.showcase-block::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 100%);
+  pointer-events: none;
+}
+
+/* Content Library List */
+.lib-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-radius: var(--radius-md);
+  background: #fff;
+  border: 1px solid var(--border-light);
+  transition: all 0.2s ease;
+}
+.lib-item:hover {
+  transform: translateX(6px);
+  border-color: var(--primary-300);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Sticky Details Panel */
+.sticky-pricing {
+  position: sticky;
+  top: 120px;
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  padding: 40px;
+  border: 1px solid var(--card-border, var(--border-light));
+  box-shadow: var(--card-shadow, var(--shadow-md));
+}
+
+/* Responsive Overrides */
+@media (max-width: 768px) {
+  .courses-hero {
+    padding: 80px 0 60px;
+  }
+  .prog-card {
+    padding: 30px;
+  }
+  .showcase-block {
+    padding: 30px;
+  }
+}
