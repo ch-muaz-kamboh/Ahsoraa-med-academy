@@ -131,71 +131,56 @@ export default function AboutPage() {
         <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
           {/* Full-bleed background */}
           <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-            <Image src="/messina-university.jpg" alt="" fill style={{ objectFit: 'cover', objectPosition: 'center 30%' }} priority />
+            <Image src="/messina-university.jpg" alt="University of Messina, Italy" fill style={{ objectFit: 'cover', objectPosition: 'center 30%' }} priority />
           </div>
           {/* Dark overlay */}
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(8,18,10,0.92) 0%, rgba(5,50,30,0.78) 50%, rgba(15,23,42,0.85) 100%)', zIndex: 1 }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(8,18,10,0.95) 0%, rgba(5,50,30,0.85) 50%, rgba(15,23,42,0.9) 100%)', zIndex: 1 }} />
           {/* Green glow orb */}
-          <div style={{ position: 'absolute', top: '15%', left: '3%', width: '600px', height: '600px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(92,237,115,0.13) 0%, transparent 70%)', zIndex: 2, pointerEvents: 'none' }} />
+          <div style={{ position: 'absolute', top: '20%', left: '10%', width: '700px', height: '700px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(92,237,115,0.15) 0%, transparent 70%)', zIndex: 2, pointerEvents: 'none' }} />
+          
           {/* Content */}
-          <div className="container" style={{ position: 'relative', zIndex: 3, padding: '120px 20px 100px' }}>
-            <div className="about-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: '80px', alignItems: 'center', maxWidth: '1300px', margin: '0 auto' }}>
+          <div className="container" style={{ position: 'relative', zIndex: 3, padding: '140px 20px 120px', width: '100%', maxWidth: '1200px' }}>
+            <div className="about-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '60px', alignItems: 'center' }}>
               {/* Left — headline */}
               <div>
-                <div className="reveal" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', backgroundColor: 'rgba(92,237,115,0.1)', border: '1px solid rgba(92,237,115,0.28)', borderRadius: 'var(--radius-full)', padding: '8px 20px', marginBottom: '24px' }}>
-                  <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: 'var(--primary-400)', display: 'inline-block', flexShrink: 0 }} />
-                  <span style={{ color: 'var(--primary-400)', fontWeight: 700, fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Why Ahsora Exists</span>
-                </div>
-                <h1 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(2rem, 3vw, 3rem)', fontWeight: 900, color: '#FFFFFF', lineHeight: 1.2, letterSpacing: '-1px', marginBottom: '24px' }}>
-                  I Know What It Feels Like to Figure It All Out Alone.
+                <h1 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(2.5rem, 4vw, 4rem)', fontWeight: 900, color: '#FFFFFF', lineHeight: 1.1, letterSpacing: '-1.5px', marginBottom: '24px' }}>
+                  I Know What It Feels Like to Figure It All Out <span style={{ color: 'var(--primary-400)' }}>Alone.</span>
                 </h1>
-                <p className="reveal reveal-delay-2" style={{ color: 'rgba(255,255,255,0.68)', fontSize: '1.2rem', lineHeight: 1.85, marginBottom: '48px', maxWidth: '540px' }}>
+                <p className="reveal reveal-delay-2" style={{ color: 'rgba(255,255,255,0.75)', fontSize: '1.25rem', lineHeight: 1.8, marginBottom: '48px', maxWidth: '580px' }}>
                   Ahsora was built from firsthand experience of the journey to Medicine in Italy — the uncertainty, the decisions, the preparation and everything that comes after the exam. We built Ahsora to make that journey clearer, more structured and less lonely for the students who come after us.
                 </p>
-                <div className="reveal reveal-delay-3" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginBottom: '56px' }}>
-                  <a href="#story" className="btn-primary" style={{ padding: '18px 40px', fontSize: '1.05rem' }}>Meet the Founder <ArrowRight size={18} /></a>
+                <div className="reveal reveal-delay-3" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+                  <a href="#story" className="btn-primary" style={{ padding: '18px 40px', fontSize: '1.05rem', borderRadius: 'var(--radius-full)' }}>Meet the Founder <ArrowRight size={18} /></a>
                   <Link href="/courses"
-                    style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '18px 32px', borderRadius: 'var(--radius-full)', border: '1.5px solid rgba(255,255,255,0.22)', color: '#fff', fontWeight: 700, fontSize: '1.05rem', backgroundColor: 'rgba(255,255,255,0.07)', backdropFilter: 'blur(10px)', transition: 'background 0.2s' }}
-                    onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.14)')}
-                    onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.07)')}>
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '18px 32px', borderRadius: 'var(--radius-full)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontWeight: 700, fontSize: '1.05rem', backgroundColor: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(10px)', transition: 'all 0.2s' }}
+                    onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)'; }}>
                     Explore Ahsora
                   </Link>
                 </div>
-                {/* Stats strip */}
-                <div className="reveal reveal-delay-4" style={{ display: 'flex', gap: '40px', flexWrap: 'wrap', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '32px' }}>
-                  {[
-                    { value: 'Italy', label: 'Study Destination' },
-                    { value: 'IMAT', label: 'Focused Exam Prep' },
-                    { value: '3', label: 'Programmes' },
-                  ].map((stat, i) => (
-                    <div key={i}>
-                      <div style={{ fontSize: '1.8rem', fontWeight: 900, color: '#FFFFFF', letterSpacing: '-1px' }}>{stat.value}</div>
-                      <div style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.82rem', fontWeight: 600, marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{stat.label}</div>
-                    </div>
-                  ))}
-                </div>
               </div>
+              
               {/* Right — floating founder card */}
-              <div className="reveal reveal-delay-2" style={{ position: 'relative' }}>
-                <div style={{ borderRadius: 'var(--radius-xl)', overflow: 'hidden', boxShadow: '0 32px 80px -12px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.08)', border: '1.5px solid rgba(255,255,255,0.1)' }}>
-                  <div style={{ position: 'relative', height: '440px' }}>
-                    <Image src="/founder-about.jpg" alt="Ahsora founder at the University of Messina, Italy" fill style={{ objectFit: 'cover', objectPosition: 'top' }} />
+              <div className="reveal reveal-delay-2" style={{ display: 'flex', justifyContent: 'flex-end', position: 'relative' }}>
+                <div style={{ background: 'rgba(15,23,42,0.4)', backdropFilter: 'blur(24px)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '24px', padding: '20px', maxWidth: '340px', width: '100%', boxShadow: '0 30px 60px -12px rgba(0,0,0,0.5)' }}>
+                  <div style={{ borderRadius: '16px', overflow: 'hidden', position: 'relative', height: '320px', width: '100%', marginBottom: '20px' }}>
+                    <Image src="/founder-about.jpg" alt="Ahsan Jahangir, Founder" fill style={{ objectFit: 'cover', objectPosition: 'center 20%' }} />
+                    <div style={{ position: 'absolute', top: '16px', right: '16px', backgroundColor: 'var(--primary-400)', color: '#0a140c', fontWeight: 900, fontSize: '0.75rem', padding: '6px 14px', borderRadius: 'var(--radius-full)', textTransform: 'uppercase', letterSpacing: '1px', boxShadow: '0 4px 20px rgba(92,237,115,0.4)' }}>
+                      Founder-Led
+                    </div>
                   </div>
-                  <div style={{ background: 'rgba(8,18,10,0.94)', backdropFilter: 'blur(20px)', padding: '24px 28px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-                    <div style={{ color: 'var(--primary-400)', fontWeight: 800, fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Founder</div>
-                    <div style={{ color: '#FFFFFF', fontWeight: 700, fontSize: '1.05rem', marginTop: '6px' }}>Ahsora Med Academy</div>
-                    <div style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.82rem', marginTop: '4px' }}>Final-Year Medicine &amp; Surgery · University of Messina, Italy</div>
+                  <div style={{ padding: '0 8px 8px' }}>
+                    <div style={{ color: 'var(--primary-400)', fontWeight: 800, fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '4px' }}>Founder</div>
+                    <div style={{ color: '#FFFFFF', fontWeight: 700, fontSize: '1.2rem', marginBottom: '8px' }}>Ahsan Jahangir</div>
+                    <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.9rem', lineHeight: 1.5 }}>Final-Year Medicine &amp; Surgery<br/>University of Messina, Italy</div>
                   </div>
-                </div>
-                {/* Floating badge */}
-                <div style={{ position: 'absolute', top: '20px', left: '20px', backgroundColor: 'var(--primary-400)', color: '#0a140c', fontWeight: 900, fontSize: '0.72rem', padding: '6px 14px', borderRadius: 'var(--radius-full)', textTransform: 'uppercase', letterSpacing: '1px', boxShadow: '0 4px 20px rgba(92,237,115,0.55)' }}>
-                  Founder-Led
                 </div>
                 {/* Glow behind card */}
-                <div style={{ position: 'absolute', bottom: '-60px', right: '-60px', width: '280px', height: '280px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(92,237,115,0.18) 0%, transparent 70%)', zIndex: -1, pointerEvents: 'none' }} />
+                <div style={{ position: 'absolute', top: '50%', right: '10%', transform: 'translateY(-50%)', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(92,237,115,0.2) 0%, transparent 60%)', zIndex: -1, pointerEvents: 'none' }} />
               </div>
             </div>
           </div>
+          
           {/* Scroll indicator */}
           <div style={{ position: 'absolute', bottom: '36px', left: '50%', transform: 'translateX(-50%)', zIndex: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', opacity: 0.5 }}>
             <span style={{ color: '#fff', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase' }}>Scroll</span>
@@ -252,17 +237,17 @@ export default function AboutPage() {
               Through my own preparation, I kept noticing the same three things. They weren't unique to me — I saw them in every student I helped.
             </p>
           </div>
-          <div className="container">
-            <div className="reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px', maxWidth: '1000px', margin: '0 auto' }}>
-              {[
+          <div className="container" style={{ maxWidth: '1200px' }}>
+                <div className="reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px', margin: '0 auto' }}>
+                  {[
                 { num: '01', title: 'Too Much Information', desc: 'Students can find information everywhere — but struggle to identify what actually matters for the exam and the journey.' },
                 { num: '02', title: 'Too Little Guidance', desc: 'A syllabus tells you what exists. It rarely tells you how to approach it, what to prioritize, or how to study effectively under exam conditions.' },
-                { num: '03', title: 'Too Many Decisions at Once', desc: 'The IMAT is only one part — choosing a university, understanding the application, planning the wider journey: students are asked to figure it all out simultaneously.' },
+                { num: '03', title: 'Too Many Decisions', desc: 'The IMAT is only one part — choosing a university, understanding the application, planning the wider journey: students are asked to figure it all out.' },
               ].map((item, i) => (
-                <div key={i} className="about-value-card" style={{ borderTop: `4px solid var(--primary-400)`, padding: '24px 28px' }}>
-                  <div style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--primary-200)', marginBottom: '12px', lineHeight: 1 }}>{item.num}</div>
-                  <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '-0.3px' }}>{item.title}</h3>
-                  <p style={{ color: 'var(--text-muted)', lineHeight: 1.6, fontSize: '0.9rem' }}>{item.desc}</p>
+                <div key={i} className="about-value-card" style={{ borderTop: `4px solid var(--primary-400)`, padding: '32px 28px', height: '100%' }}>
+                  <div style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--primary-200)', marginBottom: '16px', lineHeight: 1 }}>{item.num}</div>
+                  <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '-0.3px' }}>{item.title}</h3>
+                  <p style={{ color: 'var(--text-muted)', lineHeight: 1.6, fontSize: '0.95rem' }}>{item.desc}</p>
                 </div>
               ))}
             </div>
@@ -277,11 +262,11 @@ export default function AboutPage() {
         {/* ── 04 AHSORA TODAY ──────────────────────────────────────────── */}
         <section style={{ padding: '100px 0', backgroundColor: '#FFFFFF' }}>
           <div className="container" style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            <div className="about-story-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center' }}>
-              <div className="reveal" style={{ position: 'relative', height: '480px', borderRadius: 'var(--radius-xl)', overflow: 'hidden', boxShadow: 'var(--shadow-xl)' }}>
-                <Image src="/messina-university.jpg" alt="Medical University in Italy" fill style={{ objectFit: 'cover' }} />
+            <div className="about-story-grid" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '60px', alignItems: 'stretch' }}>
+              <div className="reveal" style={{ position: 'relative', minHeight: '600px', borderRadius: 'var(--radius-xl)', overflow: 'hidden', boxShadow: 'var(--shadow-xl)' }}>
+                <Image src="/messina-university.jpg" alt="University of Messina campus" fill style={{ objectFit: 'cover' }} />
               </div>
-              <div>
+              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <span className="reveal section-tagline">Ahsora Today</span>
                 <h2 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: 800, color: 'var(--text-primary)', marginTop: '16px', marginBottom: '24px', lineHeight: 1.2 }}>
                   So We Built Something Different.
@@ -289,20 +274,19 @@ export default function AboutPage() {
                 <p className="reveal reveal-delay-2" style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: 1.85, marginBottom: '16px' }}>
                   Medicine in Italy isn't simply a destination on a map — for most students, it's an exam, a country, a university and a completely new chapter of life, all decided at once. That's why Ahsora doesn't stop at exam preparation.
                 </p>
-                <p className="reveal reveal-delay-2" style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: 1.85, marginBottom: '40px' }}>
+                <p className="reveal reveal-delay-2" style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: 1.85, marginBottom: '32px' }}>
                   Ahsora Med Academy is a founder-led medical education academy focused on helping students prepare for the IMAT and navigate the wider journey to Medicine in Italy. Our work combines live teaching, structured digital preparation, realistic testing, performance feedback and guidance beyond the exam.
                 </p>
-                <div className="reveal reveal-delay-3" style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                <div className="reveal reveal-delay-3" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                   {[
                     { icon: <Users size={20} color="var(--primary-600)" />, label: 'Live Teaching' },
                     { icon: <BookOpen size={20} color="var(--primary-600)" />, label: 'Student Portal' },
                     { icon: <Target size={20} color="var(--primary-600)" />, label: 'CBT Mock Exams' },
-                    { icon: <BarChart2 size={20} color="var(--primary-600)" />, label: 'Performance Tracking' },
-                    { icon: <Globe2 size={20} color="var(--primary-600)" />, label: 'University & Admissions Guidance' },
+                    { icon: <Globe2 size={20} color="var(--primary-600)" />, label: 'University Guidance' },
                   ].map((p, i) => (
-                    <div key={i} className="about-pillar">
-                      <div style={{ width: '44px', height: '44px', borderRadius: 'var(--radius-md)', backgroundColor: 'var(--primary-50)', border: '1px solid var(--primary-200)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{p.icon}</div>
-                      <div style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: '1rem', paddingTop: '10px' }}>{p.label}</div>
+                    <div key={i} className="about-pillar" style={{ padding: '20px', flexDirection: 'row', alignItems: 'center', gap: '16px' }}>
+                      <div style={{ width: '40px', height: '40px', borderRadius: 'var(--radius-md)', backgroundColor: 'var(--primary-50)', border: '1px solid var(--primary-200)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{p.icon}</div>
+                      <div style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: '0.95rem' }}>{p.label}</div>
                     </div>
                   ))}
                 </div>
@@ -432,7 +416,7 @@ export default function AboutPage() {
               {[
                 { img: '/portal-dashboard.jpg', label: 'Your Preparation', sub: 'Resources and structured progression' },
                 { img: '/cbt-mock-exam.jpg', label: 'Your Practice', sub: 'Question bank and CBT simulations' },
-                { img: '/live-classes.jpg', label: 'Your Progress', sub: 'Performance analytics and feedback' },
+                { img: '/live-classes.jpg', label: 'Your Journey', sub: 'Performance analytics and feedback' },
               ].map((t, i) => (
                 <div key={i} style={{ borderRadius: 'var(--radius-xl)', overflow: 'hidden', boxShadow: 'var(--shadow-md)', position: 'relative', aspectRatio: '16/10', transition: 'transform 0.3s, box-shadow 0.3s' }} onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.boxShadow = 'var(--shadow-xl)'; }} onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'var(--shadow-md)'; }}>
                   <Image src={t.img} alt={t.label} fill style={{ objectFit: 'cover' }} />
