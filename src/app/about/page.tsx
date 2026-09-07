@@ -150,7 +150,7 @@ export default function AboutPage() {
                   I Know What It Feels Like to Figure It All Out Alone.
                 </h1>
                 <p className="reveal reveal-delay-2" style={{ color: 'rgba(255,255,255,0.68)', fontSize: '1.2rem', lineHeight: 1.85, marginBottom: '48px', maxWidth: '540px' }}>
-                  Ahsora was built from firsthand experience of the journey to Medicine in Italy — the uncertainty, the decisions, the preparation and everything that comes after the exam.
+                  Ahsora was built from firsthand experience of the journey to Medicine in Italy — the uncertainty, the decisions, the preparation and everything that comes after the exam. We built Ahsora to make that journey clearer, more structured and less lonely for the students who come after us.
                 </p>
                 <div className="reveal reveal-delay-3" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginBottom: '56px' }}>
                   <a href="#story" className="btn-primary" style={{ padding: '18px 40px', fontSize: '1.05rem' }}>Meet the Founder <ArrowRight size={18} /></a>
@@ -210,7 +210,7 @@ export default function AboutPage() {
             <h2 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: 800, color: 'var(--text-primary)', marginTop: '16px', marginBottom: '40px', lineHeight: 1.2 }}>
               Before Ahsora, There Was a Student Trying to Find the Way.
             </h2>
-            <div className="reveal reveal-delay-2" style={{ color: 'var(--text-secondary)', fontSize: '1.15rem', lineHeight: 1.9 }}>
+            <div className="reveal reveal-delay-2" style={{ color: 'var(--text-secondary)', fontSize: '1.15rem', lineHeight: 1.9, fontFamily: 'serif', padding: '40px', backgroundColor: '#FAFAFA', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)' }}>
               <p style={{ marginBottom: '24px' }}>
                 I decided I wanted to study Medicine in Italy. It sounded straightforward — sit the IMAT, choose a university, apply. But when I actually started preparing, I realized how little structured help existed. Information was scattered across forums, YouTube videos, and WhatsApp groups. Most of it was unverified, outdated, or impossible to act on without context.
               </p>
@@ -220,9 +220,14 @@ export default function AboutPage() {
               <p style={{ marginBottom: '24px' }}>
                 Before Ahsora formally existed, I found myself helping other students — friends, and friends of friends — who were at the same crossroads I had been. Explaining the exam structure, helping someone build a study plan, walking through the application process. It became clear that the need wasn't for more content. It was for a system, and a person who had actually done it.
               </p>
-              <p style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: '1.2rem' }}>
+              <p style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: '1.2rem', marginBottom: '40px' }}>
                 That realization became Ahsora.
               </p>
+              <div style={{ textAlign: 'right', marginTop: '20px' }}>
+                <div style={{ fontFamily: '"Brush Script MT", cursive', fontSize: '2.5rem', color: 'var(--text-primary)', transform: 'rotate(-2deg)', display: 'inline-block' }}>
+                  Ahsan Jahangir
+                </div>
+              </div>
             </div>
             <div className="reveal reveal-delay-3" style={{ marginTop: '40px', backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-light)', padding: '28px 32px', display: 'flex', gap: '20px', alignItems: 'center', flexWrap: 'wrap' }}>
               <div style={{ width: '64px', height: '64px', borderRadius: '50%', overflow: 'hidden', flexShrink: 0, boxShadow: 'var(--shadow-sm)', position: 'relative' }}>
@@ -248,16 +253,16 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="container">
-            <div className="reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '28px', maxWidth: '1100px', margin: '0 auto' }}>
+            <div className="reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px', maxWidth: '1000px', margin: '0 auto' }}>
               {[
                 { num: '01', title: 'Too Much Information', desc: 'Students can find information everywhere — but struggle to identify what actually matters for the exam and the journey.' },
                 { num: '02', title: 'Too Little Guidance', desc: 'A syllabus tells you what exists. It rarely tells you how to approach it, what to prioritize, or how to study effectively under exam conditions.' },
                 { num: '03', title: 'Too Many Decisions at Once', desc: 'The IMAT is only one part — choosing a university, understanding the application, planning the wider journey: students are asked to figure it all out simultaneously.' },
               ].map((item, i) => (
-                <div key={i} className="about-value-card" style={{ borderTop: `4px solid var(--primary-400)` }}>
-                  <div style={{ fontSize: '2.5rem', fontWeight: 900, color: 'var(--primary-100)', marginBottom: '12px', lineHeight: 1 }}>{item.num}</div>
-                  <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '14px', textTransform: 'uppercase', letterSpacing: '-0.3px' }}>{item.title}</h3>
-                  <p style={{ color: 'var(--text-muted)', lineHeight: 1.75, fontSize: '1rem' }}>{item.desc}</p>
+                <div key={i} className="about-value-card" style={{ borderTop: `4px solid var(--primary-400)`, padding: '24px 28px' }}>
+                  <div style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--primary-200)', marginBottom: '12px', lineHeight: 1 }}>{item.num}</div>
+                  <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '-0.3px' }}>{item.title}</h3>
+                  <p style={{ color: 'var(--text-muted)', lineHeight: 1.6, fontSize: '0.9rem' }}>{item.desc}</p>
                 </div>
               ))}
             </div>
@@ -274,7 +279,7 @@ export default function AboutPage() {
           <div className="container" style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <div className="about-story-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center' }}>
               <div className="reveal" style={{ position: 'relative', height: '480px', borderRadius: 'var(--radius-xl)', overflow: 'hidden', boxShadow: 'var(--shadow-xl)' }}>
-                <Image src="/messina-university.jpg" alt="University of Messina, Italy" fill style={{ objectFit: 'cover' }} />
+                <Image src="/messina-university.jpg" alt="Medical University in Italy" fill style={{ objectFit: 'cover' }} />
               </div>
               <div>
                 <span className="reveal section-tagline">Ahsora Today</span>
@@ -563,7 +568,7 @@ export default function AboutPage() {
             </p>
             <div className="reveal reveal-delay-2" style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '40px' }}>
               <Link href="/courses" className="btn-primary" style={{ padding: '18px 40px', fontSize: '1.1rem' }}>Explore IMAT Preparation</Link>
-              <a href="https://wa.me/923000000000" target="_blank" rel="noopener noreferrer" className="btn-outline" style={{ padding: '18px 32px', color: '#fff', borderColor: 'rgba(255,255,255,0.25)' }} onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'} onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}>
+              <a href="https://wa.me/393333444479" target="_blank" rel="noopener noreferrer" className="btn-outline" style={{ padding: '18px 32px', color: '#fff', borderColor: 'rgba(255,255,255,0.25)' }} onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'} onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}>
                 <MessageCircle size={18} /> Talk to the Founder
               </a>
             </div>

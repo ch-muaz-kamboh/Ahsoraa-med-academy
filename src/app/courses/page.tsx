@@ -62,7 +62,7 @@ function FloatingCornerBar({ onTrial }: { onTrial: () => void }) {
       animation: 'fadeInUp 0.3s ease-out'
     }}>
       <a
-        href="https://wa.me/923000000000"
+        href="https://wa.me/393333444479"
         target="_blank"
         rel="noopener noreferrer"
         style={{
@@ -714,7 +714,7 @@ export default function CoursesPage() {
                   </div>
                 ))}
               </div>
-              <a href="https://wa.me/923000000000" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'var(--primary-600)', fontWeight: 800, textDecoration: 'none', fontSize: '0.95rem', transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--primary-700)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--primary-600)'}>
+              <a href="https://wa.me/393333444479" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'var(--primary-600)', fontWeight: 800, textDecoration: 'none', fontSize: '0.95rem', transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--primary-700)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--primary-600)'}>
                 Have a question before you enrol? Ask the Founder <ArrowRight size={16} />
               </a>
             </div>
@@ -845,7 +845,7 @@ export default function CoursesPage() {
                 <div style={{ fontSize: '3rem', fontWeight: 900, color: prog.accentColor, letterSpacing: '-1.5px', marginBottom: '6px' }}>{prog.price}</div>
                 <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '30px', fontWeight: 600 }}>12 months full portal access included</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  <a href="https://wa.me/923000000000" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textAlign: 'center', backgroundColor: prog.accentColor, color: '#fff', borderRadius: 'var(--radius-full)', padding: '14px', fontWeight: 800, fontSize: '0.95rem', textDecoration: 'none', transition: 'transform 0.2s', boxShadow: `0 8px 24px -4px ${prog.accentColor}40` }} onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(-2px)')} onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}>{prog.cta}</a>
+                  <a href="https://wa.me/393333444479" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textAlign: 'center', backgroundColor: prog.accentColor, color: '#fff', borderRadius: 'var(--radius-full)', padding: '14px', fontWeight: 800, fontSize: '0.95rem', textDecoration: 'none', transition: 'transform 0.2s', boxShadow: `0 8px 24px -4px ${prog.accentColor}40` }} onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(-2px)')} onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}>{prog.cta}</a>
                   <Link href="/portal/tests" style={{ display: 'block', textAlign: 'center', color: prog.accentColor, border: `2px solid ${prog.accentColor}`, borderRadius: 'var(--radius-full)', padding: '12px', fontWeight: 800, fontSize: '0.9rem', textDecoration: 'none', transition: 'background-color 0.2s' }} onMouseEnter={e => (e.currentTarget.style.backgroundColor = `${prog.accentColor}10`)} onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}>Try Free Diagnostic Mock</Link>
                 </div>
               </div>
@@ -1002,7 +1002,7 @@ export default function CoursesPage() {
           </div>
           <div ref={observe} className="scroll-fade-up" style={{ transitionDelay: '300ms' }}>
             <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Not sure which programme is right for you? </span>
-            <a href="https://wa.me/923000000000" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary-400)', fontWeight: 700, textDecoration: 'none' }}>Talk to an Ahsora Advisor</a>
+            <a href="https://wa.me/393333444479" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary-400)', fontWeight: 700, textDecoration: 'none' }}>Talk to an Ahsora Advisor</a>
           </div>
         </div>
       </section>

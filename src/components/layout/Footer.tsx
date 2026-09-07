@@ -87,11 +87,11 @@ export default function Footer() {
               </li>
               <li style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <Phone size={16} color="#2563EB" />
-                <span>+1 (800) 492-7637</span>
+                <span>+39 333 3444 479</span>
               </li>
               <li style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <MapPin size={16} color="#2563EB" />
-                <span>London • Milan • Chicago</span>
+                <span>Messina, Italy • Lahore, Pakistan</span>
               </li>
             </ul>
           </div>

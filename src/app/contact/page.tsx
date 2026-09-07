@@ -68,8 +68,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0F172A', marginBottom: '4px' }}>Call Us</h3>
-                    <p style={{ color: '#64748B', fontSize: '0.9375rem', marginBottom: '8px' }}>Mon-Fri from 9am to 6pm (GMT).</p>
-                    <a href="tel:+18004927637" style={{ color: '#D97706', fontWeight: 600, fontSize: '0.9375rem', textDecoration: 'none' }}>+1 (800) 492-7637</a>
+                    <p style={{ color: '#64748B', fontSize: '0.9375rem', marginBottom: '8px' }}>Mon-Fri from 9am to 6pm (CET).</p>
+                    <a href="tel:+393333444479" style={{ color: '#D97706', fontWeight: 600, fontSize: '0.9375rem', textDecoration: 'none' }}>+39 333 3444 479</a>
                   </div>
                 </div>
 
@@ -79,9 +79,10 @@ export default function ContactPage() {
                     <MapPin size={24} color="#2563EB" />
                   </div>
                   <div>
-                    <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0F172A', marginBottom: '4px' }}>Global Offices</h3>
+                    <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0F172A', marginBottom: '4px' }}>Our Offices</h3>
                     <p style={{ color: '#64748B', fontSize: '0.9375rem', lineHeight: 1.6 }}>
-                      Our mentors and advisors operate out of London, Milan, and Chicago to support students across all timezones.
+                      <strong>Italy:</strong> Via Roma, 98124 Messina, Italy<br />
+                      <strong>Pakistan:</strong> S19 Panoramic Complex, Mall Road, Lahore, Pakistan
                     </p>
                   </div>
                 </div>
