@@ -2192,7 +2192,7 @@ export default function HomePage() {
             </p>
             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
               <a
-                href="https://wa.me/1234567890"
+                href="https://wa.me/393333444479"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
