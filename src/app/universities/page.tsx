@@ -128,7 +128,7 @@ function useScrollVisible(threshold = 0.15) {
 }
 
 // ─── Animated Section Wrapper ──────────────────────────────────
-function FadeUp({ children, delay = 0, className = '' }: { children: React.ReactNode; delay?: number; className?: string }) {
+function FadeUp({ children, delay = 0, className = '', style = {} }: { children: React.ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   const { ref, visible } = useScrollVisible();
   return (
     <div
@@ -138,6 +138,7 @@ function FadeUp({ children, delay = 0, className = '' }: { children: React.React
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(36px)',
         transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
+        ...style,
       }}
     >
       {children}
@@ -315,26 +316,26 @@ export default function UniversitiesPage() {
 
       {/* ── 03 HOW TO CHOOSE ──────────────────────────────────── */}
       <section style={{ padding: '80px 0', background: '#fff' }}>
-        <div className="container">
+        <div className="container" style={{ maxWidth: '1440px' }}>
           <FadeUp>
-            <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 800, color: '#0f172a', textAlign: 'center', marginBottom: '10px' }}>
+            <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.1rem)', fontWeight: 800, color: '#0f172a', textAlign: 'center', marginBottom: '10px' }}>
               There&apos;s No Single &ldquo;Best&rdquo; Medical University.
             </h2>
-            <p style={{ textAlign: 'center', color: '#64748b', maxWidth: '600px', margin: '0 auto 44px', lineHeight: 1.6 }}>
+            <p style={{ textAlign: 'center', color: '#64748b', maxWidth: '640px', margin: '0 auto 40px', lineHeight: 1.6 }}>
               The right university fits your admission route, budget, city preference, scholarship situation, and long-term plans — not a ranking.
             </p>
           </FadeUp>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: '20px' }}>
+          <div className="decision-factors-grid">
             {decisionFactors.map((f, i) => (
-              <FadeUp key={i} delay={i * 80}>
+              <FadeUp key={i} delay={i * 60} style={{ height: '100%' }}>
                 <div
-                  style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '16px', padding: '24px 20px', transition: 'all 0.2s ease', cursor: 'default' }}
+                  style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '16px', padding: '22px 16px', transition: 'all 0.2s ease', cursor: 'default', height: '100%', display: 'flex', flexDirection: 'column' }}
                   onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = '#5CED73'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 4px 16px rgba(92,237,115,0.18)'; }}
                   onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = '#e2e8f0'; (e.currentTarget as HTMLDivElement).style.boxShadow = 'none'; }}
                 >
-                  <div style={{ fontSize: '1.75rem', marginBottom: '14px' }}>{f.icon}</div>
-                  <h3 style={{ fontWeight: 700, color: '#0f172a', fontSize: '0.9375rem', marginBottom: '8px' }}>{f.title}</h3>
-                  <p style={{ color: '#64748b', fontSize: '0.875rem', lineHeight: 1.55 }}>{f.desc}</p>
+                  <div style={{ fontSize: '1.75rem', marginBottom: '12px' }}>{f.icon}</div>
+                  <h3 style={{ fontWeight: 700, color: '#0f172a', fontSize: '0.92rem', marginBottom: '6px' }}>{f.title}</h3>
+                  <p style={{ color: '#64748b', fontSize: '0.8125rem', lineHeight: 1.5, margin: 0, flexGrow: 1 }}>{f.desc}</p>
                 </div>
               </FadeUp>
             ))}
