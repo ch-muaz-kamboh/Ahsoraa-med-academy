@@ -189,13 +189,13 @@ export default function AboutPage() {
         </section>
 
         {/* ── 02 OUR STORY ─────────────────────────────────────────────── */}
-        <section id="story" style={{ padding: '100px 0', backgroundColor: '#FFFFFF' }}>
-          <div className="container">
+        <section id="story" style={{ padding: '80px 0', backgroundColor: 'var(--bg-main)' }}>
+          <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'start' }}>
             <span className="reveal section-tagline">Our Story</span>
             <h2 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: 800, color: 'var(--text-primary)', marginTop: '16px', marginBottom: '40px', lineHeight: 1.2 }}>
               Before Ahsora, There Was a Student Trying to Find the Way.
             </h2>
-            <div className="reveal reveal-delay-2" style={{ color: 'var(--text-secondary)', fontSize: '1.15rem', lineHeight: 1.9, fontFamily: 'serif', padding: '40px', backgroundColor: '#FAFAFA', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)' }}>
+            <div className="reveal reveal-delay-2" style={{ color: 'var(--text-secondary)', fontSize: '1.15rem', lineHeight: 1.9, fontFamily: 'serif', padding: '40px', backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)' }}>
               <p style={{ marginBottom: '24px' }}>
                 I decided I wanted to study Medicine in Italy. It sounded straightforward — sit the IMAT, choose a university, apply. But when I actually started preparing, I realized how little structured help existed. Information was scattered across forums, YouTube videos, and WhatsApp groups. Most of it was unverified, outdated, or impossible to act on without context.
               </p>
@@ -380,7 +380,7 @@ export default function AboutPage() {
         </section>
 
         {/* ── 08 WHY LIVE TEACHING MATTERS ────────────────────────────── */}
-        <section style={{ padding: '100px 0', backgroundColor: '#FFFFFF' }}>
+        <section style={{ padding: '100px 0', backgroundColor: 'var(--bg-main)' }}>
           <div className="container" style={{ maxWidth: '1100px', margin: '0 auto' }}>
             <div className="about-story-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center' }}>
               <div>
@@ -464,10 +464,12 @@ export default function AboutPage() {
 
         {/* ── 11 WHAT WE WILL NEVER PROMISE ───────────────────────────── */}
         <section style={{ padding: '100px 0', backgroundColor: 'var(--bg-subtle)' }}>
-          <div className="container">
-            <span className="reveal section-tagline">Our Commitment to Honesty</span>
-            <h2 className="reveal reveal-delay-1" style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '16px', marginBottom: '40px' }}>What We Will Never Promise</h2>
-            <div className="reveal reveal-delay-2" style={{ backgroundColor: '#FFFFFF', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', padding: '40px', boxShadow: 'var(--shadow-sm)' }}>
+          <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'start' }}>
+            <div>
+              <span className="reveal section-tagline">Our Commitment to Honesty</span>
+              <h2 className="reveal reveal-delay-1" style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '16px', marginBottom: '40px' }}>What We Will Never Promise</h2>
+            </div>
+            <div className="reveal reveal-delay-2" style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', padding: '40px', boxShadow: 'var(--shadow-sm)' }}>
               <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: 1.8, marginBottom: '32px' }}>We cannot promise:</p>
               {['Admission to any university', 'Scholarship awards', 'Visa approval'].map((item, i) => (
                 <div key={i} className="about-never-item">
@@ -487,8 +489,8 @@ export default function AboutPage() {
         </section>
 
         {/* ── 12 WHERE WE'RE GOING ─────────────────────────────────────── */}
-        <section style={{ padding: '100px 0', backgroundColor: '#FFFFFF' }}>
-          <div className="container">
+        <section style={{ padding: '100px 0', backgroundColor: 'var(--bg-subtle)' }}>
+          <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'start' }}>
             <span className="reveal section-tagline">The Road Ahead</span>
             <h2 className="reveal reveal-delay-1" style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '16px', marginBottom: '40px' }}>Where Ahsora Is Headed</h2>
             <div className="reveal reveal-delay-2">
@@ -521,7 +523,7 @@ export default function AboutPage() {
             </div>
             <div className="reveal" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {faqs.map((faq, i) => (
-                <div key={i} style={{ backgroundColor: '#FFFFFF', border: openFaq === i ? '1px solid var(--primary-400)' : '1px solid var(--border-light)', borderRadius: 'var(--radius-lg)', overflow: 'hidden', transition: 'all 0.3s ease', boxShadow: openFaq === i ? 'var(--shadow-sm)' : 'none' }}>
+                <div key={i} style={{ backgroundColor: 'var(--bg-main)', border: openFaq === i ? '1px solid var(--primary-400)' : '1px solid var(--border-light)', borderRadius: 'var(--radius-lg)', overflow: 'hidden', transition: 'all 0.3s ease', boxShadow: openFaq === i ? 'var(--shadow-sm)' : 'none' }}>
                   <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
                     style={{ width: '100%', padding: '22px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 800, fontSize: '1.05rem', color: openFaq === i ? 'var(--primary-700)' : 'var(--text-primary)', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', gap: '20px', transition: 'color 0.2s' }}>
                     <span style={{ flex: 1 }}>{faq.q}</span>
@@ -544,7 +546,7 @@ export default function AboutPage() {
         <section style={{ padding: '120px 0', backgroundColor: 'var(--text-primary)', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, rgba(92,237,115,0.15) 0%, transparent 70%)', zIndex: 0 }} />
           <div className="container" style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
-            <h2 className="reveal" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 900, color: '#FFFFFF', marginBottom: '24px', letterSpacing: '-1px' }}>
+            <h2 className="reveal" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 900, color: 'var(--text-light)', marginBottom: '24px', letterSpacing: '-1px' }}>
               Start Your Journey With Ahsora.
             </h2>
             <p className="reveal reveal-delay-1" style={{ color: 'var(--text-light)', fontSize: '1.2rem', marginBottom: '48px', lineHeight: 1.8 }}>
@@ -552,7 +554,7 @@ export default function AboutPage() {
             </p>
             <div className="reveal reveal-delay-2" style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '40px' }}>
               <Link href="/courses" className="btn-primary" style={{ padding: '18px 40px', fontSize: '1.1rem' }}>Explore IMAT Preparation</Link>
-              <a href="https://wa.me/393333444479" target="_blank" rel="noopener noreferrer" className="btn-outline" style={{ padding: '18px 32px', color: '#fff', borderColor: 'rgba(255,255,255,0.25)' }} onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'} onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}>
+              <a href="https://wa.me/393333444479" target="_blank" rel="noopener noreferrer" className="btn-outline" style={{ padding: '18px 32px', color: 'var(--text-light)', borderColor: 'rgba(255,255,255,0.25)' }} onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'} onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}>
                 <MessageCircle size={18} /> Talk to the Founder
               </a>
             </div>
