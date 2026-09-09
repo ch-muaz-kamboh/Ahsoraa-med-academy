@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 const resourceCategories = [
   {
-    icon: <Video size={24} color="#22C55E" />,
+    icon: <Video size={24} color="var(--primary-600)" />,
     title: 'Video Lectures',
     desc: 'High-yield, structured video modules covering every IMAT topic. Organized by subject and difficulty.',
     count: '120+ Videos',
@@ -16,7 +16,7 @@ const resourceCategories = [
     link: '/courses',
   },
   {
-    icon: <FileCheck size={24} color="#D4AF37" />,
+    icon: <FileCheck size={24} color="var(--gold-500)" />,
     title: 'Practice Question Banks',
     desc: '2,800+ IMAT-style MCQs with fully worked explanations, tagged by topic and year.',
     count: '2,800+ Questions',
@@ -24,7 +24,7 @@ const resourceCategories = [
     link: '/courses',
   },
   {
-    icon: <Download size={24} color="#0B2B5C" />,
+    icon: <Download size={24} color="var(--primary-800)" />,
     title: 'Downloadable Notes',
     desc: 'Concise, exam-focused summary sheets for every IMAT topic — perfect for last-minute revision.',
     count: '80+ PDF Sheets',
@@ -32,7 +32,7 @@ const resourceCategories = [
     link: '/courses',
   },
   {
-    icon: <BookMarked size={24} color="#16A34A" />,
+    icon: <BookMarked size={24} color="var(--primary-700)" />,
     title: 'Past Paper Library',
     desc: 'Complete archive of official IMAT past papers with model answers, going back 10 years.',
     count: '10 Years of Papers',
@@ -40,7 +40,7 @@ const resourceCategories = [
     link: '/courses',
   },
   {
-    icon: <FlaskConical size={24} color="#7C3AED" />,
+    icon: <FlaskConical size={24} color="var(--primary-600)" />,
     title: 'Lab & Experiment Guides',
     desc: 'Illustrated science guides for Biology and Chemistry experiments commonly referenced in IMAT questions.',
     count: '40+ Guides',
