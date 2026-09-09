@@ -6,7 +6,7 @@ import Image from 'next/image';
 import {
   ArrowRight, CheckCircle2, ChevronDown, ChevronUp,
   BookOpen, Target, BarChart2, Globe2, Users, Lightbulb,
-  MessageCircle, RefreshCw
+  MessageCircle, RefreshCw, Award, ShieldCheck
 } from 'lucide-react';
 
 // ─── Intersection Observer Hook ──────────────────────────────────────────────
@@ -56,68 +56,99 @@ export default function AboutPage() {
         .reveal-delay-3 { transition-delay: 240ms; }
         .reveal-delay-4 { transition-delay: 320ms; }
 
-        .container { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+        .container {
+          width: 100%;
+          max-width: 1240px;
+          margin: 0 auto;
+          padding: 0 24px;
+        }
+
+        .container-narrow {
+          width: 100%;
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 0 24px;
+        }
 
         .about-value-card {
-          background: #fff;
+          background: var(--bg-main);
           border: 1px solid var(--border-light);
           border-radius: var(--radius-xl);
-          padding: 40px;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          padding: 36px 28px;
+          transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
         .about-value-card:hover {
-          transform: translateY(-6px);
+          transform: translateY(-5px);
           box-shadow: var(--shadow-lg);
+          border-color: var(--primary-300);
         }
 
         .about-pillar {
           background: var(--bg-subtle);
           border-radius: var(--radius-lg);
-          padding: 28px;
+          padding: 24px;
           display: flex;
           align-items: flex-start;
-          gap: 20px;
+          gap: 18px;
           border: 1px solid var(--border-light);
-          transition: border-color 0.2s, box-shadow 0.2s;
+          transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
         }
         .about-pillar:hover {
-          border-color: var(--primary-300);
+          border-color: var(--primary-400);
           box-shadow: var(--shadow-sm);
+          transform: translateY(-2px);
         }
 
-        .method-step {
+        .method-step-card {
           display: flex;
           flex-direction: column;
           align-items: center;
           text-align: center;
-          flex: 1 1 0;
-          min-width: 100px;
-          padding: 28px 12px;
-          border-radius: var(--radius-lg);
-          background: #fff;
+          padding: 32px 18px;
+          border-radius: var(--radius-xl);
+          background: var(--bg-main);
           border: 1px solid var(--border-light);
-          transition: transform 0.25s, box-shadow 0.25s;
+          transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+          position: relative;
         }
-        .method-step:hover {
-          transform: translateY(-4px);
-          box-shadow: var(--shadow-md);
+        .method-step-card:hover {
+          transform: translateY(-6px);
+          box-shadow: var(--shadow-lg);
+          border-color: var(--primary-400);
         }
 
-        .about-never-item {
+        .about-never-card {
+          background: var(--bg-main);
+          border: 1px solid var(--border-light);
+          border-top: 4px solid var(--danger);
+          border-radius: var(--radius-xl);
+          padding: 36px 28px;
           display: flex;
-          align-items: flex-start;
-          gap: 16px;
-          padding: 20px 0;
-          border-bottom: 1px solid var(--border-light);
+          flex-direction: column;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .about-never-item:last-child { border-bottom: none; }
+        .about-never-card:hover {
+          transform: translateY(-5px);
+          box-shadow: var(--shadow-lg);
+        }
 
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
+          .method-grid {
+            grid-template-columns: repeat(3, 1fr) !important;
+          }
+        }
+
+        @media (max-width: 900px) {
           .about-hero-grid { grid-template-columns: 1fr !important; }
           .about-story-grid { grid-template-columns: 1fr !important; }
-          .method-row { flex-wrap: wrap !important; }
-          .method-step { min-width: 140px; }
+          .about-two-col { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .about-three-col { grid-template-columns: 1fr !important; }
+          .method-grid { grid-template-columns: repeat(2, 1fr) !important; }
           .container { padding: 0 16px; }
+        }
+
+        @media (max-width: 640px) {
+          .method-grid { grid-template-columns: 1fr !important; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -139,7 +170,7 @@ export default function AboutPage() {
           <div style={{ position: 'absolute', top: '20%', left: '10%', width: '700px', height: '700px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(92,237,115,0.15) 0%, transparent 70%)', zIndex: 2, pointerEvents: 'none' }} />
           
           {/* Content */}
-          <div className="container" style={{ position: 'relative', zIndex: 3, padding: '140px 20px 120px', width: '100%', maxWidth: '1200px' }}>
+          <div className="container" style={{ position: 'relative', zIndex: 3, padding: '140px 20px 120px' }}>
             <div className="about-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '60px', alignItems: 'center' }}>
               {/* Left — headline */}
               <div>
@@ -189,38 +220,76 @@ export default function AboutPage() {
         </section>
 
         {/* ── 02 OUR STORY ─────────────────────────────────────────────── */}
-        <section id="story" style={{ padding: '80px 0', backgroundColor: 'var(--bg-main)' }}>
-          <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'start' }}>
-            <span className="reveal section-tagline">Our Story</span>
-            <h2 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: 800, color: 'var(--text-primary)', marginTop: '16px', marginBottom: '40px', lineHeight: 1.2 }}>
-              Before Ahsora, There Was a Student Trying to Find the Way.
-            </h2>
-            <div className="reveal reveal-delay-2" style={{ color: 'var(--text-secondary)', fontSize: '1.15rem', lineHeight: 1.9, fontFamily: 'serif', padding: '40px', backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)' }}>
-              <p style={{ marginBottom: '24px' }}>
-                I decided I wanted to study Medicine in Italy. It sounded straightforward — sit the IMAT, choose a university, apply. But when I actually started preparing, I realized how little structured help existed. Information was scattered across forums, YouTube videos, and WhatsApp groups. Most of it was unverified, outdated, or impossible to act on without context.
-              </p>
-              <p style={{ marginBottom: '24px' }}>
-                I didn't have a mentor who had done this before. I figured out the syllabus through trial and error. I worked through past papers alone. I made mistakes that a clearer guide would have prevented. And when I passed the IMAT and arrived in Messina, I realized that had only been the first chapter — the university, the clinical rotations, the system of studying medicine in a second language, were challenges no online resource had adequately prepared me for.
-              </p>
-              <p style={{ marginBottom: '24px' }}>
-                Before Ahsora formally existed, I found myself helping other students — friends, and friends of friends — who were at the same crossroads I had been. Explaining the exam structure, helping someone build a study plan, walking through the application process. It became clear that the need wasn't for more content. It was for a system, and a person who had actually done it.
-              </p>
-              <p style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: '1.2rem', marginBottom: '40px' }}>
-                That realization became Ahsora.
-              </p>
-              <div style={{ textAlign: 'right', marginTop: '20px' }}>
-                <div style={{ fontFamily: '"Brush Script MT", cursive', fontSize: '2.5rem', color: 'var(--text-primary)', transform: 'rotate(-2deg)', display: 'inline-block' }}>
-                  Ahsan Jahangir
+        <section id="story" style={{ padding: '100px 0', backgroundColor: 'var(--bg-main)' }}>
+          <div className="container">
+            <div className="about-two-col" style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
+              {/* Left Column: Heading & Founder Card */}
+              <div style={{ flex: 1 }}>
+                <span className="reveal section-tagline">Our Story</span>
+                <h2 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontWeight: 800, color: 'var(--text-primary)', marginTop: '16px', marginBottom: '16px', lineHeight: 1.2 }}>
+                  Before Ahsora, There Was a Student Trying to Find the Way.
+                </h2>
+                <p className="reveal reveal-delay-2" style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: 1.8, marginBottom: '24px' }}>
+                  The hardest part of preparing for medical school in Italy was never the science — it was finding reliable, structured guidance in a sea of unverified internet advice.
+                </p>
+
+                {/* Founder Badge / Card */}
+                <div className="reveal reveal-delay-3" style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', padding: '28px', boxShadow: 'var(--shadow-sm)' }}>
+                  <div style={{ display: 'flex', gap: '20px', alignItems: 'center', marginBottom: '20px' }}>
+                    <div style={{ width: '72px', height: '72px', borderRadius: '50%', overflow: 'hidden', flexShrink: 0, border: '2px solid var(--primary-400)', position: 'relative' }}>
+                      <Image src="/founder-about.jpg" alt="Ahsan Jahangir" fill style={{ objectFit: 'cover' }} />
+                    </div>
+                    <div>
+                      <div style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '1.15rem' }}>Ahsan Jahangir</div>
+                      <div style={{ color: 'var(--primary-700)', fontWeight: 700, fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Founder &amp; Academic Director</div>
+                      <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: '4px' }}>Final-Year Medicine &amp; Surgery · Univ. of Messina</div>
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', paddingTop: '16px', borderTop: '1px solid var(--border-light)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
+                      <CheckCircle2 size={16} color="var(--primary-600)" />
+                      <span>Direct IMAT qualifier &amp; Italian medical scholar</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
+                      <CheckCircle2 size={16} color="var(--primary-600)" />
+                      <span>Founder-led curriculum &amp; personalized mentoring</span>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="reveal reveal-delay-3" style={{ marginTop: '40px', backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-light)', padding: '28px 32px', display: 'flex', gap: '20px', alignItems: 'center', flexWrap: 'wrap' }}>
-              <div style={{ width: '64px', height: '64px', borderRadius: '50%', overflow: 'hidden', flexShrink: 0, boxShadow: 'var(--shadow-sm)', position: 'relative' }}>
-                <Image src="/founder-about.jpg" alt="Founder" fill style={{ objectFit: 'cover' }} />
-              </div>
-              <div>
-                <div style={{ fontWeight: 900, color: 'var(--text-primary)', fontSize: '1.05rem' }}>Founder, Ahsora Med Academy</div>
-                <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '4px' }}>Final-Year Medicine &amp; Surgery · University of Messina, Italy</div>
+
+              {/* Right Column: Founder's Personal Letter */}
+              <div className="reveal reveal-delay-2" style={{ flex: 1.35, backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', padding: '48px', boxShadow: 'var(--shadow-sm)' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: 'var(--primary-50)', border: '1px solid var(--primary-200)', borderRadius: 'var(--radius-full)', padding: '6px 16px', marginBottom: '28px' }}>
+                  <span style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--primary-700)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>Letter from the Founder</span>
+                </div>
+                
+                <div style={{ color: 'var(--text-secondary)', fontSize: '1.075rem', lineHeight: 1.9 }}>
+                  <p style={{ marginBottom: '24px' }}>
+                    I decided I wanted to study Medicine in Italy. It sounded straightforward — sit the IMAT, choose a university, apply. But when I actually started preparing, I realized how little structured help existed. Information was scattered across forums, YouTube videos, and WhatsApp groups. Most of it was unverified, outdated, or impossible to act on without context.
+                  </p>
+                  <p style={{ marginBottom: '24px' }}>
+                    I didn't have a mentor who had done this before. I figured out the syllabus through trial and error. I worked through past papers alone. I made mistakes that a clearer guide would have prevented. And when I passed the IMAT and arrived in Messina, I realized that had only been the first chapter — the university, the clinical rotations, the system of studying medicine in a second language, were challenges no online resource had adequately prepared me for.
+                  </p>
+                  <p style={{ marginBottom: '28px' }}>
+                    Before Ahsora formally existed, I found myself helping other students — friends, and friends of friends — who were at the same crossroads I had been. Explaining the exam structure, helping someone build a study plan, walking through the application process. It became clear that the need wasn't for more content. It was for a system, and a person who had actually done it.
+                  </p>
+                  
+                  <div style={{ padding: '24px 28px', backgroundColor: 'var(--bg-main)', borderLeft: '4px solid var(--primary-500)', borderRadius: '0 var(--radius-lg) var(--radius-lg) 0', marginBottom: '36px', boxShadow: 'var(--shadow-xs)' }}>
+                    <p style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '1.25rem', lineHeight: 1.4, margin: 0 }}>
+                      "That realization became Ahsora."
+                    </p>
+                  </div>
+
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '20px', marginTop: '16px' }}>
+                    <div style={{ textAlign: 'right' }}>
+                      <div style={{ fontFamily: '"Brush Script MT", cursive', fontSize: '2.5rem', color: 'var(--text-primary)', transform: 'rotate(-2deg)', display: 'inline-block' }}>
+                        Ahsan Jahangir
+                      </div>
+                      <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 600 }}>Founder, Ahsora Med Academy</div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -228,30 +297,30 @@ export default function AboutPage() {
 
         {/* ── 03 THE TURNING POINT ─────────────────────────────────────── */}
         <section style={{ padding: '100px 0', backgroundColor: 'var(--bg-subtle)' }}>
-          <div className="container">
+          <div className="container" style={{ textAlign: 'center', marginBottom: '56px' }}>
             <span className="reveal section-tagline">The Turning Point</span>
             <h2 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: 800, color: 'var(--text-primary)', marginTop: '16px', marginBottom: '20px', lineHeight: 1.2 }}>
               The Problem Wasn't Always the Student.
             </h2>
-            <p className="reveal reveal-delay-2" style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: 1.8, marginBottom: '56px' }}>
+            <p className="reveal reveal-delay-2" style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: 1.8, maxWidth: '680px', margin: '0 auto' }}>
               Through my own preparation, I kept noticing the same three things. They weren't unique to me — I saw them in every student I helped.
             </p>
           </div>
-          <div className="container" style={{ maxWidth: '1200px' }}>
-                <div className="reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px', margin: '0 auto' }}>
-                  {[
+          <div className="container">
+            <div className="about-three-col reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
+              {[
                 { num: '01', title: 'Too Much Information', desc: 'Students can find information everywhere — but struggle to identify what actually matters for the exam and the journey.' },
                 { num: '02', title: 'Too Little Guidance', desc: 'A syllabus tells you what exists. It rarely tells you how to approach it, what to prioritize, or how to study effectively under exam conditions.' },
                 { num: '03', title: 'Too Many Decisions', desc: 'The IMAT is only one part — choosing a university, understanding the application, planning the wider journey: students are asked to figure it all out.' },
               ].map((item, i) => (
-                <div key={i} className="about-value-card" style={{ borderTop: `4px solid var(--primary-400)`, padding: '32px 28px', height: '100%' }}>
-                  <div style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--primary-200)', marginBottom: '16px', lineHeight: 1 }}>{item.num}</div>
+                <div key={i} className="about-value-card" style={{ borderTop: `4px solid var(--primary-400)`, padding: '36px 28px', height: '100%' }}>
+                  <div style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--primary-400)', marginBottom: '16px', lineHeight: 1 }}>{item.num}</div>
                   <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '-0.3px' }}>{item.title}</h3>
                   <p style={{ color: 'var(--text-muted)', lineHeight: 1.6, fontSize: '0.95rem' }}>{item.desc}</p>
                 </div>
               ))}
             </div>
-            <div className="container reveal" style={{ marginTop: '48px' }}>
+            <div className="reveal" style={{ marginTop: '48px' }}>
               <p style={{ fontSize: '1.3rem', fontWeight: 700, color: 'var(--text-primary)', fontStyle: 'italic', textAlign: 'center' }}>
                 "I believed there had to be a better way."
               </p>
@@ -260,10 +329,10 @@ export default function AboutPage() {
         </section>
 
         {/* ── 04 AHSORA TODAY ──────────────────────────────────────────── */}
-        <section style={{ padding: '100px 0', backgroundColor: '#FFFFFF' }}>
-          <div className="container" style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <section style={{ padding: '100px 0', backgroundColor: 'var(--bg-main)' }}>
+          <div className="container">
             <div className="about-story-grid" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '60px', alignItems: 'stretch' }}>
-              <div className="reveal" style={{ position: 'relative', minHeight: '600px', borderRadius: 'var(--radius-xl)', overflow: 'hidden', boxShadow: 'var(--shadow-xl)' }}>
+              <div className="reveal" style={{ position: 'relative', minHeight: '520px', borderRadius: 'var(--radius-xl)', overflow: 'hidden', boxShadow: 'var(--shadow-xl)' }}>
                 <Image src="/messina-university.jpg" alt="University of Messina campus" fill style={{ objectFit: 'cover' }} />
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -298,7 +367,7 @@ export default function AboutPage() {
         {/* ── 05 THE PHILOSOPHY ────────────────────────────────────────── */}
         <section style={{ padding: '100px 0', backgroundColor: 'var(--text-primary)', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, rgba(92,237,115,0.12) 0%, transparent 70%)', zIndex: 0 }} />
-          <div className="container" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
+          <div className="container-narrow" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
             <span className="reveal section-tagline" style={{ color: 'var(--primary-400)' }}>The Philosophy</span>
             <h2 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(2.2rem, 5vw, 3.2rem)', fontWeight: 900, color: '#FFFFFF', marginTop: '16px', marginBottom: '32px', letterSpacing: '-1px', lineHeight: 1.2 }}>
               A Journey Built Around Shared Experience.
@@ -318,13 +387,13 @@ export default function AboutPage() {
         </section>
 
         {/* ── 06 WHAT WE STAND FOR ─────────────────────────────────────── */}
-        <section style={{ padding: '100px 0', backgroundColor: '#FFFFFF' }}>
-          <div className="container" style={{ maxWidth: '1100px', margin: '0 auto' }}>
+        <section style={{ padding: '100px 0', backgroundColor: 'var(--bg-main)' }}>
+          <div className="container">
             <div style={{ textAlign: 'center', marginBottom: '64px' }}>
               <span className="reveal section-tagline">What We Stand For</span>
               <h2 className="reveal reveal-delay-1" style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '12px' }}>What You Can Expect From Ahsora</h2>
             </div>
-            <div className="reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px' }}>
+            <div className="about-three-col reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px' }}>
               {[
                 {
                   icon: <Lightbulb size={28} color="var(--primary-600)" />,
@@ -354,34 +423,60 @@ export default function AboutPage() {
 
         {/* ── 07 THE AHSORA METHOD ─────────────────────────────────────── */}
         <section style={{ padding: '100px 0', backgroundColor: 'var(--bg-subtle)' }}>
-          <div style={{ maxWidth: '760px', margin: '0 auto 56px', padding: '0 24px', textAlign: 'center' }}>
+          <div className="container" style={{ textAlign: 'center', marginBottom: '56px' }}>
             <span className="reveal section-tagline">The Ahsora Method</span>
-            <h2 className="reveal reveal-delay-1" style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '12px', marginBottom: '20px' }}>We Turn Preparation Into a Process.</h2>
-            <p className="reveal reveal-delay-2" style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: 1.8 }}>Not more studying. Better-directed studying.</p>
+            <h2 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(2rem, 4vw, 2.75rem)', fontWeight: 800, color: 'var(--text-primary)', marginTop: '14px', marginBottom: '16px' }}>
+              We Turn Preparation Into a Process.
+            </h2>
+            <p className="reveal reveal-delay-2" style={{ color: 'var(--text-secondary)', fontSize: '1.15rem', lineHeight: 1.7, maxWidth: '640px', margin: '0 auto' }}>
+              Not more studying. Better-directed studying. A continuous 6-step cycle built specifically around the demands of the IMAT exam.
+            </p>
           </div>
+
           <div className="container">
-            <div className="method-row reveal" style={{ display: 'flex', gap: '16px', alignItems: 'stretch', justifyContent: 'center' }}>
+            {/* 6 Steps horizontally across the 1240px container */}
+            <div className="method-grid reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '16px', alignItems: 'stretch' }}>
               {[
-                { step: 'Learn', num: '1', desc: 'Understand the concept.', icon: <BookOpen size={22} color="var(--primary-600)" /> },
-                { step: 'Practice', num: '2', desc: 'Apply it through relevant questions.', icon: <Target size={22} color="var(--primary-600)" /> },
-                { step: 'Test', num: '3', desc: 'Work under realistic exam conditions.', icon: <CheckCircle2 size={22} color="var(--primary-600)" /> },
-                { step: 'Analyze', num: '4', desc: 'Identify errors, timing and weak areas.', icon: <BarChart2 size={22} color="var(--primary-600)" /> },
-                { step: 'Improve', num: '5', desc: 'Target the gaps specifically.', icon: <Lightbulb size={22} color="var(--primary-600)" /> },
-                { step: 'Repeat', num: '6', desc: 'Return to the cycle, stronger.', icon: <RefreshCw size={22} color="var(--primary-600)" /> },
+                { step: 'Learn', num: '01', desc: 'Understand core concepts from first principles.', icon: <BookOpen size={22} color="var(--primary-600)" /> },
+                { step: 'Practice', num: '02', desc: 'Apply knowledge through targeted, topic-wise questions.', icon: <Target size={22} color="var(--primary-600)" /> },
+                { step: 'Test', num: '03', desc: 'Simulate full exams under authentic timed conditions.', icon: <CheckCircle2 size={22} color="var(--primary-600)" /> },
+                { step: 'Analyze', num: '04', desc: 'Pinpoint error patterns, timing, and score gaps.', icon: <BarChart2 size={22} color="var(--primary-600)" /> },
+                { step: 'Improve', num: '05', desc: 'Remediate blind spots with instructor guidance.', icon: <Lightbulb size={22} color="var(--primary-600)" /> },
+                { step: 'Repeat', num: '06', desc: 'Return to the cycle calibrated, sharper, and confident.', icon: <RefreshCw size={22} color="var(--primary-600)" /> },
               ].map((s, i) => (
-                <div key={i} className="method-step" style={{ gap: '12px' }}>
-                  <div style={{ width: '44px', height: '44px', borderRadius: '50%', backgroundColor: 'var(--primary-600)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: '1.1rem', flexShrink: 0, boxShadow: '0 4px 12px rgba(5,150,105,0.3)' }}>{s.num}</div>
-                  <div style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '1rem' }}>{s.step}</div>
-                  <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', lineHeight: 1.5 }}>{s.desc}</div>
+                <div key={i} className="method-step-card">
+                  <div style={{ position: 'absolute', top: '12px', right: '14px', fontSize: '0.75rem', fontWeight: 800, color: 'var(--primary-700)', background: 'var(--primary-50)', border: '1px solid var(--primary-200)', borderRadius: 'var(--radius-full)', padding: '2px 8px' }}>
+                    {s.num}
+                  </div>
+                  <div style={{ width: '50px', height: '50px', borderRadius: '50%', backgroundColor: 'var(--primary-50)', border: '1px solid var(--primary-200)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '18px', marginTop: '6px' }}>
+                    {s.icon}
+                  </div>
+                  <div style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '1.1rem', marginBottom: '8px' }}>{s.step}</div>
+                  <div style={{ color: 'var(--text-muted)', fontSize: '0.875rem', lineHeight: 1.6 }}>{s.desc}</div>
                 </div>
               ))}
+            </div>
+
+            {/* Horizontal Process Banner below */}
+            <div className="reveal reveal-delay-3" style={{ marginTop: '36px', backgroundColor: 'var(--bg-main)', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-xl)', padding: '20px 32px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', flexWrap: 'wrap', boxShadow: 'var(--shadow-xs)' }}>
+              <span style={{ fontSize: '0.9rem', fontWeight: 800, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <RefreshCw size={16} color="var(--primary-600)" /> The Closed-Loop Framework:
+              </span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', fontSize: '0.88rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
+                <span>Theory</span> <span style={{ color: 'var(--primary-500)' }}>→</span>
+                <span>Application</span> <span style={{ color: 'var(--primary-500)' }}>→</span>
+                <span>CBT Simulation</span> <span style={{ color: 'var(--primary-500)' }}>→</span>
+                <span>Analytics</span> <span style={{ color: 'var(--primary-500)' }}>→</span>
+                <span>Remediation</span> <span style={{ color: 'var(--primary-500)' }}>→</span>
+                <span style={{ color: 'var(--primary-700)', fontWeight: 800 }}>Exam Mastery</span>
+              </div>
             </div>
           </div>
         </section>
 
         {/* ── 08 WHY LIVE TEACHING MATTERS ────────────────────────────── */}
         <section style={{ padding: '100px 0', backgroundColor: 'var(--bg-main)' }}>
-          <div className="container" style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <div className="container">
             <div className="about-story-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center' }}>
               <div>
                 <span className="reveal section-tagline">Why Live Teaching Matters</span>
@@ -406,13 +501,13 @@ export default function AboutPage() {
 
         {/* ── 09 THE TECHNOLOGY ────────────────────────────────────────── */}
         <section style={{ padding: '100px 0', backgroundColor: 'var(--bg-subtle)' }}>
-          <div className="container" style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <div className="container">
             <div style={{ textAlign: 'center', marginBottom: '64px' }}>
               <span className="reveal section-tagline">The Technology</span>
               <h2 className="reveal reveal-delay-1" style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '12px', marginBottom: '16px' }}>Technology Should Make Learning Clearer, Not Colder.</h2>
               <p className="reveal reveal-delay-2" style={{ color: 'var(--text-muted)', fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto' }}>The technology organizes the journey. The teachers make it human.</p>
             </div>
-            <div className="reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '28px' }}>
+            <div className="about-three-col reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '28px' }}>
               {[
                 { img: '/portal-dashboard.jpg', label: 'Your Preparation', sub: 'Resources and structured progression' },
                 { img: '/cbt-mock-exam.jpg', label: 'Your Practice', sub: 'Question bank and CBT simulations' },
@@ -431,13 +526,13 @@ export default function AboutPage() {
         </section>
 
         {/* ── 10 MEET THE PEOPLE ───────────────────────────────────────── */}
-        <section style={{ padding: '100px 0', backgroundColor: '#FFFFFF' }}>
-          <div className="container" style={{ maxWidth: '1100px', margin: '0 auto' }}>
+        <section style={{ padding: '100px 0', backgroundColor: 'var(--bg-main)' }}>
+          <div className="container">
             <div style={{ textAlign: 'center', marginBottom: '64px' }}>
               <span className="reveal section-tagline">The Team</span>
               <h2 className="reveal reveal-delay-1" style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '12px' }}>People Who Teach. People Who Know the Journey.</h2>
             </div>
-            <div className="reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px' }}>
+            <div className="about-three-col reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px' }}>
               <div style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', overflow: 'hidden' }}>
                 <div style={{ position: 'relative', height: '260px' }}>
                   <Image src="/founder-about.jpg" alt="Founder" fill style={{ objectFit: 'cover', objectPosition: 'top' }} />
@@ -464,74 +559,138 @@ export default function AboutPage() {
 
         {/* ── 11 WHAT WE WILL NEVER PROMISE ───────────────────────────── */}
         <section style={{ padding: '100px 0', backgroundColor: 'var(--bg-subtle)' }}>
-          <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'start' }}>
-            <div>
+          <div className="container">
+            {/* Header */}
+            <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 56px' }}>
               <span className="reveal section-tagline">Our Commitment to Honesty</span>
-              <h2 className="reveal reveal-delay-1" style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '16px', marginBottom: '40px' }}>What We Will Never Promise</h2>
+              <h2 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(2rem, 4vw, 2.75rem)', fontWeight: 800, color: 'var(--text-primary)', marginTop: '14px', marginBottom: '16px' }}>
+                What We Will Never Promise
+              </h2>
+              <p className="reveal reveal-delay-2" style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: 1.75 }}>
+                Many agencies sell false certainties to attract students. At Ahsora, we build on integrity. We are completely upfront about what is outside any academy's legal or realistic authority.
+              </p>
             </div>
-            <div className="reveal reveal-delay-2" style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', padding: '40px', boxShadow: 'var(--shadow-sm)' }}>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: 1.8, marginBottom: '32px' }}>We cannot promise:</p>
-              {['Admission to any university', 'Scholarship awards', 'Visa approval'].map((item, i) => (
-                <div key={i} className="about-never-item">
-                  <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'var(--danger-bg)', border: '1px solid var(--danger-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <span style={{ color: 'var(--danger)', fontWeight: 900, fontSize: '1rem' }}>✕</span>
+
+            {/* 3 Horizontal Cards Side by Side */}
+            <div className="commitment-wrapper" style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', justifyContent: 'center', marginBottom: '32px' }}>
+                {[
+                  {
+                    title: 'Guaranteed University Admission',
+                    reason: 'Admission to Italian public medical universities is determined solely by official IMAT ranking lists and university selection committees — never by any private academy.',
+                    label: 'University Authority'
+                  },
+                  {
+                    title: 'Guaranteed Scholarship Awards',
+                    reason: 'Regional scholarship grants (such as DSU or ER.GO) are allocated strictly by Italian regional bodies based on certified ISEE-parificato financial documents and academic merit.',
+                    label: 'Regional Agency Authority'
+                  },
+                  {
+                    title: 'Guaranteed Visa Approval',
+                    reason: 'Visa issuance is the exclusive sovereign prerogative of Italian embassies and consulates worldwide. No independent organization can guarantee an entry visa outcome.',
+                    label: 'Diplomatic Authority'
+                  }
+                ].map((item, i) => (
+                  <div key={i} className="about-never-card compact-card" style={{ backgroundColor: 'var(--bg-main)', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-lg)', padding: '20px', textAlign: 'center', flex: '1', minWidth: '280px' }}>
+                    <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '12px' }}>{item.title}</h3>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>{item.reason}</p>
+                    <div style={{ marginTop: '12px', fontSize: '0.8rem', color: 'var(--text-light)' }}>Determined by: {item.label}</div>
                   </div>
-                  <span style={{ color: 'var(--text-primary)', fontWeight: 700, fontSize: '1.1rem', paddingTop: '4px' }}>{item}</span>
+                ))}
+            </div>
+
+            {/* Horizontal "What We DO Promise" Banner */}
+            <div className="reveal reveal-delay-2" style={{ backgroundColor: 'var(--bg-main)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--primary-300)', padding: '36px 44px', boxShadow: 'var(--shadow-md)' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '28px', alignItems: 'center' }}>
+                <div style={{ width: '64px', height: '64px', borderRadius: '50%', backgroundColor: 'var(--primary-50)', border: '1px solid var(--primary-300)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <ShieldCheck size={36} color="var(--primary-600)" />
                 </div>
-              ))}
-              <div style={{ marginTop: '32px', padding: '24px', backgroundColor: 'var(--primary-50)', borderRadius: 'var(--radius-md)', border: '1px solid var(--primary-200)' }}>
-                <p style={{ color: 'var(--text-primary)', fontWeight: 700, fontSize: '1.1rem', lineHeight: 1.75 }}>
-                  "Those decisions belong to universities and relevant authorities. What we can promise is that our guidance will be honest, our preparation will be structured, and our information will be treated seriously."
-                </p>
+                <div>
+                  <div style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--primary-700)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px' }}>
+                    What We Promise With 100% Commitment
+                  </div>
+                  <p style={{ color: 'var(--text-primary)', fontWeight: 700, fontSize: '1.15rem', lineHeight: 1.75, margin: 0 }}>
+                    "Those decisions belong to universities and relevant authorities. What we can promise is that our guidance will be honest, our preparation will be structured, and your aspirations will be treated with the seriousness they deserve."
+                  </p>
+                  <div style={{ marginTop: '12px', fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 600 }}>
+                    — Ahsan Jahangir, Founder &amp; Academic Director
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
         {/* ── 12 WHERE WE'RE GOING ─────────────────────────────────────── */}
-        <section style={{ padding: '100px 0', backgroundColor: 'var(--bg-subtle)' }}>
-          <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'start' }}>
-            <span className="reveal section-tagline">The Road Ahead</span>
-            <h2 className="reveal reveal-delay-1" style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '16px', marginBottom: '40px' }}>Where Ahsora Is Headed</h2>
-            <div className="reveal reveal-delay-2">
-              <p style={{ fontSize: '1.1rem', lineHeight: 1.85, marginBottom: '32px', fontWeight: 600, color: 'var(--text-primary)' }}>Near-term — known and confirmed:</p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '48px' }}>
-                {[
-                  'Continue improving the IMAT preparation ecosystem — better content, better feedback, better support.',
-                  'Expand recorded content as more live sessions are delivered, so the library grows continuously.',
-                  'Expand into additional medical-exam programmes — USMLE is a planned future direction — when genuinely ready.',
-                ].map((item, i) => (
-                  <div key={i} style={{ display: 'flex', gap: '14px', alignItems: 'flex-start', padding: '16px', backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-light)' }}>
-                    <CheckCircle2 size={22} color="var(--primary-600)" style={{ flexShrink: 0, marginTop: '2px' }} />
-                    <span style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.7 }}>{item}</span>
-                  </div>
-                ))}
+        <section style={{ padding: '100px 0', backgroundColor: 'var(--bg-main)' }}>
+          <div className="container">
+            <div className="about-two-col" style={{ display: 'grid', gridTemplateColumns: '1fr 1.35fr', gap: '56px', alignItems: 'start' }}>
+              <div>
+                <span className="reveal section-tagline">The Road Ahead</span>
+                <h2 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontWeight: 800, color: 'var(--text-primary)', marginTop: '16px', marginBottom: '24px', lineHeight: 1.25 }}>
+                  Where Ahsora Is Headed
+                </h2>
+                <p className="reveal reveal-delay-2" style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: 1.85, marginBottom: '28px' }}>
+                  We are building an enduring ecosystem for medical students. From IMAT preparation to clinical years in Italy, our roadmap is guided by real academic needs.
+                </p>
+                <div className="reveal reveal-delay-3" style={{ padding: '24px', backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-light)' }}>
+                  <div style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '1rem', marginBottom: '8px' }}>Long-Term Vision</div>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: 1.7, margin: 0 }}>
+                    Over time, students who progress through Ahsora become mentors for the students coming behind them — the same way this academy started with one student's experience helping the next.
+                  </p>
+                </div>
               </div>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: 1.85 }}>
-                Longer term — and only once the foundation is right: we want the journey to continue after the exam. Over time, students who progress through Ahsora may become resources for the students coming behind them — the same way this academy started with one student's experience helping the next.
-              </p>
+              <div className="reveal reveal-delay-3" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                {[
+                  { title: 'Digital Transformation', desc: 'Continuous enhancement of our CBT simulation engine and performance analytics suite.' },
+                  { title: 'Clinical Integration', desc: 'Expanding support for students through their transition into hospital rotations and clinical practice.' },
+                  { title: 'Community Growth', desc: 'Developing a peer-to-peer mentoring network that spans multiple Italian medical universities.' }
+                ].map((item, i) => (
+                    <div key={i} style={{ display: 'flex', gap: '16px' }}>
+                      <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: 'var(--primary-50)', border: '1px solid var(--primary-200)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
+                        <CheckCircle2 size={20} color="var(--primary-600)" />
+                      </div>
+                      <div>
+                        <div style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '1.05rem', marginBottom: '6px' }}>{item.title}</div>
+                        <div style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: 1.6 }}>{item.desc}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
         {/* ── 13 FAQ ───────────────────────────────────────────────────── */}
         <section style={{ padding: '100px 0', backgroundColor: 'var(--bg-subtle)' }}>
-          <div className="container">
+          <div className="container" style={{ maxWidth: '1040px' }}>
             <div style={{ textAlign: 'center', marginBottom: '56px' }}>
               <span className="reveal section-tagline">Questions About Ahsora</span>
-              <h2 className="reveal reveal-delay-1" style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '12px' }}>Frequently Asked Questions</h2>
+              <h2 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontWeight: 800, color: 'var(--text-primary)', marginTop: '12px' }}>Frequently Asked Questions</h2>
             </div>
-            <div className="reveal" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {faqs.map((faq, i) => (
-                <div key={i} style={{ backgroundColor: 'var(--bg-main)', border: openFaq === i ? '1px solid var(--primary-400)' : '1px solid var(--border-light)', borderRadius: 'var(--radius-lg)', overflow: 'hidden', transition: 'all 0.3s ease', boxShadow: openFaq === i ? 'var(--shadow-sm)' : 'none' }}>
-                  <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                    style={{ width: '100%', padding: '22px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 800, fontSize: '1.05rem', color: openFaq === i ? 'var(--primary-700)' : 'var(--text-primary)', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', gap: '20px', transition: 'color 0.2s' }}>
-                    <span style={{ flex: 1 }}>{faq.q}</span>
-                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: openFaq === i ? 'var(--primary-50)' : 'var(--bg-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                      {openFaq === i ? <ChevronUp size={18} color="var(--primary-600)" /> : <ChevronDown size={18} color="var(--text-light)" />}
-                    </div>
+            <div className="reveal" style={{ display: 'flex', gap: '24px' }}>
+              {/* Left column: list of questions */}
+              <div style={{ flex: '0 0 40%', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {faqs.map((faq, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                    className="reveal"
+                    style={{
+                      width: '100%',
+                      padding: '16px 20px',
+                      textAlign: 'left',
+                      background: openFaq === i ? 'var(--primary-50)' : 'var(--bg-main)',
+                      border: openFaq === i ? '2px solid var(--primary-400)' : '1px solid var(--border-light)',
+                      borderRadius: 'var(--radius-lg)',
+                      fontWeight: 700,
+                      color: openFaq === i ? 'var(--primary-700)' : 'var(--text-primary)',
+                      cursor: 'pointer',
+                      transition: 'background 0.3s, border 0.3s',
+                    }}
+                  >
+                    {faq.q}
                   </button>
-                  <div style={{ maxHeight: openFaq === i ? '400px' : '0', opacity: openFaq === i ? 1 : 0, overflow: 'hidden', transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)' }}>
                     <div style={{ padding: '0 24px 24px', borderTop: '1px solid var(--border-light)', paddingTop: '16px' }}>
                       <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.8 }}>{faq.a}</p>
                     </div>
@@ -545,7 +704,7 @@ export default function AboutPage() {
         {/* ── 14 FINAL CTA ─────────────────────────────────────────────── */}
         <section style={{ padding: '120px 0', backgroundColor: 'var(--text-primary)', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, rgba(92,237,115,0.15) 0%, transparent 70%)', zIndex: 0 }} />
-          <div className="container" style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
+          <div className="container-narrow" style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
             <h2 className="reveal" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 900, color: 'var(--text-light)', marginBottom: '24px', letterSpacing: '-1px' }}>
               Start Your Journey With Ahsora.
             </h2>
