@@ -86,11 +86,14 @@ export interface Profile {
   lastName: string;
   email: string;
   phone?: string;
+  whatsappNumber?: string;
   avatarUrl?: string;
   country: string;
   city?: string;
   targetExam?: string;
   targetCountry?: string;
+  selectedPackage?: string;
+  packagePrice?: string;
   isVerified: boolean;
   createdAt: string;
 }
