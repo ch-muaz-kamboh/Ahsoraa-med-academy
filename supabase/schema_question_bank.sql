@@ -1,4 +1,4 @@
-﻿-- =============================================================================
+-- =============================================================================
 -- QUESTION BANK MIGRATION
 -- Run this AFTER the main schema.sql
 -- All MCQs have exactly 5 options: A, B, C, D, E
@@ -100,6 +100,19 @@ ALTER TABLE qb_questions               ENABLE ROW LEVEL SECURITY;
 ALTER TABLE practice_sessions          ENABLE ROW LEVEL SECURITY;
 ALTER TABLE practice_session_questions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE practice_answers           ENABLE ROW LEVEL SECURITY;
+
+-- Helper: check if current user is staff (defined here for self-contained migration)
+CREATE OR REPLACE FUNCTION is_staff()
+RETURNS BOOLEAN AS $$
+BEGIN
+  RETURN EXISTS (
+    SELECT 1 FROM profiles
+    WHERE id = auth.uid()
+      AND role IN ('admin', 'super_admin', 'counsellor', 'admissions_officer',
+                   'visa_officer', 'finance', 'faculty', 'content_editor')
+  );
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
 CREATE POLICY "Staff manage qb_questions"          ON qb_questions FOR ALL USING (is_staff());
 CREATE POLICY "Students read active qb_questions"  ON qb_questions FOR SELECT USING (is_active = TRUE);
