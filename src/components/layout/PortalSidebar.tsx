@@ -2,19 +2,33 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   LayoutDashboard,
   FileCheck2,
   FolderLock,
   BookOpen,
   LogOut,
+  Globe,
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
+import { createClient } from '@/lib/supabase/client';
 import Logo from '@/components/brand/Logo';
 
 export default function PortalSidebar({ userFullName = 'Student', userInitials = 'ST' }: { userFullName?: string, userInitials?: string }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const { setStudentLoggedIn } = useAppStore();
+
+  const handleLogout = async () => {
+    try {
+      const supabase = createClient();
+      await supabase.auth.signOut();
+    } catch (e) {
+      console.error(e);
+    }
+    setStudentLoggedIn(false);
+  };
 
   const links = [
     { href: '/portal/dashboard', label: 'Dashboard', icon: <LayoutDashboard size={18} /> },
@@ -116,10 +130,10 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         })}
       </nav>
 
-      {/* Footer / Back to Public */}
-      <div style={{ padding: '16px', borderTop: '1px solid #F1F5F9' }}>
-        <Link
-          href="/"
+      {/* Footer / Logout & Back to Public */}
+      <div style={{ padding: '16px', borderTop: '1px solid #F1F5F9', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <button
+          onClick={handleLogout}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -127,11 +141,34 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
             padding: '10px 14px',
             borderRadius: '8px',
             fontSize: '0.875rem',
-            color: '#64748B',
-            fontWeight: 500,
+            color: '#DC2626',
+            fontWeight: 600,
+            backgroundColor: '#FEF2F2',
+            border: '1px solid #FECACA',
+            cursor: 'pointer',
+            width: '100%',
+            transition: 'all 0.15s ease',
           }}
         >
           <LogOut size={16} />
+          <span>Sign Out</span>
+        </button>
+
+        <Link
+          href="/"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            padding: '8px 14px',
+            borderRadius: '8px',
+            fontSize: '0.8125rem',
+            color: '#64748B',
+            fontWeight: 500,
+            textDecoration: 'none',
+          }}
+        >
+          <Globe size={15} />
           <span>Exit to Public Site</span>
         </Link>
       </div>

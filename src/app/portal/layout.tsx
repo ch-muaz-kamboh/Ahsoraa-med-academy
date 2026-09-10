@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import PortalSidebar from '@/components/layout/PortalSidebar';
 import { useAppStore } from '@/lib/store';
 import { createClient } from '@/lib/supabase/client';
-import { Bell, Lock, Mail, User, Eye, EyeOff, Check, GraduationCap, ChevronRight, Phone, Loader2 } from 'lucide-react';
+import { Bell, Lock, Mail, User, Eye, EyeOff, Check, GraduationCap, ChevronRight, Phone, Loader2, LogOut } from 'lucide-react';
 import Link from 'next/link';
 
 import Logo from '@/components/brand/Logo';
@@ -13,6 +13,16 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
   const { currentUser, studentLoggedIn, setStudentLoggedIn, registerStudent, liveTestSession } = useAppStore();
   const [isRegister, setIsRegister] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  const handleLogout = async () => {
+    try {
+      const supabase = createClient();
+      await supabase.auth.signOut();
+    } catch (e) {
+      console.error(e);
+    }
+    setStudentLoggedIn(false);
+  };
   const [error, setError] = useState('');
 
   // Login Form State
@@ -485,7 +495,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
               <Bell size={18} />
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <div
                 style={{
                   width: '36px',
@@ -502,6 +512,28 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
               >
                 {realUser ? realUser.initials : 'ST'}
               </div>
+
+              <button
+                onClick={handleLogout}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '7px 14px',
+                  borderRadius: '8px',
+                  border: '1px solid #FECACA',
+                  backgroundColor: '#FEF2F2',
+                  color: '#DC2626',
+                  fontWeight: 600,
+                  fontSize: '0.8125rem',
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease',
+                }}
+                title="Sign out of student portal"
+              >
+                <LogOut size={15} />
+                <span>Log Out</span>
+              </button>
             </div>
           </div>
         </header>

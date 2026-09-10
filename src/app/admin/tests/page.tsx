@@ -13,6 +13,12 @@ import {
   CheckCircle2,
   HelpCircle,
   Sparkles,
+  Upload,
+  FileText,
+  Copy,
+  AlertCircle,
+  FileSpreadsheet,
+  Check,
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import {
@@ -36,6 +42,218 @@ const EMPTY_QUESTION_FORM = {
   explanation: '',
 };
 
+const SAMPLE_JSON_TEMPLATE = `[
+  {
+    "questionText": "Which organelle is responsible for cellular respiration?",
+    "subject": "Biology",
+    "topic": "Cell Structure",
+    "difficulty": "medium",
+    "optionA": "Mitochondria",
+    "optionB": "Ribosome",
+    "optionC": "Golgi Apparatus",
+    "optionD": "Endoplasmic Reticulum",
+    "optionE": "Lysosome",
+    "correctOption": "A",
+    "explanation": "Mitochondria synthesize ATP via oxidative phosphorylation."
+  },
+  {
+    "questionText": "What is the normal resting heart rate for a healthy adult?",
+    "subject": "Physiology",
+    "topic": "Cardiovascular",
+    "difficulty": "easy",
+    "optionA": "60 - 100 bpm",
+    "optionB": "30 - 50 bpm",
+    "optionC": "120 - 160 bpm",
+    "optionD": "40 - 60 bpm",
+    "optionE": "100 - 140 bpm",
+    "correctOption": "A",
+    "explanation": "Normal resting HR is 60 to 100 beats per minute."
+  }
+]`;
+
+const SAMPLE_CSV_TEMPLATE = `questionText,optionA,optionB,optionC,optionD,optionE,correctOption,subject,topic,explanation
+"Which organelle is responsible for cellular respiration?","Mitochondria","Ribosome","Golgi Apparatus","Endoplasmic Reticulum","Lysosome","A","Biology","Cell Structure","Mitochondria synthesize ATP."
+"What is normal resting heart rate for a healthy adult?","60 - 100 bpm","30 - 50 bpm","120 - 160 bpm","40 - 60 bpm","100 - 140 bpm","A","Physiology","Cardiovascular","Normal resting HR is 60-100 bpm."`;
+
+function parseBulkQuestions(rawInput: string, defaultSubject: string = 'General'): { valid: TestQuestion[]; errors: string[] } {
+  const valid: TestQuestion[] = [];
+  const errors: string[] = [];
+
+  const trimmed = rawInput.trim();
+  if (!trimmed) return { valid, errors: ['Input is empty. Please paste text or choose a file.'] };
+
+  // Try JSON first
+  if (trimmed.startsWith('[') || trimmed.startsWith('{')) {
+    try {
+      const parsed = JSON.parse(trimmed);
+      const items = Array.isArray(parsed) ? parsed : [parsed];
+      items.forEach((item: any, idx: number) => {
+        const qText = item.questionText || item.question || item.stem || '';
+        if (!qText || !String(qText).trim()) {
+          errors.push(`Item ${idx + 1}: Missing question text.`);
+          return;
+        }
+
+        let opts: { id: string; text: string }[] = [];
+        if (Array.isArray(item.options)) {
+          opts = item.options.map((o: any, oIdx: number) => {
+            if (typeof o === 'string') return { id: String.fromCharCode(65 + oIdx), text: o.trim() };
+            return { id: String(o.id || String.fromCharCode(65 + oIdx)).toUpperCase(), text: String(o.text || '').trim() };
+          });
+        } else if (item.options && typeof item.options === 'object') {
+          Object.keys(item.options).forEach((k) => {
+            opts.push({ id: k.toUpperCase(), text: String(item.options[k]).trim() });
+          });
+        } else {
+          ['A', 'B', 'C', 'D', 'E'].forEach((letter) => {
+            const val = item[`option${letter}`] || item[`opt${letter}`] || item[letter];
+            if (val && String(val).trim()) {
+              opts.push({ id: letter, text: String(val).trim() });
+            }
+          });
+        }
+
+        if (opts.length < 2) {
+          errors.push(`Item ${idx + 1} ("${String(qText).slice(0, 25)}..."): Requires at least 2 options.`);
+          return;
+        }
+
+        let correct = String(item.correctOption || item.correct || item.answer || 'A').toUpperCase().trim();
+        if (correct.length > 1) {
+          const match = opts.find((o) => o.text.toLowerCase() === correct.toLowerCase());
+          correct = match ? match.id : 'A';
+        }
+        if (!['A', 'B', 'C', 'D', 'E'].includes(correct)) correct = 'A';
+
+        valid.push({
+          id: `q-bulk-${Date.now()}-${idx}-${Math.random().toString(36).substr(2, 4)}`,
+          orderIndex: 0,
+          subject: item.subject || defaultSubject,
+          topic: item.topic || 'General',
+          difficulty: item.difficulty === 'easy' || item.difficulty === 'hard' ? item.difficulty : 'medium',
+          questionText: String(qText).trim(),
+          options: opts,
+          correctOption: correct as 'A' | 'B' | 'C' | 'D' | 'E',
+          explanation: item.explanation || item.exp || '',
+        });
+      });
+      return { valid, errors };
+    } catch (e: any) {
+      errors.push(`JSON Syntax Error: ${e.message}`);
+      return { valid, errors };
+    }
+  }
+
+  // Parse CSV / Delimited
+  const lines = trimmed.split(/\r?\n/).filter((l) => l.trim().length > 0);
+  if (lines.length === 0) return { valid, errors: ['No valid lines found in CSV.'] };
+
+  const parseCSVLine = (line: string): string[] => {
+    const result: string[] = [];
+    let cur = '';
+    let inQuotes = false;
+    for (let i = 0; i < line.length; i++) {
+      const char = line[i];
+      if (char === '"') {
+        inQuotes = !inQuotes;
+      } else if ((char === ',' || char === '\t') && !inQuotes) {
+        result.push(cur.trim().replace(/^"(.*)"$/, '$1'));
+        cur = '';
+      } else {
+        cur += char;
+      }
+    }
+    result.push(cur.trim().replace(/^"(.*)"$/, '$1'));
+    return result;
+  };
+
+  const firstLineCols = parseCSVLine(lines[0]);
+  const headerCheck = firstLineCols.map((c) => c.toLowerCase());
+  let startIdx = 0;
+  let headers: string[] = [];
+
+  if (headerCheck.some((h) => h.includes('question') || h.includes('option') || h.includes('answer'))) {
+    headers = headerCheck;
+    startIdx = 1;
+  }
+
+  for (let i = startIdx; i < lines.length; i++) {
+    const cols = parseCSVLine(lines[i]);
+    if (cols.length < 3) continue;
+
+    let qText = '';
+    let optA = '', optB = '', optC = '', optD = '', optE = '';
+    let correct = 'A';
+    let subj = defaultSubject;
+    let topic = 'General';
+    let explanation = '';
+
+    if (headers.length > 0) {
+      cols.forEach((col, cIdx) => {
+        const h = headers[cIdx] || '';
+        if (h.includes('question') || h.includes('stem')) qText = col;
+        else if (h === 'optiona' || h === 'opta' || h === 'a') optA = col;
+        else if (h === 'optionb' || h === 'optb' || h === 'b') optB = col;
+        else if (h === 'optionc' || h === 'optc' || h === 'c') optC = col;
+        else if (h === 'optiond' || h === 'optd' || h === 'd') optD = col;
+        else if (h === 'optione' || h === 'opte' || h === 'e') optE = col;
+        else if (h.includes('correct') || h.includes('answer')) correct = col;
+        else if (h.includes('subject')) subj = col;
+        else if (h.includes('topic')) topic = col;
+        else if (h.includes('explanation')) explanation = col;
+      });
+    } else {
+      qText = cols[0];
+      optA = cols[1] || '';
+      optB = cols[2] || '';
+      optC = cols[3] || '';
+      optD = cols[4] || '';
+      if (cols.length >= 6) optE = cols[5] || '';
+      if (cols.length >= 7) correct = cols[6] || 'A';
+      if (cols.length >= 8) subj = cols[7] || defaultSubject;
+      if (cols.length >= 9) explanation = cols[8] || '';
+    }
+
+    if (!qText) {
+      errors.push(`Row ${i + 1}: Missing question text.`);
+      continue;
+    }
+
+    const opts: { id: string; text: string }[] = [];
+    if (optA) opts.push({ id: 'A', text: optA });
+    if (optB) opts.push({ id: 'B', text: optB });
+    if (optC) opts.push({ id: 'C', text: optC });
+    if (optD) opts.push({ id: 'D', text: optD });
+    if (optE) opts.push({ id: 'E', text: optE });
+
+    if (opts.length < 2) {
+      errors.push(`Row ${i + 1} ("${qText.slice(0, 25)}..."): Less than 2 options provided.`);
+      continue;
+    }
+
+    let correctOpt = correct.trim().toUpperCase();
+    if (correctOpt.length > 1) {
+      const match = opts.find((o) => o.text.toLowerCase() === correctOpt.toLowerCase());
+      correctOpt = match ? match.id : 'A';
+    }
+    if (!['A', 'B', 'C', 'D', 'E'].includes(correctOpt)) correctOpt = 'A';
+
+    valid.push({
+      id: `q-bulk-${Date.now()}-${i}-${Math.random().toString(36).substr(2, 4)}`,
+      orderIndex: 0,
+      subject: subj || defaultSubject,
+      topic: topic || 'General',
+      difficulty: 'medium',
+      questionText: qText,
+      options: opts,
+      correctOption: correctOpt as any,
+      explanation,
+    });
+  }
+
+  return { valid, errors };
+}
+
 export default function AdminTestsPage() {
   const [tests, setTests] = useState<Test[]>([]);
   const [liveSession, setLiveSession] = useState<{ id: string; test_id: string; test_title: string } | null>(null);
@@ -45,6 +263,11 @@ export default function AdminTestsPage() {
   // Question Management Modal State
   const [activeTest, setActiveTest] = useState<Test | null>(null);
   const [showAddForm, setShowAddForm] = useState(false);
+  const [showBulkForm, setShowBulkForm] = useState(false);
+  const [bulkInputText, setBulkInputText] = useState('');
+  const [bulkParsedQuestions, setBulkParsedQuestions] = useState<TestQuestion[]>([]);
+  const [bulkParseErrors, setBulkParseErrors] = useState<string[]>([]);
+  const [copiedFormat, setCopiedFormat] = useState<'JSON' | 'CSV' | null>(null);
   const [newQForm, setNewQForm] = useState({ ...EMPTY_QUESTION_FORM });
   const [formError, setFormError] = useState('');
   const [saveToast, setSaveToast] = useState('');
@@ -185,6 +408,63 @@ export default function AdminTestsPage() {
     refreshTests();
     setSaveToast('Test reset to default questions.');
     setTimeout(() => setSaveToast(''), 2500);
+  };
+
+  // Handle parsing bulk input text
+  const handleParseBulkText = (text: string) => {
+    setBulkInputText(text);
+    if (!text.trim()) {
+      setBulkParsedQuestions([]);
+      setBulkParseErrors([]);
+      return;
+    }
+    const { valid, errors } = parseBulkQuestions(text, activeTest?.subject || 'General Medical Sciences');
+    setBulkParsedQuestions(valid);
+    setBulkParseErrors(errors);
+  };
+
+  // Handle bulk file upload (.json, .csv, .txt)
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const text = event.target?.result as string;
+      if (text) {
+        handleParseBulkText(text);
+      }
+    };
+    reader.readAsText(file);
+  };
+
+  // Handle confirm bulk import
+  const handleConfirmBulkImport = () => {
+    if (!activeTest || bulkParsedQuestions.length === 0) return;
+
+    const startingIndex = activeTest.questions.length;
+    const mapped = bulkParsedQuestions.map((q, idx) => ({
+      ...q,
+      orderIndex: startingIndex + idx + 1,
+    }));
+
+    const updatedQuestions = [...activeTest.questions, ...mapped];
+    saveCustomTestQuestions(activeTest.id, updatedQuestions);
+
+    setSaveToast(`Successfully imported ${bulkParsedQuestions.length} questions!`);
+    setTimeout(() => setSaveToast(''), 3000);
+    setBulkInputText('');
+    setBulkParsedQuestions([]);
+    setBulkParseErrors([]);
+    setShowBulkForm(false);
+    refreshTests();
+  };
+
+  const handleCopyTemplate = (format: 'JSON' | 'CSV') => {
+    const content = format === 'JSON' ? SAMPLE_JSON_TEMPLATE : SAMPLE_CSV_TEMPLATE;
+    navigator.clipboard.writeText(content);
+    setCopiedFormat(format);
+    setTimeout(() => setCopiedFormat(null), 2000);
   };
 
   if (loading) {
@@ -428,28 +708,57 @@ export default function AdminTestsPage() {
 
             {/* Modal Body */}
             <div style={{ padding: '24px', overflowY: 'auto', flex: 1 }}>
-              {/* Add Question Toggle Button */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-                <button
-                  type="button"
-                  onClick={() => setShowAddForm(!showAddForm)}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    padding: '10px 18px',
-                    borderRadius: '10px',
-                    backgroundColor: showAddForm ? '#F1F5F9' : '#2563EB',
-                    color: showAddForm ? '#475569' : '#FFFFFF',
-                    border: 'none',
-                    fontWeight: 700,
-                    fontSize: '0.875rem',
-                    cursor: 'pointer',
-                  }}
-                >
-                  {showAddForm ? <X size={16} /> : <Plus size={16} />}
-                  <span>{showAddForm ? 'Cancel Form' : '+ Add New Question'}</span>
-                </button>
+              {/* Action Buttons: Add Single vs Bulk Import */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '10px' }}>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowAddForm(!showAddForm);
+                      setShowBulkForm(false);
+                    }}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '10px 18px',
+                      borderRadius: '10px',
+                      backgroundColor: showAddForm ? '#F1F5F9' : '#2563EB',
+                      color: showAddForm ? '#475569' : '#FFFFFF',
+                      border: 'none',
+                      fontWeight: 700,
+                      fontSize: '0.875rem',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    {showAddForm ? <X size={16} /> : <Plus size={16} />}
+                    <span>{showAddForm ? 'Cancel Single Form' : '+ Add Single Question'}</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowBulkForm(!showBulkForm);
+                      setShowAddForm(false);
+                    }}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '10px 18px',
+                      borderRadius: '10px',
+                      backgroundColor: showBulkForm ? '#F1F5F9' : '#059669',
+                      color: showBulkForm ? '#475569' : '#FFFFFF',
+                      border: 'none',
+                      fontWeight: 700,
+                      fontSize: '0.875rem',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    {showBulkForm ? <X size={16} /> : <Upload size={16} />}
+                    <span>{showBulkForm ? 'Cancel Bulk Import' : '📥 Bulk Import Questions'}</span>
+                  </button>
+                </div>
 
                 <button
                   type="button"
@@ -466,6 +775,192 @@ export default function AdminTestsPage() {
                   Reset to original defaults
                 </button>
               </div>
+
+              {/* Bulk Import Drawer */}
+              {showBulkForm && (
+                <div
+                  style={{
+                    backgroundColor: '#F8FAFC',
+                    border: '2px dashed #93C5FD',
+                    borderRadius: '14px',
+                    padding: '20px',
+                    marginBottom: '24px',
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '10px' }}>
+                    <div style={{ fontWeight: 700, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1rem' }}>
+                      <Upload size={18} color="#2563EB" />
+                      <span>Bulk Questions Importer (JSON / CSV)</span>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                      <button
+                        type="button"
+                        onClick={() => handleCopyTemplate('JSON')}
+                        style={{
+                          fontSize: '0.75rem', fontWeight: 600, padding: '4px 10px',
+                          borderRadius: '6px', border: '1px solid #CBD5E1', backgroundColor: '#FFF',
+                          cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px'
+                        }}
+                      >
+                        {copiedFormat === 'JSON' ? <Check size={12} color="#10B981" /> : <Copy size={12} />}
+                        {copiedFormat === 'JSON' ? 'Copied JSON!' : 'Copy JSON Format'}
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => handleCopyTemplate('CSV')}
+                        style={{
+                          fontSize: '0.75rem', fontWeight: 600, padding: '4px 10px',
+                          borderRadius: '6px', border: '1px solid #CBD5E1', backgroundColor: '#FFF',
+                          cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px'
+                        }}
+                      >
+                        {copiedFormat === 'CSV' ? <Check size={12} color="#10B981" /> : <Copy size={12} />}
+                        {copiedFormat === 'CSV' ? 'Copied CSV!' : 'Copy CSV Format'}
+                      </button>
+                    </div>
+                  </div>
+
+                  <p style={{ fontSize: '0.8125rem', color: '#64748B', marginBottom: '14px', lineHeight: '1.4' }}>
+                    Upload a <strong>.json</strong> or <strong>.csv</strong> file, or paste your raw text/JSON below.
+                  </p>
+
+                  {/* File Upload Button */}
+                  <div style={{ marginBottom: '14px' }}>
+                    <label
+                      htmlFor="bulk-file-input"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '8px 16px',
+                        backgroundColor: '#FFFFFF',
+                        border: '1px solid #CBD5E1',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        fontSize: '0.8125rem',
+                        fontWeight: 600,
+                        color: '#334155',
+                      }}
+                    >
+                      <FileSpreadsheet size={16} color="#059669" />
+                      <span>Choose File (.json, .csv, .txt)</span>
+                      <input
+                        id="bulk-file-input"
+                        type="file"
+                        accept=".json,.csv,.txt"
+                        onChange={handleFileUpload}
+                        style={{ display: 'none' }}
+                      />
+                    </label>
+                  </div>
+
+                  {/* Textarea Paste Area */}
+                  <div style={{ marginBottom: '14px' }}>
+                    <textarea
+                      rows={6}
+                      value={bulkInputText}
+                      onChange={(e) => handleParseBulkText(e.target.value)}
+                      placeholder="Paste JSON array or CSV text here..."
+                      style={{
+                        width: '100%',
+                        padding: '12px',
+                        borderRadius: '8px',
+                        border: '1px solid #CBD5E1',
+                        fontFamily: 'monospace',
+                        fontSize: '0.8125rem',
+                        backgroundColor: '#FFFFFF',
+                      }}
+                    />
+                  </div>
+
+                  {/* Parse Errors Feedback */}
+                  {bulkParseErrors.length > 0 && (
+                    <div style={{ backgroundColor: '#FEF2F2', border: '1px solid #FCA5A5', borderRadius: '8px', padding: '10px 14px', marginBottom: '14px', fontSize: '0.8125rem', color: '#991B1B' }}>
+                      <div style={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+                        <AlertCircle size={14} /> Warnings / Parsing Notes:
+                      </div>
+                      <ul style={{ margin: 0, paddingLeft: '18px' }}>
+                        {bulkParseErrors.map((err, i) => (
+                          <li key={i}>{err}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {/* Valid Questions Preview */}
+                  {bulkParsedQuestions.length > 0 && (
+                    <div style={{ backgroundColor: '#F0FDF4', border: '1px solid #86EFAC', borderRadius: '8px', padding: '12px 14px', marginBottom: '16px' }}>
+                      <div style={{ fontWeight: 700, color: '#166534', fontSize: '0.875rem', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <CheckCircle2 size={16} color="#166534" />
+                        <span>Ready to import {bulkParsedQuestions.length} valid question(s)!</span>
+                      </div>
+
+                      <div style={{ marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                        {bulkParsedQuestions.slice(0, 3).map((q, idx) => (
+                          <div key={idx} style={{ fontSize: '0.75rem', color: '#15803D', display: 'flex', justifyContent: 'space-between' }}>
+                            <span>Q{idx + 1}: &quot;{q.questionText.slice(0, 50)}...&quot;</span>
+                            <span>Correct: {q.correctOption}</span>
+                          </div>
+                        ))}
+                        {bulkParsedQuestions.length > 3 && (
+                          <div style={{ fontSize: '0.75rem', color: '#166534', fontStyle: 'italic' }}>
+                            ...and {bulkParsedQuestions.length - 3} more questions.
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Actions */}
+                  <div style={{ display: 'flex', gap: '10px' }}>
+                    <button
+                      type="button"
+                      onClick={handleConfirmBulkImport}
+                      disabled={bulkParsedQuestions.length === 0}
+                      style={{
+                        backgroundColor: bulkParsedQuestions.length > 0 ? '#10B981' : '#9CA3AF',
+                        color: '#FFFFFF',
+                        padding: '10px 22px',
+                        borderRadius: '8px',
+                        border: 'none',
+                        fontWeight: 700,
+                        fontSize: '0.875rem',
+                        cursor: bulkParsedQuestions.length > 0 ? 'pointer' : 'not-allowed',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                      }}
+                    >
+                      <CheckCircle2 size={16} />
+                      Import {bulkParsedQuestions.length} Questions
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowBulkForm(false);
+                        setBulkInputText('');
+                        setBulkParsedQuestions([]);
+                        setBulkParseErrors([]);
+                      }}
+                      style={{
+                        backgroundColor: '#E2E8F0',
+                        color: '#475569',
+                        padding: '10px 18px',
+                        borderRadius: '8px',
+                        border: 'none',
+                        fontWeight: 600,
+                        fontSize: '0.875rem',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      Cancel Bulk Import
+                    </button>
+                  </div>
+                </div>
+              )}
 
               {/* Add Question Form Drawer */}
               {showAddForm && (
