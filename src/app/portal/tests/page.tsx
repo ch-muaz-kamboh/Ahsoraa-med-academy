@@ -1,16 +1,87 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { FileCheck, Clock, Award, CheckCircle, ArrowRight, PlayCircle } from 'lucide-react';
+import { FileCheck, Clock, Award, CheckCircle, ArrowRight, PlayCircle, Radio } from 'lucide-react';
 import { mockTests } from '@/lib/mock-data';
 import { useAppStore } from '@/lib/store';
+import { createClient } from '@/lib/supabase/client';
 
 export default function PortalTestsPage() {
   const { testAttempts } = useAppStore();
+  const [liveSession, setLiveSession] = useState<{ id: string; test_id: string; test_title: string } | null>(null);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase
+      .from('test_sessions')
+      .select('id, test_id, test_title')
+      .eq('is_live', true)
+      .order('started_at', { ascending: false })
+      .limit(1)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (data) setLiveSession(data);
+      });
+  }, []);
 
   return (
     <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+      {liveSession && (
+        <div style={{
+          backgroundColor: '#FEF2F2',
+          border: '2px solid #EF4444',
+          borderRadius: '14px',
+          padding: '18px 24px',
+          marginBottom: '28px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '16px',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+            <div style={{
+              width: '42px', height: '42px', borderRadius: '50%',
+              backgroundColor: '#EF4444', color: '#FFF',
+              display: 'flex', alignItems: 'center', justifyContent: 'center'
+            }}>
+              <Radio size={22} />
+            </div>
+            <div>
+              <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#EF4444', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                LIVE EXAM IN PROGRESS
+              </div>
+              <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '1.05rem' }}>
+                {liveSession.test_title}
+              </div>
+              <div style={{ fontSize: '0.8125rem', color: '#64748B' }}>
+                Admin has initiated this exam for all students. Join now to participate in real-time.
+              </div>
+            </div>
+          </div>
+          <Link
+            href={`/portal/tests/${liveSession.test_id}/take`}
+            style={{
+              backgroundColor: '#EF4444',
+              color: '#FFFFFF',
+              padding: '12px 24px',
+              borderRadius: '10px',
+              fontWeight: 700,
+              textDecoration: 'none',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              fontSize: '0.9rem',
+              boxShadow: '0 4px 12px rgba(239, 68, 68, 0.3)'
+            }}
+          >
+            <PlayCircle size={18} />
+            <span>Join Live Test Now</span>
+          </Link>
+        </div>
+      )}
+
       <div style={{ marginBottom: '28px' }}>
         <h1 style={{ fontSize: '1.875rem', color: '#0F172A', marginBottom: '6px' }}>
           Computer-Based Test (CBT) Series
