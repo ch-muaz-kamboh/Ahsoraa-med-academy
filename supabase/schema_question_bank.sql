@@ -114,8 +114,41 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
-CREATE POLICY "Staff manage qb_questions"          ON qb_questions FOR ALL USING (is_staff());
-CREATE POLICY "Students read active qb_questions"  ON qb_questions FOR SELECT USING (is_active = TRUE);
+-- ─── Test Sessions (Live Mock Broadcasts) ──────────────────────────────────
+CREATE TABLE IF NOT EXISTS test_sessions (
+  id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  test_id     TEXT NOT NULL,
+  test_title  TEXT NOT NULL,
+  is_live     BOOLEAN NOT NULL DEFAULT TRUE,
+  started_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  ended_at    TIMESTAMPTZ,
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+ALTER TABLE test_sessions ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Staff can manage test sessions" ON test_sessions;
+DROP POLICY IF EXISTS "Anyone can view live test sessions" ON test_sessions;
+DROP POLICY IF EXISTS "Allow manage test sessions" ON test_sessions;
+DROP POLICY IF EXISTS "Allow public read of test sessions" ON test_sessions;
+
+CREATE POLICY "Allow public read of test sessions"
+  ON test_sessions FOR SELECT
+  USING (true);
+
+CREATE POLICY "Allow manage test sessions"
+  ON test_sessions FOR ALL
+  USING (true)
+  WITH CHECK (true);
+
+-- ─── Question Bank & Practice Policies ──────────────────────────────────────
+DROP POLICY IF EXISTS "Staff manage qb_questions" ON qb_questions;
+DROP POLICY IF EXISTS "Students read active qb_questions" ON qb_questions;
+DROP POLICY IF EXISTS "Allow manage qb_questions" ON qb_questions;
+DROP POLICY IF EXISTS "Allow read qb_questions" ON qb_questions;
+
+CREATE POLICY "Allow read qb_questions" ON qb_questions FOR SELECT USING (is_active = TRUE);
+CREATE POLICY "Allow manage qb_questions" ON qb_questions FOR ALL USING (true) WITH CHECK (true);
 CREATE POLICY "Students manage own practice sessions"
   ON practice_sessions FOR ALL USING (auth.uid() = student_id) WITH CHECK (auth.uid() = student_id);
 CREATE POLICY "Staff view all practice sessions"   ON practice_sessions FOR SELECT USING (is_staff());
@@ -130,6 +163,7 @@ CREATE POLICY "Students manage own practice answers"
   USING (EXISTS (SELECT 1 FROM practice_sessions WHERE id = practice_answers.session_id AND student_id = auth.uid()))
   WITH CHECK (EXISTS (SELECT 1 FROM practice_sessions WHERE id = practice_answers.session_id AND student_id = auth.uid()));
 CREATE POLICY "Staff view all practice answers"    ON practice_answers FOR SELECT USING (is_staff());
+
 
 CREATE OR REPLACE FUNCTION get_random_question_ids(
   p_count INTEGER, p_subject TEXT DEFAULT NULL, p_topic TEXT DEFAULT NULL, p_difficulty TEXT DEFAULT NULL
