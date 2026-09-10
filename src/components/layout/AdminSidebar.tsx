@@ -9,6 +9,7 @@ import {
   GraduationCap,
   FolderCheck,
   BookOpenCheck,
+  Database,
   FileSignature,
   Building2,
   Plane,
@@ -27,7 +28,8 @@ export default function AdminSidebar() {
   const links = [
     { href: '/admin/dashboard', label: 'Dashboard', icon: <LayoutDashboard size={18} /> },
     { href: '/admin/students', label: 'Student Management', icon: <GraduationCap size={18} /> },
-    { href: '/admin/tests', label: 'Tests', icon: <BookOpenCheck size={18} /> },
+    { href: '/admin/tests', label: 'Mock Tests', icon: <BookOpenCheck size={18} /> },
+    { href: '/admin/question-bank', label: 'Question Bank', icon: <Database size={18} /> },
     { href: '/admin/content', label: 'Website Content', icon: <FileSignature size={18} /> },
   ];
 

@@ -1,0 +1,7 @@
+subject,topic,difficulty,question_text,option_a,option_b,option_c,option_d,option_e,correct_option,explanation,source_reference
+Biology,Cell Biology,medium,What is the powerhouse of the cell?,Nucleus,Mitochondria,Ribosome,Golgi Apparatus,Endoplasmic Reticulum,B,Mitochondria produce ATP through cellular respiration.,IMAT 2022
+Chemistry,Organic Chemistry,hard,Which functional group characterizes aldehydes?,Hydroxyl (-OH),Carbonyl at chain end (-CHO),Carboxyl (-COOH),Amino (-NH2),Ester (-COO-),B,Aldehydes have the carbonyl group at the terminal carbon.,
+Physics,Mechanics,easy,Which law states that force equals mass times acceleration?,Newton's First Law,Newton's Second Law,Newton's Third Law,Coulomb's Law,Ohm's Law,B,F = ma is Newton's Second Law.,
+Mathematics,Calculus,medium,What is the derivative of sin(x)?,cos(x),-cos(x),sin(x),-sin(x),tan(x),A,The derivative of sin(x) is cos(x).,
+Logical Reasoning,Patterns,easy,Complete: 2 4 8 16 ?,20,24,32,64,128,C,Each term doubles. 16 x 2 = 32.,
+General Knowledge,History,easy,In which year did World War II end?,1943,1944,1945,1946,1947,C,WWII ended in 1945 with the surrender of Germany and Japan.,

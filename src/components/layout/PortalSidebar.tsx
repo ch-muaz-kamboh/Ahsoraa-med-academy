@@ -7,6 +7,7 @@ import {
   LayoutDashboard,
   FileCheck2,
   FolderLock,
+  BookOpen,
   LogOut,
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
@@ -18,6 +19,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
   const links = [
     { href: '/portal/dashboard', label: 'Dashboard', icon: <LayoutDashboard size={18} /> },
     { href: '/portal/tests', label: 'CBT Mock Tests', icon: <FileCheck2 size={18} /> },
+    { href: '/portal/practice', label: 'Practice Bank', icon: <BookOpen size={18} /> },
     { href: '/portal/documents', label: 'Document Vault', icon: <FolderLock size={18} /> },
   ];
 
