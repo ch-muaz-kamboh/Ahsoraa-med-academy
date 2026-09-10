@@ -4,14 +4,13 @@ import React, { useState, useEffect } from 'react';
 import PortalSidebar from '@/components/layout/PortalSidebar';
 import { useAppStore } from '@/lib/store';
 import { createClient } from '@/lib/supabase/client';
-import { Bell, Lock, Mail, User, Eye, EyeOff, Check, GraduationCap, ChevronRight, Phone, Loader2, LogOut } from 'lucide-react';
+import { Bell, Lock, Mail, User, Eye, EyeOff, Check, Loader2, LogOut } from 'lucide-react';
 import Link from 'next/link';
 
 import Logo from '@/components/brand/Logo';
 
 export default function PortalLayout({ children }: { children: React.ReactNode }) {
-  const { currentUser, studentLoggedIn, setStudentLoggedIn, registerStudent, loginStudent, logoutStudent, liveTestSession } = useAppStore();
-  const [isRegister, setIsRegister] = useState(false);
+  const { studentLoggedIn, loginStudent, logoutStudent, liveTestSession } = useAppStore();
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [authLoading, setAuthLoading] = useState(false);
@@ -19,14 +18,6 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
   // Login Form State
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
-
-  // Register Form State
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [targetExam, setTargetExam] = useState('USMLE Step 1');
-  const [password, setPassword] = useState('');
 
   // Real User State
   const [realUser, setRealUser] = useState<{ fullName: string, firstName: string, initials: string } | null>(null);
@@ -120,26 +111,6 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
     setAuthLoading(false);
   };
 
-  const handleRegister = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!firstName || !lastName || !email || !phone || !password) {
-      setError('All fields are required.');
-      return;
-    }
-    const fullName = `${firstName} ${lastName}`.trim();
-    const inits = `${firstName[0] || 'S'}${lastName[0] || 'T'}`.toUpperCase();
-
-    registerStudent({
-      firstName,
-      lastName,
-      email,
-      phone,
-      targetExam,
-    });
-    setRealUser({ fullName, firstName, initials: inits });
-    setError('');
-  };
-
   if (!studentLoggedIn) {
     return (
       <div style={{
@@ -178,318 +149,124 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
               <Logo height={72} />
             </div>
             <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', letterSpacing: '-0.5px' }}>
-              {isRegister ? 'Create Your Account' : 'Student Portal Sign In'}
+              Student Portal Sign In
             </h2>
             <p style={{ color: '#64748B', fontSize: '0.875rem', marginTop: '6px' }}>
-              {isRegister 
-                ? 'Join Ahsora Meds Academy & start your academic journey' 
-                : 'Access your courses, mock test engine, and visa roadmap'}
+              Access your courses, mock test engine, and visa roadmap
             </p>
           </div>
-
+          {/* Unified Student Portal Login Form */}
           {error && (
             <div style={{
               backgroundColor: '#FEF2F2',
-              border: '1px solid #FCA5A5',
-              color: '#991B1B',
-              padding: '12px 16px',
-              borderRadius: '10px',
+              border: '1px solid #FECACA',
+              color: '#DC2626',
+              padding: '10px 14px',
+              borderRadius: '8px',
               fontSize: '0.875rem',
-              marginBottom: '20px',
-              fontWeight: 500
+              marginBottom: '16px'
             }}>
               {error}
             </div>
           )}
-
-          {!isRegister ? (
-            /* Login Form */
-            <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              <div>
-                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: '#334155', marginBottom: '8px' }}>
-                  Email Address
-                </label>
-                <div style={{ position: 'relative' }}>
-                  <input
-                    type="email"
-                    required
-                    placeholder="you@example.com"
-                    value={loginEmail}
-                    onChange={(e) => setLoginEmail(e.target.value)}
-                    style={{
-                      width: '100%',
-                      padding: '12px 16px 12px 42px',
-                      borderRadius: '10px',
-                      border: '1px solid #CBD5E1',
-                      fontSize: '0.9375rem',
-                      outline: 'none',
-                      transition: 'border-color 0.15s ease'
-                    }}
-                  />
-                  <Mail size={18} color="#64748B" style={{ position: 'absolute', left: '14px', top: '14px' }} />
-                </div>
-              </div>
-
-              <div>
-                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: '#334155', marginBottom: '8px' }}>
-                  Password
-                </label>
-                <div style={{ position: 'relative' }}>
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    required
-                    placeholder="••••••••"
-                    value={loginPassword}
-                    onChange={(e) => setLoginPassword(e.target.value)}
-                    style={{
-                      width: '100%',
-                      padding: '12px 42px 12px 42px',
-                      borderRadius: '10px',
-                      border: '1px solid #CBD5E1',
-                      fontSize: '0.9375rem',
-                      outline: 'none',
-                      transition: 'border-color 0.15s ease'
-                    }}
-                  />
-                  <Lock size={18} color="#64748B" style={{ position: 'absolute', left: '14px', top: '14px' }} />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    style={{
-                      position: 'absolute',
-                      right: '14px',
-                      top: '12px',
-                      border: 'none',
-                      background: 'none',
-                      cursor: 'pointer',
-                      padding: 2
-                    }}
-                  >
-                    {showPassword ? <EyeOff size={18} color="#64748B" /> : <Eye size={18} color="#64748B" />}
-                  </button>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.8125rem' }}>
-                <span style={{ color: '#64748B', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <Check size={14} color="#2563EB" /> Demo Mode Enabled
-                </span>
-                <span style={{ color: '#2563EB', fontWeight: 600, cursor: 'pointer' }}>Forgot Password?</span>
-              </div>
-
-              <button
-                type="submit"
-                className="btn-primary"
-                style={{
-                  width: '100%',
-                  padding: '14px',
-                  justifyContent: 'center',
-                  fontSize: '0.9375rem',
-                  fontWeight: 700,
-                  borderRadius: '10px',
-                  marginTop: '10px'
-                }}
-              >
-                Sign In to Portal
-              </button>
-
-              <div style={{ textAlign: 'center', marginTop: '16px', fontSize: '0.875rem', color: '#64748B' }}>
-                Don't have an account?{' '}
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsRegister(true);
-                    setError('');
-                  }}
-                  style={{
-                    color: '#2563EB',
-                    fontWeight: 700,
-                    border: 'none',
-                    background: 'none',
-                    padding: 0,
-                    cursor: 'pointer',
-                    textDecoration: 'underline'
-                  }}
-                >
-                  Register Here
-                </button>
-              </div>
-            </form>
-          ) : (
-            /* Register Form (6 Fields) */
-            <form onSubmit={handleRegister} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <div style={{ display: 'flex', gap: '12px' }}>
-                <div style={{ flex: 1 }}>
-                  <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
-                    First Name
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. John"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    style={{
-                      width: '100%',
-                      padding: '10px 14px',
-                      borderRadius: '8px',
-                      border: '1px solid #CBD5E1',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                  />
-                </div>
-                <div style={{ flex: 1 }}>
-                  <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
-                    Last Name
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. Doe"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    style={{
-                      width: '100%',
-                      padding: '10px 14px',
-                      borderRadius: '8px',
-                      border: '1px solid #CBD5E1',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
-                  Email Address
-                </label>
+          <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div>
+              <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: '#334155', marginBottom: '8px' }}>
+                Email Address
+              </label>
+              <div style={{ position: 'relative' }}>
                 <input
                   type="email"
                   required
-                  placeholder="john.doe@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  value={loginEmail}
+                  onChange={(e) => setLoginEmail(e.target.value)}
                   style={{
                     width: '100%',
-                    padding: '10px 14px',
-                    borderRadius: '8px',
+                    padding: '12px 16px 12px 42px',
+                    borderRadius: '10px',
                     border: '1px solid #CBD5E1',
-                    fontSize: '0.875rem',
-                    outline: 'none'
+                    fontSize: '0.9375rem',
+                    outline: 'none',
+                    transition: 'border-color 0.15s ease'
                   }}
                 />
+                <Mail size={18} color="#64748B" style={{ position: 'absolute', left: '14px', top: '14px' }} />
               </div>
+            </div>
 
-              <div>
-                <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
-                  Phone Number
-                </label>
-                <div style={{ position: 'relative' }}>
-                  <input
-                    type="tel"
-                    required
-                    placeholder="+1 (555) 000-0000"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    style={{
-                      width: '100%',
-                      padding: '10px 14px 10px 38px',
-                      borderRadius: '8px',
-                      border: '1px solid #CBD5E1',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                  />
-                  <Phone size={16} color="#64748B" style={{ position: 'absolute', left: '12px', top: '13px' }} />
-                </div>
-              </div>
-
-              <div>
-                <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
-                  Target Licensing Exam
-                </label>
-                <select
-                  value={targetExam}
-                  onChange={(e) => setTargetExam(e.target.value)}
-                  style={{
-                    width: '100%',
-                    padding: '10px 14px',
-                    borderRadius: '8px',
-                    border: '1px solid #CBD5E1',
-                    fontSize: '0.875rem',
-                    backgroundColor: '#FFFFFF',
-                    outline: 'none'
-                  }}
-                >
-                  <option value="USMLE Step 1">USMLE Step 1 (United States)</option>
-                  <option value="IMAT Italy">IMAT Italy (Public Universities)</option>
-                  <option value="German Approbation">German Approbation</option>
-                  <option value="PLAB / UKMLA">PLAB / UKMLA (United Kingdom)</option>
-                </select>
-              </div>
-
-              <div>
-                <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
-                  Choose Password
-                </label>
+            <div>
+              <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: '#334155', marginBottom: '8px' }}>
+                Password
+              </label>
+              <div style={{ position: 'relative' }}>
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   required
-                  placeholder="Minimum 8 characters"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  value={loginPassword}
+                  onChange={(e) => setLoginPassword(e.target.value)}
                   style={{
                     width: '100%',
-                    padding: '10px 14px',
-                    borderRadius: '8px',
+                    padding: '12px 42px 12px 42px',
+                    borderRadius: '10px',
                     border: '1px solid #CBD5E1',
-                    fontSize: '0.875rem',
-                    outline: 'none'
+                    fontSize: '0.9375rem',
+                    outline: 'none',
+                    transition: 'border-color 0.15s ease'
                   }}
                 />
-              </div>
-
-              <button
-                type="submit"
-                className="btn-primary"
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  justifyContent: 'center',
-                  fontSize: '0.875rem',
-                  fontWeight: 700,
-                  borderRadius: '8px',
-                  marginTop: '6px'
-                }}
-              >
-                Create Account & Log In
-              </button>
-
-              <div style={{ textAlign: 'center', marginTop: '12px', fontSize: '0.875rem', color: '#64748B' }}>
-                Already have an account?{' '}
+                <Lock size={18} color="#64748B" style={{ position: 'absolute', left: '14px', top: '14px' }} />
                 <button
                   type="button"
-                  onClick={() => {
-                    setIsRegister(false);
-                    setError('');
-                  }}
+                  onClick={() => setShowPassword(!showPassword)}
                   style={{
-                    color: '#2563EB',
-                    fontWeight: 700,
+                    position: 'absolute',
+                    right: '14px',
+                    top: '12px',
                     border: 'none',
                     background: 'none',
-                    padding: 0,
                     cursor: 'pointer',
-                    textDecoration: 'underline'
+                    padding: 2
                   }}
                 >
-                  Sign In
+                  {showPassword ? <EyeOff size={18} color="#64748B" /> : <Eye size={18} color="#64748B" />}
                 </button>
               </div>
-            </form>
-          )}
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.8125rem' }}>
+              <span style={{ color: '#64748B', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <Check size={14} color="#2563EB" /> Demo & Live Access
+              </span>
+              <span style={{ color: '#2563EB', fontWeight: 600, cursor: 'pointer' }}>Forgot Password?</span>
+            </div>
+
+            <button
+              type="submit"
+              disabled={authLoading}
+              className="btn-primary"
+              style={{
+                width: '100%',
+                padding: '14px',
+                justifyContent: 'center',
+                fontSize: '0.9375rem',
+                fontWeight: 700,
+                borderRadius: '10px',
+                marginTop: '10px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}
+            >
+              {authLoading ? <Loader2 size={18} style={{ animation: 'spin 1s linear infinite' }} /> : <User size={18} />}
+              <span>Sign In to Student Portal</span>
+            </button>
+
+            <p style={{ textAlign: 'center', fontSize: '0.8125rem', color: '#64748B', marginTop: '8px', lineHeight: '1.4' }}>
+              Enter your student email and password to log in or start learning instantly.
+            </p>
+          </form>
         </div>
       </div>
     );
