@@ -1,0 +1,150 @@
+-- =============================================================================
+-- SAMPLE IMAT PRACTICE QUESTIONS (10 MCQs with 5 Options A-E)
+-- Run this in Supabase SQL Editor to seed initial questions for testing
+-- =============================================================================
+
+INSERT INTO qb_questions (
+  subject, topic, difficulty, question_text,
+  option_a, option_b, option_c, option_d, option_e,
+  correct_option, explanation, source_reference
+) VALUES
+(
+  'Biology',
+  'Cell Biology',
+  'easy',
+  'Which organelle is primarily responsible for the post-translational modification, sorting, and packaging of proteins synthesized in the rough endoplasmic reticulum?',
+  'Lysosome',
+  'Golgi apparatus',
+  'Peroxisome',
+  'Nucleolus',
+  'Smooth endoplasmic reticulum',
+  'B',
+  'The Golgi apparatus receives proteins synthesized in the rough ER, modifies them (e.g., glycosylation), sorts them, and packages them into vesicles for secretional transport or delivery to lysosomes.',
+  'IMAT Biology - Cell Structure'
+),
+(
+  'Biology',
+  'Genetics',
+  'medium',
+  'In human genetics, hemophilia A is inherited as an X-linked recessive trait. If a carrier female has children with an unaffected male, what is the probability that their first son will be affected?',
+  '0%',
+  '25%',
+  '50%',
+  '75%',
+  '100%',
+  'C',
+  'A carrier female has genotype X^H X^h and an unaffected male is X^H Y. For a son, he receives the Y chromosome from the father. The probability of inheriting the mutated X^h allele from his mother is 50%.',
+  'IMAT Biology - Mendelian Genetics'
+),
+(
+  'Chemistry',
+  'Organic Chemistry',
+  'easy',
+  'Which functional group is formed when an aldehyde undergoes oxidation with a strong oxidizing agent such as acidified potassium dichromate?',
+  'Ketone',
+  'Ester',
+  'Carboxylic acid',
+  'Primary alcohol',
+  'Ether',
+  'C',
+  'Oxidizing an aldehyde (R-CHO) with an agent like acidified K2Cr2O7 converts the formyl group into a carboxylic acid (-COOH).',
+  'IMAT Chemistry - Functional Groups'
+),
+(
+  'Chemistry',
+  'Stoichiometry',
+  'medium',
+  'What volume of carbon dioxide (CO2) gas, measured at standard temperature and pressure (STP, where 1 mol = 22.4 L), is produced by the complete thermal decomposition of 50.0 g of calcium carbonate (CaCO3, molar mass = 100.0 g/mol)?',
+  '5.6 L',
+  '11.2 L',
+  '22.4 L',
+  '44.8 L',
+  '2.8 L',
+  'B',
+  'CaCO3 -> CaO + CO2. 50.0 g / 100.0 g/mol = 0.500 mol CaCO3. Since the molar ratio is 1:1, 0.500 mol CO2 is generated. At STP, Volume = 0.500 mol * 22.4 L/mol = 11.2 L.',
+  'IMAT Chemistry - Gas Laws & Stoichiometry'
+),
+(
+  'Physics',
+  'Mechanics',
+  'medium',
+  'An object of mass 4.0 kg is initially at rest on a frictionless horizontal surface. A constant horizontal force of 12 N is applied to the object for 5.0 seconds. What is the kinetic energy of the object at the end of the 5.0 seconds?',
+  '150 J',
+  '300 J',
+  '450 J',
+  '600 J',
+  '900 J',
+  'C',
+  'Acceleration a = F/m = 12/4 = 3 m/s^2. Velocity v = a*t = 3*5 = 15 m/s. Kinetic Energy KE = 0.5 * m * v^2 = 0.5 * 4 * (15)^2 = 2 * 225 = 450 J.',
+  'IMAT Physics - Newton Mechanics & Energy'
+),
+(
+  'Physics',
+  'Thermodynamics',
+  'easy',
+  'Which law of thermodynamics states that the absolute entropy of a pure crystalline substance at absolute zero temperature (0 Kelvin) is equal to exactly zero?',
+  'Zeroth Law of Thermodynamics',
+  'First Law of Thermodynamics',
+  'Second Law of Thermodynamics',
+  'Third Law of Thermodynamics',
+  'Law of Conservation of Energy',
+  'D',
+  'The Third Law of Thermodynamics states that the entropy of a system approaches a constant minimum (zero) as its temperature approaches absolute zero (0 K).',
+  'IMAT Physics - Thermodynamics'
+),
+(
+  'Mathematics',
+  'Algebra',
+  'medium',
+  'For what value of the constant k does the quadratic equation 2x^2 - 8x + k = 0 have exactly one real solution (a repeated root)?',
+  '2',
+  '4',
+  '8',
+  '16',
+  '-8',
+  'C',
+  'A quadratic equation ax^2 + bx + c = 0 has a single repeated real root when its discriminant Delta = b^2 - 4ac = 0. Here, (-8)^2 - 4(2)(k) = 0 => 64 - 8k = 0 => k = 8.',
+  'IMAT Mathematics - Quadratics'
+),
+(
+  'Mathematics',
+  'Trigonometry',
+  'easy',
+  'What is the exact value of sin(pi/6) + cos(pi/3) + tan(pi/4)?',
+  '1.0',
+  '1.5',
+  '2.0',
+  '2.5',
+  '3.0',
+  'C',
+  'sin(pi/6) = 1/2, cos(pi/3) = 1/2, tan(pi/4) = 1. Sum = 0.5 + 0.5 + 1.0 = 2.0.',
+  'IMAT Mathematics - Basic Trigonometry'
+),
+(
+  'Logical Reasoning',
+  'Critical Thinking',
+  'hard',
+  '"All successful surgeons are meticulous. Dr. Vance is meticulous. Therefore, Dr. Vance must be a successful surgeon." Which of the following best identifies the flaw in this argument?',
+  'It assumes that being meticulous is sufficient for being a successful surgeon.',
+  'It circular reasoning by presupposing its own conclusion.',
+  'It assumes that Dr. Vance wants to become a surgeon.',
+  'It generalizes from a single unrepresentative example.',
+  'It confuses cause and effect.',
+  'A',
+  'This commits the formal fallacy of affirming the consequent. While all successful surgeons are meticulous (necessary condition), being meticulous alone does not guarantee that someone is a surgeon (not sufficient).',
+  'IMAT Critical Thinking - Logical Fallacies'
+),
+(
+  'General Knowledge',
+  'History of Medicine',
+  'easy',
+  'Which scientist is credited with the discovery of penicillin in 1928, marking the beginning of the modern antibiotic era?',
+  'Louis Pasteur',
+  'Alexander Fleming',
+  'Robert Koch',
+  'Edward Jenner',
+  'Joseph Lister',
+  'B',
+  'Sir Alexander Fleming discovered penicillin in 1928 after observing that colonies of Staphylococcus aureus were destroyed by a contaminating mold (Penicillium notatum).',
+  'IMAT General Knowledge - Medical Milestones'
+);
