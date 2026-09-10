@@ -38,7 +38,7 @@ export default function PracticeTakePage() {
       const { data: session } = await supabase
         .from('practice_sessions').select('*').eq('id', sessionId).single();
       if (!session) { router.push('/portal/practice'); return; }
-      if (session.status === 'submitted') { router.push(/portal/practice//results); return; }
+      if (session.status === 'submitted') { router.push('/portal/practice/' + sessionId + '/results'); return; }
       setSessionTitle(session.title);
       if (session.time_limit_minutes > 0) setTimeLeft(session.time_limit_minutes * 60);
       const { data: sq } = await supabase
