@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { ACADEMY_PACKAGES, CoursePackage, getPackageByIdOrName } from '@/lib/packages';
 import { AlertCircle, ArrowRight, CheckCircle2, Clock, Globe, LogOut, Phone, ShieldCheck, Sparkles, User, Mail } from 'lucide-react';
 import Logo from '@/components/brand/Logo';
 
-export default function PendingPaymentPage() {
+function PendingPaymentContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -283,5 +283,13 @@ export default function PendingPaymentPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function PendingPaymentPage() {
+  return (
+    <Suspense fallback={<div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#F8FAFC' }}>Loading...</div>}>
+      <PendingPaymentContent />
+    </Suspense>
   );
 }

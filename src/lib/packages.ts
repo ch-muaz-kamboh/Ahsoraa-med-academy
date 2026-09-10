@@ -12,20 +12,6 @@ export interface CoursePackage {
 
 export const ACADEMY_PACKAGES: CoursePackage[] = [
   {
-    id: 'starter',
-    name: 'Ahsora Starter Prep',
-    price: '€199',
-    numericPrice: 199,
-    period: 'one-time',
-    description: 'Essential self-study package for early stage medical aspirants',
-    features: [
-      'Access to IMAT Question Bank (2,500+ Qs)',
-      'Basic Performance Analytics & Topic Breakdown',
-      'PDF Formula & Biology Revision Sheets',
-      'Community Group Access',
-    ],
-  },
-  {
     id: 'ascend',
     name: 'Ahsora IMAT Ascend',
     price: '€299',
@@ -33,9 +19,9 @@ export const ACADEMY_PACKAGES: CoursePackage[] = [
     period: 'one-time',
     popular: true,
     badge: 'MOST POPULAR',
-    description: 'Complete core video series & full-length timed mock tests',
+    description: 'Essential prep package with video series & full-length timed mock tests',
     features: [
-      'Everything in Starter Prep',
+      'Access to IMAT Question Bank (2,500+ Qs)',
       'Full IMAT Core Video Lecture Series (120+ Hours)',
       '10 Full-Length Timed CBT Mock Exams',
       'Detailed Step-by-Step Video Explanations',
@@ -77,10 +63,10 @@ export const ACADEMY_PACKAGES: CoursePackage[] = [
 ];
 
 export function getPackageByIdOrName(input?: string | null): CoursePackage {
-  if (!input) return ACADEMY_PACKAGES[1]; // default Ascend
+  if (!input) return ACADEMY_PACKAGES[0]; // default Ascend
   const lower = input.toLowerCase();
   const match = ACADEMY_PACKAGES.find(
     (p) => p.id.toLowerCase() === lower || p.name.toLowerCase() === lower || p.name.toLowerCase().includes(lower)
   );
-  return match || ACADEMY_PACKAGES[1];
+  return match || ACADEMY_PACKAGES[0];
 }
