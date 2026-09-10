@@ -10,20 +10,11 @@ import Link from 'next/link';
 import Logo from '@/components/brand/Logo';
 
 export default function PortalLayout({ children }: { children: React.ReactNode }) {
-  const { currentUser, studentLoggedIn, setStudentLoggedIn, registerStudent, liveTestSession } = useAppStore();
+  const { currentUser, studentLoggedIn, setStudentLoggedIn, registerStudent, loginStudent, logoutStudent, liveTestSession } = useAppStore();
   const [isRegister, setIsRegister] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
-  const handleLogout = async () => {
-    try {
-      const supabase = createClient();
-      await supabase.auth.signOut();
-    } catch (e) {
-      console.error(e);
-    }
-    setStudentLoggedIn(false);
-  };
   const [error, setError] = useState('');
+  const [authLoading, setAuthLoading] = useState(false);
 
   // Login Form State
   const [loginEmail, setLoginEmail] = useState('');
@@ -40,6 +31,20 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
   // Real User State
   const [realUser, setRealUser] = useState<{ fullName: string, firstName: string, initials: string } | null>(null);
 
+  const handleLogout = async () => {
+    try {
+      const supabase = createClient();
+      await supabase.auth.signOut();
+    } catch (e) {
+      console.error(e);
+    }
+    setRealUser(null);
+    logoutStudent();
+    setLoginEmail('');
+    setLoginPassword('');
+    setError('');
+  };
+
   useEffect(() => {
     if (studentLoggedIn) {
       const fetchUser = async () => {
@@ -51,9 +56,9 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
             .select('full_name, email')
             .eq('id', user.id)
             .single();
-          
-          if (profile) {
-            const fullName = profile.full_name || 'Student';
+
+          if (profile && profile.full_name) {
+            const fullName = profile.full_name;
             const fName = fullName.split(' ')[0];
             const inits = fullName.split(' ').slice(0, 2).map((n: string) => n[0]).join('').toUpperCase() || 'ST';
             setRealUser({ fullName, firstName: fName, initials: inits });
@@ -61,18 +66,58 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
         }
       };
       fetchUser();
+    } else {
+      setRealUser(null);
     }
   }, [studentLoggedIn]);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!loginEmail || !loginPassword) {
       setError('Please fill in both Email and Password fields.');
       return;
     }
-    // Any password / email is valid for demo login
-    setStudentLoggedIn(true);
+
+    setAuthLoading(true);
     setError('');
+
+    try {
+      const supabase = createClient();
+      const { data, error: sbError } = await supabase.auth.signInWithPassword({
+        email: loginEmail,
+        password: loginPassword,
+      });
+
+      if (!sbError && data.user) {
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('full_name, email')
+          .eq('id', data.user.id)
+          .single();
+
+        const fullName = profile?.full_name || data.user.user_metadata?.full_name || loginEmail.split('@')[0];
+        const fName = fullName.split(' ')[0] || 'Student';
+        const inits = fullName.split(' ').slice(0, 2).map((n: string) => n[0]).join('').toUpperCase() || 'ST';
+        setRealUser({ fullName, firstName: fName, initials: inits });
+        loginStudent(loginEmail);
+        setAuthLoading(false);
+        return;
+      }
+    } catch (err) {
+      console.warn('Supabase login fallback:', err);
+    }
+
+    // Demo login fallback: update store and realUser to the credentials entered
+    loginStudent(loginEmail);
+    const rawUsername = loginEmail.split('@')[0] || 'Student';
+    const parts = rawUsername.split(/[._-]/);
+    const fName = parts[0] ? parts[0].charAt(0).toUpperCase() + parts[0].slice(1) : 'Student';
+    const lName = parts[1] ? parts[1].charAt(0).toUpperCase() + parts[1].slice(1) : '';
+    const fullName = `${fName} ${lName}`.trim();
+    const inits = `${fName[0] || 'S'}${lName[0] || 'T'}`.toUpperCase();
+
+    setRealUser({ fullName, firstName: fName, initials: inits });
+    setAuthLoading(false);
   };
 
   const handleRegister = (e: React.FormEvent) => {
@@ -81,6 +126,9 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
       setError('All fields are required.');
       return;
     }
+    const fullName = `${firstName} ${lastName}`.trim();
+    const inits = `${firstName[0] || 'S'}${lastName[0] || 'T'}`.toUpperCase();
+
     registerStudent({
       firstName,
       lastName,
@@ -88,6 +136,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
       phone,
       targetExam,
     });
+    setRealUser({ fullName, firstName, initials: inits });
     setError('');
   };
 

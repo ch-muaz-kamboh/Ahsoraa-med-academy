@@ -46,6 +46,8 @@ interface AppContextType {
   adminLoggedIn: boolean;
   setAdminLoggedIn: (val: boolean) => void;
   registerStudent: (data: { firstName: string; lastName: string; email: string; phone: string; targetExam: string }) => void;
+  loginStudent: (email: string) => void;
+  logoutStudent: () => void;
   liveTestSession: LiveTestSession | null;
   startLiveTest: (testId: string, testTitle: string) => void;
   endLiveTest: () => void;
@@ -109,6 +111,33 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     setCurrentUser(newProfile);
     setStudentLoggedIn(true);
     setRole('student');
+  };
+
+  const loginStudent = (email: string) => {
+    const username = email.split('@')[0] || 'student';
+    const parts = username.split(/[._-]/);
+    const firstName = parts[0] ? parts[0].charAt(0).toUpperCase() + parts[0].slice(1) : 'Student';
+    const lastName = parts[1] ? parts[1].charAt(0).toUpperCase() + parts[1].slice(1) : '';
+
+    setCurrentUser({
+      id: `usr-${Date.now()}`,
+      role: 'student',
+      firstName,
+      lastName: lastName || 'Student',
+      email,
+      phone: '+1 555-0199',
+      country: 'United States',
+      targetExam: 'IMAT / USMLE',
+      isVerified: true,
+      createdAt: new Date().toISOString(),
+    });
+    setStudentLoggedIn(true);
+    setRole('student');
+  };
+
+  const logoutStudent = () => {
+    setStudentLoggedIn(false);
+    setCurrentUser(mockCurrentUser);
   };
 
   const addLead = (leadData: Omit<Lead, 'id' | 'leadCode' | 'createdAt' | 'leadScore'>) => {
@@ -206,6 +235,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         adminLoggedIn,
         setAdminLoggedIn,
         registerStudent,
+        loginStudent,
+        logoutStudent,
         liveTestSession,
         startLiveTest,
         endLiveTest,

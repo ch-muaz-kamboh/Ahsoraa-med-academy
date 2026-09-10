@@ -18,7 +18,7 @@ import Logo from '@/components/brand/Logo';
 export default function PortalSidebar({ userFullName = 'Student', userInitials = 'ST' }: { userFullName?: string, userInitials?: string }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { setStudentLoggedIn } = useAppStore();
+  const { setStudentLoggedIn, logoutStudent } = useAppStore();
 
   const handleLogout = async () => {
     try {
@@ -27,7 +27,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
     } catch (e) {
       console.error(e);
     }
-    setStudentLoggedIn(false);
+    logoutStudent();
   };
 
   const links = [
