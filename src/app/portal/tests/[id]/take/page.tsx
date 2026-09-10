@@ -13,7 +13,7 @@ import {
   X,
   Flag,
 } from 'lucide-react';
-import { mockTests } from '@/lib/mock-data';
+import { getMockTestWithCustom } from '@/lib/test-utils';
 import { useAppStore } from '@/lib/store';
 import { TestAttempt } from '@/types';
 
@@ -26,7 +26,7 @@ export default function TakeTestPage({
   const router = useRouter();
   const { recordTestAttempt, currentUser } = useAppStore();
 
-  const test = mockTests.find((t) => t.id === resolvedParams.id) || mockTests[0];
+  const [test] = useState(() => getMockTestWithCustom(resolvedParams.id));
 
   if (!test) {
     notFound();

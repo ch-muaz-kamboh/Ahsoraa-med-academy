@@ -1,6 +1,6 @@
 'use client';
 
-import React, { use } from 'react';
+import React, { use, useState } from 'react';
 import Link from 'next/link';
 import { notFound, useSearchParams } from 'next/navigation';
 import {
@@ -14,8 +14,9 @@ import {
   HelpCircle,
   TrendingUp,
 } from 'lucide-react';
-import { mockTests } from '@/lib/mock-data';
+import { getMockTestWithCustom } from '@/lib/test-utils';
 import { useAppStore } from '@/lib/store';
+
 
 export default function TestResultsPage({
   params,
@@ -27,7 +28,7 @@ export default function TestResultsPage({
   const attemptId = searchParams.get('attemptId');
   const { testAttempts } = useAppStore();
 
-  const test = mockTests.find((t) => t.id === resolvedParams.id) || mockTests[0];
+  const [test] = useState(() => getMockTestWithCustom(resolvedParams.id));
 
   if (!test) {
     notFound();
