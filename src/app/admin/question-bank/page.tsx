@@ -209,21 +209,17 @@ export default function AdminQuestionBankPage() {
     fetchQuestions();
   };
 
-  // ── Delete ─────────────────────────────────────────────────────────────────
   const handleDelete = async () => {
     if (!deleteId) return;
+    const targetId = deleteId;
+    setDeleteId(null);
 
-    // 1. Delete from Supabase if valid UUID
-    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(deleteId);
-    if (isUuid) {
-      try {
-        await supabase.from('qb_questions').delete().eq('id', deleteId);
-      } catch (e) {
-        console.error('Supabase delete error:', e);
-      }
-    }
+    // 1. Immediately remove from active state so UI updates without delay
+    setQuestions(prev => prev.filter(q => q.id !== targetId));
+    setTotal(prev => Math.max(0, prev - 1));
+    showToast('Question deleted.');
 
-    // 2. Also remove from localStorage cache so it doesn't reappear
+    // 2. Remove from localStorage cache so it stays deleted across refreshes
     try {
       const cached = localStorage.getItem('ahsora_local_qb_questions');
       let localQs: QBQuestion[] = [];
@@ -232,15 +228,21 @@ export default function AdminQuestionBankPage() {
       } else {
         localQs = (importedQuestions as unknown as QBQuestion[]);
       }
-      const updated = localQs.filter((q) => q.id !== deleteId);
+      const updated = localQs.filter((q) => q.id !== targetId);
       localStorage.setItem('ahsora_local_qb_questions', JSON.stringify(updated));
     } catch (e) {
       console.error('Failed to update local cache after delete:', e);
     }
 
-    setDeleteId(null);
-    showToast('Question deleted.');
-    fetchQuestions();
+    // 3. Delete from Supabase if valid UUID
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(targetId);
+    if (isUuid) {
+      try {
+        await supabase.from('qb_questions').delete().eq('id', targetId);
+      } catch (e) {
+        console.error('Supabase delete error:', e);
+      }
+    }
   };
 
   // ── Edit ───────────────────────────────────────────────────────────────────
