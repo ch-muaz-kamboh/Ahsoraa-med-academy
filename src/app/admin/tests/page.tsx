@@ -385,25 +385,24 @@ export default function AdminTestsPage() {
     refreshTests();
   };
 
-  // Delete a question from the active test
+  // Delete a question from the active test (no confirm dialog - can use Reset to undo)
   const handleDeleteQuestion = (questionId: string) => {
     if (!activeTest) return;
-    if (!confirm('Are you sure you want to remove this question from the mock test?')) return;
 
     const updatedQuestions = activeTest.questions
       .filter((q) => q.id !== questionId)
       .map((q, idx) => ({ ...q, orderIndex: idx + 1 }));
 
     saveCustomTestQuestions(activeTest.id, updatedQuestions);
-    setSaveToast('Question deleted.');
+    // Immediately update activeTest state so UI reflects change without full refresh
+    setActiveTest((prev) => prev ? { ...prev, questions: updatedQuestions, totalQuestions: updatedQuestions.length } : null);
+    setSaveToast('Question removed.');
     setTimeout(() => setSaveToast(''), 2500);
-    refreshTests();
   };
 
   // Reset to default questions
   const handleResetQuestions = () => {
     if (!activeTest) return;
-    if (!confirm('Reset all questions for this test back to default? Any custom added questions will be removed.')) return;
     resetCustomTestQuestions(activeTest.id);
     refreshTests();
     setSaveToast('Test reset to default questions.');

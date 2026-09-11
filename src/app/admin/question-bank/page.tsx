@@ -123,19 +123,21 @@ export default function AdminQuestionBankPage() {
     setSyncing(true);
     const allQs = (importedQuestions as unknown as QBQuestion[]);
 
-    // 1. Always save to LocalStorage so instant full UI & local persistence works 100%
+    // 1. Always save to LocalStorage for instant local persistence
     try {
       localStorage.setItem('ahsora_local_qb_questions', JSON.stringify(allQs));
     } catch (e) {
       console.error('LocalStorage write error:', e);
     }
 
-    // 2. Attempt Supabase insert
+    // 2. Attempt Supabase upsert (handles duplicates gracefully)
     let dbSuccessCount = 0;
+    let dbError = '';
     try {
       const BATCH_SIZE = 50;
       for (let i = 0; i < allQs.length; i += BATCH_SIZE) {
         const batch = allQs.slice(i, i + BATCH_SIZE).map(q => ({
+          id: q.id, // include id for upsert matching
           subject: q.subject,
           topic: q.topic,
           difficulty: q.difficulty,
@@ -144,26 +146,34 @@ export default function AdminQuestionBankPage() {
           option_b: q.option_b,
           option_c: q.option_c,
           option_d: q.option_d,
-          option_e: q.option_e,
+          option_e: q.option_e || '',
           correct_option: q.correct_option,
-          explanation: q.explanation,
-          source_reference: q.source_reference,
+          explanation: q.explanation || '',
+          source_reference: q.source_reference || '',
           is_active: true,
         }));
 
-        const { error } = await supabase.from('qb_questions').insert(batch);
+        const { error } = await supabase
+          .from('qb_questions')
+          .upsert(batch, { onConflict: 'id', ignoreDuplicates: false });
         if (!error) {
           dbSuccessCount += batch.length;
+        } else {
+          dbError = error.message;
         }
       }
-    } catch (err: any) {}
+    } catch (err: any) {
+      dbError = err?.message || 'Unknown error';
+    }
 
     setSyncing(false);
 
     if (dbSuccessCount > 0) {
-      showToast(`Successfully synced ${dbSuccessCount} questions to database!`);
+      showToast(`✅ Synced ${dbSuccessCount} questions to database!`);
+    } else if (dbError) {
+      showToast(`📚 ${allQs.length} questions loaded locally (DB: ${dbError.slice(0, 40)})`);
     } else {
-      showToast(`Loaded ${allQs.length} official Docx questions into Question Bank!`);
+      showToast(`📚 ${allQs.length} Docx questions loaded into Question Bank!`);
     }
 
     fetchQuestions();
@@ -194,8 +204,25 @@ export default function AdminQuestionBankPage() {
   // ── Delete ─────────────────────────────────────────────────────────────────
   const handleDelete = async () => {
     if (!deleteId) return;
+
+    // 1. Delete from Supabase (may be a no-op if question only in local cache)
     await supabase.from('qb_questions').delete().eq('id', deleteId);
-    setDeleteId(null); showToast('Question deleted.'); fetchQuestions();
+
+    // 2. Also remove from localStorage cache so it doesn't reappear
+    try {
+      const cached = localStorage.getItem('ahsora_local_qb_questions');
+      if (cached) {
+        const localQs: QBQuestion[] = JSON.parse(cached);
+        const updated = localQs.filter((q) => q.id !== deleteId);
+        localStorage.setItem('ahsora_local_qb_questions', JSON.stringify(updated));
+      }
+    } catch (e) {
+      console.error('Failed to update local cache after delete:', e);
+    }
+
+    setDeleteId(null);
+    showToast('Question deleted.');
+    fetchQuestions();
   };
 
   // ── Edit ───────────────────────────────────────────────────────────────────
