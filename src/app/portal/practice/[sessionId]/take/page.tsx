@@ -4,7 +4,12 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useParams, useRouter } from 'next/navigation';
 import { Flag, ChevronLeft, ChevronRight, Clock, Send, Loader2 } from 'lucide-react';
-import importedQuestions from '@/lib/imported_questions';
+import importedQuestions, { getImportedQuestions } from '@/lib/imported_questions';
+
+const getPool = (): any[] => {
+  const q = getImportedQuestions();
+  return (q && q.length > 0) ? q : (importedQuestions as any[]);
+};
 
 interface QBQuestion {
   id: string; subject: string; topic: string; difficulty: string;
@@ -74,8 +79,8 @@ export default function PracticeTakePage() {
             const localPool: any[] = (() => {
               try {
                 const c = localStorage.getItem('ahsora_local_qb_questions');
-                return c ? JSON.parse(c) : (importedQuestions as any[]);
-              } catch { return importedQuestions as any[]; }
+                return c ? JSON.parse(c) : getPool();
+              } catch { return getPool(); }
             })();
             const qMap = Object.fromEntries(localPool.map((q: any) => [q.id, q]));
             loadedQuestions = ids.map(id => qMap[id]).filter(Boolean);
@@ -88,8 +93,8 @@ export default function PracticeTakePage() {
         const localPool: any[] = (() => {
           try {
             const c = localStorage.getItem('ahsora_local_qb_questions');
-            return c ? JSON.parse(c) : (importedQuestions as any[]);
-          } catch { return importedQuestions as any[]; }
+            return c ? JSON.parse(c) : getPool();
+          } catch { return getPool(); }
         })();
         const count = session.question_count || 20;
         const shuffled = [...localPool].sort(() => Math.random() - 0.5);

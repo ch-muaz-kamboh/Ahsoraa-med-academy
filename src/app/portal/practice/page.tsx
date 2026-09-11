@@ -8,7 +8,12 @@ import {
   Beaker, Calculator, Brain, FlaskConical, Globe, Sigma,
   ChevronRight, Loader2, Shuffle, Clock, BookOpen, BarChart3
 } from 'lucide-react';
-import importedQuestions from '@/lib/imported_questions';
+import importedQuestions, { getImportedQuestions } from '@/lib/imported_questions';
+
+const getPool = (): any[] => {
+  const q = getImportedQuestions();
+  return (q && q.length > 0) ? q : (importedQuestions as any[]);
+};
 
 const SUBJECTS = [
   { name:'Biology',          icon:<Beaker size={20}/>,     color:'#10B981', bg:'#F0FFF4' },
@@ -55,7 +60,7 @@ export default function PracticePage() {
 
       // Fallback to local imported questions bank (820 MCQs)
       const counts: Record<string, number> = {};
-      (importedQuestions as any[]).forEach(q => {
+      getPool().forEach(q => {
         counts[q.subject] = (counts[q.subject] || 0) + 1;
       });
       setSubjectCounts(Object.entries(counts).map(([subject, count]) => ({ subject, count })));
@@ -80,7 +85,7 @@ export default function PracticePage() {
         }
       } catch (e) {}
 
-      const filtered = (importedQuestions as any[]).filter(q => q.subject === subject);
+      const filtered = getPool().filter(q => q.subject === subject);
       const unique = [...new Set(filtered.map(q => q.topic).filter(Boolean))].sort();
       setAvailableTopics(unique as string[]);
     };
@@ -137,7 +142,7 @@ export default function PracticePage() {
     // Fallback: If DB returned fewer questions than requested, draw from local 820 MCQs pool
     if (selectedQids.length < questionCount) {
       usingLocalPool = true;
-      let pool = (importedQuestions as any[]);
+      let pool = getPool();
       try {
         const cached = localStorage.getItem('ahsora_local_qb_questions');
         if (cached) pool = JSON.parse(cached);

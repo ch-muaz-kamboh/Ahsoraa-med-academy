@@ -13941,4 +13941,13 @@ const importedQuestions = [
   }
 ];
 
+export { importedQuestions };
+export function getImportedQuestions(): any[] {
+  const raw = importedQuestions as any;
+  if (Array.isArray(raw)) return raw;
+  if (raw && Array.isArray(raw.default)) return raw.default;
+  if (raw && Array.isArray(raw.importedQuestions)) return raw.importedQuestions;
+  return [];
+}
 export default importedQuestions;
+
