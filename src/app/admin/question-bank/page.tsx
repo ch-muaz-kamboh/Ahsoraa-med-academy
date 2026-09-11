@@ -78,6 +78,9 @@ export default function AdminQuestionBankPage() {
       const { data, error } = await q;
       if (!error && data && data.length > 0) {
         allPool = data as QBQuestion[];
+        try {
+          localStorage.setItem('ahsora_local_qb_questions', JSON.stringify(allPool));
+        } catch (e) {}
       }
     } catch (e) {}
 
@@ -130,36 +133,41 @@ export default function AdminQuestionBankPage() {
       console.error('LocalStorage write error:', e);
     }
 
-    // 2. Attempt Supabase upsert (handles duplicates gracefully)
+    // 2. Attempt Supabase insert (omitting custom 'qb-xxx' string ID so Postgres generates valid UUIDs)
     let dbSuccessCount = 0;
     let dbError = '';
     try {
-      const BATCH_SIZE = 50;
-      for (let i = 0; i < allQs.length; i += BATCH_SIZE) {
-        const batch = allQs.slice(i, i + BATCH_SIZE).map(q => ({
-          id: q.id, // include id for upsert matching
-          subject: q.subject,
-          topic: q.topic,
-          difficulty: q.difficulty,
-          question_text: q.question_text,
-          option_a: q.option_a,
-          option_b: q.option_b,
-          option_c: q.option_c,
-          option_d: q.option_d,
-          option_e: q.option_e || '',
-          correct_option: q.correct_option,
-          explanation: q.explanation || '',
-          source_reference: q.source_reference || '',
-          is_active: true,
-        }));
+      const { count } = await supabase.from('qb_questions').select('*', { count: 'exact', head: true });
+      if (count && count >= allQs.length) {
+        dbSuccessCount = count;
+      } else {
+        const BATCH_SIZE = 50;
+        for (let i = 0; i < allQs.length; i += BATCH_SIZE) {
+          const batch = allQs.slice(i, i + BATCH_SIZE).map(q => ({
+            // OMIT id field so Supabase auto-generates valid UUIDs
+            subject: q.subject,
+            topic: q.topic,
+            difficulty: q.difficulty,
+            question_text: q.question_text,
+            option_a: q.option_a,
+            option_b: q.option_b,
+            option_c: q.option_c,
+            option_d: q.option_d,
+            option_e: q.option_e || '',
+            correct_option: q.correct_option,
+            explanation: q.explanation || '',
+            source_reference: q.source_reference || '',
+            is_active: true,
+          }));
 
-        const { error } = await supabase
-          .from('qb_questions')
-          .upsert(batch, { onConflict: 'id', ignoreDuplicates: false });
-        if (!error) {
-          dbSuccessCount += batch.length;
-        } else {
-          dbError = error.message;
+          const { error } = await supabase
+            .from('qb_questions')
+            .insert(batch);
+          if (!error) {
+            dbSuccessCount += batch.length;
+          } else {
+            dbError = error.message;
+          }
         }
       }
     } catch (err: any) {
@@ -205,17 +213,27 @@ export default function AdminQuestionBankPage() {
   const handleDelete = async () => {
     if (!deleteId) return;
 
-    // 1. Delete from Supabase (may be a no-op if question only in local cache)
-    await supabase.from('qb_questions').delete().eq('id', deleteId);
+    // 1. Delete from Supabase if valid UUID
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(deleteId);
+    if (isUuid) {
+      try {
+        await supabase.from('qb_questions').delete().eq('id', deleteId);
+      } catch (e) {
+        console.error('Supabase delete error:', e);
+      }
+    }
 
     // 2. Also remove from localStorage cache so it doesn't reappear
     try {
       const cached = localStorage.getItem('ahsora_local_qb_questions');
+      let localQs: QBQuestion[] = [];
       if (cached) {
-        const localQs: QBQuestion[] = JSON.parse(cached);
-        const updated = localQs.filter((q) => q.id !== deleteId);
-        localStorage.setItem('ahsora_local_qb_questions', JSON.stringify(updated));
+        localQs = JSON.parse(cached);
+      } else {
+        localQs = (importedQuestions as unknown as QBQuestion[]);
       }
+      const updated = localQs.filter((q) => q.id !== deleteId);
+      localStorage.setItem('ahsora_local_qb_questions', JSON.stringify(updated));
     } catch (e) {
       console.error('Failed to update local cache after delete:', e);
     }
