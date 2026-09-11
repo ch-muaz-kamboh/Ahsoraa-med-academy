@@ -1,0 +1,7 @@
+{
+  "json.maxItemsComputed": 500000,
+  "json.format.enable": true,
+  "files.associations": {
+    "imported_questions.json": "json"
+  }
+}
