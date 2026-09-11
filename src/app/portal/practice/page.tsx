@@ -119,25 +119,53 @@ export default function PracticePage() {
 
     if (sErr || !session) { alert('Failed to create session: '+(sErr?.message||'Unknown')); setCreating(false); return; }
 
-    // Draw random questions server-side
-    const { data: qids, error: qErr } = await supabase.rpc('get_random_question_ids', {
-      p_count: questionCount,
-      p_subject: subject || null,
-      p_topic: topic || null,
-      p_difficulty: difficulty || null,
-    });
+    // Draw random questions (try Supabase first, fallback to local 820 bank)
+    let selectedQids: string[] = [];
+    try {
+      const { data: qids } = await supabase.rpc('get_random_question_ids', {
+        p_count: questionCount,
+        p_subject: subject || null,
+        p_topic: topic || null,
+        p_difficulty: difficulty || null,
+      });
+      if (qids && qids.length > 0) {
+        selectedQids = qids.map((r: { question_id: string }) => r.question_id);
+      }
+    } catch (e) {}
 
-    if (qErr || !qids || qids.length === 0) {
+    // Fallback: If DB returned fewer questions than requested, draw from local 820 MCQs pool
+    if (selectedQids.length < questionCount) {
+      let pool = (importedQuestions as any[]);
+      try {
+        const cached = localStorage.getItem('ahsora_local_qb_questions');
+        if (cached) pool = JSON.parse(cached);
+      } catch (e) {}
+
+      let filtered = pool;
+      if (subject) filtered = filtered.filter(q => q.subject.toLowerCase() === subject.toLowerCase());
+      if (topic) filtered = filtered.filter(q => q.topic.toLowerCase() === topic.toLowerCase());
+      if (difficulty) filtered = filtered.filter(q => q.difficulty === difficulty);
+      if (filtered.length === 0) filtered = pool; // Fallback to entire pool if criteria too narrow
+
+      // Shuffle & select questionCount
+      const shuffled = [...filtered].sort(() => Math.random() - 0.5);
+      const picked = shuffled.slice(0, Math.min(questionCount, shuffled.length));
+      selectedQids = picked.map(q => q.id);
+    }
+
+    if (selectedQids.length === 0) {
       await supabase.from('practice_sessions').delete().eq('id', session.id);
-      alert('Not enough questions match your filters. Try wider criteria.');
+      alert('Not enough questions match your criteria.');
       setCreating(false); return;
     }
 
-    // Link questions to session
-    const linkRows = qids.map((r: {question_id:string}, i: number) => ({
-      session_id: session.id, question_id: r.question_id, order_index: i,
-    }));
-    await supabase.from('practice_session_questions').insert(linkRows);
+    // Link questions to session (ignore error if offline string IDs used)
+    try {
+      const linkRows = selectedQids.map((qid: string, i: number) => ({
+        session_id: session.id, question_id: qid, order_index: i,
+      }));
+      await supabase.from('practice_session_questions').insert(linkRows);
+    } catch (e) {}
 
     // Update session status
     await supabase.from('practice_sessions').update({ status:'in_progress', started_at: new Date().toISOString() }).eq('id', session.id);

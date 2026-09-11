@@ -124,56 +124,49 @@ export default function AdminQuestionBankPage() {
 
   const handleSyncDocxBank = async () => {
     setSyncing(true);
+    const all820 = (importedQuestions as unknown as QBQuestion[]);
 
-    // Respect user deletions by pulling current local storage state if it exists
-    let targetQs: QBQuestion[] = [];
+    // 1. Save all 820 questions to LocalStorage
     try {
-      const cached = localStorage.getItem('ahsora_local_qb_questions');
-      if (cached) {
-        targetQs = JSON.parse(cached);
-      } else {
-        targetQs = (importedQuestions as unknown as QBQuestion[]);
-        localStorage.setItem('ahsora_local_qb_questions', JSON.stringify(targetQs));
-      }
+      localStorage.setItem('ahsora_local_qb_questions', JSON.stringify(all820));
     } catch (e) {
-      targetQs = (importedQuestions as unknown as QBQuestion[]);
+      console.error('LocalStorage write error:', e);
     }
 
-    // 2. Attempt Supabase insert (omitting custom 'qb-xxx' string ID so Postgres generates valid UUIDs)
+    // 2. Set active pool state to all 820 questions
+    setQuestions(all820.slice(0, PAGE_SIZE));
+    setTotal(all820.length);
+
+    // 3. Attempt Supabase batch insert
     let dbSuccessCount = 0;
     let dbError = '';
     try {
-      const { count } = await supabase.from('qb_questions').select('*', { count: 'exact', head: true });
-      if (count && count >= targetQs.length) {
-        dbSuccessCount = count;
-      } else {
-        const BATCH_SIZE = 50;
-        for (let i = 0; i < targetQs.length; i += BATCH_SIZE) {
-          const batch = targetQs.slice(i, i + BATCH_SIZE).map(q => ({
-            // OMIT id field so Supabase auto-generates valid UUIDs
-            subject: q.subject,
-            topic: q.topic,
-            difficulty: q.difficulty,
-            question_text: q.question_text,
-            option_a: q.option_a,
-            option_b: q.option_b,
-            option_c: q.option_c,
-            option_d: q.option_d,
-            option_e: q.option_e || '',
-            correct_option: q.correct_option,
-            explanation: q.explanation || '',
-            source_reference: q.source_reference || '',
-            is_active: true,
-          }));
+      const BATCH_SIZE = 50;
+      for (let i = 0; i < all820.length; i += BATCH_SIZE) {
+        const batch = all820.slice(i, i + BATCH_SIZE).map(q => ({
+          // OMIT id field so Supabase auto-generates valid UUIDs
+          subject: q.subject,
+          topic: q.topic,
+          difficulty: q.difficulty,
+          question_text: q.question_text,
+          option_a: q.option_a,
+          option_b: q.option_b,
+          option_c: q.option_c,
+          option_d: q.option_d,
+          option_e: q.option_e || '',
+          correct_option: q.correct_option,
+          explanation: q.explanation || '',
+          source_reference: q.source_reference || '',
+          is_active: true,
+        }));
 
-          const { error } = await supabase
-            .from('qb_questions')
-            .insert(batch);
-          if (!error) {
-            dbSuccessCount += batch.length;
-          } else {
-            dbError = error.message;
-          }
+        const { error } = await supabase
+          .from('qb_questions')
+          .insert(batch);
+        if (!error) {
+          dbSuccessCount += batch.length;
+        } else {
+          dbError = error.message;
         }
       }
     } catch (err: any) {
@@ -185,9 +178,9 @@ export default function AdminQuestionBankPage() {
     if (dbSuccessCount > 0) {
       showToast(`✅ Synced ${dbSuccessCount} questions to database!`);
     } else if (dbError) {
-      showToast(`📚 ${targetQs.length} questions active locally (DB: ${dbError.slice(0, 35)})`);
+      showToast(`📚 820 questions loaded locally (DB: ${dbError.slice(0, 35)})`);
     } else {
-      showToast(`📚 ${targetQs.length} questions loaded into Question Bank!`);
+      showToast(`📚 820 questions loaded into Question Bank!`);
     }
 
     fetchQuestions();

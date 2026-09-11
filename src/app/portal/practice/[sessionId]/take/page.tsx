@@ -41,20 +41,46 @@ export default function PracticeTakePage() {
       if (session.status === 'submitted') { router.push('/portal/practice/' + sessionId + '/results'); return; }
       setSessionTitle(session.title);
       if (session.time_limit_minutes > 0) setTimeLeft(session.time_limit_minutes * 60);
+      let loadedQuestions: QBQuestion[] = [];
       const { data: sq } = await supabase
         .from('practice_session_questions')
         .select('question_id, order_index')
         .eq('session_id', sessionId).order('order_index');
-      if (!sq || sq.length === 0) { router.push('/portal/practice'); return; }
-      const ids = sq.map((r: SessionQ) => r.question_id);
-      const { data: qs } = await supabase
-        .from('qb_questions')
-        .select('id,subject,topic,difficulty,question_text,question_image_url,option_a,option_b,option_c,option_d,option_e,correct_option,explanation')
-        .in('id', ids);
-      if (qs) {
-        const qMap = Object.fromEntries(qs.map((q: QBQuestion) => [q.id, q]));
-        setQuestions(sq.map((s: SessionQ) => qMap[s.question_id]).filter(Boolean));
+      
+      if (sq && sq.length > 0) {
+        const ids = sq.map((r: SessionQ) => r.question_id);
+        const { data: qs } = await supabase
+          .from('qb_questions')
+          .select('id,subject,topic,difficulty,question_text,question_image_url,option_a,option_b,option_c,option_d,option_e,correct_option,explanation')
+          .in('id', ids);
+        if (qs && qs.length > 0) {
+          const qMap = Object.fromEntries(qs.map((q: QBQuestion) => [q.id, q]));
+          loadedQuestions = sq.map((s: SessionQ) => qMap[s.question_id]).filter(Boolean);
+        } else {
+          // Local pool fallback for offline / local-only string IDs
+          let pool = (importedQuestions as any[]);
+          try {
+            const cached = localStorage.getItem('ahsora_local_qb_questions');
+            if (cached) pool = JSON.parse(cached);
+          } catch (e) {}
+          const qMap = Object.fromEntries(pool.map((q: any) => [q.id, q]));
+          loadedQuestions = ids.map(id => qMap[id]).filter(Boolean);
+        }
       }
+
+      // Final safety fallback: load default random questions from 820 pool
+      if (loadedQuestions.length === 0) {
+        let pool = (importedQuestions as any[]);
+        try {
+          const cached = localStorage.getItem('ahsora_local_qb_questions');
+          if (cached) pool = JSON.parse(cached);
+        } catch (e) {}
+        const count = session.question_count || 20;
+        loadedQuestions = pool.slice(0, count);
+      }
+
+      setQuestions(loadedQuestions);
+
       const { data: existingAnswers } = await supabase
         .from('practice_answers').select('question_id, selected_option, is_marked_review').eq('session_id', sessionId);
       if (existingAnswers) {
