@@ -1,0 +1,3285 @@
+﻿AHSORA MEDS ACADEMY
+GENETICS, HEREDITY & MOLECULAR BIOLOGY
+400-Question Original Practice Bank
+200 Easy • 100 Moderate • 100 Hard • Five options A-E • One best answer
+BUILD BASISAligned to the frozen Ahsora Biology Practice Bank Strategy & Production Blueprint v1.0. Chapter quotas, difficulty quotas and five-option design rules are preserved exactly. This is a draft production bank and requires independent scientific/editorial QA before student publication.
+1. Bank Architecture
+The 400 questions below implement the frozen Genetics, Heredity & Molecular Biology allocation exactly.
+Chapter
+Total
+Easy
+Moderate
+Hard
+DNA, Chromosomes & Genome Organisation
+52
+26
+13
+13
+DNA Replication, Genetic Code & Protein Synthesis
+84
+42
+21
+21
+Mendelian Genetics & Probability
+84
+42
+21
+21
+Classical & Human Genetics
+72
+36
+18
+18
+Cell Cycle, Mitosis & Meiosis
+72
+36
+18
+18
+Reproduction & Life Cycles
+36
+18
+9
+9
+TOTAL
+400
+200
+100
+100
+Difficulty model: Easy = foundation/one-step; Moderate = typical IMAT conceptual/two-step; Hard = upper-end IMAT or controlled above-IMAT challenge. Hard questions are difficult because of integration and inference, never because of intentionally confusing language.
+2. DNA, Chromosomes & Genome Organisation
+Quota: 52 MCQs — 26 Easy, 13 Moderate, 13 Hard.
+Easy Questions
+BIO-GEN-DCO-001 | Easy | Recall / Conceptual | Topic: Bases
+Which pair consists only of purines?
+A. Adenine and guanine
+B. Adenine and thymine
+C. Cytosine and thymine
+D. Uracil and thymine
+E. Guanine and cytosine
+Correct answer: A — Adenine and guanine. Explanation: Adenine and guanine are purines.
+BIO-GEN-DCO-002 | Easy | Recall / Conceptual | Topic: Base pairing
+In DNA, adenine pairs with:
+A. Guanine
+B. Adenine
+C. Cytosine
+D. Uracil
+E. Thymine
+Correct answer: E — Thymine. Explanation: Watson-Crick DNA pairing is A-T.
+BIO-GEN-DCO-003 | Easy | Recall / Conceptual | Topic: Base pairing
+In DNA, guanine pairs with:
+A. Uracil
+B. Thymine
+C. Adenine
+D. Cytosine
+E. Guanine
+Correct answer: D — Cytosine. Explanation: Watson-Crick DNA pairing is G-C.
+BIO-GEN-DCO-004 | Easy | Recall / Conceptual | Topic: DNA vs RNA
+RNA differs from DNA because RNA contains:
+A. Deoxyribose and uracil
+B. Ribose and thymine
+C. Glucose and uracil
+D. Deoxyribose and thymine
+E. Ribose and uracil
+Correct answer: E — Ribose and uracil. Explanation: RNA contains ribose and usually uracil.
+BIO-GEN-DCO-005 | Easy | Recall / Conceptual | Topic: Nucleotide structure
+A nucleotide contains:
+A. Protein, phosphate and base
+B. A sugar, phosphate and nitrogenous base
+C. Amino acid, sugar and lipid
+D. Two sugars and a protein
+E. A fatty acid, base and glycerol
+Correct answer: B — A sugar, phosphate and nitrogenous base. Explanation: A nucleotide has sugar, phosphate and base.
+BIO-GEN-DCO-006 | Easy | Recall / Conceptual | Topic: Nucleotide structure
+Phosphodiester bonds form the:
+A. Peptide backbone of proteins
+B. Chromosome centromere
+C. Lipid bilayer
+D. Sugar-phosphate backbone of nucleic acids
+E. Hydrogen bonds between DNA bases
+Correct answer: D — Sugar-phosphate backbone of nucleic acids. Explanation: Phosphodiester bonds link adjacent nucleotides.
+BIO-GEN-DCO-007 | Easy | Recall / Conceptual | Topic: DNA double helix
+Hydrogen bonds in double-stranded DNA occur between:
+A. Histone proteins only
+B. Complementary nitrogenous bases
+C. Amino acids
+D. Sugar molecules only
+E. Adjacent phosphate groups
+Correct answer: B — Complementary nitrogenous bases. Explanation: Complementary bases are held by hydrogen bonds.
+BIO-GEN-DCO-008 | Easy | Recall / Conceptual | Topic: DNA double helix
+The two DNA strands are antiparallel because they:
+A. Have opposite charges
+B. Run in opposite 5′ to 3′ directions
+C. Contain only purines on one strand
+D. Contain different sugars
+E. Use different genetic codes
+Correct answer: B — Run in opposite 5′ to 3′ directions. Explanation: Their sugar-phosphate backbones run oppositely.
+BIO-GEN-DCO-009 | Easy | Recall / Conceptual | Topic: Chromosome organisation
+A chromosome is best described as:
+A. A protein with no DNA
+B. A lipid structure
+C. A DNA molecule associated with proteins
+D. A membrane organelle
+E. A single codon
+Correct answer: C — A DNA molecule associated with proteins. Explanation: Chromosomes consist of DNA packaged with proteins.
+BIO-GEN-DCO-010 | Easy | Recall / Conceptual | Topic: Chromatin
+Eukaryotic DNA is packaged mainly with proteins called:
+A. Keratin
+B. Histones
+C. Collagen
+D. Actins
+E. Tubulin only
+Correct answer: B — Histones. Explanation: Histones package DNA into chromatin.
+BIO-GEN-DCO-011 | Easy | Recall / Conceptual | Topic: Chromosome structure
+The centromere is most closely associated with:
+A. Telomere synthesis only
+B. Protein translation
+C. ATP production
+D. Joining sister chromatids and forming the kinetochore region
+E. mRNA splicing
+Correct answer: D — Joining sister chromatids and forming the kinetochore region. Explanation: Sister chromatids are linked at centromeric regions.
+BIO-GEN-DCO-012 | Easy | Recall / Conceptual | Topic: Telomeres
+Telomeres are located at:
+A. Ribosomes
+B. The middle of every gene
+C. The ends of linear chromosomes
+D. Centromeres only
+E. Mitochondrial cristae
+Correct answer: C — The ends of linear chromosomes. Explanation: Telomeres protect linear chromosome ends.
+BIO-GEN-DCO-013 | Easy | Recall / Conceptual | Topic: Chromatids
+Sister chromatids are:
+A. Two genes
+B. A maternal and paternal homolog
+C. Replicated copies of one chromosome
+D. Two gametes
+E. Two unrelated chromosomes
+Correct answer: C — Replicated copies of one chromosome. Explanation: They are duplicated copies produced during S phase.
+BIO-GEN-DCO-014 | Easy | Recall / Conceptual | Topic: Homologous chromosomes
+Homologous chromosomes carry:
+A. Only dominant alleles
+B. Identical alleles at every locus
+C. No centromeres
+D. The same genes at corresponding loci but may carry different alleles
+E. Different genes throughout
+Correct answer: D — The same genes at corresponding loci but may carry different alleles. Explanation: Homologues carry corresponding gene loci.
+BIO-GEN-DCO-015 | Easy | Recall / Conceptual | Topic: Gene terminology
+The specific position of a gene on a chromosome is its:
+A. Codon
+B. Allele
+C. Phenotype
+D. Genome
+E. Locus
+Correct answer: E — Locus. Explanation: A locus is a gene’s chromosomal position.
+BIO-GEN-DCO-016 | Easy | Recall / Conceptual | Topic: Gene terminology
+An allele is:
+A. A chromosome pair
+B. An alternative form of a gene
+C. A complete chromosome set
+D. A cell organelle
+E. A protein product
+Correct answer: B — An alternative form of a gene. Explanation: Alleles are alternative gene variants.
+BIO-GEN-DCO-017 | Easy | Recall / Conceptual | Topic: Genome
+A genome is:
+A. Only protein-coding genes
+B. Only mitochondrial DNA
+C. The complete genetic material of an organism or cell
+D. All proteins in a cell
+E. Only one chromosome
+Correct answer: C — The complete genetic material of an organism or cell. Explanation: Genome refers to the complete genetic material.
+BIO-GEN-DCO-018 | Easy | Recall / Conceptual | Topic: Ploidy
+A normal human somatic cell contains:
+A. 92 chromosomes
+B. 44 chromosomes
+C. 46 chromosomes
+D. 48 chromosomes
+E. 23 chromosomes
+Correct answer: C — 46 chromosomes. Explanation: Human somatic cells are diploid with 46 chromosomes.
+BIO-GEN-DCO-019 | Easy | Recall / Conceptual | Topic: Ploidy
+A normal human gamete contains:
+A. 92 chromosomes
+B. 44 chromosomes
+C. 46 chromosomes
+D. 23 chromosomes
+E. 22 chromosomes
+Correct answer: D — 23 chromosomes. Explanation: Human gametes are haploid with 23 chromosomes.
+BIO-GEN-DCO-020 | Easy | Recall / Conceptual | Topic: Ploidy
+A cell with one complete chromosome set is:
+A. Haploid
+B. Autosomal
+C. Diploid
+D. Polygenic
+E. Heterozygous
+Correct answer: A — Haploid. Explanation: Haploid means one chromosome set.
+BIO-GEN-DCO-021 | Easy | Recall / Conceptual | Topic: Ploidy
+A cell with two chromosome sets is:
+A. Haploid
+B. Codominant
+C. Hemizygous
+D. Triploid by definition
+E. Diploid
+Correct answer: E — Diploid. Explanation: Diploid means two chromosome sets.
+BIO-GEN-DCO-022 | Easy | Recall / Conceptual | Topic: Prokaryotic genome
+The main bacterial chromosome is usually:
+A. Located in Golgi
+B. Made of RNA
+C. Protein only
+D. Linear and enclosed by a nucleus
+E. Circular and located in a nucleoid region
+Correct answer: E — Circular and located in a nucleoid region. Explanation: Most bacteria possess a circular DNA chromosome in a nucleoid.
+BIO-GEN-DCO-023 | Easy | Recall / Conceptual | Topic: Genome organisation
+Which organelle in human cells contains its own small genome?
+A. Lysosome
+B. Mitochondrion
+C. Centrosome
+D. Golgi apparatus
+E. Peroxisome
+Correct answer: B — Mitochondrion. Explanation: Mitochondria contain their own DNA.
+BIO-GEN-DCO-024 | Easy | Recall / Conceptual | Topic: Chromatin
+Chromatin is composed mainly of:
+A. Carbohydrates only
+B. ATP only
+C. RNA only
+D. DNA and associated proteins
+E. Lipids only
+Correct answer: D — DNA and associated proteins. Explanation: Chromatin is DNA plus associated proteins.
+BIO-GEN-DCO-025 | Easy | Recall / Conceptual | Topic: Chromosomes
+A karyotype displays:
+A. Protein sequences
+B. mRNA concentration only
+C. Cell membrane lipids
+D. Chromosome number and gross chromosome morphology
+E. All gene sequences
+Correct answer: D — Chromosome number and gross chromosome morphology. Explanation: Karyotyping visualises chromosomes.
+BIO-GEN-DCO-026 | Easy | Recall / Conceptual | Topic: Autosomes
+Human autosomes are chromosomes:
+A. Present only in females
+B. Found only in gametes
+C. Other than the sex chromosomes
+D. Present only in males
+E. Made of RNA
+Correct answer: C — Other than the sex chromosomes. Explanation: Humans have 22 autosomal pairs plus one sex-chromosome pair.
+Moderate Questions
+BIO-GEN-DCO-027 | Moderate | Calculation | Topic: Base composition
+A double-stranded DNA sample contains 30% adenine. What percentage is guanine?
+A. 30%
+B. 40%
+C. 20%
+D. 70%
+E. 10%
+Correct answer: C — 20%. Explanation: A=T=30%, leaving 40% for G+C, so G=20%.
+BIO-GEN-DCO-028 | Moderate | Calculation | Topic: Base composition
+A double-stranded DNA sample contains 32% adenine. What percentage is guanine?
+A. 9%
+B. 68%
+C. 18%
+D. 36%
+E. 32%
+Correct answer: C — 18%. Explanation: A=T=32%, leaving 36% for G+C, so G=18%.
+BIO-GEN-DCO-029 | Moderate | Calculation | Topic: Base composition
+A double-stranded DNA sample contains 35% adenine. What percentage is guanine?
+A. 7.5%
+B. 35%
+C. 30%
+D. 65%
+E. 15%
+Correct answer: E — 15%. Explanation: A=T=35%, leaving 30% for G+C, so G=15%.
+BIO-GEN-DCO-030 | Moderate | Calculation | Topic: Base composition
+A double-stranded DNA sample contains 20% adenine. What percentage is guanine?
+A. 15%
+B. 60%
+C. 20%
+D. 80%
+E. 30%
+Correct answer: E — 30%. Explanation: A=T=20%, leaving 60% for G+C, so G=30%.
+BIO-GEN-DCO-031 | Moderate | Application | Topic: Ploidy
+A species has 2n=10. How many homologous chromosome pairs are in a normal somatic cell?
+A. 5
+B. 10
+C. 6
+D. 20
+E. 4
+Correct answer: A — 5. Explanation: A diploid cell with 10 chromosomes contains 5 homologous pairs.
+BIO-GEN-DCO-032 | Moderate | Application | Topic: Ploidy
+A species has 2n=12. How many homologous chromosome pairs are in a normal somatic cell?
+A. 6
+B. 7
+C. 24
+D. 12
+E. 5
+Correct answer: A — 6. Explanation: A diploid cell with 12 chromosomes contains 6 homologous pairs.
+BIO-GEN-DCO-033 | Moderate | Application | Topic: Ploidy
+A species has 2n=18. How many homologous chromosome pairs are in a normal somatic cell?
+A. 8
+B. 9
+C. 18
+D. 10
+E. 36
+Correct answer: B — 9. Explanation: A diploid cell with 18 chromosomes contains 9 homologous pairs.
+BIO-GEN-DCO-034 | Moderate | Calculation | Topic: Chromosome accounting
+A diploid G1 cell has 8 chromosomes. Immediately after S phase, how many chromosomes and chromatids does it contain?
+A. 16 chromosomes and 8 chromatids
+B. 8 chromosomes and 16 chromatids
+C. 16 chromosomes and 16 chromatids
+D. 8 chromosomes and 8 chromatids
+E. 4 chromosomes and 8 chromatids
+Correct answer: B — 8 chromosomes and 16 chromatids. Explanation: S phase doubles DNA/chromatid number but not centromere-defined chromosome number.
+BIO-GEN-DCO-035 | Moderate | Calculation | Topic: Chromosome accounting
+A diploid G1 cell has 14 chromosomes. Immediately after S phase, how many chromosomes and chromatids does it contain?
+A. 28 chromosomes and 14 chromatids
+B. 7 chromosomes and 14 chromatids
+C. 28 chromosomes and 28 chromatids
+D. 14 chromosomes and 28 chromatids
+E. 14 chromosomes and 14 chromatids
+Correct answer: D — 14 chromosomes and 28 chromatids. Explanation: S phase doubles DNA/chromatid number but not centromere-defined chromosome number.
+BIO-GEN-DCO-036 | Moderate | Calculation | Topic: Chromosome accounting
+A diploid G1 cell has 20 chromosomes. Immediately after S phase, how many chromosomes and chromatids does it contain?
+A. 20 chromosomes and 40 chromatids
+B. 10 chromosomes and 20 chromatids
+C. 20 chromosomes and 20 chromatids
+D. 40 chromosomes and 20 chromatids
+E. 40 chromosomes and 40 chromatids
+Correct answer: A — 20 chromosomes and 40 chromatids. Explanation: S phase doubles DNA/chromatid number but not centromere-defined chromosome number.
+BIO-GEN-DCO-037 | Moderate | Application | Topic: Antiparallel complementarity
+One DNA strand is 5′-ACGTTAC-3′. Which complementary strand is correctly written 5′→3′?
+A. 5′-ACGTTAC-3′
+B. 5′-GTAACGT-3′
+C. 5′-TGCAATG-3′
+D. 5′-CATTGCA-3′
+E. 5′-AAAAAAA-3′
+Correct answer: B — 5′-GTAACGT-3′. Explanation: The complementary strand is antiparallel; after complementing and reversing, it is 5′-GTAACGT-3′.
+BIO-GEN-DCO-038 | Moderate | Application | Topic: Antiparallel complementarity
+One DNA strand is 5′-GGCATTA-3′. Which complementary strand is correctly written 5′→3′?
+A. 5′-ATTACGG-3′
+B. 5′-TAATGCC-3′
+C. 5′-CCGTAAT-3′
+D. 5′-AAAAAAA-3′
+E. 5′-GGCATTA-3′
+Correct answer: B — 5′-TAATGCC-3′. Explanation: The complementary strand is antiparallel; after complementing and reversing, it is 5′-TAATGCC-3′.
+BIO-GEN-DCO-039 | Moderate | Application | Topic: Antiparallel complementarity
+One DNA strand is 5′-TTACGCG-3′. Which complementary strand is correctly written 5′→3′?
+A. 5′-AATGCGC-3′
+B. 5′-TTACGCG-3′
+C. 5′-CGCGTAA-3′
+D. 5′-GCGCATT-3′
+E. 5′-AAAAAAA-3′
+Correct answer: C — 5′-CGCGTAA-3′. Explanation: The complementary strand is antiparallel; after complementing and reversing, it is 5′-CGCGTAA-3′.
+Hard Questions
+BIO-GEN-DCO-040 | Hard | Integrated / Calculation | Topic: Chromosome accounting
+A diploid species has 2n=6. In a G2 nucleus, how many DNA molecules, chromosomes, homologous pairs and centromeres are present, respectively?
+A. 6, 6, 3, 12
+B. 12, 6, 3, 6
+C. 24, 6, 6, 6
+D. 12, 12, 6, 12
+E. 6, 3, 3, 6
+Correct answer: B — 12, 6, 3, 6. Explanation: In G2 every chromosome has two DNA molecules/chromatids, but chromosome and centromere counts are unchanged.
+BIO-GEN-DCO-041 | Hard | Integrated / Calculation | Topic: Chromosome accounting
+A diploid species has 2n=10. In a G2 nucleus, how many DNA molecules, chromosomes, homologous pairs and centromeres are present, respectively?
+A. 20, 20, 10, 20
+B. 20, 10, 5, 10
+C. 10, 5, 5, 10
+D. 40, 10, 10, 10
+E. 10, 10, 5, 20
+Correct answer: B — 20, 10, 5, 10. Explanation: In G2 every chromosome has two DNA molecules/chromatids, but chromosome and centromere counts are unchanged.
+BIO-GEN-DCO-042 | Hard | Integrated / Calculation | Topic: Chromosome accounting
+A diploid species has 2n=16. In a G2 nucleus, how many DNA molecules, chromosomes, homologous pairs and centromeres are present, respectively?
+A. 16, 16, 8, 32
+B. 16, 8, 8, 16
+C. 32, 32, 16, 32
+D. 64, 16, 16, 16
+E. 32, 16, 8, 16
+Correct answer: E — 32, 16, 8, 16. Explanation: In G2 every chromosome has two DNA molecules/chromatids, but chromosome and centromere counts are unchanged.
+BIO-GEN-DCO-043 | Hard | Integrated / Calculation | Topic: Chromosome accounting
+A diploid species has 2n=22. In a G2 nucleus, how many DNA molecules, chromosomes, homologous pairs and centromeres are present, respectively?
+A. 44, 44, 22, 44
+B. 22, 22, 11, 44
+C. 44, 22, 11, 22
+D. 22, 11, 11, 22
+E. 88, 22, 22, 22
+Correct answer: C — 44, 22, 11, 22. Explanation: In G2 every chromosome has two DNA molecules/chromatids, but chromosome and centromere counts are unchanged.
+BIO-GEN-DCO-044 | Hard | Calculation | Topic: Base composition
+A double-stranded DNA molecule has 1000 base pairs and 300 guanine bases in total. How many adenine bases are present?
+A. 1000
+B. 1400
+C. 300
+D. 350
+E. 700
+Correct answer: E — 700. Explanation: Total bases=2000; G=C=300, leaving 1400 bases for A+T, so A=700.
+BIO-GEN-DCO-045 | Hard | Calculation | Topic: Base composition
+A double-stranded DNA molecule has 2000 base pairs and 500 guanine bases in total. How many adenine bases are present?
+A. 2000
+B. 1500
+C. 500
+D. 750
+E. 3000
+Correct answer: B — 1500. Explanation: Total bases=4000; G=C=500, leaving 3000 bases for A+T, so A=1500.
+BIO-GEN-DCO-046 | Hard | Calculation | Topic: Base composition
+A double-stranded DNA molecule has 1500 base pairs and 450 guanine bases in total. How many adenine bases are present?
+A. 1500
+B. 525
+C. 1050
+D. 2100
+E. 450
+Correct answer: C — 1050. Explanation: Total bases=3000; G=C=450, leaving 2100 bases for A+T, so A=1050.
+BIO-GEN-DCO-047 | Hard | Integrated | Topic: DNA content
+A diploid G1 nucleus contains 4 pg of DNA. If it completes S phase without division, how much DNA does it contain?
+A. 4 pg
+B. 2 pg
+C. 8 pg
+D. 12 pg
+E. 16 pg
+Correct answer: C — 8 pg. Explanation: DNA replication doubles DNA mass during S phase without changing ploidy.
+BIO-GEN-DCO-048 | Hard | Integrated | Topic: DNA content
+A diploid G1 nucleus contains 6 pg of DNA. If it completes S phase without division, how much DNA does it contain?
+A. 24 pg
+B. 18 pg
+C. 3 pg
+D. 6 pg
+E. 12 pg
+Correct answer: E — 12 pg. Explanation: DNA replication doubles DNA mass during S phase without changing ploidy.
+BIO-GEN-DCO-049 | Hard | Integrated | Topic: DNA content
+A diploid G1 nucleus contains 9 pg of DNA. If it completes S phase without division, how much DNA does it contain?
+A. 36 pg
+B. 18 pg
+C. 4.5 pg
+D. 9 pg
+E. 27 pg
+Correct answer: B — 18 pg. Explanation: DNA replication doubles DNA mass during S phase without changing ploidy.
+BIO-GEN-DCO-050 | Hard | Integrated | Topic: Ploidy
+A somatic cell of a species has 12 chromosomes. What best describes a normal gamete from this species?
+A. 6 chromosomes with no homologous pairs within that gamete
+B. 12 chromosomes with 6 homologous pairs
+C. 12 chromosomes and no DNA
+D. 6 chromosomes with 6 homologous pairs
+E. 24 chromosomes
+Correct answer: A — 6 chromosomes with no homologous pairs within that gamete. Explanation: Gametes are haploid and contain one chromosome from each homologous pair, so n=6.
+BIO-GEN-DCO-051 | Hard | Integrated | Topic: Ploidy
+A somatic cell of a species has 18 chromosomes. What best describes a normal gamete from this species?
+A. 18 chromosomes with 9 homologous pairs
+B. 9 chromosomes with no homologous pairs within that gamete
+C. 36 chromosomes
+D. 18 chromosomes and no DNA
+E. 9 chromosomes with 9 homologous pairs
+Correct answer: B — 9 chromosomes with no homologous pairs within that gamete. Explanation: Gametes are haploid and contain one chromosome from each homologous pair, so n=9.
+BIO-GEN-DCO-052 | Hard | Integrated | Topic: Ploidy
+A somatic cell of a species has 24 chromosomes. What best describes a normal gamete from this species?
+A. 12 chromosomes with 12 homologous pairs
+B. 48 chromosomes
+C. 24 chromosomes and no DNA
+D. 24 chromosomes with 12 homologous pairs
+E. 12 chromosomes with no homologous pairs within that gamete
+Correct answer: E — 12 chromosomes with no homologous pairs within that gamete. Explanation: Gametes are haploid and contain one chromosome from each homologous pair, so n=12.
+3. DNA Replication, Genetic Code & Protein Synthesis
+Quota: 84 MCQs — 42 Easy, 21 Moderate, 21 Hard.
+Easy Questions
+BIO-GEN-RPT-001 | Easy | Recall / Conceptual | Topic: Replication
+Semi-conservative replication means each daughter DNA has:
+A. one RNA and one DNA strand
+B. one old and one new strand
+C. two new strands only
+D. two old strands
+E. no parental material
+Correct answer: B — one old and one new strand. Explanation: Each daughter duplex retains one parental strand.
+BIO-GEN-RPT-002 | Easy | Recall / Conceptual | Topic: Replication enzymes
+The enzyme that unwinds DNA at the replication fork is:
+A. Ligase
+B. Protease
+C. Ribosome
+D. Helicase
+E. RNA polymerase
+Correct answer: D — Helicase. Explanation: Helicase separates the parental DNA strands.
+BIO-GEN-RPT-003 | Easy | Recall / Conceptual | Topic: Replication enzymes
+The enzyme that adds DNA nucleotides is:
+A. Helicase
+B. Ligase
+C. Ribosome
+D. Peptidase
+E. DNA polymerase
+Correct answer: E — DNA polymerase. Explanation: DNA polymerase extends a DNA strand.
+BIO-GEN-RPT-004 | Easy | Recall / Conceptual | Topic: Replication enzymes
+DNA ligase primarily:
+A. translates mRNA
+B. unwinds DNA
+C. removes amino acids
+D. charges tRNA
+E. seals breaks between DNA fragments
+Correct answer: E — seals breaks between DNA fragments. Explanation: Ligase joins DNA fragments by sealing the backbone.
+BIO-GEN-RPT-005 | Easy | Recall / Conceptual | Topic: Replication direction
+New DNA is synthesized:
+A. 5′→3′
+B. 3′→5′
+C. in either direction equally
+D. N→C
+E. C→N
+Correct answer: A — 5′→3′. Explanation: Polymerase adds to the 3′ end, so synthesis is 5′→3′.
+BIO-GEN-RPT-006 | Easy | Recall / Conceptual | Topic: Lagging strand
+Okazaki fragments form on the:
+A. lagging strand
+B. rRNA
+C. coding strand only
+D. mRNA
+E. leading strand only
+Correct answer: A — lagging strand. Explanation: Lagging-strand synthesis is discontinuous.
+BIO-GEN-RPT-007 | Easy | Recall / Conceptual | Topic: Leading strand
+The leading strand is synthesized:
+A. 3′→5′
+B. continuously toward the fork
+C. from RNA only
+D. without DNA polymerase
+E. only as Okazaki fragments
+Correct answer: B — continuously toward the fork. Explanation: Its orientation allows continuous 5′→3′ synthesis.
+BIO-GEN-RPT-008 | Easy | Recall / Conceptual | Topic: Transcription
+Transcription produces:
+A. lipid from RNA
+B. DNA from protein
+C. ATP from RNA
+D. protein from DNA directly
+E. RNA from DNA
+Correct answer: E — RNA from DNA. Explanation: Transcription copies DNA information into RNA.
+BIO-GEN-RPT-009 | Easy | Recall / Conceptual | Topic: Transcription
+RNA polymerase catalyses:
+A. DNA ligation
+B. protein folding
+C. RNA synthesis
+D. ATP hydrolysis only
+E. chromosome segregation
+Correct answer: C — RNA synthesis. Explanation: RNA polymerase builds RNA from a DNA template.
+BIO-GEN-RPT-010 | Easy | Recall / Conceptual | Topic: RNA types
+mRNA carries:
+A. codons from DNA information to ribosomes
+B. lipids
+C. amino acids
+D. centromeres
+E. chromosomes
+Correct answer: A — codons from DNA information to ribosomes. Explanation: mRNA is the coding messenger for translation.
+BIO-GEN-RPT-011 | Easy | Recall / Conceptual | Topic: RNA types
+tRNA carries:
+A. specific amino acids to ribosomes
+B. chromosomes
+C. DNA to nucleus
+D. phospholipids
+E. introns
+Correct answer: A — specific amino acids to ribosomes. Explanation: tRNA delivers amino acids during translation.
+BIO-GEN-RPT-012 | Easy | Recall / Conceptual | Topic: RNA types
+rRNA is a major component of:
+A. telomeres
+B. lysosomes
+C. ribosomes
+D. centromeres
+E. spindles
+Correct answer: C — ribosomes. Explanation: rRNA forms structural/catalytic parts of ribosomes.
+BIO-GEN-RPT-013 | Easy | Recall / Conceptual | Topic: Genetic code
+A codon contains:
+A. one DNA helix
+B. three proteins
+C. two bases
+D. four amino acids
+E. three mRNA nucleotides
+Correct answer: E — three mRNA nucleotides. Explanation: Codons are triplets.
+BIO-GEN-RPT-014 | Easy | Recall / Conceptual | Topic: Translation
+An anticodon is found on:
+A. rRNA only
+B. DNA polymerase
+C. tRNA
+D. histone
+E. mRNA
+Correct answer: C — tRNA. Explanation: tRNA anticodons pair with mRNA codons.
+BIO-GEN-RPT-015 | Easy | Recall / Conceptual | Topic: Genetic code
+The usual start codon is:
+A. UAA
+B. UGA
+C. AUG
+D. UAG
+E. AAA
+Correct answer: C — AUG. Explanation: AUG typically initiates translation.
+BIO-GEN-RPT-016 | Easy | Recall / Conceptual | Topic: Genetic code
+Which is a stop codon?
+A. AUG
+B. GCU
+C. UGG
+D. UGA
+E. AAA
+Correct answer: D — UGA. Explanation: UGA is a standard stop codon.
+BIO-GEN-RPT-017 | Easy | Recall / Conceptual | Topic: Genetic code
+Genetic-code degeneracy means:
+A. codons vary in length
+B. one codon specifies all amino acids
+C. translation needs no codons
+D. multiple codons can specify the same amino acid
+E. all species use different codes
+Correct answer: D — multiple codons can specify the same amino acid. Explanation: Several amino acids have more than one codon.
+BIO-GEN-RPT-018 | Easy | Recall / Conceptual | Topic: Translation
+Translation occurs on:
+A. ribosomes
+B. Golgi only
+C. centrioles
+D. lysosomes
+E. replication forks
+Correct answer: A — ribosomes. Explanation: Ribosomes decode mRNA into polypeptide.
+BIO-GEN-RPT-019 | Easy | Recall / Conceptual | Topic: Translation
+Peptide bonds join:
+A. amino acids
+B. fatty acids
+C. DNA strands
+D. phosphate groups
+E. nucleotides
+Correct answer: A — amino acids. Explanation: Peptide bonds link amino acids in proteins.
+BIO-GEN-RPT-020 | Easy | Recall / Conceptual | Topic: Mutation
+A substitution mutation:
+A. always changes chromosome number
+B. duplicates the genome
+C. always shifts the frame
+D. deletes an entire chromosome
+E. replaces one nucleotide/base pair with another
+Correct answer: E — replaces one nucleotide/base pair with another. Explanation: A substitution is a base replacement.
+BIO-GEN-RPT-021 | Easy | Recall / Conceptual | Topic: Mutation
+A one-base insertion in coding DNA often causes:
+A. a silent mutation only
+B. nondisjunction
+C. telomere extension
+D. a frameshift
+E. polyploidy
+Correct answer: D — a frameshift. Explanation: Non-triplet insertion changes downstream codon grouping.
+BIO-GEN-RPT-022 | Easy | Recall / Conceptual | Topic: Mutation
+A silent mutation:
+A. does not change the encoded amino acid
+B. prevents all transcription
+C. always stops translation
+D. deletes a chromosome
+E. always changes every codon
+Correct answer: A — does not change the encoded amino acid. Explanation: Degeneracy allows codon change without amino-acid change.
+BIO-GEN-RPT-023 | Easy | Recall / Conceptual | Topic: Mutation
+A missense mutation:
+A. changes one amino acid to another
+B. always deletes a chromosome
+C. creates no amino-acid change by definition
+D. always creates a stop codon
+E. prevents replication
+Correct answer: A — changes one amino acid to another. Explanation: Missense changes the encoded amino acid.
+BIO-GEN-RPT-024 | Easy | Recall / Conceptual | Topic: Mutation
+A nonsense mutation creates:
+A. a longer intron only
+B. a premature stop codon
+C. a new centromere
+D. an extra chromosome
+E. a lipid
+Correct answer: B — a premature stop codon. Explanation: Nonsense mutations convert a coding codon into stop.
+BIO-GEN-RPT-025 | Easy | Recall / Conceptual | Topic: RNA processing
+Introns in eukaryotic pre-mRNA are usually:
+A. converted to amino acids
+B. added by ribosomes
+C. found only in DNA polymerase
+D. removed during splicing
+E. translated into protein
+Correct answer: D — removed during splicing. Explanation: Introns are removed before mature mRNA translation.
+BIO-GEN-RPT-026 | Easy | Recall / Conceptual | Topic: RNA processing
+Exons are usually:
+A. non-nucleic acid structures
+B. made of amino acids
+C. found only in bacteria
+D. always removed
+E. retained in mature RNA
+Correct answer: E — retained in mature RNA. Explanation: Exons remain after splicing.
+BIO-GEN-RPT-027 | Easy | Recall / Conceptual | Topic: Coding strand
+The coding DNA strand matches mRNA except DNA has:
+A. G instead of C
+B. T instead of U
+C. no phosphate
+D. ribose instead of deoxyribose
+E. U instead of T
+Correct answer: B — T instead of U. Explanation: Coding DNA and mRNA share sequence orientation, with T/U difference.
+BIO-GEN-RPT-028 | Easy | Recall / Conceptual | Topic: Gene regulation
+A promoter mainly controls:
+A. chromosome number
+B. transcription initiation
+C. meiosis II
+D. protein folding only
+E. DNA base pairing only
+Correct answer: B — transcription initiation. Explanation: Promoters recruit transcription machinery.
+BIO-GEN-RPT-029 | Easy | Recall / Conceptual | Topic: Gene expression
+Gene expression can produce:
+A. only lipids
+B. only chromosomes
+C. only ATP
+D. a functional RNA or protein
+E. only centromeres
+Correct answer: D — a functional RNA or protein. Explanation: Genes yield functional RNA and often proteins.
+BIO-GEN-RPT-030 | Easy | Recall / Conceptual | Topic: Translation
+Ribosomes read mRNA:
+A. C→N
+B. 5′→3′
+C. 3′→5′
+D. from middle outward
+E. both directions randomly
+Correct answer: B — 5′→3′. Explanation: Translation proceeds along mRNA 5′→3′.
+BIO-GEN-RPT-031 | Easy | Recall / Conceptual | Topic: Translation
+Proteins are synthesized from:
+A. 5′→3′ DNA direction only
+B. C-terminus toward N-terminus
+C. 3′→5′
+D. N-terminus toward C-terminus
+E. both ends inward
+Correct answer: D — N-terminus toward C-terminus. Explanation: Polypeptides elongate at the C-terminus.
+BIO-GEN-RPT-032 | Easy | Recall / Conceptual | Topic: Translation
+A charged tRNA carries:
+A. a chromosome
+B. a phospholipid
+C. its corresponding amino acid
+D. a stop codon
+E. DNA polymerase
+Correct answer: C — its corresponding amino acid. Explanation: Aminoacyl-tRNA carries an amino acid.
+BIO-GEN-RPT-033 | Easy | Recall / Conceptual | Topic: Transcription
+During transcription, RNA pairs with DNA adenine using:
+A. Adenine
+B. Guanine
+C. Cytosine
+D. Thymine
+E. Uracil
+Correct answer: E — Uracil. Explanation: RNA uses U opposite A.
+BIO-GEN-RPT-034 | Easy | Recall / Conceptual | Topic: RNA processing
+Alternative splicing can:
+A. prevent DNA replication always
+B. produce different mature mRNAs from one gene
+C. replace transcription
+D. create gametes
+E. double chromosome number
+Correct answer: B — produce different mature mRNAs from one gene. Explanation: Different exon combinations can yield different isoforms.
+BIO-GEN-RPT-035 | Easy | Recall / Conceptual | Topic: Translation
+Translation stops when the ribosome encounters:
+A. an intron in DNA
+B. a centromere
+C. a stop codon
+D. an origin of replication
+E. a promoter
+Correct answer: C — a stop codon. Explanation: Stop codons terminate translation.
+BIO-GEN-RPT-036 | Easy | Recall / Conceptual | Topic: Protein structure
+The amino-acid sequence of a protein is its:
+A. tertiary structure only
+B. secondary structure only
+C. primary structure
+D. karyotype
+E. genome
+Correct answer: C — primary structure. Explanation: Primary structure is amino-acid order.
+BIO-GEN-RPT-037 | Easy | Recall / Conceptual | Topic: Replication
+DNA replication occurs before:
+A. translation only
+B. cell division
+C. protein folding only
+D. RNA splicing only
+E. fertilisation only
+Correct answer: B — cell division. Explanation: Genome duplication precedes cell division.
+BIO-GEN-RPT-038 | Easy | Recall / Conceptual | Topic: Transcription
+The template DNA strand is read by RNA polymerase:
+A. 3′→5′
+B. C→N
+C. 5′→3′
+D. both directions equally
+E. N→C
+Correct answer: A — 3′→5′. Explanation: RNA synthesis is 5′→3′, so the template is read 3′→5′.
+BIO-GEN-RPT-039 | Easy | Recall / Conceptual | Topic: Translation
+The anticodon pairs with the:
+A. peptide bond
+B. telomere
+C. mRNA codon
+D. DNA promoter
+E. centromere
+Correct answer: C — mRNA codon. Explanation: Codon-anticodon pairing positions the correct tRNA.
+BIO-GEN-RPT-040 | Easy | Recall / Conceptual | Topic: Mutation
+A three-base deletion in coding DNA often:
+A. removes one amino acid without shifting the frame
+B. prevents transcription globally
+C. creates polyploidy
+D. doubles chromosome number
+E. always causes frameshift
+Correct answer: A — removes one amino acid without shifting the frame. Explanation: Deleting a whole codon preserves downstream reading frame.
+BIO-GEN-RPT-041 | Easy | Recall / Conceptual | Topic: Gene regulation
+A mutation in a regulatory sequence can change:
+A. how much a gene is expressed
+B. the identity of every amino acid
+C. chromosome number necessarily
+D. the genetic code of all genes
+E. the number of ribosomes in every cell always
+Correct answer: A — how much a gene is expressed. Explanation: Regulatory DNA controls gene-expression level/timing.
+BIO-GEN-RPT-042 | Easy | Recall / Conceptual | Topic: Translation
+The direct template translated by a ribosome is:
+A. rRNA only
+B. tRNA only
+C. protein
+D. mRNA
+E. DNA
+Correct answer: D — mRNA. Explanation: Ribosomes decode mRNA codons.
+Moderate Questions
+BIO-GEN-RPT-043 | Moderate | Application | Topic: Transcription sequence
+A DNA template strand is 3′-TACCGAAAACCT-5′. Which mRNA is transcribed?
+A. 5′-AUGGCUUUUGGA-3′
+B. 5′-ATGGCTTTTGGA-3′
+C. 5′-TACCGAAAACCT-3′
+D. 5′-AGGUUUUCGGUA-3′
+E. 5′-TCCAAAAGCCAT-3′
+Correct answer: A — 5′-AUGGCUUUUGGA-3′. Explanation: mRNA is made 5′→3′ complementary to the DNA template: AUGGCUUUUGGA.
+BIO-GEN-RPT-044 | Moderate | Application | Topic: Transcription sequence
+A DNA template strand is 3′-TACCGTGGATTT-5′. Which mRNA is transcribed?
+A. 5′-AUGGCACCUAAA-3′
+B. 5′-TACCGTGGATTT-3′
+C. 5′-AAAUCCACGGUA-3′
+D. 5′-ATGGCACCTAAA-3′
+E. 5′-TTTAGGTGCCAT-3′
+Correct answer: A — 5′-AUGGCACCUAAA-3′. Explanation: mRNA is made 5′→3′ complementary to the DNA template: AUGGCACCUAAA.
+BIO-GEN-RPT-045 | Moderate | Application | Topic: Transcription sequence
+A DNA template strand is 3′-TACCCGGGATCA-5′. Which mRNA is transcribed?
+A. 5′-UGAUCCCGGGUA-3′
+B. 5′-ACTAGGGCCCAT-3′
+C. 5′-ATGGGCCCTAGT-3′
+D. 5′-AUGGGCCCUAGU-3′
+E. 5′-TACCCGGGATCA-3′
+Correct answer: D — 5′-AUGGGCCCUAGU-3′. Explanation: mRNA is made 5′→3′ complementary to the DNA template: AUGGGCCCUAGU.
+BIO-GEN-RPT-046 | Moderate | Application | Topic: Transcription sequence
+A DNA template strand is 3′-TACGGAACCTTT-5′. Which mRNA is transcribed?
+A. 5′-ATGCCTTGGAAA-3′
+B. 5′-TACGGAACCTTT-3′
+C. 5′-TTTCCAAGGCAT-3′
+D. 5′-AAAGGUUCCGUA-3′
+E. 5′-AUGCCUUGGAAA-3′
+Correct answer: E — 5′-AUGCCUUGGAAA-3′. Explanation: mRNA is made 5′→3′ complementary to the DNA template: AUGCCUUGGAAA.
+BIO-GEN-RPT-047 | Moderate | Application | Topic: Transcription sequence
+A DNA template strand is 3′-TACGCGAAAGGT-5′. Which mRNA is transcribed?
+A. 5′-AUGCGCUUUCCA-3′
+B. 5′-ACCUUUCGCGUA-3′
+C. 5′-TACGCGAAAGGT-3′
+D. 5′-TGGAAAGCGCAT-3′
+E. 5′-ATGCGCTTTCCA-3′
+Correct answer: A — 5′-AUGCGCUUUCCA-3′. Explanation: mRNA is made 5′→3′ complementary to the DNA template: AUGCGCUUUCCA.
+BIO-GEN-RPT-048 | Moderate | Application | Topic: Transcription sequence
+A DNA template strand is 3′-TACCCCAAAGGA-5′. Which mRNA is transcribed?
+A. 5′-TACCCCAAAGGA-3′
+B. 5′-ATGGGGTTTCCT-3′
+C. 5′-AGGAAACCCCAT-3′
+D. 5′-AUGGGGUUUCCU-3′
+E. 5′-UCCUUUGGGGUA-3′
+Correct answer: D — 5′-AUGGGGUUUCCU-3′. Explanation: mRNA is made 5′→3′ complementary to the DNA template: AUGGGGUUUCCU.
+BIO-GEN-RPT-049 | Moderate | Application | Topic: Translation sequence
+An mRNA sequence is 5′-AUGCCACGAAGG-3′. Which peptide is produced until the first stop codon?
+A. Met–Pro–Arg–?
+B. Met–Arg–Lys–Gly
+C. Met–Ala–Lys–Ser
+D. Met–Ala–Gly–Pro
+E. Met–Gly–Pro–Phe
+Correct answer: A — Met–Pro–Arg–?. Explanation: Reading codons from 5′ to 3′ gives Met–Pro–Arg–?.
+BIO-GEN-RPT-050 | Moderate | Application | Topic: Translation sequence
+An mRNA sequence is 5′-AUGGCCCCAAAA-3′. Which peptide is produced until the first stop codon?
+A. Met–Ala–Lys–Ser
+B. Met–Ala–Pro–Lys
+C. Met–Arg–Lys–Gly
+D. Met–Gly–Pro–Phe
+E. Met–Ala–Gly–Pro
+Correct answer: B — Met–Ala–Pro–Lys. Explanation: Reading codons from 5′ to 3′ gives Met–Ala–Pro–Lys.
+BIO-GEN-RPT-051 | Moderate | Application | Topic: Translation sequence
+An mRNA sequence is 5′-AUGCGUUGGCCU-3′. Which peptide is produced until the first stop codon?
+A. Met–Ala–Gly–Pro
+B. Met–Gly–Pro–Phe
+C. Met–Arg–Trp–Pro
+D. Met–Arg–Lys–Gly
+E. Met–Ala–Lys–Ser
+Correct answer: C — Met–Arg–Trp–Pro. Explanation: Reading codons from 5′ to 3′ gives Met–Arg–Trp–Pro.
+BIO-GEN-RPT-052 | Moderate | Application | Topic: Translation sequence
+An mRNA sequence is 5′-AUGGCAUUUGGC-3′. Which peptide is produced until the first stop codon?
+A. Met–Arg–Lys–Gly
+B. Met–Ala–Gly–Pro
+C. Met–Gly–Pro–Phe
+D. Met–Ala–Lys–Ser
+E. Met–Ala–Phe–Gly
+Correct answer: E — Met–Ala–Phe–Gly. Explanation: Reading codons from 5′ to 3′ gives Met–Ala–Phe–Gly.
+BIO-GEN-RPT-053 | Moderate | Application | Topic: Translation sequence
+An mRNA sequence is 5′-AUGCCCGGUAAA-3′. Which peptide is produced until the first stop codon?
+A. Met–Gly–Pro–Phe
+B. Met–Ala–Lys–Ser
+C. Met–Pro–Gly–Lys
+D. Met–Arg–Lys–Gly
+E. Met–Ala–Gly–Pro
+Correct answer: C — Met–Pro–Gly–Lys. Explanation: Reading codons from 5′ to 3′ gives Met–Pro–Gly–Lys.
+BIO-GEN-RPT-054 | Moderate | Application | Topic: Mutation consequence
+A substitution changes GAA to GAG; both encode glutamate. This mutation is:
+A. Chromosomal deletion
+B. Nonsense
+C. Missense
+D. Silent
+E. Frameshift
+Correct answer: D — Silent. Explanation: The codon changes without changing the amino acid.
+BIO-GEN-RPT-055 | Moderate | Application | Topic: Frameshift
+A one-base insertion near the start of a coding region is often severe because it:
+A. Stops all transcription
+B. Removes every intron
+C. Duplicates the whole genome
+D. Shifts the reading frame of downstream codons
+E. Always creates an extra chromosome
+Correct answer: D — Shifts the reading frame of downstream codons. Explanation: A non-triplet insertion changes codon grouping downstream.
+BIO-GEN-RPT-056 | Moderate | Application | Topic: Replication enzymes
+A ligase inhibitor during DNA replication would most directly cause accumulation of:
+A. Extra centromeres
+B. Fused homologues
+C. Unjoined Okazaki fragments
+D. Uncharged tRNA
+E. Untranslated mRNA
+Correct answer: C — Unjoined Okazaki fragments. Explanation: Ligase seals adjacent DNA fragments on the lagging strand.
+BIO-GEN-RPT-057 | Moderate | Application | Topic: Gene regulation
+A promoter mutation that reduces RNA polymerase binding most directly causes:
+A. More chromosome pairs
+B. Faster translation
+C. Extra DNA replication origins
+D. Reduced transcription of that gene
+E. Increased ploidy
+Correct answer: D — Reduced transcription of that gene. Explanation: Promoter activity regulates transcription initiation.
+BIO-GEN-RPT-058 | Moderate | Application | Topic: Mutation consequence
+A stop codon is mutated into an amino-acid codon. The likely effect is:
+A. The reading frame must shift
+B. Translation extends until a later stop codon
+C. Transcription cannot start
+D. Chromosome number doubles
+E. Translation stops earlier
+Correct answer: B — Translation extends until a later stop codon. Explanation: Loss of a stop codon can extend the polypeptide.
+BIO-GEN-RPT-059 | Moderate | Application | Topic: RNA processing
+Failure to remove an intron from pre-mRNA may:
+A. Double chromosome number
+B. Prevent all DNA replication
+C. Alter the mature transcript and protein sequence
+D. Destroy all ribosomes
+E. Convert RNA into DNA
+Correct answer: C — Alter the mature transcript and protein sequence. Explanation: Intron retention can alter coding sequence or reading frame.
+BIO-GEN-RPT-060 | Moderate | Application | Topic: Translation initiation
+Changing the normal AUG start codon to AUA is most likely to:
+A. Create an extra chromosome
+B. Reduce or prevent initiation at that site
+C. Delete the promoter automatically
+D. Create a new intron
+E. Force a frameshift in DNA
+Correct answer: B — Reduce or prevent initiation at that site. Explanation: AUG is the usual initiation codon.
+BIO-GEN-RPT-061 | Moderate | Application | Topic: Translation
+A tRNA cannot be charged with its proper amino acid. Which process is most directly impaired?
+A. DNA replication
+B. Translation
+C. RNA splicing only
+D. Mitosis
+E. Chromosome condensation
+Correct answer: B — Translation. Explanation: Charged tRNAs are required to add amino acids during translation.
+BIO-GEN-RPT-062 | Moderate | Application | Topic: RNA processing
+Alternative splicing can explain how:
+A. All mutations are repaired
+B. A gamete becomes diploid
+C. DNA replicates without enzymes
+D. One gene produces multiple protein isoforms
+E. One chromosome becomes two homologues
+Correct answer: D — One gene produces multiple protein isoforms. Explanation: Different exon combinations produce different mature mRNAs.
+BIO-GEN-RPT-063 | Moderate | Application | Topic: Coding strand
+A coding DNA strand is 5′-ATG GAA TTT TGA-3′. The corresponding mRNA is:
+A. 5′-ATG GAA TTT TGA-3′
+B. 5′-AUG CUU AAA UGA-3′
+C. 5′-UAC CUU AAA ACU-3′
+D. 5′-AUG GAA UUU UGA-3′
+E. 3′-AUG GAA UUU UGA-5′
+Correct answer: D — 5′-AUG GAA UUU UGA-3′. Explanation: mRNA matches coding DNA except U replaces T.
+Hard Questions
+BIO-GEN-RPT-064 | Hard | Integrated / Application | Topic: Translation calculation
+A 300-nucleotide coding region includes one stop codon and no untranslated sequence. Maximum amino acids encoded?
+A. 101
+B. 297
+C. 100
+D. 99
+E. 300
+Correct answer: D — 99. Explanation: 100 codons are present, but the stop codon encodes no amino acid.
+BIO-GEN-RPT-065 | Hard | Integrated / Application | Topic: Translation calculation
+A 450-nucleotide coding region includes one stop codon. How many amino acids are encoded?
+A. 151
+B. 149
+C. 450
+D. 147
+E. 150
+Correct answer: B — 149. Explanation: 450/3=150 codons; one is stop, leaving 149 amino acids.
+BIO-GEN-RPT-066 | Hard | Integrated / Application | Topic: Mutation consequence
+A three-nucleotide deletion within a coding region most directly:
+A. Creates a trisomy
+B. Doubles chromosome number
+C. Stops all transcription
+D. Shifts every downstream codon
+E. Deletes one amino acid while preserving the downstream reading frame
+Correct answer: E — Deletes one amino acid while preserving the downstream reading frame. Explanation: Deleting one whole codon preserves reading frame.
+BIO-GEN-RPT-067 | Hard | Integrated / Application | Topic: RNA processing
+A synonymous mutation near a splice junction changes protein output. Best explanation?
+A. Chromosome number changed
+B. Synonymous mutations always change amino acids
+C. DNA cannot replicate synonymous codons
+D. It disrupted a splice-regulatory sequence
+E. The code is not degenerate
+Correct answer: D — It disrupted a splice-regulatory sequence. Explanation: Synonymous changes can affect splicing even when amino-acid coding is unchanged.
+BIO-GEN-RPT-068 | Hard | Integrated / Application | Topic: Mutation consequence
+Normal mRNA is produced but no full-length protein is detected. Which defect best fits?
+A. A promoter deletion
+B. No DNA replication anywhere
+C. Increased promoter binding
+D. Loss of the whole gene
+E. An early nonsense mutation
+Correct answer: E — An early nonsense mutation. Explanation: Premature stop codons can truncate protein despite normal mRNA abundance.
+BIO-GEN-RPT-069 | Hard | Integrated / Application | Topic: Translation initiation
+A ribosome starts at a downstream AUG. The most likely product:
+A. Contains every intron
+B. Cannot contain peptide bonds
+C. Has doubled chromosome number
+D. Lacks part of the normal N-terminus
+E. Always has a longer N-terminus
+Correct answer: D — Lacks part of the normal N-terminus. Explanation: Downstream initiation omits upstream coding sequence.
+BIO-GEN-RPT-070 | Hard | Integrated / Application | Topic: Transcription termination
+RNA polymerase reads through the normal termination signal. First affected product?
+A. A shorter protein necessarily
+B. A shorter DNA chromosome
+C. A haploid nucleus
+D. An abnormally extended RNA transcript
+E. A new centromere
+Correct answer: D — An abnormally extended RNA transcript. Explanation: Failure of transcription termination extends the RNA.
+BIO-GEN-RPT-071 | Hard | Integrated / Application | Topic: Translation fidelity
+A translation-error drug causes codon-anticodon mispairing without changing DNA. Expected result?
+A. DNA mutations must occur
+B. Introns enter DNA
+C. Replication becomes conservative
+D. Incorrect amino acids can appear in proteins despite normal DNA
+E. Chromosome number doubles
+Correct answer: D — Incorrect amino acids can appear in proteins despite normal DNA. Explanation: Translation errors can alter protein sequence without genetic mutation.
+BIO-GEN-RPT-072 | Hard | Integrated / Application | Topic: Replication enzymes
+A helicase inhibitor acts at replication forks. Most direct effect?
+A. Splicing accelerates
+B. Translation alone stops
+C. Chromosome number doubles
+D. Ligase makes extra DNA
+E. DNA synthesis stalls because template strands cannot be separated
+Correct answer: E — DNA synthesis stalls because template strands cannot be separated. Explanation: Polymerase needs separated template strands.
+BIO-GEN-RPT-073 | Hard | Integrated / Application | Topic: Mutation consequence
+A missense mutation leaves protein function normal. Most plausible reason?
+A. A chromosome was lost
+B. No translation occurred
+C. The substituted amino acid is chemically similar or non-critical
+D. The mutation must be an intron
+E. All missense mutations are silent
+Correct answer: C — The substituted amino acid is chemically similar or non-critical. Explanation: Some amino-acid substitutions are functionally tolerated.
+BIO-GEN-RPT-074 | Hard | Integrated / Application | Topic: RNA processing
+A splice-donor mutation causes exon skipping. Which stage is directly altered first?
+A. Chromosome segregation
+B. Translation before RNA exists
+C. Pre-mRNA processing
+D. Mitosis
+E. DNA replication
+Correct answer: C — Pre-mRNA processing. Explanation: Splice-site changes first affect RNA processing.
+BIO-GEN-RPT-075 | Hard | Integrated / Application | Topic: Transcription + translation
+DNA template 3′-TACGGAATT-5′ is transcribed and translated. Which peptide is produced before termination?
+A. Met–Pro–Lys
+B. Met–Gly–Ser
+C. Met–Ala–Phe
+D. Met–Arg–Val
+E. Met–Pro
+Correct answer: E — Met–Pro. Explanation: The transcript is 5′-AUGCCUUAA-3′; translation gives Met–Pro before stop.
+BIO-GEN-RPT-076 | Hard | Integrated / Application | Topic: Transcription + translation
+DNA template 3′-TACCCGACT-5′ is transcribed and translated. Which peptide is produced before termination?
+A. Met–Pro–Lys
+B. Met–Gly
+C. Met–Gly–Ser
+D. Met–Arg–Val
+E. Met–Ala–Phe
+Correct answer: B — Met–Gly. Explanation: The transcript is 5′-AUGGGCUGA-3′; translation gives Met–Gly before stop.
+BIO-GEN-RPT-077 | Hard | Integrated / Application | Topic: Transcription + translation
+DNA template 3′-TACAAATTT-5′ is transcribed and translated. Which peptide is produced before termination?
+A. Met–Phe–Lys
+B. Met–Arg–Val
+C. Met–Gly–Ser
+D. Met–Ala–Phe
+E. Met–Pro–Lys
+Correct answer: A — Met–Phe–Lys. Explanation: The transcript is 5′-AUGUUUAAA-3′; translation gives Met–Phe–Lys before stop.
+BIO-GEN-RPT-078 | Hard | Integrated / Application | Topic: Transcription + translation
+DNA template 3′-TACGCGACT-5′ is transcribed and translated. Which peptide is produced before termination?
+A. Met–Ala–Phe
+B. Met–Arg–Val
+C. Met–Gly–Ser
+D. Met–Arg
+E. Met–Pro–Lys
+Correct answer: D — Met–Arg. Explanation: The transcript is 5′-AUGCGCUGA-3′; translation gives Met–Arg before stop.
+BIO-GEN-RPT-079 | Hard | Integrated / Application | Topic: Transcription + translation
+DNA template 3′-TACGGGTCA-5′ is transcribed and translated. Which peptide is produced before termination?
+A. Met–Pro–?
+B. Met–Pro–Lys
+C. Met–Ala–Phe
+D. Met–Arg–Val
+E. Met–Gly–Ser
+Correct answer: A — Met–Pro–?. Explanation: The transcript is 5′-AUGCCCAGU-3′; translation gives Met–Pro–? before stop.
+BIO-GEN-RPT-080 | Hard | Integrated | Topic: Mutation classification
+An mRNA codon changes from UUU (Phe) to UUC (Phe). What is the mutation class?
+A. Nonsense mutation
+B. Chromosomal translocation
+C. Silent mutation
+D. Frameshift mutation
+E. Missense mutation
+Correct answer: C — Silent mutation. Explanation: The codon change alters translation from Phe to Phe, so it is a silent mutation.
+BIO-GEN-RPT-081 | Hard | Integrated | Topic: Mutation classification
+An mRNA codon changes from UAU (Tyr) to UAA (Stop). What is the mutation class?
+A. Nonsense mutation
+B. Missense mutation
+C. Frameshift mutation
+D. Silent mutation
+E. Chromosomal translocation
+Correct answer: A — Nonsense mutation. Explanation: The codon change alters translation from Tyr to Stop, so it is a nonsense mutation.
+BIO-GEN-RPT-082 | Hard | Integrated | Topic: Mutation classification
+An mRNA codon changes from UGG (Trp) to UAG (Stop). What is the mutation class?
+A. Frameshift mutation
+B. Chromosomal translocation
+C. Nonsense mutation
+D. Missense mutation
+E. Silent mutation
+Correct answer: C — Nonsense mutation. Explanation: The codon change alters translation from Trp to Stop, so it is a nonsense mutation.
+BIO-GEN-RPT-083 | Hard | Integrated | Topic: Mutation classification
+An mRNA codon changes from AAA (Lys) to AGA (None). What is the mutation class?
+A. Frameshift mutation
+B. Nonsense mutation
+C. Chromosomal translocation
+D. Missense mutation
+E. Silent mutation
+Correct answer: D — Missense mutation. Explanation: The codon change alters translation from Lys to None, so it is a missense mutation.
+BIO-GEN-RPT-084 | Hard | Integrated | Topic: Mutation classification
+An mRNA codon changes from GAA (Glu) to GAG (Glu). What is the mutation class?
+A. Silent mutation
+B. Chromosomal translocation
+C. Nonsense mutation
+D. Frameshift mutation
+E. Missense mutation
+Correct answer: A — Silent mutation. Explanation: The codon change alters translation from Glu to Glu, so it is a silent mutation.
+4. Mendelian Genetics & Probability
+Quota: 84 MCQs — 42 Easy, 21 Moderate, 21 Hard.
+Easy Questions
+BIO-GEN-MEN-001 | Easy | Recall / Conceptual | Topic: Terminology
+Homozygous dominant genotype:
+A. Aa
+B. A
+C. aa
+D. AA
+E. AB
+Correct answer: D — AA. Explanation: Homozygous dominant means two dominant alleles.
+BIO-GEN-MEN-002 | Easy | Recall / Conceptual | Topic: Terminology
+Heterozygous genotype:
+A. Aa
+B. aa
+C. BB
+D. AA
+E. A
+Correct answer: A — Aa. Explanation: A heterozygote has different alleles.
+BIO-GEN-MEN-003 | Easy | Recall / Conceptual | Topic: Terminology
+Phenotype refers to:
+A. Genome only
+B. Allele pair only
+C. Chromosome number only
+D. Gamete only
+E. Observable trait
+Correct answer: E — Observable trait. Explanation: Phenotype is the observable expression.
+BIO-GEN-MEN-004 | Easy | Recall / Conceptual | Topic: Segregation
+Mendel’s segregation law describes:
+A. Species separation
+B. Codon pairing
+C. Protein segregation
+D. DNA replication
+E. Separation of two alleles into different gametes
+Correct answer: E — Separation of two alleles into different gametes. Explanation: Alleles segregate during gamete formation.
+BIO-GEN-MEN-005 | Easy | Recall / Conceptual | Topic: Independent assortment
+Independent assortment applies most directly to:
+A. Sister chromatids only
+B. Mitochondrial genes only
+C. Unlinked genes
+D. Completely linked genes
+E. Two alleles at one locus
+Correct answer: C — Unlinked genes. Explanation: Unlinked loci assort independently.
+BIO-GEN-MEN-006 | Easy | Recall / Conceptual | Topic: Incomplete dominance
+Incomplete dominance produces a heterozygote with:
+A. Recessive phenotype only
+B. Dominant phenotype only
+C. An intermediate phenotype
+D. Two cell types
+E. No phenotype
+Correct answer: C — An intermediate phenotype. Explanation: The heterozygote is intermediate.
+BIO-GEN-MEN-007 | Easy | Recall / Conceptual | Topic: Codominance
+Codominance means:
+A. One allele is silent
+B. Chromosome number changes
+C. Both alleles are expressed in the heterozygote
+D. No alleles are expressed
+E. Phenotype is always intermediate
+Correct answer: C — Both alleles are expressed in the heterozygote. Explanation: Both allele products appear.
+BIO-GEN-MEN-008 | Easy | Recall / Conceptual | Topic: ABO
+ABO blood group illustrates:
+A. Only sex linkage
+B. Polyploidy
+C. Y linkage
+D. Only incomplete dominance
+E. Multiple alleles and codominance
+Correct answer: E — Multiple alleles and codominance. Explanation: IA and IB are codominant among three common alleles.
+BIO-GEN-MEN-009 | Easy | Recall / Conceptual | Topic: Test cross
+A test cross uses an unknown dominant phenotype individual crossed with:
+A. A gamete only
+B. An unrelated species
+C. A homozygous dominant individual
+D. A heterozygote only
+E. A homozygous recessive individual
+Correct answer: E — A homozygous recessive individual. Explanation: The recessive tester reveals hidden recessive alleles.
+BIO-GEN-MEN-010 | Easy | Recall / Conceptual | Topic: Gametes
+An aa individual produces gametes carrying:
+A. A or a
+B. Aa
+C. A only
+D. a only
+E. AA
+Correct answer: D — a only. Explanation: Each gamete gets one allele and aa has only a.
+BIO-GEN-MEN-011 | Easy | Recall / Conceptual | Topic: Gametes
+An Aa individual produces A gametes with probability:
+A. 3/4
+B. 1/2
+C. 0
+D. 1/4
+E. 1
+Correct answer: B — 1/2. Explanation: Segregation gives half A and half a.
+BIO-GEN-MEN-012 | Easy | Recall / Conceptual | Topic: Probability
+For independent events, joint probability is found by:
+A. Always addition
+B. Division by two
+C. Subtraction
+D. Multiplication
+E. Ignoring one event
+Correct answer: D — Multiplication. Explanation: Independent probabilities multiply.
+BIO-GEN-MEN-013 | Easy | Recall / Conceptual | Topic: Probability
+Mutually exclusive alternative probabilities are combined by:
+A. Squaring
+B. Subtraction only
+C. Multiplication
+D. Division
+E. Addition
+Correct answer: E — Addition. Explanation: Alternative exclusive probabilities add.
+BIO-GEN-MEN-014 | Easy | Recall / Conceptual | Topic: ABO
+Blood group O genotype is:
+A. ii
+B. IAi
+C. IBIB
+D. IAIB
+E. IAIA
+Correct answer: A — ii. Explanation: O phenotype requires ii.
+BIO-GEN-MEN-015 | Easy | Recall / Conceptual | Topic: ABO
+Blood group AB genotype is:
+A. IBIB
+B. IAi
+C. ii
+D. IAIB
+E. IAIA
+Correct answer: D — IAIB. Explanation: IA and IB together produce AB.
+BIO-GEN-MEN-016 | Easy | Recall / Conceptual | Topic: Dominance
+A recessive phenotype under complete dominance requires:
+A. AA or Aa
+B. Any genotype
+C. AA
+D. Aa
+E. aa
+Correct answer: E — aa. Explanation: The recessive phenotype requires two recessive alleles.
+BIO-GEN-MEN-017 | Easy | Recall / Conceptual | Topic: Dominance
+A dominant phenotype can have genotype:
+A. aa only
+B. AA or Aa
+C. Aa only
+D. AA only
+E. ii only
+Correct answer: B — AA or Aa. Explanation: Either AA or Aa expresses the dominant trait.
+BIO-GEN-MEN-018 | Easy | Recall / Conceptual | Topic: Gamete combinations
+Three heterozygous independent loci AaBbCc can produce how many gamete types?
+A. 6
+B. 16
+C. 4
+D. 8
+E. 3
+Correct answer: D — 8. Explanation: 2^3=8 gamete types.
+BIO-GEN-MEN-019 | Easy | Calculation | Topic: Mendelian probability
+Assuming independent assortment and standard Mendelian inheritance, in Aa × Aa, what is the probability of aa?
+A. 0
+B. 1/2
+C. 1/8
+D. 1/16
+E. 1/4
+Correct answer: E — 1/4. Explanation: Standard segregation/independent assortment gives probability 1/4.
+BIO-GEN-MEN-020 | Easy | Calculation | Topic: Mendelian probability
+Assuming independent assortment and standard Mendelian inheritance, in Aa × Aa, what is the probability of Aa?
+A. 1/4
+B. 1/8
+C. 1/16
+D. 0
+E. 1/2
+Correct answer: E — 1/2. Explanation: Standard segregation/independent assortment gives probability 1/2.
+BIO-GEN-MEN-021 | Easy | Calculation | Topic: Mendelian probability
+Assuming independent assortment and standard Mendelian inheritance, in Aa × Aa, what is the probability of dominant phenotype?
+A. 0
+B. 1/8
+C. 3/4
+D. 1/16
+E. 1/4
+Correct answer: C — 3/4. Explanation: Standard segregation/independent assortment gives probability 3/4.
+BIO-GEN-MEN-022 | Easy | Calculation | Topic: Mendelian probability
+Assuming independent assortment and standard Mendelian inheritance, in Aa × aa, what is the probability of aa?
+A. 1/8
+B. 0
+C. 1/2
+D. 1/4
+E. 1/16
+Correct answer: C — 1/2. Explanation: Standard segregation/independent assortment gives probability 1/2.
+BIO-GEN-MEN-023 | Easy | Calculation | Topic: Mendelian probability
+Assuming independent assortment and standard Mendelian inheritance, in Aa × aa, what is the probability of Aa?
+A. 0
+B. 1/16
+C. 1/8
+D. 1/2
+E. 1/4
+Correct answer: D — 1/2. Explanation: Standard segregation/independent assortment gives probability 1/2.
+BIO-GEN-MEN-024 | Easy | Calculation | Topic: Mendelian probability
+Assuming independent assortment and standard Mendelian inheritance, in AA × aa, what is the probability of Aa?
+A. 1/16
+B. 1/4
+C. 1/8
+D. 1
+E. 0
+Correct answer: D — 1. Explanation: Standard segregation/independent assortment gives probability 1.
+BIO-GEN-MEN-025 | Easy | Calculation | Topic: Mendelian probability
+Assuming independent assortment and standard Mendelian inheritance, in AA × Aa, what is the probability of aa?
+A. 0
+B. 1/2
+C. 1/8
+D. 1/16
+E. 1/4
+Correct answer: A — 0. Explanation: Standard segregation/independent assortment gives probability 0.
+BIO-GEN-MEN-026 | Easy | Calculation | Topic: Mendelian probability
+Assuming independent assortment and standard Mendelian inheritance, in AA × Aa, what is the probability of Aa?
+A. 1/4
+B. 1/16
+C. 1/2
+D. 0
+E. 1/8
+Correct answer: C — 1/2. Explanation: Standard segregation/independent assortment gives probability 1/2.
+BIO-GEN-MEN-027 | Easy | Calculation | Topic: Mendelian probability
+Assuming independent assortment and standard Mendelian inheritance, in aa × aa, what is the probability of aa?
+A. 1/16
+B. 1/8
+C. 0
+D. 1
+E. 1/4
+Correct answer: D — 1. Explanation: Standard segregation/independent assortment gives probability 1.
+BIO-GEN-MEN-028 | Easy | Calculation | Topic: Mendelian probability
+Assuming independent assortment and standard Mendelian inheritance, in AaBb × aabb, what is the probability of aabb?
+A. 1/16
+B. 0
+C. 1/4
+D. 1/2
+E. 1/8
+Correct answer: C — 1/4. Explanation: Standard segregation/independent assortment gives probability 1/4.
+BIO-GEN-MEN-029 | Easy | Calculation | Topic: Mendelian probability
+Assuming independent assortment and standard Mendelian inheritance, in AaBb × aabb, what is the probability of AaBb?
+A. 1/2
+B. 1/4
+C. 0
+D. 1/8
+E. 1/16
+Correct answer: B — 1/4. Explanation: Standard segregation/independent assortment gives probability 1/4.
+BIO-GEN-MEN-030 | Easy | Calculation | Topic: Mendelian probability
+Assuming independent assortment and standard Mendelian inheritance, in AaBb × AaBb, what is the probability of aabb?
+A. 1/2
+B. 0
+C. 1/4
+D. 1/16
+E. 1/8
+Correct answer: D — 1/16. Explanation: Standard segregation/independent assortment gives probability 1/16.
+BIO-GEN-MEN-031 | Easy | Calculation | Topic: Mendelian probability
+Assuming independent assortment and standard Mendelian inheritance, in AaBb × AaBb, what is the probability of A_B_?
+A. 1/4
+B. 1/8
+C. 0
+D. 9/16
+E. 1/16
+Correct answer: D — 9/16. Explanation: Standard segregation/independent assortment gives probability 9/16.
+BIO-GEN-MEN-032 | Easy | Calculation | Topic: Mendelian probability
+Assuming independent assortment and standard Mendelian inheritance, in AaBb × AaBb, what is the probability of aaB_?
+A. 1/16
+B. 1/4
+C. 1/8
+D. 0
+E. 3/16
+Correct answer: E — 3/16. Explanation: Standard segregation/independent assortment gives probability 3/16.
+BIO-GEN-MEN-033 | Easy | Calculation | Topic: Mendelian probability
+Assuming independent assortment and standard Mendelian inheritance, in AaBb × AaBb, what is the probability of A_bb?
+A. 1/16
+B. 1/8
+C. 3/16
+D. 1/4
+E. 0
+Correct answer: C — 3/16. Explanation: Standard segregation/independent assortment gives probability 3/16.
+BIO-GEN-MEN-034 | Easy | Calculation | Topic: Mendelian probability
+Assuming independent assortment and standard Mendelian inheritance, in IAi × IBi, what is the probability of AB phenotype?
+A. 1/2
+B. 1/4
+C. 1/8
+D. 1/16
+E. 0
+Correct answer: B — 1/4. Explanation: Standard segregation/independent assortment gives probability 1/4.
+BIO-GEN-MEN-035 | Easy | Calculation | Topic: Mendelian probability
+Assuming independent assortment and standard Mendelian inheritance, in IAi × IBi, what is the probability of O phenotype?
+A. 1/16
+B. 1/8
+C. 1/4
+D. 1/2
+E. 0
+Correct answer: C — 1/4. Explanation: Standard segregation/independent assortment gives probability 1/4.
+BIO-GEN-MEN-036 | Easy | Calculation | Topic: Mendelian probability
+Assuming independent assortment and standard Mendelian inheritance, in IAIB × ii, what is the probability of A phenotype?
+A. 0
+B. 1/2
+C. 1/16
+D. 1/8
+E. 1/4
+Correct answer: B — 1/2. Explanation: Standard segregation/independent assortment gives probability 1/2.
+BIO-GEN-MEN-037 | Easy | Calculation | Topic: Mendelian probability
+Assuming independent assortment and standard Mendelian inheritance, in IAIB × ii, what is the probability of B phenotype?
+A. 1/8
+B. 1/16
+C. 0
+D. 1/4
+E. 1/2
+Correct answer: E — 1/2. Explanation: Standard segregation/independent assortment gives probability 1/2.
+BIO-GEN-MEN-038 | Easy | Calculation | Topic: Mendelian probability
+Assuming independent assortment and standard Mendelian inheritance, in IAi × ii, what is the probability of O phenotype?
+A. 0
+B. 1/8
+C. 1/16
+D. 1/4
+E. 1/2
+Correct answer: E — 1/2. Explanation: Standard segregation/independent assortment gives probability 1/2.
+BIO-GEN-MEN-039 | Easy | Calculation | Topic: Mendelian probability
+Assuming independent assortment and standard Mendelian inheritance, in AaBbCc × aabbcc, what is the probability of aabbcc?
+A. 1/2
+B. 1/16
+C. 1/8
+D. 1/4
+E. 0
+Correct answer: C — 1/8. Explanation: Standard segregation/independent assortment gives probability 1/8.
+BIO-GEN-MEN-040 | Easy | Calculation | Topic: Mendelian probability
+Assuming independent assortment and standard Mendelian inheritance, in AaBb, what is the probability of AB gamete?
+A. 1/2
+B. 1/16
+C. 1/8
+D. 0
+E. 1/4
+Correct answer: E — 1/4. Explanation: Standard segregation/independent assortment gives probability 1/4.
+BIO-GEN-MEN-041 | Easy | Calculation | Topic: Mendelian probability
+Assuming independent assortment and standard Mendelian inheritance, in AABb, what is the probability of AB gamete?
+A. 1/4
+B. 1/16
+C. 1/2
+D. 0
+E. 1/8
+Correct answer: C — 1/2. Explanation: Standard segregation/independent assortment gives probability 1/2.
+BIO-GEN-MEN-042 | Easy | Calculation | Topic: Mendelian probability
+Assuming independent assortment and standard Mendelian inheritance, in AABb, what is the probability of ab gamete?
+A. 1/8
+B. 0
+C. 1/2
+D. 1/16
+E. 1/4
+Correct answer: B — 0. Explanation: Standard segregation/independent assortment gives probability 0.
+Moderate Questions
+BIO-GEN-MEN-043 | Moderate | Calculation / Application | Topic: Multilocus probability
+For AaBb × AaBb, assuming independent loci, what is the probability of A_B_?
+A. 9/16
+B. 1/32
+C. 1/8
+D. 1/16
+E. 1/64
+Correct answer: A — 9/16. Explanation: Multiply the independent locus probabilities to obtain 9/16.
+BIO-GEN-MEN-044 | Moderate | Calculation / Application | Topic: Multilocus probability
+For AaBb × AaBb, assuming independent loci, what is the probability of exactly one recessive phenotype?
+A. 1/16
+B. 6/16
+C. 1/64
+D. 1/32
+E. 1/8
+Correct answer: B — 6/16. Explanation: Multiply the independent locus probabilities to obtain 6/16.
+BIO-GEN-MEN-045 | Moderate | Calculation / Application | Topic: Multilocus probability
+For AaBb × AaBb, assuming independent loci, what is the probability of homozygous at both loci?
+A. 1/64
+B. 1/16
+C. 1/32
+D. 1/4
+E. 1/8
+Correct answer: D — 1/4. Explanation: Multiply the independent locus probabilities to obtain 1/4.
+BIO-GEN-MEN-046 | Moderate | Calculation / Application | Topic: Multilocus probability
+For AaBb × AaBb, assuming independent loci, what is the probability of AaBb?
+A. 1/4
+B. 1/16
+C. 1/32
+D. 1/8
+E. 1/64
+Correct answer: A — 1/4. Explanation: Multiply the independent locus probabilities to obtain 1/4.
+BIO-GEN-MEN-047 | Moderate | Calculation / Application | Topic: Multilocus probability
+For AaBb × AaBb, assuming independent loci, what is the probability of Aabb?
+A. 1/16
+B. 1/64
+C. 1/4
+D. 1/32
+E. 1/8
+Correct answer: E — 1/8. Explanation: Multiply the independent locus probabilities to obtain 1/8.
+BIO-GEN-MEN-048 | Moderate | Calculation / Application | Topic: Multilocus probability
+For AaBb × Aabb, assuming independent loci, what is the probability of aaBb?
+A. 1/16
+B. 1/4
+C. 1/64
+D. 1/32
+E. 1/8
+Correct answer: E — 1/8. Explanation: Multiply the independent locus probabilities to obtain 1/8.
+BIO-GEN-MEN-049 | Moderate | Calculation / Application | Topic: Multilocus probability
+For AaBbCc × aabbcc, assuming independent loci, what is the probability of aabbcc?
+A. 1/8
+B. 1/64
+C. 1/32
+D. 1/4
+E. 1/16
+Correct answer: A — 1/8. Explanation: Multiply the independent locus probabilities to obtain 1/8.
+BIO-GEN-MEN-050 | Moderate | Calculation / Application | Topic: Multilocus probability
+For AaBbCc × AaBbCc, assuming independent loci, what is the probability of A_B_C_?
+A. 1/64
+B. 1/32
+C. 27/64
+D. 1/8
+E. 1/16
+Correct answer: C — 27/64. Explanation: Multiply the independent locus probabilities to obtain 27/64.
+BIO-GEN-MEN-051 | Moderate | Calculation / Application | Topic: Repeated events
+Two Aa parents have three children. Probability all three show dominant phenotype?
+A. 27/64
+B. 37/64
+C. 1/64
+D. 9/16
+E. 3/4
+Correct answer: A — 27/64. Explanation: Each child has 3/4 dominant probability; (3/4)^3=27/64.
+BIO-GEN-MEN-052 | Moderate | Calculation / Application | Topic: Repeated events
+Two Aa parents have two children. Probability exactly one is aa?
+A. 1/4
+B. 9/16
+C. 1/16
+D. 3/8
+E. 1/2
+Correct answer: D — 3/8. Explanation: 2×(1/4)×(3/4)=3/8.
+BIO-GEN-MEN-053 | Moderate | Calculation / Application | Topic: Conditional probability
+Among dominant-phenotype offspring from Aa×Aa, what fraction are heterozygous?
+A. 3/4
+B. 1/3
+C. 1/4
+D. 1/2
+E. 2/3
+Correct answer: E — 2/3. Explanation: Among AA:Aa =1:2, two thirds are Aa.
+BIO-GEN-MEN-054 | Moderate | Calculation / Application | Topic: Test cross
+A test cross gives a 1:1 dominant:recessive ratio. Unknown dominant parent genotype?
+A. Aa
+B. Cannot determine
+C. aa
+D. AA
+E. A_ only
+Correct answer: A — Aa. Explanation: A heterozygote crossed with aa gives 1:1.
+BIO-GEN-MEN-055 | Moderate | Calculation / Application | Topic: Monohybrid inference
+Two purple heterozygotes produce about 3:1 purple:white. Parents are:
+A. PP × pp
+B. PP × Pp
+C. PP × PP
+D. Pp × Pp
+E. pp × pp
+Correct answer: D — Pp × Pp. Explanation: A 3:1 phenotype ratio is expected from Pp×Pp.
+BIO-GEN-MEN-056 | Moderate | Calculation / Application | Topic: Incomplete dominance
+In incomplete dominance Rr×Rr, fraction intermediate?
+A. 1/2
+B. 1
+C. 0
+D. 3/4
+E. 1/4
+Correct answer: A — 1/2. Explanation: Heterozygotes are 2/4 and show the intermediate phenotype.
+BIO-GEN-MEN-057 | Moderate | Calculation / Application | Topic: ABO
+IAi × IBi: probability of AB child?
+A. 0
+B. 1
+C. 1/4
+D. 1/2
+E. 3/4
+Correct answer: C — 1/4. Explanation: IA and IB combine in one of four equally likely genotypes.
+BIO-GEN-MEN-058 | Moderate | Calculation / Application | Topic: ABO
+IAIB × ii produces expected phenotype ratio:
+A. 1 A : 1 B
+B. 1 AB : 1 O
+C. 3 A : 1 O
+D. All AB
+E. 1 A : 1 B : 1 AB : 1 O
+Correct answer: A — 1 A : 1 B. Explanation: The AB parent gives IA or IB; the O parent gives i.
+BIO-GEN-MEN-059 | Moderate | Calculation / Application | Topic: Repeated events
+A parent AaBb makes two successive gametes. Probability both are AB?
+A. 3/16
+B. 1/16
+C. 1/8
+D. 1/4
+E. 1/2
+Correct answer: B — 1/16. Explanation: Each AB gamete is 1/4; two in succession is 1/16.
+BIO-GEN-MEN-060 | Moderate | Calculation / Application | Topic: Complement probability
+For AaBb×AaBb, probability at least one recessive phenotype?
+A. 6/16
+B. 1/16
+C. 3/4
+D. 7/16
+E. 9/16
+Correct answer: D — 7/16. Explanation: 1−P(A_B_)=1−9/16=7/16.
+BIO-GEN-MEN-061 | Moderate | Calculation / Application | Topic: Conditional probability
+For AaBb×AaBb, among A_B_ offspring what fraction are AaBb?
+A. 1/4
+B. 2/3
+C. 1/2
+D. 1/9
+E. 4/9
+Correct answer: E — 4/9. Explanation: AaBb is 4/16 and A_B_ is 9/16, so 4/9.
+BIO-GEN-MEN-062 | Moderate | Calculation / Application | Topic: Conditional probability
+Carrier parents Aa×Aa have an unaffected child. Probability that child is carrier?
+A. 1/2
+B. 1/3
+C. 3/4
+D. 2/3
+E. 1/4
+Correct answer: D — 2/3. Explanation: Conditioning on unaffected removes aa, leaving AA:Aa=1:2.
+BIO-GEN-MEN-063 | Moderate | Calculation / Application | Topic: Conditional probability
+For AaBb×AaBb, among A_bb offspring what fraction are Aabb?
+A. 2/3
+B. 3/4
+C. 1/3
+D. 1/4
+E. 1/2
+Correct answer: A — 2/3. Explanation: A_bb contains AAbb:Aabb=1:2.
+Hard Questions
+BIO-GEN-MEN-064 | Hard | Integrated / Calculation | Topic: Binomial genetics
+Two Aa parents have four children. Probability exactly two are aa?
+A. 3/8
+B. 1/4
+C. 27/128
+D. 9/64
+E. 81/256
+Correct answer: C — 27/128. Explanation: C(4,2)(1/4)^2(3/4)^2=27/128.
+BIO-GEN-MEN-065 | Hard | Integrated / Calculation | Topic: Complement probability
+Aa×Aa parents have two children. Probability at least one is aa?
+A. 1/16
+B. 7/16
+C. 1/4
+D. 9/16
+E. 3/8
+Correct answer: B — 7/16. Explanation: 1−(3/4)^2=7/16.
+BIO-GEN-MEN-066 | Hard | Integrated / Calculation | Topic: Repeated events
+Aa×Aa parents have three children. Probability none is aa?
+A. 3/4
+B. 9/16
+C. 37/64
+D. 27/64
+E. 1/64
+Correct answer: D — 27/64. Explanation: (3/4)^3=27/64.
+BIO-GEN-MEN-067 | Hard | Integrated / Calculation | Topic: Dihybrid genotype
+AaBb×AaBb: probability heterozygous at exactly one locus?
+A. 1/2
+B. 3/4
+C. 1/8
+D. 3/8
+E. 1/4
+Correct answer: A — 1/2. Explanation: Exactly one heterozygous locus gives 1/4+1/4=1/2.
+BIO-GEN-MEN-068 | Hard | Integrated / Calculation | Topic: Dihybrid probability
+AaBb×AaBb: probability homozygous recessive at one or both loci?
+A. 1/2
+B. 1/16
+C. 7/16
+D. 9/16
+E. 6/16
+Correct answer: C — 7/16. Explanation: P(aa or bb)=1/4+1/4−1/16=7/16.
+BIO-GEN-MEN-069 | Hard | Integrated / Calculation | Topic: Multilocus probability
+AaBbCc×AaBbCc: probability AabbCc?
+A. 1/64
+B. 1/8
+C. 1/32
+D. 3/16
+E. 1/16
+Correct answer: E — 1/16. Explanation: 1/2×1/4×1/2=1/16.
+BIO-GEN-MEN-070 | Hard | Integrated / Calculation | Topic: Gamete combinations
+AaBbCcDd has how many gamete types?
+A. 32
+B. 8
+C. 16
+D. 4
+E. 64
+Correct answer: C — 16. Explanation: Four heterozygous loci give 2^4=16 gamete types.
+BIO-GEN-MEN-071 | Hard | Integrated / Calculation | Topic: Lethal alleles
+Aa×Aa with recessive lethal aa: among survivors, fraction Aa?
+A. 2/3
+B. 1/3
+C. 3/4
+D. 1/2
+E. 1/4
+Correct answer: A — 2/3. Explanation: Remove lethal aa from 1:2:1, leaving AA:Aa=1:2.
+BIO-GEN-MEN-072 | Hard | Integrated / Calculation | Topic: Codominance
+Codominant C1C2×C1C2: fraction expressing both alleles?
+A. 1
+B. 3/4
+C. 0
+D. 1/2
+E. 1/4
+Correct answer: D — 1/2. Explanation: C1C2 occurs in half the offspring.
+BIO-GEN-MEN-073 | Hard | Integrated / Calculation | Topic: Test-cross interpretation
+AaBb test cross yields ~1:1:1:1. Best interpretation?
+A. Genes are completely linked
+B. Genes assort approximately independently
+C. Both loci are homozygous
+D. Cross is impossible
+E. One allele is lethal
+Correct answer: B — Genes assort approximately independently. Explanation: A 1:1:1:1 test-cross ratio supports independent assortment.
+BIO-GEN-MEN-074 | Hard | Integrated / Calculation | Topic: Multilocus probability
+Two parents are heterozygous at 2 independent loci (AaBb... at each). What is the probability an offspring is homozygous recessive at all 2 loci?
+A. 1/4
+B. 1/32
+C. 1/64
+D. 1/16
+E. 1/8
+Correct answer: D — 1/16. Explanation: Each locus has 1/4 recessive-homozygote probability, so the joint probability is (1/4)^2=1/16.
+BIO-GEN-MEN-075 | Hard | Integrated / Calculation | Topic: Multilocus probability
+Two parents are heterozygous at 3 independent loci (AaBb... at each). What is the probability an offspring is homozygous recessive at all 3 loci?
+A. 1/16
+B. 1/8
+C. 1/64
+D. 1/256
+E. 1/128
+Correct answer: C — 1/64. Explanation: Each locus has 1/4 recessive-homozygote probability, so the joint probability is (1/4)^3=1/64.
+BIO-GEN-MEN-076 | Hard | Integrated / Calculation | Topic: Multilocus probability
+Two parents are heterozygous at 4 independent loci (AaBb... at each). What is the probability an offspring is homozygous recessive at all 4 loci?
+A. 1/256
+B. 1/512
+C. 1/16
+D. 1/32
+E. 1/1024
+Correct answer: A — 1/256. Explanation: Each locus has 1/4 recessive-homozygote probability, so the joint probability is (1/4)^4=1/256.
+BIO-GEN-MEN-077 | Hard | Integrated / Calculation | Topic: Multilocus probability
+Two parents are heterozygous at 5 independent loci (AaBb... at each). What is the probability an offspring is homozygous recessive at all 5 loci?
+A. 1/1024
+B. 1/4096
+C. 1/2048
+D. 1/32
+E. 1/64
+Correct answer: A — 1/1024. Explanation: Each locus has 1/4 recessive-homozygote probability, so the joint probability is (1/4)^5=1/1024.
+BIO-GEN-MEN-078 | Hard | Integrated / Calculation | Topic: Multilocus probability
+Two parents are heterozygous at 6 independent loci (AaBb... at each). What is the probability an offspring is homozygous recessive at all 6 loci?
+A. 1/128
+B. 1/64
+C. 1/8192
+D. 1/16384
+E. 1/4096
+Correct answer: E — 1/4096. Explanation: Each locus has 1/4 recessive-homozygote probability, so the joint probability is (1/4)^6=1/4096.
+BIO-GEN-MEN-079 | Hard | Integrated / Calculation | Topic: Binomial genetics
+Carrier parents Aa×Aa have 2 children. What is the probability exactly one child is affected by the recessive trait?
+A. 1/2
+B. 3/8
+C. 2/16
+D. 3/4
+E. 1/4
+Correct answer: B — 3/8. Explanation: Use the binomial term C(2,1)(1/4)(3/4)^1=3/8.
+BIO-GEN-MEN-080 | Hard | Integrated / Calculation | Topic: Binomial genetics
+Carrier parents Aa×Aa have 3 children. What is the probability exactly one child is affected by the recessive trait?
+A. 3/64
+B. 1/2
+C. 1/4
+D. 3/4
+E. 27/64
+Correct answer: E — 27/64. Explanation: Use the binomial term C(3,1)(1/4)(3/4)^2=27/64.
+BIO-GEN-MEN-081 | Hard | Integrated / Calculation | Topic: Binomial genetics
+Carrier parents Aa×Aa have 4 children. What is the probability exactly one child is affected by the recessive trait?
+A. 27/64
+B. 4/256
+C. 1/2
+D. 1/4
+E. 3/4
+Correct answer: A — 27/64. Explanation: Use the binomial term C(4,1)(1/4)(3/4)^3=27/64.
+BIO-GEN-MEN-082 | Hard | Integrated / Calculation | Topic: Binomial genetics
+Carrier parents Aa×Aa have 5 children. What is the probability exactly one child is affected by the recessive trait?
+A. 5/1024
+B. 3/4
+C. 1/4
+D. 405/1024
+E. 1/2
+Correct answer: D — 405/1024. Explanation: Use the binomial term C(5,1)(1/4)(3/4)^4=405/1024.
+BIO-GEN-MEN-083 | Hard | Integrated / Calculation | Topic: Binomial genetics
+Carrier parents Aa×Aa have 6 children. What is the probability exactly one child is affected by the recessive trait?
+A. 729/2048
+B. 1/2
+C. 3/4
+D. 6/4096
+E. 1/4
+Correct answer: A — 729/2048. Explanation: Use the binomial term C(6,1)(1/4)(3/4)^5=729/2048.
+BIO-GEN-MEN-084 | Hard | Integrated / Calculation | Topic: Binomial genetics
+Carrier parents Aa×Aa have 7 children. What is the probability exactly one child is affected by the recessive trait?
+A. 1/2
+B. 1/4
+C. 3/4
+D. 7/16384
+E. 5103/16384
+Correct answer: E — 5103/16384. Explanation: Use the binomial term C(7,1)(1/4)(3/4)^6=5103/16384.
+5. Classical & Human Genetics
+Quota: 72 MCQs — 36 Easy, 18 Moderate, 18 Hard.
+Easy Questions
+BIO-GEN-HUM-001 | Easy | Recall / Conceptual | Topic: Sex linkage
+An X-linked gene is located on:
+A. Y chromosome only
+B. Mitochondrion only
+C. X chromosome
+D. Both autosomes
+E. Autosome only
+Correct answer: C — X chromosome. Explanation: X-linked genes lie on the X chromosome.
+BIO-GEN-HUM-002 | Easy | Recall / Conceptual | Topic: Sex linkage
+Most X-linked genes in an XY male are:
+A. Hemizygous
+B. Homozygous
+C. Codominant by definition
+D. Absent
+E. Diploid pairs
+Correct answer: A — Hemizygous. Explanation: XY males have one copy of most X-linked genes.
+BIO-GEN-HUM-003 | Easy | Recall / Conceptual | Topic: Sex linkage
+A father gives his X chromosome to:
+A. Half sons only
+B. No children
+C. Only first child
+D. All daughters
+E. All sons
+Correct answer: D — All daughters. Explanation: Daughters inherit their father’s X.
+BIO-GEN-HUM-004 | Easy | Recall / Conceptual | Topic: Sex linkage
+A father gives his Y chromosome to:
+A. All children
+B. All sons
+C. No sons
+D. All daughters
+E. Half daughters
+Correct answer: B — All sons. Explanation: Sons inherit their father’s Y.
+BIO-GEN-HUM-005 | Easy | Recall / Conceptual | Topic: Pedigree symbols
+A pedigree square represents a:
+A. Male
+B. Female
+C. Affected only
+D. Gamete
+E. Carrier only
+Correct answer: A — Male. Explanation: Squares denote males.
+BIO-GEN-HUM-006 | Easy | Recall / Conceptual | Topic: Pedigree symbols
+A pedigree circle represents a:
+A. Male
+B. Carrier only
+C. Female
+D. Affected only
+E. Gamete
+Correct answer: C — Female. Explanation: Circles denote females.
+BIO-GEN-HUM-007 | Easy | Recall / Conceptual | Topic: Pedigree symbols
+A shaded pedigree symbol usually means:
+A. Male only
+B. Affected individual
+C. Female only
+D. Carrier in all systems
+E. Unaffected individual
+Correct answer: B — Affected individual. Explanation: Shading usually denotes affected status.
+BIO-GEN-HUM-008 | Easy | Recall / Conceptual | Topic: Pedigree patterns
+Autosomal dominant traits often show:
+A. Maternal inheritance only
+B. Vertical transmission through generations
+C. Only female transmission
+D. No affected parents
+E. Only male transmission
+Correct answer: B — Vertical transmission through generations. Explanation: Dominant traits often appear in successive generations.
+BIO-GEN-HUM-009 | Easy | Recall / Conceptual | Topic: Pedigree patterns
+Autosomal recessive traits may appear in children of:
+A. Two AA parents
+B. Only affected fathers
+C. Parents lacking the allele
+D. Two unaffected carriers
+E. Only affected mothers
+Correct answer: D — Two unaffected carriers. Explanation: Two carriers can produce aa offspring.
+BIO-GEN-HUM-010 | Easy | Recall / Conceptual | Topic: Sex linkage
+X-linked recessive traits are more frequent in males because males:
+A. Cannot carry recessive alleles
+B. Have no autosomes
+C. Have only one X allele at most loci
+D. Receive X only from fathers
+E. Have two X chromosomes
+Correct answer: C — Have only one X allele at most loci. Explanation: One recessive X allele can be expressed in XY males.
+BIO-GEN-HUM-011 | Easy | Recall / Conceptual | Topic: Sex linkage
+A carrier female for a simple X-linked recessive trait is usually:
+A. Haploid
+B. Hemizygous
+C. Homozygous recessive
+D. Heterozygous
+E. Y-linked
+Correct answer: D — Heterozygous. Explanation: A carrier has one normal and one mutant X allele.
+BIO-GEN-HUM-012 | Easy | Recall / Conceptual | Topic: Polygenic inheritance
+A polygenic trait is controlled by:
+A. No genes
+B. Only environment
+C. Only Y chromosome
+D. Many genes
+E. One gene only
+Correct answer: D — Many genes. Explanation: Polygenic traits involve multiple genes.
+BIO-GEN-HUM-013 | Easy | Recall / Conceptual | Topic: Multifactorial traits
+A multifactorial trait is influenced by:
+A. Genes and environment
+B. No inheritance
+C. Only mitochondria
+D. Only environment
+E. One gene only
+Correct answer: A — Genes and environment. Explanation: Multifactorial traits combine genetic and environmental factors.
+BIO-GEN-HUM-014 | Easy | Recall / Conceptual | Topic: Nondisjunction
+Nondisjunction is failure of:
+A. Gametes to fuse
+B. Chromosomes/chromatids to separate normally
+C. mRNA to splice
+D. Proteins to fold
+E. DNA to replicate
+Correct answer: B — Chromosomes/chromatids to separate normally. Explanation: Nondisjunction is segregation failure.
+BIO-GEN-HUM-015 | Easy | Recall / Conceptual | Topic: Aneuploidy
+Trisomy means:
+A. One copy of all chromosomes
+B. Three complete genomes only
+C. Two copies of every chromosome
+D. No homologues
+E. Three copies of one chromosome
+Correct answer: E — Three copies of one chromosome. Explanation: Trisomy is an extra copy of a chromosome.
+BIO-GEN-HUM-016 | Easy | Recall / Conceptual | Topic: Aneuploidy
+Monosomy means:
+A. Two normal copies
+B. Three copies of a chromosome
+C. Four genomes
+D. One copy of a chromosome normally present as a pair
+E. No DNA
+Correct answer: D — One copy of a chromosome normally present as a pair. Explanation: Monosomy is loss of one chromosome from a pair.
+BIO-GEN-HUM-017 | Easy | Recall / Conceptual | Topic: Linkage
+Crossing over occurs between:
+A. Sister chromatids only
+B. Ribosomes
+C. Unrelated proteins
+D. mRNAs
+E. Non-sister chromatids of homologous chromosomes
+Correct answer: E — Non-sister chromatids of homologous chromosomes. Explanation: Meiotic crossovers involve homologous non-sister chromatids.
+BIO-GEN-HUM-018 | Easy | Recall / Conceptual | Topic: Linkage
+Nearby genes on the same chromosome tend to be:
+A. Always independent
+B. Always dominant
+C. Always recessive
+D. Mitochondrial
+E. Linked
+Correct answer: E — Linked. Explanation: Nearby loci show linkage.
+BIO-GEN-HUM-019 | Easy | Recall / Conceptual | Topic: Gene mapping
+Recombination frequency generally increases with:
+A. Distance between linked genes
+B. Protein length
+C. Chromosome loss
+D. Allele dominance
+E. Cell size
+Correct answer: A — Distance between linked genes. Explanation: More distance gives more crossover opportunity.
+BIO-GEN-HUM-020 | Easy | Recall / Conceptual | Topic: Gene mapping
+10% recombination corresponds approximately to:
+A. 1 cM
+B. 10 cM
+C. 0 cM
+D. 50 cM
+E. 100 cM
+Correct answer: B — 10 cM. Explanation: 1% recombination approximates 1 map unit for short intervals.
+BIO-GEN-HUM-021 | Easy | Recall / Conceptual | Topic: Gene mapping
+Maximum observable recombination frequency is about:
+A. 75%
+B. 0%
+C. 100%
+D. 25%
+E. 50%
+Correct answer: E — 50%. Explanation: At 50%, loci behave as unlinked.
+BIO-GEN-HUM-022 | Easy | Recall / Conceptual | Topic: Autosomal recessive
+Autosomal recessive carrier genotype is usually:
+A. A only
+B. aa
+C. AA
+D. XY
+E. Aa
+Correct answer: E — Aa. Explanation: A heterozygote carries one recessive allele.
+BIO-GEN-HUM-023 | Easy | Recall / Conceptual | Topic: Autosomal recessive
+Affected simple autosomal recessive genotype:
+A. A_
+B. aa
+C. Aa
+D. AA
+E. XY
+Correct answer: B — aa. Explanation: Two recessive alleles are required.
+BIO-GEN-HUM-024 | Easy | Recall / Conceptual | Topic: Autosomal dominant
+An unaffected person for a fully penetrant autosomal dominant trait is:
+A. AA or Aa
+B. AA
+C. Cannot determine
+D. Aa
+E. aa
+Correct answer: E — aa. Explanation: Without the dominant allele, the phenotype is absent.
+BIO-GEN-HUM-025 | Easy | Recall / Conceptual | Topic: Mutation inheritance
+A somatic mutation occurs in:
+A. Only sperm
+B. Only zygotes
+C. Only gametes
+D. Only ova
+E. A non-germline body cell
+Correct answer: E — A non-germline body cell. Explanation: Somatic mutations arise in body cells.
+BIO-GEN-HUM-026 | Easy | Recall / Conceptual | Topic: Mutation inheritance
+A germline mutation can be transmitted to:
+A. Offspring
+B. Only proteins
+C. No future cells
+D. Only neighbouring body cells
+E. The other parent
+Correct answer: A — Offspring. Explanation: Gamete mutations can enter the zygote.
+BIO-GEN-HUM-027 | Easy | Recall / Conceptual | Topic: Y linkage
+Y-linked traits pass from affected father to:
+A. No sons
+B. Half daughters
+C. All sons
+D. All children
+E. All daughters
+Correct answer: C — All sons. Explanation: The Y chromosome is father-to-son.
+BIO-GEN-HUM-028 | Easy | Recall / Conceptual | Topic: Mitochondrial inheritance
+Mitochondrial DNA is usually inherited from:
+A. Y chromosome
+B. Both equally
+C. Autosomes only
+D. Mother
+E. Father
+Correct answer: D — Mother. Explanation: Human mitochondrial inheritance is maternal.
+BIO-GEN-HUM-029 | Easy | Recall / Conceptual | Topic: Mitochondrial inheritance
+An affected father with a mitochondrial mutation usually passes it to:
+A. All sons
+B. All daughters
+C. Only sons
+D. None of his children
+E. Half children
+Correct answer: D — None of his children. Explanation: Paternal mitochondria are generally not transmitted.
+BIO-GEN-HUM-030 | Easy | Recall / Conceptual | Topic: Chromosome rearrangements
+A chromosomal deletion removes:
+A. A DNA/chromosome segment
+B. A tRNA only
+C. A lipid
+D. A ribosome
+E. An extra chromosome
+Correct answer: A — A DNA/chromosome segment. Explanation: Deletions remove genetic material.
+BIO-GEN-HUM-031 | Easy | Recall / Conceptual | Topic: Chromosome rearrangements
+A duplication creates:
+A. An extra copy of a DNA segment
+B. A new species automatically
+C. A gamete
+D. Loss of DNA
+E. A stop codon only
+Correct answer: A — An extra copy of a DNA segment. Explanation: Duplications increase copy number.
+BIO-GEN-HUM-032 | Easy | Recall / Conceptual | Topic: Chromosome rearrangements
+A translocation involves:
+A. Movement of a chromosome segment to a new chromosomal location
+B. Single-base replacement only
+C. RNA splicing
+D. Protein translation
+E. Loss of all chromosomes
+Correct answer: A — Movement of a chromosome segment to a new chromosomal location. Explanation: Translocations relocate chromosome segments.
+BIO-GEN-HUM-033 | Easy | Recall / Conceptual | Topic: Chromosome rearrangements
+A balanced translocation may preserve:
+A. Normal meiosis always
+B. Zero reproductive risk
+C. All gene positions
+D. Normal chromosome structure at every locus
+E. Total genetic material
+Correct answer: E — Total genetic material. Explanation: Balanced rearrangements can preserve total dosage.
+BIO-GEN-HUM-034 | Easy | Recall / Conceptual | Topic: Polygenic traits
+A continuous trait such as height is commonly:
+A. Y-linked only
+B. Mitochondrial only
+C. Polygenic and environmentally influenced
+D. Non-genetic only
+E. Single-gene recessive only
+Correct answer: C — Polygenic and environmentally influenced. Explanation: Many genes plus environment contribute to continuous variation.
+BIO-GEN-HUM-035 | Easy | Recall / Conceptual | Topic: Monogenic traits
+A monogenic trait is primarily controlled by:
+A. Many genes only
+B. One gene
+C. Chromosome count only
+D. No genes
+E. Environment only
+Correct answer: B — One gene. Explanation: Monogenic means one-gene inheritance.
+BIO-GEN-HUM-036 | Easy | Recall / Conceptual | Topic: Pedigree inference
+Male-to-male transmission rules out:
+A. X-linked inheritance
+B. Recessive autosomal inheritance
+C. Autosomal inheritance
+D. Y-linked inheritance
+E. Some dominant inheritance
+Correct answer: A — X-linked inheritance. Explanation: A father gives sons his Y, not his X.
+Moderate Questions
+BIO-GEN-HUM-037 | Moderate | Application / Pedigree | Topic: X-linked probability
+XᴺXⁿ mother × XᴺY father; probability an affected son among all children?
+A. 0
+B. 3/4
+C. 1/2
+D. 1/4
+E. 1/8
+Correct answer: D — 1/4. Explanation: 1/2 male × 1/2 mutant X =1/4.
+BIO-GEN-HUM-038 | Moderate | Application / Pedigree | Topic: X-linked probability
+XᴺXⁿ mother × XᴺY father; given child is a son, probability affected?
+A. 1/2
+B. 1/4
+C. 3/4
+D. 1
+E. 0
+Correct answer: A — 1/2. Explanation: A son gets Y from father and one of mother’s X alleles.
+BIO-GEN-HUM-039 | Moderate | Application / Pedigree | Topic: X-linked inheritance
+Affected XⁿY father × XᴺXᴺ mother; daughters are:
+A. No daughters
+B. All carriers
+C. All affected
+D. Half carriers
+E. All non-carriers
+Correct answer: B — All carriers. Explanation: All daughters receive Xⁿ from father and Xᴺ from mother.
+BIO-GEN-HUM-040 | Moderate | Application / Pedigree | Topic: X-linked probability
+Affected father XⁿY × carrier mother XᴺXⁿ; probability a daughter is affected?
+A. 3/4
+B. 1/2
+C. 1/4
+D. 1
+E. 0
+Correct answer: B — 1/2. Explanation: All daughters receive Xⁿ from father; half receive Xⁿ from mother.
+BIO-GEN-HUM-041 | Moderate | Application / Pedigree | Topic: Linkage mapping
+Genes with 12% recombination yield total recombinant offspring in a test cross of:
+A. 24%
+B. 12%
+C. 6%
+D. 50%
+E. 88%
+Correct answer: B — 12%. Explanation: Test-cross recombinant frequency reflects recombination frequency.
+BIO-GEN-HUM-042 | Moderate | Application / Pedigree | Topic: Linkage mapping
+Genes with 20% recombination: each recombinant gamete class is about:
+A. 20%
+B. 5%
+C. 25%
+D. 40%
+E. 10%
+Correct answer: E — 10%. Explanation: Two reciprocal recombinant classes split the 20%.
+BIO-GEN-HUM-043 | Moderate | Application / Pedigree | Topic: Pedigree interpretation
+Unaffected parents have affected son and daughter. Most consistent mode?
+A. Mitochondrial from father
+B. Autosomal dominant fully penetrant
+C. X-linked recessive only
+D. Autosomal recessive
+E. Y-linked
+Correct answer: D — Autosomal recessive. Explanation: Affected children of both sexes from unaffected parents fit autosomal recessive.
+BIO-GEN-HUM-044 | Moderate | Application / Pedigree | Topic: Pedigree interpretation
+Trait appears every generation, both sexes, and father-to-son occurs. Most consistent mode?
+A. Autosomal dominant
+B. Y-linked only
+C. X-linked dominant
+D. X-linked recessive
+E. Mitochondrial
+Correct answer: A — Autosomal dominant. Explanation: Male-to-male excludes X-linkage; vertical transmission supports autosomal dominant.
+BIO-GEN-HUM-045 | Moderate | Application / Pedigree | Topic: Pedigree interpretation
+Trait affects only males and every affected father transmits it to every son. Mode?
+A. Y-linked
+B. X-linked recessive
+C. Mitochondrial
+D. Autosomal recessive
+E. X-linked dominant
+Correct answer: A — Y-linked. Explanation: Strict father-to-son inheritance fits Y linkage.
+BIO-GEN-HUM-046 | Moderate | Application / Pedigree | Topic: Nondisjunction
+Meiosis-I nondisjunction means:
+A. mRNA fails to splice
+B. Sister chromatids fail in meiosis II
+C. Gametes fail to fuse
+D. DNA fails to replicate
+E. Homologous chromosomes fail to separate
+Correct answer: E — Homologous chromosomes fail to separate. Explanation: Meiosis I separates homologues.
+BIO-GEN-HUM-047 | Moderate | Application / Pedigree | Topic: Nondisjunction
+Meiosis-II nondisjunction means:
+A. Sister chromatids fail to separate
+B. Homologues fail in meiosis I
+C. DNA fails to replicate
+D. Gametes fail to fuse
+E. Genes fail to mutate
+Correct answer: A — Sister chromatids fail to separate. Explanation: Meiosis II separates sister chromatids.
+BIO-GEN-HUM-048 | Moderate | Application / Pedigree | Topic: Gene mapping
+Recombination near 50% suggests loci:
+A. Are the same gene
+B. Assort as if unlinked
+C. Never recombine
+D. Are adjacent
+E. Are Y-linked
+Correct answer: B — Assort as if unlinked. Explanation: At 50%, parental and recombinant classes are equally frequent.
+BIO-GEN-HUM-049 | Moderate | Application / Pedigree | Topic: Autosomal recessive
+Carrier parents for autosomal recessive disease: unaffected child carrier probability?
+A. 1/4
+B. 1/2
+C. 3/4
+D. 1
+E. 2/3
+Correct answer: E — 2/3. Explanation: Condition on unaffected genotypes AA or Aa: ratio 1:2.
+BIO-GEN-HUM-050 | Moderate | Application / Pedigree | Topic: Autosomal dominant
+Aa affected autosomal-dominant parent × aa unaffected; affected child risk?
+A. 1/2
+B. 0
+C. 1
+D. 1/4
+E. 3/4
+Correct answer: A — 1/2. Explanation: Half inherit A.
+BIO-GEN-HUM-051 | Moderate | Application / Pedigree | Topic: Chromosome rearrangements
+Balanced reciprocal translocation carrier may be healthy because:
+A. Meiosis is impossible
+B. Chromosomes are normal
+C. All genes are duplicated
+D. No translocation exists
+E. No essential DNA is necessarily lost or gained
+Correct answer: E — No essential DNA is necessarily lost or gained. Explanation: Balanced rearrangements can preserve gene dosage.
+BIO-GEN-HUM-052 | Moderate | Application / Pedigree | Topic: Polygenic inheritance
+Continuous variation such as height is best explained by:
+A. One mitochondrial gene
+B. No genes
+C. Polygenic inheritance plus environment
+D. Y linkage
+E. One dominant allele only
+Correct answer: C — Polygenic inheritance plus environment. Explanation: Multiple genes and environment produce continuous variation.
+BIO-GEN-HUM-053 | Moderate | Application / Pedigree | Topic: Pedigree interpretation
+Affected mother transmits trait to sons and daughters; affected father transmits to none. Best mode?
+A. X-linked dominant
+B. Mitochondrial
+C. Autosomal dominant
+D. Autosomal recessive
+E. Y-linked
+Correct answer: B — Mitochondrial. Explanation: Maternal-only transmission fits mitochondrial inheritance.
+BIO-GEN-HUM-054 | Moderate | Application / Pedigree | Topic: Pedigree interpretation
+Affected father transmits trait to all daughters and no sons. Best mode?
+A. Autosomal recessive
+B. Mitochondrial
+C. Y-linked
+D. X-linked dominant
+E. X-linked recessive always
+Correct answer: D — X-linked dominant. Explanation: Fathers give their X to all daughters and Y to sons.
+Hard Questions
+BIO-GEN-HUM-055 | Hard | Integrated / Pedigree | Topic: Linkage mapping
+Test cross: 420 AB, 430 ab, 75 Ab, 75 aB. Recombination frequency?
+A. 50%
+B. 85%
+C. 15%
+D. 7.5%
+E. 30%
+Correct answer: C — 15%. Explanation: 150 recombinants/1000 total=15%.
+BIO-GEN-HUM-056 | Hard | Integrated / Pedigree | Topic: Linkage mapping
+Test cross has 760 parental and 240 recombinant offspring. Map distance?
+A. 12 cM
+B. 24 cM
+C. 6 cM
+D. 76 cM
+E. 48 cM
+Correct answer: B — 24 cM. Explanation: 240/1000=24% recombination≈24 cM.
+BIO-GEN-HUM-057 | Hard | Integrated / Pedigree | Topic: Linkage mapping
+AB/ab heterozygote, genes 10 cM apart. Expected AB gametes?
+A. 10%
+B. 5%
+C. 45%
+D. 40%
+E. 50%
+Correct answer: C — 45%. Explanation: 10% recombinant leaves 90% parental; each parental class is 45%.
+BIO-GEN-HUM-058 | Hard | Integrated / Pedigree | Topic: Linkage mapping
+Ab/aB heterozygote, genes 20 cM apart. Expected ab gametes?
+A. 40%
+B. 20%
+C. 10%
+D. 45%
+E. 5%
+Correct answer: C — 10%. Explanation: Recombinants total 20%, so each recombinant class is 10%.
+BIO-GEN-HUM-059 | Hard | Integrated / Pedigree | Topic: Linkage mapping
+AB/ab genes 8 cM apart; test cross. Expected Ab offspring?
+A. 92%
+B. 2%
+C. 46%
+D. 4%
+E. 8%
+Correct answer: D — 4%. Explanation: Recombinants total 8%, split equally.
+BIO-GEN-HUM-060 | Hard | Integrated / Pedigree | Topic: X-linked probability
+A carrier XᴺXⁿ woman and unaffected XᴺY man have two sons. Probability exactly one affected?
+A. 1
+B. 1/8
+C. 3/4
+D. 1/4
+E. 1/2
+Correct answer: E — 1/2. Explanation: 2×1/2×1/2=1/2.
+BIO-GEN-HUM-061 | Hard | Integrated / Pedigree | Topic: X-linked conditional probability
+An unaffected daughter of XᴺXⁿ mother and XⁿY father: probability she is a carrier?
+A. 1/2
+B. 2/3
+C. 1/4
+D. 1/3
+E. 1
+Correct answer: E — 1. Explanation: Every daughter receives Xⁿ from father; if unaffected she must also have Xᴺ.
+BIO-GEN-HUM-062 | Hard | Integrated / Pedigree | Topic: Pedigree interpretation
+Unaffected parents have an affected daughter. Which observation rules out simple X-linked recessive inheritance?
+A. Mother is unaffected
+B. Trait is rare
+C. A brother is affected
+D. Father is unaffected
+E. Daughter is affected
+Correct answer: D — Father is unaffected. Explanation: An affected daughter normally requires an affected father in simple X-linked recessive inheritance.
+BIO-GEN-HUM-063 | Hard | Integrated / Pedigree | Topic: Chromosome rearrangements
+A balanced translocation carrier has reproductive risk because:
+A. No homologues exist
+B. Meiosis can produce unbalanced gametes
+C. Genes all mutate
+D. Mitosis always fails
+E. All gametes are balanced
+Correct answer: B — Meiosis can produce unbalanced gametes. Explanation: Segregation can yield gametes with duplication/deletion.
+BIO-GEN-HUM-064 | Hard | Integrated / Pedigree | Topic: Gene mapping
+Recombination frequency 1% indicates loci are:
+A. Same allele
+B. Unable to recombine
+C. Very closely linked
+D. 50 cM apart
+E. On different chromosomes necessarily
+Correct answer: C — Very closely linked. Explanation: Low recombination indicates close linkage.
+BIO-GEN-HUM-065 | Hard | Integrated / Calculation | Topic: Linkage mapping
+A coupling-phase heterozygote AB/ab has a recombination frequency of 6%. What percentage of gametes are expected to be AB?
+A. 3%
+B. 6%
+C. 53%
+D. 94%
+E. 47%
+Correct answer: E — 47%. Explanation: Recombinants total 6%, so parental gametes total 94% and each parental class is 47%.
+BIO-GEN-HUM-066 | Hard | Integrated / Calculation | Topic: Linkage mapping
+A coupling-phase heterozygote AB/ab has a recombination frequency of 14%. What percentage of gametes are expected to be AB?
+A. 7%
+B. 14%
+C. 43%
+D. 57%
+E. 86%
+Correct answer: C — 43%. Explanation: Recombinants total 14%, so parental gametes total 86% and each parental class is 43%.
+BIO-GEN-HUM-067 | Hard | Integrated / Calculation | Topic: Linkage mapping
+A coupling-phase heterozygote AB/ab has a recombination frequency of 18%. What percentage of gametes are expected to be AB?
+A. 82%
+B. 41%
+C. 9%
+D. 59%
+E. 18%
+Correct answer: B — 41%. Explanation: Recombinants total 18%, so parental gametes total 82% and each parental class is 41%.
+BIO-GEN-HUM-068 | Hard | Integrated / Calculation | Topic: Linkage mapping
+A coupling-phase heterozygote AB/ab has a recombination frequency of 22%. What percentage of gametes are expected to be AB?
+A. 78%
+B. 22%
+C. 39%
+D. 61%
+E. 11%
+Correct answer: C — 39%. Explanation: Recombinants total 22%, so parental gametes total 78% and each parental class is 39%.
+BIO-GEN-HUM-069 | Hard | Integrated / Calculation | Topic: Linkage mapping
+A coupling-phase heterozygote AB/ab has a recombination frequency of 26%. What percentage of gametes are expected to be AB?
+A. 74%
+B. 26%
+C. 13%
+D. 63%
+E. 37%
+Correct answer: E — 37%. Explanation: Recombinants total 26%, so parental gametes total 74% and each parental class is 37%.
+BIO-GEN-HUM-070 | Hard | Integrated / Calculation | Topic: Linkage mapping
+A coupling-phase heterozygote AB/ab has a recombination frequency of 30%. What percentage of gametes are expected to be AB?
+A. 30%
+B. 15%
+C. 65%
+D. 35%
+E. 70%
+Correct answer: D — 35%. Explanation: Recombinants total 30%, so parental gametes total 70% and each parental class is 35%.
+BIO-GEN-HUM-071 | Hard | Integrated / Calculation | Topic: Linkage mapping
+A coupling-phase heterozygote AB/ab has a recombination frequency of 34%. What percentage of gametes are expected to be AB?
+A. 67%
+B. 33%
+C. 17%
+D. 34%
+E. 66%
+Correct answer: B — 33%. Explanation: Recombinants total 34%, so parental gametes total 66% and each parental class is 33%.
+BIO-GEN-HUM-072 | Hard | Integrated / Calculation | Topic: Linkage mapping
+A coupling-phase heterozygote AB/ab has a recombination frequency of 40%. What percentage of gametes are expected to be AB?
+A. 30%
+B. 40%
+C. 60%
+D. 70%
+E. 20%
+Correct answer: A — 30%. Explanation: Recombinants total 40%, so parental gametes total 60% and each parental class is 30%.
+6. Cell Cycle, Mitosis & Meiosis
+Quota: 72 MCQs — 36 Easy, 18 Moderate, 18 Hard.
+Easy Questions
+BIO-GEN-CEL-001 | Easy | Recall / Conceptual | Topic: Cell cycle
+DNA replication occurs in:
+A. G1
+B. S phase
+C. M only
+D. Cytokinesis
+E. G2
+Correct answer: B — S phase. Explanation: DNA synthesis occurs during S phase.
+BIO-GEN-CEL-002 | Easy | Recall / Conceptual | Topic: Cell cycle
+G1 mainly involves:
+A. Meiosis I pairing
+B. Growth and normal metabolism before DNA replication
+C. DNA replication
+D. Homologue separation
+E. Cytokinesis only
+Correct answer: B — Growth and normal metabolism before DNA replication. Explanation: G1 precedes S phase.
+BIO-GEN-CEL-003 | Easy | Recall / Conceptual | Topic: Cell cycle
+G2 occurs:
+A. After S and before mitosis
+B. During meiosis I only
+C. Before G1
+D. Instead of S
+E. After cytokinesis only
+Correct answer: A — After S and before mitosis. Explanation: G2 follows DNA replication.
+BIO-GEN-CEL-004 | Easy | Recall / Conceptual | Topic: Mitosis
+Mitosis generally preserves:
+A. Genetic variation only
+B. Gamete number
+C. Chromosome number
+D. No DNA
+E. Haploid state only
+Correct answer: C — Chromosome number. Explanation: Mitosis produces similar daughter nuclei.
+BIO-GEN-CEL-005 | Easy | Recall / Conceptual | Topic: Meiosis
+Meiosis changes ploidy from:
+A. Haploid to triploid
+B. Haploid to diploid
+C. Diploid to haploid
+D. Diploid to tetraploid only
+E. No change
+Correct answer: C — Diploid to haploid. Explanation: Meiosis is reduction division.
+BIO-GEN-CEL-006 | Easy | Recall / Conceptual | Topic: Meiosis I
+Homologues pair in:
+A. Metaphase II
+B. Cytokinesis
+C. Mitotic prophase
+D. G1
+E. Prophase I
+Correct answer: E — Prophase I. Explanation: Synapsis occurs in prophase I.
+BIO-GEN-CEL-007 | Easy | Recall / Conceptual | Topic: Crossing over
+Crossing over usually occurs in:
+A. Anaphase II
+B. Prophase I
+C. G1
+D. Cytokinesis
+E. Mitotic telophase
+Correct answer: B — Prophase I. Explanation: Crossovers occur between homologous non-sister chromatids in prophase I.
+BIO-GEN-CEL-008 | Easy | Recall / Conceptual | Topic: Meiosis I
+Homologous chromosomes separate in:
+A. Metaphase I
+B. Prophase II
+C. Mitotic anaphase
+D. Anaphase I
+E. Anaphase II
+Correct answer: D — Anaphase I. Explanation: Meiosis I separates homologues.
+BIO-GEN-CEL-009 | Easy | Recall / Conceptual | Topic: Meiosis II
+Sister chromatids separate in meiosis during:
+A. G1
+B. Anaphase I
+C. Anaphase II
+D. Prophase I
+E. S phase
+Correct answer: C — Anaphase II. Explanation: Meiosis II separates sister chromatids.
+BIO-GEN-CEL-010 | Easy | Recall / Conceptual | Topic: Mitosis
+Chromosomes align at the equator in:
+A. Prophase
+B. G1
+C. S
+D. Telophase
+E. Metaphase
+Correct answer: E — Metaphase. Explanation: Metaphase features alignment at the metaphase plate.
+BIO-GEN-CEL-011 | Easy | Recall / Conceptual | Topic: Mitosis
+Nuclear envelopes commonly reform in:
+A. Anaphase
+B. S phase
+C. Telophase
+D. G1
+E. Metaphase
+Correct answer: C — Telophase. Explanation: Telophase reforms daughter nuclei.
+BIO-GEN-CEL-012 | Easy | Recall / Conceptual | Topic: Cytokinesis
+Cytokinesis divides the:
+A. Cytoplasm
+B. Nucleolus only
+C. Centromere only
+D. DNA molecule only
+E. Spindle only
+Correct answer: A — Cytoplasm. Explanation: Cytokinesis partitions cytoplasm.
+BIO-GEN-CEL-013 | Easy | Recall / Conceptual | Topic: Independent assortment
+Independent assortment arises from:
+A. Random orientation of homologous pairs at metaphase I
+B. S phase only
+C. Telophase
+D. Translation
+E. RNA splicing
+Correct answer: A — Random orientation of homologous pairs at metaphase I. Explanation: Random metaphase-I orientation reshuffles maternal/paternal homologues.
+BIO-GEN-CEL-014 | Easy | Recall / Conceptual | Topic: Meiosis I
+A bivalent contains:
+A. Two sister chromatids only
+B. Two homologous chromosomes and four chromatids
+C. Four unrelated chromosomes
+D. Four gametes
+E. One chromatid
+Correct answer: B — Two homologous chromosomes and four chromatids. Explanation: Synapsed homologues form a four-chromatid bivalent.
+BIO-GEN-CEL-015 | Easy | Recall / Conceptual | Topic: Mitosis
+Mitosis is important for:
+A. Reduction of chromosome number
+B. Crossing over only
+C. Growth and repair
+D. Gamete formation only
+E. Fertilisation
+Correct answer: C — Growth and repair. Explanation: Mitosis expands somatic cell populations.
+BIO-GEN-CEL-016 | Easy | Recall / Conceptual | Topic: Meiosis
+Meiosis is important for:
+A. Producing haploid cells and variation
+B. Tissue repair only
+C. Eliminating mutation
+D. Doubling chromosome number
+E. Making identical cells
+Correct answer: A — Producing haploid cells and variation. Explanation: Meiosis makes haploid varied gametes/cells.
+BIO-GEN-CEL-017 | Easy | Recall / Conceptual | Topic: Ploidy
+2n=8 means normal gametes have:
+A. 4 chromosomes
+B. 16
+C. 2
+D. 8
+E. 12
+Correct answer: A — 4 chromosomes. Explanation: n=4.
+BIO-GEN-CEL-018 | Easy | Recall / Conceptual | Topic: Meiosis I
+Metaphase I shows chromosomes:
+A. Unreplicated in G1
+B. As nucleotides
+C. Outside spindle
+D. Paired as homologous bivalents
+E. As single chromatids at poles
+Correct answer: D — Paired as homologous bivalents. Explanation: Homologue pairs align at metaphase I.
+BIO-GEN-CEL-019 | Easy | Recall / Conceptual | Topic: Meiosis II
+Metaphase II shows chromosomes:
+A. Unreplicated homologues
+B. Aligned individually in haploid cells
+C. After a new S phase
+D. Outside spindle
+E. Paired homologues in one diploid nucleus
+Correct answer: B — Aligned individually in haploid cells. Explanation: Meiosis II resembles mitosis.
+BIO-GEN-CEL-020 | Easy | Recall / Conceptual | Topic: Meiosis
+DNA replication between meiosis I and II is normally:
+A. Absent
+B. Female-specific
+C. Male-specific
+D. Complete
+E. Repeated twice
+Correct answer: A — Absent. Explanation: No S phase occurs between meiotic divisions.
+BIO-GEN-CEL-021 | Easy | Recall / Conceptual | Topic: Chromosome structure
+After S phase a chromosome normally has:
+A. One DNA molecule only
+B. Two homologues
+C. No centromere
+D. Four homologues
+E. Two sister chromatids
+Correct answer: E — Two sister chromatids. Explanation: Replication produces two sister chromatids.
+BIO-GEN-CEL-022 | Easy | Recall / Conceptual | Topic: Spindle
+Spindle microtubules primarily:
+A. Digest lipids
+B. Base-pair DNA
+C. Splice RNA
+D. Move chromosomes
+E. Translate proteins
+Correct answer: D — Move chromosomes. Explanation: Spindle attachment drives chromosome segregation.
+BIO-GEN-CEL-023 | Easy | Recall / Conceptual | Topic: Spindle
+Kinetochores form at:
+A. Telomeres
+B. Promoters
+C. Nucleoli
+D. Centromeres
+E. Ribosomes
+Correct answer: D — Centromeres. Explanation: Kinetochores assemble on centromeric DNA.
+BIO-GEN-CEL-024 | Easy | Recall / Conceptual | Topic: Mitosis accounting
+In mitotic anaphase, chromosome count in the single cell temporarily:
+A. Becomes haploid
+B. Becomes zero
+C. Doubles
+D. Halves
+E. Becomes triploid
+Correct answer: C — Doubles. Explanation: Separated sister chromatids are counted as chromosomes.
+BIO-GEN-CEL-025 | Easy | Recall / Conceptual | Topic: Meiotic variation
+Meiotic variation arises from:
+A. Cytokinesis only
+B. Translation only
+C. DNA replication only
+D. No random process
+E. Crossing over and independent assortment
+Correct answer: E — Crossing over and independent assortment. Explanation: Both processes reshuffle alleles.
+BIO-GEN-CEL-026 | Easy | Recall / Conceptual | Topic: Mitosis sequence
+Metaphase is followed by:
+A. S phase
+B. Anaphase
+C. G1
+D. Prophase
+E. Interphase only
+Correct answer: B — Anaphase. Explanation: Anaphase follows metaphase.
+BIO-GEN-CEL-027 | Easy | Recall / Conceptual | Topic: Mitosis sequence
+In simplified staging, prophase is followed by:
+A. G1
+B. Metaphase
+C. Anaphase
+D. Cytokinesis
+E. Telophase
+Correct answer: B — Metaphase. Explanation: Metaphase follows prophase/prometaphase.
+BIO-GEN-CEL-028 | Easy | Recall / Conceptual | Topic: Meiosis I
+Reductional division is:
+A. Meiosis I
+B. Mitosis
+C. Meiosis II
+D. Cytokinesis
+E. S phase
+Correct answer: A — Meiosis I. Explanation: Homologues separate and ploidy is reduced.
+BIO-GEN-CEL-029 | Easy | Recall / Conceptual | Topic: Meiosis II
+Meiosis II most resembles:
+A. Mitosis
+B. Meiosis I
+C. S phase
+D. Fertilisation
+E. G1
+Correct answer: A — Mitosis. Explanation: Both separate sister chromatids.
+BIO-GEN-CEL-030 | Easy | Recall / Conceptual | Topic: Crossing over
+A chiasma marks:
+A. A crossover connection between homologues
+B. Cleavage furrow
+C. Centromere duplication
+D. Translation stop
+E. Replication origin
+Correct answer: A — A crossover connection between homologues. Explanation: Chiasmata reflect crossing over.
+BIO-GEN-CEL-031 | Easy | Recall / Conceptual | Topic: Meiosis outcome
+One diploid precursor usually yields after meiosis:
+A. Two diploid cells
+B. Two haploid only
+C. One tetraploid cell
+D. Four haploid cells/nuclei
+E. Eight diploid cells
+Correct answer: D — Four haploid cells/nuclei. Explanation: Two divisions yield four haploid products.
+BIO-GEN-CEL-032 | Easy | Recall / Conceptual | Topic: Mitosis outcome
+Mitosis of a diploid cell yields daughters that are:
+A. Tetraploid by necessity
+B. Haploid
+C. Chromosome-free
+D. Triploid
+E. Diploid
+Correct answer: E — Diploid. Explanation: Mitosis preserves ploidy.
+BIO-GEN-CEL-033 | Easy | Recall / Conceptual | Topic: Cell-cycle control
+The G2/M checkpoint helps ensure:
+A. Telomeres are absent
+B. DNA replication is complete before mitosis
+C. Cytokinesis already happened
+D. Translation is complete
+E. Fertilisation occurred
+Correct answer: B — DNA replication is complete before mitosis. Explanation: G2/M prevents premature mitosis.
+BIO-GEN-CEL-034 | Easy | Recall / Conceptual | Topic: Cell-cycle control
+Uncontrolled cell-cycle progression is associated with:
+A. Only meiosis
+B. Normal G0
+C. Fertilisation only
+D. Cancer
+E. Protein synthesis
+Correct answer: D — Cancer. Explanation: Cancer involves dysregulated proliferation.
+BIO-GEN-CEL-035 | Easy | Recall / Conceptual | Topic: Cell cycle
+G0 cells are generally:
+A. Separating homologues
+B. Outside active cell-cycle progression
+C. In cytokinesis
+D. In metaphase I
+E. Rapidly replicating DNA
+Correct answer: B — Outside active cell-cycle progression. Explanation: G0 is a quiescent state.
+BIO-GEN-CEL-036 | Easy | Recall / Conceptual | Topic: Crossing over
+Crossing over changes:
+A. DNA amount by doubling it
+B. Chromosome number necessarily
+C. Ploidy directly
+D. Allele combinations on chromatids
+E. Number of centromeres
+Correct answer: D — Allele combinations on chromatids. Explanation: Crossing over recombines homologous segments.
+Moderate Questions
+BIO-GEN-CEL-037 | Moderate | Calculation | Topic: Meiosis chromosome number
+A species has 2n=6. How many chromosomes are in each cell immediately after meiosis I?
+A. 3
+B. 12
+C. 9
+D. 6
+E. 4
+Correct answer: A — 3. Explanation: Meiosis I halves chromosome-set number, so n=3.
+BIO-GEN-CEL-038 | Moderate | Calculation | Topic: Meiosis chromosome number
+A species has 2n=8. How many chromosomes are in each cell immediately after meiosis I?
+A. 12
+B. 4
+C. 2
+D. 8
+E. 16
+Correct answer: B — 4. Explanation: Meiosis I halves chromosome-set number, so n=4.
+BIO-GEN-CEL-039 | Moderate | Calculation | Topic: Meiosis chromosome number
+A species has 2n=10. How many chromosomes are in each cell immediately after meiosis I?
+A. 10
+B. 15
+C. 20
+D. 6
+E. 5
+Correct answer: E — 5. Explanation: Meiosis I halves chromosome-set number, so n=5.
+BIO-GEN-CEL-040 | Moderate | Calculation | Topic: Meiosis chromosome number
+A species has 2n=12. How many chromosomes are in each cell immediately after meiosis I?
+A. 3
+B. 12
+C. 6
+D. 24
+E. 18
+Correct answer: C — 6. Explanation: Meiosis I halves chromosome-set number, so n=6.
+BIO-GEN-CEL-041 | Moderate | Calculation | Topic: Meiosis chromosome number
+A species has 2n=14. How many chromosomes are in each cell immediately after meiosis I?
+A. 28
+B. 8
+C. 7
+D. 14
+E. 21
+Correct answer: C — 7. Explanation: Meiosis I halves chromosome-set number, so n=7.
+BIO-GEN-CEL-042 | Moderate | Calculation | Topic: Meiosis chromosome number
+A species has 2n=16. How many chromosomes are in each cell immediately after meiosis I?
+A. 16
+B. 8
+C. 32
+D. 24
+E. 4
+Correct answer: B — 8. Explanation: Meiosis I halves chromosome-set number, so n=8.
+BIO-GEN-CEL-043 | Moderate | Calculation | Topic: Meiosis chromatid number
+A species has 2n=6. How many chromatids are in each cell immediately after meiosis I?
+A. 24
+B. 12
+C. 6
+D. 9
+E. 3
+Correct answer: C — 6. Explanation: Each haploid cell has 3 chromosomes, each still with two chromatids, giving 6 chromatids.
+BIO-GEN-CEL-044 | Moderate | Calculation | Topic: Meiosis chromatid number
+A species has 2n=8. How many chromatids are in each cell immediately after meiosis I?
+A. 4
+B. 12
+C. 16
+D. 32
+E. 8
+Correct answer: E — 8. Explanation: Each haploid cell has 4 chromosomes, each still with two chromatids, giving 8 chromatids.
+BIO-GEN-CEL-045 | Moderate | Calculation | Topic: Meiosis chromatid number
+A species has 2n=10. How many chromatids are in each cell immediately after meiosis I?
+A. 5
+B. 15
+C. 10
+D. 40
+E. 20
+Correct answer: C — 10. Explanation: Each haploid cell has 5 chromosomes, each still with two chromatids, giving 10 chromatids.
+BIO-GEN-CEL-046 | Moderate | Calculation | Topic: Meiosis chromatid number
+A species has 2n=12. How many chromatids are in each cell immediately after meiosis I?
+A. 18
+B. 24
+C. 12
+D. 48
+E. 6
+Correct answer: C — 12. Explanation: Each haploid cell has 6 chromosomes, each still with two chromatids, giving 12 chromatids.
+BIO-GEN-CEL-047 | Moderate | Calculation | Topic: Meiosis chromatid number
+A species has 2n=14. How many chromatids are in each cell immediately after meiosis I?
+A. 28
+B. 7
+C. 21
+D. 14
+E. 56
+Correct answer: D — 14. Explanation: Each haploid cell has 7 chromosomes, each still with two chromatids, giving 14 chromatids.
+BIO-GEN-CEL-048 | Moderate | Calculation | Topic: Meiosis chromatid number
+A species has 2n=16. How many chromatids are in each cell immediately after meiosis I?
+A. 64
+B. 24
+C. 16
+D. 8
+E. 32
+Correct answer: C — 16. Explanation: Each haploid cell has 8 chromosomes, each still with two chromatids, giving 16 chromatids.
+BIO-GEN-CEL-049 | Moderate | Calculation | Topic: Mitosis accounting
+A cell has 8 chromosomes at metaphase of mitosis. How many chromatids are present?
+A. 32
+B. 10
+C. 8
+D. 16
+E. 4
+Correct answer: D — 16. Explanation: Each metaphase chromosome consists of two sister chromatids.
+BIO-GEN-CEL-050 | Moderate | Calculation | Topic: Mitosis accounting
+A cell has 10 chromosomes at metaphase of mitosis. How many chromatids are present?
+A. 20
+B. 10
+C. 5
+D. 12
+E. 40
+Correct answer: A — 20. Explanation: Each metaphase chromosome consists of two sister chromatids.
+BIO-GEN-CEL-051 | Moderate | Calculation | Topic: Mitosis accounting
+A cell has 12 chromosomes at metaphase of mitosis. How many chromatids are present?
+A. 24
+B. 14
+C. 12
+D. 6
+E. 48
+Correct answer: A — 24. Explanation: Each metaphase chromosome consists of two sister chromatids.
+BIO-GEN-CEL-052 | Moderate | Calculation | Topic: Mitosis accounting
+A cell has 14 chromosomes at metaphase of mitosis. How many chromatids are present?
+A. 16
+B. 28
+C. 7
+D. 56
+E. 14
+Correct answer: B — 28. Explanation: Each metaphase chromosome consists of two sister chromatids.
+BIO-GEN-CEL-053 | Moderate | Calculation | Topic: Mitosis accounting
+A cell has 16 chromosomes at metaphase of mitosis. How many chromatids are present?
+A. 16
+B. 8
+C. 64
+D. 32
+E. 18
+Correct answer: D — 32. Explanation: Each metaphase chromosome consists of two sister chromatids.
+BIO-GEN-CEL-054 | Moderate | Calculation | Topic: Mitosis accounting
+A cell has 20 chromosomes at metaphase of mitosis. How many chromatids are present?
+A. 22
+B. 10
+C. 40
+D. 80
+E. 20
+Correct answer: C — 40. Explanation: Each metaphase chromosome consists of two sister chromatids.
+Hard Questions
+BIO-GEN-CEL-055 | Hard | Integrated / Calculation | Topic: Meiosis accounting
+A diploid species has 2n=6. At metaphase I, how many chromosomes, chromatids and bivalents are present?
+A. 12, 24, 3
+B. 12, 12, 6
+C. 6, 6, 3
+D. 3, 6, 3
+E. 6, 12, 3
+Correct answer: E — 6, 12, 3. Explanation: Metaphase I contains 6 replicated chromosomes (12 chromatids) paired into 3 bivalents.
+BIO-GEN-CEL-056 | Hard | Integrated / Calculation | Topic: Meiosis accounting
+A diploid species has 2n=8. At metaphase I, how many chromosomes, chromatids and bivalents are present?
+A. 16, 32, 4
+B. 8, 8, 4
+C. 16, 16, 8
+D. 4, 8, 4
+E. 8, 16, 4
+Correct answer: E — 8, 16, 4. Explanation: Metaphase I contains 8 replicated chromosomes (16 chromatids) paired into 4 bivalents.
+BIO-GEN-CEL-057 | Hard | Integrated / Calculation | Topic: Meiosis accounting
+A diploid species has 2n=10. At metaphase I, how many chromosomes, chromatids and bivalents are present?
+A. 10, 20, 5
+B. 20, 40, 5
+C. 5, 10, 5
+D. 20, 20, 10
+E. 10, 10, 5
+Correct answer: A — 10, 20, 5. Explanation: Metaphase I contains 10 replicated chromosomes (20 chromatids) paired into 5 bivalents.
+BIO-GEN-CEL-058 | Hard | Integrated / Calculation | Topic: Meiosis accounting
+A diploid species has 2n=12. At metaphase I, how many chromosomes, chromatids and bivalents are present?
+A. 6, 12, 6
+B. 12, 12, 6
+C. 24, 48, 6
+D. 12, 24, 6
+E. 24, 24, 12
+Correct answer: D — 12, 24, 6. Explanation: Metaphase I contains 12 replicated chromosomes (24 chromatids) paired into 6 bivalents.
+BIO-GEN-CEL-059 | Hard | Integrated / Calculation | Topic: Meiosis accounting
+A diploid species has 2n=14. At metaphase I, how many chromosomes, chromatids and bivalents are present?
+A. 14, 14, 7
+B. 28, 28, 14
+C. 28, 56, 7
+D. 7, 14, 7
+E. 14, 28, 7
+Correct answer: E — 14, 28, 7. Explanation: Metaphase I contains 14 replicated chromosomes (28 chromatids) paired into 7 bivalents.
+BIO-GEN-CEL-060 | Hard | Integrated / Calculation | Topic: Meiosis accounting
+A diploid species has 2n=16. At metaphase I, how many chromosomes, chromatids and bivalents are present?
+A. 8, 16, 8
+B. 32, 64, 8
+C. 16, 16, 8
+D. 32, 32, 16
+E. 16, 32, 8
+Correct answer: E — 16, 32, 8. Explanation: Metaphase I contains 16 replicated chromosomes (32 chromatids) paired into 8 bivalents.
+BIO-GEN-CEL-061 | Hard | Integrated / Calculation | Topic: Mitosis accounting
+A species has 2n=4. At anaphase of mitosis before cytokinesis, how many chromosomes are temporarily counted in the single cell?
+A. 6
+B. 4
+C. 8
+D. 2
+E. 16
+Correct answer: C — 8. Explanation: Centromeres split, so 8 daughter chromosomes temporarily exist in the single cell.
+BIO-GEN-CEL-062 | Hard | Integrated / Calculation | Topic: Mitosis accounting
+A species has 2n=6. At anaphase of mitosis before cytokinesis, how many chromosomes are temporarily counted in the single cell?
+A. 3
+B. 6
+C. 12
+D. 8
+E. 24
+Correct answer: C — 12. Explanation: Centromeres split, so 12 daughter chromosomes temporarily exist in the single cell.
+BIO-GEN-CEL-063 | Hard | Integrated / Calculation | Topic: Mitosis accounting
+A species has 2n=8. At anaphase of mitosis before cytokinesis, how many chromosomes are temporarily counted in the single cell?
+A. 16
+B. 8
+C. 10
+D. 32
+E. 4
+Correct answer: A — 16. Explanation: Centromeres split, so 16 daughter chromosomes temporarily exist in the single cell.
+BIO-GEN-CEL-064 | Hard | Integrated / Calculation | Topic: Mitosis accounting
+A species has 2n=10. At anaphase of mitosis before cytokinesis, how many chromosomes are temporarily counted in the single cell?
+A. 40
+B. 12
+C. 20
+D. 5
+E. 10
+Correct answer: C — 20. Explanation: Centromeres split, so 20 daughter chromosomes temporarily exist in the single cell.
+BIO-GEN-CEL-065 | Hard | Integrated / Calculation | Topic: Mitosis accounting
+A species has 2n=12. At anaphase of mitosis before cytokinesis, how many chromosomes are temporarily counted in the single cell?
+A. 12
+B. 14
+C. 48
+D. 24
+E. 6
+Correct answer: D — 24. Explanation: Centromeres split, so 24 daughter chromosomes temporarily exist in the single cell.
+BIO-GEN-CEL-066 | Hard | Integrated / Calculation | Topic: Mitosis accounting
+A species has 2n=14. At anaphase of mitosis before cytokinesis, how many chromosomes are temporarily counted in the single cell?
+A. 16
+B. 28
+C. 7
+D. 56
+E. 14
+Correct answer: B — 28. Explanation: Centromeres split, so 28 daughter chromosomes temporarily exist in the single cell.
+BIO-GEN-CEL-067 | Hard | Integrated / Calculation | Topic: Independent assortment
+A species has 2 homologous chromosome pairs. Ignoring crossing over, how many chromosome combinations can independent assortment produce in gametes?
+A. 9
+B. 2
+C. 5
+D. 8
+E. 4
+Correct answer: E — 4. Explanation: Independent assortment gives 2^2=4 possible whole-chromosome combinations.
+BIO-GEN-CEL-068 | Hard | Integrated / Calculation | Topic: Independent assortment
+A species has 3 homologous chromosome pairs. Ignoring crossing over, how many chromosome combinations can independent assortment produce in gametes?
+A. 3
+B. 6
+C. 8
+D. 9
+E. 4
+Correct answer: C — 8. Explanation: Independent assortment gives 2^3=8 possible whole-chromosome combinations.
+BIO-GEN-CEL-069 | Hard | Integrated / Calculation | Topic: Independent assortment
+A species has 4 homologous chromosome pairs. Ignoring crossing over, how many chromosome combinations can independent assortment produce in gametes?
+A. 32
+B. 8
+C. 4
+D. 16
+E. 81
+Correct answer: D — 16. Explanation: Independent assortment gives 2^4=16 possible whole-chromosome combinations.
+BIO-GEN-CEL-070 | Hard | Integrated / Calculation | Topic: Independent assortment
+A species has 5 homologous chromosome pairs. Ignoring crossing over, how many chromosome combinations can independent assortment produce in gametes?
+A. 10
+B. 16
+C. 32
+D. 5
+E. 25
+Correct answer: C — 32. Explanation: Independent assortment gives 2^5=32 possible whole-chromosome combinations.
+BIO-GEN-CEL-071 | Hard | Integrated / Calculation | Topic: Independent assortment
+A species has 6 homologous chromosome pairs. Ignoring crossing over, how many chromosome combinations can independent assortment produce in gametes?
+A. 32
+B. 12
+C. 36
+D. 64
+E. 6
+Correct answer: D — 64. Explanation: Independent assortment gives 2^6=64 possible whole-chromosome combinations.
+BIO-GEN-CEL-072 | Hard | Integrated / Calculation | Topic: Independent assortment
+A species has 7 homologous chromosome pairs. Ignoring crossing over, how many chromosome combinations can independent assortment produce in gametes?
+A. 14
+B. 64
+C. 49
+D. 128
+E. 7
+Correct answer: D — 128. Explanation: Independent assortment gives 2^7=128 possible whole-chromosome combinations.
+7. Reproduction & Life Cycles
+Quota: 36 MCQs — 18 Easy, 9 Moderate, 9 Hard.
+Easy Questions
+BIO-GEN-REP-001 | Easy | Recall / Conceptual | Topic: Asexual reproduction
+Asexual reproduction usually involves:
+A. Crossing over only
+B. Two parents and fertilisation
+C. One parent and no gamete fusion
+D. Meiosis plus fertilisation only
+E. Two haploid nuclei always
+Correct answer: C — One parent and no gamete fusion. Explanation: Asexual reproduction occurs without fertilisation.
+BIO-GEN-REP-002 | Easy | Recall / Conceptual | Topic: Sexual reproduction
+Sexual reproduction usually involves:
+A. Fusion of haploid gametes
+B. One parent clones only
+C. Mitosis only
+D. Genome duplication only
+E. No recombination
+Correct answer: A — Fusion of haploid gametes. Explanation: Sexual reproduction includes gamete fusion.
+BIO-GEN-REP-003 | Easy | Recall / Conceptual | Topic: Fertilisation
+Fertilisation restores:
+A. Diploid chromosome number
+B. Zero chromatids
+C. RNA only
+D. One gene
+E. Haploid number
+Correct answer: A — Diploid chromosome number. Explanation: Two haploid gametes form a diploid zygote.
+BIO-GEN-REP-004 | Easy | Recall / Conceptual | Topic: Fertilisation
+A zygote forms by:
+A. RNA splicing
+B. Gamete fusion
+C. DNA replication
+D. Crossing over alone
+E. Mitosis only
+Correct answer: B — Gamete fusion. Explanation: Fertilisation forms a zygote.
+BIO-GEN-REP-005 | Easy | Recall / Conceptual | Topic: Gametogenesis
+Spermatogenesis produces:
+A. Sperm
+B. Placental cells
+C. Somatic cells only
+D. Zygotes
+E. Oocytes
+Correct answer: A — Sperm. Explanation: Spermatogenesis forms male gametes.
+BIO-GEN-REP-006 | Easy | Recall / Conceptual | Topic: Gametogenesis
+Oogenesis produces:
+A. Skin cells
+B. Sperm
+C. Zygotes directly
+D. Neurons
+E. Oocytes/ova
+Correct answer: E — Oocytes/ova. Explanation: Oogenesis forms female gametes.
+BIO-GEN-REP-007 | Easy | Recall / Conceptual | Topic: Gametogenesis
+Human gametes are:
+A. Triploid
+B. Haploid
+C. Tetraploid
+D. Aneuploid by definition
+E. Diploid
+Correct answer: B — Haploid. Explanation: Normal gametes carry one chromosome set.
+BIO-GEN-REP-008 | Easy | Recall / Conceptual | Topic: Fertilisation
+The human zygote is normally:
+A. Triploid
+B. Diploid
+C. Haploid
+D. Chromosome-free
+E. Tetraploid
+Correct answer: B — Diploid. Explanation: Gamete fusion restores diploidy.
+BIO-GEN-REP-009 | Easy | Recall / Conceptual | Topic: Sexual reproduction
+Sexual reproduction tends to increase:
+A. No recombination
+B. No variation
+C. No meiosis
+D. Genetic identity
+E. Genetic variation among offspring
+Correct answer: E — Genetic variation among offspring. Explanation: Meiosis and fertilisation reshuffle alleles.
+BIO-GEN-REP-010 | Easy | Recall / Conceptual | Topic: Asexual reproduction
+Asexual reproduction can be advantageous because it:
+A. Requires two parents
+B. Requires meiosis
+C. Can reproduce rapidly without finding a mate
+D. Prevents population growth
+E. Always creates more diversity
+Correct answer: C — Can reproduce rapidly without finding a mate. Explanation: It can be rapid and mate-independent.
+BIO-GEN-REP-011 | Easy | Recall / Conceptual | Topic: Asexual reproduction
+A clone is expected to be:
+A. Always haploid
+B. Always sterile
+C. Genetically unrelated
+D. Always male
+E. Genetically very similar to its parent except for mutations
+Correct answer: E — Genetically very similar to its parent except for mutations. Explanation: Clonal reproduction involves little recombination.
+BIO-GEN-REP-012 | Easy | Recall / Conceptual | Topic: Life cycle
+Meiosis prevents chromosome number from:
+A. Halving every generation
+B. Doubling every generation
+C. Remaining stable
+D. Being replicated
+E. Being inherited
+Correct answer: B — Doubling every generation. Explanation: Reduction division balances fertilisation.
+BIO-GEN-REP-013 | Easy | Recall / Conceptual | Topic: Gametogenesis
+Human sperm normally contain:
+A. 44
+B. 23 chromosomes
+C. 46
+D. 22
+E. 92
+Correct answer: B — 23 chromosomes. Explanation: Human sperm are haploid.
+BIO-GEN-REP-014 | Easy | Recall / Conceptual | Topic: Gametogenesis
+Human ova normally contain:
+A. 23 chromosomes
+B. 46
+C. 44
+D. 22
+E. 92
+Correct answer: A — 23 chromosomes. Explanation: Human ova are haploid.
+BIO-GEN-REP-015 | Easy | Recall / Conceptual | Topic: Fertilisation
+Immediate product of fertilisation:
+A. Zygote
+B. Clone
+C. Gamete
+D. Spermatocyte
+E. Oocyte only
+Correct answer: A — Zygote. Explanation: Fertilisation forms the zygote.
+BIO-GEN-REP-016 | Easy | Recall / Conceptual | Topic: Sexual reproduction
+Sexual offspring vary partly because gametes:
+A. Carry different allele combinations
+B. Never recombine
+C. Are always identical
+D. Avoid meiosis
+E. Contain identical homologues
+Correct answer: A — Carry different allele combinations. Explanation: Meiosis generates different gametes.
+BIO-GEN-REP-017 | Easy | Recall / Conceptual | Topic: Asexual reproduction
+Binary fission is:
+A. Gamete fusion
+B. Fertilisation
+C. Meiosis II
+D. Asexual reproduction
+E. Sexual reproduction
+Correct answer: D — Asexual reproduction. Explanation: Binary fission does not require gamete fusion.
+BIO-GEN-REP-018 | Easy | Recall / Conceptual | Topic: Life cycle
+Transitions between n and 2n in sexual life cycles depend on:
+A. Meiosis and fertilisation
+B. Mitosis only
+C. Translation and transcription
+D. DNA repair only
+E. Protein folding
+Correct answer: A — Meiosis and fertilisation. Explanation: Meiosis reduces ploidy; fertilisation restores it.
+Moderate Questions
+BIO-GEN-REP-019 | Moderate | Application | Topic: Life-cycle ploidy
+2n=20 species: normal gamete and zygote chromosome numbers?
+A. 20 and 10
+B. 20 and 40
+C. 40 and 20
+D. 10 and 10
+E. 10 and 20
+Correct answer: E — 10 and 20. Explanation: Meiosis gives n=10; fertilisation restores 2n=20.
+BIO-GEN-REP-020 | Moderate | Application | Topic: Life-cycle ploidy
+If meiosis failed to reduce chromosome number, two unreduced diploid gametes would form a:
+A. Chromosome-free zygote
+B. Tetraploid zygote
+C. Haploid zygote
+D. Normal diploid zygote
+E. Monosomic zygote
+Correct answer: B — Tetraploid zygote. Explanation: 2n+2n=4n.
+BIO-GEN-REP-021 | Moderate | Application | Topic: Sexual reproduction
+Why does sexual reproduction usually create more variation than asexual reproduction?
+A. It prevents replication
+B. It makes identical gametes
+C. It eliminates recombination
+D. It always increases mutation rate
+E. It combines crossing over, independent assortment and random fertilisation
+Correct answer: E — It combines crossing over, independent assortment and random fertilisation. Explanation: Three independent reshuffling processes increase diversity.
+BIO-GEN-REP-022 | Moderate | Application | Topic: Asexual reproduction
+Asexual reproduction can be disadvantageous in a changing environment because clones:
+A. Require meiosis
+B. Are always polyploid
+C. Cannot mutate
+D. Are always more diverse
+E. May share the same genetic vulnerabilities
+Correct answer: E — May share the same genetic vulnerabilities. Explanation: Low diversity can make a population uniformly susceptible.
+BIO-GEN-REP-023 | Moderate | Application | Topic: Spermatogenesis
+One primary spermatocyte ultimately produces how many haploid products?
+A. 8
+B. 4
+C. 2
+D. 1
+E. 16
+Correct answer: B — 4. Explanation: Two meiotic divisions yield four haploid products.
+BIO-GEN-REP-024 | Moderate | Application | Topic: Oogenesis
+Oogenesis differs because cytokinesis is often:
+A. Unequal, producing one large ovum and polar bodies
+B. Equal, giving four equal ova
+C. Absent entirely
+D. Binary fission
+E. Always mitotic only
+Correct answer: A — Unequal, producing one large ovum and polar bodies. Explanation: Oogenesis partitions cytoplasm unequally.
+BIO-GEN-REP-025 | Moderate | Application | Topic: Fertilisation
+Random fertilisation increases diversity because:
+A. Gametes are identical
+B. Only one parent contributes DNA
+C. It prevents assortment
+D. Many genetically different sperm can combine with many different ova
+E. It eliminates recombination
+Correct answer: D — Many genetically different sperm can combine with many different ova. Explanation: Random gamete pairing multiplies combinations.
+BIO-GEN-REP-026 | Moderate | Application | Topic: Life cycle
+Typical diploid life-cycle sequence:
+A. 2n adult→n zygote without gametes
+B. 2n adult → n gametes → 2n zygote
+C. 2n adult→4n gametes→2n zygote
+D. 2n adult →2n gametes→4n zygote
+E. n adult→2n gametes→n zygote
+Correct answer: B — 2n adult → n gametes → 2n zygote. Explanation: Meiosis halves and fertilisation restores ploidy.
+BIO-GEN-REP-027 | Moderate | Application | Topic: Asexual variation
+Mutation can generate variation during long-term asexual reproduction because it:
+A. Eliminates clones
+B. Creates new DNA sequence variants
+C. Requires crossing over
+D. Requires fertilisation
+E. Always doubles chromosome number
+Correct answer: B — Creates new DNA sequence variants. Explanation: Mutations create new genetic variants even in clonal lineages.
+Hard Questions
+BIO-GEN-REP-028 | Hard | Integrated / Calculation | Topic: Nondisjunction + fertilisation
+2n=12 species: a nondisjunction gamete has 7 chromosomes and fuses with a normal gamete. Zygote count?
+A. 14
+B. 6
+C. 13
+D. 19
+E. 12
+Correct answer: C — 13. Explanation: Normal gamete has 6; 7+6=13.
+BIO-GEN-REP-029 | Hard | Integrated / Calculation | Topic: Life-cycle ploidy
+A life cycle alternates multicellular n and 2n stages. Which events change ploidy?
+A. Fertilisation n→2n and meiosis 2n→n
+B. Cytokinesis both ways
+C. DNA replication both ways
+D. Translation both ways
+E. Mitosis both ways
+Correct answer: A — Fertilisation n→2n and meiosis 2n→n. Explanation: Fertilisation and meiosis change chromosome-set number.
+BIO-GEN-REP-030 | Hard | Integrated / Calculation | Topic: Asexual variation
+Asexual lineage can still acquire heritable variation through:
+A. Gamete fusion
+B. Crossing over without meiosis
+C. Mutation
+D. Random fertilisation
+E. Independent assortment without meiosis
+Correct answer: C — Mutation. Explanation: Mutation can introduce new variants in clones.
+BIO-GEN-REP-031 | Hard | Integrated / Calculation | Topic: Sexual reproduction
+Why can siblings differ genetically despite same parents?
+A. Mitosis only
+B. DNA replication only
+C. No recombination
+D. Identical gametes
+E. Crossing over, independent assortment and random fertilisation
+Correct answer: E — Crossing over, independent assortment and random fertilisation. Explanation: Sexual processes generate unique allele combinations.
+BIO-GEN-REP-032 | Hard | Integrated / Calculation | Topic: Fertilisation combinations
+n=4 species: ignoring crossing over, each parent can form 16 chromosome combinations. Possible zygotic combinations?
+A. 16
+B. 32
+C. 64
+D. 256
+E. 128
+Correct answer: D — 256. Explanation: 16×16=256 random gamete combinations.
+BIO-GEN-REP-033 | Hard | Integrated / Calculation | Topic: Oogenesis
+After meiosis I in oogenesis, secondary oocyte and first polar body are:
+A. Identical diploid cells
+B. Mitotic products
+C. Both contain both homologues
+D. Chromosome-free
+E. Haploid products with different homologous chromosome sets
+Correct answer: E — Haploid products with different homologous chromosome sets. Explanation: Meiosis I separates homologues despite unequal cytokinesis.
+BIO-GEN-REP-034 | Hard | Integrated / Calculation | Topic: Life cycle
+If germ cells used mitosis instead of meiosis before fertilisation, repeated sexual generations would tend to:
+A. Remain haploid
+B. Increase chromosome number
+C. Lose all DNA
+D. Halve chromosome number
+E. Prevent genome combination
+Correct answer: B — Increase chromosome number. Explanation: Unreduced gametes would increase ploidy after fertilisation.
+BIO-GEN-REP-035 | Hard | Integrated / Calculation | Topic: Sources of variation
+Sexual reproduction vs mutation: best distinction?
+A. Sex creates all new alleles; mutation only reshuffles
+B. Mutation requires fertilisation
+C. Sexual reproduction reshuffles existing alleles; mutation creates new sequence variants
+D. They are identical
+E. Sex cannot change genotype combinations
+Correct answer: C — Sexual reproduction reshuffles existing alleles; mutation creates new sequence variants. Explanation: Recombination reorders existing variants; mutation creates new ones.
+BIO-GEN-REP-036 | Hard | Integrated / Calculation | Topic: Life-cycle genetics
+n=3 species: gamete combinations by assortment and zygotic combinations from two parents?
+A. 16 and 256
+B. 8 and 64
+C. 8 and 16
+D. 3 and 9
+E. 6 and 36
+Correct answer: B — 8 and 64. Explanation: 2^3=8 gamete combinations; 8×8=64 zygotic combinations.
+Final Reconciliation & Publication Gate
+Counts have been programmatically reconciled to the frozen blueprint: 400 total questions, 200 Easy, 100 Moderate and 100 Hard, with exact chapter quotas.
+• Independent scientific review by a qualified Biology teacher before publication.
+• Verify every single-best answer and distractor scientifically.
+• Confirm terminology and scope against the current Ahsora syllabus/IMAT cycle.
+• Pilot difficult items and recalibrate difficulty using student performance data.
+• Revise or retire ambiguous or low-discrimination questions with version history.

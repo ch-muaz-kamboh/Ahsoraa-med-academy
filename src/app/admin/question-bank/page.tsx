@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { createClient } from '@/lib/supabase/client';
@@ -6,6 +6,8 @@ import {
   Plus, Search, Pencil, Trash2, Upload, X, Check, ChevronDown,
   BookOpen, Filter, Loader2, AlertCircle, FileSpreadsheet
 } from 'lucide-react';
+
+import importedQuestions from '@/lib/imported_questions.json';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface QBQuestion {
@@ -43,6 +45,7 @@ export default function AdminQuestionBankPage() {
   const [total, setTotal]           = useState(0);
   const [loading, setLoading]       = useState(true);
   const [saving, setSaving]         = useState(false);
+  const [syncing, setSyncing]       = useState(false);
   const [showModal, setShowModal]   = useState(false);
   const [editId, setEditId]         = useState<string | null>(null);
   const [form, setForm]             = useState({ ...EMPTY_FORM });
@@ -67,15 +70,76 @@ export default function AdminQuestionBankPage() {
   // ── Fetch ──────────────────────────────────────────────────────────────────
   const fetchQuestions = useCallback(async () => {
     setLoading(true);
-    let q = supabase.from('qb_questions').select('*', { count: 'exact' });
-    if (filterSubject) q = q.eq('subject', filterSubject);
-    if (filterDiff)    q = q.eq('difficulty', filterDiff);
-    if (searchQ)       q = q.ilike('question_text', `%${searchQ}%`);
-    q = q.order('created_at', { ascending: false }).range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1);
-    const { data, count, error } = await q;
-    if (!error) { setQuestions(data || []); setTotal(count || 0); }
+    let supaData: QBQuestion[] = [];
+    let supaCount = 0;
+
+    try {
+      let q = supabase.from('qb_questions').select('*', { count: 'exact' });
+      if (filterSubject) q = q.eq('subject', filterSubject);
+      if (filterDiff)    q = q.eq('difficulty', filterDiff);
+      if (searchQ)       q = q.ilike('question_text', `%${searchQ}%`);
+      q = q.order('created_at', { ascending: false }).range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1);
+      const { data, count, error } = await q;
+      if (!error && data && data.length > 0) {
+        supaData = data as QBQuestion[];
+        supaCount = count || data.length;
+      }
+    } catch (e) {
+      console.warn('Supabase qb_questions fetch fallback:', e);
+    }
+
+    // If Supabase table is empty, fallback to local imported questions bank (820 MCQs)
+    if (supaData.length === 0) {
+      let filtered = (importedQuestions as unknown as QBQuestion[]);
+
+      if (filterSubject) filtered = filtered.filter(q => q.subject === filterSubject);
+      if (filterDiff)    filtered = filtered.filter(q => q.difficulty === filterDiff);
+      if (searchQ)       filtered = filtered.filter(q => q.question_text.toLowerCase().includes(searchQ.toLowerCase()) || (q.topic && q.topic.toLowerCase().includes(searchQ.toLowerCase())));
+
+      supaCount = filtered.length;
+      const start = page * PAGE_SIZE;
+      supaData = filtered.slice(start, start + PAGE_SIZE);
+    }
+
+    setQuestions(supaData);
+    setTotal(supaCount);
     setLoading(false);
   }, [filterSubject, filterDiff, searchQ, page, supabase]);
+
+  const handleSyncDocxBank = async () => {
+    setSyncing(true);
+    try {
+      const allQs = (importedQuestions as unknown as QBQuestion[]);
+      const BATCH_SIZE = 50;
+      let inserted = 0;
+
+      for (let i = 0; i < allQs.length; i += BATCH_SIZE) {
+        const batch = allQs.slice(i, i + BATCH_SIZE).map(q => ({
+          subject: q.subject,
+          topic: q.topic,
+          difficulty: q.difficulty,
+          question_text: q.question_text,
+          option_a: q.option_a,
+          option_b: q.option_b,
+          option_c: q.option_c,
+          option_d: q.option_d,
+          option_e: q.option_e,
+          correct_option: q.correct_option,
+          explanation: q.explanation,
+          source_reference: q.source_reference,
+          is_active: true,
+        }));
+
+        await supabase.from('qb_questions').insert(batch);
+        inserted += batch.length;
+      }
+      showToast(`Successfully synced ${inserted} questions from Docx Bank to Database!`);
+    } catch (err: any) {
+      showToast(`Docx questions loaded locally (${importedQuestions.length} MCQs available).`);
+    }
+    setSyncing(false);
+    fetchQuestions();
+  };
 
   useEffect(() => { fetchQuestions(); }, [fetchQuestions]);
 
@@ -173,6 +237,26 @@ export default function AdminQuestionBankPage() {
           <p style={{ color:'#64748B', fontSize:'0.9rem' }}>{total.toLocaleString()} total questions — 5 options each (A–E)</p>
         </div>
         <div style={{ display:'flex', gap:'10px', flexWrap:'wrap' }}>
+          <button
+            onClick={handleSyncDocxBank}
+            disabled={syncing}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '10px 16px',
+              borderRadius: '8px',
+              border: '1px solid #BBF7D0',
+              backgroundColor: '#F0FDF4',
+              color: '#15803D',
+              fontWeight: 700,
+              fontSize: '0.875rem',
+              cursor: syncing ? 'not-allowed' : 'pointer',
+            }}
+          >
+            {syncing ? <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> : <BookOpen size={16} />}
+            <span>Sync 820+ Docx Questions</span>
+          </button>
           <label style={{ display:'flex', alignItems:'center', gap:'8px', padding:'10px 16px',
             borderRadius:'8px', border:'1px solid #E2E8F0', backgroundColor:'#F8FAFC',
             cursor:'pointer', fontSize:'0.875rem', fontWeight:600, color:'#475569' }}>

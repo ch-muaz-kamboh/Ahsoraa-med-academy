@@ -1,0 +1,2298 @@
+﻿AHSORA MEDS ACADEMY
+BIOCHEMISTRY, BIOLOGICAL MOLECULES& BIOENERGETICS
+272-Question Original Practice Bank
+136 Easy • 68 Moderate • 68 Hard • Five options A-E • One best answer
+BUILD BASISAligned with the frozen Ahsora Biology Practice Bank Strategy & Production Blueprint v1.0. Chapter quotas, difficulty quotas, five-option design, explanation requirements and QA rules are preserved exactly. This is a draft production bank and requires independent scientific/editorial QA before student publication.
+1. Bank Architecture
+The 272 questions below implement the frozen Biochemistry, Biological Molecules & Bioenergetics allocation exactly.
+Chapter
+Total
+Easy
+Moderate
+Hard
+Water, Weak Interactions & Chemical Basis of Life
+32
+16
+8
+8
+Carbohydrates, Lipids, Proteins & Nucleic Acids
+72
+36
+18
+18
+Enzymes
+56
+28
+14
+14
+ATP, Cellular Respiration & Fermentation
+80
+40
+20
+20
+Photosynthesis
+32
+16
+8
+8
+TOTAL
+272
+136
+68
+68
+Difficulty model: Easy = foundation/one-step; Moderate = typical IMAT conceptual/two-step; Hard = upper-end IMAT or controlled above-IMAT integration. Hard questions are difficult because of integration and inference, never intentionally confusing wording.
+Hard calibration: 20 of 68 Hard questions are internally marked Ahsora Challenge (~29.4%), consistent with the strategy target of about 30%.
+2. Water, Weak Interactions & Chemical Basis of Life
+Quota: 32 MCQs — 16 Easy, 8 Moderate, 8 Hard.
+Easy Questions
+BIO-BCH-WAT-001 | Easy | Recall / Conceptual | Topic: Water polarity
+Why is a water molecule polar?
+A. Oxygen attracts the shared electrons more strongly than hydrogen does.
+B. The molecule contains ionic bonds between oxygen and hydrogen.
+C. Hydrogen atoms carry complete positive charges.
+D. The oxygen atom has no lone pairs of electrons.
+E. Water molecules are always dissociated into H+ and OH-.
+Correct answer: A — Oxygen attracts the shared electrons more strongly than hydrogen does. Explanation: The O-H bonds are polar because oxygen is more electronegative, giving water a partial charge separation.
+BIO-BCH-WAT-002 | Easy | Recall / Conceptual | Topic: Hydrogen bonding
+A hydrogen bond between two water molecules forms mainly between:
+A. two oxygen atoms sharing a pair of electrons.
+B. two hydrogen atoms with opposite full charges.
+C. a hydrogen atom and a covalently bonded carbon atom.
+D. two hydroxide ions in solution.
+E. a partially positive hydrogen of one molecule and a partially negative oxygen of another.
+Correct answer: E — a partially positive hydrogen of one molecule and a partially negative oxygen of another. Explanation: Hydrogen bonds arise from attraction between partial charges on neighboring polar molecules.
+BIO-BCH-WAT-003 | Easy | Recall / Conceptual | Topic: Hydrophilic substances
+Which substance would generally be most hydrophilic?
+A. A long hydrocarbon chain
+B. A molecule containing several exposed hydroxyl groups
+C. A neutral lipid with no polar head group
+D. A molecule composed almost entirely of C-H bonds
+E. A wax molecule
+Correct answer: B — A molecule containing several exposed hydroxyl groups Explanation: Polar hydroxyl groups can hydrogen-bond with water, increasing hydrophilicity.
+BIO-BCH-WAT-004 | Easy | Recall / Conceptual | Topic: Hydrophobic effect
+Hydrophobic molecules tend to cluster together in water mainly because:
+A. they form strong ionic bonds with one another.
+B. water molecules become covalently attached to them.
+C. they are strongly attracted to water molecules.
+D. their clustering reduces disruption of the hydrogen-bonded water network.
+E. their nonpolar groups become electrically charged.
+Correct answer: D — their clustering reduces disruption of the hydrogen-bonded water network. Explanation: Nonpolar groups aggregate because this minimizes their exposure to water and preserves water-water interactions.
+BIO-BCH-WAT-005 | Easy | Recall / Conceptual | Topic: Specific heat
+Which property of water helps organisms resist rapid changes in body temperature?
+A. High specific heat capacity
+B. Low boiling point
+C. Low heat of vaporization
+D. Complete nonpolarity
+E. Inability to form hydrogen bonds
+Correct answer: A — High specific heat capacity Explanation: Water absorbs substantial heat before its temperature changes greatly because many hydrogen bonds must be disrupted.
+BIO-BCH-WAT-006 | Easy | Recall / Conceptual | Topic: Heat of vaporization
+Evaporation of sweat cools the body because water has:
+A. a very low specific heat.
+B. a high heat of vaporization.
+C. no intermolecular attractions.
+D. a low surface tension.
+E. a low latent heat.
+Correct answer: B — a high heat of vaporization. Explanation: Removing the highest-energy water molecules during evaporation carries substantial heat away from the skin.
+BIO-BCH-WAT-007 | Easy | Recall / Conceptual | Topic: Solvent properties
+Why does sodium chloride dissolve readily in water?
+A. Water converts sodium and chloride atoms into isotopes.
+B. NaCl becomes covalently bonded to water.
+C. Polar water molecules surround and stabilize the separated ions.
+D. Water is nonpolar like the crystal lattice.
+E. Hydrogen bonds form directly between Na+ and Cl-.
+Correct answer: C — Polar water molecules surround and stabilize the separated ions. Explanation: Water's partial charges form hydration shells around Na+ and Cl-, weakening ionic attractions in the crystal.
+BIO-BCH-WAT-008 | Easy | Recall / Conceptual | Topic: Cohesion
+The tendency of water molecules to stick to one another is called:
+A. adhesion.
+B. hydrolysis.
+C. cohesion.
+D. ionization.
+E. denaturation.
+Correct answer: C — cohesion. Explanation: Cohesion results largely from hydrogen bonding among water molecules.
+BIO-BCH-WAT-009 | Easy | Recall / Conceptual | Topic: Ice density
+Why does ice float on liquid water?
+A. Hydrogen bonds hold water molecules in a more open lattice in ice.
+B. Ice contains fewer oxygen atoms than liquid water.
+C. Covalent O-H bonds break when water freezes.
+D. Frozen water loses all hydrogen bonds.
+E. Ice molecules have lower molecular mass.
+Correct answer: A — Hydrogen bonds hold water molecules in a more open lattice in ice. Explanation: The open hydrogen-bonded lattice of ice occupies more volume and therefore has lower density than liquid water.
+BIO-BCH-WAT-010 | Easy | Recall / Conceptual | Topic: Weak interactions
+Which interaction is individually weak but collectively important in stabilizing biological macromolecules?
+A. Hydrogen bonding
+B. Peptide bonding
+C. Phosphodiester bonding
+D. Disulfide bonding
+E. Glycosidic bonding
+Correct answer: A — Hydrogen bonding Explanation: Many weak noncovalent interactions can collectively stabilize proteins, DNA and membranes.
+BIO-BCH-WAT-011 | Easy | Recall / Conceptual | Topic: Water in hydrolysis
+In a hydrolysis reaction, water is used to:
+A. form a peptide bond without releasing any molecule.
+B. remove all oxygen atoms from a polymer.
+C. break a covalent bond by contributing H and OH to the products.
+D. convert a polar molecule into a lipid.
+E. increase the number of monomers by dehydration.
+Correct answer: C — break a covalent bond by contributing H and OH to the products. Explanation: Hydrolysis cleaves a bond by adding the components of water across it.
+BIO-BCH-WAT-012 | Easy | Recall / Conceptual | Topic: Water in condensation
+A condensation reaction that joins two monomers usually:
+A. requires the polymer to gain one oxygen atom from air.
+B. consumes a molecule of carbon dioxide.
+C. releases a molecule of water.
+D. breaks a polymer into smaller units.
+E. produces hydroxide ions as the main product.
+Correct answer: C — releases a molecule of water. Explanation: Condensation joins monomers while removing H and OH as water.
+BIO-BCH-WAT-013 | Easy | Recall / Conceptual | Topic: pH concept
+A decrease in pH indicates:
+A. a decrease in hydrogen ion concentration.
+B. an increase in hydrogen ion concentration.
+C. a complete absence of hydroxide ions.
+D. an increase in temperature only.
+E. the solution has become nonpolar.
+Correct answer: B — an increase in hydrogen ion concentration. Explanation: pH falls as [H+] rises because pH is inversely related logarithmically to hydrogen ion concentration.
+BIO-BCH-WAT-014 | Easy | Recall / Conceptual | Topic: Protein weak interactions
+Which interaction can form between oppositely charged amino-acid side chains in a protein?
+A. A phosphodiester bond
+B. A glycosidic bond
+C. An ionic interaction (salt bridge)
+D. A peptide bond between side chains
+E. A covalent bond between every charged group
+Correct answer: C — An ionic interaction (salt bridge) Explanation: Oppositely charged side chains can attract electrostatically to form a salt bridge.
+BIO-BCH-WAT-015 | Easy | Recall / Conceptual | Topic: DNA hydrogen bonds
+In double-stranded DNA, hydrogen bonds form directly between:
+A. adjacent phosphate groups in one strand.
+B. ribose sugars in opposite strands.
+C. amino acids and nucleotides.
+D. fatty acids in the backbone.
+E. complementary nitrogenous bases.
+Correct answer: E — complementary nitrogenous bases. Explanation: Complementary bases pair through hydrogen bonds, whereas the sugar-phosphate backbone is covalent.
+BIO-BCH-WAT-016 | Easy | Conceptual | Topic: Membrane hydrophobic interactions
+In a phospholipid bilayer, hydrophobic fatty-acid tails are oriented mainly:
+A. toward the extracellular fluid only.
+B. toward the interior of the bilayer, away from water.
+C. toward the cytosol only.
+D. randomly with no preferred orientation.
+E. toward water because hydrocarbon chains are polar.
+Correct answer: B — toward the interior of the bilayer, away from water. Explanation: The hydrophobic effect drives nonpolar tails away from water while polar heads face aqueous environments.
+Moderate Questions
+BIO-BCH-WAT-017 | Moderate | Application | Topic: Hydrophobic effect
+A globular protein contains a hydrophobic amino acid that is normally buried in its core. If it is replaced by a strongly charged residue, the most likely direct consequence is:
+A. stronger hydrophobic packing in the core.
+B. destabilization of the protein core because the charged side chain is unfavorable in a nonpolar environment.
+C. automatic formation of a new peptide bond.
+D. conversion of the protein into a carbohydrate.
+E. elimination of all hydrogen bonds in the protein.
+Correct answer: B — destabilization of the protein core because the charged side chain is unfavorable in a nonpolar environment. Explanation: Charged residues are generally favored at solvent-exposed surfaces rather than in tightly packed hydrophobic cores.
+BIO-BCH-WAT-018 | Moderate | Application | Topic: Specific heat
+Two equal masses of water and a nonpolar solvent receive the same amount of heat. The water temperature rises less. Which explanation is best?
+A. Water molecules have no kinetic energy.
+B. Covalent O-H bonds are continuously broken during ordinary heating.
+C. The nonpolar solvent has more hydrogen bonds than water.
+D. Some added energy is used to disrupt hydrogen bonds before increasing molecular motion.
+E. Water has a lower molecular mass than all nonpolar solvents.
+Correct answer: D — Some added energy is used to disrupt hydrogen bonds before increasing molecular motion. Explanation: Hydrogen bonding gives water a high heat capacity because heat is absorbed in disrupting intermolecular interactions.
+BIO-BCH-WAT-019 | Moderate | Application | Topic: Ice density
+A lake freezes at the surface while liquid water remains below. Which property of water contributes most directly to this pattern?
+A. Liquid water becomes nonpolar below 0°C.
+B. Solid water is less dense than liquid water and therefore remains at the surface.
+C. Hydrogen bonding disappears completely in ice.
+D. Ice has a greater density than liquid water.
+E. Frozen water conducts all heat away instantly.
+Correct answer: B — Solid water is less dense than liquid water and therefore remains at the surface. Explanation: The open lattice of ice makes it less dense, so the surface ice floats and insulates water beneath it.
+BIO-BCH-WAT-020 | Moderate | Application | Topic: pH and proteins
+An enzyme loses activity when pH changes from 7 to 3, even though its peptide bonds remain intact. The most likely explanation is that low pH:
+A. converts every amino acid into glucose.
+B. changes ionization of side chains and disrupts interactions needed for the active-site shape.
+C. breaks all peptide bonds immediately.
+D. removes all water from the enzyme.
+E. creates new nucleotides inside the protein.
+Correct answer: B — changes ionization of side chains and disrupts interactions needed for the active-site shape. Explanation: pH alters protonation states of side chains, which can disrupt ionic and hydrogen-bond interactions important for structure.
+BIO-BCH-WAT-021 | Moderate | Conceptual | Topic: DNA stability
+A DNA region rich in G-C base pairs generally requires more heat to separate its strands than an A-T-rich region because G-C pairs:
+A. contain covalent bonds between the two DNA strands.
+B. have larger phosphate groups.
+C. form three hydrogen bonds rather than two.
+D. are always located closer to the chromosome centromere.
+E. have fewer atoms than A-T pairs.
+Correct answer: C — form three hydrogen bonds rather than two. Explanation: G-C base pairs have three hydrogen bonds, so G-C-rich DNA generally has a higher melting temperature.
+BIO-BCH-WAT-022 | Moderate | Application | Topic: Detergents
+A detergent disrupts a cell membrane mainly because its amphipathic molecules:
+A. form peptide bonds with membrane proteins.
+B. interact with both water and membrane lipids, dispersing hydrophobic lipid assemblies.
+C. remove all phosphate groups from phospholipids.
+D. make fatty-acid tails strongly ionic.
+E. convert the bilayer into DNA.
+Correct answer: B — interact with both water and membrane lipids, dispersing hydrophobic lipid assemblies. Explanation: Amphipathic detergents surround hydrophobic lipid regions while remaining soluble in water, disrupting bilayer organization.
+BIO-BCH-WAT-023 | Moderate | Experimental | Topic: Hydrogen bonding
+A mutation replaces a polar amino acid on a protein surface with a nonpolar amino acid. Which effect is most plausible?
+A. The peptide backbone necessarily breaks at the mutation site.
+B. The new residue may form fewer favorable interactions with surrounding water.
+C. The residue becomes positively charged in all conditions.
+D. All protein secondary structure is lost.
+E. The protein gains an extra nucleotide.
+Correct answer: B — The new residue may form fewer favorable interactions with surrounding water. Explanation: Polar surface residues often hydrogen-bond with water, whereas nonpolar residues interact less favorably with the aqueous environment.
+BIO-BCH-WAT-024 | Moderate | Conceptual | Topic: Weak interactions
+Why can a protein be stable even though many interactions holding its tertiary structure are individually weak?
+A. Weak interactions become covalent when enough are present.
+B. Proteins contain no thermal motion.
+C. Only peptide bonds determine tertiary structure.
+D. Water cannot interact with proteins.
+E. A large number of weak interactions can produce substantial collective stabilization.
+Correct answer: E — A large number of weak interactions can produce substantial collective stabilization. Explanation: Protein stability often arises from the combined effect of many hydrogen bonds, ionic interactions and hydrophobic contacts.
+Hard Questions
+BIO-BCH-WAT-025 | Hard | Upper-end IMAT | Integrated | Topic: Protein folding
+A soluble protein has a hydrophobic core and polar surface. A mutation moves several nonpolar residues from the core to the surface without changing chain length. Which combination is most likely?
+A. Greater solubility and stronger hydration of the mutated surface
+B. No effect because amino-acid location does not influence folding
+C. Automatic formation of more disulfide bonds
+D. Complete cleavage of the polypeptide into monomers
+E. Reduced folding stability and increased tendency to aggregate in water
+Correct answer: E — Reduced folding stability and increased tendency to aggregate in water Explanation: Exposing nonpolar residues to water is unfavorable and can destabilize folding while promoting hydrophobic aggregation.
+BIO-BCH-WAT-026 | Hard | Upper-end IMAT | Integrated | Topic: pH and ionic interactions
+A salt bridge in a protein forms between a negatively charged carboxylate side chain and a positively charged amino group. Strong acid is added. Which change most directly weakens this interaction?
+A. Deprotonation of the amino group increases its positive charge.
+B. The peptide bond becomes a glycosidic bond.
+C. Hydrophobic residues become fully ionized.
+D. Protonation of the carboxylate group reduces its negative charge.
+E. The protein gains additional phosphate groups from water.
+Correct answer: D — Protonation of the carboxylate group reduces its negative charge. Explanation: Lower pH protonates carboxylates, reducing the electrostatic attraction that stabilizes the salt bridge.
+BIO-BCH-WAT-027 | Hard | Upper-end IMAT | Integrated | Topic: Membrane hydrophobic effect
+A phospholipid suspension in water spontaneously forms bilayers. Which statement best explains the thermodynamic driving force at the level expected for biology?
+A. Covalent bonds form between all neighboring phospholipids.
+B. Hydrocarbon tails become hydrophilic after contact with water.
+C. Bilayer formation reduces ordered water surrounding exposed hydrocarbon tails, increasing the overall favorability of the system.
+D. Phosphate heads are excluded from water because they are nonpolar.
+E. Water molecules stop forming hydrogen bonds outside the bilayer.
+Correct answer: C — Bilayer formation reduces ordered water surrounding exposed hydrocarbon tails, increasing the overall favorability of the system. Explanation: The hydrophobic effect favors burial of nonpolar tails and releases ordered water while polar heads remain hydrated.
+BIO-BCH-WAT-028 | Hard | Upper-end IMAT | Integrated | Topic: Hydrogen bonds in macromolecules
+A molecule competes for hydrogen-bond donors and acceptors on a folded protein without breaking covalent bonds. Which structural levels could be directly destabilized?
+A. Secondary and tertiary structure, while primary structure can remain intact
+B. Primary structure only
+C. Primary and peptide-bond structure only
+D. The amino-acid sequence must change first
+E. Only quaternary structure, never secondary structure
+Correct answer: A — Secondary and tertiary structure, while primary structure can remain intact Explanation: Hydrogen bonds stabilize helices/sheets and tertiary contacts, whereas primary structure is the covalent amino-acid sequence.
+BIO-BCH-WAT-029 | Hard | Upper-end IMAT | Application | Topic: Water and thermoregulation
+An animal exposed to dry heat can maintain body temperature more effectively by sweating than an identical animal in saturated humid air. The main reason is that:
+A. evaporation is faster in dry air, allowing more high-energy water molecules to leave the skin.
+B. water has lower specific heat in dry air.
+C. humidity increases the heat of vaporization of water to infinity.
+D. sweat becomes nonpolar in humid air.
+E. hydrogen bonds cannot form in dry air.
+Correct answer: A — evaporation is faster in dry air, allowing more high-energy water molecules to leave the skin. Explanation: Evaporative cooling depends on net evaporation, which is reduced when surrounding air is already saturated with water vapor.
+BIO-BCH-WAT-030 | Hard | Upper-end IMAT | Experimental | Topic: Water solvent properties
+A small molecule is highly soluble in water but poorly soluble in hexane. Which molecular feature most strongly supports this observation?
+A. Several groups capable of hydrogen bonding or carrying partial/full charges
+B. A long uninterrupted hydrocarbon chain
+C. Only carbon-carbon and carbon-hydrogen bonds
+D. A surface dominated by nonpolar aromatic rings
+E. Complete absence of electronegative atoms
+Correct answer: A — Several groups capable of hydrogen bonding or carrying partial/full charges Explanation: Water preferentially solvates polar and charged groups through electrostatic interactions and hydrogen bonding.
+BIO-BCH-WAT-031 | Hard | Ahsora Challenge | Integrated | Topic: Hydrophobic effect
+A membrane protein is removed from its lipid bilayer and placed directly into water without detergent. Its transmembrane region contains many leucine and valine residues. What is the most likely outcome?
+A. The transmembrane region becomes strongly hydrated and more soluble.
+B. The protein automatically converts hydrophobic residues into charged residues.
+C. The protein tends to aggregate because hydrophobic transmembrane residues become exposed to water.
+D. All peptide bonds hydrolyze immediately.
+E. The protein becomes a carbohydrate-polymer micelle.
+Correct answer: C — The protein tends to aggregate because hydrophobic transmembrane residues become exposed to water. Explanation: Hydrophobic membrane-spanning surfaces are unstable in water and often aggregate unless shielded by lipids or detergents.
+BIO-BCH-WAT-032 | Hard | Ahsora Challenge | Integrated | Topic: Weak interactions and stability
+Two proteins have the same amino-acid sequence except that one has multiple substitutions that each remove a single weak hydrogen bond. No one substitution is sufficient to unfold the protein. Why might the combined substitutions still cause unfolding?
+A. Hydrogen bonds become peptide bonds when several are lost.
+B. Any one hydrogen bond normally carries all the folding energy.
+C. The amino-acid sequence is irrelevant to tertiary structure.
+D. Protein stability reflects the cumulative contribution of many individually weak interactions.
+E. Only covalent bonds can affect protein stability.
+Correct answer: D — Protein stability reflects the cumulative contribution of many individually weak interactions. Explanation: Many small destabilizing losses can add together until the folded state is no longer sufficiently favored.
+3. Carbohydrates, Lipids, Proteins & Nucleic Acids
+Quota: 72 MCQs — 36 Easy, 18 Moderate, 18 Hard.
+Easy Questions
+BIO-BCH-BML-001 | Easy | Recall / Conceptual | Topic: Carbohydrates
+Which carbohydrate is a monosaccharide?
+A. Sucrose
+B. Glycogen
+C. Starch
+D. Glucose
+E. Cellulose
+Correct answer: D — Glucose Explanation: Glucose is a single sugar unit, whereas the others listed are di- or polysaccharides.
+BIO-BCH-BML-002 | Easy | Recall / Conceptual | Topic: Carbohydrates
+Which bond joins monosaccharides in many carbohydrates?
+A. A peptide bond
+B. A phosphodiester bond
+C. A glycosidic bond
+D. A disulfide bond
+E. An ionic bond
+Correct answer: C — A glycosidic bond Explanation: Glycosidic bonds join sugar units in di- and polysaccharides.
+BIO-BCH-BML-003 | Easy | Recall / Conceptual | Topic: Carbohydrates
+The main storage polysaccharide in animals is:
+A. cellulose.
+B. starch only in muscle.
+C. glycogen.
+D. chitin.
+E. sucrose.
+Correct answer: C — glycogen. Explanation: Animals store glucose mainly as glycogen.
+BIO-BCH-BML-004 | Easy | Recall / Conceptual | Topic: Carbohydrates
+The main storage polysaccharide in plants is:
+A. starch.
+B. glycogen.
+C. cellulose.
+D. lactose.
+E. ribose.
+Correct answer: A — starch. Explanation: Plants store glucose mainly as starch.
+BIO-BCH-BML-005 | Easy | Recall / Conceptual | Topic: Carbohydrates
+Cellulose differs from starch mainly because cellulose:
+A. contains beta-glucose linkages that produce straight structural chains.
+B. is made of amino acids.
+C. contains no oxygen atoms.
+D. is a lipid rather than a carbohydrate.
+E. is the major animal storage polysaccharide.
+Correct answer: A — contains beta-glucose linkages that produce straight structural chains. Explanation: Beta linkages give cellulose a straight structural polymer suited to plant cell walls.
+BIO-BCH-BML-006 | Easy | Recall / Conceptual | Topic: Carbohydrates
+Which carbohydrate is a disaccharide?
+A. Sucrose
+B. Glucose
+C. Glycogen
+D. Cellulose
+E. Ribose
+Correct answer: A — Sucrose Explanation: Sucrose consists of two monosaccharides joined by a glycosidic bond.
+BIO-BCH-BML-007 | Easy | Recall / Conceptual | Topic: Carbohydrates
+Hydrolysis of a polysaccharide generally produces:
+A. fatty acids only.
+B. amino acids only.
+C. smaller carbohydrate units or monosaccharides.
+D. nucleotides only.
+E. additional peptide bonds.
+Correct answer: C — smaller carbohydrate units or monosaccharides. Explanation: Hydrolysis breaks glycosidic bonds by adding water.
+BIO-BCH-BML-008 | Easy | Recall / Conceptual | Topic: Carbohydrates
+Which statement about glycogen is correct?
+A. It is an unbranched protein polymer.
+B. It is the main structural component of DNA.
+C. It is composed of fatty acids and glycerol.
+D. It is a highly branched glucose storage polymer in animals.
+E. It is a plant cell-wall polymer.
+Correct answer: D — It is a highly branched glucose storage polymer in animals. Explanation: Glycogen is a branched polymer of glucose used for animal energy storage.
+BIO-BCH-BML-009 | Easy | Recall / Conceptual | Topic: Lipids
+A triglyceride is formed from:
+A. three glycerol molecules and one amino acid.
+B. one glucose and three phosphates.
+C. two nucleotides and one fatty acid.
+D. three amino acids and one glycerol.
+E. glycerol and three fatty acids.
+Correct answer: E — glycerol and three fatty acids. Explanation: A triacylglycerol contains glycerol esterified to three fatty acids.
+BIO-BCH-BML-010 | Easy | Recall / Conceptual | Topic: Lipids
+Which component gives a phospholipid its hydrophilic character?
+A. The fatty-acid tails
+B. The hydrocarbon chains only
+C. The terminal methyl groups
+D. The double bonds in unsaturated tails only
+E. The phosphate-containing head group
+Correct answer: E — The phosphate-containing head group Explanation: The phosphate-containing head is polar and interacts with water.
+BIO-BCH-BML-011 | Easy | Recall / Conceptual | Topic: Lipids
+A saturated fatty acid contains:
+A. one or more carbon-carbon double bonds.
+B. peptide bonds between carbons.
+C. a phosphate group in every molecule.
+D. a ribose sugar.
+E. no carbon-carbon double bonds in its hydrocarbon chain.
+Correct answer: E — no carbon-carbon double bonds in its hydrocarbon chain. Explanation: Saturated fatty acids lack C=C double bonds in their hydrocarbon chains.
+BIO-BCH-BML-012 | Easy | Recall / Conceptual | Topic: Lipids
+An unsaturated fatty acid contains:
+A. no carbon atoms.
+B. only peptide bonds.
+C. at least one carbon-carbon double bond.
+D. a nitrogenous base.
+E. a phosphodiester backbone.
+Correct answer: C — at least one carbon-carbon double bond. Explanation: Unsaturation refers to one or more C=C bonds in the fatty-acid chain.
+BIO-BCH-BML-013 | Easy | Recall / Conceptual | Topic: Lipids
+Which lipid is especially important in biological membranes?
+A. Glycogen
+B. Cellulose
+C. Phospholipid
+D. DNA
+E. Starch
+Correct answer: C — Phospholipid Explanation: Phospholipids are major structural components of cell membranes.
+BIO-BCH-BML-014 | Easy | Recall / Conceptual | Topic: Lipids
+Ester bonds in triglycerides link fatty acids to:
+A. amino acids.
+B. ribose.
+C. phosphate groups in DNA.
+D. glycerol.
+E. nitrogenous bases.
+Correct answer: D — glycerol. Explanation: Triglycerides form by esterification of three fatty acids to glycerol.
+BIO-BCH-BML-015 | Easy | Recall / Conceptual | Topic: Proteins
+The monomers of proteins are:
+A. fatty acids.
+B. monosaccharides.
+C. amino acids.
+D. nucleotides.
+E. glycerol molecules.
+Correct answer: C — amino acids. Explanation: Proteins are polymers built from amino acids.
+BIO-BCH-BML-016 | Easy | Recall / Conceptual | Topic: Proteins
+A peptide bond forms between:
+A. two phosphate groups.
+B. the amino group of one amino acid and the carboxyl group of another.
+C. two fatty-acid hydrocarbon tails.
+D. two nitrogenous bases.
+E. two monosaccharides only.
+Correct answer: B — the amino group of one amino acid and the carboxyl group of another. Explanation: Peptide bonds link amino acids through condensation between amino and carboxyl groups.
+BIO-BCH-BML-017 | Easy | Recall / Conceptual | Topic: Proteins
+Primary protein structure refers to:
+A. the amino-acid sequence of a polypeptide.
+B. the number of phospholipids in a membrane.
+C. the arrangement of DNA chromosomes.
+D. only alpha helices and beta sheets.
+E. the association of multiple complete chromosomes.
+Correct answer: A — the amino-acid sequence of a polypeptide. Explanation: Primary structure is the linear amino-acid sequence.
+BIO-BCH-BML-018 | Easy | Recall / Conceptual | Topic: Proteins
+Alpha helices and beta sheets are examples of:
+A. primary structure.
+B. lipid structure.
+C. DNA replication.
+D. carbohydrate branching.
+E. secondary protein structure.
+Correct answer: E — secondary protein structure. Explanation: Local backbone hydrogen bonding creates secondary structures such as alpha helices and beta sheets.
+BIO-BCH-BML-019 | Easy | Recall / Conceptual | Topic: Proteins
+Tertiary protein structure describes:
+A. the nucleotide sequence of a gene.
+B. only the sequence of amino acids.
+C. the arrangement of phospholipid molecules.
+D. the joining of glucose monomers.
+E. the overall three-dimensional folding of one polypeptide chain.
+Correct answer: E — the overall three-dimensional folding of one polypeptide chain. Explanation: Tertiary structure is the 3D conformation generated by interactions among side chains and the backbone.
+BIO-BCH-BML-020 | Easy | Recall / Conceptual | Topic: Proteins
+Quaternary protein structure is present when:
+A. a protein contains one amino acid.
+B. a carbohydrate contains four sugars.
+C. DNA has four bases.
+D. a phospholipid has two tails.
+E. multiple polypeptide subunits associate to form a functional protein.
+Correct answer: E — multiple polypeptide subunits associate to form a functional protein. Explanation: Quaternary structure refers to the arrangement of multiple polypeptide subunits.
+BIO-BCH-BML-021 | Easy | Recall / Conceptual | Topic: Proteins
+Denaturation usually disrupts protein function because it:
+A. alters the protein's three-dimensional shape.
+B. changes every amino acid into glucose.
+C. necessarily breaks all peptide bonds.
+D. adds nucleotides to the chain.
+E. converts the protein into DNA.
+Correct answer: A — alters the protein's three-dimensional shape. Explanation: Loss of higher-order structure can distort active or binding sites while primary structure may remain intact.
+BIO-BCH-BML-022 | Easy | Recall / Conceptual | Topic: Proteins
+A disulfide bond can form between side chains of two:
+A. cysteine residues.
+B. glycine residues.
+C. alanine residues.
+D. phosphate groups.
+E. glucose residues.
+Correct answer: A — cysteine residues. Explanation: Oxidation of two cysteine thiol groups can form a covalent disulfide bridge.
+BIO-BCH-BML-023 | Easy | Recall / Conceptual | Topic: Proteins
+Which level of protein structure is defined directly by covalent peptide bonds in the backbone sequence?
+A. Primary structure
+B. Secondary structure only
+C. Tertiary structure only
+D. Quaternary structure only
+E. Membrane structure
+Correct answer: A — Primary structure Explanation: Peptide bonds link amino acids into the primary sequence.
+BIO-BCH-BML-024 | Easy | Recall / Conceptual | Topic: Proteins
+Which amino-acid feature varies among the standard amino acids?
+A. The presence of an amino group in the general structure
+B. The side chain (R group)
+C. The presence of a carboxyl group in the general structure
+D. The alpha carbon itself
+E. The peptide-bond nitrogen after polymerization only
+Correct answer: B — The side chain (R group) Explanation: The R group gives each amino acid its distinctive chemical properties.
+BIO-BCH-BML-025 | Easy | Recall / Conceptual | Topic: Proteins
+Which interaction most directly stabilizes an alpha helix?
+A. Hydrogen bonds between backbone groups
+B. Glycosidic bonds
+C. Phosphodiester bonds
+D. Ionic bonds between every peptide unit
+E. Covalent bonds between all side chains
+Correct answer: A — Hydrogen bonds between backbone groups Explanation: Alpha helices are stabilized mainly by regular backbone hydrogen bonds.
+BIO-BCH-BML-026 | Easy | Recall / Conceptual | Topic: Nucleic acids
+The monomers of DNA and RNA are:
+A. amino acids.
+B. fatty acids.
+C. monosaccharides only.
+D. nucleotides.
+E. glycerol molecules.
+Correct answer: D — nucleotides. Explanation: Nucleic acids are polymers of nucleotides.
+BIO-BCH-BML-027 | Easy | Recall / Conceptual | Topic: Nucleic acids
+A nucleotide contains:
+A. a pentose sugar, phosphate group and nitrogenous base.
+B. a fatty acid, glycerol and phosphate.
+C. an amino acid, glucose and phosphate.
+D. two sugars and a peptide bond.
+E. a protein, lipid and base.
+Correct answer: A — a pentose sugar, phosphate group and nitrogenous base. Explanation: Each nucleotide contains a sugar, phosphate and nitrogenous base.
+BIO-BCH-BML-028 | Easy | Recall / Conceptual | Topic: Nucleic acids
+The sugar found in DNA is:
+A. ribose.
+B. glucose.
+C. fructose.
+D. deoxyribose.
+E. glycerol.
+Correct answer: D — deoxyribose. Explanation: DNA contains 2-deoxyribose, whereas RNA contains ribose.
+BIO-BCH-BML-029 | Easy | Recall / Conceptual | Topic: Nucleic acids
+The sugar found in RNA is:
+A. deoxyribose.
+B. ribose.
+C. glucose.
+D. sucrose.
+E. glycerol.
+Correct answer: B — ribose. Explanation: RNA nucleotides contain ribose sugar.
+BIO-BCH-BML-030 | Easy | Recall / Conceptual | Topic: Nucleic acids
+Which base is normally present in RNA but not DNA?
+A. Thymine
+B. Guanine
+C. Cytosine
+D. Adenine
+E. Uracil
+Correct answer: E — Uracil Explanation: RNA uses uracil in place of thymine.
+BIO-BCH-BML-031 | Easy | Recall / Conceptual | Topic: Nucleic acids
+Phosphodiester bonds in nucleic acids form part of the:
+A. hydrophobic core of proteins.
+B. sugar-phosphate backbone.
+C. fatty-acid tail region.
+D. peptide backbone.
+E. glycogen branch point only.
+Correct answer: B — sugar-phosphate backbone. Explanation: Phosphodiester bonds covalently connect adjacent nucleotides in the sugar-phosphate backbone.
+BIO-BCH-BML-032 | Easy | Recall / Conceptual | Topic: Nucleic acids
+Which pair are purines?
+A. Cytosine and thymine
+B. Thymine and uracil
+C. Adenine and guanine
+D. Adenine and cytosine
+E. Guanine and thymine
+Correct answer: C — Adenine and guanine Explanation: Adenine and guanine are the two purine bases.
+BIO-BCH-BML-033 | Easy | Recall / Conceptual | Topic: Nucleic acids
+Which pair are pyrimidines in DNA?
+A. Cytosine and thymine
+B. Adenine and guanine
+C. Adenine and cytosine
+D. Guanine and thymine
+E. Adenine and thymine
+Correct answer: A — Cytosine and thymine Explanation: Cytosine and thymine are pyrimidines in DNA.
+BIO-BCH-BML-034 | Easy | Recall / Conceptual | Topic: Biomolecule comparison
+Which biomolecule class is characterized by peptide bonds?
+A. Polysaccharides
+B. Proteins
+C. Triglycerides
+D. DNA
+E. Phospholipids
+Correct answer: B — Proteins Explanation: Peptide bonds link amino acids in proteins.
+BIO-BCH-BML-035 | Easy | Recall / Conceptual | Topic: Biomolecule comparison
+Which biomolecule class contains phosphodiester bonds as a repeating backbone linkage?
+A. Proteins
+B. Triglycerides
+C. Polysaccharides
+D. Nucleic acids
+E. Steroid-like lipids
+Correct answer: D — Nucleic acids Explanation: Nucleic acids have repeating phosphodiester bonds connecting nucleotides.
+BIO-BCH-BML-036 | Easy | Recall / Conceptual | Topic: Biomolecule comparison
+Which process most directly breaks polymers into monomers?
+A. Hydrolysis
+B. Condensation
+C. Oxidative phosphorylation
+D. Transcription
+E. Translation
+Correct answer: A — Hydrolysis Explanation: Hydrolysis adds water across covalent linkages to split polymers into smaller units.
+Moderate Questions
+BIO-BCH-BML-037 | Moderate | Application / Conceptual | Topic: Carbohydrates
+A plant cell is unable to synthesize beta-1,4 glycosidic linkages. Which structure would be most directly affected?
+A. Cellulose in the cell wall
+B. Glycogen granules
+C. Triglyceride droplets
+D. Protein alpha helices
+E. DNA backbone
+Correct answer: A — Cellulose in the cell wall Explanation: Cellulose depends on beta-1,4 linkages between glucose units.
+BIO-BCH-BML-038 | Moderate | Application / Conceptual | Topic: Carbohydrates
+Why is glycogen well suited for rapid glucose mobilization in animal cells?
+A. It contains peptide bonds that are easily broken.
+B. It is insoluble because it has no oxygen atoms.
+C. It is made of fatty acids with many double bonds.
+D. It forms a DNA-like double helix.
+E. Its highly branched structure provides many ends for enzyme action.
+Correct answer: E — Its highly branched structure provides many ends for enzyme action. Explanation: Branching creates many terminal residues, allowing enzymes to add or remove glucose at multiple sites.
+BIO-BCH-BML-039 | Moderate | Application / Conceptual | Topic: Carbohydrates
+A polysaccharide sample yields only glucose after complete hydrolysis but is resistant to human digestive enzymes. Which polymer is most likely?
+A. Glycogen
+B. Cellulose
+C. Starch
+D. Sucrose
+E. Lactose
+Correct answer: B — Cellulose Explanation: Cellulose is a glucose polymer with beta linkages that human digestive enzymes cannot hydrolyze.
+BIO-BCH-BML-040 | Moderate | Application / Conceptual | Topic: Carbohydrates
+Two carbohydrate polymers have the same monomer but different biological roles. Which feature can explain this difference?
+A. Different numbers of protons in glucose carbon atoms
+B. One polymer lacks covalent bonds
+C. Different glycosidic linkages and branching patterns
+D. One polymer contains amino acids instead of glucose
+E. The monomers have different atomic numbers
+Correct answer: C — Different glycosidic linkages and branching patterns Explanation: Linkage orientation and branching change polymer shape, enzyme recognition and biological function.
+BIO-BCH-BML-041 | Moderate | Application / Conceptual | Topic: Lipids
+A membrane contains more cis-unsaturated fatty acids after adaptation to cold. What effect is expected?
+A. Lower fluidity because double bonds make tails straighter
+B. Complete loss of the phospholipid bilayer
+C. Greater membrane fluidity because cis double bonds hinder tight packing
+D. Conversion of phospholipids into glycogen
+E. More peptide bonds between lipid tails
+Correct answer: C — Greater membrane fluidity because cis double bonds hinder tight packing Explanation: Cis double bonds create kinks that reduce packing and help maintain membrane fluidity at low temperature.
+BIO-BCH-BML-042 | Moderate | Application / Conceptual | Topic: Lipids
+A triglyceride is hydrolyzed completely. Which products are expected?
+A. Amino acids and glucose
+B. Nucleotides and phosphate
+C. Monosaccharides only
+D. Glycerol and fatty acids
+E. Glycerol and amino acids
+Correct answer: D — Glycerol and fatty acids Explanation: Hydrolysis of the three ester bonds releases glycerol and fatty acids.
+BIO-BCH-BML-043 | Moderate | Application / Conceptual | Topic: Lipids
+Why do phospholipids form bilayers whereas triglycerides do not form the same stable sheet in water?
+A. Triglycerides contain more phosphate groups.
+B. Phospholipids are amphipathic, with polar heads and nonpolar tails.
+C. Phospholipids are proteins.
+D. Triglycerides are fully charged polymers.
+E. Phospholipid tails are hydrophilic.
+Correct answer: B — Phospholipids are amphipathic, with polar heads and nonpolar tails. Explanation: The amphipathic structure of phospholipids drives bilayer formation in water.
+BIO-BCH-BML-044 | Moderate | Application / Conceptual | Topic: Lipids
+A fatty acid with several cis double bonds usually has a lower melting point than a saturated fatty acid of similar length because:
+A. double bonds create ionic attractions between chains.
+B. unsaturated chains contain no carbon atoms.
+C. saturated chains cannot interact through dispersion forces.
+D. cis double bonds make the molecule fully polar.
+E. kinks from cis double bonds reduce close packing between chains.
+Correct answer: E — kinks from cis double bonds reduce close packing between chains. Explanation: Poorer packing weakens intermolecular interactions and lowers the melting point.
+BIO-BCH-BML-045 | Moderate | Application / Conceptual | Topic: Proteins
+A mutation replaces a buried hydrophobic amino acid with a charged amino acid. Which protein property is most likely altered first?
+A. The genetic code in all cells
+B. Tertiary folding stability
+C. The presence of peptide bonds throughout the chain
+D. The number of ribose sugars
+E. The existence of glycogen branches
+Correct answer: B — Tertiary folding stability Explanation: Changing side-chain chemistry in the core can disrupt hydrophobic packing and destabilize tertiary structure.
+BIO-BCH-BML-046 | Moderate | Application / Conceptual | Topic: Proteins
+Heating a protein destroys its activity but amino-acid analysis shows the same sequence before and after heating. Which statement is most consistent?
+A. Higher-order structure was disrupted while primary structure remained intact.
+B. All peptide bonds were hydrolyzed.
+C. The protein was converted into DNA.
+D. Every side chain became identical.
+E. The amino-acid sequence was reversed.
+Correct answer: A — Higher-order structure was disrupted while primary structure remained intact. Explanation: Denaturation commonly disrupts secondary/tertiary structure without changing the covalent primary sequence.
+BIO-BCH-BML-047 | Moderate | Application / Conceptual | Topic: Proteins
+A protein is composed of four separate polypeptide chains. Which structural level specifically describes their association?
+A. Primary structure
+B. Secondary structure
+C. Tertiary structure only
+D. Quaternary structure
+E. Nucleotide structure
+Correct answer: D — Quaternary structure Explanation: Quaternary structure refers to the arrangement of multiple polypeptide subunits.
+BIO-BCH-BML-048 | Moderate | Application / Conceptual | Topic: Proteins
+A substitution changes one amino acid but does not alter the total length of a protein. Why can function still change greatly?
+A. A single side-chain change can alter folding or a critical binding site.
+B. Protein function depends only on chain length.
+C. Peptide bonds cannot form after a substitution.
+D. The mutation necessarily removes every hydrogen bond.
+E. All amino acids have identical chemical properties.
+Correct answer: A — A single side-chain change can alter folding or a critical binding site. Explanation: Protein function depends on specific side-chain interactions and three-dimensional structure, not simply chain length.
+BIO-BCH-BML-049 | Moderate | Application / Conceptual | Topic: Proteins
+Which observation most strongly suggests that a protein has lost tertiary structure but retains primary structure?
+A. It hydrolyzes completely into free amino acids.
+B. Its DNA sequence disappears.
+C. All peptide bonds are broken.
+D. It loses biological activity while the peptide chain remains intact.
+E. It becomes a polysaccharide.
+Correct answer: D — It loses biological activity while the peptide chain remains intact. Explanation: Loss of activity with an intact peptide chain is consistent with denaturation of higher-order structure.
+BIO-BCH-BML-050 | Moderate | Application / Conceptual | Topic: Nucleic acids
+A DNA sample is treated with an enzyme that cleaves phosphodiester bonds. What is affected most directly?
+A. Covalent continuity of the sugar-phosphate backbone
+B. Hydrogen bonds within alpha helices
+C. Ester bonds of triglycerides
+D. Peptide bonds of proteins
+E. Glycosidic bonds of glycogen only
+Correct answer: A — Covalent continuity of the sugar-phosphate backbone Explanation: Phosphodiester bonds link adjacent nucleotides along each nucleic-acid strand.
+BIO-BCH-BML-051 | Moderate | Application / Conceptual | Topic: Nucleic acids
+Which change converts a ribonucleotide containing uracil into the corresponding deoxyribonucleotide found in DNA?
+A. Replace ribose with deoxyribose and uracil with thymine
+B. Replace phosphate with an amino group
+C. Replace ribose with glucose only
+D. Replace uracil with guanine only
+E. Add a fatty acid tail
+Correct answer: A — Replace ribose with deoxyribose and uracil with thymine Explanation: DNA differs from RNA in both its sugar and its use of thymine instead of uracil.
+BIO-BCH-BML-052 | Moderate | Application / Conceptual | Topic: Nucleic acids
+A nucleic-acid strand contains ribose and uracil. Which conclusion is best supported?
+A. It must be DNA.
+B. It is necessarily a protein.
+C. It is a triglyceride.
+D. It is cellulose.
+E. It is RNA.
+Correct answer: E — It is RNA. Explanation: Ribose and uracil are characteristic components of RNA.
+BIO-BCH-BML-053 | Moderate | Application / Conceptual | Topic: Biomolecule comparison
+A polymer is hydrolyzed to monomers that each contain an amino group and a carboxyl group. The polymer was most likely:
+A. a polysaccharide.
+B. a protein.
+C. a triglyceride.
+D. DNA.
+E. a phospholipid bilayer.
+Correct answer: B — a protein. Explanation: Amino acids, the monomers of proteins, contain amino and carboxyl groups in their general structure.
+BIO-BCH-BML-054 | Moderate | Application / Conceptual | Topic: Biomolecule comparison
+An unknown macromolecule contains C, H, O, N and P and is built from repeating sugar-phosphate units. It is most likely:
+A. a triglyceride.
+B. a pure hydrocarbon.
+C. a nucleic acid.
+D. a simple polysaccharide with no phosphate.
+E. a polypeptide only.
+Correct answer: C — a nucleic acid. Explanation: A repeating sugar-phosphate backbone is diagnostic of DNA or RNA.
+Hard Questions
+BIO-BCH-BML-055 | Hard | Upper-end IMAT | Integrated / Application | Topic: Carbohydrates
+Two glucose polymers are exposed to an enzyme that recognizes alpha-1,4 linkages but not beta-1,4 linkages. Which result is most likely?
+A. Cellulose is hydrolyzed faster because beta linkages are identical to alpha linkages.
+B. Neither polymer can contain glucose.
+C. Starch-derived chains are hydrolyzed more readily than cellulose-derived chains.
+D. Both are converted directly into amino acids.
+E. Only cellulose forms glycosidic bonds.
+Correct answer: C — Starch-derived chains are hydrolyzed more readily than cellulose-derived chains. Explanation: Enzyme specificity for alpha linkages favors starch-like polymers over cellulose, which uses beta-1,4 bonds.
+BIO-BCH-BML-056 | Hard | Upper-end IMAT | Integrated / Application | Topic: Carbohydrates
+A glycogen molecule and an amylose molecule contain the same number of glucose units. Which property would most directly allow glycogen to be mobilized faster?
+A. A greater number of peptide bonds
+B. A greater number of branch ends available to enzymes
+C. Absence of glycosidic bonds
+D. Presence of phosphodiester linkages
+E. Complete lack of hydroxyl groups
+Correct answer: B — A greater number of branch ends available to enzymes Explanation: Glycogen branching supplies many ends where enzymes can release glucose residues simultaneously.
+BIO-BCH-BML-057 | Hard | Ahsora Challenge | Integrated / Application | Topic: Carbohydrates
+A mutation eliminates a branching enzyme in glycogen synthesis but leaves alpha-1,4 linkage formation intact. What is the most likely structural consequence?
+A. Longer, less-branched glucose chains with fewer terminal sites
+B. Conversion of glycogen into cellulose with beta-1,4 bonds
+C. Loss of all glucose residues
+D. Formation of triglycerides instead of carbohydrate
+E. Increase in peptide-bond formation
+Correct answer: A — Longer, less-branched glucose chains with fewer terminal sites Explanation: Without branch formation, glycogen remains more linear and has fewer ends for rapid synthesis and breakdown.
+BIO-BCH-BML-058 | Hard | Upper-end IMAT | Integrated / Application | Topic: Lipids
+A cell replaces many membrane cis-unsaturated fatty acids with saturated fatty acids of equal length while temperature remains constant. Which change is most likely?
+A. Membrane fluidity increases because saturated tails are kinked.
+B. The bilayer becomes a nucleic acid polymer.
+C. Phospholipid heads become hydrophobic.
+D. All membrane proteins lose peptide bonds.
+E. Membrane fluidity decreases because the tails pack more tightly.
+Correct answer: E — Membrane fluidity decreases because the tails pack more tightly. Explanation: Saturated tails are straighter and pack more closely, generally decreasing membrane fluidity.
+BIO-BCH-BML-059 | Hard | Upper-end IMAT | Integrated / Application | Topic: Lipids
+An amphipathic molecule has one strongly polar region and a large nonpolar region. In water it is most likely to arrange so that:
+A. nonpolar regions point toward water and polar regions cluster inward.
+B. all regions become equally hydrophilic.
+C. covalent bonds form between every molecule.
+D. polar regions contact water while nonpolar regions are shielded from it.
+E. the polar region is removed by hydrolysis.
+Correct answer: D — polar regions contact water while nonpolar regions are shielded from it. Explanation: Amphipathic molecules minimize exposure of nonpolar regions while keeping polar regions hydrated.
+BIO-BCH-BML-060 | Hard | Upper-end IMAT | Integrated / Application | Topic: Lipids
+A membrane remains unusually rigid at low temperature. Which change would most directly help restore fluidity?
+A. Increase the proportion of long saturated tails.
+B. Replace phospholipids with glycogen.
+C. Increase the proportion of cis-unsaturated fatty-acid tails.
+D. Remove all polar head groups.
+E. Increase peptide bonds between lipids.
+Correct answer: C — Increase the proportion of cis-unsaturated fatty-acid tails. Explanation: Cis double bonds introduce kinks that reduce packing and help maintain fluidity in the cold.
+BIO-BCH-BML-061 | Hard | Upper-end IMAT | Integrated / Application | Topic: Proteins
+A protein loses function after reduction of its disulfide bridges, but its amino-acid sequence is unchanged. Which level of structure is most directly destabilized?
+A. Primary structure only
+B. DNA secondary structure
+C. Tertiary and/or quaternary structure
+D. Glycogen branching
+E. Phospholipid bilayer orientation
+Correct answer: C — Tertiary and/or quaternary structure Explanation: Disulfide bonds stabilize folded conformations and subunit associations without changing the primary sequence.
+BIO-BCH-BML-062 | Hard | Upper-end IMAT | Integrated / Application | Topic: Proteins
+A protein contains one alpha helix stabilized by backbone hydrogen bonds. A solvent disrupts these hydrogen bonds but leaves peptide bonds intact. Which result is most direct?
+A. Cleavage of the amino-acid sequence into monomers
+B. Conversion of the helix into DNA
+C. Formation of extra peptide bonds
+D. Loss of local secondary structure with primary structure preserved
+E. No structural effect because helices are covalent
+Correct answer: D — Loss of local secondary structure with primary structure preserved Explanation: Alpha helices depend on backbone hydrogen bonds; peptide bonds preserve the primary sequence.
+BIO-BCH-BML-063 | Hard | Ahsora Challenge | Integrated / Application | Topic: Proteins
+A single amino-acid substitution changes a surface glutamate to valine. Which statement best explains why the effect can vary from negligible to severe?
+A. All substitutions have identical effects because all amino acids are equivalent.
+B. Only chain length determines protein function.
+C. A surface substitution always breaks the peptide backbone.
+D. Valine automatically becomes charged in water.
+E. The consequence depends on whether that position contributes critically to folding, binding or catalysis.
+Correct answer: E — The consequence depends on whether that position contributes critically to folding, binding or catalysis. Explanation: The functional impact of a substitution depends on the structural and mechanistic role of the affected residue.
+BIO-BCH-BML-064 | Hard | Upper-end IMAT | Integrated / Application | Topic: Proteins
+A protein is active as a dimer but each isolated monomer folds normally. A mutation prevents subunit association. Which structural level is selectively lost?
+A. Primary structure
+B. Quaternary structure
+C. Secondary structure
+D. Tertiary structure of each monomer
+E. The amino-acid sequence
+Correct answer: B — Quaternary structure Explanation: Subunit association defines quaternary structure, so folded monomers can remain intact yet inactive as a complex.
+BIO-BCH-BML-065 | Hard | Ahsora Challenge | Integrated / Application | Topic: Proteins
+An enzyme is denatured at high temperature and then cooled, but activity does not return. Which explanation is most plausible?
+A. Cooling necessarily hydrolyzed all peptide bonds.
+B. The amino-acid sequence was converted into RNA.
+C. All proteins always refold perfectly after cooling.
+D. The protein adopted incorrect interactions or aggregated during denaturation, preventing refolding.
+E. Temperature changed every amino acid into a lipid.
+Correct answer: D — The protein adopted incorrect interactions or aggregated during denaturation, preventing refolding. Explanation: Denaturation can be irreversible if unfolded chains aggregate or fail to regain the native interaction network.
+BIO-BCH-BML-066 | Hard | Ahsora Challenge | Integrated / Application | Topic: Nucleic acids
+A nucleic acid has equal proportions of A and U but no T. Which statement is safest?
+A. It must be double-stranded DNA.
+B. It must be a protein.
+C. It cannot contain phosphodiester bonds.
+D. It must be a triglyceride.
+E. It is consistent with RNA but base equality alone does not prove it is double-stranded.
+Correct answer: E — It is consistent with RNA but base equality alone does not prove it is double-stranded. Explanation: Uracil supports an RNA identity, but equal base proportions do not by themselves establish strand number or pairing pattern.
+BIO-BCH-BML-067 | Hard | Upper-end IMAT | Integrated / Application | Topic: Nucleic acids
+A nuclease breaks the sugar-phosphate backbone of RNA while leaving bases intact. Which bond is being hydrolyzed?
+A. Peptide bond
+B. Disulfide bond
+C. Ester bond of triglyceride
+D. Hydrogen bond only
+E. Phosphodiester bond
+Correct answer: E — Phosphodiester bond Explanation: Phosphodiester bonds covalently connect nucleotides in the nucleic-acid backbone.
+BIO-BCH-BML-068 | Hard | Upper-end IMAT | Integrated / Application | Topic: Biomolecule integration
+A cell is supplied with radiolabeled phosphate. Which biomolecule is most directly expected to incorporate phosphate as a repeating structural component?
+A. A triglyceride molecule
+B. A simple starch polymer
+C. A polypeptide backbone
+D. DNA or RNA
+E. A saturated fatty acid
+Correct answer: D — DNA or RNA Explanation: Nucleic acids contain repeating phosphate groups in their sugar-phosphate backbone.
+BIO-BCH-BML-069 | Hard | Upper-end IMAT | Integrated / Application | Topic: Biomolecule integration
+A molecule has a glycerol backbone, two fatty-acid tails and a phosphate-containing head. Which behavior is most expected in water?
+A. It forms a linear peptide chain.
+B. It can self-assemble into a bilayer with tails buried away from water.
+C. It polymerizes into cellulose.
+D. It forms a DNA double helix.
+E. It dissolves as separate hydrocarbon chains with tails exposed.
+Correct answer: B — It can self-assemble into a bilayer with tails buried away from water. Explanation: This is the amphipathic architecture of a phospholipid, which favors bilayer formation.
+BIO-BCH-BML-070 | Hard | Upper-end IMAT | Integrated / Application | Topic: Protein structure
+A mutation does not change a protein's alpha-helical content but eliminates a hydrophobic pocket needed to bind a ligand. Which level is most directly altered?
+A. Primary structure cannot have changed at all
+B. Secondary structure must be completely lost
+C. Only quaternary structure can create binding pockets
+D. Tertiary structure
+E. Nucleic-acid structure
+Correct answer: D — Tertiary structure Explanation: A local three-dimensional binding pocket is a feature of tertiary structure even if overall secondary-structure content is preserved.
+BIO-BCH-BML-071 | Hard | Ahsora Challenge | Integrated / Application | Topic: Protein energetics
+A protein variant has the same secondary structure as wild type but a much lower melting temperature. Which explanation is most consistent?
+A. Its tertiary stabilizing interactions are weaker even though alpha helices and beta sheets remain similar.
+B. Its amino-acid sequence must be identical.
+C. Its peptide bonds have all been replaced by glycosidic bonds.
+D. Secondary structure is the only contributor to thermal stability.
+E. It contains no covalent bonds.
+Correct answer: A — Its tertiary stabilizing interactions are weaker even though alpha helices and beta sheets remain similar. Explanation: Tertiary contacts can strongly affect overall stability without greatly changing the amount of secondary structure.
+BIO-BCH-BML-072 | Hard | Upper-end IMAT | Integrated / Application | Topic: Biomolecule integration
+A researcher hydrolyzes an unknown polymer and obtains monomers containing a phosphate group, a pentose sugar and a nitrogenous base. Which conclusion is best?
+A. It was a triglyceride.
+B. The original polymer was a nucleic acid.
+C. It was a protein.
+D. It was cellulose.
+E. It was glycogen.
+Correct answer: B — The original polymer was a nucleic acid. Explanation: Nucleotides contain phosphate, pentose sugar and a nitrogenous base and are the monomers of nucleic acids.
+4. Enzymes
+Quota: 56 MCQs — 28 Easy, 14 Moderate, 14 Hard.
+Easy Questions
+BIO-BCH-ENZ-001 | Easy | Recall / Conceptual | Topic: Catalysis
+The main effect of an enzyme on a reaction is to:
+A. increase the overall free-energy change.
+B. change the equilibrium constant permanently.
+C. lower the activation energy.
+D. supply all reactants to the cell.
+E. make an unfavorable product covalently stable.
+Correct answer: C — lower the activation energy. Explanation: Enzymes speed reactions by lowering activation energy without changing the reaction's overall thermodynamics.
+BIO-BCH-ENZ-002 | Easy | Recall / Conceptual | Topic: Active site
+The active site of an enzyme is the region where:
+A. substrate binding and catalysis occur.
+B. DNA replication always begins.
+C. fatty acids are stored.
+D. ribosomes are assembled.
+E. ATP is never used.
+Correct answer: A — substrate binding and catalysis occur. Explanation: The active site binds substrate and contains groups that facilitate the reaction.
+BIO-BCH-ENZ-003 | Easy | Recall / Conceptual | Topic: Specificity
+Enzyme specificity is determined primarily by:
+A. the number of chromosomes in the cell.
+B. the amount of glycogen in the liver.
+C. the color of the enzyme solution.
+D. the shape and chemical properties of the active site.
+E. the presence of cellulose in the substrate.
+Correct answer: D — the shape and chemical properties of the active site. Explanation: Complementary geometry and chemical interactions determine which substrates bind productively.
+BIO-BCH-ENZ-004 | Easy | Recall / Conceptual | Topic: Induced fit
+The induced-fit model proposes that substrate binding:
+A. can cause a conformational change that improves catalytic interactions.
+B. leaves every enzyme completely rigid.
+C. breaks all peptide bonds.
+D. converts the substrate into DNA before reaction.
+E. eliminates the active site.
+Correct answer: A — can cause a conformational change that improves catalytic interactions. Explanation: In induced fit, substrate binding adjusts enzyme conformation to favor catalysis.
+BIO-BCH-ENZ-005 | Easy | Recall / Conceptual | Topic: Activation energy
+Activation energy is the energy required to:
+A. change the reaction equilibrium constant.
+B. reach the transition state of a reaction.
+C. create new elements.
+D. convert heat directly into DNA.
+E. destroy all products.
+Correct answer: B — reach the transition state of a reaction. Explanation: Activation energy is the barrier between reactants and the transition state.
+BIO-BCH-ENZ-006 | Easy | Recall / Conceptual | Topic: Temperature
+At temperatures above an enzyme's optimum, activity often falls because:
+A. substrate concentration always becomes zero.
+B. the enzyme can denature and lose active-site shape.
+C. all molecules stop moving.
+D. activation energy becomes infinite by definition.
+E. the peptide sequence necessarily doubles.
+Correct answer: B — the enzyme can denature and lose active-site shape. Explanation: Excess heat can disrupt noncovalent interactions required for enzyme structure.
+BIO-BCH-ENZ-007 | Easy | Recall / Conceptual | Topic: Temperature
+At low temperature, many enzyme-catalyzed reactions slow mainly because:
+A. enzymes always hydrolyze completely.
+B. the active site permanently disappears.
+C. molecules move more slowly and collide less effectively.
+D. substrates become amino acids.
+E. all reactions become exergonic.
+Correct answer: C — molecules move more slowly and collide less effectively. Explanation: Lower kinetic energy reduces the frequency of productive collisions.
+BIO-BCH-ENZ-008 | Easy | Recall / Conceptual | Topic: pH
+A large pH change can reduce enzyme activity by:
+A. adding nucleotides to the enzyme.
+B. removing all peptide bonds instantly.
+C. making water nonpolar.
+D. converting the enzyme into a lipid.
+E. altering ionization of active-site and structural side chains.
+Correct answer: E — altering ionization of active-site and structural side chains. Explanation: Protonation changes can alter binding, catalysis and folding.
+BIO-BCH-ENZ-009 | Easy | Recall / Conceptual | Topic: Substrate concentration
+At low substrate concentration, increasing substrate usually:
+A. decreases active-site occupancy.
+B. increases the reaction rate because more active sites are occupied.
+C. always denatures the enzyme.
+D. removes cofactors.
+E. changes the amino-acid sequence.
+Correct answer: B — increases the reaction rate because more active sites are occupied. Explanation: More substrate increases productive enzyme-substrate encounters until saturation is approached.
+BIO-BCH-ENZ-010 | Easy | Recall / Conceptual | Topic: Substrate concentration
+At very high substrate concentration, enzyme rate often reaches a maximum because:
+A. the substrate has no kinetic energy.
+B. every enzyme molecule is destroyed.
+C. the enzyme active sites become saturated.
+D. the equilibrium constant becomes zero.
+E. all products convert back to substrate instantly.
+Correct answer: C — the enzyme active sites become saturated. Explanation: Once nearly all active sites are occupied, more substrate produces little further increase in rate.
+BIO-BCH-ENZ-011 | Easy | Recall / Conceptual | Topic: Enzyme concentration
+If substrate is abundant, doubling enzyme concentration initially tends to:
+A. increase the maximum reaction rate.
+B. halve the number of active sites.
+C. change the enzyme into a substrate.
+D. eliminate product formation.
+E. change the reaction equilibrium.
+Correct answer: A — increase the maximum reaction rate. Explanation: More enzyme provides more active sites, increasing catalytic capacity when substrate is not limiting.
+BIO-BCH-ENZ-012 | Easy | Recall / Conceptual | Topic: Competitive inhibition
+A competitive inhibitor usually binds:
+A. at or near the active site.
+B. only to DNA.
+C. only to the product.
+D. to every phospholipid tail.
+E. to a chromosome centromere.
+Correct answer: A — at or near the active site. Explanation: Competitive inhibitors compete with substrate for the active site.
+BIO-BCH-ENZ-013 | Easy | Recall / Conceptual | Topic: Competitive inhibition
+The effect of a reversible competitive inhibitor can often be reduced by:
+A. removing all water.
+B. increasing substrate concentration.
+C. decreasing substrate concentration.
+D. breaking peptide bonds.
+E. lowering enzyme concentration to zero.
+Correct answer: B — increasing substrate concentration. Explanation: High substrate concentration can outcompete a reversible inhibitor for active-site binding.
+BIO-BCH-ENZ-014 | Easy | Recall / Conceptual | Topic: Non-competitive inhibition
+A non-competitive inhibitor acts most characteristically by:
+A. becoming the substrate at the active site.
+B. binding at a site distinct from the active site and reducing catalytic function.
+C. increasing substrate concentration.
+D. forming glycosidic bonds in the enzyme.
+E. converting ATP into DNA.
+Correct answer: B — binding at a site distinct from the active site and reducing catalytic function. Explanation: Allosteric binding can alter enzyme function without directly competing for the substrate site.
+BIO-BCH-ENZ-015 | Easy | Recall / Conceptual | Topic: Cofactors
+A cofactor is:
+A. the amino-acid sequence of every enzyme.
+B. a non-protein component required for the activity of some enzymes.
+C. always the substrate.
+D. a carbohydrate storage polymer.
+E. a type of peptide bond.
+Correct answer: B — a non-protein component required for the activity of some enzymes. Explanation: Some enzymes require metal ions or organic cofactors to function.
+BIO-BCH-ENZ-016 | Easy | Recall / Conceptual | Topic: Coenzymes
+A coenzyme is typically:
+A. a membrane phospholipid.
+B. a DNA chromosome.
+C. a polysaccharide cell wall.
+D. a small organic molecule that assists an enzyme.
+E. an entire ribosome.
+Correct answer: D — a small organic molecule that assists an enzyme. Explanation: Coenzymes are organic cofactors that participate in enzyme-catalyzed reactions.
+BIO-BCH-ENZ-017 | Easy | Recall / Conceptual | Topic: Denaturation
+Denaturation can reduce enzyme activity without:
+A. changing tertiary structure.
+B. changing the active-site shape.
+C. affecting noncovalent interactions.
+D. altering protein folding.
+E. necessarily hydrolyzing the peptide backbone.
+Correct answer: E — necessarily hydrolyzing the peptide backbone. Explanation: Denaturation often disrupts higher-order structure while leaving primary peptide bonds intact.
+BIO-BCH-ENZ-018 | Easy | Recall / Conceptual | Topic: Catalyst recovery
+An enzyme can catalyze many reaction cycles because it:
+A. is consumed stoichiometrically in every reaction.
+B. becomes part of every product molecule.
+C. is regenerated at the end of the catalytic cycle.
+D. is converted into ATP each cycle.
+E. loses one amino acid each reaction.
+Correct answer: C — is regenerated at the end of the catalytic cycle. Explanation: Catalysts participate transiently but are not consumed overall.
+BIO-BCH-ENZ-019 | Easy | Recall / Conceptual | Topic: Rate graph
+On a typical rate-versus-substrate graph, the plateau at high substrate concentration indicates:
+A. complete absence of enzyme.
+B. enzyme saturation.
+C. negative substrate concentration.
+D. all products are denatured.
+E. no enzyme-substrate binding at any point.
+Correct answer: B — enzyme saturation. Explanation: The plateau occurs when nearly all enzyme active sites are occupied.
+BIO-BCH-ENZ-020 | Easy | Recall / Conceptual | Topic: Optimum conditions
+An enzyme's optimum temperature is the temperature at which:
+A. all proteins in the cell are denatured.
+B. substrate concentration is zero.
+C. the reaction equilibrium changes permanently.
+D. the enzyme sequence changes.
+E. its measured activity is highest under the stated conditions.
+Correct answer: E — its measured activity is highest under the stated conditions. Explanation: The optimum is operationally the condition producing maximum observed activity.
+BIO-BCH-ENZ-021 | Easy | Recall / Conceptual | Topic: Active site chemistry
+Which interaction can contribute to substrate binding in an active site?
+A. Only phosphodiester bonding
+B. Only glycosidic bonding
+C. Only peptide-bond formation with the substrate
+D. Hydrogen bonding
+E. No intermolecular forces
+Correct answer: D — Hydrogen bonding Explanation: Substrate binding often uses multiple noncovalent interactions, including hydrogen bonds.
+BIO-BCH-ENZ-022 | Easy | Recall / Conceptual | Topic: Reversible inhibition
+A reversible inhibitor differs from an irreversible inhibitor because it:
+A. must destroy the peptide backbone.
+B. is always a substrate.
+C. cannot affect reaction rate.
+D. always binds covalently.
+E. can dissociate from the enzyme under appropriate conditions.
+Correct answer: E — can dissociate from the enzyme under appropriate conditions. Explanation: Reversible inhibitors bind noncovalently and can leave the enzyme.
+BIO-BCH-ENZ-023 | Easy | Recall / Conceptual | Topic: Lock and key
+The lock-and-key model emphasizes:
+A. complete absence of shape specificity.
+B. permanent covalent binding of substrate.
+C. that all enzymes bind all substrates equally.
+D. complementarity between substrate and a relatively preformed active site.
+E. that the active site is made of DNA.
+Correct answer: D — complementarity between substrate and a relatively preformed active site. Explanation: The classical model describes a substrate fitting a complementary active-site shape.
+BIO-BCH-ENZ-024 | Easy | Recall / Conceptual | Topic: Catalysis
+Enzymes do not change:
+A. the rate at which equilibrium is reached.
+B. the activation-energy barrier.
+C. the frequency of productive pathways.
+D. substrate binding during catalysis.
+E. the equilibrium position of a reversible reaction.
+Correct answer: E — the equilibrium position of a reversible reaction. Explanation: Enzymes accelerate forward and reverse reactions but do not alter equilibrium thermodynamics.
+BIO-BCH-ENZ-025 | Easy | Recall / Conceptual | Topic: Product formation
+An enzyme-substrate complex forms:
+A. as the permanent final product.
+B. transiently during catalysis.
+C. only after the enzyme has denatured.
+D. only in the absence of substrate.
+E. by converting the enzyme into DNA.
+Correct answer: B — transiently during catalysis. Explanation: Substrate binds the enzyme transiently before conversion to product and release.
+BIO-BCH-ENZ-026 | Easy | Recall / Conceptual | Topic: Enzyme naming
+Many enzyme names end with the suffix:
+A. -ose.
+B. -ase.
+C. -ide.
+D. -phage.
+E. -genome.
+Correct answer: B — -ase. Explanation: Many enzymes are conventionally named with the suffix -ase.
+BIO-BCH-ENZ-027 | Easy | Recall / Conceptual | Topic: Enzyme structure
+Most enzymes are:
+A. proteins, though some RNA molecules can also be catalytic.
+B. polysaccharides only.
+C. triglycerides only.
+D. DNA chromosomes only.
+E. inorganic salts only.
+Correct answer: A — proteins, though some RNA molecules can also be catalytic. Explanation: Most biological enzymes are proteins; catalytic RNAs are an important exception.
+BIO-BCH-ENZ-028 | Easy | Recall / Conceptual | Topic: Substrate specificity
+A change in active-site shape is most likely to affect:
+A. the atomic number of carbon.
+B. substrate binding and catalysis.
+C. the number of protons in water.
+D. the sequence of DNA in every chromosome.
+E. the identity of all cellular lipids.
+Correct answer: B — substrate binding and catalysis. Explanation: Active-site geometry and chemistry are central to substrate recognition and catalysis.
+Moderate Questions
+BIO-BCH-ENZ-029 | Moderate | Application / Data | Topic: Competitive inhibition
+An enzyme shows reduced activity in the presence of inhibitor X, but the original maximum rate can be approached by adding very high substrate concentrations. X is most consistent with:
+A. an irreversible inhibitor that destroys the active site.
+B. complete enzyme denaturation.
+C. removal of all enzyme molecules.
+D. a non-competitive inhibitor that lowers catalytic capacity independently of substrate competition.
+E. a reversible competitive inhibitor.
+Correct answer: E — a reversible competitive inhibitor. Explanation: High substrate can outcompete a reversible competitive inhibitor, allowing the original maximum rate to be approached.
+BIO-BCH-ENZ-030 | Moderate | Application / Data | Topic: Non-competitive inhibition
+An inhibitor lowers the maximum reaction rate even when substrate concentration is very high. Which mechanism is most consistent?
+A. Pure competitive inhibition only
+B. An increase in enzyme concentration
+C. Removal of all product
+D. Non-competitive/allosteric inhibition that reduces functional enzyme activity
+E. A decrease in activation energy
+Correct answer: D — Non-competitive/allosteric inhibition that reduces functional enzyme activity Explanation: A non-competitive inhibitor can reduce effective catalytic capacity, so added substrate cannot fully restore the original maximum rate.
+BIO-BCH-ENZ-031 | Moderate | Application / Data | Topic: Temperature
+An enzyme has maximal activity at 37°C. Activity falls at 10°C but returns after warming; activity falls at 80°C and does not return after cooling. The best explanation is:
+A. low temperature slows molecular motion reversibly, whereas high temperature can denature the enzyme.
+B. both temperatures permanently change the amino-acid sequence.
+C. 10°C causes more denaturation than 80°C.
+D. 80°C increases substrate concentration only.
+E. temperature never affects enzyme structure.
+Correct answer: A — low temperature slows molecular motion reversibly, whereas high temperature can denature the enzyme. Explanation: Cold generally slows collisions reversibly, while extreme heat can irreversibly disrupt protein structure.
+BIO-BCH-ENZ-032 | Moderate | Application / Data | Topic: pH
+An enzyme has maximal activity at pH 7 and much lower activity at pH 3 and pH 11. Which explanation is most likely?
+A. Extreme pH changes protonation of residues needed for structure or catalysis.
+B. The enzyme contains no charged groups.
+C. pH changes the atomic number of amino acids.
+D. Acid and base conditions always break all peptide bonds instantly.
+E. Only substrate concentration can affect enzymes.
+Correct answer: A — Extreme pH changes protonation of residues needed for structure or catalysis. Explanation: Active-site and structural residues depend on particular ionization states for optimal function.
+BIO-BCH-ENZ-033 | Moderate | Application / Data | Topic: Substrate saturation
+A reaction rate doubles when substrate increases from 1 to 2 mM but changes little from 20 to 40 mM. This pattern most strongly indicates:
+A. complete absence of active sites at low substrate.
+B. enzyme saturation at high substrate concentration.
+C. increasing enzyme concentration with substrate.
+D. conversion of enzyme into product.
+E. a change in amino-acid sequence at 20 mM.
+Correct answer: B — enzyme saturation at high substrate concentration. Explanation: At high substrate concentration, most active sites are occupied, so further substrate adds little rate.
+BIO-BCH-ENZ-034 | Moderate | Application / Data | Topic: Enzyme concentration
+Two tubes contain the same abundant substrate. Tube B has twice as much enzyme as tube A. Early in the reaction, Tube B should generally show:
+A. a higher product-formation rate because it has more active sites.
+B. the same rate under all conditions.
+C. half the rate because enzymes inhibit one another.
+D. no product because substrate becomes limiting immediately.
+E. a different equilibrium constant.
+Correct answer: A — a higher product-formation rate because it has more active sites. Explanation: More enzyme increases catalytic capacity when substrate is initially abundant.
+BIO-BCH-ENZ-035 | Moderate | Application / Data | Topic: Experimental design
+To test the effect of pH on an enzyme, which variable should be kept constant across treatments?
+A. pH
+B. The independent variable itself
+C. The measured reaction rate
+D. Temperature
+E. The identity of the buffer if different pH values require different chemistry regardless of controls
+Correct answer: D — Temperature Explanation: Temperature should be controlled so changes in rate can be attributed primarily to pH.
+BIO-BCH-ENZ-036 | Moderate | Application / Data | Topic: Experimental design
+A student measures enzyme activity at different temperatures but uses different substrate concentrations at each temperature. Why is the conclusion weak?
+A. Temperature cannot affect enzyme activity.
+B. Enzymes never bind substrates.
+C. Substrate concentration is a confounding variable.
+D. Substrate concentration determines pH automatically.
+E. Reaction rate cannot be measured.
+Correct answer: C — Substrate concentration is a confounding variable. Explanation: Changing two variables prevents confident attribution of rate differences to temperature alone.
+BIO-BCH-ENZ-037 | Moderate | Application / Data | Topic: Induced fit
+A substrate analogue binds weakly until the enzyme closes around it, after which catalytic residues align. This observation best supports:
+A. the induced-fit model.
+B. the idea that enzymes are rigid and never change shape.
+C. that enzymes are consumed in reactions.
+D. that all substrates bind every enzyme.
+E. that activation energy is unaffected by enzymes.
+Correct answer: A — the induced-fit model. Explanation: Conformational adjustment on binding is the core feature of induced fit.
+BIO-BCH-ENZ-038 | Moderate | Application / Data | Topic: Cofactors
+An enzyme is inactive after removal of Mg2+ and active again when Mg2+ is restored. Mg2+ is functioning as:
+A. the peptide backbone.
+B. the substrate in every cycle.
+C. a cofactor.
+D. a polysaccharide inhibitor.
+E. a gene regulatory sequence.
+Correct answer: C — a cofactor. Explanation: A required metal ion that assists enzyme function is a cofactor.
+BIO-BCH-ENZ-039 | Moderate | Application / Data | Topic: Reversible inhibition
+After dialysis removes inhibitor Y from an enzyme preparation, activity returns. This observation most strongly supports:
+A. irreversible covalent destruction of the enzyme.
+B. complete hydrolysis of peptide bonds.
+C. mutation of the enzyme gene during dialysis.
+D. reversible inhibitor binding.
+E. conversion of the inhibitor into enzyme.
+Correct answer: D — reversible inhibitor binding. Explanation: Recovery after inhibitor removal indicates that the enzyme was not permanently inactivated.
+BIO-BCH-ENZ-040 | Moderate | Application / Data | Topic: Activation energy
+A reaction has the same products and overall energy change with or without an enzyme but proceeds faster with the enzyme. The enzyme has changed:
+A. the activation-energy pathway.
+B. the identity of the products.
+C. the equilibrium constant.
+D. the atomic composition of the substrate.
+E. the overall free-energy difference between reactants and products.
+Correct answer: A — the activation-energy pathway. Explanation: Enzymes provide a lower-activation-energy pathway without changing the overall energy difference.
+BIO-BCH-ENZ-041 | Moderate | Application / Data | Topic: Data interpretation
+An enzyme has activity 20, 48, 75, 76 and 76 units at substrate concentrations 1, 2, 5, 10 and 20 mM. Which statement is best?
+A. The enzyme is progressively denaturing as substrate increases.
+B. The reaction rate is inversely proportional to substrate concentration.
+C. There is no enzyme activity below 20 mM.
+D. Substrate is acting only as an inhibitor.
+E. The enzyme is close to saturation by about 5-10 mM substrate.
+Correct answer: E — The enzyme is close to saturation by about 5-10 mM substrate. Explanation: The rate approaches a plateau by 5-10 mM, indicating near-saturation of active sites.
+BIO-BCH-ENZ-042 | Moderate | Application / Data | Topic: Inhibition
+A molecule resembles the substrate and occupies the active site but is not converted to product. It most likely acts as:
+A. a structural carbohydrate.
+B. a competitive inhibitor.
+C. a nonpolar lipid tail.
+D. an enzyme cofactor that increases catalysis.
+E. the final product in every reaction.
+Correct answer: B — a competitive inhibitor. Explanation: Substrate-like molecules can compete for active-site occupancy without undergoing catalysis.
+Hard Questions
+BIO-BCH-ENZ-043 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Inhibition
+Enzyme E is tested with and without inhibitor I. At very high substrate concentration, the inhibited reaction reaches the same maximum rate as control but requires more substrate to do so. Which interpretation is best?
+A. I irreversibly destroys half the enzyme molecules.
+B. I is a pure non-competitive inhibitor that reduces maximum rate.
+C. I is an activator.
+D. I behaves as a reversible competitive inhibitor.
+E. I removes substrate from solution chemically.
+Correct answer: D — I behaves as a reversible competitive inhibitor. Explanation: Competitive inhibition can be overcome at high substrate, preserving the original maximum rate while reducing apparent substrate affinity.
+BIO-BCH-ENZ-044 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Inhibition
+With inhibitor X, increasing substrate concentration never restores the original maximum rate, although substrate still binds. Which mechanism is most consistent?
+A. X competes only for the substrate-binding site and can always be outcompeted.
+B. X increases the number of active enzyme molecules.
+C. X is the substrate itself.
+D. X lowers activation energy more effectively than the enzyme.
+E. X reduces catalytic activity through allosteric/non-competitive inhibition.
+Correct answer: E — X reduces catalytic activity through allosteric/non-competitive inhibition. Explanation: A lowered maximum rate that cannot be rescued by high substrate suggests loss of effective catalytic capacity rather than simple competition.
+BIO-BCH-ENZ-045 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Temperature and folding
+An enzyme variant has the same activity as wild type at 25°C but loses activity at 40°C, while wild type remains active. Which inference is strongest?
+A. The variant necessarily has a different substrate.
+B. The wild-type enzyme is not a protein.
+C. The mutation must be in the substrate molecule.
+D. The variant is less thermally stable even though its catalytic site can function at lower temperature.
+E. Temperature cannot affect protein stability.
+Correct answer: D — The variant is less thermally stable even though its catalytic site can function at lower temperature. Explanation: Normal low-temperature activity with earlier heat inactivation suggests reduced structural stability rather than loss of catalytic chemistry per se.
+BIO-BCH-ENZ-046 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: pH and catalysis
+An enzyme requires one active-site group to be protonated and another to be deprotonated for catalysis. Why might activity peak over a narrow pH range?
+A. pH changes the amino-acid sequence.
+B. Only one pH permits any molecular collisions.
+C. Only that pH range gives the required ionization states simultaneously.
+D. Peptide bonds exist only at neutral pH.
+E. The enzyme becomes a lipid outside the optimum.
+Correct answer: C — Only that pH range gives the required ionization states simultaneously. Explanation: Catalysis can depend on specific protonation states of multiple residues, creating a narrow optimum.
+BIO-BCH-ENZ-047 | Hard | Ahsora Challenge | Integrated / Experimental | Topic: Experimental design
+A researcher claims an inhibitor is non-competitive because the rate remains low at one high substrate concentration. What additional evidence would most strengthen the claim?
+A. A full rate-versus-substrate curve showing a reduced maximum rate in the inhibitor's presence
+B. A single measurement with no inhibitor
+C. The color of the enzyme solution
+D. The molecular mass of water
+E. A DNA sequence from an unrelated gene
+Correct answer: A — A full rate-versus-substrate curve showing a reduced maximum rate in the inhibitor's presence Explanation: A complete saturation curve is needed to distinguish competitive from non-competitive patterns reliably.
+BIO-BCH-ENZ-048 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Allostery
+A regulatory molecule binds far from an enzyme's active site and changes the active site from a low-affinity to a high-affinity conformation. This is best described as:
+A. competitive inhibition.
+B. substrate hydrolysis.
+C. primary-structure denaturation.
+D. irreversible peptide-bond cleavage.
+E. allosteric activation.
+Correct answer: E — allosteric activation. Explanation: Allosteric regulators bind sites distinct from the active site and alter enzyme conformation and activity.
+BIO-BCH-ENZ-049 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Rate limitation
+A reaction mixture contains saturating substrate and active enzyme. Doubling substrate has no effect, but doubling enzyme doubles the initial rate. Which factor was limiting?
+A. Enzyme concentration
+B. Substrate concentration
+C. Product identity
+D. Reaction equilibrium
+E. Water polarity
+Correct answer: A — Enzyme concentration Explanation: At saturating substrate, additional active sites increase rate whereas more substrate cannot occupy more than all available sites.
+BIO-BCH-ENZ-050 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Reversible vs irreversible inhibition
+An inhibitor causes persistent loss of activity after extensive washing, while a second inhibitor's effect disappears after washing. The simplest distinction is that:
+A. both must be competitive inhibitors.
+B. the second must hydrolyze peptide bonds.
+C. the first may bind irreversibly whereas the second binds reversibly.
+D. washing changes the enzyme gene sequence.
+E. irreversible inhibitors always increase activity.
+Correct answer: C — the first may bind irreversibly whereas the second binds reversibly. Explanation: Persistence after removal is consistent with irreversible modification, whereas recovery supports reversible binding.
+BIO-BCH-ENZ-051 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Catalysis and equilibrium
+A catalyst accelerates both forward and reverse reactions of A ⇌ B. Starting with pure A, what remains unchanged relative to the uncatalyzed system?
+A. The time needed to reach equilibrium
+B. The equilibrium ratio of A to B
+C. The activation barrier
+D. The rate of both directions
+E. The frequency of successful collisions
+Correct answer: B — The equilibrium ratio of A to B Explanation: Catalysts change kinetics but not the thermodynamic equilibrium position.
+BIO-BCH-ENZ-052 | Hard | Ahsora Challenge | Integrated / Experimental | Topic: Enzyme saturation
+Two enzymes catalyze the same reaction. At low substrate E1 is faster, but both reach the same maximum rate at high substrate. Which statement is best supported?
+A. E1 must have a higher maximum rate.
+B. E1 achieves higher activity at lower substrate concentration, suggesting greater apparent substrate affinity under these conditions.
+C. E2 cannot bind substrate.
+D. Both enzymes have identical active sites by definition.
+E. The equilibrium constants differ because of the enzymes.
+Correct answer: B — E1 achieves higher activity at lower substrate concentration, suggesting greater apparent substrate affinity under these conditions. Explanation: Different low-substrate performance with the same plateau can reflect differences in apparent substrate affinity rather than catalytic capacity.
+BIO-BCH-ENZ-053 | Hard | Ahsora Challenge | Integrated / Experimental | Topic: Coupled assay
+An enzyme reaction produces a product that is immediately consumed by a second enzyme, and only the second product is measured. What is essential for valid interpretation?
+A. The second enzyme must denature before measurement.
+B. The first enzyme must be absent.
+C. Both reactions must have different substrates with no relationship.
+D. The measured product must be a DNA molecule.
+E. The second reaction must be fast enough not to become the rate-limiting step under assay conditions.
+Correct answer: E — The second reaction must be fast enough not to become the rate-limiting step under assay conditions. Explanation: In a coupled assay, the reporting reaction must not limit the measured rate of the primary reaction.
+BIO-BCH-ENZ-054 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Competitive inhibition
+An inhibitor concentration is fixed while substrate concentration rises from very low to extremely high. Which trend is most characteristic of reversible competitive inhibition?
+A. The inhibitor becomes more effective without limit.
+B. The maximum rate must fall to zero.
+C. Substrate can never bind the enzyme.
+D. The fractional inhibition becomes smaller at very high substrate concentration.
+E. The enzyme permanently denatures.
+Correct answer: D — The fractional inhibition becomes smaller at very high substrate concentration. Explanation: Excess substrate can increasingly outcompete a reversible competitive inhibitor for active-site occupancy.
+BIO-BCH-ENZ-055 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Protein structure and catalysis
+A mutation leaves substrate binding nearly normal but greatly reduces product formation. Which interpretation is most plausible?
+A. The mutation disrupts catalytic chemistry more than binding.
+B. The active site can only influence binding, never catalysis.
+C. The mutation must be in the substrate.
+D. Product formation is independent of enzyme structure.
+E. The mutation necessarily removes all hydrogen bonds in the protein.
+Correct answer: A — The mutation disrupts catalytic chemistry more than binding. Explanation: Distinct active-site residues can contribute differently to substrate recognition and chemical catalysis.
+BIO-BCH-ENZ-056 | Hard | Ahsora Challenge | Integrated / Experimental | Topic: Data interpretation
+An enzyme preparation shows a lower maximum rate after heating, but the substrate concentration required for half-maximal activity among the remaining active enzyme is similar to control. What is a reasonable interpretation?
+A. Heating reduced the amount of functional enzyme more than it altered substrate affinity of the surviving enzyme.
+B. Heating increased the equilibrium constant.
+C. The substrate became an enzyme.
+D. The protein sequence was lengthened.
+E. All active sites gained higher affinity.
+Correct answer: A — Heating reduced the amount of functional enzyme more than it altered substrate affinity of the surviving enzyme. Explanation: Loss of functional enzyme can lower maximum rate while leaving the binding behavior of remaining active molecules relatively unchanged.
+5. ATP, Cellular Respiration & Fermentation
+Quota: 80 MCQs — 40 Easy, 20 Moderate, 20 Hard.
+Easy Questions
+BIO-BCH-RES-001 | Easy | Recall / Conceptual | Topic: ATP
+ATP contains:
+A. adenine, deoxyribose and one phosphate.
+B. adenine, ribose and three phosphate groups.
+C. glucose and three fatty acids.
+D. three amino acids and phosphate.
+E. uracil, ribose and two phosphates.
+Correct answer: B — adenine, ribose and three phosphate groups. Explanation: ATP is adenosine (adenine + ribose) with three phosphate groups.
+BIO-BCH-RES-002 | Easy | Recall / Conceptual | Topic: ATP
+Hydrolysis of ATP to ADP + Pi can:
+A. create glucose without enzymes.
+B. change the genetic code.
+C. release free energy that can be coupled to cellular work.
+D. eliminate the need for metabolism.
+E. produce oxygen directly in mitochondria.
+Correct answer: C — release free energy that can be coupled to cellular work. Explanation: ATP hydrolysis is exergonic and can drive energy-requiring cellular processes.
+BIO-BCH-RES-003 | Easy | Recall / Conceptual | Topic: ATP
+Phosphorylation of ADP to form ATP requires:
+A. no energy under any condition.
+B. destruction of adenine.
+C. conversion of ribose to deoxyribose.
+D. an input of energy.
+E. removal of all phosphate groups.
+Correct answer: D — an input of energy. Explanation: Forming ATP from ADP and Pi stores energy in the ATP/ADP cycle.
+BIO-BCH-RES-004 | Easy | Recall / Conceptual | Topic: ATP
+ATP is best described as:
+A. a long-term genetic information polymer.
+B. the main structural polysaccharide of plants.
+C. a short-term cellular energy-transfer molecule.
+D. a fatty-acid storage droplet.
+E. an enzyme made of amino acids only.
+Correct answer: C — a short-term cellular energy-transfer molecule. Explanation: ATP transfers energy between energy-releasing and energy-requiring reactions.
+BIO-BCH-RES-005 | Easy | Recall / Conceptual | Topic: Glycolysis
+Glycolysis occurs in the:
+A. mitochondrial matrix only.
+B. nucleus.
+C. Golgi lumen.
+D. lysosome.
+E. cytosol.
+Correct answer: E — cytosol. Explanation: Glycolysis is a cytosolic pathway that converts glucose to pyruvate.
+BIO-BCH-RES-006 | Easy | Recall / Conceptual | Topic: Glycolysis
+One glucose molecule is converted by glycolysis into:
+A. one pyruvate molecule.
+B. six carbon dioxide molecules directly.
+C. two acetyl-CoA molecules without any intermediate.
+D. two pyruvate molecules.
+E. one lactate in all cells.
+Correct answer: D — two pyruvate molecules. Explanation: The six-carbon glucose molecule is split into two three-carbon pyruvate molecules.
+BIO-BCH-RES-007 | Easy | Recall / Conceptual | Topic: Glycolysis
+The net ATP yield of glycolysis per glucose is:
+A. 0 ATP.
+B. 1 ATP.
+C. 6 ATP.
+D. 2 ATP.
+E. 36 ATP exactly in every cell.
+Correct answer: D — 2 ATP. Explanation: Glycolysis produces four ATP but uses two, giving a net gain of two ATP per glucose.
+BIO-BCH-RES-008 | Easy | Recall / Conceptual | Topic: Glycolysis
+Glycolysis can proceed without molecular oxygen because:
+A. it occurs only inside chloroplasts.
+B. it produces oxygen from water.
+C. oxygen is replaced by DNA.
+D. all cells have unlimited NAD+.
+E. none of its individual reactions directly uses O2.
+Correct answer: E — none of its individual reactions directly uses O2. Explanation: Glycolysis itself does not directly require O2, although NAD+ regeneration becomes critical under anaerobic conditions.
+BIO-BCH-RES-009 | Easy | Recall / Conceptual | Topic: Pyruvate
+Under aerobic conditions in eukaryotic cells, pyruvate is transported into the:
+A. nucleus.
+B. mitochondrion.
+C. Golgi apparatus.
+D. lysosome.
+E. rough endoplasmic reticulum.
+Correct answer: B — mitochondrion. Explanation: Aerobic oxidation of pyruvate proceeds in mitochondria after cytosolic glycolysis.
+BIO-BCH-RES-010 | Easy | Recall / Conceptual | Topic: Link reaction
+Conversion of pyruvate to acetyl-CoA releases:
+A. carbon dioxide.
+B. oxygen.
+C. glucose.
+D. ammonia in every reaction.
+E. DNA nucleotides.
+Correct answer: A — carbon dioxide. Explanation: Oxidative decarboxylation of pyruvate releases CO2 and generates acetyl-CoA.
+BIO-BCH-RES-011 | Easy | Recall / Conceptual | Topic: Krebs cycle
+The Krebs/citric-acid cycle in eukaryotes occurs mainly in the:
+A. cytosol.
+B. mitochondrial matrix.
+C. nucleus.
+D. Golgi membrane.
+E. chloroplast thylakoid.
+Correct answer: B — mitochondrial matrix. Explanation: The enzymes of the citric-acid cycle are located mainly in the mitochondrial matrix.
+BIO-BCH-RES-012 | Easy | Recall / Conceptual | Topic: Krebs cycle
+A major purpose of the Krebs cycle is to:
+A. produce DNA directly.
+B. synthesize glycogen as its only product.
+C. create oxygen from carbon dioxide.
+D. hydrolyze all cellular proteins.
+E. transfer high-energy electrons to NADH and FADH2.
+Correct answer: E — transfer high-energy electrons to NADH and FADH2. Explanation: The cycle oxidizes acetyl groups and captures energy in reduced electron carriers.
+BIO-BCH-RES-013 | Easy | Recall / Conceptual | Topic: Krebs cycle
+Carbon dioxide is released during:
+A. glycolysis only.
+B. ATP hydrolysis only.
+C. pyruvate oxidation and the Krebs cycle.
+D. the electron transport chain only.
+E. lactic fermentation only.
+Correct answer: C — pyruvate oxidation and the Krebs cycle. Explanation: Decarboxylation occurs during pyruvate oxidation and within the citric-acid cycle.
+BIO-BCH-RES-014 | Easy | Recall / Conceptual | Topic: Electron carriers
+NADH functions mainly as:
+A. a structural polysaccharide.
+B. a membrane phospholipid.
+C. a DNA base.
+D. a carrier of high-energy electrons.
+E. a peptide-bond enzyme.
+Correct answer: D — a carrier of high-energy electrons. Explanation: NADH transfers reducing equivalents to other reactions, including the respiratory electron transport chain.
+BIO-BCH-RES-015 | Easy | Recall / Conceptual | Topic: Electron carriers
+FADH2 is best described as:
+A. a glucose polymer.
+B. a reduced electron carrier.
+C. an amino acid.
+D. a membrane receptor.
+E. the final electron acceptor.
+Correct answer: B — a reduced electron carrier. Explanation: FADH2 carries high-energy electrons generated during metabolism.
+BIO-BCH-RES-016 | Easy | Recall / Conceptual | Topic: ETC
+In eukaryotic cells, the respiratory electron transport chain is located in the:
+A. inner mitochondrial membrane.
+B. outer mitochondrial membrane only.
+C. cytosol.
+D. nuclear envelope.
+E. Golgi membrane.
+Correct answer: A — inner mitochondrial membrane. Explanation: Electron transport complexes are embedded in the inner mitochondrial membrane.
+BIO-BCH-RES-017 | Easy | Recall / Conceptual | Topic: ETC
+The final electron acceptor in aerobic respiration is:
+A. glucose.
+B. carbon dioxide.
+C. ATP.
+D. pyruvate.
+E. oxygen.
+Correct answer: E — oxygen. Explanation: Oxygen accepts electrons at the end of the respiratory electron transport chain and is reduced to water.
+BIO-BCH-RES-018 | Easy | Recall / Conceptual | Topic: ETC
+As electrons move through the respiratory chain, energy is used mainly to:
+A. synthesize DNA in the matrix.
+B. convert all pyruvate to glucose.
+C. break peptide bonds.
+D. pump protons across the inner mitochondrial membrane.
+E. pump sodium into the nucleus.
+Correct answer: D — pump protons across the inner mitochondrial membrane. Explanation: Electron transport drives proton pumping to build an electrochemical gradient.
+BIO-BCH-RES-019 | Easy | Recall / Conceptual | Topic: Chemiosmosis
+The proton gradient used for oxidative phosphorylation is established across the:
+A. plasma membrane only in all eukaryotic cells.
+B. nuclear envelope.
+C. lysosomal membrane only.
+D. inner mitochondrial membrane.
+E. Golgi cisternae.
+Correct answer: D — inner mitochondrial membrane. Explanation: The inner mitochondrial membrane separates the matrix from the intermembrane space and supports the proton gradient.
+BIO-BCH-RES-020 | Easy | Recall / Conceptual | Topic: ATP synthase
+ATP synthase uses the energy of:
+A. DNA replication.
+B. protons moving down their electrochemical gradient.
+C. glycogen hydrolysis only.
+D. carbon dioxide diffusion.
+E. peptide-bond formation in ribosomes.
+Correct answer: B — protons moving down their electrochemical gradient. Explanation: Proton flow through ATP synthase drives phosphorylation of ADP to ATP.
+BIO-BCH-RES-021 | Easy | Recall / Conceptual | Topic: Oxidative phosphorylation
+Oxidative phosphorylation directly depends on:
+A. DNA polymerase and ribosomes.
+B. cellulose synthesis.
+C. electron transport, a proton gradient and ATP synthase.
+D. glycogen branching only.
+E. lysosomal digestion.
+Correct answer: C — electron transport, a proton gradient and ATP synthase. Explanation: Electron transport generates the gradient that powers ATP synthase.
+BIO-BCH-RES-022 | Easy | Recall / Conceptual | Topic: Substrate-level phosphorylation
+Substrate-level phosphorylation forms ATP by:
+A. proton flow through ATP synthase only.
+B. direct transfer of a phosphate group from a metabolic intermediate to ADP.
+C. DNA replication.
+D. light absorption by chlorophyll.
+E. fatty-acid esterification.
+Correct answer: B — direct transfer of a phosphate group from a metabolic intermediate to ADP. Explanation: A phosphorylated substrate directly donates phosphate to ADP.
+BIO-BCH-RES-023 | Easy | Recall / Conceptual | Topic: Fermentation
+The essential function of fermentation after glycolysis is to:
+A. generate large amounts of oxygen.
+B. produce acetyl-CoA for the Krebs cycle under all anaerobic conditions.
+C. create DNA.
+D. pump protons across the inner mitochondrial membrane.
+E. regenerate NAD+ so glycolysis can continue.
+Correct answer: E — regenerate NAD+ so glycolysis can continue. Explanation: Fermentation oxidizes NADH back to NAD+, sustaining glycolytic redox balance.
+BIO-BCH-RES-024 | Easy | Recall / Conceptual | Topic: Lactic fermentation
+In lactic acid fermentation, pyruvate is reduced to:
+A. ethanol and CO2.
+B. lactate.
+C. acetyl-CoA only.
+D. glucose.
+E. oxygen.
+Correct answer: B — lactate. Explanation: Lactate dehydrogenase reduces pyruvate to lactate while regenerating NAD+.
+BIO-BCH-RES-025 | Easy | Recall / Conceptual | Topic: Alcohol fermentation
+Alcoholic fermentation produces:
+A. lactate only.
+B. oxygen and glucose.
+C. ethanol and carbon dioxide.
+D. acetyl-CoA and oxygen.
+E. glycogen and water only.
+Correct answer: C — ethanol and carbon dioxide. Explanation: Yeast-like alcoholic fermentation converts pyruvate-derived acetaldehyde to ethanol and releases CO2.
+BIO-BCH-RES-026 | Easy | Recall / Conceptual | Topic: Mitochondria
+Cristae are folds of the:
+A. outer membrane.
+B. nuclear membrane.
+C. cell wall.
+D. inner mitochondrial membrane.
+E. Golgi membrane.
+Correct answer: D — inner mitochondrial membrane. Explanation: Cristae increase the surface area of the inner membrane containing respiratory complexes and ATP synthase.
+BIO-BCH-RES-027 | Easy | Recall / Conceptual | Topic: Mitochondria
+The mitochondrial matrix contains enzymes for the:
+A. electron transport chain embedded in a membrane.
+B. DNA translation on cytosolic ribosomes only.
+C. photosynthetic light reactions.
+D. glycogen storage only.
+E. Krebs cycle.
+Correct answer: E — Krebs cycle. Explanation: Most citric-acid-cycle enzymes are located in the matrix.
+BIO-BCH-RES-028 | Easy | Recall / Conceptual | Topic: Aerobic vs anaerobic
+Aerobic respiration generally yields more ATP per glucose than fermentation because aerobic cells can use:
+A. only glycolysis.
+B. only lactate formation.
+C. the electron transport chain and oxidative phosphorylation.
+D. no electron carriers.
+E. no mitochondria under any circumstance.
+Correct answer: C — the electron transport chain and oxidative phosphorylation. Explanation: Oxidative phosphorylation captures much more energy from reduced electron carriers than glycolysis alone.
+BIO-BCH-RES-029 | Easy | Recall / Conceptual | Topic: Redox
+Oxidation is defined as:
+A. gain of electrons.
+B. gain of protons only in every case.
+C. loss of electrons.
+D. formation of ATP only.
+E. release of oxygen only.
+Correct answer: C — loss of electrons. Explanation: In redox chemistry, oxidation is electron loss and reduction is electron gain.
+BIO-BCH-RES-030 | Easy | Recall / Conceptual | Topic: Redox
+Reduction is defined as:
+A. gain of electrons.
+B. loss of electrons.
+C. loss of all hydrogen atoms only.
+D. hydrolysis of ATP.
+E. release of carbon dioxide only.
+Correct answer: A — gain of electrons. Explanation: Reduction is electron gain.
+BIO-BCH-RES-031 | Easy | Recall / Conceptual | Topic: Redox
+When NAD+ becomes NADH, NAD+ has been:
+A. oxidized.
+B. reduced.
+C. hydrolyzed into ATP.
+D. converted into a lipid.
+E. decarboxylated.
+Correct answer: B — reduced. Explanation: NAD+ gains reducing equivalents to form NADH.
+BIO-BCH-RES-032 | Easy | Recall / Conceptual | Topic: Redox
+When NADH donates electrons to the electron transport chain, NADH is:
+A. reduced to FADH2.
+B. oxidized to NAD+.
+C. converted into glucose.
+D. phosphorylated to ATP.
+E. split into amino acids.
+Correct answer: B — oxidized to NAD+. Explanation: Donation of electrons oxidizes NADH back to NAD+.
+BIO-BCH-RES-033 | Easy | Recall / Conceptual | Topic: Oxygen
+During aerobic respiration, oxygen is converted mainly into:
+A. glucose.
+B. carbon dioxide.
+C. pyruvate.
+D. water.
+E. lactate.
+Correct answer: D — water. Explanation: Oxygen accepts electrons and protons at the end of the respiratory chain to form water.
+BIO-BCH-RES-034 | Easy | Recall / Conceptual | Topic: Energy coupling
+ATP can drive an endergonic process most directly by:
+A. changing the genetic code.
+B. making all reactions exergonic permanently.
+C. coupling its hydrolysis to that process.
+D. destroying enzymes.
+E. removing water from cells.
+Correct answer: C — coupling its hydrolysis to that process. Explanation: Cells couple the favorable hydrolysis of ATP to otherwise unfavorable processes.
+BIO-BCH-RES-035 | Easy | Recall / Conceptual | Topic: Glycolysis redox
+Glycolysis reduces NAD+ to:
+A. FADH2 only.
+B. NADH.
+C. ATP.
+D. oxygen.
+E. carbon dioxide.
+Correct answer: B — NADH. Explanation: During glycolysis, electrons are transferred to NAD+, producing NADH.
+BIO-BCH-RES-036 | Easy | Recall / Conceptual | Topic: Respiration overview
+The first major pathway of glucose breakdown is:
+A. the Calvin cycle.
+B. DNA replication.
+C. beta oxidation only.
+D. glycolysis.
+E. translation.
+Correct answer: D — glycolysis. Explanation: Glycolysis initiates glucose catabolism in the cytosol.
+BIO-BCH-RES-037 | Easy | Recall / Conceptual | Topic: Respiration overview
+Complete aerobic oxidation of glucose produces mainly:
+A. carbon dioxide, water and ATP.
+B. lactate only.
+C. ethanol only.
+D. oxygen and glucose.
+E. DNA and protein.
+Correct answer: A — carbon dioxide, water and ATP. Explanation: Aerobic respiration oxidizes carbon to CO2, reduces oxygen to water and conserves energy as ATP.
+BIO-BCH-RES-038 | Easy | Recall / Conceptual | Topic: Fermentation
+Fermentation allows ATP production to continue mainly through:
+A. oxidative phosphorylation.
+B. the Krebs cycle at full aerobic rate.
+C. photosynthesis.
+D. glycolysis.
+E. DNA replication.
+Correct answer: D — glycolysis. Explanation: Fermentation regenerates NAD+ so the ATP-producing steps of glycolysis can continue.
+BIO-BCH-RES-039 | Easy | Recall / Conceptual | Topic: ATP synthase
+If ATP synthase is blocked, the process most directly impaired is:
+A. DNA transcription.
+B. glycogen branching.
+C. peptide-bond formation in all contexts.
+D. cellulose hydrolysis.
+E. oxidative phosphorylation.
+Correct answer: E — oxidative phosphorylation. Explanation: ATP synthase is the enzyme that converts proton-motive force into ATP during oxidative phosphorylation.
+BIO-BCH-RES-040 | Easy | Recall / Conceptual | Topic: ETC
+If the respiratory electron transport chain stops, NADH tends to:
+A. disappear because it becomes glucose.
+B. be converted directly into oxygen.
+C. form peptide bonds.
+D. become a membrane lipid.
+E. accumulate because it is not efficiently oxidized to NAD+.
+Correct answer: E — accumulate because it is not efficiently oxidized to NAD+. Explanation: The ETC normally oxidizes NADH; blocking it limits NAD+ regeneration through respiration.
+Moderate Questions
+BIO-BCH-RES-041 | Moderate | Application / Data | Topic: ETC inhibition
+A drug blocks electron transfer to oxygen at the end of the respiratory chain. Which change is expected first?
+A. Glycolysis immediately becomes impossible before NAD+ is depleted.
+B. Oxygen production rises sharply.
+C. ATP synthase pumps more protons outward.
+D. The Krebs cycle becomes independent of NAD+.
+E. NADH oxidation slows and the proton gradient falls.
+Correct answer: E — NADH oxidation slows and the proton gradient falls. Explanation: Blocking terminal electron transfer causes reduced carriers to accumulate and proton pumping to decline.
+BIO-BCH-RES-042 | Moderate | Application / Data | Topic: ATP synthase inhibition
+A compound blocks mitochondrial ATP synthase but leaves electron transport initially functional. What happens most directly?
+A. Oxygen becomes a carbon source.
+B. Glycolysis moves into the mitochondrial matrix.
+C. Proton flow back into the matrix through ATP synthase decreases.
+D. ATP hydrolysis stops everywhere in the cell.
+E. Pyruvate becomes DNA.
+Correct answer: C — Proton flow back into the matrix through ATP synthase decreases. Explanation: ATP synthase normally provides a major route for protons to return to the matrix while driving ATP formation.
+BIO-BCH-RES-043 | Moderate | Application / Data | Topic: Uncoupling
+An uncoupling molecule makes the inner mitochondrial membrane freely permeable to protons. What is the most direct effect?
+A. The proton gradient becomes larger and ATP synthesis rises without limit.
+B. Glycolysis stops because oxygen is produced.
+C. The Krebs cycle moves to the cytosol.
+D. NADH cannot donate electrons to the chain at all.
+E. The proton gradient dissipates and ATP synthesis decreases despite continued electron transport.
+Correct answer: E — The proton gradient dissipates and ATP synthesis decreases despite continued electron transport. Explanation: Uncouplers disconnect electron transport from ATP production by collapsing proton-motive force.
+BIO-BCH-RES-044 | Moderate | Application / Data | Topic: Fermentation
+Muscle cells temporarily increase lactate production during intense exercise. The key metabolic advantage is:
+A. production of large amounts of ATP by oxidative phosphorylation.
+B. creation of oxygen in the cytosol.
+C. direct conversion of lactate to glucose within the same glycolytic step.
+D. activation of the Calvin cycle.
+E. regeneration of NAD+ to support continued glycolysis.
+Correct answer: E — regeneration of NAD+ to support continued glycolysis. Explanation: Lactate formation oxidizes NADH to NAD+, allowing glycolysis to continue when oxidative reoxidation is limited.
+BIO-BCH-RES-045 | Moderate | Application / Data | Topic: Glycolysis
+A cell lacks mitochondria but contains glycolytic enzymes. Which ATP-producing pathway can still operate directly?
+A. Mitochondrial oxidative phosphorylation
+B. The mitochondrial Krebs cycle
+C. Electron transport on the inner mitochondrial membrane
+D. Chemiosmosis across cristae
+E. Glycolysis with substrate-level phosphorylation
+Correct answer: E — Glycolysis with substrate-level phosphorylation Explanation: Glycolysis occurs in the cytosol and can generate ATP independently of mitochondria.
+BIO-BCH-RES-046 | Moderate | Application / Data | Topic: Mitochondrial structure
+A mutation greatly reduces cristae surface area without reducing mitochondrial number. Which process is most directly limited?
+A. Glycolysis in the cytosol
+B. DNA replication in the nucleus
+C. Lactate formation in the cytosol
+D. Electron transport and oxidative phosphorylation capacity
+E. Protein translation on free ribosomes
+Correct answer: D — Electron transport and oxidative phosphorylation capacity Explanation: Cristae provide inner-membrane surface for respiratory complexes and ATP synthase.
+BIO-BCH-RES-047 | Moderate | Application / Data | Topic: Oxygen consumption
+A tissue suddenly receives no oxygen. Which pathway can continue for at least a short period if glucose is available?
+A. The full respiratory electron transport chain
+B. Oxidative phosphorylation driven by oxygen reduction
+C. Complete aerobic oxidation through the ETC
+D. Glycolysis coupled to NAD+ regeneration by fermentation
+E. Oxygen-dependent terminal electron transfer
+Correct answer: D — Glycolysis coupled to NAD+ regeneration by fermentation Explanation: Glycolysis can continue anaerobically if NAD+ is regenerated, whereas the oxygen-dependent ETC cannot.
+BIO-BCH-RES-048 | Moderate | Application / Data | Topic: Redox balance
+Why can blocking the electron transport chain slow the Krebs cycle even though O2 is not used directly by Krebs-cycle enzymes?
+A. The Krebs cycle requires photons.
+B. Oxygen is a direct substrate in every Krebs-cycle reaction.
+C. ATP synthase supplies acetyl-CoA.
+D. NAD+ and FAD become less available because NADH and FADH2 are not efficiently reoxidized.
+E. The cycle occurs in the intermembrane space only.
+Correct answer: D — NAD+ and FAD become less available because NADH and FADH2 are not efficiently reoxidized. Explanation: The cycle depends on oxidized electron carriers, whose regeneration is linked to the ETC under aerobic conditions.
+BIO-BCH-RES-049 | Moderate | Application / Data | Topic: Substrate-level phosphorylation
+Which observation best demonstrates substrate-level phosphorylation?
+A. ATP forms only when protons cross ATP synthase.
+B. Oxygen is reduced to water.
+C. ATP forms when a phosphorylated metabolic intermediate transfers phosphate directly to ADP.
+D. NADH donates electrons to Complex I.
+E. A proton gradient is generated without ATP formation.
+Correct answer: C — ATP forms when a phosphorylated metabolic intermediate transfers phosphate directly to ADP. Explanation: Substrate-level phosphorylation is a direct enzymatic phosphate transfer to ADP.
+BIO-BCH-RES-050 | Moderate | Application / Data | Topic: Glycolysis calculation
+If 5 glucose molecules complete glycolysis, how many pyruvate molecules are produced?
+A. 5
+B. 15
+C. 20
+D. 10
+E. 30
+Correct answer: D — 10 Explanation: Each glucose yields two pyruvate molecules, so 5 glucose produce 10 pyruvate.
+BIO-BCH-RES-051 | Moderate | Application / Data | Topic: Glycolysis calculation
+If 8 glucose molecules complete glycolysis, what is the net ATP yield from glycolysis itself?
+A. 16 ATP
+B. 8 ATP
+C. 24 ATP
+D. 32 ATP
+E. 64 ATP
+Correct answer: A — 16 ATP Explanation: Glycolysis yields a net 2 ATP per glucose, so 8 glucose yield 16 ATP.
+BIO-BCH-RES-052 | Moderate | Application / Data | Topic: Lactate and redox
+A cell cannot convert pyruvate to lactate during oxygen shortage. Which immediate problem is most likely?
+A. ATP synthase activity rises.
+B. More oxygen is generated.
+C. NAD+ regeneration becomes insufficient for sustained glycolysis.
+D. Glycolysis automatically moves to mitochondria.
+E. The Krebs cycle becomes anaerobic.
+Correct answer: C — NAD+ regeneration becomes insufficient for sustained glycolysis. Explanation: Lactate fermentation regenerates NAD+; without it, glycolysis soon becomes limited by NAD+ availability.
+BIO-BCH-RES-053 | Moderate | Application / Data | Topic: Respiration data
+A mitochondrial preparation consumes oxygen rapidly after ADP is added, then oxygen consumption slows when ADP is depleted. What does this suggest?
+A. Electron transport is functionally coupled to ATP synthesis demand.
+B. Oxygen is produced by ATP synthase.
+C. ADP directly accepts electrons at the end of the chain.
+D. Glycolysis occurs inside isolated mitochondria.
+E. The mitochondrial membrane is irrelevant.
+Correct answer: A — Electron transport is functionally coupled to ATP synthesis demand. Explanation: In coupled mitochondria, availability of ADP promotes ATP synthesis, proton return and continued electron transport.
+BIO-BCH-RES-054 | Moderate | Application / Data | Topic: ETC and ATP
+A poison prevents proton pumping but allows electron transfer to oxygen. Which outcome is most likely?
+A. ATP production rises because the gradient is unnecessary.
+B. Glycolysis stops instantly.
+C. Oxygen is no longer the final electron acceptor.
+D. The Krebs cycle produces no reduced carriers.
+E. Oxygen can still be consumed, but ATP production by oxidative phosphorylation is greatly reduced.
+Correct answer: E — Oxygen can still be consumed, but ATP production by oxidative phosphorylation is greatly reduced. Explanation: Without proton pumping, little proton-motive force is generated for ATP synthase despite electron flow.
+BIO-BCH-RES-055 | Moderate | Application / Data | Topic: Aerobic vs fermentation
+Why does fermentation yield far less ATP per glucose than aerobic respiration?
+A. Fermentation cannot perform glycolysis.
+B. Fermentation converts ATP into oxygen.
+C. Fermentation does not use the electron transport chain to harvest most of the energy in NADH and fuel molecules.
+D. Aerobic respiration lacks substrate-level phosphorylation.
+E. Fermentation produces no NAD+.
+Correct answer: C — Fermentation does not use the electron transport chain to harvest most of the energy in NADH and fuel molecules. Explanation: Fermentation relies largely on glycolytic substrate-level phosphorylation and leaves much chemical energy in end products.
+BIO-BCH-RES-056 | Moderate | Application / Data | Topic: Krebs cycle
+If acetyl-CoA entry into the Krebs cycle is blocked, which direct consequence is expected?
+A. Increased glucose formation by glycolysis
+B. Immediate production of oxygen
+C. More electron flow through the ETC from the blocked cycle
+D. Reduced production of NADH and FADH2 from the cycle
+E. Direct synthesis of cellulose
+Correct answer: D — Reduced production of NADH and FADH2 from the cycle Explanation: The citric-acid cycle is a major source of reduced electron carriers for oxidative phosphorylation.
+BIO-BCH-RES-057 | Moderate | Application / Data | Topic: Inner membrane
+A defect makes the inner mitochondrial membrane highly permeable to H+ but not to other ions. Which process is impaired most?
+A. Chemiosmotic ATP synthesis
+B. Glycolysis
+C. DNA replication
+D. Protein synthesis on cytosolic ribosomes
+E. Lactate dehydrogenase activity
+Correct answer: A — Chemiosmotic ATP synthesis Explanation: Proton impermeability is essential for storing energy as a gradient that ATP synthase can use.
+BIO-BCH-RES-058 | Moderate | Application / Data | Topic: Redox
+During oxidation of glucose, carbon atoms become more oxidized while electron carriers become more reduced. Which pair best illustrates this transfer?
+A. Glucose-derived intermediates lose electrons while NAD+ gains them to form NADH.
+B. NADH loses electrons while glucose is reduced in every step.
+C. Oxygen donates electrons to glucose.
+D. ATP supplies electrons directly to carbon dioxide.
+E. Water oxidizes NAD+ to NADH.
+Correct answer: A — Glucose-derived intermediates lose electrons while NAD+ gains them to form NADH. Explanation: Catabolic oxidation transfers electrons from carbon substrates to carriers such as NAD+.
+BIO-BCH-RES-059 | Moderate | Application / Data | Topic: Fermentation
+Yeast cells ferment glucose in the absence of oxygen. Which pair of products is expected together with ATP from glycolysis?
+A. Ethanol and CO2
+B. Lactate and O2
+C. Acetyl-CoA and O2
+D. Glucose and water
+E. NAD+ and oxygen only
+Correct answer: A — Ethanol and CO2 Explanation: Alcoholic fermentation produces ethanol and CO2 while regenerating NAD+.
+BIO-BCH-RES-060 | Moderate | Application / Data | Topic: Respiration integration
+A mutation prevents NADH from donating electrons to the respiratory chain but leaves FADH2 entry intact. Which effect is most direct?
+A. All respiration stops absolutely, including glycolysis.
+B. FADH2 can no longer be oxidized by any route by definition.
+C. ATP yield from NADH-derived electrons decreases while some FADH2-supported electron flow may remain.
+D. Oxygen is produced rather than consumed.
+E. The Krebs cycle becomes photosynthesis.
+Correct answer: C — ATP yield from NADH-derived electrons decreases while some FADH2-supported electron flow may remain. Explanation: Blocking NADH electron entry reduces one major source of respiratory electron flow, while FADH2-linked entry can remain functional.
+Hard Questions
+BIO-BCH-RES-061 | Hard | Ahsora Challenge | Integrated / Experimental | Topic: Uncoupling
+An uncoupler increases proton permeability of the inner mitochondrial membrane. Which combination is most likely shortly after treatment if substrates and oxygen are abundant?
+A. Oxygen consumption stops and ATP production rises.
+B. Both oxygen consumption and ATP production necessarily stop immediately.
+C. The proton gradient increases while ATP synthesis falls.
+D. NADH can no longer be oxidized at all.
+E. Oxygen consumption may increase while ATP production falls.
+Correct answer: E — Oxygen consumption may increase while ATP production falls. Explanation: Uncoupling dissipates the proton gradient, stimulating electron transport while preventing efficient ATP capture.
+BIO-BCH-RES-062 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: ATP synthase inhibition
+Oligomycin-like inhibition blocks proton flow through ATP synthase. In tightly coupled mitochondria, what secondary effect is expected?
+A. Electron transport accelerates indefinitely.
+B. Electron transport slows as the proton gradient becomes difficult to dissipate.
+C. The proton gradient collapses immediately because protons cross ATP synthase faster.
+D. Oxygen becomes an electron donor.
+E. Glycolysis relocates to the matrix.
+Correct answer: B — Electron transport slows as the proton gradient becomes difficult to dissipate. Explanation: Blocking ATP synthase causes proton accumulation outside the matrix, which opposes further proton pumping and slows electron transport.
+BIO-BCH-RES-063 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: ETC inhibition
+A terminal ETC inhibitor is added to aerobic cells. Which sequence is most plausible?
+A. ATP rises → oxygen production rises → NADH falls.
+B. Glycolysis stops before any change in NAD+ availability.
+C. Electron flow stops → proton pumping falls → oxidative ATP synthesis falls → NADH accumulates.
+D. Proton pumping rises while electron flow stops.
+E. The Krebs cycle accelerates because NAD+ becomes more abundant.
+Correct answer: C — Electron flow stops → proton pumping falls → oxidative ATP synthesis falls → NADH accumulates. Explanation: Terminal blockade prevents carrier reoxidation and proton pumping, collapsing oxidative phosphorylation and increasing reduced carriers.
+BIO-BCH-RES-064 | Hard | Ahsora Challenge | Integrated / Experimental | Topic: Respiratory control
+Isolated mitochondria contain substrate and O2 but little ADP. Electron transport is slow. Adding ADP rapidly increases O2 consumption. Why?
+A. ADP is the final electron acceptor.
+B. ADP directly breaks down glucose in mitochondria.
+C. Oxygen is converted into ADP.
+D. ADP inhibits ATP synthase.
+E. ATP synthesis allows protons to return through ATP synthase, relieving backpressure on proton pumping and electron transport.
+Correct answer: E — ATP synthesis allows protons to return through ATP synthase, relieving backpressure on proton pumping and electron transport. Explanation: In coupled mitochondria, ADP availability stimulates ATP synthase, which dissipates the gradient enough to permit faster electron transport.
+BIO-BCH-RES-065 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Metabolic integration
+A cell has abundant glucose and oxygen but a severe deficiency of NAD+. Which pathway is directly compromised first by the lack of this electron acceptor?
+A. ATP hydrolysis
+B. Simple diffusion of oxygen
+C. Peptide-bond formation solely because ribosomes require NAD+ as a substrate
+D. DNA base pairing
+E. Glycolytic oxidation steps and other dehydrogenase reactions that require NAD+
+Correct answer: E — Glycolytic oxidation steps and other dehydrogenase reactions that require NAD+ Explanation: NAD+ is required as an oxidizing cofactor in glycolysis and many oxidative metabolic reactions.
+BIO-BCH-RES-066 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Fermentation
+During intense exercise, lactate formation increases although oxygen is not literally absent from every muscle fiber. Which explanation is best?
+A. Lactate is required because glycolysis directly consumes oxygen.
+B. Mitochondria produce lactate as the final electron acceptor.
+C. The Krebs cycle only functions without oxygen.
+D. The rate of NADH production by glycolysis can temporarily exceed mitochondrial oxidative capacity, so lactate formation helps regenerate cytosolic NAD+.
+E. ATP synthase requires lactate as a substrate.
+Correct answer: D — The rate of NADH production by glycolysis can temporarily exceed mitochondrial oxidative capacity, so lactate formation helps regenerate cytosolic NAD+. Explanation: High glycolytic flux can outpace oxidative reoxidation of cytosolic NADH, making lactate formation useful for redox balance.
+BIO-BCH-RES-067 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Mitochondrial membrane
+A mutant inner mitochondrial membrane remains impermeable to ions except it now allows H+ to diffuse freely. Which function is most directly lost while ETC complexes themselves remain intact?
+A. Oxidation of NADH is impossible under all conditions.
+B. Efficient coupling of electron transport to ATP synthesis
+C. Formation of pyruvate by glycolysis
+D. Carbon dioxide release by pyruvate dehydrogenase
+E. Substrate-level phosphorylation in glycolysis
+Correct answer: B — Efficient coupling of electron transport to ATP synthesis Explanation: A freely permeable membrane cannot maintain proton-motive force, so electron transport becomes uncoupled from ATP synthesis.
+BIO-BCH-RES-068 | Hard | Ahsora Challenge | Integrated / Experimental | Topic: Energy conservation
+Why is oxygen consumption alone an incomplete measure of mitochondrial ATP production?
+A. Electron transport can consume oxygen even when proton gradients are uncoupled from ATP synthase.
+B. Oxygen is not involved in respiration.
+C. ATP can never be made in mitochondria.
+D. Oxygen consumption measures only glycolysis.
+E. Every oxygen molecule always corresponds to an identical fixed ATP yield regardless of coupling.
+Correct answer: A — Electron transport can consume oxygen even when proton gradients are uncoupled from ATP synthase. Explanation: Uncoupling allows electron transfer and oxygen reduction without proportional ATP synthesis.
+BIO-BCH-RES-069 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Krebs/ETC coupling
+An ETC inhibitor causes NADH to accumulate in the matrix. Why can this slow the Krebs cycle?
+A. The cycle directly uses molecular oxygen in every reaction.
+B. Several Krebs-cycle dehydrogenases require NAD+ and are inhibited when the NAD+/NADH ratio falls.
+C. NADH is a carbohydrate inhibitor that destroys acetyl-CoA.
+D. The cycle can function only in the cytosol.
+E. ATP synthase catalyzes every Krebs-cycle reaction.
+Correct answer: B — Several Krebs-cycle dehydrogenases require NAD+ and are inhibited when the NAD+/NADH ratio falls. Explanation: A highly reduced NAD pool limits oxidized NAD+ availability and can inhibit oxidative dehydrogenase steps.
+BIO-BCH-RES-070 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Substrate-level vs oxidative phosphorylation
+A cell has functional glycolysis but a collapsed mitochondrial proton gradient. Which ATP source can still operate directly?
+A. Mitochondrial oxidative phosphorylation
+B. Proton-driven ATP synthase in the inner membrane
+C. Substrate-level phosphorylation in glycolysis
+D. Light-driven phosphorylation
+E. ATP production from a nonexistent proton gradient
+Correct answer: C — Substrate-level phosphorylation in glycolysis Explanation: Glycolytic substrate-level phosphorylation does not require a mitochondrial proton gradient.
+BIO-BCH-RES-071 | Hard | Ahsora Challenge | Integrated / Experimental | Topic: Respiration data
+Cells are exposed to a drug. Oxygen consumption rises, cellular ATP falls and heat production rises. Which mechanism best fits?
+A. ATP synthase hyper-efficiency
+B. Complete inhibition of the electron transport chain
+C. Blockade of glycolysis only
+D. Inhibition of all proton leak
+E. Mitochondrial uncoupling
+Correct answer: E — Mitochondrial uncoupling Explanation: Uncoupling dissipates proton-motive energy as heat, increasing respiration while lowering ATP yield.
+BIO-BCH-RES-072 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Respiration data
+After adding a respiratory poison, oxygen consumption becomes nearly zero, NADH rises and lactate production increases. Which event best explains the rise in lactate?
+A. Cells rely more on fermentation to regenerate NAD+ for glycolysis.
+B. Lactate supplies oxygen to mitochondria.
+C. The poison converts pyruvate directly into ATP.
+D. Lactate increases because the Krebs cycle speeds up.
+E. Fermentation becomes an oxygen-producing pathway.
+Correct answer: A — Cells rely more on fermentation to regenerate NAD+ for glycolysis. Explanation: When oxidative NADH reoxidation fails, fermentation supports cytosolic NAD+ regeneration and glycolytic ATP production.
+BIO-BCH-RES-073 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Electron carriers
+Why do NADH and FADH2 support oxidative phosphorylation but NAD+ and FAD do not in the same way?
+A. The oxidized forms contain more ATP.
+B. The reduced forms carry high-energy electrons that can be donated to the respiratory chain.
+C. NAD+ and FAD are proteins that cannot enter mitochondria.
+D. NADH and FADH2 are final electron acceptors.
+E. The oxidized forms have no atoms.
+Correct answer: B — The reduced forms carry high-energy electrons that can be donated to the respiratory chain. Explanation: NADH and FADH2 are electron-rich reduced carriers whose oxidation drives electron transport.
+BIO-BCH-RES-074 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Chemiosmosis
+ATP synthase is intact, but an artificial pore allows H+ to cross the inner membrane independently of ATP synthase. Which effect is most direct?
+A. The proton-motive force available to ATP synthase decreases.
+B. The membrane stores a larger proton gradient.
+C. ATP synthase gains more substrate because protons cannot move.
+D. Oxygen is no longer required as an electron acceptor.
+E. Glycolysis moves into mitochondria.
+Correct answer: A — The proton-motive force available to ATP synthase decreases. Explanation: A proton leak bypasses ATP synthase and dissipates the energy stored in the gradient.
+BIO-BCH-RES-075 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Carbon accounting
+Which statement best explains why carbon dioxide is not released during glycolysis even though glucose is oxidized?
+A. Glycolysis contains no redox reactions.
+B. All carbon dioxide release occurs in the electron transport chain.
+C. Glucose carbon is converted directly into oxygen.
+D. Glycolysis rearranges and partially oxidizes the six carbons into two three-carbon pyruvates without decarboxylation.
+E. Glycolysis occurs only when carbon dioxide is absent.
+Correct answer: D — Glycolysis rearranges and partially oxidizes the six carbons into two three-carbon pyruvates without decarboxylation. Explanation: The carbon skeleton remains as two three-carbon pyruvates; decarboxylation occurs later in pyruvate oxidation and the Krebs cycle.
+BIO-BCH-RES-076 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Redox balance
+A cell has a high NADH/NAD+ ratio. Which metabolic consequence is most plausible?
+A. All oxidation reactions accelerate because NAD+ is abundant.
+B. The cell must be producing oxygen by photosynthesis.
+C. NADH cannot affect metabolic flux.
+D. ATP hydrolysis stops completely.
+E. Oxidative pathways that require NAD+ as an electron acceptor tend to slow.
+Correct answer: E — Oxidative pathways that require NAD+ as an electron acceptor tend to slow. Explanation: A shortage of oxidized NAD+ limits dehydrogenase reactions and signals a highly reduced cellular state.
+BIO-BCH-RES-077 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Fermentation energetics
+Why does converting pyruvate to lactate not itself provide the main ATP gain of fermentation?
+A. Lactate formation is oxidative phosphorylation.
+B. Pyruvate-to-lactate produces more ATP than the ETC.
+C. Its main role is redox regeneration of NAD+; the ATP is generated during glycolysis.
+D. Fermentation has no relationship to NAD+.
+E. ATP is formed by oxygen reduction in the lactate reaction.
+Correct answer: C — Its main role is redox regeneration of NAD+; the ATP is generated during glycolysis. Explanation: Fermentation sustains glycolysis by regenerating NAD+, whereas substrate-level phosphorylation in glycolysis produces the ATP.
+BIO-BCH-RES-078 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Mitochondrial structure
+A mutation drastically reduces inner-membrane protein content but leaves the matrix volume normal. Which pair of processes is most directly affected?
+A. Glycolysis and DNA transcription
+B. Peptide-bond formation and glycogen branching
+C. Lactate formation and cytosolic glycolysis
+D. Electron transport and ATP synthesis
+E. Mitosis and meiosis
+Correct answer: D — Electron transport and ATP synthesis Explanation: The respiratory complexes and ATP synthase are inner-membrane proteins, so reduced membrane machinery lowers oxidative capacity.
+BIO-BCH-RES-079 | Hard | Ahsora Challenge | Integrated / Experimental | Topic: Respiration control
+A cell increases ATP demand without changing glucose or oxygen supply. In healthy mitochondria, which response is most plausible initially?
+A. ATP synthase shuts down because ADP inhibits it.
+B. More ADP becomes available, stimulating oxidative phosphorylation and respiratory flux.
+C. Oxygen consumption must fall to zero.
+D. The proton gradient must permanently disappear.
+E. NADH can no longer be oxidized.
+Correct answer: B — More ADP becomes available, stimulating oxidative phosphorylation and respiratory flux. Explanation: Higher ATP use raises ADP, which promotes ATP synthase activity and respiratory control in coupled mitochondria.
+BIO-BCH-RES-080 | Hard | Ahsora Challenge | Integrated / Experimental | Topic: Integrated challenge
+A mitochondrial toxin simultaneously blocks ATP synthase and makes the inner membrane slightly proton-permeable. Which observation would best distinguish whether the proton leak is substantial?
+A. Persistent oxygen consumption despite very low ATP production would support significant uncoupling.
+B. High ATP with zero oxygen consumption would prove uncoupling.
+C. Complete absence of NADH would prove ATP synthase blockade.
+D. Glycolysis stopping would uniquely prove a proton leak.
+E. An unchanged amino-acid sequence would distinguish the mechanisms.
+Correct answer: A — Persistent oxygen consumption despite very low ATP production would support significant uncoupling. Explanation: A strong proton leak allows electron transport and oxygen consumption to continue even when ATP synthesis remains poor.
+6. Photosynthesis
+Quota: 32 MCQs — 16 Easy, 8 Moderate, 8 Hard.
+Easy Questions
+BIO-BCH-PHO-001 | Easy | Recall / Conceptual | Topic: Overview
+The overall purpose of photosynthesis is to:
+A. convert glucose directly into oxygen only.
+B. use ATP to destroy chlorophyll.
+C. convert light energy into chemical energy stored in organic molecules.
+D. release carbon dioxide as the main product.
+E. perform mitochondrial respiration in chloroplasts.
+Correct answer: C — convert light energy into chemical energy stored in organic molecules. Explanation: Photosynthesis captures light energy and stores it in reduced carbon compounds.
+BIO-BCH-PHO-002 | Easy | Recall / Conceptual | Topic: Equation
+Which substance is consumed as a carbon source in photosynthesis?
+A. Oxygen
+B. Carbon dioxide
+C. ATP only
+D. Lactate
+E. Nitrogen gas
+Correct answer: B — Carbon dioxide Explanation: CO2 provides carbon that is incorporated into organic molecules.
+BIO-BCH-PHO-003 | Easy | Recall / Conceptual | Topic: Oxygen production
+The oxygen released during oxygenic photosynthesis comes primarily from:
+A. carbon dioxide.
+B. glucose.
+C. water.
+D. ATP.
+E. NADPH.
+Correct answer: C — water. Explanation: Photolysis of water in the light reactions releases molecular oxygen.
+BIO-BCH-PHO-004 | Easy | Recall / Conceptual | Topic: Chloroplast
+The light-dependent reactions occur mainly in the:
+A. stroma only.
+B. outer chloroplast membrane.
+C. cytosol.
+D. nucleus.
+E. thylakoid membranes.
+Correct answer: E — thylakoid membranes. Explanation: Photosystems and the photosynthetic electron transport chain are located in thylakoid membranes.
+BIO-BCH-PHO-005 | Easy | Recall / Conceptual | Topic: Chloroplast
+The Calvin cycle occurs mainly in the:
+A. thylakoid lumen.
+B. inner mitochondrial membrane.
+C. cytosol.
+D. stroma.
+E. nucleus.
+Correct answer: D — stroma. Explanation: Calvin-cycle enzymes operate in the chloroplast stroma.
+BIO-BCH-PHO-006 | Easy | Recall / Conceptual | Topic: Pigments
+The main role of chlorophyll is to:
+A. fix nitrogen.
+B. hydrolyze cellulose.
+C. absorb light energy.
+D. synthesize DNA directly.
+E. produce carbon dioxide.
+Correct answer: C — absorb light energy. Explanation: Chlorophyll absorbs photons and initiates excitation of electrons in photosystems.
+BIO-BCH-PHO-007 | Easy | Recall / Conceptual | Topic: Light reactions
+A major product of the light-dependent reactions used by the Calvin cycle is:
+A. lactate.
+B. ethanol.
+C. ATP.
+D. glycogen.
+E. pyruvate.
+Correct answer: C — ATP. Explanation: The light reactions produce ATP and NADPH that power carbon fixation.
+BIO-BCH-PHO-008 | Easy | Recall / Conceptual | Topic: Light reactions
+Another major reducing product of the light reactions is:
+A. NAD+ only.
+B. FAD only.
+C. CO2.
+D. NADPH.
+E. lactate.
+Correct answer: D — NADPH. Explanation: NADPH supplies reducing power to the Calvin cycle.
+BIO-BCH-PHO-009 | Easy | Recall / Conceptual | Topic: Photolysis
+Photolysis in photosynthesis refers to splitting:
+A. glucose.
+B. ATP.
+C. water.
+D. carbon dioxide.
+E. starch.
+Correct answer: C — water. Explanation: Light-driven water splitting supplies electrons and protons and releases O2.
+BIO-BCH-PHO-010 | Easy | Recall / Conceptual | Topic: Carbon fixation
+Carbon fixation means:
+A. releasing CO2 from glucose.
+B. splitting water to O2.
+C. hydrolyzing ATP to ADP only.
+D. forming peptide bonds.
+E. incorporating inorganic CO2 into an organic molecule.
+Correct answer: E — incorporating inorganic CO2 into an organic molecule. Explanation: Carbon fixation converts inorganic carbon into organic carbon compounds.
+BIO-BCH-PHO-011 | Easy | Recall / Conceptual | Topic: Calvin cycle
+The Calvin cycle uses ATP and NADPH mainly to:
+A. produce oxygen directly from CO2.
+B. hydrolyze proteins.
+C. generate a proton gradient in mitochondria.
+D. convert pyruvate into lactate.
+E. reduce fixed carbon and regenerate the CO2 acceptor.
+Correct answer: E — reduce fixed carbon and regenerate the CO2 acceptor. Explanation: ATP and NADPH from the light reactions provide energy and reducing power for carbon assimilation.
+BIO-BCH-PHO-012 | Easy | Recall / Conceptual | Topic: Limiting factors
+At low light intensity, increasing light often increases photosynthetic rate because:
+A. oxygen becomes the carbon source.
+B. all enzymes denature.
+C. CO2 is converted into ATP directly.
+D. light is the limiting factor.
+E. water becomes nonpolar.
+Correct answer: D — light is the limiting factor. Explanation: When light limits the process, more light can increase the rate until another factor becomes limiting.
+BIO-BCH-PHO-013 | Easy | Recall / Conceptual | Topic: Limiting factors
+If light is abundant but CO2 concentration is very low, the photosynthetic rate may be limited by:
+A. the presence of chlorophyll only.
+B. the number of peptide bonds.
+C. oxygen as a carbon source.
+D. carbon dioxide availability.
+E. DNA replication.
+Correct answer: D — carbon dioxide availability. Explanation: CO2 is the substrate for carbon fixation and can become limiting even at high light.
+BIO-BCH-PHO-014 | Easy | Recall / Conceptual | Topic: Chloroplast structure
+Grana are stacks of:
+A. mitochondria.
+B. ribosomes.
+C. thylakoids.
+D. nuclei.
+E. cell walls.
+Correct answer: C — thylakoids. Explanation: Grana are stacks of flattened thylakoid membranes.
+BIO-BCH-PHO-015 | Easy | Recall / Conceptual | Topic: Photosynthesis vs respiration
+Photosynthesis and respiration are linked because photosynthesis stores energy in organic molecules whereas respiration:
+A. uses light to split water only.
+B. always produces glucose.
+C. releases usable energy by oxidizing organic molecules.
+D. fixes carbon dioxide as its main role.
+E. occurs only in plant cells.
+Correct answer: C — releases usable energy by oxidizing organic molecules. Explanation: Respiration extracts energy from organic fuels, complementing photosynthetic energy storage.
+BIO-BCH-PHO-016 | Easy | Recall / Conceptual | Topic: Light-independent reactions
+The term light-independent reaction means the Calvin cycle:
+A. can continue indefinitely in darkness without stored intermediates.
+B. does not use light directly, although it depends on ATP and NADPH made by light reactions.
+C. produces photons.
+D. occurs only at night.
+E. does not depend on any products of the light reactions.
+Correct answer: B — does not use light directly, although it depends on ATP and NADPH made by light reactions. Explanation: The Calvin cycle is not directly photochemical but normally depends on light-generated ATP and NADPH.
+Moderate Questions
+BIO-BCH-PHO-017 | Moderate | Application / Data | Topic: Limiting factors
+A plant is illuminated strongly while CO2 concentration is gradually increased. Photosynthetic rate rises and then plateaus. What best explains the plateau?
+A. CO2 can never affect photosynthesis.
+B. The plant has switched to fermentation only.
+C. Oxygen has become the carbon source.
+D. Another factor, such as temperature or enzyme capacity, has become limiting.
+E. All chlorophyll has been converted to glucose.
+Correct answer: D — Another factor, such as temperature or enzyme capacity, has become limiting. Explanation: Once CO2 is no longer limiting, some other factor constrains the rate.
+BIO-BCH-PHO-018 | Moderate | Application / Data | Topic: Light reactions
+A herbicide blocks electron transport in thylakoid membranes. Which immediate consequence is expected?
+A. Increased carbon fixation with no energy source
+B. Direct conversion of CO2 into O2
+C. Faster mitochondrial glycolysis inside the thylakoid
+D. Increased peptide-bond synthesis by chlorophyll
+E. Reduced production of ATP and NADPH for the Calvin cycle
+Correct answer: E — Reduced production of ATP and NADPH for the Calvin cycle Explanation: Photosynthetic electron transport generates the proton gradient and reducing power needed to make ATP and NADPH.
+BIO-BCH-PHO-019 | Moderate | Application / Data | Topic: Photolysis
+Plants are supplied with water containing the oxygen isotope 18O. Where should much of the labeled oxygen appear during photosynthesis?
+A. In released O2 gas
+B. Only in newly fixed carbon dioxide
+C. Only in ATP phosphate groups
+D. Only in chlorophyll nitrogen atoms
+E. Only in glucose carbon atoms
+Correct answer: A — In released O2 gas Explanation: The O2 evolved in oxygenic photosynthesis is derived from water splitting.
+BIO-BCH-PHO-020 | Moderate | Application / Data | Topic: Calvin cycle
+A chloroplast is exposed to light but deprived of CO2. Which process can continue briefly?
+A. Carbon fixation at its normal rate indefinitely
+B. Formation of carbohydrate from CO2
+C. Calvin-cycle incorporation of new carbon
+D. CO2-dependent regeneration of all intermediates without substrate
+E. Light-dependent ATP and NADPH production
+Correct answer: E — Light-dependent ATP and NADPH production Explanation: Light reactions can operate temporarily without CO2, whereas carbon fixation cannot incorporate new carbon.
+BIO-BCH-PHO-021 | Moderate | Application / Data | Topic: Chloroplast structure
+A mutation greatly reduces thylakoid membrane surface area but leaves stroma volume normal. Which function is most directly reduced?
+A. Cytosolic glycolysis
+B. DNA replication in the nucleus
+C. Light-dependent electron transport and photophosphorylation
+D. Protein translation in the cytosol
+E. Lactate fermentation
+Correct answer: C — Light-dependent electron transport and photophosphorylation Explanation: Photosystems, electron carriers and ATP synthase are located in thylakoid membranes.
+BIO-BCH-PHO-022 | Moderate | Application / Data | Topic: Limiting factors
+At constant high light and CO2, photosynthesis rises with temperature to an optimum and then falls. Which explanation is best for the decline?
+A. Photons no longer have energy above the optimum.
+B. Photosynthetic enzymes lose efficiency or denature at excessive temperature.
+C. CO2 becomes a lipid.
+D. Water stops being polar.
+E. Chlorophyll gains peptide bonds.
+Correct answer: B — Photosynthetic enzymes lose efficiency or denature at excessive temperature. Explanation: Photosynthesis depends on enzyme-catalyzed reactions whose rates fall when proteins are damaged by excessive heat.
+BIO-BCH-PHO-023 | Moderate | Application / Data | Topic: Energy coupling
+Why can the Calvin cycle slow rapidly if the light reactions stop?
+A. It immediately loses all CO2 from the atmosphere.
+B. Its enzymes are located in mitochondria only.
+C. Its ATP and NADPH supply falls.
+D. Oxygen becomes the carbon source.
+E. Glycolysis is required to produce chlorophyll.
+Correct answer: C — Its ATP and NADPH supply falls. Explanation: The Calvin cycle depends on ATP and NADPH generated by the light-dependent reactions.
+BIO-BCH-PHO-024 | Moderate | Application / Data | Topic: Data interpretation
+A leaf shows low photosynthesis at 200 ppm CO2, higher photosynthesis at 600 ppm, but no further increase at 1000 ppm under the same light. Which conclusion is best?
+A. CO2 is never a substrate.
+B. Photosynthesis is directly proportional to CO2 at all concentrations.
+C. The Calvin cycle stopped at 600 ppm.
+D. Light became unnecessary at high CO2.
+E. CO2 was limiting at low concentration but another factor became limiting by 600-1000 ppm.
+Correct answer: E — CO2 was limiting at low concentration but another factor became limiting by 600-1000 ppm. Explanation: The response plateau indicates a shift from CO2 limitation to another limiting factor.
+Hard Questions
+BIO-BCH-PHO-025 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Light reactions
+A chemical carries protons across the thylakoid membrane without passing through ATP synthase. Light absorption and electron transfer can still occur. Which outcome is most likely?
+A. The proton gradient rises and ATP production increases.
+B. Carbon fixation becomes independent of ATP.
+C. Oxygen production necessarily stops immediately.
+D. The proton gradient falls and ATP production decreases even if electron flow continues.
+E. NADPH can no longer be produced under any circumstance.
+Correct answer: D — The proton gradient falls and ATP production decreases even if electron flow continues. Explanation: A proton leak uncouples electron transport from photophosphorylation by dissipating the thylakoid proton gradient.
+BIO-BCH-PHO-026 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Calvin cycle
+A chloroplast has normal ATP production but cannot produce NADPH. Which Calvin-cycle task is most directly impaired?
+A. Initial photon absorption by chlorophyll
+B. Water splitting at photosystem II only
+C. Formation of the thylakoid membrane
+D. Reduction of fixed carbon intermediates
+E. Diffusion of CO2 into the leaf
+Correct answer: D — Reduction of fixed carbon intermediates Explanation: NADPH provides reducing power needed to convert fixed carbon into more reduced carbohydrate intermediates.
+BIO-BCH-PHO-027 | Hard | Ahsora Challenge | Integrated / Experimental | Topic: Oxygen isotope
+A plant is given CO2 labeled in its oxygen atoms but ordinary water. Which observation would most directly argue against CO2 being the source of evolved photosynthetic O2?
+A. Glucose contains carbon from CO2.
+B. ATP is produced in thylakoids.
+C. Chlorophyll absorbs visible light.
+D. The Calvin cycle occurs in stroma.
+E. Released O2 lacks the CO2 oxygen label while labeled water oxygen appears in O2 in a parallel experiment.
+Correct answer: E — Released O2 lacks the CO2 oxygen label while labeled water oxygen appears in O2 in a parallel experiment. Explanation: Isotope tracing shows that evolved O2 comes from water rather than from the oxygen atoms of CO2.
+BIO-BCH-PHO-028 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Limiting factors
+Two identical plants receive the same high light. Plant A has low CO2; Plant B has high CO2 but a severely inhibited Calvin-cycle enzyme. Both show low net photosynthesis. Why are the causes different?
+A. Both are necessarily limited by light.
+B. A lacks substrate for carbon fixation, whereas B lacks sufficient catalytic capacity to process available CO2.
+C. Both must lack chlorophyll.
+D. CO2 cannot limit photosynthesis.
+E. Enzymes cannot limit photosynthesis.
+Correct answer: B — A lacks substrate for carbon fixation, whereas B lacks sufficient catalytic capacity to process available CO2. Explanation: The same low output can arise from substrate limitation or enzyme-capacity limitation, so mechanism matters.
+BIO-BCH-PHO-029 | Hard | Ahsora Challenge | Integrated / Experimental | Topic: Chloroplast integration
+A mutation removes most chloroplast ATP synthase but leaves photosystems and electron carriers intact. Under illumination, which pattern is most plausible?
+A. A steep proton gradient develops, ATP synthesis falls, and electron flow may slow secondarily.
+B. ATP synthesis rises because protons cannot return.
+C. The Calvin cycle speeds up because ATP is no longer consumed.
+D. O2 production becomes independent of electron flow.
+E. The stroma becomes the site of glycolysis.
+Correct answer: A — A steep proton gradient develops, ATP synthesis falls, and electron flow may slow secondarily. Explanation: Blocking ATP synthase reduces proton re-entry, limiting ATP production and eventually opposing continued proton pumping.
+BIO-BCH-PHO-030 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Photosynthesis-respiration integration
+A plant cell in bright light has active chloroplasts and mitochondria. Which statement is most accurate?
+A. Respiration must stop completely whenever photosynthesis occurs.
+B. Photosynthesis consumes all cellular ATP, so mitochondria are inactive.
+C. Mitochondria perform the Calvin cycle.
+D. Chloroplasts are the only organelles that can produce ATP in plant cells.
+E. Photosynthesis and respiration can occur simultaneously, exchanging metabolites while serving different energy roles.
+Correct answer: E — Photosynthesis and respiration can occur simultaneously, exchanging metabolites while serving different energy roles. Explanation: Plant cells can photosynthesize and respire at the same time; chloroplasts store energy and mitochondria extract energy for cellular work.
+BIO-BCH-PHO-031 | Hard | Upper-end IMAT | Integrated / Experimental | Topic: Data interpretation
+A photosynthetic organism has normal O2 evolution and NADPH production but unusually low carbohydrate synthesis. Which defect is most likely?
+A. A defect in Calvin-cycle carbon fixation or downstream carbon reduction
+B. Failure of water splitting
+C. Complete failure of photosynthetic electron transport
+D. Absence of chlorophyll absorption
+E. Failure to generate any NADPH
+Correct answer: A — A defect in Calvin-cycle carbon fixation or downstream carbon reduction Explanation: Normal light-reaction products with poor carbohydrate synthesis points downstream to carbon-assimilation reactions.
+BIO-BCH-PHO-032 | Hard | Ahsora Challenge | Integrated / Experimental | Topic: Integrated challenge
+A thylakoid membrane has normal photosystem activity and NADPH production, but ATP output is very low. Which pair of defects could each explain the finding without directly blocking electron transfer?
+A. Loss of CO2 and loss of Rubisco only
+B. Absence of glucose and absence of glycogen
+C. Loss of nuclear DNA and loss of ribosomes
+D. A proton leak or defective ATP synthase
+E. Inhibition of glycolysis and lactate formation
+Correct answer: D — A proton leak or defective ATP synthase Explanation: Both a proton leak and ATP-synthase failure can selectively impair photophosphorylation while allowing electron transfer to continue.
+7. Production Reconciliation & QA Gate
+Production totals have been reconciled programmatically against the frozen blueprint before export.
+Metric
+Target
+Actual
+Status
+Total questions
+272
+272
+PASS
+Easy
+136
+136
+PASS
+Moderate
+68
+68
+PASS
+Hard
+68
+68
+PASS
+Ahsora Challenge Hard
+~20
+20
+PASS
+Five options per question
+272/272
+272/272
+PASS
+Unique stems
+272/272
+272/272
+PASS
+Correct-answer position balance
+Correct options are deliberately distributed across A-E to avoid position-pattern learning.
+A
+B
+C
+D
+E
+55
+55
+54
+54
+54
+Publication gate
+• Independent scientific review by a qualified Biology teacher.
+• Verify that every item remains within the Ahsora syllabus and current IMAT/MUR scope.
+• Review each difficulty label against reasoning depth, not stem length.
+• Review distractors for plausibility, non-overlap and scientific wrongness in the stated context.
+• Run duplicate/near-duplicate review against other Ahsora question pools before publication.
+• Retire or revise any item that produces expert disagreement, persistent student complaints or poor discrimination after pilot use.

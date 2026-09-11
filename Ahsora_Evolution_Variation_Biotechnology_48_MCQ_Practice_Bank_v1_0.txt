@@ -1,0 +1,651 @@
+﻿AHSORA MEDS ACADEMY
+EVOLUTION, VARIATION& BIOTECHNOLOGY
+48-MCQ Practice Bank
+Final Biology Section • Ahsora Biology Practice Bank — Production Draft v1.0
+PRODUCTION DRAFT — SCIENTIFIC REVIEW AND QA REQUIRED BEFORE STUDENT PUBLICATION
+1. Frozen Production Matrix
+This build completes the final 48 questions in the frozen Ahsora Biology Practice Bank architecture. The section keeps the exact 50% Easy / 25% Moderate / 25% Hard distribution and the chapter quotas defined in the Biology Practice Bank Strategy v1.0.
+Chapter
+Priority
+Total
+Easy
+Moderate
+Hard
+Mutation, Variation & Selection
+Medium
+20
+10
+5
+5
+Evolutionary Theory & Genetic Basis of Evolution
+Low / Medium
+8
+4
+2
+2
+Recombinant DNA & Biotechnology
+Medium
+20
+10
+5
+5
+TOTAL
+48
+24
+12
+12
+2. Topic-Level Allocation Used for This Build
+Topic quotas were frozen before writing so the 48 questions do not over-concentrate on a single familiar concept.
+Chapter
+Topic family
+Questions
+Mutation, Variation & Selection
+Gene/chromosome mutation + mutagens
+5
+Mutation, Variation & Selection
+Sources of genetic variation
+3
+Mutation, Variation & Selection
+Natural selection + allele-frequency change
+5
+Mutation, Variation & Selection
+Artificial selection
+2
+Mutation, Variation & Selection
+Adaptation + fitness
+2
+Mutation, Variation & Selection
+Heredity + environment
+3
+Evolutionary Theory & Genetic Basis of Evolution
+Darwinian mechanism
+2
+Evolutionary Theory & Genetic Basis of Evolution
+Allele-frequency change
+2
+Evolutionary Theory & Genetic Basis of Evolution
+Speciation/reproductive isolation
+2
+Evolutionary Theory & Genetic Basis of Evolution
+Evidence/convergence/common ancestry
+2
+Recombinant DNA & Biotechnology
+Restriction enzymes + recombinant DNA
+4
+Recombinant DNA & Biotechnology
+Ligase + plasmids/vectors
+4
+Recombinant DNA & Biotechnology
+PCR
+4
+Recombinant DNA & Biotechnology
+Gel electrophoresis
+4
+Recombinant DNA & Biotechnology
+Applications/experimental design
+4
+3. Item Construction Standard Applied
+• Every item contains exactly five options (A–E) and one unambiguously best answer.
+• Difficulty reflects reasoning depth, not confusing wording. Easy = foundation/one-step; Moderate = typical IMAT application; Hard = upper-end IMAT or controlled Ahsora Challenge.
+• The item pool follows the Ahsora FSc foundation + A-Level conceptual extension + IMAT application model.
+• All 48 items are original Ahsora production-draft questions; historical IMAT/past-paper wording is not reused as original content.
+• The Hard pool contains 4 Ahsora Challenge items (33% of 12 Hard questions) and 8 upper-end normal IMAT items.
+• Correct-answer positions are balanced across A–E: A=10, B=10, C=10, D=9, E=9.
+• Every question includes a concise explanation and must still undergo independent teacher/scientific QA before publication.
+4. Mutation, Variation & Selection
+Production quota: 20 questions — 10 Easy, 5 Moderate, 5 Hard.
+BIO-EVB-001  |  EASY
+Chapter: Mutation, Variation & Selection   •   Topic: Gene and chromosome mutations   •   Type: Recall / Knowledge
+Which statement best defines a gene mutation?
+A. A change in the number of ribosomes in a cell
+B. A temporary change in enzyme activity caused by temperature
+C. A change in the amount of ATP produced during respiration
+D. A change in the nucleotide sequence of DNA within a gene
+E. A change in the shape of a protein without any change in DNA
+Correct answer: D — A change in the nucleotide sequence of DNA within a gene
+Explanation: A gene mutation is a permanent alteration in the DNA nucleotide sequence of a gene.
+BIO-EVB-002  |  EASY
+Chapter: Mutation, Variation & Selection   •   Topic: Gene and chromosome mutations   •   Type: Recall / Knowledge
+Which change is a chromosome-structure mutation rather than a point mutation?
+A. Replacement of one nucleotide by another
+B. Insertion of one nucleotide into a coding sequence
+C. Deletion of a large segment of a chromosome
+D. Loss of one hydrogen bond between DNA bases
+E. Failure of one tRNA to bind an amino acid
+Correct answer: C — Deletion of a large segment of a chromosome
+Explanation: Large deletions alter chromosome structure, whereas point mutations affect one or a few nucleotides.
+BIO-EVB-003  |  EASY
+Chapter: Mutation, Variation & Selection   •   Topic: Sources of genetic variation   •   Type: Conceptual
+Which process during meiosis directly creates new combinations of alleles on homologous chromosomes?
+A. DNA replication before meiosis
+B. Crossing over between non-sister chromatids
+C. Cytokinesis after meiosis II
+D. Translation of mRNA
+E. Binary fission
+Correct answer: B — Crossing over between non-sister chromatids
+Explanation: Crossing over exchanges DNA between homologous chromosomes and creates new allele combinations.
+BIO-EVB-004  |  EASY
+Chapter: Mutation, Variation & Selection   •   Topic: Sources of genetic variation   •   Type: Conceptual
+Why are mutations important for evolution?
+A. They always make an organism better adapted.
+B. They prevent natural selection from acting.
+C. They can create new alleles that add heritable variation to a population.
+D. They ensure every offspring has a unique chromosome number.
+E. They convert acquired characteristics directly into inherited ones.
+Correct answer: C — They can create new alleles that add heritable variation to a population.
+Explanation: Mutation is the ultimate source of new alleles on which evolutionary forces can act.
+BIO-EVB-005  |  EASY
+Chapter: Mutation, Variation & Selection   •   Topic: Natural selection   •   Type: Recall / Knowledge
+For natural selection to cause evolutionary change, variation in a trait must be
+A. caused only by exercise.
+B. identical in all members of the population.
+C. restricted to somatic cells and never inherited.
+D. unrelated to survival or reproduction.
+E. heritable and associated with differences in reproductive success.
+Correct answer: E — heritable and associated with differences in reproductive success.
+Explanation: Natural selection changes populations only when heritable variants differ in reproductive success.
+BIO-EVB-006  |  EASY
+Chapter: Mutation, Variation & Selection   •   Topic: Fitness   •   Type: Conceptual
+In evolutionary biology, fitness is best described as an organism’s
+A. physical strength compared with all other species.
+B. ability to live for the greatest number of years.
+C. relative contribution of viable offspring to the next generation.
+D. rate of ATP production at rest.
+E. capacity to avoid every environmental stress.
+Correct answer: C — relative contribution of viable offspring to the next generation.
+Explanation: Evolutionary fitness refers to reproductive success relative to other members of the population.
+BIO-EVB-007  |  EASY
+Chapter: Mutation, Variation & Selection   •   Topic: Artificial selection   •   Type: Recall / Knowledge
+Artificial selection differs from natural selection mainly because
+A. mutations do not occur during artificial selection.
+B. humans choose which individuals reproduce for desired traits.
+C. artificial selection cannot change allele frequencies.
+D. natural selection always acts faster than artificial selection.
+E. artificial selection occurs only in microorganisms.
+Correct answer: B — humans choose which individuals reproduce for desired traits.
+Explanation: In artificial selection, humans impose the selective breeding criterion rather than the environment.
+BIO-EVB-008  |  EASY
+Chapter: Mutation, Variation & Selection   •   Topic: Adaptation and fitness   •   Type: Conceptual
+Which statement best describes an adaptation?
+A. Any change that occurs during an individual’s lifetime
+B. A feature that is always beneficial in every environment
+C. A heritable feature that increases reproductive success in a particular environment
+D. A non-heritable response to temporary stress
+E. A random event that changes chromosome number
+Correct answer: C — A heritable feature that increases reproductive success in a particular environment
+Explanation: An adaptation is a heritable trait whose effect on fitness is advantageous in a particular environment.
+BIO-EVB-009  |  EASY
+Chapter: Mutation, Variation & Selection   •   Topic: Heredity and environment   •   Type: Conceptual
+Which human characteristic is most clearly influenced by both genotype and environment?
+A. ABO blood group
+B. Adult height
+C. Number of chromosomes in a normal somatic cell
+D. DNA base-pairing rules
+E. The genetic code
+Correct answer: B — Adult height
+Explanation: Adult height is genetically influenced but is also affected by nutrition, health and other environmental factors.
+BIO-EVB-010  |  EASY
+Chapter: Mutation, Variation & Selection   •   Topic: Mutagens   •   Type: Recall / Knowledge
+Ultraviolet radiation can increase mutation rate because it can
+A. damage DNA and interfere with accurate replication.
+B. replace all RNA with DNA.
+C. prevent meiosis from ever occurring.
+D. convert every recessive allele into a dominant allele.
+E. remove all introns from chromosomes.
+Correct answer: A — damage DNA and interfere with accurate replication.
+Explanation: UV radiation can damage DNA, increasing the chance that replication introduces heritable sequence changes.
+BIO-EVB-011  |  MODERATE
+Chapter: Mutation, Variation & Selection   •   Topic: Somatic versus germline mutation   •   Type: Application
+A mutation occurs in a skin stem cell of an adult and gives rise to a clone of abnormal skin cells. Why is the mutation unlikely to be inherited by the person’s children?
+A. All mutations in adults are automatically repaired.
+B. Skin cells contain no DNA.
+C. It occurred in a somatic lineage rather than in cells contributing to gametes.
+D. Only dominant mutations can be inherited.
+E. Mutations can be transmitted only if they improve fitness.
+Correct answer: C — It occurred in a somatic lineage rather than in cells contributing to gametes.
+Explanation: Only mutations present in the germline can normally be transmitted to offspring.
+BIO-EVB-012  |  MODERATE
+Chapter: Mutation, Variation & Selection   •   Topic: Natural selection   •   Type: Application
+A bacterial population contains rare cells with an antibiotic-resistance allele before treatment. After repeated antibiotic exposure, the allele becomes common. Which explanation is best?
+A. The antibiotic selected pre-existing resistant variants that left more descendants.
+B. The antibiotic caused every bacterium to mutate in the same useful way.
+C. Sensitive bacteria intentionally changed their DNA to survive.
+D. Resistance increased because antibiotics stop DNA replication only in resistant cells.
+E. The environment directly converted the resistance allele into a dominant allele.
+Correct answer: A — The antibiotic selected pre-existing resistant variants that left more descendants.
+Explanation: Selection changes the frequency of existing heritable variants; it does not direct mutations toward a needed outcome.
+BIO-EVB-013  |  MODERATE
+Chapter: Mutation, Variation & Selection   •   Topic: Artificial selection   •   Type: Integrated
+A breeder repeatedly mates only the highest-yielding plants from each generation. After many generations, crop yield rises but genetic diversity falls. What best explains both observations?
+A. Every selected plant becomes genetically identical after one generation.
+B. Selection increases yield by preventing meiosis.
+C. Artificial selection creates only beneficial mutations and removes recombination.
+D. Lower diversity proves that no allele frequencies have changed.
+E. Alleles associated with high yield increase while repeated selective breeding narrows the breeding gene pool.
+Correct answer: E — Alleles associated with high yield increase while repeated selective breeding narrows the breeding gene pool.
+Explanation: Strong selective breeding can enrich desired alleles while reducing diversity by repeatedly using a restricted subset of parents.
+BIO-EVB-014  |  MODERATE
+Chapter: Mutation, Variation & Selection   •   Topic: Heredity and environment   •   Type: Data Interpretation
+Genetically identical seedlings are grown under low and high light. Plants in high light develop thicker leaves. Which conclusion is most justified?
+A. The environment can alter phenotype without changing the seedlings’ inherited genotype.
+B. The high-light plants must have acquired new alleles.
+C. Leaf thickness is therefore completely non-heritable.
+D. The genetic code changes whenever light intensity changes.
+E. The low-light plants must contain fewer chromosomes.
+Correct answer: A — The environment can alter phenotype without changing the seedlings’ inherited genotype.
+Explanation: Different environments can produce phenotypic differences even when genotype is held constant.
+BIO-EVB-015  |  MODERATE
+Chapter: Mutation, Variation & Selection   •   Topic: Selection and allele frequency   •   Type: Application
+In a population, a heritable colour variant makes prey harder for predators to detect. Over several generations, the colour allele increases in frequency. Which process most directly caused the increase?
+A. Every individual changed colour because predators were present.
+B. Individuals carrying the allele survived and reproduced more successfully on average.
+C. The allele became more common because it was recessive.
+D. Predators increased the mutation rate only at the colour gene.
+E. The colour allele increased because meiosis stopped occurring.
+Correct answer: B — Individuals carrying the allele survived and reproduced more successfully on average.
+Explanation: Natural selection increases alleles associated with higher average reproductive success in the relevant environment.
+BIO-EVB-016  |  HARD  |  UPPER-END IMAT
+Chapter: Mutation, Variation & Selection   •   Topic: Selection and changing environments   •   Type: Integrated
+A dark-colour allele is advantageous on black volcanic rock but disadvantageous on pale sand because predators detect dark individuals more easily there. Which conclusion is most accurate?
+A. A beneficial allele must remain beneficial in every habitat.
+B. The fitness effect of an allele depends on environmental context.
+C. Natural selection acts on alleles without affecting phenotypes.
+D. An allele can change from dominant to recessive when the habitat changes.
+E. The environment alters the genetic code so that the same allele encodes a different protein.
+Correct answer: B — The fitness effect of an allele depends on environmental context.
+Explanation: Selective advantage is context dependent; the same allele can raise fitness in one environment and lower it in another.
+BIO-EVB-017  |  HARD  |  UPPER-END IMAT
+Chapter: Mutation, Variation & Selection   •   Topic: Mutation and selection   •   Type: Integrated
+A pesticide is applied to an insect population. A resistance allele was initially present at 1%. After several generations of treatment it reaches 45%. Which sequence best explains the change?
+A. The pesticide instructed susceptible insects to generate the required mutation.
+B. All insects acquired resistance simultaneously through use and disuse.
+C. Random mutation created the allele before or independently of treatment; pesticide exposure then favoured carriers.
+D. The resistance allele increased because selection always favours rare alleles.
+E. The pesticide converted environmental variation directly into inherited DNA sequence.
+Correct answer: C — Random mutation created the allele before or independently of treatment; pesticide exposure then favoured carriers.
+Explanation: Mutation is not directed by need; once variation exists, selection can strongly change allele frequency.
+BIO-EVB-018  |  HARD  |  UPPER-END IMAT
+Chapter: Mutation, Variation & Selection   •   Topic: Chromosome mutation and phenotype   •   Type: Application
+A chromosome deletion removes several neighbouring genes. Why can its phenotypic effect be more extensive than that of a single-base substitution in one gene?
+A. Chromosome deletions are always repaired before cell division.
+B. Single-base substitutions always affect every gene on the chromosome.
+C. The deletion can alter the dosage or eliminate the function of multiple genes simultaneously.
+D. A deletion changes only RNA but never DNA.
+E. Chromosome deletions cannot be inherited through gametes.
+Correct answer: C — The deletion can alter the dosage or eliminate the function of multiple genes simultaneously.
+Explanation: Large deletions can remove multiple genes and regulatory regions, so several biological functions may be affected.
+BIO-EVB-019  |  HARD  |  UPPER-END IMAT
+Chapter: Mutation, Variation & Selection   •   Topic: Fitness and population change   •   Type: Calculation
+Two heritable phenotypes occur in a population. Over one generation, 200 individuals of phenotype X produce 500 surviving offspring, while 200 individuals of phenotype Y produce 300 surviving offspring. Assuming the difference is repeatable, which phenotype has higher relative fitness?
+A. Phenotype Y, because fewer offspring means stronger selection.
+B. Both have equal fitness because the parental numbers were equal.
+C. Fitness cannot be compared unless the phenotypes have identical body size.
+D. Phenotype Y, because 300 is closer to the parental population size.
+E. Phenotype X, because it leaves more surviving offspring per parent.
+Correct answer: E — Phenotype X, because it leaves more surviving offspring per parent.
+Explanation: With equal starting numbers, the phenotype producing more surviving offspring has greater reproductive success and therefore higher fitness.
+BIO-EVB-020  |  HARD  |  AHSORA CHALLENGE
+Chapter: Mutation, Variation & Selection   •   Topic: Selection with opposing pressures   •   Type: Integrated
+A bird allele improves survival during winter but reduces mating success during spring. In a stable population the allele remains at an intermediate frequency for many generations. Which explanation is most reasonable?
+A. Natural selection can act only on survival, not reproduction.
+B. Opposing fitness effects can prevent either allele from being consistently favoured to fixation.
+C. An allele with any survival benefit must eventually reach 100%.
+D. Stable allele frequency proves the trait is non-heritable.
+E. Intermediate frequency means mutation has stopped completely.
+Correct answer: B — Opposing fitness effects can prevent either allele from being consistently favoured to fixation.
+Explanation: Total fitness integrates survival and reproduction, so opposing effects can maintain polymorphism rather than drive fixation.
+5. Evolutionary Theory & Genetic Basis of Evolution
+Production quota: 8 questions — 4 Easy, 2 Moderate, 2 Hard.
+BIO-EVB-021  |  EASY
+Chapter: Evolutionary Theory & Genetic Basis of Evolution   •   Topic: Darwinian natural selection   •   Type: Recall / Knowledge
+Which idea is central to Darwinian evolution by natural selection?
+A. Organisms acquire needed traits because they try to adapt.
+B. Every mutation is beneficial.
+C. Species remain genetically unchanged through time.
+D. Environmental change directly rewrites DNA in all individuals.
+E. Individuals with advantageous heritable traits tend to leave more offspring.
+Correct answer: E — Individuals with advantageous heritable traits tend to leave more offspring.
+Explanation: Darwinian selection depends on differential reproductive success among individuals with heritable variation.
+BIO-EVB-022  |  EASY
+Chapter: Evolutionary Theory & Genetic Basis of Evolution   •   Topic: Evolution as allele-frequency change   •   Type: Conceptual
+At the population level, biological evolution can be described as
+A. growth of an individual during its lifetime.
+B. temporary changes in enzyme activity.
+C. movement of organelles within a cell.
+D. replacement of DNA by RNA.
+E. a change in allele frequencies across generations.
+Correct answer: E — a change in allele frequencies across generations.
+Explanation: Evolutionary change is reflected genetically by changes in the frequencies of alleles in populations over generations.
+BIO-EVB-023  |  EASY
+Chapter: Evolutionary Theory & Genetic Basis of Evolution   •   Topic: Speciation   •   Type: Recall / Knowledge
+Which condition is most important for two populations to become separate species?
+A. Identical allele frequencies
+B. Reproductive isolation that limits gene flow between them
+C. Permanent residence in the same habitat
+D. Absence of all mutation
+E. Equal population size
+Correct answer: B — Reproductive isolation that limits gene flow between them
+Explanation: Reduced gene flow allows populations to diverge genetically until reproductive isolation is established.
+BIO-EVB-024  |  EASY
+Chapter: Evolutionary Theory & Genetic Basis of Evolution   •   Topic: Evidence for evolution   •   Type: Conceptual
+Similar underlying bone patterns in the forelimbs of humans, bats and whales are best interpreted as evidence of
+A. identical lifestyles.
+B. acquired characteristics being inherited directly.
+C. no evolutionary relationship.
+D. common ancestry through homologous structures.
+E. all species having the same chromosome number.
+Correct answer: D — common ancestry through homologous structures.
+Explanation: Homologous structures share a basic inherited plan despite different functions, supporting common ancestry.
+BIO-EVB-025  |  MODERATE
+Chapter: Evolutionary Theory & Genetic Basis of Evolution   •   Topic: Evolution as allele-frequency change   •   Type: Calculation
+An allele has a frequency of 0.20 in one generation and 0.34 five generations later. Which statement is best supported?
+A. Every individual in the population has mutated.
+B. The allele must be dominant.
+C. Speciation has necessarily occurred.
+D. Natural selection is the only possible cause of the change.
+E. The population has undergone evolutionary change at that locus.
+Correct answer: E — The population has undergone evolutionary change at that locus.
+Explanation: A measurable change in allele frequency across generations is itself evidence of evolution, regardless of the precise cause.
+BIO-EVB-026  |  MODERATE
+Chapter: Evolutionary Theory & Genetic Basis of Evolution   •   Topic: Speciation and divergence   •   Type: Application
+A mountain range separates one population into two groups. Mutations, selection and genetic drift act independently in each group for many generations. Why can this promote speciation?
+A. Isolation forces both groups to develop identical adaptations.
+B. Mutations cease when populations become geographically separated.
+C. Reduced gene flow allows genetic differences to accumulate between the isolated populations.
+D. Chromosome replication no longer occurs in either population.
+E. Gene flow increases because the groups are farther apart.
+Correct answer: C — Reduced gene flow allows genetic differences to accumulate between the isolated populations.
+Explanation: Geographic isolation reduces gene flow, allowing divergence that can eventually produce reproductive isolation.
+BIO-EVB-027  |  HARD  |  UPPER-END IMAT
+Chapter: Evolutionary Theory & Genetic Basis of Evolution   •   Topic: Selection and evolutionary interpretation   •   Type: Integrated
+After a prolonged drought, plants with deeper roots leave more offspring, and alleles associated with deeper roots become more common. Which observation would most strongly support natural selection rather than a purely environmental effect?
+A. Offspring raised in the same environment still differ in root depth according to inherited parental genotype.
+B. All plants grow shorter during the drought.
+C. Soil water content decreases during summer.
+D. Individual plants increase root depth as they age.
+E. The population size falls during the drought.
+Correct answer: A — Offspring raised in the same environment still differ in root depth according to inherited parental genotype.
+Explanation: Natural selection requires heritable variation, so genotype-linked differences persisting in a common environment are key evidence.
+BIO-EVB-028  |  HARD  |  AHSORA CHALLENGE
+Chapter: Evolutionary Theory & Genetic Basis of Evolution   •   Topic: Common ancestry and convergent traits   •   Type: Integrated
+Two unrelated desert plant lineages independently evolve thick water-storing stems. Their similar appearance is best explained by
+A. homologous structures proving they are the same species.
+B. inheritance of acquired stem thickness from a single common ancestor only.
+C. identical mutations occurring at every gene in both lineages.
+D. convergent evolution under similar selection pressures, not necessarily recent common ancestry.
+E. a complete absence of natural selection in deserts.
+Correct answer: D — convergent evolution under similar selection pressures, not necessarily recent common ancestry.
+Explanation: Similar environments can favour analogous adaptations in unrelated lineages, producing convergence.
+6. Recombinant DNA & Biotechnology
+Production quota: 20 questions — 10 Easy, 5 Moderate, 5 Hard.
+BIO-EVB-029  |  EASY
+Chapter: Recombinant DNA & Biotechnology   •   Topic: Restriction enzymes   •   Type: Recall / Knowledge
+What is the main role of a restriction endonuclease in recombinant DNA technology?
+A. It joins DNA fragments together.
+B. It cuts DNA at specific recognition sequences.
+C. It translates mRNA into protein.
+D. It separates proteins by size.
+E. It copies whole chromosomes during mitosis.
+Correct answer: B — It cuts DNA at specific recognition sequences.
+Explanation: Restriction enzymes recognise specific DNA sequences and cleave the phosphodiester backbone at or near those sites.
+BIO-EVB-030  |  EASY
+Chapter: Recombinant DNA & Biotechnology   •   Topic: DNA ligase   •   Type: Recall / Knowledge
+What does DNA ligase do during formation of recombinant DNA?
+A. It unwinds DNA during PCR.
+B. It joins DNA fragments by forming phosphodiester bonds in the sugar-phosphate backbone.
+C. It cuts DNA at palindromic sites.
+D. It moves DNA fragments through a gel.
+E. It converts proteins into DNA.
+Correct answer: B — It joins DNA fragments by forming phosphodiester bonds in the sugar-phosphate backbone.
+Explanation: DNA ligase covalently seals breaks in the DNA backbone and can join compatible DNA fragments.
+BIO-EVB-031  |  EASY
+Chapter: Recombinant DNA & Biotechnology   •   Topic: Plasmids and vectors   •   Type: Conceptual
+Why are bacterial plasmids commonly used as cloning vectors?
+A. They are proteins that cut chromosomes.
+B. They replace all bacterial chromosomes after transformation.
+C. They can translate genes without a host cell.
+D. They are small DNA molecules that can replicate independently and carry inserted DNA.
+E. They prevent DNA replication.
+Correct answer: D — They are small DNA molecules that can replicate independently and carry inserted DNA.
+Explanation: Plasmids can accept foreign DNA and replicate inside bacterial cells, making them useful vectors.
+BIO-EVB-032  |  EASY
+Chapter: Recombinant DNA & Biotechnology   •   Topic: Recombinant DNA   •   Type: Recall / Knowledge
+Recombinant DNA is DNA that
+A. contains only RNA nucleotides.
+B. has no phosphodiester bonds.
+C. cannot be replicated in a cell.
+D. contains sequences joined from different sources.
+E. is found only in viruses.
+Correct answer: D — contains sequences joined from different sources.
+Explanation: Recombinant DNA is created by combining DNA sequences that were not originally contiguous.
+BIO-EVB-033  |  EASY
+Chapter: Recombinant DNA & Biotechnology   •   Topic: PCR   •   Type: Recall / Knowledge
+The purpose of PCR is to
+A. separate DNA fragments by size.
+B. translate DNA into protein.
+C. remove all mutations from a genome.
+D. amplify a selected DNA region in vitro.
+E. join chromosomes during meiosis.
+Correct answer: D — amplify a selected DNA region in vitro.
+Explanation: PCR repeatedly copies a target DNA sequence, generating many copies from a small initial sample.
+BIO-EVB-034  |  EASY
+Chapter: Recombinant DNA & Biotechnology   •   Topic: PCR primers   •   Type: Conceptual
+Why are primers required in PCR?
+A. They provide short DNA sequences with free 3′ ends from which DNA polymerase can extend.
+B. They digest the DNA template into amino acids.
+C. They supply ATP for gel electrophoresis.
+D. They prevent DNA strands from separating.
+E. They permanently stop polymerase activity.
+Correct answer: A — They provide short DNA sequences with free 3′ ends from which DNA polymerase can extend.
+Explanation: DNA polymerase requires a primer with a free 3′-OH and cannot start a new strand de novo.
+BIO-EVB-035  |  EASY
+Chapter: Recombinant DNA & Biotechnology   •   Topic: PCR enzyme   •   Type: Recall / Knowledge
+Why is a heat-stable DNA polymerase useful in PCR?
+A. It cuts DNA at restriction sites.
+B. It replaces the need for primers.
+C. It remains functional after repeated high-temperature denaturation steps.
+D. It separates DNA fragments by charge.
+E. It makes DNA migrate toward the negative electrode.
+Correct answer: C — It remains functional after repeated high-temperature denaturation steps.
+Explanation: PCR repeatedly heats the reaction to separate DNA strands, so the polymerase must tolerate high temperatures.
+BIO-EVB-036  |  EASY
+Chapter: Recombinant DNA & Biotechnology   •   Topic: Gel electrophoresis   •   Type: Conceptual
+During agarose gel electrophoresis, DNA fragments usually move toward the positive electrode because DNA is
+A. positively charged due to its bases.
+B. negatively charged due to its phosphate backbone.
+C. electrically neutral.
+D. made of amino acids.
+E. bound permanently to sodium ions.
+Correct answer: B — negatively charged due to its phosphate backbone.
+Explanation: The phosphate groups give DNA a net negative charge, so an electric field pulls it toward the positive electrode.
+BIO-EVB-037  |  EASY
+Chapter: Recombinant DNA & Biotechnology   •   Topic: Gel electrophoresis   •   Type: Recall / Knowledge
+In a standard agarose gel, which DNA fragments usually migrate farthest in a fixed time?
+A. The smallest fragments
+B. The largest fragments
+C. Fragments with the most genes regardless of length
+D. Only fragments containing adenine
+E. All fragments travel exactly the same distance
+Correct answer: A — The smallest fragments
+Explanation: Smaller DNA fragments pass more easily through the gel matrix and therefore migrate faster and farther.
+BIO-EVB-038  |  EASY
+Chapter: Recombinant DNA & Biotechnology   •   Topic: Genetic engineering applications   •   Type: Conceptual
+Which example is a direct application of recombinant DNA technology?
+A. Producing human insulin in genetically modified bacteria
+B. Measuring blood pressure with a cuff
+C. Separating plasma from blood by centrifugation
+D. Observing cells with a light microscope
+E. Measuring body temperature with a thermometer
+Correct answer: A — Producing human insulin in genetically modified bacteria
+Explanation: Bacteria can be engineered with the human insulin gene and used to manufacture recombinant insulin.
+BIO-EVB-039  |  MODERATE
+Chapter: Recombinant DNA & Biotechnology   •   Topic: Restriction enzymes and cloning   •   Type: Application
+A researcher cuts both a plasmid and a target DNA fragment with the same restriction enzyme. Why can this help cloning?
+A. It guarantees the insert will be translated without a promoter.
+B. It removes all bacterial genes from the plasmid.
+C. It makes DNA electrically neutral.
+D. It prevents the plasmid from replicating.
+E. It can generate complementary ends that base-pair before ligase seals the backbone.
+Correct answer: E — It can generate complementary ends that base-pair before ligase seals the backbone.
+Explanation: Using the same enzyme can create compatible sticky or blunt ends that facilitate ligation of insert and vector.
+BIO-EVB-040  |  MODERATE
+Chapter: Recombinant DNA & Biotechnology   •   Topic: PCR cycle   •   Type: Conceptual
+Which sequence correctly describes the main repeated stages of PCR?
+A. Primer annealing → translation → ligation
+B. Extension → meiosis → denaturation
+C. Restriction digestion → gel separation → transcription
+D. Denaturation → primer annealing → DNA extension
+E. Replication → mitosis → cytokinesis
+Correct answer: D — Denaturation → primer annealing → DNA extension
+Explanation: PCR cycles through strand separation, primer binding and polymerase-mediated extension.
+BIO-EVB-041  |  MODERATE
+Chapter: Recombinant DNA & Biotechnology   •   Topic: PCR amplification   •   Type: Calculation
+Ignoring inefficiency, how many double-stranded copies of one target DNA molecule are expected after 10 ideal PCR cycles?
+A. 1024
+B. 10
+C. 20
+D. 100
+E. 2048
+Correct answer: A — 1024
+Explanation: Ideal PCR doubles target DNA each cycle, so one starting molecule gives 2^10 = 1024 copies.
+BIO-EVB-042  |  MODERATE
+Chapter: Recombinant DNA & Biotechnology   •   Topic: Gel electrophoresis interpretation   •   Type: Data Interpretation
+A DNA sample produces two bands at 500 bp and 1500 bp. Which band should be closer to the positive end of the gel after electrophoresis?
+A. The 1500-bp band
+B. Both bands must remain at the wells
+C. The band with more cytosine, regardless of length
+D. The 500-bp band
+E. Neither band because DNA is positively charged
+Correct answer: D — The 500-bp band
+Explanation: The smaller 500-bp fragment migrates faster through the gel matrix and therefore travels farther.
+BIO-EVB-043  |  MODERATE
+Chapter: Recombinant DNA & Biotechnology   •   Topic: Plasmid selection   •   Type: Application
+A cloning plasmid carries an antibiotic-resistance gene. After transformation, why are bacteria grown on medium containing that antibiotic?
+A. To force every bacterium to mutate the target gene
+B. To digest unincorporated plasmid DNA
+C. To make the inserted gene longer
+D. To separate plasmids by molecular mass
+E. To select for cells that have taken up a plasmid carrying the resistance gene
+Correct answer: E — To select for cells that have taken up a plasmid carrying the resistance gene
+Explanation: The antibiotic kills non-transformed cells, enriching for bacteria that received the resistance-bearing plasmid.
+BIO-EVB-044  |  HARD  |  UPPER-END IMAT
+Chapter: Recombinant DNA & Biotechnology   •   Topic: PCR specificity   •   Type: Integrated
+A PCR reaction contains template DNA, polymerase, nucleotides and buffer, but one of the two primers is omitted. What is the most likely result?
+A. Exponential amplification of the intended double-stranded target will fail.
+B. The target will still double normally every cycle.
+C. Gel electrophoresis will automatically supply the missing primer.
+D. Restriction enzymes in the buffer will replace the primer.
+E. The target will be translated into protein instead.
+Correct answer: A — Exponential amplification of the intended double-stranded target will fail.
+Explanation: Two primers flanking opposite strands are required for efficient exponential amplification of a defined double-stranded target.
+BIO-EVB-045  |  HARD  |  UPPER-END IMAT
+Chapter: Recombinant DNA & Biotechnology   •   Topic: Restriction-site mutation   •   Type: Application
+A point mutation abolishes a restriction-enzyme recognition site in one allele. After digestion, what change is most likely on a gel compared with the normal allele?
+A. Every DNA fragment becomes smaller.
+B. No DNA can enter the gel.
+C. One larger fragment can replace two smaller fragments that would normally be produced by cleavage at that site.
+D. The mutant allele must acquire an extra chromosome.
+E. All fragments migrate toward the negative electrode.
+Correct answer: C — One larger fragment can replace two smaller fragments that would normally be produced by cleavage at that site.
+Explanation: Loss of a cleavage site prevents one cut, leaving adjacent DNA segments joined as a larger fragment.
+BIO-EVB-046  |  HARD  |  AHSORA CHALLENGE
+Chapter: Recombinant DNA & Biotechnology   •   Topic: Recombinant plasmid design   •   Type: Integrated
+A plasmid has one restriction site inside an antibiotic-resistance gene. Inserting foreign DNA at that site disrupts the gene. How could this help identify recombinant plasmids?
+A. Recombinants will necessarily contain no plasmid DNA.
+B. Only non-recombinant plasmids can replicate in bacteria.
+C. The inserted DNA will convert the antibiotic into a nutrient.
+D. Recombinants may lose resistance conferred by that gene, allowing insertional inactivation to distinguish them.
+E. Disrupting the resistance gene causes all bacterial chromosomes to be deleted.
+Correct answer: D — Recombinants may lose resistance conferred by that gene, allowing insertional inactivation to distinguish them.
+Explanation: Insertional inactivation links successful insertion to loss of a selectable phenotype, helping distinguish recombinant from empty vectors.
+BIO-EVB-047  |  HARD  |  AHSORA CHALLENGE
+Chapter: Recombinant DNA & Biotechnology   •   Topic: PCR contamination   •   Type: Experimental
+A negative-control PCR tube containing all reagents except template DNA produces a strong band of the expected size. What is the best interpretation?
+A. The reaction was contaminated with target DNA or previously amplified product.
+B. The primers have converted themselves into the target gene.
+C. A negative control is expected to produce the strongest band.
+D. DNA polymerase synthesised the target sequence without any template or primers.
+E. The gel must contain only protein rather than DNA.
+Correct answer: A — The reaction was contaminated with target DNA or previously amplified product.
+Explanation: A target-sized band in a no-template control indicates contamination and makes positive sample results unreliable.
+BIO-EVB-048  |  HARD  |  UPPER-END IMAT
+Chapter: Recombinant DNA & Biotechnology   •   Topic: Gel electrophoresis and genotype inference   •   Type: Data Interpretation
+A locus has two alleles that yield PCR products of 300 bp and 500 bp. A diploid individual shows both a 300-bp band and a 500-bp band on the gel. Which genotype is most consistent with the result?
+A. The individual is homozygous for the 300-bp allele.
+B. The individual is homozygous for the 500-bp allele.
+C. The individual lacks the locus entirely.
+D. The result proves both alleles are on the same chromosome copy.
+E. The individual is heterozygous for the two alleles.
+Correct answer: E — The individual is heterozygous for the two alleles.
+Explanation: Two allele-specific product sizes in a diploid sample indicate that both alleles are present, consistent with heterozygosity.
+7. Production Reconciliation & QA Gate
+Check
+Result
+Total section questions
+48
+Easy
+24
+Moderate
+12
+Hard
+12
+Upper-end IMAT Hard
+8
+Ahsora Challenge Hard
+4
+Correct A
+10
+Correct B
+10
+Correct C
+10
+Correct D
+9
+Correct E
+9
+7.1 Publication Gate
+• Exactly five answer options are present for every question.
+• Exactly one best answer is designated for every item.
+• Chapter totals and Easy/Moderate/Hard quotas match the frozen Biology strategy.
+• Hard questions use clean wording; difficulty comes from integration, unfamiliar context, calculation or inference.
+• All explanations state the mechanism/reasoning rather than merely repeating the correct option.
+• No question should be moved to Published status until an independent qualified reviewer verifies scientific correctness, scope, difficulty and wording.
+• Duplicate/near-duplicate checking against the other Ahsora Biology banks is still required before portal import.
+8. Biology Bank Completion — Master Reconciliation
+Completion of this section closes the frozen 1,072-question Ahsora Biology Practice Bank production target.
+Major category
+Total
+Easy
+Moderate
+Hard
+Genetics, Heredity & Molecular Biology
+400
+200
+100
+100
+Biochemistry, Biological Molecules & Bioenergetics
+272
+136
+68
+68
+Cell Biology
+252
+126
+63
+63
+Human Anatomy, Physiology & Homeostasis
+100
+50
+25
+25
+Evolution, Variation & Biotechnology
+48
+24
+12
+12
+BIOLOGY TOTAL
+1072
+536
+268
+268
+STATUS: BIOLOGY PRACTICE-BANK PRODUCTION TARGET COMPLETE — 1,072 ORIGINAL AHSORA MCQs. Scientific QA, duplicate review, difficulty calibration and portal import remain required before student publication.

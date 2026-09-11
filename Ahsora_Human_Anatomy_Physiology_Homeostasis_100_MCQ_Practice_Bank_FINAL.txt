@@ -1,0 +1,1338 @@
+﻿AHSORA MEDS ACADEMY
+HUMAN ANATOMY, PHYSIOLOGY& HOMEOSTASIS
+100-MCQ Practice Bank
+Ahsora Biology Practice Bank — Production Draft v1.0
+Major category
+Human Anatomy, Physiology & Homeostasis
+Total MCQs
+100
+Difficulty
+50 Easy • 25 Moderate • 25 Hard
+Hard calibration
+18 Upper-end IMAT • 7 Ahsora Challenge
+PRODUCTION DRAFT — SCIENTIFIC REVIEW AND QA REQUIRED BEFORE STUDENT PUBLICATION
+1. Frozen Production Matrix
+This section follows the Ahsora Biology Practice Bank Strategy v1.0. Human Anatomy, Physiology & Homeostasis is fixed at 100 original Ahsora questions with an exact 50% / 25% / 25% difficulty split.
+Chapter
+Priority
+Total
+Easy
+Moderate
+Hard
+Animal Tissues & Homeostasis
+High
+12
+6
+3
+3
+Digestive System & Nutrition
+Medium
+8
+4
+2
+2
+Respiratory System & Gas Exchange
+High
+12
+6
+3
+3
+Circulatory System
+High
+16
+8
+4
+4
+Excretion, Kidney & Osmoregulation
+High
+12
+6
+3
+3
+Nervous & Endocrine Coordination
+High
+16
+8
+4
+4
+Musculoskeletal System
+Medium
+8
+4
+2
+2
+Human Reproduction
+Medium
+8
+4
+2
+2
+Immunity
+Medium
+8
+4
+2
+2
+TOTAL
+100
+50
+25
+25
+2. Topic-Level Allocation Used for This Build
+The following topic counts were frozen for this production run so the chapter quotas are not filled by repeatedly testing only the most familiar concepts.
+Chapter
+Topic
+Questions
+Animal Tissues & Homeostasis
+Major animal tissue types
+4
+Homeostasis and negative feedback
+3
+Positive versus negative feedback
+1
+Integration of organ systems
+2
+Homeostatic control loops
+2
+Digestive System & Nutrition
+Organisation of the digestive tract
+1
+Digestive enzymes
+1
+Mechanical versus chemical digestion
+1
+Absorption and villus adaptations
+1
+Digestive enzymes and pH
+1
+Liver, pancreas and small intestine
+1
+Absorption and membrane transport
+1
+Fat digestion and absorption
+1
+Respiratory System & Gas Exchange
+Airways and alveoli
+1
+Alveolar adaptations
+2
+Ventilation mechanics
+1
+Gas exchange versus respiration
+1
+Diffusion gradients
+1
+Exercise and gas exchange
+1
+Emphysema and surface area
+1
+Ventilation-perfusion relationships
+1
+Diffusion across the respiratory membrane
+1
+High-altitude physiology
+1
+Integrated respiratory physiology
+1
+Circulatory System
+Heart chambers and blood flow
+1
+Heart valves
+1
+Double circulation
+1
+Blood vessels
+2
+Blood components
+2
+Pulmonary circulation
+1
+Cardiac cycle
+1
+Blood vessels and pressure
+1
+Tissue fluid formation
+1
+Haemoglobin and oxygen transport
+1
+Valve dysfunction
+1
+Capillary exchange
+1
+Cardiac output and exercise
+1
+Oxygen delivery
+1
+Excretion, Kidney & Osmoregulation
+Nephron structure
+1
+Ultrafiltration
+1
+Selective reabsorption
+2
+Water balance and ADH
+3
+Blood glucose homeostasis
+1
+Thermoregulation
+1
+Ultrafiltration and selective barriers
+1
+Blood glucose regulation
+1
+Integrated homeostasis
+1
+Nervous & Endocrine Coordination
+Neuron structure
+1
+Nervous system organisation
+1
+Synapses
+1
+Reflex arcs
+2
+Hormones and endocrine signalling
+1
+Endocrine versus nervous coordination
+1
+Action potentials
+2
+Negative feedback in endocrine systems
+1
+Synaptic transmission
+2
+Endocrine feedback
+2
+Action potentials and ion channels
+1
+Nervous-endocrine integration
+1
+Musculoskeletal System
+Skeleton and joints
+1
+Joint types
+1
+Antagonistic muscles
+1
+Skeletal muscle structure
+1
+Sliding filament mechanism
+1
+Calcium and ATP in contraction
+1
+ATP and cross-bridge cycling
+1
+Excitation-contraction coupling
+1
+Human Reproduction
+Male and female reproductive systems
+1
+Ovulation and ovarian cycle
+1
+Fertilisation
+1
+Menstrual cycle hormones
+1
+Gametogenesis
+1
+Menstrual and ovarian cycle
+1
+Hormonal control and feedback
+1
+Chromosome number in reproduction
+1
+Immunity
+Innate versus adaptive immunity
+1
+Antigens and antibodies
+1
+B cells and plasma cells
+1
+Vaccination
+1
+Primary and secondary responses
+1
+Antibody specificity
+1
+B- and T-cell cooperation
+1
+Immunological memory
+1
+3. Item Construction Standard Applied
+• Every item contains exactly five options (A–E) and one unambiguously best answer.
+• Difficulty reflects reasoning depth, not confusing wording. Easy = foundation/one-step; Moderate = typical IMAT application; Hard = upper-end IMAT or controlled Ahsora Challenge.
+• The item pool is aligned to Ahsora’s FSc foundation + A-Level conceptual extension + IMAT application model; Ahsora Challenge items are only slightly above normal IMAT depth.
+• Each item is tagged by chapter, topic, difficulty and question type.
+• The Hard pool contains 7 Ahsora Challenge items (28% of 25 Hard questions); the remaining 18 are upper-end IMAT.
+• Correct-answer positions are balanced exactly across A–E: 20 answers in each position.
+• Every item includes a concise mechanism/reasoning explanation and must still undergo independent scientific QA before publication.
+4. Animal Tissues & Homeostasis
+12 MCQs  •  6 Easy  •  3 Moderate  •  3 Hard
+Major animal tissue types
+BIO-HAP-TIS-001  |  Easy  |  Recall / Knowledge
+Which tissue type forms continuous sheets that cover body surfaces and line many internal cavities?
+A. Epithelial tissue
+B. Connective tissue
+C. Nervous tissue
+D. Skeletal muscle tissue
+E. Blood
+Correct: A — Epithelial tissue
+Explanation: Epithelia form continuous protective, absorptive or secretory surfaces and linings.
+BIO-HAP-TIS-002  |  Easy  |  Conceptual
+A tissue contains relatively few cells embedded in abundant extracellular matrix. Which major tissue class best fits this description?
+A. Epithelial tissue
+B. Connective tissue
+C. Nervous tissue
+D. Cardiac muscle tissue
+E. Smooth muscle tissue
+Correct: B — Connective tissue
+Explanation: Connective tissues characteristically contain cells dispersed within extracellular matrix.
+BIO-HAP-TIS-003  |  Easy  |  Recall / Knowledge
+Which major tissue type is specialised for rapid electrical communication over long distances in the body?
+A. Epithelial tissue
+B. Adipose tissue
+C. Nervous tissue
+D. Dense connective tissue
+E. Cartilage
+Correct: C — Nervous tissue
+Explanation: Neurons and supporting nervous tissue are specialised for electrical signalling and information transfer.
+BIO-HAP-TIS-008  |  Moderate  |  Application
+A biopsy shows tightly packed cells resting on a basement membrane, with little extracellular matrix and rapid renewal after abrasion. Which tissue is most likely being examined?
+A. Tendon
+B. Bone
+C. Epithelium
+D. Adipose tissue
+E. Nervous tissue
+Correct: C — Epithelium
+Explanation: Tightly packed renewing cells with little matrix and a basement membrane are characteristic of epithelium.
+Homeostasis and negative feedback
+BIO-HAP-TIS-004  |  Easy  |  Recall / Knowledge
+In a negative-feedback system, what is the usual effect of the response on the original disturbance?
+A. It amplifies the disturbance until a new state is reached.
+B. It permanently eliminates all variation in the variable.
+C. It changes the receptor so the stimulus is no longer detected.
+D. It opposes the disturbance and moves the variable toward its set range.
+E. It always raises the regulated variable above normal.
+Correct: D — It opposes the disturbance and moves the variable toward its set range.
+Explanation: Negative feedback counters a deviation, helping return a variable toward its physiological range.
+BIO-HAP-TIS-005  |  Easy  |  Conceptual
+In a homeostatic control loop, which component detects a change in the regulated variable?
+A. An effector
+B. A target organ only
+C. A structural protein
+D. An antibody
+E. A receptor or sensor
+Correct: E — A receptor or sensor
+Explanation: Receptors detect changes in regulated variables and provide input to the control system.
+BIO-HAP-TIS-007  |  Moderate  |  Application
+A person enters a cold environment. Skin thermoreceptors detect the fall in temperature, and skeletal muscles begin to shiver. In this control loop, shivering is best described as
+A. the receptor that detects the temperature change.
+B. an effector response that increases heat production.
+C. the control centre that establishes the set point.
+D. a positive-feedback response that lowers body temperature further.
+E. the initial stimulus that causes heat loss.
+Correct: B — an effector response that increases heat production.
+Explanation: Shivering is an effector response that raises metabolic heat production after cold is detected.
+Positive versus negative feedback
+BIO-HAP-TIS-006  |  Easy  |  Conceptual
+Which process is a classic example of positive rather than negative feedback?
+A. Increasing uterine contractions triggered by oxytocin during labour
+B. Regulation of blood glucose after a meal
+C. Control of core body temperature during exercise
+D. Adjustment of ventilation to carbon dioxide levels
+E. Maintenance of water balance by ADH
+Correct: A — Increasing uterine contractions triggered by oxytocin during labour
+Explanation: Oxytocin-driven labour contractions amplify the initiating stimulus, making them a positive-feedback example.
+Integration of organ systems
+BIO-HAP-TIS-009  |  Moderate  |  Integrated
+During vigorous exercise, body temperature and carbon dioxide production both rise. Which response best illustrates coordinated homeostasis?
+A. Reduced skin blood flow and reduced ventilation conserve heat and carbon dioxide.
+B. Increased insulin secretion is the primary mechanism for removing carbon dioxide.
+C. Decreased heart rate is required to restore both variables.
+D. Increased skin blood flow and ventilation help remove heat and carbon dioxide.
+E. Positive feedback deliberately raises temperature until exercise ends.
+Correct: D — Increased skin blood flow and ventilation help remove heat and carbon dioxide.
+Explanation: Exercise requires simultaneous regulation of heat and CO2, so ventilation and skin blood flow rise together.
+BIO-HAP-TIS-012  |  Hard  |  Integrated  |  AHSORA CHALLENGE
+A drug blocks autonomic vasodilation in skin vessels but does not affect sweating. During exercise in a hot environment, which change most directly reduces the person’s ability to lose heat?
+A. Sweat glands can no longer secrete water.
+B. Less warm blood reaches the skin surface for heat transfer.
+C. Core temperature cannot be detected by receptors.
+D. Skeletal muscles can no longer generate ATP.
+E. Blood glucose can no longer be regulated.
+Correct: B — Less warm blood reaches the skin surface for heat transfer.
+Explanation: Skin vasodilation normally brings warm blood near the surface; blocking it reduces convective and radiative heat loss.
+Homeostatic control loops
+BIO-HAP-TIS-010  |  Hard  |  Integrated  |  Upper-end IMAT
+A homeostatic variable changes normally, receptors detect the change, and the control centre sends an appropriate signal, but the regulated variable fails to return toward normal. Which defect is most directly suggested?
+A. Failure of the receptor to detect the change
+B. Failure of the control centre to receive sensory information
+C. Absence of any initial disturbance
+D. Excessive positive feedback at the receptor
+E. Failure of the effector to produce the required response
+Correct: E — Failure of the effector to produce the required response
+Explanation: If sensing and control are intact but correction fails, the downstream effector is the most likely failed component.
+BIO-HAP-TIS-011  |  Hard  |  Application  |  Upper-end IMAT
+A mutation causes a temperature sensor to report 37.0°C when the actual core temperature is 39.0°C. Other components of thermoregulation are intact. What is the most likely consequence?
+A. Heat-loss responses will be inappropriately reduced because the control system underestimates the disturbance.
+B. Heat-loss responses will be maximal because the control system detects severe hyperthermia.
+C. Shivering will necessarily stop all heat production.
+D. The set point will automatically fall to 35.0°C.
+E. Positive feedback will always restore the correct sensor reading.
+Correct: A — Heat-loss responses will be inappropriately reduced because the control system underestimates the disturbance.
+Explanation: An under-reading temperature sensor reduces the error signal, so heat-loss responses are insufficient.
+5. Digestive System & Nutrition
+8 MCQs  •  4 Easy  •  2 Moderate  •  2 Hard
+Organisation of the digestive tract
+BIO-HAP-DIG-001  |  Easy  |  Recall / Knowledge
+Where does most absorption of digested nutrients occur in the human digestive system?
+A. Stomach
+B. Oesophagus
+C. Small intestine
+D. Large intestine
+E. Gallbladder
+Correct: C — Small intestine
+Explanation: Most nutrient absorption occurs across the highly folded mucosa of the small intestine.
+Digestive enzymes
+BIO-HAP-DIG-002  |  Easy  |  Recall / Knowledge
+Which enzyme begins the digestion of starch in the mouth?
+A. Pepsin
+B. Lipase
+C. Trypsin
+D. Salivary amylase
+E. Maltase
+Correct: D — Salivary amylase
+Explanation: Salivary amylase begins hydrolysis of starch before food reaches the stomach.
+Mechanical versus chemical digestion
+BIO-HAP-DIG-003  |  Easy  |  Conceptual
+What is the main digestive role of bile salts?
+A. They hydrolyse proteins into amino acids.
+B. They convert starch directly into glucose.
+C. They neutralise all acid in the bloodstream.
+D. They digest nucleic acids in the stomach.
+E. They emulsify fat, increasing the surface area available to lipase.
+Correct: E — They emulsify fat, increasing the surface area available to lipase.
+Explanation: Bile salts emulsify lipids into smaller droplets, increasing surface area for lipase action.
+Absorption and villus adaptations
+BIO-HAP-DIG-004  |  Easy  |  Conceptual
+Which feature of small-intestinal villi most directly increases the rate of nutrient absorption?
+A. A very large surface area created by villi and microvilli
+B. A thick keratinised epithelial layer
+C. A low blood supply to preserve concentration gradients
+D. Absence of membrane transport proteins
+E. Storage of digestive enzymes inside red blood cells
+Correct: A — A very large surface area created by villi and microvilli
+Explanation: Villi and microvilli greatly increase absorptive membrane area.
+Digestive enzymes and pH
+BIO-HAP-DIG-005  |  Moderate  |  Application
+Pepsin functions well in the acidic stomach but becomes much less active in the alkaline small intestine. The best explanation is that a change in pH alters
+A. the number of peptide bonds in the substrate before digestion.
+B. the ionisation and shape of the enzyme’s active site.
+C. the genetic code of the enzyme molecules.
+D. the amount of bile stored in the gallbladder.
+E. the number of villi lining the small intestine.
+Correct: B — the ionisation and shape of the enzyme’s active site.
+Explanation: Enzyme activity depends on active-site ionisation and shape, both of which can be altered by pH.
+Liver, pancreas and small intestine
+BIO-HAP-DIG-006  |  Moderate  |  Application
+A blockage prevents pancreatic bicarbonate from entering the duodenum. Which immediate effect is most likely?
+A. Protein digestion in the mouth increases sharply.
+B. Bile can no longer be produced by the liver.
+C. The duodenal contents remain too acidic for optimal activity of many pancreatic enzymes.
+D. Villi lose their blood supply.
+E. Starch can no longer be hydrolysed by salivary amylase before swallowing.
+Correct: C — The duodenal contents remain too acidic for optimal activity of many pancreatic enzymes.
+Explanation: Pancreatic bicarbonate neutralises gastric acid so pancreatic enzymes can work near their optimal pH.
+Absorption and membrane transport
+BIO-HAP-DIG-007  |  Hard  |  Integrated  |  Upper-end IMAT
+A disease selectively destroys microvilli on intestinal epithelial cells while leaving the villi and digestive enzymes intact. Which effect is most likely?
+A. Complete failure of chemical digestion in the intestinal lumen
+B. Increased absorption because nutrients cross a shorter route through the gut wall
+C. Loss of bile production
+D. Reduced nutrient absorption because apical membrane surface area is greatly decreased.
+E. Loss of gastric acid secretion
+Correct: D — Reduced nutrient absorption because apical membrane surface area is greatly decreased.
+Explanation: Destroying microvilli sharply reduces apical membrane area, limiting nutrient uptake despite normal luminal digestion.
+Fat digestion and absorption
+BIO-HAP-DIG-008  |  Hard  |  Integrated  |  Upper-end IMAT
+A patient produces normal pancreatic lipase but has almost no bile salts entering the intestine. Which combination is most likely after a fatty meal?
+A. Increased starch digestion and increased amino-acid absorption
+B. Complete loss of protein digestion but normal lipid digestion
+C. Faster lipid digestion because large fat droplets expose more surface area
+D. No effect because bile salts are digestive enzymes that can be replaced by lipase
+E. Reduced fat emulsification and reduced efficiency of lipid digestion and absorption
+Correct: E — Reduced fat emulsification and reduced efficiency of lipid digestion and absorption
+Explanation: Without bile salts, fat remains in larger droplets, reducing lipase access and subsequent lipid absorption.
+6. Respiratory System & Gas Exchange
+12 MCQs  •  6 Easy  •  3 Moderate  •  3 Hard
+Airways and alveoli
+BIO-HAP-RESP-001  |  Easy  |  Recall / Knowledge
+Which structure is the principal site of gas exchange between air and blood in the lungs?
+A. Alveoli
+B. Trachea
+C. Larynx
+D. Bronchi
+E. Diaphragm
+Correct: A — Alveoli
+Explanation: Alveoli provide the thin, highly vascular surface where respiratory gases diffuse between air and blood.
+Alveolar adaptations
+BIO-HAP-RESP-002  |  Easy  |  Conceptual
+Why are alveolar walls only one cell thick?
+A. A thin wall prevents any water from entering the alveoli.
+B. A thin barrier shortens the diffusion distance for oxygen and carbon dioxide.
+C. A thin wall allows alveoli to contract like skeletal muscle.
+D. A thin wall increases the amount of cartilage supporting each alveolus.
+E. A thin wall stops diffusion when blood flow is low.
+Correct: B — A thin barrier shortens the diffusion distance for oxygen and carbon dioxide.
+Explanation: A one-cell-thick barrier minimises diffusion distance and therefore increases gas-transfer rate.
+BIO-HAP-RESP-006  |  Easy  |  Recall / Knowledge
+Which feature helps maintain a steep concentration gradient for gases across the alveolar surface?
+A. Continuous blood flow through pulmonary capillaries
+B. A thick epithelial barrier
+C. Very low capillary density
+D. Closure of bronchioles during inspiration
+E. Absence of haemoglobin
+Correct: A — Continuous blood flow through pulmonary capillaries
+Explanation: Continuous perfusion removes oxygen and brings CO2, helping preserve steep diffusion gradients.
+Ventilation mechanics
+BIO-HAP-RESP-003  |  Easy  |  Recall / Knowledge
+During quiet inspiration, contraction of the diaphragm causes it to
+A. dome upward, decreasing thoracic volume.
+B. close the trachea.
+C. flatten, increasing thoracic volume.
+D. compress the lungs directly from above.
+E. force air out by raising intrapulmonary pressure.
+Correct: C — flatten, increasing thoracic volume.
+Explanation: Diaphragm contraction flattens the muscle, increasing thoracic volume and lowering intrapulmonary pressure.
+Gas exchange versus respiration
+BIO-HAP-RESP-004  |  Easy  |  Conceptual
+Which statement correctly distinguishes ventilation from cellular respiration?
+A. Ventilation produces ATP, whereas cellular respiration moves air.
+B. Ventilation occurs only in mitochondria, whereas cellular respiration occurs only in alveoli.
+C. Both terms mean diffusion of oxygen across an alveolus.
+D. Ventilation moves air into and out of the lungs, whereas cellular respiration releases usable energy in cells.
+E. Cellular respiration is simply another term for breathing frequency.
+Correct: D — Ventilation moves air into and out of the lungs, whereas cellular respiration releases usable energy in cells.
+Explanation: Ventilation is bulk airflow, while cellular respiration is intracellular energy-releasing metabolism.
+Diffusion gradients
+BIO-HAP-RESP-005  |  Easy  |  Conceptual
+Oxygen normally diffuses from an alveolus into pulmonary capillary blood because
+A. oxygen is actively pumped across the alveolar membrane.
+B. carbon dioxide directly pulls oxygen into plasma.
+C. red blood cells contain no oxygen-binding pigment.
+D. alveolar pressure is always lower than atmospheric pressure.
+E. the partial pressure of oxygen is higher in alveolar air than in deoxygenated blood.
+Correct: E — the partial pressure of oxygen is higher in alveolar air than in deoxygenated blood.
+Explanation: Oxygen diffuses down its partial-pressure gradient from alveolar air into deoxygenated blood.
+Exercise and gas exchange
+BIO-HAP-RESP-007  |  Moderate  |  Application
+During exercise, pulmonary ventilation and cardiac output both increase. How does this support gas exchange?
+A. The alveolar membrane becomes much thicker.
+B. Fresh alveolar air and deoxygenated blood are supplied more rapidly, helping maintain diffusion gradients.
+C. Oxygen begins to move by active transport.
+D. Carbon dioxide production in muscles immediately stops.
+E. The lungs switch from diffusion to osmosis.
+Correct: B — Fresh alveolar air and deoxygenated blood are supplied more rapidly, helping maintain diffusion gradients.
+Explanation: Greater ventilation and perfusion continually refresh both sides of the respiratory surface during exercise.
+Emphysema and surface area
+BIO-HAP-RESP-008  |  Moderate  |  Application
+In emphysema, destruction of walls between adjacent alveoli creates larger air spaces. Which change most directly impairs gas exchange?
+A. Increase in oxygen solubility in plasma
+B. Increase in the number of pulmonary capillaries
+C. Loss of total alveolar surface area
+D. Reduction in airway resistance to zero
+E. Conversion of diffusion into facilitated diffusion
+Correct: C — Loss of total alveolar surface area
+Explanation: Emphysema merges alveoli and reduces total exchange surface area, lowering diffusion capacity.
+Ventilation-perfusion relationships
+BIO-HAP-RESP-009  |  Moderate  |  Integrated
+A small region of lung is ventilated normally but receives almost no blood flow. What is the main limitation in that region?
+A. Carbon dioxide cannot diffuse because alveoli lack air.
+B. The diaphragm cannot contract.
+C. The region becomes the main site of oxygen uptake for the whole lung.
+D. Oxygen entering the alveoli cannot be efficiently transferred to circulating blood.
+E. Cellular respiration stops in the airway epithelium.
+Correct: D — Oxygen entering the alveoli cannot be efficiently transferred to circulating blood.
+Explanation: Ventilation without perfusion cannot transfer much oxygen into the circulating blood.
+Diffusion across the respiratory membrane
+BIO-HAP-RESP-010  |  Hard  |  Integrated  |  Upper-end IMAT
+Two patients have the same alveolar oxygen concentration and pulmonary blood flow. Patient X has twice the alveolar surface area but also twice the diffusion distance of patient Y. Assuming other factors are equal, the opposing changes would tend to
+A. both increase oxygen diffusion.
+B. both decrease oxygen diffusion.
+C. have no relation to diffusion rate.
+D. make oxygen require active transport.
+E. partly offset each other because diffusion increases with area but decreases with diffusion distance.
+Correct: E — partly offset each other because diffusion increases with area but decreases with diffusion distance.
+Explanation: Fick-type diffusion increases with surface area but decreases as barrier thickness increases, so the two changes oppose each other.
+High-altitude physiology
+BIO-HAP-RESP-011  |  Hard  |  Application  |  Upper-end IMAT
+A person rapidly ascends to high altitude, where inspired oxygen partial pressure is lower. Before long-term acclimatisation occurs, which change most directly helps preserve oxygen uptake?
+A. An increase in ventilation
+B. A decrease in ventilation
+C. A sudden increase in alveolar membrane thickness
+D. A fall in cardiac output to near zero
+E. Conversion of haemoglobin into an enzyme
+Correct: A — An increase in ventilation
+Explanation: Hyperventilation raises alveolar oxygen availability when inspired oxygen partial pressure falls at altitude.
+Integrated respiratory physiology
+BIO-HAP-RESP-012  |  Hard  |  Data Interpretation  |  AHSORA CHALLENGE
+A patient has normal ventilation but severe thickening of the alveolar-capillary membrane. At rest arterial oxygen is mildly reduced; during exercise it falls further. Which explanation is best?
+A. Exercise eliminates the oxygen gradient between alveoli and blood.
+B. Exercise shortens capillary transit time, so the increased diffusion barrier becomes more limiting.
+C. Thicker membranes increase oxygen solubility only during exercise.
+D. Red blood cells stop containing haemoglobin at high heart rates.
+E. Carbon dioxide can no longer be produced by working muscle.
+Correct: B — Exercise shortens capillary transit time, so the increased diffusion barrier becomes more limiting.
+Explanation: With a thickened barrier, faster exercise blood flow reduces equilibration time and exposes diffusion limitation.
+7. Circulatory System
+16 MCQs  •  8 Easy  •  4 Moderate  •  4 Hard
+Heart chambers and blood flow
+BIO-HAP-CIRC-001  |  Easy  |  Recall / Knowledge
+Which chamber pumps oxygenated blood into the systemic circulation?
+A. Right ventricle
+B. Right atrium
+C. Left ventricle
+D. Left atrium
+E. Pulmonary artery
+Correct: C — Left ventricle
+Explanation: The left ventricle ejects oxygenated blood through the aorta into the systemic circulation.
+Heart valves
+BIO-HAP-CIRC-002  |  Easy  |  Recall / Knowledge
+What is the main function of heart valves?
+A. To generate the electrical impulse of the heartbeat
+B. To oxygenate blood inside the ventricles
+C. To produce red blood cells
+D. To prevent backflow of blood
+E. To regulate blood glucose
+Correct: D — To prevent backflow of blood
+Explanation: Valves maintain one-way blood flow by closing when pressure gradients would otherwise reverse flow.
+Double circulation
+BIO-HAP-CIRC-003  |  Easy  |  Conceptual
+Human circulation is described as double because blood
+A. flows through two separate aortas.
+B. contains two types of haemoglobin.
+C. moves in arteries only during systole.
+D. always travels through two capillaries before reaching a vein.
+E. passes through the heart twice in one complete circuit through pulmonary and systemic pathways.
+Correct: E — passes through the heart twice in one complete circuit through pulmonary and systemic pathways.
+Explanation: Blood passes through the heart once for pulmonary circulation and once for systemic circulation in each complete circuit.
+Blood vessels
+BIO-HAP-CIRC-004  |  Easy  |  Conceptual
+Which feature is most characteristic of arteries compared with veins?
+A. Thicker muscular and elastic walls
+B. Valves throughout every artery
+C. Lower pressure than corresponding veins
+D. A wall only one cell thick
+E. Always carrying oxygenated blood
+Correct: A — Thicker muscular and elastic walls
+Explanation: Arteries withstand higher pressure with thicker smooth-muscle and elastic walls than veins.
+BIO-HAP-CIRC-005  |  Easy  |  Recall / Knowledge
+Which blood vessel is specialised for exchange of gases, nutrients and wastes with tissues?
+A. Aorta
+B. Capillary
+C. Vena cava
+D. Pulmonary artery
+E. Large vein
+Correct: B — Capillary
+Explanation: Capillaries have thin walls and vast total area, making them the principal exchange vessels.
+Blood components
+BIO-HAP-CIRC-006  |  Easy  |  Recall / Knowledge
+Which blood component carries most oxygen in humans?
+A. Platelets
+B. Plasma proteins only
+C. Red blood cells containing haemoglobin
+D. Neutrophils
+E. Lymphocytes
+Correct: C — Red blood cells containing haemoglobin
+Explanation: Haemoglobin inside erythrocytes binds most of the oxygen carried in blood.
+BIO-HAP-CIRC-007  |  Easy  |  Recall / Knowledge
+Which component of blood is most directly involved in clot formation?
+A. Erythrocytes
+B. Alveolar macrophages
+C. Bile salts
+D. Platelets
+E. Nephrons
+Correct: D — Platelets
+Explanation: Platelets initiate and support haemostatic clot formation at damaged vessels.
+Pulmonary circulation
+BIO-HAP-CIRC-008  |  Easy  |  Conceptual
+Which vessel carries deoxygenated blood from the heart toward the lungs?
+A. Pulmonary vein
+B. Aorta
+C. Coronary vein only
+D. Carotid artery
+E. Pulmonary artery
+Correct: E — Pulmonary artery
+Explanation: The pulmonary artery is unusual because it carries deoxygenated blood away from the right ventricle.
+Cardiac cycle
+BIO-HAP-CIRC-009  |  Moderate  |  Application
+When ventricular pressure rises above atrial pressure at the start of ventricular systole, what happens first?
+A. The atrioventricular valves close.
+B. The semilunar valves close because arterial pressure is zero.
+C. The atria eject blood through the aorta.
+D. Blood flows backward into the veins.
+E. All valves remain open simultaneously.
+Correct: A — The atrioventricular valves close.
+Explanation: When ventricular pressure exceeds atrial pressure, atrioventricular valves close to prevent regurgitation.
+Blood vessels and pressure
+BIO-HAP-CIRC-010  |  Moderate  |  Application
+Why does blood pressure fall substantially as blood passes through arterioles and capillary networks?
+A. Capillaries actively pump blood backward.
+B. Resistance and the very large total cross-sectional area dissipate pressure energy.
+C. Haemoglobin removes pressure from plasma.
+D. All arterial smooth muscle disappears at the heart.
+E. Oxygen diffusion increases hydrostatic pressure.
+Correct: B — Resistance and the very large total cross-sectional area dissipate pressure energy.
+Explanation: Arteriolar resistance and the enormous capillary network reduce pressure before blood reaches exchange vessels.
+Tissue fluid formation
+BIO-HAP-CIRC-011  |  Moderate  |  Application
+At the arterial end of many capillary beds, tissue fluid forms mainly because
+A. plasma proteins are actively pumped into tissues.
+B. red blood cells leave the capillary in large numbers.
+C. capillary hydrostatic pressure drives plasma water and small solutes outward.
+D. lymphatic pressure forces water into capillaries.
+E. oxygen draws water by active transport.
+Correct: C — capillary hydrostatic pressure drives plasma water and small solutes outward.
+Explanation: Capillary hydrostatic pressure favours filtration of water and small solutes into interstitial fluid.
+Haemoglobin and oxygen transport
+BIO-HAP-CIRC-012  |  Moderate  |  Conceptual
+Why is haemoglobin useful for oxygen transport rather than relying on oxygen dissolved only in plasma?
+A. Haemoglobin converts oxygen into carbon dioxide.
+B. Haemoglobin prevents oxygen from entering tissues.
+C. Oxygen cannot dissolve in plasma at all.
+D. Haemoglobin greatly increases the oxygen-carrying capacity of blood while allowing reversible binding.
+E. Haemoglobin makes pulmonary ventilation unnecessary.
+Correct: D — Haemoglobin greatly increases the oxygen-carrying capacity of blood while allowing reversible binding.
+Explanation: Reversible oxygen binding to haemoglobin allows blood to carry far more oxygen than plasma alone.
+Valve dysfunction
+BIO-HAP-CIRC-013  |  Hard  |  Integrated  |  Upper-end IMAT
+A damaged left atrioventricular (mitral) valve allows substantial regurgitation during ventricular systole. Which immediate consequence is most likely?
+A. All blood is redirected into the pulmonary artery.
+B. Systemic venous return immediately stops.
+C. The right ventricle receives oxygenated blood from the aorta.
+D. Pulmonary capillary pressure must fall to zero.
+E. Some blood is forced back into the left atrium, reducing effective forward stroke volume.
+Correct: E — Some blood is forced back into the left atrium, reducing effective forward stroke volume.
+Explanation: Mitral regurgitation sends part of the ventricular stroke backward into the left atrium, lowering effective systemic output.
+Capillary exchange
+BIO-HAP-CIRC-014  |  Hard  |  Integrated  |  Upper-end IMAT
+A severe fall in plasma protein concentration occurs while capillary hydrostatic pressure remains unchanged. Which effect is most likely in peripheral tissues?
+A. More fluid remains in the interstitial space because plasma oncotic pull is reduced.
+B. Less fluid filters from capillaries because plasma becomes more concentrated.
+C. Capillaries become impermeable to water.
+D. Red blood cells move freely into the interstitial space.
+E. Lymph formation necessarily falls to zero.
+Correct: A — More fluid remains in the interstitial space because plasma oncotic pull is reduced.
+Explanation: Lower plasma protein concentration reduces oncotic reabsorption, favouring peripheral fluid accumulation.
+Cardiac output and exercise
+BIO-HAP-CIRC-015  |  Hard  |  Application  |  Upper-end IMAT
+During exercise, heart rate rises from 70 to 140 beats min−1 while stroke volume rises from 70 to 100 mL beat−1. By what factor does cardiac output increase?
+A. About 1.4-fold
+B. About 2.9-fold
+C. About 2.0-fold
+D. About 4.0-fold
+E. About 7.0-fold
+Correct: B — About 2.9-fold
+Explanation: Cardiac output rises from 4.9 to 14.0 L/min, which is about 14.0/4.9 = 2.9-fold.
+Oxygen delivery
+BIO-HAP-CIRC-016  |  Hard  |  Integrated  |  AHSORA CHALLENGE
+A patient has normal cardiac output and normal arterial oxygen partial pressure but a very low haemoglobin concentration. Which variable is most directly reduced?
+A. Alveolar ventilation
+B. Diffusion distance across the alveolar wall
+C. Total oxygen content of arterial blood
+D. Systemic arterial pressure in every case
+E. The partial pressure gradient for carbon dioxide across cell membranes
+Correct: C — Total oxygen content of arterial blood
+Explanation: Oxygen partial pressure can be normal while total oxygen content is low if too little haemoglobin is available to bind oxygen.
+8. Excretion, Kidney & Osmoregulation
+12 MCQs  •  6 Easy  •  3 Moderate  •  3 Hard
+Nephron structure
+BIO-HAP-REN-001  |  Easy  |  Recall / Knowledge
+What is the functional unit of the kidney?
+A. Alveolus
+B. Sarcomere
+C. Neuron
+D. Nephron
+E. Villus
+Correct: D — Nephron
+Explanation: The nephron is the microscopic unit that filters blood and modifies filtrate to form urine.
+Ultrafiltration
+BIO-HAP-REN-002  |  Easy  |  Conceptual
+Where does ultrafiltration of blood plasma begin in the nephron?
+A. Collecting duct into the renal vein
+B. Loop of Henle into the ureter
+C. Proximal tubule into the glomerulus
+D. Ureter into the bladder
+E. Glomerulus into Bowman’s capsule
+Correct: E — Glomerulus into Bowman’s capsule
+Explanation: High glomerular pressure drives ultrafiltration from glomerular capillaries into Bowman’s capsule.
+Selective reabsorption
+BIO-HAP-REN-003  |  Easy  |  Recall / Knowledge
+Under normal conditions, most filtered glucose is reabsorbed in the
+A. proximal convoluted tubule.
+B. ureter.
+C. renal artery.
+D. Bowman’s capsule only.
+E. bladder.
+Correct: A — proximal convoluted tubule.
+Explanation: The proximal tubule normally reabsorbs virtually all filtered glucose through carrier-mediated transport.
+BIO-HAP-REN-010  |  Hard  |  Integrated  |  Upper-end IMAT
+A toxin selectively blocks sodium-dependent glucose cotransport in the proximal tubule but leaves glomerular filtration unchanged. Which change is most likely?
+A. Glucose filtration at the glomerulus stops completely.
+B. Plasma glucose necessarily rises because insulin secretion ceases.
+C. More glucose remains in tubular fluid and is excreted in urine.
+D. ADH can directly restore glucose reabsorption through the blocked cotransporter.
+E. All sodium reabsorption in the entire nephron becomes impossible.
+Correct: C — More glucose remains in tubular fluid and is excreted in urine.
+Explanation: Blocking proximal sodium-glucose cotransport leaves filtered glucose in tubular fluid, causing glycosuria.
+Water balance and ADH
+BIO-HAP-REN-004  |  Easy  |  Conceptual
+What is the main effect of increased ADH secretion on the kidneys?
+A. Reduced water reabsorption and more dilute urine
+B. Greater water reabsorption and production of more concentrated urine
+C. Complete cessation of glomerular filtration
+D. Increased glucose excretion regardless of blood glucose
+E. Permanent closure of the ureters
+Correct: B — Greater water reabsorption and production of more concentrated urine
+Explanation: ADH increases collecting-duct water permeability, conserving water and concentrating urine.
+BIO-HAP-REN-007  |  Moderate  |  Application
+After several hours without water, plasma osmolarity rises. Which response is expected in a healthy person?
+A. Decreased ADH secretion and decreased water reabsorption
+B. Increased insulin secretion as the primary response
+C. Complete inhibition of filtration at the glomerulus
+D. Immediate excretion of a large volume of dilute urine
+E. Increased ADH secretion and increased water permeability of collecting ducts
+Correct: E — Increased ADH secretion and increased water permeability of collecting ducts
+Explanation: Dehydration raises plasma osmolarity, stimulating ADH and increasing collecting-duct water reabsorption.
+BIO-HAP-REN-011  |  Hard  |  Application  |  Upper-end IMAT
+A person produces normal amounts of ADH, but collecting-duct cells lack functional ADH receptors. Which pattern is most likely?
+A. Very concentrated urine regardless of water intake
+B. No urine formation because glomerular filtration stops
+C. Severe hypoglycaemia caused directly by ADH resistance
+D. Large volumes of relatively dilute urine despite dehydration
+E. Complete retention of urea in the bloodstream with normal water balance
+Correct: D — Large volumes of relatively dilute urine despite dehydration
+Explanation: Without functional ADH receptors, collecting ducts remain relatively water-impermeable and dilute urine is produced.
+Blood glucose homeostasis
+BIO-HAP-REN-005  |  Easy  |  Recall / Knowledge
+Which hormone lowers blood glucose concentration after a carbohydrate-rich meal?
+A. Glucagon
+B. ADH
+C. Insulin
+D. Thyroxine
+E. Aldosterone
+Correct: C — Insulin
+Explanation: Insulin lowers blood glucose by promoting uptake and storage of glucose.
+Thermoregulation
+BIO-HAP-REN-006  |  Easy  |  Conceptual
+Which response promotes heat loss when body temperature rises?
+A. Shivering
+B. Vasoconstriction of skin vessels
+C. Increased skeletal-muscle contraction at rest
+D. Vasodilation of skin blood vessels
+E. Reduced sweating
+Correct: D — Vasodilation of skin blood vessels
+Explanation: Skin vasodilation increases heat transfer from the core to the body surface.
+Ultrafiltration and selective barriers
+BIO-HAP-REN-008  |  Moderate  |  Application
+A healthy glomerular filtrate normally contains glucose and small ions but almost no large plasma proteins. This is mainly because
+A. the filtration barrier allows small solutes through while retaining cells and most large proteins.
+B. glucose is too large to cross the filtration barrier.
+C. all proteins are actively transported back into glomerular capillaries before filtration.
+D. red blood cells digest plasma proteins inside the glomerulus.
+E. Bowman’s capsule secretes glucose into the filtrate.
+Correct: A — the filtration barrier allows small solutes through while retaining cells and most large proteins.
+Explanation: The glomerular barrier filters water and small solutes but retains cells and most large plasma proteins.
+Blood glucose regulation
+BIO-HAP-REN-009  |  Moderate  |  Integrated
+A healthy person becomes mildly hypoglycaemic between meals. Which response most directly helps restore blood glucose?
+A. Insulin stimulates greater glucose uptake and glycogen synthesis.
+B. Glucagon stimulates liver glycogen breakdown and glucose release.
+C. ADH increases glucose filtration.
+D. Thyroxine immediately blocks hepatic metabolism.
+E. The kidneys convert all urea into glucose.
+Correct: B — Glucagon stimulates liver glycogen breakdown and glucose release.
+Explanation: Glucagon raises blood glucose largely by promoting hepatic glycogen breakdown and glucose release.
+Integrated homeostasis
+BIO-HAP-REN-012  |  Hard  |  Integrated  |  AHSORA CHALLENGE
+During prolonged heat exposure with limited water, a healthy person has high ADH and increased skin sweating. Why can these responses coexist without contradiction?
+A. Both responses are positive feedback that deliberately worsens dehydration.
+B. ADH directly causes sweating, so they are the same control pathway.
+C. Sweating increases blood volume, whereas ADH decreases it.
+D. The kidneys stop participating in homeostasis whenever sweating occurs.
+E. Sweating defends temperature, while ADH conserves water at the kidney; different effectors address different regulated variables.
+Correct: E — Sweating defends temperature, while ADH conserves water at the kidney; different effectors address different regulated variables.
+Explanation: Thermoregulation may require water loss through sweat while renal ADH simultaneously limits additional water loss.
+9. Nervous & Endocrine Coordination
+16 MCQs  •  8 Easy  •  4 Moderate  •  4 Hard
+Neuron structure
+BIO-HAP-NEU-001  |  Easy  |  Recall / Knowledge
+Which part of a typical neuron usually carries action potentials away from the cell body?
+A. Axon
+B. Dendrite
+C. Nucleus
+D. Synaptic cleft
+E. Myelin-producing gland
+Correct: A — Axon
+Explanation: An axon conducts action potentials away from the neuronal cell body toward target cells.
+Nervous system organisation
+BIO-HAP-NEU-002  |  Easy  |  Recall / Knowledge
+The brain and spinal cord together form the
+A. peripheral nervous system.
+B. central nervous system.
+C. endocrine system.
+D. autonomic effector system only.
+E. somatic sensory receptor system only.
+Correct: B — central nervous system.
+Explanation: The brain and spinal cord form the central nervous system.
+Synapses
+BIO-HAP-NEU-003  |  Easy  |  Conceptual
+At a typical chemical synapse, neurotransmitter is released from the
+A. postsynaptic nucleus.
+B. myelin sheath of the target neuron.
+C. presynaptic neuron.
+D. endocrine pancreas.
+E. renal glomerulus.
+Correct: C — presynaptic neuron.
+Explanation: Chemical neurotransmitter is released from the presynaptic terminal into the synaptic cleft.
+Reflex arcs
+BIO-HAP-NEU-004  |  Easy  |  Conceptual
+What is a major advantage of a spinal reflex?
+A. It prevents sensory information from ever reaching the brain.
+B. It requires endocrine hormones before muscles can respond.
+C. It always produces a voluntary movement.
+D. It can produce a rapid protective response without waiting for conscious processing.
+E. It eliminates the need for receptors.
+Correct: D — It can produce a rapid protective response without waiting for conscious processing.
+Explanation: Reflex circuits can activate effectors rapidly before conscious cortical processing occurs.
+BIO-HAP-NEU-010  |  Moderate  |  Application
+A sensory neuron from the skin is damaged, but the motor neuron and muscle are intact. What happens to a withdrawal reflex triggered only through that sensory pathway?
+A. The reflex becomes stronger because sensory input is unnecessary.
+B. The muscle contracts continuously even without stimulation.
+C. The endocrine system automatically replaces the missing sensory neuron.
+D. The motor neuron becomes the receptor.
+E. The reflex is impaired because the stimulus signal cannot reach the integration centre.
+Correct: E — The reflex is impaired because the stimulus signal cannot reach the integration centre.
+Explanation: Without sensory input, the central reflex circuit is not informed of the triggering stimulus.
+Hormones and endocrine signalling
+BIO-HAP-NEU-005  |  Easy  |  Recall / Knowledge
+Which statement best describes a hormone?
+A. An electrical impulse confined to an axon
+B. A structural protein found only in bone
+C. A digestive enzyme that must act in the intestine
+D. An antibody produced by platelets
+E. A chemical messenger released into body fluids that acts on cells with appropriate receptors
+Correct: E — A chemical messenger released into body fluids that acts on cells with appropriate receptors
+Explanation: Hormones are chemical messengers carried in body fluids to receptor-bearing target cells.
+Endocrine versus nervous coordination
+BIO-HAP-NEU-006  |  Easy  |  Conceptual
+Compared with nervous signalling, endocrine signalling is generally
+A. slower in onset but often longer lasting.
+B. always faster and shorter lasting.
+C. restricted to synaptic clefts.
+D. unable to influence metabolism.
+E. independent of receptors on target cells.
+Correct: A — slower in onset but often longer lasting.
+Explanation: Endocrine signals usually develop more slowly than neural signals but can persist for longer.
+Action potentials
+BIO-HAP-NEU-007  |  Easy  |  Conceptual
+The rapid depolarisation phase of a typical neuronal action potential is mainly associated with
+A. efflux of glucose through aquaporins.
+B. influx of sodium ions through voltage-gated channels.
+C. release of antibodies from the axon.
+D. influx of plasma proteins through the nucleus.
+E. active transport of calcium out of bone.
+Correct: B — influx of sodium ions through voltage-gated channels.
+Explanation: Opening voltage-gated sodium channels causes rapid Na+ entry and depolarisation.
+BIO-HAP-NEU-011  |  Moderate  |  Conceptual
+Why does myelination increase conduction speed along many axons?
+A. Depolarisation effectively jumps between nodes of Ranvier, reducing the membrane area that must depolarise sequentially.
+B. Myelin generates ATP for the neuron.
+C. Myelin converts electrical impulses into hormones.
+D. Myelin allows sodium to diffuse freely through the entire axon membrane.
+E. Myelin permanently depolarises the neuron.
+Correct: A — Depolarisation effectively jumps between nodes of Ranvier, reducing the membrane area that must depolarise sequentially.
+Explanation: Myelin enables saltatory conduction, so depolarisation is regenerated mainly at nodes rather than continuously.
+Negative feedback in endocrine systems
+BIO-HAP-NEU-008  |  Easy  |  Conceptual
+In a typical endocrine negative-feedback loop, a rise in the final hormone tends to
+A. amplify secretion indefinitely.
+B. destroy all receptors on the target tissue.
+C. reduce further stimulation of the pathway.
+D. convert the pathway into a reflex arc.
+E. prevent the hormone from entering blood.
+Correct: C — reduce further stimulation of the pathway.
+Explanation: Final hormones commonly inhibit upstream secretion, stabilising endocrine output by negative feedback.
+Synaptic transmission
+BIO-HAP-NEU-009  |  Moderate  |  Application
+A drug blocks neurotransmitter receptors on the postsynaptic membrane but does not affect transmitter release. What is the most direct effect?
+A. The presynaptic neuron cannot generate any action potential.
+B. Neurotransmitter can no longer enter synaptic vesicles before release.
+C. The synaptic cleft disappears.
+D. The postsynaptic cell responds less strongly despite normal neurotransmitter release.
+E. All endocrine signalling stops.
+Correct: D — The postsynaptic cell responds less strongly despite normal neurotransmitter release.
+Explanation: If postsynaptic receptors are blocked, transmitter may be present but cannot produce its normal postsynaptic effect.
+BIO-HAP-NEU-014  |  Hard  |  Integrated  |  Upper-end IMAT
+An inhibitor blocks acetylcholinesterase at a cholinergic synapse. If acetylcholine continues to be released, what is the most likely immediate effect?
+A. Acetylcholine is destroyed more rapidly.
+B. The presynaptic neuron can no longer synthesise any neurotransmitter.
+C. Postsynaptic receptors disappear instantly.
+D. Acetylcholine persists longer in the synaptic cleft and repeatedly stimulates receptors.
+E. The synapse switches to electrical transmission.
+Correct: D — Acetylcholine persists longer in the synaptic cleft and repeatedly stimulates receptors.
+Explanation: Blocking acetylcholinesterase prolongs acetylcholine action because transmitter remains in the synaptic cleft.
+Endocrine feedback
+BIO-HAP-NEU-012  |  Moderate  |  Integrated
+If a target endocrine gland stops producing its hormone, but the hypothalamus and pituitary remain functional, what often happens to upstream stimulating hormones?
+A. They fall to zero because the target gland is inactive.
+B. They rise because negative feedback from the final hormone is reduced.
+C. They are unchanged in every endocrine pathway.
+D. They become neurotransmitters rather than hormones.
+E. They can no longer enter the bloodstream.
+Correct: B — They rise because negative feedback from the final hormone is reduced.
+Explanation: Loss of final-hormone feedback removes inhibition of upstream hypothalamic/pituitary drive.
+BIO-HAP-NEU-015  |  Hard  |  Integrated  |  Upper-end IMAT
+A patient has high concentration of an upstream pituitary stimulating hormone but very low concentration of the final hormone from the target gland. Which defect is most consistent with this pattern?
+A. Excess secretion of the final hormone causing strong negative feedback
+B. Complete failure of the pituitary to secrete stimulating hormone
+C. A receptor mutation that makes the pituitary over-sensitive to the final hormone and suppresses secretion
+D. A normal intact negative-feedback axis
+E. Failure of the target gland to respond adequately to pituitary stimulation
+Correct: E — Failure of the target gland to respond adequately to pituitary stimulation
+Explanation: Low final hormone with high stimulating hormone points to primary failure of the target endocrine gland.
+Action potentials and ion channels
+BIO-HAP-NEU-013  |  Hard  |  Integrated  |  Upper-end IMAT
+A toxin prevents voltage-gated sodium channels from opening in a motor neuron. Which consequence is most direct?
+A. Synaptic vesicles release more neurotransmitter because depolarisation is enhanced.
+B. The resting membrane immediately becomes strongly positive due to sodium efflux.
+C. The neuron cannot generate or propagate a normal action potential.
+D. The muscle contracts normally because motor neurons do not require action potentials.
+E. Only endocrine signalling is affected.
+Correct: C — The neuron cannot generate or propagate a normal action potential.
+Explanation: Voltage-gated Na+ channels are essential for the regenerative depolarisation that propagates action potentials.
+Nervous-endocrine integration
+BIO-HAP-NEU-016  |  Hard  |  Integrated  |  AHSORA CHALLENGE
+A sudden stressor activates sympathetic nerves within seconds and also stimulates adrenal hormone release that persists longer. What does this illustrate?
+A. Nervous and endocrine systems can coordinate the same response with different time courses.
+B. Endocrine signals always travel faster than action potentials.
+C. Nervous responses cannot affect endocrine organs.
+D. Hormones act without receptors during stress.
+E. Only one communication system can operate at a time.
+Correct: A — Nervous and endocrine systems can coordinate the same response with different time courses.
+Explanation: Acute stress demonstrates parallel neural and hormonal control: nerves act rapidly while endocrine effects persist longer.
+10. Musculoskeletal System
+8 MCQs  •  4 Easy  •  2 Moderate  •  2 Hard
+Skeleton and joints
+BIO-HAP-MSK-001  |  Easy  |  Recall / Knowledge
+Which is a major function of the human skeleton?
+A. Producing bile
+B. Support, protection and providing attachment sites for muscles
+C. Filtering blood plasma in nephrons
+D. Secreting insulin
+E. Generating action potentials for sensory neurons
+Correct: B — Support, protection and providing attachment sites for muscles
+Explanation: The skeleton supports the body, protects organs and provides leverage/attachment for skeletal muscles.
+Joint types
+BIO-HAP-MSK-002  |  Easy  |  Recall / Knowledge
+The elbow is best described as which type of synovial joint?
+A. Ball-and-socket joint
+B. Pivot joint only
+C. Hinge joint
+D. Fixed fibrous joint
+E. Suture
+Correct: C — Hinge joint
+Explanation: The elbow mainly permits flexion and extension, characteristic of a hinge joint.
+Antagonistic muscles
+BIO-HAP-MSK-003  |  Easy  |  Conceptual
+When the biceps contracts to flex the elbow, the triceps usually
+A. contracts equally strongly to produce flexion.
+B. turns into connective tissue.
+C. secretes acetylcholine into the bloodstream.
+D. relaxes to allow the movement.
+E. shortens the humerus.
+Correct: D — relaxes to allow the movement.
+Explanation: Antagonistic muscles produce opposite actions, so the triceps relaxes while the biceps flexes the elbow.
+Skeletal muscle structure
+BIO-HAP-MSK-004  |  Easy  |  Recall / Knowledge
+What is the basic contractile unit of striated skeletal muscle?
+A. Nephron
+B. Alveolus
+C. Villus
+D. Axon
+E. Sarcomere
+Correct: E — Sarcomere
+Explanation: The sarcomere is the repeating contractile unit between Z lines in striated muscle.
+Sliding filament mechanism
+BIO-HAP-MSK-005  |  Moderate  |  Conceptual
+During skeletal-muscle contraction, sarcomeres shorten mainly because
+A. actin filaments slide past myosin filaments, increasing overlap.
+B. actin and myosin filaments both become much shorter molecules.
+C. calcium is removed permanently from muscle fibres.
+D. ATP prevents all cross-bridge interactions.
+E. sarcomeres fill with extracellular matrix.
+Correct: A — actin filaments slide past myosin filaments, increasing overlap.
+Explanation: Muscle shortening results from increased actin-myosin overlap rather than shortening of the filaments themselves.
+Calcium and ATP in contraction
+BIO-HAP-MSK-006  |  Moderate  |  Application
+Why is calcium important for skeletal-muscle contraction?
+A. It directly hydrolyses ATP instead of myosin ATPase.
+B. It exposes myosin-binding sites on actin by altering regulatory proteins.
+C. It forms the peptide bonds of actin.
+D. It carries oxygen in place of haemoglobin.
+E. It closes all voltage-gated channels in the motor neuron.
+Correct: B — It exposes myosin-binding sites on actin by altering regulatory proteins.
+Explanation: Calcium binds regulatory proteins, shifting tropomyosin and exposing myosin-binding sites on actin.
+ATP and cross-bridge cycling
+BIO-HAP-MSK-007  |  Hard  |  Integrated  |  Upper-end IMAT
+A muscle fibre can form actin-myosin cross-bridges but cannot regenerate ATP. Which step will soon fail most directly?
+A. Release of calcium from the sarcoplasmic reticulum before any contraction
+B. Binding of oxygen to haemoglobin in the lungs
+C. Detachment and recycling of myosin heads after force generation
+D. Formation of acetylcholine in the liver
+E. Synthesis of actin genes in the nucleus
+Correct: C — Detachment and recycling of myosin heads after force generation
+Explanation: ATP binding is required for myosin to detach from actin and continue cross-bridge cycling.
+Excitation-contraction coupling
+BIO-HAP-MSK-008  |  Hard  |  Integrated  |  AHSORA CHALLENGE
+A toxin allows normal motor-neuron signalling and normal ATP supply but prevents calcium release from the sarcoplasmic reticulum. What is the most likely result?
+A. Cross-bridge cycling becomes faster because calcium normally inhibits contraction.
+B. The muscle contracts normally because calcium is needed only for relaxation.
+C. Sarcomeres shorten because myosin can bind actin independently of regulatory proteins.
+D. Muscle fibres are activated electrically but generate little force because actin binding sites remain largely blocked.
+E. The motor neuron stops conducting action potentials.
+Correct: D — Muscle fibres are activated electrically but generate little force because actin binding sites remain largely blocked.
+Explanation: Without cytosolic Ca2+ release, troponin/tropomyosin continues to block actin sites, so force generation is poor.
+11. Human Reproduction
+8 MCQs  •  4 Easy  •  2 Moderate  •  2 Hard
+Male and female reproductive systems
+BIO-HAP-REP-001  |  Easy  |  Recall / Knowledge
+Where are sperm cells produced?
+A. Prostate gland
+B. Urethra
+C. Seminal vesicles
+D. Epididymis only
+E. Seminiferous tubules of the testes
+Correct: E — Seminiferous tubules of the testes
+Explanation: Spermatogenesis occurs in the seminiferous tubules of the testes.
+Ovulation and ovarian cycle
+BIO-HAP-REP-002  |  Easy  |  Recall / Knowledge
+Which event is ovulation?
+A. Release of a secondary oocyte from an ovarian follicle
+B. Implantation of an embryo in the uterus
+C. Fusion of sperm and oocyte nuclei
+D. Formation of sperm in the testes
+E. Shedding of the uterine lining
+Correct: A — Release of a secondary oocyte from an ovarian follicle
+Explanation: Ovulation is the release of a secondary oocyte from a mature ovarian follicle.
+Fertilisation
+BIO-HAP-REP-003  |  Easy  |  Recall / Knowledge
+Human fertilisation most commonly occurs in the
+A. uterine cervix.
+B. oviduct (fallopian tube).
+C. ovary itself.
+D. vagina.
+E. endometrium after implantation.
+Correct: B — oviduct (fallopian tube).
+Explanation: Fertilisation usually occurs in the oviduct before the embryo reaches the uterus.
+Menstrual cycle hormones
+BIO-HAP-REP-004  |  Easy  |  Conceptual
+A surge of which hormone is most directly associated with triggering ovulation?
+A. Insulin
+B. ADH
+C. Luteinising hormone (LH)
+D. Thyroxine
+E. Glucagon
+Correct: C — Luteinising hormone (LH)
+Explanation: The mid-cycle LH surge triggers ovulation.
+Gametogenesis
+BIO-HAP-REP-005  |  Moderate  |  Conceptual
+Why are mature human gametes haploid?
+A. Mitosis removes all homologous chromosomes.
+B. DNA replication does not occur in germ cells.
+C. Gametes contain no autosomes.
+D. Meiosis halves the chromosome number so fertilisation can restore the diploid number.
+E. Fertilisation halves the chromosome number again.
+Correct: D — Meiosis halves the chromosome number so fertilisation can restore the diploid number.
+Explanation: Meiosis produces haploid gametes so fusion at fertilisation restores diploidy.
+Menstrual and ovarian cycle
+BIO-HAP-REP-006  |  Moderate  |  Integrated
+After ovulation, progesterone secretion rises. What is one important effect?
+A. Immediate triggering of a second ovulation in the same cycle
+B. Complete inhibition of all uterine blood flow
+C. Conversion of the oocyte into sperm
+D. Destruction of the corpus luteum within minutes
+E. Maintenance of a uterine lining suitable for possible implantation
+Correct: E — Maintenance of a uterine lining suitable for possible implantation
+Explanation: Progesterone after ovulation supports a secretory endometrium suitable for implantation.
+Hormonal control and feedback
+BIO-HAP-REP-007  |  Hard  |  Integrated  |  Upper-end IMAT
+A medication maintains consistently high levels of synthetic estrogen and progestin. How can this reduce the probability of ovulation?
+A. Negative feedback suppresses FSH/LH secretion and prevents the normal mid-cycle LH surge.
+B. Positive feedback permanently increases the LH surge.
+C. The medication converts all ovarian follicles into sperm.
+D. High steroid levels directly destroy the endometrium before ovulation.
+E. The pituitary becomes independent of hypothalamic control and secretes more gonadotropins.
+Correct: A — Negative feedback suppresses FSH/LH secretion and prevents the normal mid-cycle LH surge.
+Explanation: Sustained estrogen/progestin can suppress FSH/LH through negative feedback and prevent the normal ovulatory LH surge.
+Chromosome number in reproduction
+BIO-HAP-REP-008  |  Hard  |  Integrated  |  Upper-end IMAT
+A human primary spermatocyte is diploid before meiosis I. Which sequence correctly describes chromosome-set changes through normal gamete formation and fertilisation?
+A. Diploid primary cell → diploid gametes → haploid zygote
+B. Diploid primary cell → haploid gametes → diploid zygote
+C. Haploid primary cell → diploid gametes → tetraploid zygote
+D. Diploid primary cell → tetraploid gametes → diploid zygote
+E. Haploid primary cell → haploid gametes → haploid zygote
+Correct: B — Diploid primary cell → haploid gametes → diploid zygote
+Explanation: Meiosis converts diploid germ cells into haploid gametes; fusion of two haploid gametes restores a diploid zygote.
+12. Immunity
+8 MCQs  •  4 Easy  •  2 Moderate  •  2 Hard
+Innate versus adaptive immunity
+BIO-HAP-IMM-001  |  Easy  |  Conceptual
+Which feature is characteristic of innate immunity?
+A. It requires prior exposure to every pathogen.
+B. It depends exclusively on memory B cells.
+C. It provides rapid, non-specific defence.
+D. It produces antibodies only after vaccination.
+E. It is absent at birth.
+Correct: C — It provides rapid, non-specific defence.
+Explanation: Innate immunity acts rapidly and broadly without antigen-specific memory from prior exposure.
+Antigens and antibodies
+BIO-HAP-IMM-002  |  Easy  |  Recall / Knowledge
+An antigen is best described as
+A. a red blood cell carrying oxygen.
+B. a hormone released from the pituitary.
+C. an enzyme that digests antibodies.
+D. a molecule or molecular feature that can be specifically recognised by the adaptive immune system.
+E. a nephron protein that controls filtration.
+Correct: D — a molecule or molecular feature that can be specifically recognised by the adaptive immune system.
+Explanation: Antigens contain epitopes that can be specifically recognised by adaptive immune receptors or antibodies.
+B cells and plasma cells
+BIO-HAP-IMM-003  |  Easy  |  Recall / Knowledge
+Which cells secrete large quantities of antibodies during a humoral immune response?
+A. Red blood cells
+B. Platelets
+C. Skeletal muscle fibres
+D. Nephrons
+E. Plasma cells derived from activated B lymphocytes
+Correct: E — Plasma cells derived from activated B lymphocytes
+Explanation: Activated B cells can differentiate into plasma cells specialised for antibody secretion.
+Vaccination
+BIO-HAP-IMM-004  |  Easy  |  Conceptual
+The main purpose of vaccination is to
+A. generate adaptive immune memory without causing the full disease.
+B. eliminate all innate immune responses.
+C. replace antibodies with antibiotics.
+D. prevent lymphocytes from dividing.
+E. make every pathogen harmless immediately after entry.
+Correct: A — generate adaptive immune memory without causing the full disease.
+Explanation: Vaccination generates antigen-specific memory while avoiding the full consequences of natural disease.
+Primary and secondary responses
+BIO-HAP-IMM-005  |  Moderate  |  Application
+After a second exposure to the same antigen, antibody concentration often rises faster and higher than after the first exposure. What best explains this?
+A. Innate immune cells permanently become antibodies.
+B. Memory lymphocytes generated during the first response are activated rapidly.
+C. The antigen no longer needs to bind any receptor.
+D. Red blood cells remember the antigen and divide.
+E. The second exposure suppresses clonal expansion.
+Correct: B — Memory lymphocytes generated during the first response are activated rapidly.
+Explanation: Memory lymphocytes respond more rapidly on re-exposure, producing a faster and stronger secondary response.
+Antibody specificity
+BIO-HAP-IMM-006  |  Moderate  |  Conceptual
+Why can one antibody bind strongly to one antigen but poorly to another?
+A. All antibodies are identical but antigens differ only in size.
+B. Antibodies bind using ATP-dependent active transport.
+C. Its variable region has a specific three-dimensional chemical complementarity to a particular epitope.
+D. The constant region changes shape for every antigen before binding.
+E. Antibodies recognise pathogens only by overall body temperature.
+Correct: C — Its variable region has a specific three-dimensional chemical complementarity to a particular epitope.
+Explanation: Antibody specificity comes from the shape and chemistry of its variable region matching a particular epitope.
+B- and T-cell cooperation
+BIO-HAP-IMM-007  |  Hard  |  Integrated  |  Upper-end IMAT
+A disorder severely reduces helper T-cell function while leaving B cells present. Which adaptive response is most likely to be weakened?
+A. Oxygen transport by haemoglobin
+B. Glomerular filtration
+C. Contraction of skeletal muscle
+D. Efficient activation and coordination of B-cell antibody responses to many antigens
+E. Production of bile salts
+Correct: D — Efficient activation and coordination of B-cell antibody responses to many antigens
+Explanation: Helper T cells provide key activating signals for many B-cell responses, so their loss weakens humoral immunity.
+Immunological memory
+BIO-HAP-IMM-008  |  Hard  |  Integrated  |  AHSORA CHALLENGE
+Two individuals encounter the same pathogen. Person X was vaccinated months earlier; person Y has never encountered the antigen. X clears the infection before major symptoms develop. Which mechanism best explains the difference?
+A. X has permanently elevated body temperature that kills all pathogens.
+B. Y lacks innate immunity because vaccination creates it.
+C. Vaccination causes antibodies to reproduce independently of cells forever.
+D. X no longer requires antigen recognition by lymphocytes.
+E. Pre-existing memory cells in X expand quickly and generate a rapid specific response.
+Correct: E — Pre-existing memory cells in X expand quickly and generate a rapid specific response.
+Explanation: Vaccination creates memory cells that expand rapidly on later exposure and can control infection before major symptoms.
+13. Production Reconciliation
+Chapter
+Total
+Easy
+Moderate
+Hard
+Animal Tissues & Homeostasis
+12
+6
+3
+3
+Digestive System & Nutrition
+8
+4
+2
+2
+Respiratory System & Gas Exchange
+12
+6
+3
+3
+Circulatory System
+16
+8
+4
+4
+Excretion, Kidney & Osmoregulation
+12
+6
+3
+3
+Nervous & Endocrine Coordination
+16
+8
+4
+4
+Musculoskeletal System
+8
+4
+2
+2
+Human Reproduction
+8
+4
+2
+2
+Immunity
+8
+4
+2
+2
+TOTAL
+100
+50
+25
+25
+14. Answer-Position & Hard-Calibration Check
+Correct-option distribution: A = 20 • B = 20 • C = 20 • D = 20 • E = 20.
+Hard pool: 18 Upper-end IMAT • 7 Ahsora Challenge = 25 Hard questions. Challenge share = 28%, close to the ~30% strategy target.
+15. Publication Gate
+This file is a production draft. Before any item is published in the Student Portal, Ahsora should apply the full Biology Practice Bank QA process:
+• Scientific accuracy review by a second qualified reviewer.
+• Difficulty calibration: confirm the assigned level reflects reasoning depth.
+• Distractor review: every wrong option must be plausible but clearly wrong under the stem.
+• Duplicate/near-duplicate check against the Genetics, Biochemistry and Cell Biology banks and future physiology batches.
+• Scope check against the Ahsora Master Teaching Syllabus and current IMAT content.
+• Language check for clean English, consistent terminology and one unambiguously best answer.
+• Post-launch analytics review of item accuracy, discrimination, complaints and ambiguity flags.
+NO EXPLANATION = NO PUBLICATION  •  SCIENTIFIC QA REQUIRED

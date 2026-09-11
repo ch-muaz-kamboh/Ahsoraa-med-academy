@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
@@ -8,6 +8,7 @@ import {
   Beaker, Calculator, Brain, FlaskConical, Globe, Sigma,
   ChevronRight, Loader2, Shuffle, Clock, BookOpen, BarChart3
 } from 'lucide-react';
+import importedQuestions from '@/lib/imported_questions.json';
 
 const SUBJECTS = [
   { name:'Biology',          icon:<Beaker size={20}/>,     color:'#10B981', bg:'#F0FFF4' },
@@ -38,15 +39,26 @@ export default function PracticePage() {
 
   useEffect(() => {
     const fetchCounts = async () => {
-      const { data } = await supabase
-        .from('qb_questions')
-        .select('subject')
-        .eq('is_active', true);
-      if (data) {
-        const counts: Record<string,number> = {};
-        data.forEach(r => { counts[r.subject] = (counts[r.subject]||0)+1; });
-        setSubjectCounts(Object.entries(counts).map(([subject,count]) => ({ subject, count })));
-      }
+      try {
+        const { data } = await supabase
+          .from('qb_questions')
+          .select('subject')
+          .eq('is_active', true);
+        if (data && data.length > 0) {
+          const counts: Record<string,number> = {};
+          data.forEach(r => { counts[r.subject] = (counts[r.subject]||0)+1; });
+          setSubjectCounts(Object.entries(counts).map(([subject,count]) => ({ subject, count })));
+          setLoadingCounts(false);
+          return;
+        }
+      } catch (e) {}
+
+      // Fallback to local imported questions bank (820 MCQs)
+      const counts: Record<string, number> = {};
+      (importedQuestions as any[]).forEach(q => {
+        counts[q.subject] = (counts[q.subject] || 0) + 1;
+      });
+      setSubjectCounts(Object.entries(counts).map(([subject, count]) => ({ subject, count })));
       setLoadingCounts(false);
     };
     fetchCounts();
@@ -60,10 +72,19 @@ export default function PracticePage() {
       .eq('subject', subject)
       .eq('is_active', true)
       .then(({ data }) => {
-        if (data) {
+        if (data && data.length > 0) {
           const unique = [...new Set(data.map(r => r.topic).filter(Boolean))].sort();
           setAvailableTopics(unique as string[]);
+        } else {
+          const filtered = (importedQuestions as any[]).filter(q => q.subject === subject);
+          const unique = [...new Set(filtered.map(q => q.topic).filter(Boolean))].sort();
+          setAvailableTopics(unique as string[]);
         }
+      })
+      .catch(() => {
+        const filtered = (importedQuestions as any[]).filter(q => q.subject === subject);
+        const unique = [...new Set(filtered.map(q => q.topic).filter(Boolean))].sort();
+        setAvailableTopics(unique as string[]);
       });
   }, [subject, supabase]);
 
