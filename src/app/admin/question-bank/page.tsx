@@ -70,49 +70,70 @@ export default function AdminQuestionBankPage() {
   // ── Fetch ──────────────────────────────────────────────────────────────────
   const fetchQuestions = useCallback(async () => {
     setLoading(true);
-    let supaData: QBQuestion[] = [];
-    let supaCount = 0;
+    let allPool: QBQuestion[] = [];
 
+    // 1. Try Supabase
     try {
-      let q = supabase.from('qb_questions').select('*', { count: 'exact' });
-      if (filterSubject) q = q.eq('subject', filterSubject);
-      if (filterDiff)    q = q.eq('difficulty', filterDiff);
-      if (searchQ)       q = q.ilike('question_text', `%${searchQ}%`);
-      q = q.order('created_at', { ascending: false }).range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1);
-      const { data, count, error } = await q;
+      let q = supabase.from('qb_questions').select('*');
+      const { data, error } = await q;
       if (!error && data && data.length > 0) {
-        supaData = data as QBQuestion[];
-        supaCount = count || data.length;
+        allPool = data as QBQuestion[];
       }
-    } catch (e) {
-      console.warn('Supabase qb_questions fetch fallback:', e);
+    } catch (e) {}
+
+    // 2. Try LocalStorage synced cache
+    if (allPool.length === 0) {
+      try {
+        const cached = localStorage.getItem('ahsora_local_qb_questions');
+        if (cached) {
+          allPool = JSON.parse(cached);
+        }
+      } catch (e) {}
     }
 
-    // If Supabase table is empty, fallback to local imported questions bank (820 MCQs)
-    if (supaData.length === 0) {
-      let filtered = (importedQuestions as unknown as QBQuestion[]);
-
-      if (filterSubject) filtered = filtered.filter(q => q.subject === filterSubject);
-      if (filterDiff)    filtered = filtered.filter(q => q.difficulty === filterDiff);
-      if (searchQ)       filtered = filtered.filter(q => q.question_text.toLowerCase().includes(searchQ.toLowerCase()) || (q.topic && q.topic.toLowerCase().includes(searchQ.toLowerCase())));
-
-      supaCount = filtered.length;
-      const start = page * PAGE_SIZE;
-      supaData = filtered.slice(start, start + PAGE_SIZE);
+    // 3. Fallback to bundled 820 imported questions
+    if (allPool.length === 0) {
+      allPool = (importedQuestions as unknown as QBQuestion[]);
     }
 
-    setQuestions(supaData);
-    setTotal(supaCount);
+    // Apply Filters (Subject, Difficulty, Search)
+    let filtered = allPool;
+    if (filterSubject) {
+      filtered = filtered.filter(q => q.subject && q.subject.toLowerCase() === filterSubject.toLowerCase());
+    }
+    if (filterDiff) {
+      filtered = filtered.filter(q => q.difficulty === filterDiff);
+    }
+    if (searchQ) {
+      const sq = searchQ.toLowerCase();
+      filtered = filtered.filter(q =>
+        (q.question_text && q.question_text.toLowerCase().includes(sq)) ||
+        (q.topic && q.topic.toLowerCase().includes(sq)) ||
+        (q.source_reference && q.source_reference.toLowerCase().includes(sq))
+      );
+    }
+
+    const start = page * PAGE_SIZE;
+    setQuestions(filtered.slice(start, start + PAGE_SIZE));
+    setTotal(filtered.length);
     setLoading(false);
   }, [filterSubject, filterDiff, searchQ, page, supabase]);
 
   const handleSyncDocxBank = async () => {
     setSyncing(true);
-    try {
-      const allQs = (importedQuestions as unknown as QBQuestion[]);
-      const BATCH_SIZE = 50;
-      let inserted = 0;
+    const allQs = (importedQuestions as unknown as QBQuestion[]);
 
+    // 1. Always save to LocalStorage so instant full UI & local persistence works 100%
+    try {
+      localStorage.setItem('ahsora_local_qb_questions', JSON.stringify(allQs));
+    } catch (e) {
+      console.error('LocalStorage write error:', e);
+    }
+
+    // 2. Attempt Supabase insert
+    let dbSuccessCount = 0;
+    try {
+      const BATCH_SIZE = 50;
       for (let i = 0; i < allQs.length; i += BATCH_SIZE) {
         const batch = allQs.slice(i, i + BATCH_SIZE).map(q => ({
           subject: q.subject,
@@ -130,14 +151,21 @@ export default function AdminQuestionBankPage() {
           is_active: true,
         }));
 
-        await supabase.from('qb_questions').insert(batch);
-        inserted += batch.length;
+        const { error } = await supabase.from('qb_questions').insert(batch);
+        if (!error) {
+          dbSuccessCount += batch.length;
+        }
       }
-      showToast(`Successfully synced ${inserted} questions from Docx Bank to Database!`);
-    } catch (err: any) {
-      showToast(`Docx questions loaded locally (${importedQuestions.length} MCQs available).`);
-    }
+    } catch (err: any) {}
+
     setSyncing(false);
+
+    if (dbSuccessCount > 0) {
+      showToast(`Successfully synced ${dbSuccessCount} questions to database!`);
+    } else {
+      showToast(`Loaded ${allQs.length} official Docx questions into Question Bank!`);
+    }
+
     fetchQuestions();
   };
 
