@@ -124,13 +124,19 @@ export default function AdminQuestionBankPage() {
 
   const handleSyncDocxBank = async () => {
     setSyncing(true);
-    const allQs = (importedQuestions as unknown as QBQuestion[]);
 
-    // 1. Always save to LocalStorage for instant local persistence
+    // Respect user deletions by pulling current local storage state if it exists
+    let targetQs: QBQuestion[] = [];
     try {
-      localStorage.setItem('ahsora_local_qb_questions', JSON.stringify(allQs));
+      const cached = localStorage.getItem('ahsora_local_qb_questions');
+      if (cached) {
+        targetQs = JSON.parse(cached);
+      } else {
+        targetQs = (importedQuestions as unknown as QBQuestion[]);
+        localStorage.setItem('ahsora_local_qb_questions', JSON.stringify(targetQs));
+      }
     } catch (e) {
-      console.error('LocalStorage write error:', e);
+      targetQs = (importedQuestions as unknown as QBQuestion[]);
     }
 
     // 2. Attempt Supabase insert (omitting custom 'qb-xxx' string ID so Postgres generates valid UUIDs)
@@ -138,12 +144,12 @@ export default function AdminQuestionBankPage() {
     let dbError = '';
     try {
       const { count } = await supabase.from('qb_questions').select('*', { count: 'exact', head: true });
-      if (count && count >= allQs.length) {
+      if (count && count >= targetQs.length) {
         dbSuccessCount = count;
       } else {
         const BATCH_SIZE = 50;
-        for (let i = 0; i < allQs.length; i += BATCH_SIZE) {
-          const batch = allQs.slice(i, i + BATCH_SIZE).map(q => ({
+        for (let i = 0; i < targetQs.length; i += BATCH_SIZE) {
+          const batch = targetQs.slice(i, i + BATCH_SIZE).map(q => ({
             // OMIT id field so Supabase auto-generates valid UUIDs
             subject: q.subject,
             topic: q.topic,
@@ -179,9 +185,9 @@ export default function AdminQuestionBankPage() {
     if (dbSuccessCount > 0) {
       showToast(`✅ Synced ${dbSuccessCount} questions to database!`);
     } else if (dbError) {
-      showToast(`📚 ${allQs.length} questions loaded locally (DB: ${dbError.slice(0, 40)})`);
+      showToast(`📚 ${targetQs.length} questions active locally (DB: ${dbError.slice(0, 35)})`);
     } else {
-      showToast(`📚 ${allQs.length} Docx questions loaded into Question Bank!`);
+      showToast(`📚 ${targetQs.length} questions loaded into Question Bank!`);
     }
 
     fetchQuestions();
