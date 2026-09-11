@@ -6,9 +6,7 @@ import {
   Plus, Search, Pencil, Trash2, Upload, X, Check, ChevronDown,
   BookOpen, Filter, Loader2, AlertCircle, FileSpreadsheet
 } from 'lucide-react';
-
-
-
+import importedQuestions, { getImportedQuestions } from '@/lib/imported_questions';
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface QBQuestion {
   id: string;
@@ -96,7 +94,8 @@ export default function AdminQuestionBankPage() {
 
     // 3. Fallback to bundled 820 imported questions
     if (allPool.length === 0) {
-      allPool = (importedQuestions as unknown as QBQuestion[]);
+      const q = getImportedQuestions();
+      allPool = ((q && q.length > 0 ? q : importedQuestions) as unknown as QBQuestion[]);
     }
 
     // Apply Filters (Subject, Difficulty, Search)
