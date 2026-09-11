@@ -1,4 +1,4 @@
-[
+const importedQuestions = [
   {
     "id": "qb-BIO-BCH-WAT-001-1",
     "subject": "Biology",
@@ -13939,4 +13939,6 @@
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.392Z"
   }
-]
+];
+
+export default importedQuestions;

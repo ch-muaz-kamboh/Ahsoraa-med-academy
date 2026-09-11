@@ -7,7 +7,7 @@ import {
   BookOpen, Filter, Loader2, AlertCircle, FileSpreadsheet
 } from 'lucide-react';
 
-import importedQuestions from '@/lib/imported_questions.json';
+import importedQuestions from '@/lib/imported_questions';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface QBQuestion {

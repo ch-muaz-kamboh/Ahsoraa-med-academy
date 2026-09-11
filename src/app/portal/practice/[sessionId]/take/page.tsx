@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useParams, useRouter } from 'next/navigation';
 import { Flag, ChevronLeft, ChevronRight, Clock, Send, Loader2 } from 'lucide-react';
-import importedQuestions from '@/lib/imported_questions.json';
+import importedQuestions from '@/lib/imported_questions';
 
 interface QBQuestion {
   id: string; subject: string; topic: string; difficulty: string;

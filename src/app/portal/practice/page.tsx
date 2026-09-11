@@ -8,7 +8,7 @@ import {
   Beaker, Calculator, Brain, FlaskConical, Globe, Sigma,
   ChevronRight, Loader2, Shuffle, Clock, BookOpen, BarChart3
 } from 'lucide-react';
-import importedQuestions from '@/lib/imported_questions.json';
+import importedQuestions from '@/lib/imported_questions';
 
 const SUBJECTS = [
   { name:'Biology',          icon:<Beaker size={20}/>,     color:'#10B981', bg:'#F0FFF4' },
