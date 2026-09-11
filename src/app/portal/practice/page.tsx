@@ -66,26 +66,25 @@ export default function PracticePage() {
 
   useEffect(() => {
     if (!subject) { setAvailableTopics([]); return; }
-    supabase
-      .from('qb_questions')
-      .select('topic')
-      .eq('subject', subject)
-      .eq('is_active', true)
-      .then(({ data }) => {
+    const fetchTopics = async () => {
+      try {
+        const { data } = await supabase
+          .from('qb_questions')
+          .select('topic')
+          .eq('subject', subject)
+          .eq('is_active', true);
         if (data && data.length > 0) {
           const unique = [...new Set(data.map(r => r.topic).filter(Boolean))].sort();
           setAvailableTopics(unique as string[]);
-        } else {
-          const filtered = (importedQuestions as any[]).filter(q => q.subject === subject);
-          const unique = [...new Set(filtered.map(q => q.topic).filter(Boolean))].sort();
-          setAvailableTopics(unique as string[]);
+          return;
         }
-      })
-      .catch(() => {
-        const filtered = (importedQuestions as any[]).filter(q => q.subject === subject);
-        const unique = [...new Set(filtered.map(q => q.topic).filter(Boolean))].sort();
-        setAvailableTopics(unique as string[]);
-      });
+      } catch (e) {}
+
+      const filtered = (importedQuestions as any[]).filter(q => q.subject === subject);
+      const unique = [...new Set(filtered.map(q => q.topic).filter(Boolean))].sort();
+      setAvailableTopics(unique as string[]);
+    };
+    fetchTopics();
   }, [subject, supabase]);
 
   const totalAvailable = subjectCounts.reduce((s,r) => s+r.count, 0);
