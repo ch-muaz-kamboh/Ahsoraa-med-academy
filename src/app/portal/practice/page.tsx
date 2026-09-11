@@ -124,9 +124,8 @@ export default function PracticePage() {
 
     if (sErr || !session) { alert('Failed to create session: '+(sErr?.message||'Unknown')); setCreating(false); return; }
 
-    // Draw random questions (try Supabase first, fallback to local 820 bank)
-    let selectedQids: string[] = [];
-    let usingLocalPool = false;
+    // Draw questions from pool (local 820 bank or Supabase)
+    let pickedQuestions: any[] = [];
     try {
       const { data: qids } = await supabase.rpc('get_random_question_ids', {
         p_count: questionCount,
@@ -135,45 +134,50 @@ export default function PracticePage() {
         p_difficulty: difficulty || null,
       });
       if (qids && qids.length > 0) {
-        selectedQids = qids.map((r: { question_id: string }) => r.question_id);
+        const ids = qids.map((r: { question_id: string }) => r.question_id);
+        const { data: dbQs } = await supabase
+          .from('qb_questions')
+          .select('id,subject,topic,difficulty,question_text,question_image_url,option_a,option_b,option_c,option_d,option_e,correct_option,explanation')
+          .in('id', ids);
+        if (dbQs && dbQs.length > 0) {
+          pickedQuestions = dbQs;
+        }
       }
     } catch (e) {}
 
-    // Fallback: If DB returned fewer questions than requested, draw from local 820 MCQs pool
-    if (selectedQids.length < questionCount) {
-      usingLocalPool = true;
+    // Fallback: If DB returned 0 questions, draw from local 820 MCQs pool
+    if (pickedQuestions.length === 0) {
       let pool = getPool();
       try {
         const cached = localStorage.getItem('ahsora_local_qb_questions');
-        if (cached) pool = JSON.parse(cached);
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          if (Array.isArray(parsed) && parsed.length > 0) pool = parsed;
+        }
       } catch (e) {}
 
       let filtered = pool;
-      if (subject) filtered = filtered.filter(q => q.subject.toLowerCase() === subject.toLowerCase());
-      if (topic) filtered = filtered.filter(q => q.topic.toLowerCase() === topic.toLowerCase());
-      if (difficulty) filtered = filtered.filter(q => q.difficulty === difficulty);
+      if (subject) filtered = filtered.filter(q => q.subject && q.subject.toLowerCase() === subject.toLowerCase());
+      if (topic) filtered = filtered.filter(q => q.topic && q.topic.toLowerCase() === topic.toLowerCase());
+      if (difficulty) filtered = filtered.filter(q => q.difficulty && q.difficulty.toLowerCase() === difficulty.toLowerCase());
       if (filtered.length === 0) filtered = pool; // Widen criteria if too narrow
 
       const shuffled = [...filtered].sort(() => Math.random() - 0.5);
-      const picked = shuffled.slice(0, Math.min(questionCount, shuffled.length));
-      selectedQids = picked.map(q => q.id);
-
-      // Store local question details in localStorage keyed by session so take page can load them
-      const sessionQs = picked.map((q: any) => ({ ...q }));
-      try {
-        localStorage.setItem(`practice_session_local_${session.id}`, JSON.stringify(sessionQs));
-      } catch (e) {}
+      pickedQuestions = shuffled.slice(0, Math.min(questionCount, shuffled.length));
     }
 
-    if (!usingLocalPool) {
-      // Link DB questions to session
-      try {
-        const linkRows = selectedQids.map((qid: string, i: number) => ({
-          session_id: session.id, question_id: qid, order_index: i,
-        }));
-        await supabase.from('practice_session_questions').insert(linkRows);
-      } catch (e) {}
-    }
+    // ALWAYS store resolved questions in localStorage for instant access on take page
+    try {
+      localStorage.setItem(`practice_session_local_${session.id}`, JSON.stringify(pickedQuestions));
+    } catch (e) {}
+
+    // Link DB question IDs to session in Supabase if present
+    try {
+      const linkRows = pickedQuestions.map((q: any, i: number) => ({
+        session_id: session.id, question_id: q.id, order_index: i,
+      }));
+      await supabase.from('practice_session_questions').insert(linkRows);
+    } catch (e) {}
 
     // Update session status
     await supabase.from('practice_sessions').update({ status:'in_progress', started_at: new Date().toISOString() }).eq('id', session.id);

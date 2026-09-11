@@ -49,73 +49,90 @@ export default function PracticeTakePage() {
       if (session.time_limit_minutes > 0) setTimeLeft(session.time_limit_minutes * 60);
       let loadedQuestions: QBQuestion[] = [];
 
-      // FIRST: check if this session was created from the local 820 pool (no DB link exists)
+      // FIRST: check if this session was created from local/cached session data
       try {
         const localSessionData = localStorage.getItem(`practice_session_local_${sessionId}`);
         if (localSessionData) {
-          loadedQuestions = JSON.parse(localSessionData) as QBQuestion[];
+          const parsed = JSON.parse(localSessionData) as QBQuestion[];
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            loadedQuestions = parsed;
+          }
         }
       } catch (e) {}
 
-      // SECOND: try loading from Supabase if no local session data found
+      // SECOND: try loading linked questions from Supabase if no local session data found
       if (loadedQuestions.length === 0) {
-        const { data: sq } = await supabase
-          .from('practice_session_questions')
-          .select('question_id, order_index')
-          .eq('session_id', sessionId).order('order_index');
-        
-        if (sq && sq.length > 0) {
-          const ids = sq.map((r: SessionQ) => r.question_id);
-          const { data: qs } = await supabase
-            .from('qb_questions')
-            .select('id,subject,topic,difficulty,question_text,question_image_url,option_a,option_b,option_c,option_d,option_e,correct_option,explanation')
-            .in('id', ids);
-          if (qs && qs.length > 0) {
-            const qMap = Object.fromEntries(qs.map((q: QBQuestion) => [q.id, q]));
-            loadedQuestions = sq.map((s: SessionQ) => qMap[s.question_id]).filter(Boolean);
+        try {
+          const { data: sq } = await supabase
+            .from('practice_session_questions')
+            .select('question_id, order_index')
+            .eq('session_id', sessionId).order('order_index');
+          
+          if (sq && sq.length > 0) {
+            const ids = sq.map((r: SessionQ) => r.question_id);
+            const { data: qs } = await supabase
+              .from('qb_questions')
+              .select('id,subject,topic,difficulty,question_text,question_image_url,option_a,option_b,option_c,option_d,option_e,correct_option,explanation')
+              .in('id', ids);
+            if (qs && qs.length > 0) {
+              const qMap = Object.fromEntries(qs.map((q: QBQuestion) => [q.id, q]));
+              loadedQuestions = sq.map((s: SessionQ) => qMap[s.question_id]).filter(Boolean);
+            }
+            // Fallback: match by local qb-xxx IDs from localStorage / bundled JSON
+            if (loadedQuestions.length === 0) {
+              const localPool = getPool();
+              const qMap = Object.fromEntries(localPool.map((q: any) => [q.id, q]));
+              loadedQuestions = ids.map(id => qMap[id]).filter(Boolean);
+            }
           }
-          // Fallback: match by local qb-xxx IDs from localStorage / bundled JSON
-          if (loadedQuestions.length === 0) {
-            const localPool: any[] = (() => {
-              try {
-                const c = localStorage.getItem('ahsora_local_qb_questions');
-                return c ? JSON.parse(c) : getPool();
-              } catch { return getPool(); }
-            })();
-            const qMap = Object.fromEntries(localPool.map((q: any) => [q.id, q]));
-            loadedQuestions = ids.map(id => qMap[id]).filter(Boolean);
-          }
-        }
+        } catch (e) {}
       }
 
-      // Final safety fallback: random questions from bundled 820 pool
+      // THIRD: filter bundled 820 pool by session criteria if still empty
       if (loadedQuestions.length === 0) {
-        const localPool: any[] = (() => {
-          try {
-            const c = localStorage.getItem('ahsora_local_qb_questions');
-            return c ? JSON.parse(c) : getPool();
-          } catch { return getPool(); }
-        })();
+        let pool = getPool();
+        if (session.subject_filter) {
+          const sFiltered = pool.filter((q: any) => q.subject && q.subject.toLowerCase() === session.subject_filter.toLowerCase());
+          if (sFiltered.length > 0) pool = sFiltered;
+        }
+        if (session.topic_filter) {
+          const tFiltered = pool.filter((q: any) => q.topic && q.topic.toLowerCase() === session.topic_filter.toLowerCase());
+          if (tFiltered.length > 0) pool = tFiltered;
+        }
+        if (session.difficulty_filter) {
+          const dFiltered = pool.filter((q: any) => q.difficulty && q.difficulty.toLowerCase() === session.difficulty_filter.toLowerCase());
+          if (dFiltered.length > 0) pool = dFiltered;
+        }
         const count = session.question_count || 20;
-        const shuffled = [...localPool].sort(() => Math.random() - 0.5);
+        const shuffled = [...pool].sort(() => Math.random() - 0.5);
         loadedQuestions = shuffled.slice(0, count);
       }
 
+      // Cache resolved questions to localStorage for fast subsequent loads
+      try {
+        if (loadedQuestions.length > 0) {
+          localStorage.setItem(`practice_session_local_${sessionId}`, JSON.stringify(loadedQuestions));
+        }
+      } catch (e) {}
+
       setQuestions(loadedQuestions);
 
-      const { data: existingAnswers } = await supabase
-        .from('practice_answers').select('question_id, selected_option, is_marked_review').eq('session_id', sessionId);
-      if (existingAnswers) {
-        const map: Record<string,Answer> = {};
-        existingAnswers.forEach((a: {question_id:string; selected_option:string|null; is_marked_review:boolean}) => {
-          map[a.question_id] = { selected_option: a.selected_option, is_marked_review: a.is_marked_review, time_spent_seconds: 0 };
-        });
-        setAnswers(map);
-      }
+      try {
+        const { data: existingAnswers } = await supabase
+          .from('practice_answers').select('question_id, selected_option, is_marked_review').eq('session_id', sessionId);
+        if (existingAnswers) {
+          const map: Record<string,Answer> = {};
+          existingAnswers.forEach((a: {question_id:string; selected_option:string|null; is_marked_review:boolean}) => {
+            map[a.question_id] = { selected_option: a.selected_option, is_marked_review: a.is_marked_review, time_spent_seconds: 0 };
+          });
+          setAnswers(map);
+        }
+      } catch (e) {}
       setLoading(false);
     };
     load();
-  }, [sessionId, router, supabase]);
+    // eslint-disable-next-deps
+  }, [sessionId]);
 
   useEffect(() => {
     if (submitted || loading) return;
