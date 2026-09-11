@@ -121,6 +121,7 @@ export default function PracticePage() {
 
     // Draw random questions (try Supabase first, fallback to local 820 bank)
     let selectedQids: string[] = [];
+    let usingLocalPool = false;
     try {
       const { data: qids } = await supabase.rpc('get_random_question_ids', {
         p_count: questionCount,
@@ -135,6 +136,7 @@ export default function PracticePage() {
 
     // Fallback: If DB returned fewer questions than requested, draw from local 820 MCQs pool
     if (selectedQids.length < questionCount) {
+      usingLocalPool = true;
       let pool = (importedQuestions as any[]);
       try {
         const cached = localStorage.getItem('ahsora_local_qb_questions');
@@ -145,27 +147,28 @@ export default function PracticePage() {
       if (subject) filtered = filtered.filter(q => q.subject.toLowerCase() === subject.toLowerCase());
       if (topic) filtered = filtered.filter(q => q.topic.toLowerCase() === topic.toLowerCase());
       if (difficulty) filtered = filtered.filter(q => q.difficulty === difficulty);
-      if (filtered.length === 0) filtered = pool; // Fallback to entire pool if criteria too narrow
+      if (filtered.length === 0) filtered = pool; // Widen criteria if too narrow
 
-      // Shuffle & select questionCount
       const shuffled = [...filtered].sort(() => Math.random() - 0.5);
       const picked = shuffled.slice(0, Math.min(questionCount, shuffled.length));
       selectedQids = picked.map(q => q.id);
+
+      // Store local question details in localStorage keyed by session so take page can load them
+      const sessionQs = picked.map((q: any) => ({ ...q }));
+      try {
+        localStorage.setItem(`practice_session_local_${session.id}`, JSON.stringify(sessionQs));
+      } catch (e) {}
     }
 
-    if (selectedQids.length === 0) {
-      await supabase.from('practice_sessions').delete().eq('id', session.id);
-      alert('Not enough questions match your criteria.');
-      setCreating(false); return;
+    if (!usingLocalPool) {
+      // Link DB questions to session
+      try {
+        const linkRows = selectedQids.map((qid: string, i: number) => ({
+          session_id: session.id, question_id: qid, order_index: i,
+        }));
+        await supabase.from('practice_session_questions').insert(linkRows);
+      } catch (e) {}
     }
-
-    // Link questions to session (ignore error if offline string IDs used)
-    try {
-      const linkRows = selectedQids.map((qid: string, i: number) => ({
-        session_id: session.id, question_id: qid, order_index: i,
-      }));
-      await supabase.from('practice_session_questions').insert(linkRows);
-    } catch (e) {}
 
     // Update session status
     await supabase.from('practice_sessions').update({ status:'in_progress', started_at: new Date().toISOString() }).eq('id', session.id);

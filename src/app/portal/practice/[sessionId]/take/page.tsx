@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useParams, useRouter } from 'next/navigation';
 import { Flag, ChevronLeft, ChevronRight, Clock, Send, Loader2 } from 'lucide-react';
+import importedQuestions from '@/lib/imported_questions.json';
 
 interface QBQuestion {
   id: string; subject: string; topic: string; difficulty: string;
@@ -42,41 +43,57 @@ export default function PracticeTakePage() {
       setSessionTitle(session.title);
       if (session.time_limit_minutes > 0) setTimeLeft(session.time_limit_minutes * 60);
       let loadedQuestions: QBQuestion[] = [];
-      const { data: sq } = await supabase
-        .from('practice_session_questions')
-        .select('question_id, order_index')
-        .eq('session_id', sessionId).order('order_index');
-      
-      if (sq && sq.length > 0) {
-        const ids = sq.map((r: SessionQ) => r.question_id);
-        const { data: qs } = await supabase
-          .from('qb_questions')
-          .select('id,subject,topic,difficulty,question_text,question_image_url,option_a,option_b,option_c,option_d,option_e,correct_option,explanation')
-          .in('id', ids);
-        if (qs && qs.length > 0) {
-          const qMap = Object.fromEntries(qs.map((q: QBQuestion) => [q.id, q]));
-          loadedQuestions = sq.map((s: SessionQ) => qMap[s.question_id]).filter(Boolean);
-        } else {
-          // Local pool fallback for offline / local-only string IDs
-          let pool = (importedQuestions as any[]);
-          try {
-            const cached = localStorage.getItem('ahsora_local_qb_questions');
-            if (cached) pool = JSON.parse(cached);
-          } catch (e) {}
-          const qMap = Object.fromEntries(pool.map((q: any) => [q.id, q]));
-          loadedQuestions = ids.map(id => qMap[id]).filter(Boolean);
+
+      // FIRST: check if this session was created from the local 820 pool (no DB link exists)
+      try {
+        const localSessionData = localStorage.getItem(`practice_session_local_${sessionId}`);
+        if (localSessionData) {
+          loadedQuestions = JSON.parse(localSessionData) as QBQuestion[];
+        }
+      } catch (e) {}
+
+      // SECOND: try loading from Supabase if no local session data found
+      if (loadedQuestions.length === 0) {
+        const { data: sq } = await supabase
+          .from('practice_session_questions')
+          .select('question_id, order_index')
+          .eq('session_id', sessionId).order('order_index');
+        
+        if (sq && sq.length > 0) {
+          const ids = sq.map((r: SessionQ) => r.question_id);
+          const { data: qs } = await supabase
+            .from('qb_questions')
+            .select('id,subject,topic,difficulty,question_text,question_image_url,option_a,option_b,option_c,option_d,option_e,correct_option,explanation')
+            .in('id', ids);
+          if (qs && qs.length > 0) {
+            const qMap = Object.fromEntries(qs.map((q: QBQuestion) => [q.id, q]));
+            loadedQuestions = sq.map((s: SessionQ) => qMap[s.question_id]).filter(Boolean);
+          }
+          // Fallback: match by local qb-xxx IDs from localStorage / bundled JSON
+          if (loadedQuestions.length === 0) {
+            const localPool: any[] = (() => {
+              try {
+                const c = localStorage.getItem('ahsora_local_qb_questions');
+                return c ? JSON.parse(c) : (importedQuestions as any[]);
+              } catch { return importedQuestions as any[]; }
+            })();
+            const qMap = Object.fromEntries(localPool.map((q: any) => [q.id, q]));
+            loadedQuestions = ids.map(id => qMap[id]).filter(Boolean);
+          }
         }
       }
 
-      // Final safety fallback: load default random questions from 820 pool
+      // Final safety fallback: random questions from bundled 820 pool
       if (loadedQuestions.length === 0) {
-        let pool = (importedQuestions as any[]);
-        try {
-          const cached = localStorage.getItem('ahsora_local_qb_questions');
-          if (cached) pool = JSON.parse(cached);
-        } catch (e) {}
+        const localPool: any[] = (() => {
+          try {
+            const c = localStorage.getItem('ahsora_local_qb_questions');
+            return c ? JSON.parse(c) : (importedQuestions as any[]);
+          } catch { return importedQuestions as any[]; }
+        })();
         const count = session.question_count || 20;
-        loadedQuestions = pool.slice(0, count);
+        const shuffled = [...localPool].sort(() => Math.random() - 0.5);
+        loadedQuestions = shuffled.slice(0, count);
       }
 
       setQuestions(loadedQuestions);
