@@ -42,25 +42,28 @@ WHERE is_active = TRUE
 ORDER BY subject, chapter, topic;
 
 -- =============================================================================
--- OPTIONAL: Backfill chapter data for any existing 820 Biology questions
--- This maps the old broad topic values to proper chapters.
+-- OPTIONAL: Backfill topic/chapter data for any existing Biology questions
+-- This maps the old broad topic values to proper Topic and Chapter logic.
 -- =============================================================================
+
 UPDATE qb_questions
-SET chapter = CASE
-  WHEN topic ILIKE '%biochem%' OR topic ILIKE '%bioenerg%' OR topic ILIKE '%biological molecule%'
-    THEN 'Biochemistry, Biological Molecules & Bioenergetics'
-  WHEN topic ILIKE '%evolution%' OR topic ILIKE '%biotechnology%' OR topic ILIKE '%variation%'
-    THEN 'Evolution, Variation & Biotechnology'
-  WHEN topic ILIKE '%genetics%' OR topic ILIKE '%heredity%' OR topic ILIKE '%molecular biology%'
-    OR topic ILIKE '%classical%' OR topic ILIKE '%human genetics%'
-    THEN 'Genetics, Heredity & Molecular Biology'
-  WHEN topic ILIKE '%anatomy%' OR topic ILIKE '%physiology%' OR topic ILIKE '%homeostasis%'
-    OR topic ILIKE '%circulatory%' OR topic ILIKE '%digestive%' OR topic ILIKE '%respiratory%'
-    OR topic ILIKE '%musculoskeletal%' OR topic ILIKE '%kidney%' OR topic ILIKE '%nervous%'
-    OR topic ILIKE '%immunity%' OR topic ILIKE '%reproduction%'
-    THEN 'Human Anatomy, Physiology & Homeostasis'
-  WHEN topic ILIKE '%cell%'
-    THEN 'Cell Biology'
-  ELSE ''
-END
+SET 
+  chapter = topic, -- Specific category moves to chapter
+  topic = CASE     -- Broad category moves to topic
+    WHEN topic ILIKE '%biochem%' OR topic ILIKE '%bioenerg%' OR topic ILIKE '%biological molecule%'
+      THEN 'Biochemistry, Biological Molecules & Bioenergetics'
+    WHEN topic ILIKE '%evolution%' OR topic ILIKE '%biotechnology%' OR topic ILIKE '%variation%'
+      THEN 'Evolution, Variation & Biotechnology'
+    WHEN topic ILIKE '%genetics%' OR topic ILIKE '%heredity%' OR topic ILIKE '%molecular biology%'
+      OR topic ILIKE '%classical%' OR topic ILIKE '%human genetics%'
+      THEN 'Genetics, Heredity & Molecular Biology'
+    WHEN topic ILIKE '%anatomy%' OR topic ILIKE '%physiology%' OR topic ILIKE '%homeostasis%'
+      OR topic ILIKE '%circulatory%' OR topic ILIKE '%digestive%' OR topic ILIKE '%respiratory%'
+      OR topic ILIKE '%musculoskeletal%' OR topic ILIKE '%kidney%' OR topic ILIKE '%nervous%'
+      OR topic ILIKE '%immunity%' OR topic ILIKE '%reproduction%'
+      THEN 'Human Anatomy, Physiology & Homeostasis'
+    WHEN topic ILIKE '%cell%'
+      THEN 'Cell Biology'
+    ELSE topic
+  END
 WHERE subject = 'Biology' AND (chapter IS NULL OR chapter = '');

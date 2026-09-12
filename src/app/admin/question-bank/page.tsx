@@ -71,7 +71,7 @@ const BIOLOGY_STRUCTURE: Record<string, string[]> = {
     'Recombinant DNA & Biotechnology',
   ],
 };
-const BIOLOGY_CHAPTERS = Object.keys(BIOLOGY_STRUCTURE);
+const BIOLOGY_TOPICS = Object.keys(BIOLOGY_STRUCTURE);
 const EMPTY_FORM = {
   subject: 'Biology', chapter: '', topic: '', difficulty: 'medium' as 'easy'|'medium'|'hard',
   question_text: '', option_a: '', option_b: '', option_c: '', option_d: '', option_e: '',
@@ -97,7 +97,7 @@ export default function AdminQuestionBankPage() {
   // Filters
   const [searchQ, setSearchQ]         = useState('');
   const [filterSubject, setFilterSubject] = useState('');
-  const [filterChapter, setFilterChapter] = useState('');
+  const [filterTopic, setFilterTopic] = useState('');
   const [filterDiff, setFilterDiff]   = useState('');
   const [page, setPage]               = useState(0);
   const PAGE_SIZE = 20;
@@ -150,8 +150,8 @@ export default function AdminQuestionBankPage() {
     if (filterSubject) {
       filtered = filtered.filter(q => q.subject && q.subject.toLowerCase() === filterSubject.toLowerCase());
     }
-    if (filterChapter) {
-      filtered = filtered.filter(q => q.chapter && q.chapter.toLowerCase() === filterChapter.toLowerCase());
+    if (filterTopic) {
+      filtered = filtered.filter(q => q.topic && q.topic.toLowerCase() === filterTopic.toLowerCase());
     }
     if (filterDiff) {
       filtered = filtered.filter(q => q.difficulty === filterDiff);
@@ -170,7 +170,7 @@ export default function AdminQuestionBankPage() {
     setQuestions(filtered.slice(start, start + PAGE_SIZE));
     setTotal(filtered.length);
     setLoading(false);
-  }, [filterSubject, filterDiff, searchQ, page, supabase]);
+  }, [filterSubject, filterTopic, filterDiff, searchQ, page, supabase]);
 
   const handleSyncDocxBank = async () => {
     setSyncing(true);
@@ -463,18 +463,18 @@ export default function AdminQuestionBankPage() {
             style={{ width:'100%', padding:'9px 12px 9px 34px', borderRadius:'8px',
               border:'1px solid #E2E8F0', fontSize:'0.875rem', outline:'none' }} />
         </div>
-        <select value={filterSubject} onChange={e => { setFilterSubject(e.target.value); setFilterChapter(''); setPage(0); }}
+        <select value={filterSubject} onChange={e => { setFilterSubject(e.target.value); setFilterTopic(''); setPage(0); }}
           style={{ padding:'9px 12px', borderRadius:'8px', border:'1px solid #E2E8F0',
             fontSize:'0.875rem', backgroundColor:'#fff', outline:'none' }}>
           <option value="">All Subjects</option>
           {SUBJECTS.map(s => <option key={s} value={s}>{s}</option>)}
         </select>
         {filterSubject === 'Biology' && (
-          <select value={filterChapter} onChange={e => { setFilterChapter(e.target.value); setPage(0); }}
+          <select value={filterTopic} onChange={e => { setFilterTopic(e.target.value); setPage(0); }}
             style={{ padding:'9px 12px', borderRadius:'8px', border:'1px solid #E2E8F0',
               fontSize:'0.875rem', backgroundColor:'#fff', outline:'none' }}>
-            <option value="">All Chapters</option>
-            {BIOLOGY_CHAPTERS.map(c => <option key={c} value={c}>{c}</option>)}
+            <option value="">All Topics</option>
+            {BIOLOGY_TOPICS.map(c => <option key={c} value={c}>{c}</option>)}
           </select>
         )}
         <select value={filterDiff} onChange={e => { setFilterDiff(e.target.value); setPage(0); }}
@@ -617,27 +617,27 @@ export default function AdminQuestionBankPage() {
                 </select>
               </div>
               <div>
-                <label style={LS}>Chapter</label>
+                <label style={LS}>Topic (Broad Category)</label>
                 {form.subject === 'Biology' ? (
-                  <select value={form.chapter} onChange={e => setForm({...form, chapter:e.target.value, topic:''})} style={SS}>
-                    <option value="">— Select Chapter —</option>
-                    {BIOLOGY_CHAPTERS.map(c => <option key={c} value={c}>{c}</option>)}
+                  <select value={form.topic} onChange={e => setForm({...form, topic:e.target.value, chapter:''})} style={SS}>
+                    <option value="">— Select Topic —</option>
+                    {BIOLOGY_TOPICS.map(c => <option key={c} value={c}>{c}</option>)}
                   </select>
                 ) : (
-                  <input value={form.chapter} onChange={e => setForm({...form, chapter:e.target.value})}
+                  <input value={form.topic} onChange={e => setForm({...form, topic:e.target.value})}
                     placeholder="e.g. Organic Chemistry" style={IS} />
                 )}
               </div>
               <div>
-                <label style={LS}>Topic</label>
-                {form.subject === 'Biology' && form.chapter && BIOLOGY_STRUCTURE[form.chapter] ? (
-                  <select value={form.topic} onChange={e => setForm({...form, topic:e.target.value})} style={SS}>
-                    <option value="">— Select Topic —</option>
-                    {BIOLOGY_STRUCTURE[form.chapter].map(t => <option key={t} value={t}>{t}</option>)}
+                <label style={LS}>Chapter (Specific Unit)</label>
+                {form.subject === 'Biology' && form.topic && BIOLOGY_STRUCTURE[form.topic] ? (
+                  <select value={form.chapter} onChange={e => setForm({...form, chapter:e.target.value})} style={SS}>
+                    <option value="">— Select Chapter —</option>
+                    {BIOLOGY_STRUCTURE[form.topic].map(t => <option key={t} value={t}>{t}</option>)}
                   </select>
                 ) : (
-                  <input value={form.topic} onChange={e => setForm({...form, topic:e.target.value})}
-                    placeholder="e.g. Cell Division" style={IS} />
+                  <input value={form.chapter} onChange={e => setForm({...form, chapter:e.target.value})}
+                    placeholder="e.g. Alkanes" style={IS} />
                 )}
               </div>
               <div>

@@ -2,7 +2,7 @@ const importedQuestions = [
   {
     "id": "qb-BIO-BCH-WAT-001-1",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Why is a water molecule polar?",
     "option_a": "Oxygen attracts the shared electrons more strongly than hydrogen does.",
@@ -15,12 +15,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-001",
     "is_active": true,
     "created_at": "2026-09-11T05:18:07.964Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-002-2",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "A hydrogen bond between two water molecules forms mainly between:",
     "option_a": "two oxygen atoms sharing a pair of electrons.",
@@ -33,12 +33,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-002",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.896Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-003-3",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Which substance would generally be most hydrophilic?",
     "option_a": "A long hydrocarbon chain",
@@ -51,12 +51,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-003",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.896Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-004-4",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Hydrophobic molecules tend to cluster together in water mainly because:",
     "option_a": "they form strong ionic bonds with one another.",
@@ -69,12 +69,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-004",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.896Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-005-5",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Which property of water helps organisms resist rapid changes in body temperature?",
     "option_a": "High specific heat capacity",
@@ -87,12 +87,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-005",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.896Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-006-6",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Evaporation of sweat cools the body because water has:",
     "option_a": "a very low specific heat.",
@@ -105,12 +105,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-006",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.896Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-007-7",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Why does sodium chloride dissolve readily in water?",
     "option_a": "Water converts sodium and chloride atoms into isotopes.",
@@ -123,12 +123,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-007",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.896Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-008-8",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The tendency of water molecules to stick to one another is called:",
     "option_a": "adhesion.",
@@ -141,12 +141,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-008",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-009-9",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Why does ice float on liquid water?",
     "option_a": "Hydrogen bonds hold water molecules in a more open lattice in ice.",
@@ -159,12 +159,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-009",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-010-10",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Which interaction is individually weak but collectively important in stabilizing biological macromolecules?",
     "option_a": "Hydrogen bonding",
@@ -177,12 +177,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-010",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-011-11",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "In a hydrolysis reaction, water is used to:",
     "option_a": "form a peptide bond without releasing any molecule.",
@@ -195,12 +195,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-011",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-012-12",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "A condensation reaction that joins two monomers usually:",
     "option_a": "requires the polymer to gain one oxygen atom from air.",
@@ -213,12 +213,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-012",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-013-13",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "A decrease in pH indicates:",
     "option_a": "a decrease in hydrogen ion concentration.",
@@ -231,12 +231,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-013",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-014-14",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Which interaction can form between oppositely charged amino-acid side chains in a protein?",
     "option_a": "A phosphodiester bond",
@@ -249,12 +249,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-014",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-015-15",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "In double-stranded DNA, hydrogen bonds form directly between:",
     "option_a": "adjacent phosphate groups in one strand.",
@@ -267,12 +267,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-015",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-016-16",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "In a phospholipid bilayer, hydrophobic fatty-acid tails are oriented mainly:",
     "option_a": "toward the extracellular fluid only.",
@@ -285,12 +285,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-016",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-017-17",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A globular protein contains a hydrophobic amino acid that is normally buried in its core. If it is replaced by a strongly charged residue, the most likely direct consequence is:",
     "option_a": "stronger hydrophobic packing in the core.",
@@ -303,12 +303,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-017",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-018-18",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "Two equal masses of water and a nonpolar solvent receive the same amount of heat. The water temperature rises less. Which explanation is best?",
     "option_a": "Water molecules have no kinetic energy.",
@@ -321,12 +321,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-018",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-019-19",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A lake freezes at the surface while liquid water remains below. Which property of water contributes most directly to this pattern?",
     "option_a": "Liquid water becomes nonpolar below 0°C.",
@@ -339,12 +339,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-019",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-020-20",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "An enzyme loses activity when pH changes from 7 to 3, even though its peptide bonds remain intact. The most likely explanation is that low pH:",
     "option_a": "converts every amino acid into glucose.",
@@ -357,12 +357,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-020",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-021-21",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A DNA region rich in G-C base pairs generally requires more heat to separate its strands than an A-T-rich region because G-C pairs:",
     "option_a": "contain covalent bonds between the two DNA strands.",
@@ -375,12 +375,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-021",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-022-22",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A detergent disrupts a cell membrane mainly because its amphipathic molecules:",
     "option_a": "form peptide bonds with membrane proteins.",
@@ -393,12 +393,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-022",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-023-23",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A mutation replaces a polar amino acid on a protein surface with a nonpolar amino acid. Which effect is most plausible?",
     "option_a": "The peptide backbone necessarily breaks at the mutation site.",
@@ -411,12 +411,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-023",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-024-24",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "Why can a protein be stable even though many interactions holding its tertiary structure are individually weak?",
     "option_a": "Weak interactions become covalent when enough are present.",
@@ -429,12 +429,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-024",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-025-25",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A soluble protein has a hydrophobic core and polar surface. A mutation moves several nonpolar residues from the core to the surface without changing chain length. Which combination is most likely?",
     "option_a": "Greater solubility and stronger hydration of the mutated surface",
@@ -447,12 +447,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-025",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-026-26",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A salt bridge in a protein forms between a negatively charged carboxylate side chain and a positively charged amino group. Strong acid is added. Which change most directly weakens this interaction?",
     "option_a": "Deprotonation of the amino group increases its positive charge.",
@@ -465,12 +465,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-026",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-027-27",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A phospholipid suspension in water spontaneously forms bilayers. Which statement best explains the thermodynamic driving force at the level expected for biology?",
     "option_a": "Covalent bonds form between all neighboring phospholipids.",
@@ -483,12 +483,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-027",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-028-28",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A molecule competes for hydrogen-bond donors and acceptors on a folded protein without breaking covalent bonds. Which structural levels could be directly destabilized?",
     "option_a": "Secondary and tertiary structure, while primary structure can remain intact",
@@ -501,12 +501,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-028",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-029-29",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "An animal exposed to dry heat can maintain body temperature more effectively by sweating than an identical animal in saturated humid air. The main reason is that:",
     "option_a": "evaporation is faster in dry air, allowing more high-energy water molecules to leave the skin.",
@@ -519,12 +519,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-029",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-030-30",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A small molecule is highly soluble in water but poorly soluble in hexane. Which molecular feature most strongly supports this observation?",
     "option_a": "Several groups capable of hydrogen bonding or carrying partial/full charges",
@@ -537,12 +537,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-030",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-031-31",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A membrane protein is removed from its lipid bilayer and placed directly into water without detergent. Its transmembrane region contains many leucine and valine residues. What is the most likely outcome?",
     "option_a": "The transmembrane region becomes strongly hydrated and more soluble.",
@@ -555,12 +555,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-031",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-WAT-032-32",
     "subject": "Biology",
-    "topic": "Water, Weak Interactions & Chemical Basis of Life",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "Two proteins have the same amino-acid sequence except that one has multiple substitutions that each remove a single weak hydrogen bond. No one substitution is sufficient to unfold the protein. Why might the combined substitutions still cause unfolding?",
     "option_a": "Hydrogen bonds become peptide bonds when several are lost.",
@@ -573,12 +573,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-WAT-032",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Water, Weak Interactions & Chemical Basis of Life"
   },
   {
     "id": "qb-BIO-BCH-BML-001-33",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Which carbohydrate is a monosaccharide?",
     "option_a": "Sucrose",
@@ -591,12 +591,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-001",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-002-34",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Which bond joins monosaccharides in many carbohydrates?",
     "option_a": "A peptide bond",
@@ -609,12 +609,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-002",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-003-35",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The main storage polysaccharide in animals is:",
     "option_a": "cellulose.",
@@ -627,12 +627,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-003",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-004-36",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The main storage polysaccharide in plants is:",
     "option_a": "starch.",
@@ -645,12 +645,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-004",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-005-37",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Cellulose differs from starch mainly because cellulose:",
     "option_a": "contains beta-glucose linkages that produce straight structural chains.",
@@ -663,12 +663,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-005",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-006-38",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Which carbohydrate is a disaccharide?",
     "option_a": "Sucrose",
@@ -681,12 +681,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-006",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-007-39",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Hydrolysis of a polysaccharide generally produces:",
     "option_a": "fatty acids only.",
@@ -699,12 +699,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-007",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-008-40",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Which statement about glycogen is correct?",
     "option_a": "It is an unbranched protein polymer.",
@@ -717,12 +717,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-008",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-009-41",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "A triglyceride is formed from:",
     "option_a": "three glycerol molecules and one amino acid.",
@@ -735,12 +735,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-009",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-010-42",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Which component gives a phospholipid its hydrophilic character?",
     "option_a": "The fatty-acid tails",
@@ -753,12 +753,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-010",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-011-43",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "A saturated fatty acid contains:",
     "option_a": "one or more carbon-carbon double bonds.",
@@ -771,12 +771,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-011",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-012-44",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "An unsaturated fatty acid contains:",
     "option_a": "no carbon atoms.",
@@ -789,12 +789,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-012",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-013-45",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Which lipid is especially important in biological membranes?",
     "option_a": "Glycogen",
@@ -807,12 +807,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-013",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-014-46",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Ester bonds in triglycerides link fatty acids to:",
     "option_a": "amino acids.",
@@ -825,12 +825,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-014",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-015-47",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The monomers of proteins are:",
     "option_a": "fatty acids.",
@@ -843,12 +843,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-015",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-016-48",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "A peptide bond forms between:",
     "option_a": "two phosphate groups.",
@@ -861,12 +861,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-016",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.897Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-017-49",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Primary protein structure refers to:",
     "option_a": "the amino-acid sequence of a polypeptide.",
@@ -879,12 +879,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-017",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-018-50",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Alpha helices and beta sheets are examples of:",
     "option_a": "primary structure.",
@@ -897,12 +897,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-018",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-019-51",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Tertiary protein structure describes:",
     "option_a": "the nucleotide sequence of a gene.",
@@ -915,12 +915,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-019",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-020-52",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Quaternary protein structure is present when:",
     "option_a": "a protein contains one amino acid.",
@@ -933,12 +933,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-020",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-021-53",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Denaturation usually disrupts protein function because it:",
     "option_a": "alters the protein's three-dimensional shape.",
@@ -951,12 +951,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-021",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-022-54",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "A disulfide bond can form between side chains of two:",
     "option_a": "cysteine residues.",
@@ -969,12 +969,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-022",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-023-55",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Which level of protein structure is defined directly by covalent peptide bonds in the backbone sequence?",
     "option_a": "Primary structure",
@@ -987,12 +987,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-023",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-024-56",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Which amino-acid feature varies among the standard amino acids?",
     "option_a": "The presence of an amino group in the general structure",
@@ -1005,12 +1005,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-024",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-025-57",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Which interaction most directly stabilizes an alpha helix?",
     "option_a": "Hydrogen bonds between backbone groups",
@@ -1023,12 +1023,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-025",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-026-58",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The monomers of DNA and RNA are:",
     "option_a": "amino acids.",
@@ -1041,12 +1041,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-026",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-027-59",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "A nucleotide contains:",
     "option_a": "a pentose sugar, phosphate group and nitrogenous base.",
@@ -1059,12 +1059,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-027",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-028-60",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The sugar found in DNA is:",
     "option_a": "ribose.",
@@ -1077,12 +1077,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-028",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-029-61",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The sugar found in RNA is:",
     "option_a": "deoxyribose.",
@@ -1095,12 +1095,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-029",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-030-62",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Which base is normally present in RNA but not DNA?",
     "option_a": "Thymine",
@@ -1113,12 +1113,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-030",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-031-63",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Phosphodiester bonds in nucleic acids form part of the:",
     "option_a": "hydrophobic core of proteins.",
@@ -1131,12 +1131,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-031",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-032-64",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Which pair are purines?",
     "option_a": "Cytosine and thymine",
@@ -1149,12 +1149,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-032",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-033-65",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Which pair are pyrimidines in DNA?",
     "option_a": "Cytosine and thymine",
@@ -1167,12 +1167,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-033",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-034-66",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Which biomolecule class is characterized by peptide bonds?",
     "option_a": "Polysaccharides",
@@ -1185,12 +1185,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-034",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-035-67",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Which biomolecule class contains phosphodiester bonds as a repeating backbone linkage?",
     "option_a": "Proteins",
@@ -1203,12 +1203,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-035",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-036-68",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Which process most directly breaks polymers into monomers?",
     "option_a": "Hydrolysis",
@@ -1221,12 +1221,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-036",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-037-69",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A plant cell is unable to synthesize beta-1,4 glycosidic linkages. Which structure would be most directly affected?",
     "option_a": "Cellulose in the cell wall",
@@ -1239,12 +1239,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-037",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-038-70",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "Why is glycogen well suited for rapid glucose mobilization in animal cells?",
     "option_a": "It contains peptide bonds that are easily broken.",
@@ -1257,12 +1257,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-038",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-039-71",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A polysaccharide sample yields only glucose after complete hydrolysis but is resistant to human digestive enzymes. Which polymer is most likely?",
     "option_a": "Glycogen",
@@ -1275,12 +1275,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-039",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-040-72",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "Two carbohydrate polymers have the same monomer but different biological roles. Which feature can explain this difference?",
     "option_a": "Different numbers of protons in glucose carbon atoms",
@@ -1293,12 +1293,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-040",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-041-73",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A membrane contains more cis-unsaturated fatty acids after adaptation to cold. What effect is expected?",
     "option_a": "Lower fluidity because double bonds make tails straighter",
@@ -1311,12 +1311,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-041",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-042-74",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A triglyceride is hydrolyzed completely. Which products are expected?",
     "option_a": "Amino acids and glucose",
@@ -1329,12 +1329,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-042",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-043-75",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "Why do phospholipids form bilayers whereas triglycerides do not form the same stable sheet in water?",
     "option_a": "Triglycerides contain more phosphate groups.",
@@ -1347,12 +1347,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-043",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-044-76",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A fatty acid with several cis double bonds usually has a lower melting point than a saturated fatty acid of similar length because:",
     "option_a": "double bonds create ionic attractions between chains.",
@@ -1365,12 +1365,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-044",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-045-77",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A mutation replaces a buried hydrophobic amino acid with a charged amino acid. Which protein property is most likely altered first?",
     "option_a": "The genetic code in all cells",
@@ -1383,12 +1383,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-045",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-046-78",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "Heating a protein destroys its activity but amino-acid analysis shows the same sequence before and after heating. Which statement is most consistent?",
     "option_a": "Higher-order structure was disrupted while primary structure remained intact.",
@@ -1401,12 +1401,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-046",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-047-79",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A protein is composed of four separate polypeptide chains. Which structural level specifically describes their association?",
     "option_a": "Primary structure",
@@ -1419,12 +1419,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-047",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-048-80",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A substitution changes one amino acid but does not alter the total length of a protein. Why can function still change greatly?",
     "option_a": "A single side-chain change can alter folding or a critical binding site.",
@@ -1437,12 +1437,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-048",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-049-81",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "Which observation most strongly suggests that a protein has lost tertiary structure but retains primary structure?",
     "option_a": "It hydrolyzes completely into free amino acids.",
@@ -1455,12 +1455,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-049",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-050-82",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A DNA sample is treated with an enzyme that cleaves phosphodiester bonds. What is affected most directly?",
     "option_a": "Covalent continuity of the sugar-phosphate backbone",
@@ -1473,12 +1473,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-050",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-051-83",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "Which change converts a ribonucleotide containing uracil into the corresponding deoxyribonucleotide found in DNA?",
     "option_a": "Replace ribose with deoxyribose and uracil with thymine",
@@ -1491,12 +1491,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-051",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-052-84",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A nucleic-acid strand contains ribose and uracil. Which conclusion is best supported?",
     "option_a": "It must be DNA.",
@@ -1509,12 +1509,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-052",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-053-85",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A polymer is hydrolyzed to monomers that each contain an amino group and a carboxyl group. The polymer was most likely:",
     "option_a": "a polysaccharide.",
@@ -1527,12 +1527,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-053",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-054-86",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "An unknown macromolecule contains C, H, O, N and P and is built from repeating sugar-phosphate units. It is most likely:",
     "option_a": "a triglyceride.",
@@ -1545,12 +1545,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-054",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.898Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-055-87",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "Two glucose polymers are exposed to an enzyme that recognizes alpha-1,4 linkages but not beta-1,4 linkages. Which result is most likely?",
     "option_a": "Cellulose is hydrolyzed faster because beta linkages are identical to alpha linkages.",
@@ -1563,12 +1563,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-055",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.899Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-056-88",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A glycogen molecule and an amylose molecule contain the same number of glucose units. Which property would most directly allow glycogen to be mobilized faster?",
     "option_a": "A greater number of peptide bonds",
@@ -1581,12 +1581,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-056",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.899Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-057-89",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A mutation eliminates a branching enzyme in glycogen synthesis but leaves alpha-1,4 linkage formation intact. What is the most likely structural consequence?",
     "option_a": "Longer, less-branched glucose chains with fewer terminal sites",
@@ -1599,12 +1599,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-057",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.899Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-058-90",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A cell replaces many membrane cis-unsaturated fatty acids with saturated fatty acids of equal length while temperature remains constant. Which change is most likely?",
     "option_a": "Membrane fluidity increases because saturated tails are kinked.",
@@ -1617,12 +1617,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-058",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.899Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-059-91",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "An amphipathic molecule has one strongly polar region and a large nonpolar region. In water it is most likely to arrange so that:",
     "option_a": "nonpolar regions point toward water and polar regions cluster inward.",
@@ -1635,12 +1635,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-059",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.899Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-060-92",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A membrane remains unusually rigid at low temperature. Which change would most directly help restore fluidity?",
     "option_a": "Increase the proportion of long saturated tails.",
@@ -1653,12 +1653,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-060",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.899Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-061-93",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A protein loses function after reduction of its disulfide bridges, but its amino-acid sequence is unchanged. Which level of structure is most directly destabilized?",
     "option_a": "Primary structure only",
@@ -1671,12 +1671,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-061",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.899Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-062-94",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A protein contains one alpha helix stabilized by backbone hydrogen bonds. A solvent disrupts these hydrogen bonds but leaves peptide bonds intact. Which result is most direct?",
     "option_a": "Cleavage of the amino-acid sequence into monomers",
@@ -1689,12 +1689,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-062",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.899Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-063-95",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A single amino-acid substitution changes a surface glutamate to valine. Which statement best explains why the effect can vary from negligible to severe?",
     "option_a": "All substitutions have identical effects because all amino acids are equivalent.",
@@ -1707,12 +1707,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-063",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.899Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-064-96",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A protein is active as a dimer but each isolated monomer folds normally. A mutation prevents subunit association. Which structural level is selectively lost?",
     "option_a": "Primary structure",
@@ -1725,12 +1725,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-064",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.899Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-065-97",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "An enzyme is denatured at high temperature and then cooled, but activity does not return. Which explanation is most plausible?",
     "option_a": "Cooling necessarily hydrolyzed all peptide bonds.",
@@ -1743,12 +1743,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-065",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.899Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-066-98",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A nucleic acid has equal proportions of A and U but no T. Which statement is safest?",
     "option_a": "It must be double-stranded DNA.",
@@ -1761,12 +1761,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-066",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.899Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-067-99",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A nuclease breaks the sugar-phosphate backbone of RNA while leaving bases intact. Which bond is being hydrolyzed?",
     "option_a": "Peptide bond",
@@ -1779,12 +1779,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-067",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.899Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-068-100",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A cell is supplied with radiolabeled phosphate. Which biomolecule is most directly expected to incorporate phosphate as a repeating structural component?",
     "option_a": "A triglyceride molecule",
@@ -1797,12 +1797,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-068",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.899Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-069-101",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A molecule has a glycerol backbone, two fatty-acid tails and a phosphate-containing head. Which behavior is most expected in water?",
     "option_a": "It forms a linear peptide chain.",
@@ -1815,12 +1815,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-069",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.899Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-070-102",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A mutation does not change a protein's alpha-helical content but eliminates a hydrophobic pocket needed to bind a ligand. Which level is most directly altered?",
     "option_a": "Primary structure cannot have changed at all",
@@ -1833,12 +1833,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-070",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.899Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-071-103",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A protein variant has the same secondary structure as wild type but a much lower melting temperature. Which explanation is most consistent?",
     "option_a": "Its tertiary stabilizing interactions are weaker even though alpha helices and beta sheets remain similar.",
@@ -1851,12 +1851,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-071",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.899Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-BML-072-104",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A researcher hydrolyzes an unknown polymer and obtains monomers containing a phosphate group, a pentose sugar and a nitrogenous base. Which conclusion is best?",
     "option_a": "It was a triglyceride.",
@@ -1869,12 +1869,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-BML-072",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.899Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-ENZ-001-105",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The main effect of an enzyme on a reaction is to:",
     "option_a": "increase the overall free-energy change.",
@@ -1887,12 +1887,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-001",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.899Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-002-106",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The active site of an enzyme is the region where:",
     "option_a": "substrate binding and catalysis occur.",
@@ -1905,12 +1905,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-002",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.899Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-003-107",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Enzyme specificity is determined primarily by:",
     "option_a": "the number of chromosomes in the cell.",
@@ -1923,12 +1923,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-003",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.899Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-004-108",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The induced-fit model proposes that substrate binding:",
     "option_a": "can cause a conformational change that improves catalytic interactions.",
@@ -1941,12 +1941,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-004",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.899Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-005-109",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Activation energy is the energy required to:",
     "option_a": "change the reaction equilibrium constant.",
@@ -1959,12 +1959,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-005",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.899Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-006-110",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "At temperatures above an enzyme's optimum, activity often falls because:",
     "option_a": "substrate concentration always becomes zero.",
@@ -1977,12 +1977,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-006",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.899Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-007-111",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "At low temperature, many enzyme-catalyzed reactions slow mainly because:",
     "option_a": "enzymes always hydrolyze completely.",
@@ -1995,12 +1995,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-007",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-008-112",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "A large pH change can reduce enzyme activity by:",
     "option_a": "adding nucleotides to the enzyme.",
@@ -2013,12 +2013,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-008",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-009-113",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "At low substrate concentration, increasing substrate usually:",
     "option_a": "decreases active-site occupancy.",
@@ -2031,12 +2031,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-009",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-010-114",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "At very high substrate concentration, enzyme rate often reaches a maximum because:",
     "option_a": "the substrate has no kinetic energy.",
@@ -2049,12 +2049,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-010",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-011-115",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "If substrate is abundant, doubling enzyme concentration initially tends to:",
     "option_a": "increase the maximum reaction rate.",
@@ -2067,12 +2067,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-011",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-012-116",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "A competitive inhibitor usually binds:",
     "option_a": "at or near the active site.",
@@ -2085,12 +2085,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-012",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-013-117",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The effect of a reversible competitive inhibitor can often be reduced by:",
     "option_a": "removing all water.",
@@ -2103,12 +2103,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-013",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-014-118",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "A non-competitive inhibitor acts most characteristically by:",
     "option_a": "becoming the substrate at the active site.",
@@ -2121,12 +2121,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-014",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-015-119",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "A cofactor is:",
     "option_a": "the amino-acid sequence of every enzyme.",
@@ -2139,12 +2139,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-015",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-016-120",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "A coenzyme is typically:",
     "option_a": "a membrane phospholipid.",
@@ -2157,12 +2157,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-016",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-017-121",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Denaturation can reduce enzyme activity without:",
     "option_a": "changing tertiary structure.",
@@ -2175,12 +2175,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-017",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-018-122",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "An enzyme can catalyze many reaction cycles because it:",
     "option_a": "is consumed stoichiometrically in every reaction.",
@@ -2193,12 +2193,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-018",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-019-123",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "On a typical rate-versus-substrate graph, the plateau at high substrate concentration indicates:",
     "option_a": "complete absence of enzyme.",
@@ -2211,12 +2211,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-019",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-020-124",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "An enzyme's optimum temperature is the temperature at which:",
     "option_a": "all proteins in the cell are denatured.",
@@ -2229,12 +2229,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-020",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-021-125",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Which interaction can contribute to substrate binding in an active site?",
     "option_a": "Only phosphodiester bonding",
@@ -2247,12 +2247,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-021",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-022-126",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "A reversible inhibitor differs from an irreversible inhibitor because it:",
     "option_a": "must destroy the peptide backbone.",
@@ -2265,12 +2265,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-022",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-023-127",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The lock-and-key model emphasizes:",
     "option_a": "complete absence of shape specificity.",
@@ -2283,12 +2283,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-023",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-024-128",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Enzymes do not change:",
     "option_a": "the rate at which equilibrium is reached.",
@@ -2301,12 +2301,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-024",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-025-129",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "An enzyme-substrate complex forms:",
     "option_a": "as the permanent final product.",
@@ -2319,12 +2319,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-025",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-026-130",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Many enzyme names end with the suffix:",
     "option_a": "-ose.",
@@ -2337,12 +2337,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-026",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-027-131",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Most enzymes are:",
     "option_a": "proteins, though some RNA molecules can also be catalytic.",
@@ -2355,12 +2355,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-027",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-028-132",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "A change in active-site shape is most likely to affect:",
     "option_a": "the atomic number of carbon.",
@@ -2373,12 +2373,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-028",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-029-133",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "An enzyme shows reduced activity in the presence of inhibitor X, but the original maximum rate can be approached by adding very high substrate concentrations. X is most consistent with:",
     "option_a": "an irreversible inhibitor that destroys the active site.",
@@ -2391,12 +2391,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-029",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-030-134",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "An inhibitor lowers the maximum reaction rate even when substrate concentration is very high. Which mechanism is most consistent?",
     "option_a": "Pure competitive inhibition only",
@@ -2409,12 +2409,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-030",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-031-135",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "An enzyme has maximal activity at 37°C. Activity falls at 10°C but returns after warming; activity falls at 80°C and does not return after cooling. The best explanation is:",
     "option_a": "low temperature slows molecular motion reversibly, whereas high temperature can denature the enzyme.",
@@ -2427,12 +2427,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-031",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-032-136",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "An enzyme has maximal activity at pH 7 and much lower activity at pH 3 and pH 11. Which explanation is most likely?",
     "option_a": "Extreme pH changes protonation of residues needed for structure or catalysis.",
@@ -2445,12 +2445,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-032",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-033-137",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A reaction rate doubles when substrate increases from 1 to 2 mM but changes little from 20 to 40 mM. This pattern most strongly indicates:",
     "option_a": "complete absence of active sites at low substrate.",
@@ -2463,12 +2463,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-033",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-034-138",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "Two tubes contain the same abundant substrate. Tube B has twice as much enzyme as tube A. Early in the reaction, Tube B should generally show:",
     "option_a": "a higher product-formation rate because it has more active sites.",
@@ -2481,12 +2481,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-034",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.923Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-035-139",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "To test the effect of pH on an enzyme, which variable should be kept constant across treatments?",
     "option_a": "pH",
@@ -2499,12 +2499,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-035",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-036-140",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A student measures enzyme activity at different temperatures but uses different substrate concentrations at each temperature. Why is the conclusion weak?",
     "option_a": "Temperature cannot affect enzyme activity.",
@@ -2517,12 +2517,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-036",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-037-141",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A substrate analogue binds weakly until the enzyme closes around it, after which catalytic residues align. This observation best supports:",
     "option_a": "the induced-fit model.",
@@ -2535,12 +2535,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-037",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-038-142",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "An enzyme is inactive after removal of Mg2+ and active again when Mg2+ is restored. Mg2+ is functioning as:",
     "option_a": "the peptide backbone.",
@@ -2553,12 +2553,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-038",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-039-143",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "After dialysis removes inhibitor Y from an enzyme preparation, activity returns. This observation most strongly supports:",
     "option_a": "irreversible covalent destruction of the enzyme.",
@@ -2571,12 +2571,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-039",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-040-144",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A reaction has the same products and overall energy change with or without an enzyme but proceeds faster with the enzyme. The enzyme has changed:",
     "option_a": "the activation-energy pathway.",
@@ -2589,12 +2589,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-040",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-041-145",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "An enzyme has activity 20, 48, 75, 76 and 76 units at substrate concentrations 1, 2, 5, 10 and 20 mM. Which statement is best?",
     "option_a": "The enzyme is progressively denaturing as substrate increases.",
@@ -2607,12 +2607,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-041",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-042-146",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A molecule resembles the substrate and occupies the active site but is not converted to product. It most likely acts as:",
     "option_a": "a structural carbohydrate.",
@@ -2625,12 +2625,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-042",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-043-147",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "Enzyme E is tested with and without inhibitor I. At very high substrate concentration, the inhibited reaction reaches the same maximum rate as control but requires more substrate to do so. Which interpretation is best?",
     "option_a": "I irreversibly destroys half the enzyme molecules.",
@@ -2643,12 +2643,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-043",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-044-148",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "With inhibitor X, increasing substrate concentration never restores the original maximum rate, although substrate still binds. Which mechanism is most consistent?",
     "option_a": "X competes only for the substrate-binding site and can always be outcompeted.",
@@ -2661,12 +2661,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-044",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-045-149",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "An enzyme variant has the same activity as wild type at 25°C but loses activity at 40°C, while wild type remains active. Which inference is strongest?",
     "option_a": "The variant necessarily has a different substrate.",
@@ -2679,12 +2679,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-045",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-046-150",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "An enzyme requires one active-site group to be protonated and another to be deprotonated for catalysis. Why might activity peak over a narrow pH range?",
     "option_a": "pH changes the amino-acid sequence.",
@@ -2697,12 +2697,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-046",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-047-151",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A researcher claims an inhibitor is non-competitive because the rate remains low at one high substrate concentration. What additional evidence would most strengthen the claim?",
     "option_a": "A full rate-versus-substrate curve showing a reduced maximum rate in the inhibitor's presence",
@@ -2715,12 +2715,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-047",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-048-152",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A regulatory molecule binds far from an enzyme's active site and changes the active site from a low-affinity to a high-affinity conformation. This is best described as:",
     "option_a": "competitive inhibition.",
@@ -2733,12 +2733,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-048",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-049-153",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A reaction mixture contains saturating substrate and active enzyme. Doubling substrate has no effect, but doubling enzyme doubles the initial rate. Which factor was limiting?",
     "option_a": "Enzyme concentration",
@@ -2751,12 +2751,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-049",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-050-154",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "An inhibitor causes persistent loss of activity after extensive washing, while a second inhibitor's effect disappears after washing. The simplest distinction is that:",
     "option_a": "both must be competitive inhibitors.",
@@ -2769,12 +2769,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-050",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-051-155",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A catalyst accelerates both forward and reverse reactions of A ⇌ B. Starting with pure A, what remains unchanged relative to the uncatalyzed system?",
     "option_a": "The time needed to reach equilibrium",
@@ -2787,12 +2787,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-051",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-052-156",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "Two enzymes catalyze the same reaction. At low substrate E1 is faster, but both reach the same maximum rate at high substrate. Which statement is best supported?",
     "option_a": "E1 must have a higher maximum rate.",
@@ -2805,12 +2805,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-052",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-053-157",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "An enzyme reaction produces a product that is immediately consumed by a second enzyme, and only the second product is measured. What is essential for valid interpretation?",
     "option_a": "The second enzyme must denature before measurement.",
@@ -2823,12 +2823,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-053",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-054-158",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "An inhibitor concentration is fixed while substrate concentration rises from very low to extremely high. Which trend is most characteristic of reversible competitive inhibition?",
     "option_a": "The inhibitor becomes more effective without limit.",
@@ -2841,12 +2841,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-054",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-055-159",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A mutation leaves substrate binding nearly normal but greatly reduces product formation. Which interpretation is most plausible?",
     "option_a": "The mutation disrupts catalytic chemistry more than binding.",
@@ -2859,12 +2859,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-055",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-ENZ-056-160",
     "subject": "Biology",
-    "topic": "Enzymes",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "An enzyme preparation shows a lower maximum rate after heating, but the substrate concentration required for half-maximal activity among the remaining active enzyme is similar to control. What is a reasonable interpretation?",
     "option_a": "Heating reduced the amount of functional enzyme more than it altered substrate affinity of the surviving enzyme.",
@@ -2877,12 +2877,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-ENZ-056",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Enzymes"
   },
   {
     "id": "qb-BIO-BCH-RES-001-161",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "ATP contains:",
     "option_a": "adenine, deoxyribose and one phosphate.",
@@ -2895,12 +2895,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-001",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-002-162",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Hydrolysis of ATP to ADP + Pi can:",
     "option_a": "create glucose without enzymes.",
@@ -2913,12 +2913,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-002",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-003-163",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Phosphorylation of ADP to form ATP requires:",
     "option_a": "no energy under any condition.",
@@ -2931,12 +2931,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-003",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-004-164",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "ATP is best described as:",
     "option_a": "a long-term genetic information polymer.",
@@ -2949,12 +2949,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-004",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-005-165",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Glycolysis occurs in the:",
     "option_a": "mitochondrial matrix only.",
@@ -2967,12 +2967,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-005",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-006-166",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "One glucose molecule is converted by glycolysis into:",
     "option_a": "one pyruvate molecule.",
@@ -2985,12 +2985,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-006",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-007-167",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The net ATP yield of glycolysis per glucose is:",
     "option_a": "0 ATP.",
@@ -3003,12 +3003,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-007",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.924Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-008-168",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Glycolysis can proceed without molecular oxygen because:",
     "option_a": "it occurs only inside chloroplasts.",
@@ -3021,12 +3021,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-008",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.997Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-009-169",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Under aerobic conditions in eukaryotic cells, pyruvate is transported into the:",
     "option_a": "nucleus.",
@@ -3039,12 +3039,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-009",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.997Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-010-170",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Conversion of pyruvate to acetyl-CoA releases:",
     "option_a": "carbon dioxide.",
@@ -3057,12 +3057,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-010",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.997Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-011-171",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The Krebs/citric-acid cycle in eukaryotes occurs mainly in the:",
     "option_a": "cytosol.",
@@ -3075,12 +3075,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-011",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.997Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-012-172",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "A major purpose of the Krebs cycle is to:",
     "option_a": "produce DNA directly.",
@@ -3093,12 +3093,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-012",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.997Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-013-173",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Carbon dioxide is released during:",
     "option_a": "glycolysis only.",
@@ -3111,12 +3111,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-013",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.997Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-014-174",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "NADH functions mainly as:",
     "option_a": "a structural polysaccharide.",
@@ -3129,12 +3129,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-014",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.997Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-015-175",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "FADH2 is best described as:",
     "option_a": "a glucose polymer.",
@@ -3147,12 +3147,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-015",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.997Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-016-176",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "In eukaryotic cells, the respiratory electron transport chain is located in the:",
     "option_a": "inner mitochondrial membrane.",
@@ -3165,12 +3165,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-016",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.997Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-017-177",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The final electron acceptor in aerobic respiration is:",
     "option_a": "glucose.",
@@ -3183,12 +3183,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-017",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.997Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-018-178",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "As electrons move through the respiratory chain, energy is used mainly to:",
     "option_a": "synthesize DNA in the matrix.",
@@ -3201,12 +3201,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-018",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.997Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-019-179",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The proton gradient used for oxidative phosphorylation is established across the:",
     "option_a": "plasma membrane only in all eukaryotic cells.",
@@ -3219,12 +3219,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-019",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.997Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-020-180",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "ATP synthase uses the energy of:",
     "option_a": "DNA replication.",
@@ -3237,12 +3237,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-020",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.997Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-021-181",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Oxidative phosphorylation directly depends on:",
     "option_a": "DNA polymerase and ribosomes.",
@@ -3255,12 +3255,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-021",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.997Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-022-182",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Substrate-level phosphorylation forms ATP by:",
     "option_a": "proton flow through ATP synthase only.",
@@ -3273,12 +3273,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-022",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-023-183",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The essential function of fermentation after glycolysis is to:",
     "option_a": "generate large amounts of oxygen.",
@@ -3291,12 +3291,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-023",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-024-184",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "In lactic acid fermentation, pyruvate is reduced to:",
     "option_a": "ethanol and CO2.",
@@ -3309,12 +3309,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-024",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-025-185",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Alcoholic fermentation produces:",
     "option_a": "lactate only.",
@@ -3327,12 +3327,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-025",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-026-186",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Cristae are folds of the:",
     "option_a": "outer membrane.",
@@ -3345,12 +3345,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-026",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-027-187",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The mitochondrial matrix contains enzymes for the:",
     "option_a": "electron transport chain embedded in a membrane.",
@@ -3363,12 +3363,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-027",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-028-188",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Aerobic respiration generally yields more ATP per glucose than fermentation because aerobic cells can use:",
     "option_a": "only glycolysis.",
@@ -3381,12 +3381,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-028",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-029-189",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Oxidation is defined as:",
     "option_a": "gain of electrons.",
@@ -3399,12 +3399,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-029",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-030-190",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Reduction is defined as:",
     "option_a": "gain of electrons.",
@@ -3417,12 +3417,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-030",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-031-191",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "When NAD+ becomes NADH, NAD+ has been:",
     "option_a": "oxidized.",
@@ -3435,12 +3435,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-031",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-032-192",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "When NADH donates electrons to the electron transport chain, NADH is:",
     "option_a": "reduced to FADH2.",
@@ -3453,12 +3453,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-032",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-033-193",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "During aerobic respiration, oxygen is converted mainly into:",
     "option_a": "glucose.",
@@ -3471,12 +3471,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-033",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-034-194",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "ATP can drive an endergonic process most directly by:",
     "option_a": "changing the genetic code.",
@@ -3489,12 +3489,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-034",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-035-195",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Glycolysis reduces NAD+ to:",
     "option_a": "FADH2 only.",
@@ -3507,12 +3507,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-035",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-036-196",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The first major pathway of glucose breakdown is:",
     "option_a": "the Calvin cycle.",
@@ -3525,12 +3525,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-036",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-037-197",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Complete aerobic oxidation of glucose produces mainly:",
     "option_a": "carbon dioxide, water and ATP.",
@@ -3543,12 +3543,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-037",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-038-198",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Fermentation allows ATP production to continue mainly through:",
     "option_a": "oxidative phosphorylation.",
@@ -3561,12 +3561,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-038",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-039-199",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "If ATP synthase is blocked, the process most directly impaired is:",
     "option_a": "DNA transcription.",
@@ -3579,12 +3579,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-039",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-040-200",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "If the respiratory electron transport chain stops, NADH tends to:",
     "option_a": "disappear because it becomes glucose.",
@@ -3597,12 +3597,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-040",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-041-201",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A drug blocks electron transfer to oxygen at the end of the respiratory chain. Which change is expected first?",
     "option_a": "Glycolysis immediately becomes impossible before NAD+ is depleted.",
@@ -3615,12 +3615,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-041",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-042-202",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A compound blocks mitochondrial ATP synthase but leaves electron transport initially functional. What happens most directly?",
     "option_a": "Oxygen becomes a carbon source.",
@@ -3633,12 +3633,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-042",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-043-203",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "An uncoupling molecule makes the inner mitochondrial membrane freely permeable to protons. What is the most direct effect?",
     "option_a": "The proton gradient becomes larger and ATP synthesis rises without limit.",
@@ -3651,12 +3651,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-043",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-044-204",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "Muscle cells temporarily increase lactate production during intense exercise. The key metabolic advantage is:",
     "option_a": "production of large amounts of ATP by oxidative phosphorylation.",
@@ -3669,12 +3669,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-044",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-045-205",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A cell lacks mitochondria but contains glycolytic enzymes. Which ATP-producing pathway can still operate directly?",
     "option_a": "Mitochondrial oxidative phosphorylation",
@@ -3687,12 +3687,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-045",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-046-206",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A mutation greatly reduces cristae surface area without reducing mitochondrial number. Which process is most directly limited?",
     "option_a": "Glycolysis in the cytosol",
@@ -3705,12 +3705,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-046",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-047-207",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A tissue suddenly receives no oxygen. Which pathway can continue for at least a short period if glucose is available?",
     "option_a": "The full respiratory electron transport chain",
@@ -3723,12 +3723,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-047",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-048-208",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "Why can blocking the electron transport chain slow the Krebs cycle even though O2 is not used directly by Krebs-cycle enzymes?",
     "option_a": "The Krebs cycle requires photons.",
@@ -3741,12 +3741,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-048",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-049-209",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "Which observation best demonstrates substrate-level phosphorylation?",
     "option_a": "ATP forms only when protons cross ATP synthase.",
@@ -3759,12 +3759,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-049",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-050-210",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "If 5 glucose molecules complete glycolysis, how many pyruvate molecules are produced?",
     "option_a": "5",
@@ -3777,12 +3777,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-050",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-051-211",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "If 8 glucose molecules complete glycolysis, what is the net ATP yield from glycolysis itself?",
     "option_a": "16 ATP",
@@ -3795,12 +3795,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-051",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-052-212",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A cell cannot convert pyruvate to lactate during oxygen shortage. Which immediate problem is most likely?",
     "option_a": "ATP synthase activity rises.",
@@ -3813,12 +3813,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-052",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-053-213",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A mitochondrial preparation consumes oxygen rapidly after ADP is added, then oxygen consumption slows when ADP is depleted. What does this suggest?",
     "option_a": "Electron transport is functionally coupled to ATP synthesis demand.",
@@ -3831,12 +3831,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-053",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-054-214",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A poison prevents proton pumping but allows electron transfer to oxygen. Which outcome is most likely?",
     "option_a": "ATP production rises because the gradient is unnecessary.",
@@ -3849,12 +3849,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-054",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-055-215",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "Why does fermentation yield far less ATP per glucose than aerobic respiration?",
     "option_a": "Fermentation cannot perform glycolysis.",
@@ -3867,12 +3867,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-055",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-056-216",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "If acetyl-CoA entry into the Krebs cycle is blocked, which direct consequence is expected?",
     "option_a": "Increased glucose formation by glycolysis",
@@ -3885,12 +3885,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-056",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-057-217",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A defect makes the inner mitochondrial membrane highly permeable to H+ but not to other ions. Which process is impaired most?",
     "option_a": "Chemiosmotic ATP synthesis",
@@ -3903,12 +3903,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-057",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-058-218",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "During oxidation of glucose, carbon atoms become more oxidized while electron carriers become more reduced. Which pair best illustrates this transfer?",
     "option_a": "Glucose-derived intermediates lose electrons while NAD+ gains them to form NADH.",
@@ -3921,12 +3921,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-058",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-059-219",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "Yeast cells ferment glucose in the absence of oxygen. Which pair of products is expected together with ATP from glycolysis?",
     "option_a": "Ethanol and CO2",
@@ -3939,12 +3939,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-059",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-060-220",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A mutation prevents NADH from donating electrons to the respiratory chain but leaves FADH2 entry intact. Which effect is most direct?",
     "option_a": "All respiration stops absolutely, including glycolysis.",
@@ -3957,12 +3957,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-060",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-061-221",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "An uncoupler increases proton permeability of the inner mitochondrial membrane. Which combination is most likely shortly after treatment if substrates and oxygen are abundant?",
     "option_a": "Oxygen consumption stops and ATP production rises.",
@@ -3975,12 +3975,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-061",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-062-222",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "Oligomycin-like inhibition blocks proton flow through ATP synthase. In tightly coupled mitochondria, what secondary effect is expected?",
     "option_a": "Electron transport accelerates indefinitely.",
@@ -3993,12 +3993,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-062",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-063-223",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A terminal ETC inhibitor is added to aerobic cells. Which sequence is most plausible?",
     "option_a": "ATP rises → oxygen production rises → NADH falls.",
@@ -4011,12 +4011,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-063",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-064-224",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "Isolated mitochondria contain substrate and O2 but little ADP. Electron transport is slow. Adding ADP rapidly increases O2 consumption. Why?",
     "option_a": "ADP is the final electron acceptor.",
@@ -4029,12 +4029,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-064",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-065-225",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A cell has abundant glucose and oxygen but a severe deficiency of NAD+. Which pathway is directly compromised first by the lack of this electron acceptor?",
     "option_a": "ATP hydrolysis",
@@ -4047,12 +4047,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-065",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-066-226",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "During intense exercise, lactate formation increases although oxygen is not literally absent from every muscle fiber. Which explanation is best?",
     "option_a": "Lactate is required because glycolysis directly consumes oxygen.",
@@ -4065,12 +4065,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-066",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-067-227",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A mutant inner mitochondrial membrane remains impermeable to ions except it now allows H+ to diffuse freely. Which function is most directly lost while ETC complexes themselves remain intact?",
     "option_a": "Oxidation of NADH is impossible under all conditions.",
@@ -4083,12 +4083,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-067",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-068-228",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "Why is oxygen consumption alone an incomplete measure of mitochondrial ATP production?",
     "option_a": "Electron transport can consume oxygen even when proton gradients are uncoupled from ATP synthase.",
@@ -4101,12 +4101,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-068",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-069-229",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "An ETC inhibitor causes NADH to accumulate in the matrix. Why can this slow the Krebs cycle?",
     "option_a": "The cycle directly uses molecular oxygen in every reaction.",
@@ -4119,12 +4119,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-069",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-070-230",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A cell has functional glycolysis but a collapsed mitochondrial proton gradient. Which ATP source can still operate directly?",
     "option_a": "Mitochondrial oxidative phosphorylation",
@@ -4137,12 +4137,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-070",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-071-231",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "Cells are exposed to a drug. Oxygen consumption rises, cellular ATP falls and heat production rises. Which mechanism best fits?",
     "option_a": "ATP synthase hyper-efficiency",
@@ -4155,12 +4155,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-071",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-072-232",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "After adding a respiratory poison, oxygen consumption becomes nearly zero, NADH rises and lactate production increases. Which event best explains the rise in lactate?",
     "option_a": "Cells rely more on fermentation to regenerate NAD+ for glycolysis.",
@@ -4173,12 +4173,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-072",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-073-233",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "Why do NADH and FADH2 support oxidative phosphorylation but NAD+ and FAD do not in the same way?",
     "option_a": "The oxidized forms contain more ATP.",
@@ -4191,12 +4191,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-073",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-074-234",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "ATP synthase is intact, but an artificial pore allows H+ to cross the inner membrane independently of ATP synthase. Which effect is most direct?",
     "option_a": "The proton-motive force available to ATP synthase decreases.",
@@ -4209,12 +4209,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-074",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-075-235",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "Which statement best explains why carbon dioxide is not released during glycolysis even though glucose is oxidized?",
     "option_a": "Glycolysis contains no redox reactions.",
@@ -4227,12 +4227,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-075",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-076-236",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A cell has a high NADH/NAD+ ratio. Which metabolic consequence is most plausible?",
     "option_a": "All oxidation reactions accelerate because NAD+ is abundant.",
@@ -4245,12 +4245,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-076",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-077-237",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "Why does converting pyruvate to lactate not itself provide the main ATP gain of fermentation?",
     "option_a": "Lactate formation is oxidative phosphorylation.",
@@ -4263,12 +4263,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-077",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-078-238",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A mutation drastically reduces inner-membrane protein content but leaves the matrix volume normal. Which pair of processes is most directly affected?",
     "option_a": "Glycolysis and DNA transcription",
@@ -4281,12 +4281,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-078",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-079-239",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A cell increases ATP demand without changing glucose or oxygen supply. In healthy mitochondria, which response is most plausible initially?",
     "option_a": "ATP synthase shuts down because ADP inhibits it.",
@@ -4299,12 +4299,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-079",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-RES-080-240",
     "subject": "Biology",
-    "topic": "Carbohydrates, Lipids, Proteins & Nucleic Acids",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A mitochondrial toxin simultaneously blocks ATP synthase and makes the inner membrane slightly proton-permeable. Which observation would best distinguish whether the proton leak is substantial?",
     "option_a": "Persistent oxygen consumption despite very low ATP production would support significant uncoupling.",
@@ -4317,12 +4317,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-RES-080",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Carbohydrates, Lipids, Proteins & Nucleic Acids"
   },
   {
     "id": "qb-BIO-BCH-PHO-001-241",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The overall purpose of photosynthesis is to:",
     "option_a": "convert glucose directly into oxygen only.",
@@ -4335,12 +4335,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-001",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-002-242",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Which substance is consumed as a carbon source in photosynthesis?",
     "option_a": "Oxygen",
@@ -4353,12 +4353,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-002",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.998Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-003-243",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The oxygen released during oxygenic photosynthesis comes primarily from:",
     "option_a": "carbon dioxide.",
@@ -4371,12 +4371,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-003",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-004-244",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The light-dependent reactions occur mainly in the:",
     "option_a": "stroma only.",
@@ -4389,12 +4389,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-004",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-005-245",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The Calvin cycle occurs mainly in the:",
     "option_a": "thylakoid lumen.",
@@ -4407,12 +4407,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-005",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-006-246",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The main role of chlorophyll is to:",
     "option_a": "fix nitrogen.",
@@ -4425,12 +4425,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-006",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-007-247",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "A major product of the light-dependent reactions used by the Calvin cycle is:",
     "option_a": "lactate.",
@@ -4443,12 +4443,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-007",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-008-248",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Another major reducing product of the light reactions is:",
     "option_a": "NAD+ only.",
@@ -4461,12 +4461,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-008",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-009-249",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Photolysis in photosynthesis refers to splitting:",
     "option_a": "glucose.",
@@ -4479,12 +4479,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-009",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-010-250",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Carbon fixation means:",
     "option_a": "releasing CO2 from glucose.",
@@ -4497,12 +4497,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-010",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-011-251",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The Calvin cycle uses ATP and NADPH mainly to:",
     "option_a": "produce oxygen directly from CO2.",
@@ -4515,12 +4515,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-011",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-012-252",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "At low light intensity, increasing light often increases photosynthetic rate because:",
     "option_a": "oxygen becomes the carbon source.",
@@ -4533,12 +4533,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-012",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-013-253",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "If light is abundant but CO2 concentration is very low, the photosynthetic rate may be limited by:",
     "option_a": "the presence of chlorophyll only.",
@@ -4551,12 +4551,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-013",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-014-254",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Grana are stacks of:",
     "option_a": "mitochondria.",
@@ -4569,12 +4569,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-014",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-015-255",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "Photosynthesis and respiration are linked because photosynthesis stores energy in organic molecules whereas respiration:",
     "option_a": "uses light to split water only.",
@@ -4587,12 +4587,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-015",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-016-256",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "easy",
     "question_text": "The term light-independent reaction means the Calvin cycle:",
     "option_a": "can continue indefinitely in darkness without stored intermediates.",
@@ -4605,12 +4605,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-016",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-017-257",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A plant is illuminated strongly while CO2 concentration is gradually increased. Photosynthetic rate rises and then plateaus. What best explains the plateau?",
     "option_a": "CO2 can never affect photosynthesis.",
@@ -4623,12 +4623,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-017",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-018-258",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A herbicide blocks electron transport in thylakoid membranes. Which immediate consequence is expected?",
     "option_a": "Increased carbon fixation with no energy source",
@@ -4641,12 +4641,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-018",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-019-259",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "Plants are supplied with water containing the oxygen isotope 18O. Where should much of the labeled oxygen appear during photosynthesis?",
     "option_a": "In released O2 gas",
@@ -4659,12 +4659,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-019",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-020-260",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A chloroplast is exposed to light but deprived of CO2. Which process can continue briefly?",
     "option_a": "Carbon fixation at its normal rate indefinitely",
@@ -4677,12 +4677,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-020",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-021-261",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A mutation greatly reduces thylakoid membrane surface area but leaves stroma volume normal. Which function is most directly reduced?",
     "option_a": "Cytosolic glycolysis",
@@ -4695,12 +4695,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-021",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-022-262",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "At constant high light and CO2, photosynthesis rises with temperature to an optimum and then falls. Which explanation is best for the decline?",
     "option_a": "Photons no longer have energy above the optimum.",
@@ -4713,12 +4713,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-022",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-023-263",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "Why can the Calvin cycle slow rapidly if the light reactions stop?",
     "option_a": "It immediately loses all CO2 from the atmosphere.",
@@ -4731,12 +4731,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-023",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-024-264",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "medium",
     "question_text": "A leaf shows low photosynthesis at 200 ppm CO2, higher photosynthesis at 600 ppm, but no further increase at 1000 ppm under the same light. Which conclusion is best?",
     "option_a": "CO2 is never a substrate.",
@@ -4749,12 +4749,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-024",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-025-265",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A chemical carries protons across the thylakoid membrane without passing through ATP synthase. Light absorption and electron transfer can still occur. Which outcome is most likely?",
     "option_a": "The proton gradient rises and ATP production increases.",
@@ -4767,12 +4767,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-025",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-026-266",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A chloroplast has normal ATP production but cannot produce NADPH. Which Calvin-cycle task is most directly impaired?",
     "option_a": "Initial photon absorption by chlorophyll",
@@ -4785,12 +4785,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-026",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-027-267",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A plant is given CO2 labeled in its oxygen atoms but ordinary water. Which observation would most directly argue against CO2 being the source of evolved photosynthetic O2?",
     "option_a": "Glucose contains carbon from CO2.",
@@ -4803,12 +4803,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-027",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-028-268",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "Two identical plants receive the same high light. Plant A has low CO2; Plant B has high CO2 but a severely inhibited Calvin-cycle enzyme. Both show low net photosynthesis. Why are the causes different?",
     "option_a": "Both are necessarily limited by light.",
@@ -4821,12 +4821,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-028",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-029-269",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A mutation removes most chloroplast ATP synthase but leaves photosystems and electron carriers intact. Under illumination, which pattern is most plausible?",
     "option_a": "A steep proton gradient develops, ATP synthesis falls, and electron flow may slow secondarily.",
@@ -4839,12 +4839,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-029",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-030-270",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A plant cell in bright light has active chloroplasts and mitochondria. Which statement is most accurate?",
     "option_a": "Respiration must stop completely whenever photosynthesis occurs.",
@@ -4857,12 +4857,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-030",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-031-271",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A photosynthetic organism has normal O2 evolution and NADPH production but unusually low carbohydrate synthesis. Which defect is most likely?",
     "option_a": "A defect in Calvin-cycle carbon fixation or downstream carbon reduction",
@@ -4875,12 +4875,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-031",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-BCH-PHO-032-272",
     "subject": "Biology",
-    "topic": "Photosynthesis",
+    "topic": "Biochemistry, Biological Molecules & Bioenergetics",
     "difficulty": "hard",
     "question_text": "A thylakoid membrane has normal photosystem activity and NADPH production, but ATP output is very low. Which pair of defects could each explain the finding without directly blocking electron transfer?",
     "option_a": "Loss of CO2 and loss of Rubisco only",
@@ -4893,12 +4893,12 @@ const importedQuestions = [
     "source_reference": "BIO-BCH-PHO-032",
     "is_active": true,
     "created_at": "2026-09-11T05:18:08.999Z",
-    "chapter": "Biochemistry, Biological Molecules & Bioenergetics"
+    "chapter": "Photosynthesis"
   },
   {
     "id": "qb-BIO-EVB-001-1",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "easy",
     "question_text": "Chapter: Mutation, Variation & Selection   •   Topic: Gene and chromosome mutations   •   Type: Recall / Knowledge",
     "option_a": "A change in the number of ribosomes in a cell",
@@ -4911,12 +4911,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-001",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-002-2",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "easy",
     "question_text": "Chapter: Mutation, Variation & Selection   •   Topic: Gene and chromosome mutations   •   Type: Recall / Knowledge",
     "option_a": "Replacement of one nucleotide by another",
@@ -4929,12 +4929,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-002",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-003-3",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "easy",
     "question_text": "Chapter: Mutation, Variation & Selection   •   Topic: Sources of genetic variation   •   Type: Conceptual",
     "option_a": "DNA replication before meiosis",
@@ -4947,12 +4947,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-003",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-004-4",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "easy",
     "question_text": "Chapter: Mutation, Variation & Selection   •   Topic: Sources of genetic variation   •   Type: Conceptual",
     "option_a": "They always make an organism better adapted.",
@@ -4965,12 +4965,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-004",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-005-5",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "easy",
     "question_text": "Chapter: Mutation, Variation & Selection   •   Topic: Natural selection   •   Type: Recall / Knowledge",
     "option_a": "caused only by exercise.",
@@ -4983,12 +4983,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-005",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-006-6",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "easy",
     "question_text": "Chapter: Mutation, Variation & Selection   •   Topic: Fitness   •   Type: Conceptual",
     "option_a": "physical strength compared with all other species.",
@@ -5001,12 +5001,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-006",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-007-7",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "easy",
     "question_text": "Chapter: Mutation, Variation & Selection   •   Topic: Artificial selection   •   Type: Recall / Knowledge",
     "option_a": "mutations do not occur during artificial selection.",
@@ -5019,12 +5019,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-007",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-008-8",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "easy",
     "question_text": "Chapter: Mutation, Variation & Selection   •   Topic: Adaptation and fitness   •   Type: Conceptual",
     "option_a": "Any change that occurs during an individual’s lifetime",
@@ -5037,12 +5037,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-008",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-009-9",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "easy",
     "question_text": "Chapter: Mutation, Variation & Selection   •   Topic: Heredity and environment   •   Type: Conceptual",
     "option_a": "ABO blood group",
@@ -5055,12 +5055,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-009",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-010-10",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "easy",
     "question_text": "Chapter: Mutation, Variation & Selection   •   Topic: Mutagens   •   Type: Recall / Knowledge",
     "option_a": "damage DNA and interfere with accurate replication.",
@@ -5073,12 +5073,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-010",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-011-11",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "medium",
     "question_text": "Chapter: Mutation, Variation & Selection   •   Topic: Somatic versus germline mutation   •   Type: Application",
     "option_a": "All mutations in adults are automatically repaired.",
@@ -5091,12 +5091,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-011",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-012-12",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "medium",
     "question_text": "Chapter: Mutation, Variation & Selection   •   Topic: Natural selection   •   Type: Application",
     "option_a": "The antibiotic selected pre-existing resistant variants that left more descendants.",
@@ -5109,12 +5109,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-012",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-013-13",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "medium",
     "question_text": "Chapter: Mutation, Variation & Selection   •   Topic: Artificial selection   •   Type: Integrated",
     "option_a": "Every selected plant becomes genetically identical after one generation.",
@@ -5127,12 +5127,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-013",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-014-14",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "medium",
     "question_text": "Chapter: Mutation, Variation & Selection   •   Topic: Heredity and environment   •   Type: Data Interpretation",
     "option_a": "The environment can alter phenotype without changing the seedlings’ inherited genotype.",
@@ -5145,12 +5145,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-014",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-015-15",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "medium",
     "question_text": "Chapter: Mutation, Variation & Selection   •   Topic: Selection and allele frequency   •   Type: Application",
     "option_a": "Every individual changed colour because predators were present.",
@@ -5163,12 +5163,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-015",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-016-16",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "hard",
     "question_text": "Chapter: Mutation, Variation & Selection   •   Topic: Selection and changing environments   •   Type: Integrated",
     "option_a": "A beneficial allele must remain beneficial in every habitat.",
@@ -5181,12 +5181,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-016",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-017-17",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "hard",
     "question_text": "Chapter: Mutation, Variation & Selection   •   Topic: Mutation and selection   •   Type: Integrated",
     "option_a": "The pesticide instructed susceptible insects to generate the required mutation.",
@@ -5199,12 +5199,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-017",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-018-18",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "hard",
     "question_text": "Chapter: Mutation, Variation & Selection   •   Topic: Chromosome mutation and phenotype   •   Type: Application",
     "option_a": "Chromosome deletions are always repaired before cell division.",
@@ -5217,12 +5217,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-018",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-019-19",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "hard",
     "question_text": "Chapter: Mutation, Variation & Selection   •   Topic: Fitness and population change   •   Type: Calculation",
     "option_a": "Phenotype Y, because fewer offspring means stronger selection.",
@@ -5235,12 +5235,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-019",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-020-20",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "hard",
     "question_text": "Chapter: Mutation, Variation & Selection   •   Topic: Selection with opposing pressures   •   Type: Integrated",
     "option_a": "Natural selection can act only on survival, not reproduction.",
@@ -5253,12 +5253,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-020",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-021-21",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "easy",
     "question_text": "Chapter: Evolutionary Theory & Genetic Basis of Evolution   •   Topic: Darwinian natural selection   •   Type: Recall / Knowledge",
     "option_a": "Organisms acquire needed traits because they try to adapt.",
@@ -5271,12 +5271,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-021",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-022-22",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "easy",
     "question_text": "Chapter: Evolutionary Theory & Genetic Basis of Evolution   •   Topic: Evolution as allele-frequency change   •   Type: Conceptual",
     "option_a": "growth of an individual during its lifetime.",
@@ -5289,12 +5289,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-022",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-023-23",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "easy",
     "question_text": "Chapter: Evolutionary Theory & Genetic Basis of Evolution   •   Topic: Speciation   •   Type: Recall / Knowledge",
     "option_a": "Identical allele frequencies",
@@ -5307,12 +5307,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-023",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-024-24",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "easy",
     "question_text": "Chapter: Evolutionary Theory & Genetic Basis of Evolution   •   Topic: Evidence for evolution   •   Type: Conceptual",
     "option_a": "identical lifestyles.",
@@ -5325,12 +5325,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-024",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-025-25",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "medium",
     "question_text": "Chapter: Evolutionary Theory & Genetic Basis of Evolution   •   Topic: Evolution as allele-frequency change   •   Type: Calculation",
     "option_a": "Every individual in the population has mutated.",
@@ -5343,12 +5343,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-025",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-026-26",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "medium",
     "question_text": "Chapter: Evolutionary Theory & Genetic Basis of Evolution   •   Topic: Speciation and divergence   •   Type: Application",
     "option_a": "Isolation forces both groups to develop identical adaptations.",
@@ -5361,12 +5361,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-026",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-027-27",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "hard",
     "question_text": "Chapter: Evolutionary Theory & Genetic Basis of Evolution   •   Topic: Selection and evolutionary interpretation   •   Type: Integrated",
     "option_a": "Offspring raised in the same environment still differ in root depth according to inherited parental genotype.",
@@ -5379,12 +5379,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-027",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-028-28",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "hard",
     "question_text": "Chapter: Evolutionary Theory & Genetic Basis of Evolution   •   Topic: Common ancestry and convergent traits   •   Type: Integrated",
     "option_a": "homologous structures proving they are the same species.",
@@ -5397,12 +5397,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-028",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-029-29",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "easy",
     "question_text": "Chapter: Recombinant DNA & Biotechnology   •   Topic: Restriction enzymes   •   Type: Recall / Knowledge",
     "option_a": "It joins DNA fragments together.",
@@ -5415,12 +5415,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-029",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-030-30",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "easy",
     "question_text": "Chapter: Recombinant DNA & Biotechnology   •   Topic: DNA ligase   •   Type: Recall / Knowledge",
     "option_a": "It unwinds DNA during PCR.",
@@ -5433,12 +5433,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-030",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-031-31",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "easy",
     "question_text": "Chapter: Recombinant DNA & Biotechnology   •   Topic: Plasmids and vectors   •   Type: Conceptual",
     "option_a": "They are proteins that cut chromosomes.",
@@ -5451,12 +5451,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-031",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-032-32",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "easy",
     "question_text": "Chapter: Recombinant DNA & Biotechnology   •   Topic: Recombinant DNA   •   Type: Recall / Knowledge",
     "option_a": "contains only RNA nucleotides.",
@@ -5469,12 +5469,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-032",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-033-33",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "easy",
     "question_text": "Chapter: Recombinant DNA & Biotechnology   •   Topic: PCR   •   Type: Recall / Knowledge",
     "option_a": "separate DNA fragments by size.",
@@ -5487,12 +5487,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-033",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.365Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-034-34",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "easy",
     "question_text": "Chapter: Recombinant DNA & Biotechnology   •   Topic: PCR primers   •   Type: Conceptual",
     "option_a": "They provide short DNA sequences with free 3′ ends from which DNA polymerase can extend.",
@@ -5505,12 +5505,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-034",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.366Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-035-35",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "easy",
     "question_text": "Chapter: Recombinant DNA & Biotechnology   •   Topic: PCR enzyme   •   Type: Recall / Knowledge",
     "option_a": "It cuts DNA at restriction sites.",
@@ -5523,12 +5523,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-035",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.366Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-036-36",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "easy",
     "question_text": "Chapter: Recombinant DNA & Biotechnology   •   Topic: Gel electrophoresis   •   Type: Conceptual",
     "option_a": "positively charged due to its bases.",
@@ -5541,12 +5541,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-036",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.366Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-037-37",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "easy",
     "question_text": "Chapter: Recombinant DNA & Biotechnology   •   Topic: Gel electrophoresis   •   Type: Recall / Knowledge",
     "option_a": "The smallest fragments",
@@ -5559,12 +5559,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-037",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.366Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-038-38",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "easy",
     "question_text": "Chapter: Recombinant DNA & Biotechnology   •   Topic: Genetic engineering applications   •   Type: Conceptual",
     "option_a": "Producing human insulin in genetically modified bacteria",
@@ -5577,12 +5577,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-038",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.366Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-039-39",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "medium",
     "question_text": "Chapter: Recombinant DNA & Biotechnology   •   Topic: Restriction enzymes and cloning   •   Type: Application",
     "option_a": "It guarantees the insert will be translated without a promoter.",
@@ -5595,12 +5595,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-039",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.366Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-040-40",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "medium",
     "question_text": "Chapter: Recombinant DNA & Biotechnology   •   Topic: PCR cycle   •   Type: Conceptual",
     "option_a": "Primer annealing → translation → ligation",
@@ -5613,12 +5613,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-040",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.366Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-041-41",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "medium",
     "question_text": "Chapter: Recombinant DNA & Biotechnology   •   Topic: PCR amplification   •   Type: Calculation",
     "option_a": "1024",
@@ -5631,12 +5631,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-041",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.366Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-042-42",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "medium",
     "question_text": "Chapter: Recombinant DNA & Biotechnology   •   Topic: Gel electrophoresis interpretation   •   Type: Data Interpretation",
     "option_a": "The 1500-bp band",
@@ -5649,12 +5649,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-042",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.366Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-043-43",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "medium",
     "question_text": "Chapter: Recombinant DNA & Biotechnology   •   Topic: Plasmid selection   •   Type: Application",
     "option_a": "To force every bacterium to mutate the target gene",
@@ -5667,12 +5667,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-043",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.366Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-044-44",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "hard",
     "question_text": "Chapter: Recombinant DNA & Biotechnology   •   Topic: PCR specificity   •   Type: Integrated",
     "option_a": "Exponential amplification of the intended double-stranded target will fail.",
@@ -5685,12 +5685,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-044",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.366Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-045-45",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "hard",
     "question_text": "Chapter: Recombinant DNA & Biotechnology   •   Topic: Restriction-site mutation   •   Type: Application",
     "option_a": "Every DNA fragment becomes smaller.",
@@ -5703,12 +5703,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-045",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.366Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-046-46",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "hard",
     "question_text": "Chapter: Recombinant DNA & Biotechnology   •   Topic: Recombinant plasmid design   •   Type: Integrated",
     "option_a": "Recombinants will necessarily contain no plasmid DNA.",
@@ -5721,12 +5721,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-046",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.366Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-047-47",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "hard",
     "question_text": "Chapter: Recombinant DNA & Biotechnology   •   Topic: PCR contamination   •   Type: Experimental",
     "option_a": "The reaction was contaminated with target DNA or previously amplified product.",
@@ -5739,12 +5739,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-047",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.366Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-EVB-048-48",
     "subject": "Biology",
-    "topic": "Evolution & Biotechnology",
+    "topic": "Evolution, Variation & Biotechnology",
     "difficulty": "hard",
     "question_text": "Chapter: Recombinant DNA & Biotechnology   •   Topic: Gel electrophoresis and genotype inference   •   Type: Data Interpretation",
     "option_a": "The individual is homozygous for the 300-bp allele.",
@@ -5757,12 +5757,12 @@ const importedQuestions = [
     "source_reference": "BIO-EVB-048",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.366Z",
-    "chapter": "Evolution, Variation & Biotechnology"
+    "chapter": "Evolution & Biotechnology"
   },
   {
     "id": "qb-BIO-GEN-DCO-001-1",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Which pair consists only of purines?",
     "option_a": "Adenine and guanine",
@@ -5775,12 +5775,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-001",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-002-2",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "In DNA, adenine pairs with:",
     "option_a": "Guanine",
@@ -5793,12 +5793,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-002",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-003-3",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "In DNA, guanine pairs with:",
     "option_a": "Uracil",
@@ -5811,12 +5811,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-003",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-004-4",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "RNA differs from DNA because RNA contains:",
     "option_a": "Deoxyribose and uracil",
@@ -5829,12 +5829,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-004",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-005-5",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A nucleotide contains:",
     "option_a": "Protein, phosphate and base",
@@ -5847,12 +5847,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-005",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-006-6",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Phosphodiester bonds form the:",
     "option_a": "Peptide backbone of proteins",
@@ -5865,12 +5865,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-006",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-007-7",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Hydrogen bonds in double-stranded DNA occur between:",
     "option_a": "Histone proteins only",
@@ -5883,12 +5883,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-007",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-008-8",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "The two DNA strands are antiparallel because they:",
     "option_a": "Have opposite charges",
@@ -5901,12 +5901,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-008",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-009-9",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A chromosome is best described as:",
     "option_a": "A protein with no DNA",
@@ -5919,12 +5919,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-009",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-010-10",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Eukaryotic DNA is packaged mainly with proteins called:",
     "option_a": "Keratin",
@@ -5937,12 +5937,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-010",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-011-11",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "The centromere is most closely associated with:",
     "option_a": "Telomere synthesis only",
@@ -5955,12 +5955,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-011",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-012-12",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Telomeres are located at:",
     "option_a": "Ribosomes",
@@ -5973,12 +5973,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-012",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-013-13",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Sister chromatids are:",
     "option_a": "Two genes",
@@ -5991,12 +5991,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-013",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-014-14",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Homologous chromosomes carry:",
     "option_a": "Only dominant alleles",
@@ -6009,12 +6009,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-014",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-015-15",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "The specific position of a gene on a chromosome is its:",
     "option_a": "Codon",
@@ -6027,12 +6027,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-015",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-016-16",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "An allele is:",
     "option_a": "A chromosome pair",
@@ -6045,12 +6045,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-016",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-017-17",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A genome is:",
     "option_a": "Only protein-coding genes",
@@ -6063,12 +6063,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-017",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-018-18",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A normal human somatic cell contains:",
     "option_a": "92 chromosomes",
@@ -6081,12 +6081,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-018",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-019-19",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A normal human gamete contains:",
     "option_a": "92 chromosomes",
@@ -6099,12 +6099,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-019",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-020-20",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A cell with one complete chromosome set is:",
     "option_a": "Haploid",
@@ -6117,12 +6117,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-020",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-021-21",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A cell with two chromosome sets is:",
     "option_a": "Haploid",
@@ -6135,12 +6135,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-021",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-022-22",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "The main bacterial chromosome is usually:",
     "option_a": "Located in Golgi",
@@ -6153,12 +6153,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-022",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-023-23",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Which organelle in human cells contains its own small genome?",
     "option_a": "Lysosome",
@@ -6171,12 +6171,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-023",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-024-24",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Chromatin is composed mainly of:",
     "option_a": "Carbohydrates only",
@@ -6189,12 +6189,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-024",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-025-25",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A karyotype displays:",
     "option_a": "Protein sequences",
@@ -6207,12 +6207,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-025",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-026-26",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Human autosomes are chromosomes:",
     "option_a": "Present only in females",
@@ -6225,12 +6225,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-026",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-027-27",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A double-stranded DNA sample contains 30% adenine. What percentage is guanine?",
     "option_a": "30%",
@@ -6243,12 +6243,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-027",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-028-28",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A double-stranded DNA sample contains 32% adenine. What percentage is guanine?",
     "option_a": "9%",
@@ -6261,12 +6261,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-028",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-029-29",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A double-stranded DNA sample contains 35% adenine. What percentage is guanine?",
     "option_a": "7.5%",
@@ -6279,12 +6279,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-029",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-030-30",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A double-stranded DNA sample contains 20% adenine. What percentage is guanine?",
     "option_a": "15%",
@@ -6297,12 +6297,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-030",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-031-31",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A species has 2n=10. How many homologous chromosome pairs are in a normal somatic cell?",
     "option_a": "5",
@@ -6315,12 +6315,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-031",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-032-32",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A species has 2n=12. How many homologous chromosome pairs are in a normal somatic cell?",
     "option_a": "6",
@@ -6333,12 +6333,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-032",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-033-33",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A species has 2n=18. How many homologous chromosome pairs are in a normal somatic cell?",
     "option_a": "8",
@@ -6351,12 +6351,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-033",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.378Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-034-34",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A diploid G1 cell has 8 chromosomes. Immediately after S phase, how many chromosomes and chromatids does it contain?",
     "option_a": "16 chromosomes and 8 chromatids",
@@ -6369,12 +6369,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-034",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.379Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-035-35",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A diploid G1 cell has 14 chromosomes. Immediately after S phase, how many chromosomes and chromatids does it contain?",
     "option_a": "28 chromosomes and 14 chromatids",
@@ -6387,12 +6387,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-035",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.379Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-036-36",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A diploid G1 cell has 20 chromosomes. Immediately after S phase, how many chromosomes and chromatids does it contain?",
     "option_a": "20 chromosomes and 40 chromatids",
@@ -6405,12 +6405,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-036",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.379Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-037-37",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "One DNA strand is 5′-ACGTTAC-3′. Which complementary strand is correctly written 5′→3′?",
     "option_a": "5′-ACGTTAC-3′",
@@ -6423,12 +6423,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-037",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.379Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-038-38",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "One DNA strand is 5′-GGCATTA-3′. Which complementary strand is correctly written 5′→3′?",
     "option_a": "5′-ATTACGG-3′",
@@ -6441,12 +6441,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-038",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.379Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-039-39",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "One DNA strand is 5′-TTACGCG-3′. Which complementary strand is correctly written 5′→3′?",
     "option_a": "5′-AATGCGC-3′",
@@ -6459,12 +6459,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-039",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.379Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-040-40",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A diploid species has 2n=6. In a G2 nucleus, how many DNA molecules, chromosomes, homologous pairs and centromeres are present, respectively?",
     "option_a": "6, 6, 3, 12",
@@ -6477,12 +6477,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-040",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.379Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-041-41",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A diploid species has 2n=10. In a G2 nucleus, how many DNA molecules, chromosomes, homologous pairs and centromeres are present, respectively?",
     "option_a": "20, 20, 10, 20",
@@ -6495,12 +6495,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-041",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.379Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-042-42",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A diploid species has 2n=16. In a G2 nucleus, how many DNA molecules, chromosomes, homologous pairs and centromeres are present, respectively?",
     "option_a": "16, 16, 8, 32",
@@ -6513,12 +6513,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-042",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.379Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-043-43",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A diploid species has 2n=22. In a G2 nucleus, how many DNA molecules, chromosomes, homologous pairs and centromeres are present, respectively?",
     "option_a": "44, 44, 22, 44",
@@ -6531,12 +6531,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-043",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.379Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-044-44",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A double-stranded DNA molecule has 1000 base pairs and 300 guanine bases in total. How many adenine bases are present?",
     "option_a": "1000",
@@ -6549,12 +6549,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-044",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.379Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-045-45",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A double-stranded DNA molecule has 2000 base pairs and 500 guanine bases in total. How many adenine bases are present?",
     "option_a": "2000",
@@ -6567,12 +6567,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-045",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.379Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-046-46",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A double-stranded DNA molecule has 1500 base pairs and 450 guanine bases in total. How many adenine bases are present?",
     "option_a": "1500",
@@ -6585,12 +6585,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-046",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.381Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-047-47",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A diploid G1 nucleus contains 4 pg of DNA. If it completes S phase without division, how much DNA does it contain?",
     "option_a": "4 pg",
@@ -6603,12 +6603,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-047",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.381Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-048-48",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A diploid G1 nucleus contains 6 pg of DNA. If it completes S phase without division, how much DNA does it contain?",
     "option_a": "24 pg",
@@ -6621,12 +6621,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-048",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.381Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-049-49",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A diploid G1 nucleus contains 9 pg of DNA. If it completes S phase without division, how much DNA does it contain?",
     "option_a": "36 pg",
@@ -6639,12 +6639,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-049",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.381Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-050-50",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A somatic cell of a species has 12 chromosomes. What best describes a normal gamete from this species?",
     "option_a": "6 chromosomes with no homologous pairs within that gamete",
@@ -6657,12 +6657,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-050",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.381Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-051-51",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A somatic cell of a species has 18 chromosomes. What best describes a normal gamete from this species?",
     "option_a": "18 chromosomes with 9 homologous pairs",
@@ -6675,12 +6675,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-051",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.381Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-DCO-052-52",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A somatic cell of a species has 24 chromosomes. What best describes a normal gamete from this species?",
     "option_a": "12 chromosomes with 12 homologous pairs",
@@ -6693,12 +6693,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-DCO-052",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.381Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-001-53",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Semi-conservative replication means each daughter DNA has:",
     "option_a": "one RNA and one DNA strand",
@@ -6711,12 +6711,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-001",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.381Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-002-54",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "The enzyme that unwinds DNA at the replication fork is:",
     "option_a": "Ligase",
@@ -6729,12 +6729,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-002",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.381Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-003-55",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "The enzyme that adds DNA nucleotides is:",
     "option_a": "Helicase",
@@ -6747,12 +6747,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-003",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.381Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-004-56",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "DNA ligase primarily:",
     "option_a": "translates mRNA",
@@ -6765,12 +6765,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-004",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.381Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-005-57",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "New DNA is synthesized:",
     "option_a": "5′→3′",
@@ -6783,12 +6783,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-005",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.381Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-006-58",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Okazaki fragments form on the:",
     "option_a": "lagging strand",
@@ -6801,12 +6801,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-006",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.381Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-007-59",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "The leading strand is synthesized:",
     "option_a": "3′→5′",
@@ -6819,12 +6819,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-007",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.381Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-008-60",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Transcription produces:",
     "option_a": "lipid from RNA",
@@ -6837,12 +6837,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-008",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.381Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-009-61",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "RNA polymerase catalyses:",
     "option_a": "DNA ligation",
@@ -6855,12 +6855,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-009",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.381Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-010-62",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "mRNA carries:",
     "option_a": "codons from DNA information to ribosomes",
@@ -6873,12 +6873,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-010",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.381Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-011-63",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "tRNA carries:",
     "option_a": "specific amino acids to ribosomes",
@@ -6891,12 +6891,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-011",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.381Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-012-64",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "rRNA is a major component of:",
     "option_a": "telomeres",
@@ -6909,12 +6909,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-012",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-013-65",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A codon contains:",
     "option_a": "one DNA helix",
@@ -6927,12 +6927,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-013",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-014-66",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "An anticodon is found on:",
     "option_a": "rRNA only",
@@ -6945,12 +6945,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-014",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-015-67",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "The usual start codon is:",
     "option_a": "UAA",
@@ -6963,12 +6963,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-015",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-016-68",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Which is a stop codon?",
     "option_a": "AUG",
@@ -6981,12 +6981,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-016",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-017-69",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Genetic-code degeneracy means:",
     "option_a": "codons vary in length",
@@ -6999,12 +6999,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-017",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-018-70",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Translation occurs on:",
     "option_a": "ribosomes",
@@ -7017,12 +7017,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-018",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-019-71",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Peptide bonds join:",
     "option_a": "amino acids",
@@ -7035,12 +7035,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-019",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-020-72",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A substitution mutation:",
     "option_a": "always changes chromosome number",
@@ -7053,12 +7053,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-020",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-021-73",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A one-base insertion in coding DNA often causes:",
     "option_a": "a silent mutation only",
@@ -7071,12 +7071,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-021",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-022-74",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A silent mutation:",
     "option_a": "does not change the encoded amino acid",
@@ -7089,12 +7089,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-022",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-023-75",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A missense mutation:",
     "option_a": "changes one amino acid to another",
@@ -7107,12 +7107,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-023",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-024-76",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A nonsense mutation creates:",
     "option_a": "a longer intron only",
@@ -7125,12 +7125,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-024",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-025-77",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Introns in eukaryotic pre-mRNA are usually:",
     "option_a": "converted to amino acids",
@@ -7143,12 +7143,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-025",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-026-78",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Exons are usually:",
     "option_a": "non-nucleic acid structures",
@@ -7161,12 +7161,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-026",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-027-79",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "The coding DNA strand matches mRNA except DNA has:",
     "option_a": "G instead of C",
@@ -7179,12 +7179,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-027",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-028-80",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A promoter mainly controls:",
     "option_a": "chromosome number",
@@ -7197,12 +7197,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-028",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-029-81",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Gene expression can produce:",
     "option_a": "only lipids",
@@ -7215,12 +7215,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-029",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-030-82",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Ribosomes read mRNA:",
     "option_a": "C→N",
@@ -7233,12 +7233,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-030",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-031-83",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Proteins are synthesized from:",
     "option_a": "5′→3′ DNA direction only",
@@ -7251,12 +7251,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-031",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-032-84",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A charged tRNA carries:",
     "option_a": "a chromosome",
@@ -7269,12 +7269,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-032",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-033-85",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "During transcription, RNA pairs with DNA adenine using:",
     "option_a": "Adenine",
@@ -7287,12 +7287,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-033",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-034-86",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Alternative splicing can:",
     "option_a": "prevent DNA replication always",
@@ -7305,12 +7305,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-034",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-035-87",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Translation stops when the ribosome encounters:",
     "option_a": "an intron in DNA",
@@ -7323,12 +7323,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-035",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-036-88",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "The amino-acid sequence of a protein is its:",
     "option_a": "tertiary structure only",
@@ -7341,12 +7341,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-036",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-037-89",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "DNA replication occurs before:",
     "option_a": "translation only",
@@ -7359,12 +7359,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-037",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-038-90",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "The template DNA strand is read by RNA polymerase:",
     "option_a": "3′→5′",
@@ -7377,12 +7377,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-038",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-039-91",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "The anticodon pairs with the:",
     "option_a": "peptide bond",
@@ -7395,12 +7395,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-039",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-040-92",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A three-base deletion in coding DNA often:",
     "option_a": "removes one amino acid without shifting the frame",
@@ -7413,12 +7413,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-040",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-041-93",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A mutation in a regulatory sequence can change:",
     "option_a": "how much a gene is expressed",
@@ -7431,12 +7431,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-041",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-042-94",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "The direct template translated by a ribosome is:",
     "option_a": "rRNA only",
@@ -7449,12 +7449,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-042",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-043-95",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A DNA template strand is 3′-TACCGAAAACCT-5′. Which mRNA is transcribed?",
     "option_a": "5′-AUGGCUUUUGGA-3′",
@@ -7467,12 +7467,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-043",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-044-96",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A DNA template strand is 3′-TACCGTGGATTT-5′. Which mRNA is transcribed?",
     "option_a": "5′-AUGGCACCUAAA-3′",
@@ -7485,12 +7485,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-044",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-045-97",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A DNA template strand is 3′-TACCCGGGATCA-5′. Which mRNA is transcribed?",
     "option_a": "5′-UGAUCCCGGGUA-3′",
@@ -7503,12 +7503,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-045",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-046-98",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A DNA template strand is 3′-TACGGAACCTTT-5′. Which mRNA is transcribed?",
     "option_a": "5′-ATGCCTTGGAAA-3′",
@@ -7521,12 +7521,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-046",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-047-99",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A DNA template strand is 3′-TACGCGAAAGGT-5′. Which mRNA is transcribed?",
     "option_a": "5′-AUGCGCUUUCCA-3′",
@@ -7539,12 +7539,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-047",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-048-100",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A DNA template strand is 3′-TACCCCAAAGGA-5′. Which mRNA is transcribed?",
     "option_a": "5′-TACCCCAAAGGA-3′",
@@ -7557,12 +7557,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-048",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-049-101",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "An mRNA sequence is 5′-AUGCCACGAAGG-3′. Which peptide is produced until the first stop codon?",
     "option_a": "Met–Pro–Arg–?",
@@ -7575,12 +7575,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-049",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-050-102",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "An mRNA sequence is 5′-AUGGCCCCAAAA-3′. Which peptide is produced until the first stop codon?",
     "option_a": "Met–Ala–Lys–Ser",
@@ -7593,12 +7593,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-050",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-051-103",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "An mRNA sequence is 5′-AUGCGUUGGCCU-3′. Which peptide is produced until the first stop codon?",
     "option_a": "Met–Ala–Gly–Pro",
@@ -7611,12 +7611,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-051",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-052-104",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "An mRNA sequence is 5′-AUGGCAUUUGGC-3′. Which peptide is produced until the first stop codon?",
     "option_a": "Met–Arg–Lys–Gly",
@@ -7629,12 +7629,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-052",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-053-105",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "An mRNA sequence is 5′-AUGCCCGGUAAA-3′. Which peptide is produced until the first stop codon?",
     "option_a": "Met–Gly–Pro–Phe",
@@ -7647,12 +7647,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-053",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-054-106",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A substitution changes GAA to GAG; both encode glutamate. This mutation is:",
     "option_a": "Chromosomal deletion",
@@ -7665,12 +7665,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-054",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-055-107",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A one-base insertion near the start of a coding region is often severe because it:",
     "option_a": "Stops all transcription",
@@ -7683,12 +7683,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-055",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-056-108",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A ligase inhibitor during DNA replication would most directly cause accumulation of:",
     "option_a": "Extra centromeres",
@@ -7701,12 +7701,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-056",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-057-109",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A promoter mutation that reduces RNA polymerase binding most directly causes:",
     "option_a": "More chromosome pairs",
@@ -7719,12 +7719,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-057",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-058-110",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A stop codon is mutated into an amino-acid codon. The likely effect is:",
     "option_a": "The reading frame must shift",
@@ -7737,12 +7737,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-058",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-059-111",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Failure to remove an intron from pre-mRNA may:",
     "option_a": "Double chromosome number",
@@ -7755,12 +7755,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-059",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-060-112",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Changing the normal AUG start codon to AUA is most likely to:",
     "option_a": "Create an extra chromosome",
@@ -7773,12 +7773,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-060",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-061-113",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A tRNA cannot be charged with its proper amino acid. Which process is most directly impaired?",
     "option_a": "DNA replication",
@@ -7791,12 +7791,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-061",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.382Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-062-114",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Alternative splicing can explain how:",
     "option_a": "All mutations are repaired",
@@ -7809,12 +7809,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-062",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-063-115",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A coding DNA strand is 5′-ATG GAA TTT TGA-3′. The corresponding mRNA is:",
     "option_a": "5′-ATG GAA TTT TGA-3′",
@@ -7827,12 +7827,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-063",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-064-116",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A 300-nucleotide coding region includes one stop codon and no untranslated sequence. Maximum amino acids encoded?",
     "option_a": "101",
@@ -7845,12 +7845,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-064",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-065-117",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A 450-nucleotide coding region includes one stop codon. How many amino acids are encoded?",
     "option_a": "151",
@@ -7863,12 +7863,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-065",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-066-118",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A three-nucleotide deletion within a coding region most directly:",
     "option_a": "Creates a trisomy",
@@ -7881,12 +7881,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-066",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-067-119",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A synonymous mutation near a splice junction changes protein output. Best explanation?",
     "option_a": "Chromosome number changed",
@@ -7899,12 +7899,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-067",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-068-120",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "Normal mRNA is produced but no full-length protein is detected. Which defect best fits?",
     "option_a": "A promoter deletion",
@@ -7917,12 +7917,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-068",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-069-121",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A ribosome starts at a downstream AUG. The most likely product:",
     "option_a": "Contains every intron",
@@ -7935,12 +7935,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-069",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-070-122",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "RNA polymerase reads through the normal termination signal. First affected product?",
     "option_a": "A shorter protein necessarily",
@@ -7953,12 +7953,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-070",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-071-123",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A translation-error drug causes codon-anticodon mispairing without changing DNA. Expected result?",
     "option_a": "DNA mutations must occur",
@@ -7971,12 +7971,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-071",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-072-124",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A helicase inhibitor acts at replication forks. Most direct effect?",
     "option_a": "Splicing accelerates",
@@ -7989,12 +7989,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-072",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-073-125",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A missense mutation leaves protein function normal. Most plausible reason?",
     "option_a": "A chromosome was lost",
@@ -8007,12 +8007,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-073",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-074-126",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A splice-donor mutation causes exon skipping. Which stage is directly altered first?",
     "option_a": "Chromosome segregation",
@@ -8025,12 +8025,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-074",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-075-127",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "DNA template 3′-TACGGAATT-5′ is transcribed and translated. Which peptide is produced before termination?",
     "option_a": "Met–Pro–Lys",
@@ -8043,12 +8043,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-075",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-076-128",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "DNA template 3′-TACCCGACT-5′ is transcribed and translated. Which peptide is produced before termination?",
     "option_a": "Met–Pro–Lys",
@@ -8061,12 +8061,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-076",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-077-129",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "DNA template 3′-TACAAATTT-5′ is transcribed and translated. Which peptide is produced before termination?",
     "option_a": "Met–Phe–Lys",
@@ -8079,12 +8079,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-077",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-078-130",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "DNA template 3′-TACGCGACT-5′ is transcribed and translated. Which peptide is produced before termination?",
     "option_a": "Met–Ala–Phe",
@@ -8097,12 +8097,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-078",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-079-131",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "DNA template 3′-TACGGGTCA-5′ is transcribed and translated. Which peptide is produced before termination?",
     "option_a": "Met–Pro–?",
@@ -8115,12 +8115,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-079",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-080-132",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "An mRNA codon changes from UUU (Phe) to UUC (Phe). What is the mutation class?",
     "option_a": "Nonsense mutation",
@@ -8133,12 +8133,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-080",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-081-133",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "An mRNA codon changes from UAU (Tyr) to UAA (Stop). What is the mutation class?",
     "option_a": "Nonsense mutation",
@@ -8151,12 +8151,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-081",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-082-134",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "An mRNA codon changes from UGG (Trp) to UAG (Stop). What is the mutation class?",
     "option_a": "Frameshift mutation",
@@ -8169,12 +8169,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-082",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-083-135",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "An mRNA codon changes from AAA (Lys) to AGA (None). What is the mutation class?",
     "option_a": "Frameshift mutation",
@@ -8187,12 +8187,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-083",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-RPT-084-136",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "An mRNA codon changes from GAA (Glu) to GAG (Glu). What is the mutation class?",
     "option_a": "Silent mutation",
@@ -8205,12 +8205,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-RPT-084",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-001-137",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Homozygous dominant genotype:",
     "option_a": "Aa",
@@ -8223,12 +8223,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-001",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-002-138",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Heterozygous genotype:",
     "option_a": "Aa",
@@ -8241,12 +8241,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-002",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-003-139",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Phenotype refers to:",
     "option_a": "Genome only",
@@ -8259,12 +8259,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-003",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-004-140",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Mendel’s segregation law describes:",
     "option_a": "Species separation",
@@ -8277,12 +8277,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-004",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-005-141",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Independent assortment applies most directly to:",
     "option_a": "Sister chromatids only",
@@ -8295,12 +8295,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-005",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-006-142",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Incomplete dominance produces a heterozygote with:",
     "option_a": "Recessive phenotype only",
@@ -8313,12 +8313,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-006",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-007-143",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Codominance means:",
     "option_a": "One allele is silent",
@@ -8331,12 +8331,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-007",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-008-144",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "ABO blood group illustrates:",
     "option_a": "Only sex linkage",
@@ -8349,12 +8349,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-008",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-009-145",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A test cross uses an unknown dominant phenotype individual crossed with:",
     "option_a": "A gamete only",
@@ -8367,12 +8367,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-009",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-010-146",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "An aa individual produces gametes carrying:",
     "option_a": "A or a",
@@ -8385,12 +8385,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-010",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-011-147",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "An Aa individual produces A gametes with probability:",
     "option_a": "3/4",
@@ -8403,12 +8403,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-011",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-012-148",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "For independent events, joint probability is found by:",
     "option_a": "Always addition",
@@ -8421,12 +8421,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-012",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-013-149",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Mutually exclusive alternative probabilities are combined by:",
     "option_a": "Squaring",
@@ -8439,12 +8439,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-013",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-014-150",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Blood group O genotype is:",
     "option_a": "ii",
@@ -8457,12 +8457,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-014",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-015-151",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Blood group AB genotype is:",
     "option_a": "IBIB",
@@ -8475,12 +8475,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-015",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-016-152",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A recessive phenotype under complete dominance requires:",
     "option_a": "AA or Aa",
@@ -8493,12 +8493,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-016",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-017-153",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A dominant phenotype can have genotype:",
     "option_a": "aa only",
@@ -8511,12 +8511,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-017",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-018-154",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Three heterozygous independent loci AaBbCc can produce how many gamete types?",
     "option_a": "6",
@@ -8529,12 +8529,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-018",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-019-155",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Assuming independent assortment and standard Mendelian inheritance, in Aa × Aa, what is the probability of aa?",
     "option_a": "0",
@@ -8547,12 +8547,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-019",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-020-156",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Assuming independent assortment and standard Mendelian inheritance, in Aa × Aa, what is the probability of Aa?",
     "option_a": "1/4",
@@ -8565,12 +8565,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-020",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-021-157",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Assuming independent assortment and standard Mendelian inheritance, in Aa × Aa, what is the probability of dominant phenotype?",
     "option_a": "0",
@@ -8583,12 +8583,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-021",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-022-158",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Assuming independent assortment and standard Mendelian inheritance, in Aa × aa, what is the probability of aa?",
     "option_a": "1/8",
@@ -8601,12 +8601,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-022",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-023-159",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Assuming independent assortment and standard Mendelian inheritance, in Aa × aa, what is the probability of Aa?",
     "option_a": "0",
@@ -8619,12 +8619,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-023",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-024-160",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Assuming independent assortment and standard Mendelian inheritance, in AA × aa, what is the probability of Aa?",
     "option_a": "1/16",
@@ -8637,12 +8637,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-024",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-025-161",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Assuming independent assortment and standard Mendelian inheritance, in AA × Aa, what is the probability of aa?",
     "option_a": "0",
@@ -8655,12 +8655,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-025",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-026-162",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Assuming independent assortment and standard Mendelian inheritance, in AA × Aa, what is the probability of Aa?",
     "option_a": "1/4",
@@ -8673,12 +8673,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-026",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-027-163",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Assuming independent assortment and standard Mendelian inheritance, in aa × aa, what is the probability of aa?",
     "option_a": "1/16",
@@ -8691,12 +8691,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-027",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-028-164",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Assuming independent assortment and standard Mendelian inheritance, in AaBb × aabb, what is the probability of aabb?",
     "option_a": "1/16",
@@ -8709,12 +8709,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-028",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-029-165",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Assuming independent assortment and standard Mendelian inheritance, in AaBb × aabb, what is the probability of AaBb?",
     "option_a": "1/2",
@@ -8727,12 +8727,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-029",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.383Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-030-166",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Assuming independent assortment and standard Mendelian inheritance, in AaBb × AaBb, what is the probability of aabb?",
     "option_a": "1/2",
@@ -8745,12 +8745,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-030",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-031-167",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Assuming independent assortment and standard Mendelian inheritance, in AaBb × AaBb, what is the probability of A_B_?",
     "option_a": "1/4",
@@ -8763,12 +8763,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-031",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-032-168",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Assuming independent assortment and standard Mendelian inheritance, in AaBb × AaBb, what is the probability of aaB_?",
     "option_a": "1/16",
@@ -8781,12 +8781,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-032",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-033-169",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Assuming independent assortment and standard Mendelian inheritance, in AaBb × AaBb, what is the probability of A_bb?",
     "option_a": "1/16",
@@ -8799,12 +8799,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-033",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-034-170",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Assuming independent assortment and standard Mendelian inheritance, in IAi × IBi, what is the probability of AB phenotype?",
     "option_a": "1/2",
@@ -8817,12 +8817,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-034",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-035-171",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Assuming independent assortment and standard Mendelian inheritance, in IAi × IBi, what is the probability of O phenotype?",
     "option_a": "1/16",
@@ -8835,12 +8835,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-035",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-036-172",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Assuming independent assortment and standard Mendelian inheritance, in IAIB × ii, what is the probability of A phenotype?",
     "option_a": "0",
@@ -8853,12 +8853,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-036",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-037-173",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Assuming independent assortment and standard Mendelian inheritance, in IAIB × ii, what is the probability of B phenotype?",
     "option_a": "1/8",
@@ -8871,12 +8871,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-037",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-038-174",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Assuming independent assortment and standard Mendelian inheritance, in IAi × ii, what is the probability of O phenotype?",
     "option_a": "0",
@@ -8889,12 +8889,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-038",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-039-175",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Assuming independent assortment and standard Mendelian inheritance, in AaBbCc × aabbcc, what is the probability of aabbcc?",
     "option_a": "1/2",
@@ -8907,12 +8907,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-039",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-040-176",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Assuming independent assortment and standard Mendelian inheritance, in AaBb, what is the probability of AB gamete?",
     "option_a": "1/2",
@@ -8925,12 +8925,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-040",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-041-177",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Assuming independent assortment and standard Mendelian inheritance, in AABb, what is the probability of AB gamete?",
     "option_a": "1/4",
@@ -8943,12 +8943,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-041",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-042-178",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Assuming independent assortment and standard Mendelian inheritance, in AABb, what is the probability of ab gamete?",
     "option_a": "1/8",
@@ -8961,12 +8961,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-042",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-043-179",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "For AaBb × AaBb, assuming independent loci, what is the probability of A_B_?",
     "option_a": "9/16",
@@ -8979,12 +8979,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-043",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-044-180",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "For AaBb × AaBb, assuming independent loci, what is the probability of exactly one recessive phenotype?",
     "option_a": "1/16",
@@ -8997,12 +8997,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-044",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-045-181",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "For AaBb × AaBb, assuming independent loci, what is the probability of homozygous at both loci?",
     "option_a": "1/64",
@@ -9015,12 +9015,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-045",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-046-182",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "For AaBb × AaBb, assuming independent loci, what is the probability of AaBb?",
     "option_a": "1/4",
@@ -9033,12 +9033,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-046",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-047-183",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "For AaBb × AaBb, assuming independent loci, what is the probability of Aabb?",
     "option_a": "1/16",
@@ -9051,12 +9051,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-047",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-048-184",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "For AaBb × Aabb, assuming independent loci, what is the probability of aaBb?",
     "option_a": "1/16",
@@ -9069,12 +9069,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-048",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-049-185",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "For AaBbCc × aabbcc, assuming independent loci, what is the probability of aabbcc?",
     "option_a": "1/8",
@@ -9087,12 +9087,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-049",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-050-186",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "For AaBbCc × AaBbCc, assuming independent loci, what is the probability of A_B_C_?",
     "option_a": "1/64",
@@ -9105,12 +9105,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-050",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-051-187",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Two Aa parents have three children. Probability all three show dominant phenotype?",
     "option_a": "27/64",
@@ -9123,12 +9123,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-051",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-052-188",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Two Aa parents have two children. Probability exactly one is aa?",
     "option_a": "1/4",
@@ -9141,12 +9141,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-052",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-053-189",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Among dominant-phenotype offspring from Aa×Aa, what fraction are heterozygous?",
     "option_a": "3/4",
@@ -9159,12 +9159,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-053",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-054-190",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A test cross gives a 1:1 dominant:recessive ratio. Unknown dominant parent genotype?",
     "option_a": "Aa",
@@ -9177,12 +9177,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-054",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-055-191",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Two purple heterozygotes produce about 3:1 purple:white. Parents are:",
     "option_a": "PP × pp",
@@ -9195,12 +9195,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-055",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-056-192",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "In incomplete dominance Rr×Rr, fraction intermediate?",
     "option_a": "1/2",
@@ -9213,12 +9213,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-056",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-057-193",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "IAi × IBi: probability of AB child?",
     "option_a": "0",
@@ -9231,12 +9231,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-057",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-058-194",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "IAIB × ii produces expected phenotype ratio:",
     "option_a": "1 A : 1 B",
@@ -9249,12 +9249,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-058",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-059-195",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A parent AaBb makes two successive gametes. Probability both are AB?",
     "option_a": "3/16",
@@ -9267,12 +9267,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-059",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-060-196",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "For AaBb×AaBb, probability at least one recessive phenotype?",
     "option_a": "6/16",
@@ -9285,12 +9285,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-060",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-061-197",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "For AaBb×AaBb, among A_B_ offspring what fraction are AaBb?",
     "option_a": "1/4",
@@ -9303,12 +9303,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-061",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-062-198",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Carrier parents Aa×Aa have an unaffected child. Probability that child is carrier?",
     "option_a": "1/2",
@@ -9321,12 +9321,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-062",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-063-199",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "For AaBb×AaBb, among A_bb offspring what fraction are Aabb?",
     "option_a": "2/3",
@@ -9339,12 +9339,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-063",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-064-200",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "Two Aa parents have four children. Probability exactly two are aa?",
     "option_a": "3/8",
@@ -9357,12 +9357,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-064",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-065-201",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "Aa×Aa parents have two children. Probability at least one is aa?",
     "option_a": "1/16",
@@ -9375,12 +9375,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-065",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-066-202",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "Aa×Aa parents have three children. Probability none is aa?",
     "option_a": "3/4",
@@ -9393,12 +9393,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-066",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-067-203",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "AaBb×AaBb: probability heterozygous at exactly one locus?",
     "option_a": "1/2",
@@ -9411,12 +9411,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-067",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-068-204",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "AaBb×AaBb: probability homozygous recessive at one or both loci?",
     "option_a": "1/2",
@@ -9429,12 +9429,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-068",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-069-205",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "AaBbCc×AaBbCc: probability AabbCc?",
     "option_a": "1/64",
@@ -9447,12 +9447,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-069",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-070-206",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "AaBbCcDd has how many gamete types?",
     "option_a": "32",
@@ -9465,12 +9465,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-070",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-071-207",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "Aa×Aa with recessive lethal aa: among survivors, fraction Aa?",
     "option_a": "2/3",
@@ -9483,12 +9483,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-071",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-072-208",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "Codominant C1C2×C1C2: fraction expressing both alleles?",
     "option_a": "1",
@@ -9501,12 +9501,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-072",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-073-209",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "AaBb test cross yields ~1:1:1:1. Best interpretation?",
     "option_a": "Genes are completely linked",
@@ -9519,12 +9519,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-073",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-074-210",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "Two parents are heterozygous at 2 independent loci (AaBb... at each). What is the probability an offspring is homozygous recessive at all 2 loci?",
     "option_a": "1/4",
@@ -9537,12 +9537,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-074",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-075-211",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "Two parents are heterozygous at 3 independent loci (AaBb... at each). What is the probability an offspring is homozygous recessive at all 3 loci?",
     "option_a": "1/16",
@@ -9555,12 +9555,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-075",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-076-212",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "Two parents are heterozygous at 4 independent loci (AaBb... at each). What is the probability an offspring is homozygous recessive at all 4 loci?",
     "option_a": "1/256",
@@ -9573,12 +9573,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-076",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-077-213",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "Two parents are heterozygous at 5 independent loci (AaBb... at each). What is the probability an offspring is homozygous recessive at all 5 loci?",
     "option_a": "1/1024",
@@ -9591,12 +9591,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-077",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-078-214",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "Two parents are heterozygous at 6 independent loci (AaBb... at each). What is the probability an offspring is homozygous recessive at all 6 loci?",
     "option_a": "1/128",
@@ -9609,12 +9609,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-078",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-079-215",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "Carrier parents Aa×Aa have 2 children. What is the probability exactly one child is affected by the recessive trait?",
     "option_a": "1/2",
@@ -9627,12 +9627,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-079",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-080-216",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "Carrier parents Aa×Aa have 3 children. What is the probability exactly one child is affected by the recessive trait?",
     "option_a": "3/64",
@@ -9645,12 +9645,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-080",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-081-217",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "Carrier parents Aa×Aa have 4 children. What is the probability exactly one child is affected by the recessive trait?",
     "option_a": "27/64",
@@ -9663,12 +9663,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-081",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-082-218",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "Carrier parents Aa×Aa have 5 children. What is the probability exactly one child is affected by the recessive trait?",
     "option_a": "5/1024",
@@ -9681,12 +9681,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-082",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-083-219",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "Carrier parents Aa×Aa have 6 children. What is the probability exactly one child is affected by the recessive trait?",
     "option_a": "729/2048",
@@ -9699,12 +9699,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-083",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-MEN-084-220",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "Carrier parents Aa×Aa have 7 children. What is the probability exactly one child is affected by the recessive trait?",
     "option_a": "1/2",
@@ -9717,12 +9717,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-MEN-084",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-HUM-001-221",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "An X-linked gene is located on:",
     "option_a": "Y chromosome only",
@@ -9735,12 +9735,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-001",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-002-222",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Most X-linked genes in an XY male are:",
     "option_a": "Hemizygous",
@@ -9753,12 +9753,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-002",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-003-223",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A father gives his X chromosome to:",
     "option_a": "Half sons only",
@@ -9771,12 +9771,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-003",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-004-224",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A father gives his Y chromosome to:",
     "option_a": "All children",
@@ -9789,12 +9789,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-004",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-005-225",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A pedigree square represents a:",
     "option_a": "Male",
@@ -9807,12 +9807,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-005",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-006-226",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A pedigree circle represents a:",
     "option_a": "Male",
@@ -9825,12 +9825,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-006",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-007-227",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A shaded pedigree symbol usually means:",
     "option_a": "Male only",
@@ -9843,12 +9843,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-007",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-008-228",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Autosomal dominant traits often show:",
     "option_a": "Maternal inheritance only",
@@ -9861,12 +9861,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-008",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-009-229",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Autosomal recessive traits may appear in children of:",
     "option_a": "Two AA parents",
@@ -9879,12 +9879,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-009",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-010-230",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "X-linked recessive traits are more frequent in males because males:",
     "option_a": "Cannot carry recessive alleles",
@@ -9897,12 +9897,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-010",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-011-231",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A carrier female for a simple X-linked recessive trait is usually:",
     "option_a": "Haploid",
@@ -9915,12 +9915,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-011",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-012-232",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A polygenic trait is controlled by:",
     "option_a": "No genes",
@@ -9933,12 +9933,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-012",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-013-233",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A multifactorial trait is influenced by:",
     "option_a": "Genes and environment",
@@ -9951,12 +9951,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-013",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-014-234",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Nondisjunction is failure of:",
     "option_a": "Gametes to fuse",
@@ -9969,12 +9969,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-014",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-015-235",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Trisomy means:",
     "option_a": "One copy of all chromosomes",
@@ -9987,12 +9987,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-015",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-016-236",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Monosomy means:",
     "option_a": "Two normal copies",
@@ -10005,12 +10005,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-016",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-017-237",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Crossing over occurs between:",
     "option_a": "Sister chromatids only",
@@ -10023,12 +10023,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-017",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-018-238",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Nearby genes on the same chromosome tend to be:",
     "option_a": "Always independent",
@@ -10041,12 +10041,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-018",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.384Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-019-239",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Recombination frequency generally increases with:",
     "option_a": "Distance between linked genes",
@@ -10059,12 +10059,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-019",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-020-240",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "10% recombination corresponds approximately to:",
     "option_a": "1 cM",
@@ -10077,12 +10077,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-020",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-021-241",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Maximum observable recombination frequency is about:",
     "option_a": "75%",
@@ -10095,12 +10095,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-021",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-022-242",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Autosomal recessive carrier genotype is usually:",
     "option_a": "A only",
@@ -10113,12 +10113,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-022",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-023-243",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Affected simple autosomal recessive genotype:",
     "option_a": "A_",
@@ -10131,12 +10131,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-023",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-024-244",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "An unaffected person for a fully penetrant autosomal dominant trait is:",
     "option_a": "AA or Aa",
@@ -10149,12 +10149,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-024",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-025-245",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A somatic mutation occurs in:",
     "option_a": "Only sperm",
@@ -10167,12 +10167,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-025",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-026-246",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A germline mutation can be transmitted to:",
     "option_a": "Offspring",
@@ -10185,12 +10185,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-026",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-027-247",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Y-linked traits pass from affected father to:",
     "option_a": "No sons",
@@ -10203,12 +10203,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-027",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-028-248",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Mitochondrial DNA is usually inherited from:",
     "option_a": "Y chromosome",
@@ -10221,12 +10221,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-028",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-029-249",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "An affected father with a mitochondrial mutation usually passes it to:",
     "option_a": "All sons",
@@ -10239,12 +10239,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-029",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-030-250",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A chromosomal deletion removes:",
     "option_a": "A DNA/chromosome segment",
@@ -10257,12 +10257,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-030",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-031-251",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A duplication creates:",
     "option_a": "An extra copy of a DNA segment",
@@ -10275,12 +10275,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-031",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-032-252",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A translocation involves:",
     "option_a": "Movement of a chromosome segment to a new chromosomal location",
@@ -10293,12 +10293,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-032",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-033-253",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A balanced translocation may preserve:",
     "option_a": "Normal meiosis always",
@@ -10311,12 +10311,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-033",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-034-254",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A continuous trait such as height is commonly:",
     "option_a": "Y-linked only",
@@ -10329,12 +10329,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-034",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-035-255",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A monogenic trait is primarily controlled by:",
     "option_a": "Many genes only",
@@ -10347,12 +10347,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-035",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-036-256",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Male-to-male transmission rules out:",
     "option_a": "X-linked inheritance",
@@ -10365,12 +10365,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-036",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-037-257",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "XᴺXⁿ mother × XᴺY father; probability an affected son among all children?",
     "option_a": "0",
@@ -10383,12 +10383,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-037",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-038-258",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "XᴺXⁿ mother × XᴺY father; given child is a son, probability affected?",
     "option_a": "1/2",
@@ -10401,12 +10401,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-038",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-039-259",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Affected XⁿY father × XᴺXᴺ mother; daughters are:",
     "option_a": "No daughters",
@@ -10419,12 +10419,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-039",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-040-260",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Affected father XⁿY × carrier mother XᴺXⁿ; probability a daughter is affected?",
     "option_a": "3/4",
@@ -10437,12 +10437,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-040",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-041-261",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Genes with 12% recombination yield total recombinant offspring in a test cross of:",
     "option_a": "24%",
@@ -10455,12 +10455,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-041",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-042-262",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Genes with 20% recombination: each recombinant gamete class is about:",
     "option_a": "20%",
@@ -10473,12 +10473,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-042",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-043-263",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Unaffected parents have affected son and daughter. Most consistent mode?",
     "option_a": "Mitochondrial from father",
@@ -10491,12 +10491,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-043",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-044-264",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Trait appears every generation, both sexes, and father-to-son occurs. Most consistent mode?",
     "option_a": "Autosomal dominant",
@@ -10509,12 +10509,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-044",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-045-265",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Trait affects only males and every affected father transmits it to every son. Mode?",
     "option_a": "Y-linked",
@@ -10527,12 +10527,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-045",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-046-266",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Meiosis-I nondisjunction means:",
     "option_a": "mRNA fails to splice",
@@ -10545,12 +10545,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-046",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-047-267",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Meiosis-II nondisjunction means:",
     "option_a": "Sister chromatids fail to separate",
@@ -10563,12 +10563,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-047",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-048-268",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Recombination near 50% suggests loci:",
     "option_a": "Are the same gene",
@@ -10581,12 +10581,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-048",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-049-269",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Carrier parents for autosomal recessive disease: unaffected child carrier probability?",
     "option_a": "1/4",
@@ -10599,12 +10599,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-049",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-050-270",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Aa affected autosomal-dominant parent × aa unaffected; affected child risk?",
     "option_a": "1/2",
@@ -10617,12 +10617,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-050",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-051-271",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Balanced reciprocal translocation carrier may be healthy because:",
     "option_a": "Meiosis is impossible",
@@ -10635,12 +10635,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-051",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-052-272",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Continuous variation such as height is best explained by:",
     "option_a": "One mitochondrial gene",
@@ -10653,12 +10653,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-052",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-053-273",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Affected mother transmits trait to sons and daughters; affected father transmits to none. Best mode?",
     "option_a": "X-linked dominant",
@@ -10671,12 +10671,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-053",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-054-274",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Affected father transmits trait to all daughters and no sons. Best mode?",
     "option_a": "Autosomal recessive",
@@ -10689,12 +10689,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-054",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-055-275",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "Test cross: 420 AB, 430 ab, 75 Ab, 75 aB. Recombination frequency?",
     "option_a": "50%",
@@ -10707,12 +10707,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-055",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-056-276",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "Test cross has 760 parental and 240 recombinant offspring. Map distance?",
     "option_a": "12 cM",
@@ -10725,12 +10725,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-056",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-057-277",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "AB/ab heterozygote, genes 10 cM apart. Expected AB gametes?",
     "option_a": "10%",
@@ -10743,12 +10743,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-057",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-058-278",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "Ab/aB heterozygote, genes 20 cM apart. Expected ab gametes?",
     "option_a": "40%",
@@ -10761,12 +10761,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-058",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-059-279",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "AB/ab genes 8 cM apart; test cross. Expected Ab offspring?",
     "option_a": "92%",
@@ -10779,12 +10779,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-059",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-060-280",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A carrier XᴺXⁿ woman and unaffected XᴺY man have two sons. Probability exactly one affected?",
     "option_a": "1",
@@ -10797,12 +10797,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-060",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-061-281",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "An unaffected daughter of XᴺXⁿ mother and XⁿY father: probability she is a carrier?",
     "option_a": "1/2",
@@ -10815,12 +10815,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-061",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-062-282",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "Unaffected parents have an affected daughter. Which observation rules out simple X-linked recessive inheritance?",
     "option_a": "Mother is unaffected",
@@ -10833,12 +10833,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-062",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-063-283",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A balanced translocation carrier has reproductive risk because:",
     "option_a": "No homologues exist",
@@ -10851,12 +10851,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-063",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-064-284",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "Recombination frequency 1% indicates loci are:",
     "option_a": "Same allele",
@@ -10869,12 +10869,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-064",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-065-285",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A coupling-phase heterozygote AB/ab has a recombination frequency of 6%. What percentage of gametes are expected to be AB?",
     "option_a": "3%",
@@ -10887,12 +10887,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-065",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-066-286",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A coupling-phase heterozygote AB/ab has a recombination frequency of 14%. What percentage of gametes are expected to be AB?",
     "option_a": "7%",
@@ -10905,12 +10905,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-066",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-067-287",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A coupling-phase heterozygote AB/ab has a recombination frequency of 18%. What percentage of gametes are expected to be AB?",
     "option_a": "82%",
@@ -10923,12 +10923,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-067",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-068-288",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A coupling-phase heterozygote AB/ab has a recombination frequency of 22%. What percentage of gametes are expected to be AB?",
     "option_a": "78%",
@@ -10941,12 +10941,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-068",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-069-289",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A coupling-phase heterozygote AB/ab has a recombination frequency of 26%. What percentage of gametes are expected to be AB?",
     "option_a": "74%",
@@ -10959,12 +10959,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-069",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-070-290",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A coupling-phase heterozygote AB/ab has a recombination frequency of 30%. What percentage of gametes are expected to be AB?",
     "option_a": "30%",
@@ -10977,12 +10977,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-070",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-071-291",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A coupling-phase heterozygote AB/ab has a recombination frequency of 34%. What percentage of gametes are expected to be AB?",
     "option_a": "67%",
@@ -10995,12 +10995,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-071",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-HUM-072-292",
     "subject": "Biology",
-    "topic": "Classical & Human Genetics",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A coupling-phase heterozygote AB/ab has a recombination frequency of 40%. What percentage of gametes are expected to be AB?",
     "option_a": "30%",
@@ -11013,12 +11013,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-HUM-072",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Classical & Human Genetics"
   },
   {
     "id": "qb-BIO-GEN-CEL-001-293",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "DNA replication occurs in:",
     "option_a": "G1",
@@ -11031,12 +11031,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-001",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-002-294",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "G1 mainly involves:",
     "option_a": "Meiosis I pairing",
@@ -11049,12 +11049,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-002",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-003-295",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "G2 occurs:",
     "option_a": "After S and before mitosis",
@@ -11067,12 +11067,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-003",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-004-296",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Mitosis generally preserves:",
     "option_a": "Genetic variation only",
@@ -11085,12 +11085,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-004",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-005-297",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Meiosis changes ploidy from:",
     "option_a": "Haploid to triploid",
@@ -11103,12 +11103,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-005",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-006-298",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Homologues pair in:",
     "option_a": "Metaphase II",
@@ -11121,12 +11121,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-006",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-007-299",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Crossing over usually occurs in:",
     "option_a": "Anaphase II",
@@ -11139,12 +11139,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-007",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-008-300",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Homologous chromosomes separate in:",
     "option_a": "Metaphase I",
@@ -11157,12 +11157,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-008",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-009-301",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Sister chromatids separate in meiosis during:",
     "option_a": "G1",
@@ -11175,12 +11175,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-009",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-010-302",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Chromosomes align at the equator in:",
     "option_a": "Prophase",
@@ -11193,12 +11193,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-010",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-011-303",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Nuclear envelopes commonly reform in:",
     "option_a": "Anaphase",
@@ -11211,12 +11211,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-011",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-012-304",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Cytokinesis divides the:",
     "option_a": "Cytoplasm",
@@ -11229,12 +11229,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-012",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-013-305",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Independent assortment arises from:",
     "option_a": "Random orientation of homologous pairs at metaphase I",
@@ -11247,12 +11247,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-013",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-014-306",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A bivalent contains:",
     "option_a": "Two sister chromatids only",
@@ -11265,12 +11265,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-014",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-015-307",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Mitosis is important for:",
     "option_a": "Reduction of chromosome number",
@@ -11283,12 +11283,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-015",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-016-308",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Meiosis is important for:",
     "option_a": "Producing haploid cells and variation",
@@ -11301,12 +11301,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-016",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-017-309",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "2n=8 means normal gametes have:",
     "option_a": "4 chromosomes",
@@ -11319,12 +11319,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-017",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-018-310",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Metaphase I shows chromosomes:",
     "option_a": "Unreplicated in G1",
@@ -11337,12 +11337,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-018",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-019-311",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Metaphase II shows chromosomes:",
     "option_a": "Unreplicated homologues",
@@ -11355,12 +11355,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-019",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-020-312",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "DNA replication between meiosis I and II is normally:",
     "option_a": "Absent",
@@ -11373,12 +11373,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-020",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-021-313",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "After S phase a chromosome normally has:",
     "option_a": "One DNA molecule only",
@@ -11391,12 +11391,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-021",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-022-314",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Spindle microtubules primarily:",
     "option_a": "Digest lipids",
@@ -11409,12 +11409,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-022",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-023-315",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Kinetochores form at:",
     "option_a": "Telomeres",
@@ -11427,12 +11427,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-023",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-024-316",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "In mitotic anaphase, chromosome count in the single cell temporarily:",
     "option_a": "Becomes haploid",
@@ -11445,12 +11445,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-024",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-025-317",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Meiotic variation arises from:",
     "option_a": "Cytokinesis only",
@@ -11463,12 +11463,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-025",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.385Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-026-318",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Metaphase is followed by:",
     "option_a": "S phase",
@@ -11481,12 +11481,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-026",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-027-319",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "In simplified staging, prophase is followed by:",
     "option_a": "G1",
@@ -11499,12 +11499,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-027",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-028-320",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Reductional division is:",
     "option_a": "Meiosis I",
@@ -11517,12 +11517,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-028",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-029-321",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Meiosis II most resembles:",
     "option_a": "Mitosis",
@@ -11535,12 +11535,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-029",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-030-322",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A chiasma marks:",
     "option_a": "A crossover connection between homologues",
@@ -11553,12 +11553,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-030",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-031-323",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "One diploid precursor usually yields after meiosis:",
     "option_a": "Two diploid cells",
@@ -11571,12 +11571,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-031",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-032-324",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Mitosis of a diploid cell yields daughters that are:",
     "option_a": "Tetraploid by necessity",
@@ -11589,12 +11589,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-032",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-033-325",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "The G2/M checkpoint helps ensure:",
     "option_a": "Telomeres are absent",
@@ -11607,12 +11607,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-033",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-034-326",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Uncontrolled cell-cycle progression is associated with:",
     "option_a": "Only meiosis",
@@ -11625,12 +11625,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-034",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-035-327",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "G0 cells are generally:",
     "option_a": "Separating homologues",
@@ -11643,12 +11643,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-035",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-036-328",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Crossing over changes:",
     "option_a": "DNA amount by doubling it",
@@ -11661,12 +11661,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-036",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-037-329",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A species has 2n=6. How many chromosomes are in each cell immediately after meiosis I?",
     "option_a": "3",
@@ -11679,12 +11679,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-037",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-038-330",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A species has 2n=8. How many chromosomes are in each cell immediately after meiosis I?",
     "option_a": "12",
@@ -11697,12 +11697,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-038",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-039-331",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A species has 2n=10. How many chromosomes are in each cell immediately after meiosis I?",
     "option_a": "10",
@@ -11715,12 +11715,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-039",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-040-332",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A species has 2n=12. How many chromosomes are in each cell immediately after meiosis I?",
     "option_a": "3",
@@ -11733,12 +11733,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-040",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-041-333",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A species has 2n=14. How many chromosomes are in each cell immediately after meiosis I?",
     "option_a": "28",
@@ -11751,12 +11751,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-041",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-042-334",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A species has 2n=16. How many chromosomes are in each cell immediately after meiosis I?",
     "option_a": "16",
@@ -11769,12 +11769,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-042",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-043-335",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A species has 2n=6. How many chromatids are in each cell immediately after meiosis I?",
     "option_a": "24",
@@ -11787,12 +11787,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-043",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-044-336",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A species has 2n=8. How many chromatids are in each cell immediately after meiosis I?",
     "option_a": "4",
@@ -11805,12 +11805,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-044",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-045-337",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A species has 2n=10. How many chromatids are in each cell immediately after meiosis I?",
     "option_a": "5",
@@ -11823,12 +11823,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-045",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-046-338",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A species has 2n=12. How many chromatids are in each cell immediately after meiosis I?",
     "option_a": "18",
@@ -11841,12 +11841,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-046",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-047-339",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A species has 2n=14. How many chromatids are in each cell immediately after meiosis I?",
     "option_a": "28",
@@ -11859,12 +11859,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-047",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-048-340",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A species has 2n=16. How many chromatids are in each cell immediately after meiosis I?",
     "option_a": "64",
@@ -11877,12 +11877,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-048",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-049-341",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A cell has 8 chromosomes at metaphase of mitosis. How many chromatids are present?",
     "option_a": "32",
@@ -11895,12 +11895,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-049",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-050-342",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A cell has 10 chromosomes at metaphase of mitosis. How many chromatids are present?",
     "option_a": "20",
@@ -11913,12 +11913,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-050",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-051-343",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A cell has 12 chromosomes at metaphase of mitosis. How many chromatids are present?",
     "option_a": "24",
@@ -11931,12 +11931,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-051",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-052-344",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A cell has 14 chromosomes at metaphase of mitosis. How many chromatids are present?",
     "option_a": "16",
@@ -11949,12 +11949,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-052",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-053-345",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A cell has 16 chromosomes at metaphase of mitosis. How many chromatids are present?",
     "option_a": "16",
@@ -11967,12 +11967,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-053",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-054-346",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "A cell has 20 chromosomes at metaphase of mitosis. How many chromatids are present?",
     "option_a": "22",
@@ -11985,12 +11985,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-054",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-055-347",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A diploid species has 2n=6. At metaphase I, how many chromosomes, chromatids and bivalents are present?",
     "option_a": "12, 24, 3",
@@ -12003,12 +12003,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-055",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-056-348",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A diploid species has 2n=8. At metaphase I, how many chromosomes, chromatids and bivalents are present?",
     "option_a": "16, 32, 4",
@@ -12021,12 +12021,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-056",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-057-349",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A diploid species has 2n=10. At metaphase I, how many chromosomes, chromatids and bivalents are present?",
     "option_a": "10, 20, 5",
@@ -12039,12 +12039,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-057",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-058-350",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A diploid species has 2n=12. At metaphase I, how many chromosomes, chromatids and bivalents are present?",
     "option_a": "6, 12, 6",
@@ -12057,12 +12057,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-058",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-059-351",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A diploid species has 2n=14. At metaphase I, how many chromosomes, chromatids and bivalents are present?",
     "option_a": "14, 14, 7",
@@ -12075,12 +12075,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-059",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-060-352",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A diploid species has 2n=16. At metaphase I, how many chromosomes, chromatids and bivalents are present?",
     "option_a": "8, 16, 8",
@@ -12093,12 +12093,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-060",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-061-353",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A species has 2n=4. At anaphase of mitosis before cytokinesis, how many chromosomes are temporarily counted in the single cell?",
     "option_a": "6",
@@ -12111,12 +12111,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-061",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-062-354",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A species has 2n=6. At anaphase of mitosis before cytokinesis, how many chromosomes are temporarily counted in the single cell?",
     "option_a": "3",
@@ -12129,12 +12129,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-062",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-063-355",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A species has 2n=8. At anaphase of mitosis before cytokinesis, how many chromosomes are temporarily counted in the single cell?",
     "option_a": "16",
@@ -12147,12 +12147,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-063",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-064-356",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A species has 2n=10. At anaphase of mitosis before cytokinesis, how many chromosomes are temporarily counted in the single cell?",
     "option_a": "40",
@@ -12165,12 +12165,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-064",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-065-357",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A species has 2n=12. At anaphase of mitosis before cytokinesis, how many chromosomes are temporarily counted in the single cell?",
     "option_a": "12",
@@ -12183,12 +12183,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-065",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-066-358",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A species has 2n=14. At anaphase of mitosis before cytokinesis, how many chromosomes are temporarily counted in the single cell?",
     "option_a": "16",
@@ -12201,12 +12201,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-066",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-067-359",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A species has 2 homologous chromosome pairs. Ignoring crossing over, how many chromosome combinations can independent assortment produce in gametes?",
     "option_a": "9",
@@ -12219,12 +12219,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-067",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-068-360",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A species has 3 homologous chromosome pairs. Ignoring crossing over, how many chromosome combinations can independent assortment produce in gametes?",
     "option_a": "3",
@@ -12237,12 +12237,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-068",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-069-361",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A species has 4 homologous chromosome pairs. Ignoring crossing over, how many chromosome combinations can independent assortment produce in gametes?",
     "option_a": "32",
@@ -12255,12 +12255,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-069",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-070-362",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A species has 5 homologous chromosome pairs. Ignoring crossing over, how many chromosome combinations can independent assortment produce in gametes?",
     "option_a": "10",
@@ -12273,12 +12273,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-070",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-071-363",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A species has 6 homologous chromosome pairs. Ignoring crossing over, how many chromosome combinations can independent assortment produce in gametes?",
     "option_a": "32",
@@ -12291,12 +12291,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-071",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-CEL-072-364",
     "subject": "Biology",
-    "topic": "Mendelian Genetics & Probability",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A species has 7 homologous chromosome pairs. Ignoring crossing over, how many chromosome combinations can independent assortment produce in gametes?",
     "option_a": "14",
@@ -12309,12 +12309,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-CEL-072",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "Mendelian Genetics & Probability"
   },
   {
     "id": "qb-BIO-GEN-REP-001-365",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Asexual reproduction usually involves:",
     "option_a": "Crossing over only",
@@ -12327,12 +12327,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-001",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-002-366",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Sexual reproduction usually involves:",
     "option_a": "Fusion of haploid gametes",
@@ -12345,12 +12345,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-002",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-003-367",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Fertilisation restores:",
     "option_a": "Diploid chromosome number",
@@ -12363,12 +12363,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-003",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-004-368",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A zygote forms by:",
     "option_a": "RNA splicing",
@@ -12381,12 +12381,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-004",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-005-369",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Spermatogenesis produces:",
     "option_a": "Sperm",
@@ -12399,12 +12399,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-005",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-006-370",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Oogenesis produces:",
     "option_a": "Skin cells",
@@ -12417,12 +12417,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-006",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-007-371",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Human gametes are:",
     "option_a": "Triploid",
@@ -12435,12 +12435,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-007",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-008-372",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "The human zygote is normally:",
     "option_a": "Triploid",
@@ -12453,12 +12453,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-008",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-009-373",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Sexual reproduction tends to increase:",
     "option_a": "No recombination",
@@ -12471,12 +12471,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-009",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-010-374",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Asexual reproduction can be advantageous because it:",
     "option_a": "Requires two parents",
@@ -12489,12 +12489,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-010",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-011-375",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "A clone is expected to be:",
     "option_a": "Always haploid",
@@ -12507,12 +12507,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-011",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-012-376",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Meiosis prevents chromosome number from:",
     "option_a": "Halving every generation",
@@ -12525,12 +12525,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-012",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-013-377",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Human sperm normally contain:",
     "option_a": "44",
@@ -12543,12 +12543,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-013",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-014-378",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Human ova normally contain:",
     "option_a": "23 chromosomes",
@@ -12561,12 +12561,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-014",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-015-379",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Immediate product of fertilisation:",
     "option_a": "Zygote",
@@ -12579,12 +12579,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-015",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-016-380",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Sexual offspring vary partly because gametes:",
     "option_a": "Carry different allele combinations",
@@ -12597,12 +12597,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-016",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-017-381",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Binary fission is:",
     "option_a": "Gamete fusion",
@@ -12615,12 +12615,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-017",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-018-382",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "easy",
     "question_text": "Transitions between n and 2n in sexual life cycles depend on:",
     "option_a": "Meiosis and fertilisation",
@@ -12633,12 +12633,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-018",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-019-383",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "2n=20 species: normal gamete and zygote chromosome numbers?",
     "option_a": "20 and 10",
@@ -12651,12 +12651,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-019",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-020-384",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "If meiosis failed to reduce chromosome number, two unreduced diploid gametes would form a:",
     "option_a": "Chromosome-free zygote",
@@ -12669,12 +12669,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-020",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-021-385",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Why does sexual reproduction usually create more variation than asexual reproduction?",
     "option_a": "It prevents replication",
@@ -12687,12 +12687,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-021",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-022-386",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Asexual reproduction can be disadvantageous in a changing environment because clones:",
     "option_a": "Require meiosis",
@@ -12705,12 +12705,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-022",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-023-387",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "One primary spermatocyte ultimately produces how many haploid products?",
     "option_a": "8",
@@ -12723,12 +12723,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-023",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-024-388",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Oogenesis differs because cytokinesis is often:",
     "option_a": "Unequal, producing one large ovum and polar bodies",
@@ -12741,12 +12741,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-024",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-025-389",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Random fertilisation increases diversity because:",
     "option_a": "Gametes are identical",
@@ -12759,12 +12759,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-025",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-026-390",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Typical diploid life-cycle sequence:",
     "option_a": "2n adult→n zygote without gametes",
@@ -12777,12 +12777,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-026",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-027-391",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "medium",
     "question_text": "Mutation can generate variation during long-term asexual reproduction because it:",
     "option_a": "Eliminates clones",
@@ -12795,12 +12795,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-027",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-028-392",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "2n=12 species: a nondisjunction gamete has 7 chromosomes and fuses with a normal gamete. Zygote count?",
     "option_a": "14",
@@ -12813,12 +12813,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-028",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-029-393",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "A life cycle alternates multicellular n and 2n stages. Which events change ploidy?",
     "option_a": "Fertilisation n→2n and meiosis 2n→n",
@@ -12831,12 +12831,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-029",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-030-394",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "Asexual lineage can still acquire heritable variation through:",
     "option_a": "Gamete fusion",
@@ -12849,12 +12849,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-030",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-031-395",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "Why can siblings differ genetically despite same parents?",
     "option_a": "Mitosis only",
@@ -12867,12 +12867,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-031",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-032-396",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "n=4 species: ignoring crossing over, each parent can form 16 chromosome combinations. Possible zygotic combinations?",
     "option_a": "16",
@@ -12885,12 +12885,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-032",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.386Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-033-397",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "After meiosis I in oogenesis, secondary oocyte and first polar body are:",
     "option_a": "Identical diploid cells",
@@ -12903,12 +12903,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-033",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.387Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-034-398",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "If germ cells used mitosis instead of meiosis before fertilisation, repeated sexual generations would tend to:",
     "option_a": "Remain haploid",
@@ -12921,12 +12921,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-034",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.387Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-035-399",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "Sexual reproduction vs mutation: best distinction?",
     "option_a": "Sex creates all new alleles; mutation only reshuffles",
@@ -12939,12 +12939,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-035",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.387Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-GEN-REP-036-400",
     "subject": "Biology",
-    "topic": "DNA Replication, Genetic Code & Protein Synthesis",
+    "topic": "Genetics, Heredity & Molecular Biology",
     "difficulty": "hard",
     "question_text": "n=3 species: gamete combinations by assortment and zygotic combinations from two parents?",
     "option_a": "16 and 256",
@@ -12957,12 +12957,12 @@ const importedQuestions = [
     "source_reference": "BIO-GEN-REP-036",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.387Z",
-    "chapter": "Genetics, Heredity & Molecular Biology"
+    "chapter": "DNA Replication, Genetic Code & Protein Synthesis"
   },
   {
     "id": "qb-BIO-HAP-TIS-001-1",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Which tissue type forms continuous sheets that cover body surfaces and line many internal cavities?",
     "option_a": "Epithelial tissue",
@@ -12975,12 +12975,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-TIS-001",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.389Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-TIS-002-2",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "A tissue contains relatively few cells embedded in abundant extracellular matrix. Which major tissue class best fits this description?",
     "option_a": "Epithelial tissue",
@@ -12993,12 +12993,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-TIS-002",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.389Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-TIS-003-3",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Which major tissue type is specialised for rapid electrical communication over long distances in the body?",
     "option_a": "Epithelial tissue",
@@ -13011,12 +13011,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-TIS-003",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.389Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-TIS-008-4",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "medium",
     "question_text": "A biopsy shows tightly packed cells resting on a basement membrane, with little extracellular matrix and rapid renewal after abrasion. Which tissue is most likely being examined?",
     "option_a": "Tendon",
@@ -13029,12 +13029,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-TIS-008",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.389Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-TIS-004-5",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "In a negative-feedback system, what is the usual effect of the response on the original disturbance?",
     "option_a": "It amplifies the disturbance until a new state is reached.",
@@ -13047,12 +13047,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-TIS-004",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.389Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-TIS-005-6",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "In a homeostatic control loop, which component detects a change in the regulated variable?",
     "option_a": "An effector",
@@ -13065,12 +13065,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-TIS-005",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.389Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-TIS-007-7",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "medium",
     "question_text": "A person enters a cold environment. Skin thermoreceptors detect the fall in temperature, and skeletal muscles begin to shiver. In this control loop, shivering is best described as",
     "option_a": "the receptor that detects the temperature change.",
@@ -13083,12 +13083,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-TIS-007",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.389Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-TIS-006-8",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Which process is a classic example of positive rather than negative feedback?",
     "option_a": "Increasing uterine contractions triggered by oxytocin during labour",
@@ -13101,12 +13101,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-TIS-006",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.389Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-TIS-009-9",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "medium",
     "question_text": "During vigorous exercise, body temperature and carbon dioxide production both rise. Which response best illustrates coordinated homeostasis?",
     "option_a": "Reduced skin blood flow and reduced ventilation conserve heat and carbon dioxide.",
@@ -13119,12 +13119,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-TIS-009",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.389Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-TIS-012-10",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "hard",
     "question_text": "A drug blocks autonomic vasodilation in skin vessels but does not affect sweating. During exercise in a hot environment, which change most directly reduces the person’s ability to lose heat?",
     "option_a": "Sweat glands can no longer secrete water.",
@@ -13137,12 +13137,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-TIS-012",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.389Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-TIS-010-11",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "hard",
     "question_text": "A homeostatic variable changes normally, receptors detect the change, and the control centre sends an appropriate signal, but the regulated variable fails to return toward normal. Which defect is most directly suggested?",
     "option_a": "Failure of the receptor to detect the change",
@@ -13155,12 +13155,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-TIS-010",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.389Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-TIS-011-12",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "hard",
     "question_text": "A mutation causes a temperature sensor to report 37.0°C when the actual core temperature is 39.0°C. Other components of thermoregulation are intact. What is the most likely consequence?",
     "option_a": "Heat-loss responses will be inappropriately reduced because the control system underestimates the disturbance.",
@@ -13173,12 +13173,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-TIS-011",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.389Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-DIG-001-13",
     "subject": "Biology",
-    "topic": "Digestive System & Nutrition",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Where does most absorption of digested nutrients occur in the human digestive system?",
     "option_a": "Stomach",
@@ -13191,12 +13191,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-DIG-001",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.389Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Digestive System & Nutrition"
   },
   {
     "id": "qb-BIO-HAP-DIG-002-14",
     "subject": "Biology",
-    "topic": "Digestive System & Nutrition",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Which enzyme begins the digestion of starch in the mouth?",
     "option_a": "Pepsin",
@@ -13209,12 +13209,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-DIG-002",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.389Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Digestive System & Nutrition"
   },
   {
     "id": "qb-BIO-HAP-DIG-003-15",
     "subject": "Biology",
-    "topic": "Digestive System & Nutrition",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "What is the main digestive role of bile salts?",
     "option_a": "They hydrolyse proteins into amino acids.",
@@ -13227,12 +13227,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-DIG-003",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.389Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Digestive System & Nutrition"
   },
   {
     "id": "qb-BIO-HAP-DIG-004-16",
     "subject": "Biology",
-    "topic": "Digestive System & Nutrition",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Which feature of small-intestinal villi most directly increases the rate of nutrient absorption?",
     "option_a": "A very large surface area created by villi and microvilli",
@@ -13245,12 +13245,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-DIG-004",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.389Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Digestive System & Nutrition"
   },
   {
     "id": "qb-BIO-HAP-DIG-005-17",
     "subject": "Biology",
-    "topic": "Digestive System & Nutrition",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "medium",
     "question_text": "Pepsin functions well in the acidic stomach but becomes much less active in the alkaline small intestine. The best explanation is that a change in pH alters",
     "option_a": "the number of peptide bonds in the substrate before digestion.",
@@ -13263,12 +13263,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-DIG-005",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.389Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Digestive System & Nutrition"
   },
   {
     "id": "qb-BIO-HAP-DIG-006-18",
     "subject": "Biology",
-    "topic": "Digestive System & Nutrition",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "medium",
     "question_text": "A blockage prevents pancreatic bicarbonate from entering the duodenum. Which immediate effect is most likely?",
     "option_a": "Protein digestion in the mouth increases sharply.",
@@ -13281,12 +13281,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-DIG-006",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.389Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Digestive System & Nutrition"
   },
   {
     "id": "qb-BIO-HAP-DIG-007-19",
     "subject": "Biology",
-    "topic": "Digestive System & Nutrition",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "hard",
     "question_text": "A disease selectively destroys microvilli on intestinal epithelial cells while leaving the villi and digestive enzymes intact. Which effect is most likely?",
     "option_a": "Complete failure of chemical digestion in the intestinal lumen",
@@ -13299,12 +13299,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-DIG-007",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.389Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Digestive System & Nutrition"
   },
   {
     "id": "qb-BIO-HAP-DIG-008-20",
     "subject": "Biology",
-    "topic": "Digestive System & Nutrition",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "hard",
     "question_text": "A patient produces normal pancreatic lipase but has almost no bile salts entering the intestine. Which combination is most likely after a fatty meal?",
     "option_a": "Increased starch digestion and increased amino-acid absorption",
@@ -13317,12 +13317,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-DIG-008",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.389Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Digestive System & Nutrition"
   },
   {
     "id": "qb-BIO-HAP-RESP-001-21",
     "subject": "Biology",
-    "topic": "Respiratory System & Gas Exchange",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Which structure is the principal site of gas exchange between air and blood in the lungs?",
     "option_a": "Alveoli",
@@ -13335,12 +13335,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-RESP-001",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Respiratory System & Gas Exchange"
   },
   {
     "id": "qb-BIO-HAP-RESP-002-22",
     "subject": "Biology",
-    "topic": "Respiratory System & Gas Exchange",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Why are alveolar walls only one cell thick?",
     "option_a": "A thin wall prevents any water from entering the alveoli.",
@@ -13353,12 +13353,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-RESP-002",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Respiratory System & Gas Exchange"
   },
   {
     "id": "qb-BIO-HAP-RESP-006-23",
     "subject": "Biology",
-    "topic": "Respiratory System & Gas Exchange",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Which feature helps maintain a steep concentration gradient for gases across the alveolar surface?",
     "option_a": "Continuous blood flow through pulmonary capillaries",
@@ -13371,12 +13371,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-RESP-006",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Respiratory System & Gas Exchange"
   },
   {
     "id": "qb-BIO-HAP-RESP-003-24",
     "subject": "Biology",
-    "topic": "Respiratory System & Gas Exchange",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "During quiet inspiration, contraction of the diaphragm causes it to",
     "option_a": "dome upward, decreasing thoracic volume.",
@@ -13389,12 +13389,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-RESP-003",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Respiratory System & Gas Exchange"
   },
   {
     "id": "qb-BIO-HAP-RESP-004-25",
     "subject": "Biology",
-    "topic": "Respiratory System & Gas Exchange",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Which statement correctly distinguishes ventilation from cellular respiration?",
     "option_a": "Ventilation produces ATP, whereas cellular respiration moves air.",
@@ -13407,12 +13407,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-RESP-004",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Respiratory System & Gas Exchange"
   },
   {
     "id": "qb-BIO-HAP-RESP-005-26",
     "subject": "Biology",
-    "topic": "Respiratory System & Gas Exchange",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Oxygen normally diffuses from an alveolus into pulmonary capillary blood because",
     "option_a": "oxygen is actively pumped across the alveolar membrane.",
@@ -13425,12 +13425,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-RESP-005",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Respiratory System & Gas Exchange"
   },
   {
     "id": "qb-BIO-HAP-RESP-007-27",
     "subject": "Biology",
-    "topic": "Respiratory System & Gas Exchange",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "medium",
     "question_text": "During exercise, pulmonary ventilation and cardiac output both increase. How does this support gas exchange?",
     "option_a": "The alveolar membrane becomes much thicker.",
@@ -13443,12 +13443,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-RESP-007",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Respiratory System & Gas Exchange"
   },
   {
     "id": "qb-BIO-HAP-RESP-008-28",
     "subject": "Biology",
-    "topic": "Respiratory System & Gas Exchange",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "medium",
     "question_text": "In emphysema, destruction of walls between adjacent alveoli creates larger air spaces. Which change most directly impairs gas exchange?",
     "option_a": "Increase in oxygen solubility in plasma",
@@ -13461,12 +13461,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-RESP-008",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Respiratory System & Gas Exchange"
   },
   {
     "id": "qb-BIO-HAP-RESP-009-29",
     "subject": "Biology",
-    "topic": "Respiratory System & Gas Exchange",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "medium",
     "question_text": "A small region of lung is ventilated normally but receives almost no blood flow. What is the main limitation in that region?",
     "option_a": "Carbon dioxide cannot diffuse because alveoli lack air.",
@@ -13479,12 +13479,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-RESP-009",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Respiratory System & Gas Exchange"
   },
   {
     "id": "qb-BIO-HAP-RESP-010-30",
     "subject": "Biology",
-    "topic": "Respiratory System & Gas Exchange",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "hard",
     "question_text": "Two patients have the same alveolar oxygen concentration and pulmonary blood flow. Patient X has twice the alveolar surface area but also twice the diffusion distance of patient Y. Assuming other factors are equal, the opposing changes would tend to",
     "option_a": "both increase oxygen diffusion.",
@@ -13497,12 +13497,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-RESP-010",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Respiratory System & Gas Exchange"
   },
   {
     "id": "qb-BIO-HAP-RESP-011-31",
     "subject": "Biology",
-    "topic": "Respiratory System & Gas Exchange",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "hard",
     "question_text": "A person rapidly ascends to high altitude, where inspired oxygen partial pressure is lower. Before long-term acclimatisation occurs, which change most directly helps preserve oxygen uptake?",
     "option_a": "An increase in ventilation",
@@ -13515,12 +13515,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-RESP-011",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Respiratory System & Gas Exchange"
   },
   {
     "id": "qb-BIO-HAP-RESP-012-32",
     "subject": "Biology",
-    "topic": "Respiratory System & Gas Exchange",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "hard",
     "question_text": "A patient has normal ventilation but severe thickening of the alveolar-capillary membrane. At rest arterial oxygen is mildly reduced; during exercise it falls further. Which explanation is best?",
     "option_a": "Exercise eliminates the oxygen gradient between alveoli and blood.",
@@ -13533,12 +13533,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-RESP-012",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Respiratory System & Gas Exchange"
   },
   {
     "id": "qb-BIO-HAP-CIRC-001-33",
     "subject": "Biology",
-    "topic": "Circulatory System",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Which chamber pumps oxygenated blood into the systemic circulation?",
     "option_a": "Right ventricle",
@@ -13551,12 +13551,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-CIRC-001",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Circulatory System"
   },
   {
     "id": "qb-BIO-HAP-CIRC-002-34",
     "subject": "Biology",
-    "topic": "Circulatory System",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "What is the main function of heart valves?",
     "option_a": "To generate the electrical impulse of the heartbeat",
@@ -13569,12 +13569,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-CIRC-002",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Circulatory System"
   },
   {
     "id": "qb-BIO-HAP-CIRC-003-35",
     "subject": "Biology",
-    "topic": "Circulatory System",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Human circulation is described as double because blood",
     "option_a": "flows through two separate aortas.",
@@ -13587,12 +13587,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-CIRC-003",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Circulatory System"
   },
   {
     "id": "qb-BIO-HAP-CIRC-004-36",
     "subject": "Biology",
-    "topic": "Circulatory System",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Which feature is most characteristic of arteries compared with veins?",
     "option_a": "Thicker muscular and elastic walls",
@@ -13605,12 +13605,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-CIRC-004",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Circulatory System"
   },
   {
     "id": "qb-BIO-HAP-CIRC-005-37",
     "subject": "Biology",
-    "topic": "Circulatory System",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Which blood vessel is specialised for exchange of gases, nutrients and wastes with tissues?",
     "option_a": "Aorta",
@@ -13623,12 +13623,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-CIRC-005",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Circulatory System"
   },
   {
     "id": "qb-BIO-HAP-CIRC-006-38",
     "subject": "Biology",
-    "topic": "Circulatory System",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Which blood component carries most oxygen in humans?",
     "option_a": "Platelets",
@@ -13641,12 +13641,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-CIRC-006",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Circulatory System"
   },
   {
     "id": "qb-BIO-HAP-CIRC-007-39",
     "subject": "Biology",
-    "topic": "Circulatory System",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Which component of blood is most directly involved in clot formation?",
     "option_a": "Erythrocytes",
@@ -13659,12 +13659,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-CIRC-007",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Circulatory System"
   },
   {
     "id": "qb-BIO-HAP-CIRC-008-40",
     "subject": "Biology",
-    "topic": "Circulatory System",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Which vessel carries deoxygenated blood from the heart toward the lungs?",
     "option_a": "Pulmonary vein",
@@ -13677,12 +13677,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-CIRC-008",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Circulatory System"
   },
   {
     "id": "qb-BIO-HAP-CIRC-009-41",
     "subject": "Biology",
-    "topic": "Circulatory System",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "medium",
     "question_text": "When ventricular pressure rises above atrial pressure at the start of ventricular systole, what happens first?",
     "option_a": "The atrioventricular valves close.",
@@ -13695,12 +13695,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-CIRC-009",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Circulatory System"
   },
   {
     "id": "qb-BIO-HAP-CIRC-010-42",
     "subject": "Biology",
-    "topic": "Circulatory System",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "medium",
     "question_text": "Why does blood pressure fall substantially as blood passes through arterioles and capillary networks?",
     "option_a": "Capillaries actively pump blood backward.",
@@ -13713,12 +13713,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-CIRC-010",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Circulatory System"
   },
   {
     "id": "qb-BIO-HAP-CIRC-011-43",
     "subject": "Biology",
-    "topic": "Circulatory System",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "medium",
     "question_text": "At the arterial end of many capillary beds, tissue fluid forms mainly because",
     "option_a": "plasma proteins are actively pumped into tissues.",
@@ -13731,12 +13731,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-CIRC-011",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Circulatory System"
   },
   {
     "id": "qb-BIO-HAP-CIRC-012-44",
     "subject": "Biology",
-    "topic": "Circulatory System",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "medium",
     "question_text": "Why is haemoglobin useful for oxygen transport rather than relying on oxygen dissolved only in plasma?",
     "option_a": "Haemoglobin converts oxygen into carbon dioxide.",
@@ -13749,12 +13749,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-CIRC-012",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Circulatory System"
   },
   {
     "id": "qb-BIO-HAP-CIRC-013-45",
     "subject": "Biology",
-    "topic": "Circulatory System",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "hard",
     "question_text": "A damaged left atrioventricular (mitral) valve allows substantial regurgitation during ventricular systole. Which immediate consequence is most likely?",
     "option_a": "All blood is redirected into the pulmonary artery.",
@@ -13767,12 +13767,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-CIRC-013",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Circulatory System"
   },
   {
     "id": "qb-BIO-HAP-CIRC-014-46",
     "subject": "Biology",
-    "topic": "Circulatory System",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "hard",
     "question_text": "A severe fall in plasma protein concentration occurs while capillary hydrostatic pressure remains unchanged. Which effect is most likely in peripheral tissues?",
     "option_a": "More fluid remains in the interstitial space because plasma oncotic pull is reduced.",
@@ -13785,12 +13785,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-CIRC-014",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Circulatory System"
   },
   {
     "id": "qb-BIO-HAP-CIRC-015-47",
     "subject": "Biology",
-    "topic": "Circulatory System",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "hard",
     "question_text": "During exercise, heart rate rises from 70 to 140 beats min−1 while stroke volume rises from 70 to 100 mL beat−1. By what factor does cardiac output increase?",
     "option_a": "About 1.4-fold",
@@ -13803,12 +13803,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-CIRC-015",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Circulatory System"
   },
   {
     "id": "qb-BIO-HAP-CIRC-016-48",
     "subject": "Biology",
-    "topic": "Circulatory System",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "hard",
     "question_text": "A patient has normal cardiac output and normal arterial oxygen partial pressure but a very low haemoglobin concentration. Which variable is most directly reduced?",
     "option_a": "Alveolar ventilation",
@@ -13821,12 +13821,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-CIRC-016",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Circulatory System"
   },
   {
     "id": "qb-BIO-HAP-REN-001-49",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "What is the functional unit of the kidney?",
     "option_a": "Alveolus",
@@ -13839,12 +13839,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-REN-001",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-REN-002-50",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Where does ultrafiltration of blood plasma begin in the nephron?",
     "option_a": "Collecting duct into the renal vein",
@@ -13857,12 +13857,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-REN-002",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-REN-003-51",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Under normal conditions, most filtered glucose is reabsorbed in the",
     "option_a": "proximal convoluted tubule.",
@@ -13875,12 +13875,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-REN-003",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.390Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-REN-010-52",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "hard",
     "question_text": "A toxin selectively blocks sodium-dependent glucose cotransport in the proximal tubule but leaves glomerular filtration unchanged. Which change is most likely?",
     "option_a": "Glucose filtration at the glomerulus stops completely.",
@@ -13893,12 +13893,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-REN-010",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-REN-004-53",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "What is the main effect of increased ADH secretion on the kidneys?",
     "option_a": "Reduced water reabsorption and more dilute urine",
@@ -13911,12 +13911,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-REN-004",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-REN-007-54",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "medium",
     "question_text": "After several hours without water, plasma osmolarity rises. Which response is expected in a healthy person?",
     "option_a": "Decreased ADH secretion and decreased water reabsorption",
@@ -13929,12 +13929,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-REN-007",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-REN-011-55",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "hard",
     "question_text": "A person produces normal amounts of ADH, but collecting-duct cells lack functional ADH receptors. Which pattern is most likely?",
     "option_a": "Very concentrated urine regardless of water intake",
@@ -13947,12 +13947,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-REN-011",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-REN-005-56",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Which hormone lowers blood glucose concentration after a carbohydrate-rich meal?",
     "option_a": "Glucagon",
@@ -13965,12 +13965,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-REN-005",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-REN-006-57",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Which response promotes heat loss when body temperature rises?",
     "option_a": "Shivering",
@@ -13983,12 +13983,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-REN-006",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-REN-008-58",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "medium",
     "question_text": "A healthy glomerular filtrate normally contains glucose and small ions but almost no large plasma proteins. This is mainly because",
     "option_a": "the filtration barrier allows small solutes through while retaining cells and most large proteins.",
@@ -14001,12 +14001,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-REN-008",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-REN-009-59",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "medium",
     "question_text": "A healthy person becomes mildly hypoglycaemic between meals. Which response most directly helps restore blood glucose?",
     "option_a": "Insulin stimulates greater glucose uptake and glycogen synthesis.",
@@ -14019,12 +14019,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-REN-009",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-REN-012-60",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "hard",
     "question_text": "During prolonged heat exposure with limited water, a healthy person has high ADH and increased skin sweating. Why can these responses coexist without contradiction?",
     "option_a": "Both responses are positive feedback that deliberately worsens dehydration.",
@@ -14037,12 +14037,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-REN-012",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-NEU-001-61",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Which part of a typical neuron usually carries action potentials away from the cell body?",
     "option_a": "Axon",
@@ -14055,12 +14055,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-NEU-001",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-NEU-002-62",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "The brain and spinal cord together form the",
     "option_a": "peripheral nervous system.",
@@ -14073,12 +14073,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-NEU-002",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-NEU-003-63",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "At a typical chemical synapse, neurotransmitter is released from the",
     "option_a": "postsynaptic nucleus.",
@@ -14091,12 +14091,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-NEU-003",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-NEU-004-64",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "What is a major advantage of a spinal reflex?",
     "option_a": "It prevents sensory information from ever reaching the brain.",
@@ -14109,12 +14109,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-NEU-004",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-NEU-010-65",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "medium",
     "question_text": "A sensory neuron from the skin is damaged, but the motor neuron and muscle are intact. What happens to a withdrawal reflex triggered only through that sensory pathway?",
     "option_a": "The reflex becomes stronger because sensory input is unnecessary.",
@@ -14127,12 +14127,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-NEU-010",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-NEU-005-66",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Which statement best describes a hormone?",
     "option_a": "An electrical impulse confined to an axon",
@@ -14145,12 +14145,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-NEU-005",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-NEU-006-67",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Compared with nervous signalling, endocrine signalling is generally",
     "option_a": "slower in onset but often longer lasting.",
@@ -14163,12 +14163,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-NEU-006",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-NEU-007-68",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "The rapid depolarisation phase of a typical neuronal action potential is mainly associated with",
     "option_a": "efflux of glucose through aquaporins.",
@@ -14181,12 +14181,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-NEU-007",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-NEU-011-69",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "medium",
     "question_text": "Why does myelination increase conduction speed along many axons?",
     "option_a": "Depolarisation effectively jumps between nodes of Ranvier, reducing the membrane area that must depolarise sequentially.",
@@ -14199,12 +14199,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-NEU-011",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-NEU-008-70",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "In a typical endocrine negative-feedback loop, a rise in the final hormone tends to",
     "option_a": "amplify secretion indefinitely.",
@@ -14217,12 +14217,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-NEU-008",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-NEU-009-71",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "medium",
     "question_text": "A drug blocks neurotransmitter receptors on the postsynaptic membrane but does not affect transmitter release. What is the most direct effect?",
     "option_a": "The presynaptic neuron cannot generate any action potential.",
@@ -14235,12 +14235,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-NEU-009",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-NEU-014-72",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "hard",
     "question_text": "An inhibitor blocks acetylcholinesterase at a cholinergic synapse. If acetylcholine continues to be released, what is the most likely immediate effect?",
     "option_a": "Acetylcholine is destroyed more rapidly.",
@@ -14253,12 +14253,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-NEU-014",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-NEU-012-73",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "medium",
     "question_text": "If a target endocrine gland stops producing its hormone, but the hypothalamus and pituitary remain functional, what often happens to upstream stimulating hormones?",
     "option_a": "They fall to zero because the target gland is inactive.",
@@ -14271,12 +14271,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-NEU-012",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-NEU-015-74",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "hard",
     "question_text": "A patient has high concentration of an upstream pituitary stimulating hormone but very low concentration of the final hormone from the target gland. Which defect is most consistent with this pattern?",
     "option_a": "Excess secretion of the final hormone causing strong negative feedback",
@@ -14289,12 +14289,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-NEU-015",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-NEU-013-75",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "hard",
     "question_text": "A toxin prevents voltage-gated sodium channels from opening in a motor neuron. Which consequence is most direct?",
     "option_a": "Synaptic vesicles release more neurotransmitter because depolarisation is enhanced.",
@@ -14307,12 +14307,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-NEU-013",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-NEU-016-76",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "hard",
     "question_text": "A sudden stressor activates sympathetic nerves within seconds and also stimulates adrenal hormone release that persists longer. What does this illustrate?",
     "option_a": "Nervous and endocrine systems can coordinate the same response with different time courses.",
@@ -14325,12 +14325,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-NEU-016",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-MSK-001-77",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Which is a major function of the human skeleton?",
     "option_a": "Producing bile",
@@ -14343,12 +14343,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-MSK-001",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-MSK-002-78",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "The elbow is best described as which type of synovial joint?",
     "option_a": "Ball-and-socket joint",
@@ -14361,12 +14361,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-MSK-002",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-MSK-003-79",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "When the biceps contracts to flex the elbow, the triceps usually",
     "option_a": "contracts equally strongly to produce flexion.",
@@ -14379,12 +14379,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-MSK-003",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-MSK-004-80",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "What is the basic contractile unit of striated skeletal muscle?",
     "option_a": "Nephron",
@@ -14397,12 +14397,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-MSK-004",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-MSK-005-81",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "medium",
     "question_text": "During skeletal-muscle contraction, sarcomeres shorten mainly because",
     "option_a": "actin filaments slide past myosin filaments, increasing overlap.",
@@ -14415,12 +14415,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-MSK-005",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-MSK-006-82",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "medium",
     "question_text": "Why is calcium important for skeletal-muscle contraction?",
     "option_a": "It directly hydrolyses ATP instead of myosin ATPase.",
@@ -14433,12 +14433,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-MSK-006",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-MSK-007-83",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "hard",
     "question_text": "A muscle fibre can form actin-myosin cross-bridges but cannot regenerate ATP. Which step will soon fail most directly?",
     "option_a": "Release of calcium from the sarcoplasmic reticulum before any contraction",
@@ -14451,12 +14451,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-MSK-007",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.391Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-MSK-008-84",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "hard",
     "question_text": "A toxin allows normal motor-neuron signalling and normal ATP supply but prevents calcium release from the sarcoplasmic reticulum. What is the most likely result?",
     "option_a": "Cross-bridge cycling becomes faster because calcium normally inhibits contraction.",
@@ -14469,12 +14469,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-MSK-008",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.392Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-REP-001-85",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Where are sperm cells produced?",
     "option_a": "Prostate gland",
@@ -14487,12 +14487,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-REP-001",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.392Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-REP-002-86",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Which event is ovulation?",
     "option_a": "Release of a secondary oocyte from an ovarian follicle",
@@ -14505,12 +14505,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-REP-002",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.392Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-REP-003-87",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Human fertilisation most commonly occurs in the",
     "option_a": "uterine cervix.",
@@ -14523,12 +14523,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-REP-003",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.392Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-REP-004-88",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "A surge of which hormone is most directly associated with triggering ovulation?",
     "option_a": "Insulin",
@@ -14541,12 +14541,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-REP-004",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.392Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-REP-005-89",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "medium",
     "question_text": "Why are mature human gametes haploid?",
     "option_a": "Mitosis removes all homologous chromosomes.",
@@ -14559,12 +14559,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-REP-005",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.392Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-REP-006-90",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "medium",
     "question_text": "After ovulation, progesterone secretion rises. What is one important effect?",
     "option_a": "Immediate triggering of a second ovulation in the same cycle",
@@ -14577,12 +14577,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-REP-006",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.392Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-REP-007-91",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "hard",
     "question_text": "A medication maintains consistently high levels of synthetic estrogen and progestin. How can this reduce the probability of ovulation?",
     "option_a": "Negative feedback suppresses FSH/LH secretion and prevents the normal mid-cycle LH surge.",
@@ -14595,12 +14595,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-REP-007",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.392Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-REP-008-92",
     "subject": "Biology",
-    "topic": "Animal Tissues & Homeostasis",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "hard",
     "question_text": "A human primary spermatocyte is diploid before meiosis I. Which sequence correctly describes chromosome-set changes through normal gamete formation and fertilisation?",
     "option_a": "Diploid primary cell → diploid gametes → haploid zygote",
@@ -14613,12 +14613,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-REP-008",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.392Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Animal Tissues & Homeostasis"
   },
   {
     "id": "qb-BIO-HAP-IMM-001-93",
     "subject": "Biology",
-    "topic": "Immunity",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Which feature is characteristic of innate immunity?",
     "option_a": "It requires prior exposure to every pathogen.",
@@ -14631,12 +14631,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-IMM-001",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.392Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Immunity"
   },
   {
     "id": "qb-BIO-HAP-IMM-002-94",
     "subject": "Biology",
-    "topic": "Immunity",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "An antigen is best described as",
     "option_a": "a red blood cell carrying oxygen.",
@@ -14649,12 +14649,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-IMM-002",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.392Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Immunity"
   },
   {
     "id": "qb-BIO-HAP-IMM-003-95",
     "subject": "Biology",
-    "topic": "Immunity",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "Which cells secrete large quantities of antibodies during a humoral immune response?",
     "option_a": "Red blood cells",
@@ -14667,12 +14667,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-IMM-003",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.392Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Immunity"
   },
   {
     "id": "qb-BIO-HAP-IMM-004-96",
     "subject": "Biology",
-    "topic": "Immunity",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "easy",
     "question_text": "The main purpose of vaccination is to",
     "option_a": "generate adaptive immune memory without causing the full disease.",
@@ -14685,12 +14685,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-IMM-004",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.392Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Immunity"
   },
   {
     "id": "qb-BIO-HAP-IMM-005-97",
     "subject": "Biology",
-    "topic": "Immunity",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "medium",
     "question_text": "After a second exposure to the same antigen, antibody concentration often rises faster and higher than after the first exposure. What best explains this?",
     "option_a": "Innate immune cells permanently become antibodies.",
@@ -14703,12 +14703,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-IMM-005",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.392Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Immunity"
   },
   {
     "id": "qb-BIO-HAP-IMM-006-98",
     "subject": "Biology",
-    "topic": "Immunity",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "medium",
     "question_text": "Why can one antibody bind strongly to one antigen but poorly to another?",
     "option_a": "All antibodies are identical but antigens differ only in size.",
@@ -14721,12 +14721,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-IMM-006",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.392Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Immunity"
   },
   {
     "id": "qb-BIO-HAP-IMM-007-99",
     "subject": "Biology",
-    "topic": "Immunity",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "hard",
     "question_text": "A disorder severely reduces helper T-cell function while leaving B cells present. Which adaptive response is most likely to be weakened?",
     "option_a": "Oxygen transport by haemoglobin",
@@ -14739,12 +14739,12 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-IMM-007",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.392Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Immunity"
   },
   {
     "id": "qb-BIO-HAP-IMM-008-100",
     "subject": "Biology",
-    "topic": "Immunity",
+    "topic": "Human Anatomy, Physiology & Homeostasis",
     "difficulty": "hard",
     "question_text": "Two individuals encounter the same pathogen. Person X was vaccinated months earlier; person Y has never encountered the antigen. X clears the infection before major symptoms develop. Which mechanism best explains the difference?",
     "option_a": "X has permanently elevated body temperature that kills all pathogens.",
@@ -14757,7 +14757,7 @@ const importedQuestions = [
     "source_reference": "BIO-HAP-IMM-008",
     "is_active": true,
     "created_at": "2026-09-11T05:18:13.392Z",
-    "chapter": "Human Anatomy, Physiology & Homeostasis"
+    "chapter": "Immunity"
   }
 ];
 

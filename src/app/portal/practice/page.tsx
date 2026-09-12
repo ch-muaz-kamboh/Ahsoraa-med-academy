@@ -63,7 +63,7 @@ const BIOLOGY_STRUCTURE: Record<string, string[]> = {
     'Recombinant DNA & Biotechnology',
   ],
 };
-const BIOLOGY_CHAPTERS = Object.keys(BIOLOGY_STRUCTURE);
+const BIOLOGY_TOPICS = Object.keys(BIOLOGY_STRUCTURE);
 
 interface SubjectCount { subject: string; count: number; }
 
@@ -214,8 +214,8 @@ export default function PracticePage() {
 
       let filtered = pool;
       if (subject) filtered = filtered.filter(q => q.subject && q.subject.toLowerCase() === subject.toLowerCase());
-      if (chapter) filtered = filtered.filter(q => q.chapter && q.chapter.toLowerCase() === chapter.toLowerCase());
       if (topic) filtered = filtered.filter(q => q.topic && q.topic.toLowerCase() === topic.toLowerCase());
+      if (chapter) filtered = filtered.filter(q => q.chapter && q.chapter.toLowerCase() === chapter.toLowerCase());
       if (difficulty) filtered = filtered.filter(q => q.difficulty && q.difficulty.toLowerCase() === difficulty.toLowerCase());
       if (filtered.length === 0) filtered = pool; // Widen criteria if too narrow
 
@@ -309,42 +309,42 @@ export default function PracticePage() {
             </select>
           </div>
 
-          {/* Chapter */}
+          {/* Topic (Broad) */}
           {subject === 'Biology' && (
             <div style={{ marginBottom:'14px' }}>
-              <label style={LS}>Chapter (optional)</label>
-              <select value={chapter} onChange={e => { setChapter(e.target.value); setTopic(''); }} style={SS}>
-                <option value="">All Chapters</option>
-                {BIOLOGY_CHAPTERS.map(c => <option key={c} value={c}>{c}</option>)}
-              </select>
-            </div>
-          )}
-          {subject !== 'Biology' && availableChapters.length > 0 && (
-            <div style={{ marginBottom:'14px' }}>
-              <label style={LS}>Chapter (optional)</label>
-              <select value={chapter} onChange={e => { setChapter(e.target.value); setTopic(''); }} style={SS}>
-                <option value="">All Chapters</option>
-                {availableChapters.map(c => <option key={c} value={c}>{c}</option>)}
-              </select>
-            </div>
-          )}
-
-          {/* Topic */}
-          {subject === 'Biology' && chapter && BIOLOGY_STRUCTURE[chapter] && (
-            <div style={{ marginBottom:'14px' }}>
               <label style={LS}>Topic (optional)</label>
-              <select value={topic} onChange={e => setTopic(e.target.value)} style={SS}>
+              <select value={topic} onChange={e => { setTopic(e.target.value); setChapter(''); }} style={SS}>
                 <option value="">All Topics</option>
-                {BIOLOGY_STRUCTURE[chapter].map(t => <option key={t} value={t}>{t}</option>)}
+                {BIOLOGY_TOPICS.map(c => <option key={c} value={c}>{c}</option>)}
               </select>
             </div>
           )}
           {subject !== 'Biology' && availableTopics.length > 0 && (
             <div style={{ marginBottom:'14px' }}>
               <label style={LS}>Topic (optional)</label>
-              <select value={topic} onChange={e => setTopic(e.target.value)} style={SS}>
+              <select value={topic} onChange={e => { setTopic(e.target.value); setChapter(''); }} style={SS}>
                 <option value="">All Topics</option>
-                {availableTopics.map(t => <option key={t} value={t}>{t}</option>)}
+                {availableTopics.map(c => <option key={c} value={c}>{c}</option>)}
+              </select>
+            </div>
+          )}
+
+          {/* Chapter (Specific) */}
+          {subject === 'Biology' && topic && BIOLOGY_STRUCTURE[topic] && (
+            <div style={{ marginBottom:'14px' }}>
+              <label style={LS}>Chapter (optional)</label>
+              <select value={chapter} onChange={e => setChapter(e.target.value)} style={SS}>
+                <option value="">All Chapters</option>
+                {BIOLOGY_STRUCTURE[topic].map(t => <option key={t} value={t}>{t}</option>)}
+              </select>
+            </div>
+          )}
+          {subject !== 'Biology' && availableChapters.length > 0 && (
+            <div style={{ marginBottom:'14px' }}>
+              <label style={LS}>Chapter (optional)</label>
+              <select value={chapter} onChange={e => setChapter(e.target.value)} style={SS}>
+                <option value="">All Chapters</option>
+                {availableChapters.map(t => <option key={t} value={t}>{t}</option>)}
               </select>
             </div>
           )}
