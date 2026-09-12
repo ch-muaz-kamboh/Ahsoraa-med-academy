@@ -11,6 +11,7 @@ import importedQuestions, { getImportedQuestions } from '@/lib/imported_question
 interface QBQuestion {
   id: string;
   subject: string;
+  chapter: string;
   topic: string;
   difficulty: 'easy' | 'medium' | 'hard';
   question_text: string;
@@ -29,8 +30,50 @@ interface QBQuestion {
 
 const SUBJECTS = ['Biology','Chemistry','Physics','Mathematics','Logical Reasoning','General Knowledge'];
 const DIFFICULTIES: ('easy' | 'medium' | 'hard')[] = ['easy', 'medium', 'hard'];
+
+// 5 Biology topics and their chapters (used for dropdown filtering)
+const BIOLOGY_STRUCTURE: Record<string, string[]> = {
+  'Genetics, Heredity & Molecular Biology': [
+    'DNA, Chromosomes & Genome Organisation',
+    'DNA Replication, Genetic Code & Protein Synthesis',
+    'Mendelian Genetics & Probability',
+    'Classical & Human Genetics',
+    'Cell Cycle, Mitosis & Meiosis',
+    'Reproduction & Life Cycles',
+  ],
+  'Biochemistry, Biological Molecules & Bioenergetics': [
+    'Water, Weak Interactions & Chemical Basis of Life',
+    'Carbohydrates, Lipids, Proteins & Nucleic Acids',
+    'Enzymes',
+    'ATP, Cellular Respiration & Fermentation',
+    'Photosynthesis',
+  ],
+  'Cell Biology': [
+    'Cell Theory, Cell Types & Cell Size',
+    'Organelles & Cellular Structures',
+    'Cell Membrane & Transport',
+    'Viruses',
+  ],
+  'Human Anatomy, Physiology & Homeostasis': [
+    'Animal Tissues & Homeostasis',
+    'Digestive System & Nutrition',
+    'Respiratory System & Gas Exchange',
+    'Circulatory System',
+    'Excretion, Kidney & Osmoregulation',
+    'Nervous & Endocrine Coordination',
+    'Musculoskeletal System',
+    'Human Reproduction',
+    'Immunity',
+  ],
+  'Evolution, Variation & Biotechnology': [
+    'Mutation, Variation & Selection',
+    'Evolutionary Theory & Genetic Basis of Evolution',
+    'Recombinant DNA & Biotechnology',
+  ],
+};
+const BIOLOGY_CHAPTERS = Object.keys(BIOLOGY_STRUCTURE);
 const EMPTY_FORM = {
-  subject: 'Biology', topic: '', difficulty: 'medium' as 'easy'|'medium'|'hard',
+  subject: 'Biology', chapter: '', topic: '', difficulty: 'medium' as 'easy'|'medium'|'hard',
   question_text: '', option_a: '', option_b: '', option_c: '', option_d: '', option_e: '',
   correct_option: 'A' as 'A'|'B'|'C'|'D'|'E', explanation: '', source_reference: '', is_active: true,
 };
@@ -54,9 +97,13 @@ export default function AdminQuestionBankPage() {
   // Filters
   const [searchQ, setSearchQ]         = useState('');
   const [filterSubject, setFilterSubject] = useState('');
+  const [filterChapter, setFilterChapter] = useState('');
   const [filterDiff, setFilterDiff]   = useState('');
   const [page, setPage]               = useState(0);
   const PAGE_SIZE = 20;
+
+  // Smart Paste
+  const [smartPasteText, setSmartPasteText] = useState('');
 
   // CSV/bulk import
   const [importing, setImporting] = useState(false);
@@ -98,10 +145,13 @@ export default function AdminQuestionBankPage() {
       allPool = ((q && q.length > 0 ? q : importedQuestions) as unknown as QBQuestion[]);
     }
 
-    // Apply Filters (Subject, Difficulty, Search)
+    // Apply Filters (Subject, Chapter, Difficulty, Search)
     let filtered = allPool;
     if (filterSubject) {
       filtered = filtered.filter(q => q.subject && q.subject.toLowerCase() === filterSubject.toLowerCase());
+    }
+    if (filterChapter) {
+      filtered = filtered.filter(q => q.chapter && q.chapter.toLowerCase() === filterChapter.toLowerCase());
     }
     if (filterDiff) {
       filtered = filtered.filter(q => q.difficulty === filterDiff);
@@ -110,6 +160,7 @@ export default function AdminQuestionBankPage() {
       const sq = searchQ.toLowerCase();
       filtered = filtered.filter(q =>
         (q.question_text && q.question_text.toLowerCase().includes(sq)) ||
+        (q.chapter && q.chapter.toLowerCase().includes(sq)) ||
         (q.topic && q.topic.toLowerCase().includes(sq)) ||
         (q.source_reference && q.source_reference.toLowerCase().includes(sq))
       );
@@ -145,6 +196,7 @@ export default function AdminQuestionBankPage() {
         const batch = all820.slice(i, i + BATCH_SIZE).map(q => ({
           // OMIT id field so Supabase auto-generates valid UUIDs
           subject: q.subject,
+          chapter: q.chapter || '',
           topic: q.topic,
           difficulty: q.difficulty,
           question_text: q.question_text,
@@ -247,7 +299,7 @@ export default function AdminQuestionBankPage() {
   const openEdit = (q: QBQuestion) => {
     setEditId(q.id);
     setForm({
-      subject: q.subject, topic: q.topic, difficulty: q.difficulty,
+      subject: q.subject, chapter: q.chapter || '', topic: q.topic, difficulty: q.difficulty,
       question_text: q.question_text, option_a: q.option_a, option_b: q.option_b,
       option_c: q.option_c, option_d: q.option_d, option_e: q.option_e,
       correct_option: q.correct_option, explanation: q.explanation || '',
@@ -274,7 +326,7 @@ export default function AdminQuestionBankPage() {
       const co = get('correct_option').toUpperCase();
       if (!['A','B','C','D','E'].includes(co)) { logs.push(`Row ${i+1}: invalid correct_option "${co}" – skipped`); continue; }
       insertRows.push({
-        subject: get('subject') || 'Biology', topic: get('topic'),
+        subject: get('subject') || 'Biology', chapter: get('chapter') || '', topic: get('topic'),
         difficulty: ['easy','medium','hard'].includes(get('difficulty')) ? get('difficulty') : 'medium',
         question_text: get('question_text'), option_a: get('option_a'), option_b: get('option_b'),
         option_c: get('option_c'), option_d: get('option_d'), option_e: get('option_e'),
@@ -289,6 +341,52 @@ export default function AdminQuestionBankPage() {
     setImportLog(logs); setImporting(false);
     if (!error) fetchQuestions();
     if (fileRef.current) fileRef.current.value = '';
+  };
+
+  // ── Smart Paste ────────────────────────────────────────────────────────────
+  const handleSmartPaste = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const text = e.target.value;
+    setSmartPasteText(text);
+
+    if (!text.trim()) return;
+
+    // A simple heuristic parser.
+    const newForm = { ...form };
+    
+    // Extract metadata
+    const chapterMatch = text.match(/Chapter:\s*([^\n•]+)/i);
+    if (chapterMatch) newForm.chapter = chapterMatch[1].trim();
+
+    const topicMatch = text.match(/Topic:\s*([^\n•]+)/i);
+    if (topicMatch) newForm.topic = topicMatch[1].trim();
+    
+    const diffMatch = text.match(/Difficulty:\s*(easy|medium|hard)/i);
+    if (diffMatch) newForm.difficulty = diffMatch[1].toLowerCase() as any;
+
+    // Extract Question
+    const qMatch = text.match(/Q:\s*([\s\S]*?)(?=\n[A-E]\)|\n[A-E]\.|A\)|$)/i);
+    if (qMatch) newForm.question_text = qMatch[1].trim();
+
+    // Extract options
+    const optA = text.match(/[A]\)[\s\.]*([\s\S]*?)(?=\n[B-E]\)|\n[B-E]\.|$)/i);
+    if (optA) newForm.option_a = optA[1].trim();
+    const optB = text.match(/[B]\)[\s\.]*([\s\S]*?)(?=\n[C-E]\)|\n[C-E]\.|$)/i);
+    if (optB) newForm.option_b = optB[1].trim();
+    const optC = text.match(/[C]\)[\s\.]*([\s\S]*?)(?=\n[D-E]\)|\n[D-E]\.|$)/i);
+    if (optC) newForm.option_c = optC[1].trim();
+    const optD = text.match(/[D]\)[\s\.]*([\s\S]*?)(?=\n[E]\)|\n[E]\.|$)/i);
+    if (optD) newForm.option_d = optD[1].trim();
+    const optE = text.match(/[E]\)[\s\.]*([\s\S]*?)(?=\nCorrect|\nExplanation|$)/i);
+    if (optE) newForm.option_e = optE[1].trim();
+
+    // Extract Correct Option
+    const correctMatch = text.match(/Correct Option:\s*([A-E])/i) || text.match(/Answer:\s*([A-E])/i);
+    if (correctMatch) newForm.correct_option = correctMatch[1].toUpperCase() as any;
+
+    const expMatch = text.match(/Explanation:\s*([\s\S]*?)$/i);
+    if (expMatch) newForm.explanation = expMatch[1].trim();
+
+    setForm(newForm);
   };
 
   // ── Render ─────────────────────────────────────────────────────────────────
@@ -365,12 +463,20 @@ export default function AdminQuestionBankPage() {
             style={{ width:'100%', padding:'9px 12px 9px 34px', borderRadius:'8px',
               border:'1px solid #E2E8F0', fontSize:'0.875rem', outline:'none' }} />
         </div>
-        <select value={filterSubject} onChange={e => { setFilterSubject(e.target.value); setPage(0); }}
+        <select value={filterSubject} onChange={e => { setFilterSubject(e.target.value); setFilterChapter(''); setPage(0); }}
           style={{ padding:'9px 12px', borderRadius:'8px', border:'1px solid #E2E8F0',
             fontSize:'0.875rem', backgroundColor:'#fff', outline:'none' }}>
           <option value="">All Subjects</option>
           {SUBJECTS.map(s => <option key={s} value={s}>{s}</option>)}
         </select>
+        {filterSubject === 'Biology' && (
+          <select value={filterChapter} onChange={e => { setFilterChapter(e.target.value); setPage(0); }}
+            style={{ padding:'9px 12px', borderRadius:'8px', border:'1px solid #E2E8F0',
+              fontSize:'0.875rem', backgroundColor:'#fff', outline:'none' }}>
+            <option value="">All Chapters</option>
+            {BIOLOGY_CHAPTERS.map(c => <option key={c} value={c}>{c}</option>)}
+          </select>
+        )}
         <select value={filterDiff} onChange={e => { setFilterDiff(e.target.value); setPage(0); }}
           style={{ padding:'9px 12px', borderRadius:'8px', border:'1px solid #E2E8F0',
             fontSize:'0.875rem', backgroundColor:'#fff', outline:'none' }}>
@@ -396,6 +502,7 @@ export default function AdminQuestionBankPage() {
               <tr style={{ backgroundColor:'#F8FAFC', borderBottom:'1px solid #E2E8F0' }}>
                 <th style={{ padding:'10px 14px', textAlign:'left', color:'#64748B', fontWeight:600 }}>Question</th>
                 <th style={{ padding:'10px 14px', textAlign:'left', color:'#64748B', fontWeight:600 }}>Subject</th>
+                <th style={{ padding:'10px 14px', textAlign:'left', color:'#64748B', fontWeight:600 }}>Chapter</th>
                 <th style={{ padding:'10px 14px', textAlign:'left', color:'#64748B', fontWeight:600 }}>Topic</th>
                 <th style={{ padding:'10px 14px', textAlign:'left', color:'#64748B', fontWeight:600 }}>Difficulty</th>
                 <th style={{ padding:'10px 14px', textAlign:'left', color:'#64748B', fontWeight:600 }}>Answer</th>
@@ -411,6 +518,7 @@ export default function AdminQuestionBankPage() {
                     </div>
                   </td>
                   <td style={{ padding:'10px 14px', color:'#475569' }}>{q.subject}</td>
+                  <td style={{ padding:'10px 14px', color:'#64748B' }}>{q.chapter || '—'}</td>
                   <td style={{ padding:'10px 14px', color:'#64748B' }}>{q.topic || '—'}</td>
                   <td style={{ padding:'10px 14px' }}>
                     <span style={{ padding:'2px 8px', borderRadius:'6px', fontSize:'0.75rem', fontWeight:700,
@@ -470,13 +578,28 @@ export default function AdminQuestionBankPage() {
           display:'flex', alignItems:'center', justifyContent:'center', padding:'20px' }}>
           <div style={{ backgroundColor:'#fff', borderRadius:'16px', width:'100%', maxWidth:'700px',
             maxHeight:'90vh', overflowY:'auto', padding:'28px', position:'relative' }}>
-            <button onClick={() => { setShowModal(false); setEditId(null); }}
+            <button onClick={() => { setShowModal(false); setEditId(null); setSmartPasteText(''); }}
               style={{ position:'absolute', top:16, right:16, border:'none', background:'none', cursor:'pointer' }}>
               <X size={20} color="#64748B" />
             </button>
             <h2 style={{ fontSize:'1.3rem', fontWeight:800, color:'#0F172A', marginBottom:'20px' }}>
               {editId ? 'Edit Question' : 'Add New Question'}
             </h2>
+
+            {!editId && (
+              <div style={{ marginBottom:'20px', backgroundColor:'#F8FAFC', padding:'16px', borderRadius:'10px', border:'1px dashed #CBD5E1' }}>
+                <label style={{...LS, color:'#2563EB'}}>Smart Paste (Auto-fill)</label>
+                <p style={{ fontSize:'0.75rem', color:'#64748B', marginBottom:'8px' }}>
+                  Paste raw text here to automatically fill the fields below. Try formatting like: <code>Chapter: ... Topic: ... Q: ... A) ... B) ... Answer: C</code>
+                </p>
+                <textarea 
+                  value={smartPasteText}
+                  onChange={handleSmartPaste}
+                  placeholder="Paste question text here..."
+                  style={{...IS, height:'80px', resize:'vertical', fontSize:'0.8125rem'}}
+                />
+              </div>
+            )}
 
             {formError && (
               <div style={{ backgroundColor:'#FEF2F2', border:'1px solid #FCA5A5', color:'#991B1B',
@@ -494,9 +617,28 @@ export default function AdminQuestionBankPage() {
                 </select>
               </div>
               <div>
+                <label style={LS}>Chapter</label>
+                {form.subject === 'Biology' ? (
+                  <select value={form.chapter} onChange={e => setForm({...form, chapter:e.target.value, topic:''})} style={SS}>
+                    <option value="">— Select Chapter —</option>
+                    {BIOLOGY_CHAPTERS.map(c => <option key={c} value={c}>{c}</option>)}
+                  </select>
+                ) : (
+                  <input value={form.chapter} onChange={e => setForm({...form, chapter:e.target.value})}
+                    placeholder="e.g. Organic Chemistry" style={IS} />
+                )}
+              </div>
+              <div>
                 <label style={LS}>Topic</label>
-                <input value={form.topic} onChange={e => setForm({...form, topic:e.target.value})}
-                  placeholder="e.g. Cell Division" style={IS} />
+                {form.subject === 'Biology' && form.chapter && BIOLOGY_STRUCTURE[form.chapter] ? (
+                  <select value={form.topic} onChange={e => setForm({...form, topic:e.target.value})} style={SS}>
+                    <option value="">— Select Topic —</option>
+                    {BIOLOGY_STRUCTURE[form.chapter].map(t => <option key={t} value={t}>{t}</option>)}
+                  </select>
+                ) : (
+                  <input value={form.topic} onChange={e => setForm({...form, topic:e.target.value})}
+                    placeholder="e.g. Cell Division" style={IS} />
+                )}
               </div>
               <div>
                 <label style={LS}>Difficulty</label>

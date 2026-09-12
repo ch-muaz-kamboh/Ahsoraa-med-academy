@@ -13,6 +13,7 @@ END $$;
 CREATE TABLE IF NOT EXISTS qb_questions (
   id               UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   subject          TEXT NOT NULL,
+  chapter          TEXT NOT NULL DEFAULT '',
   topic            TEXT NOT NULL DEFAULT '',
   difficulty       qb_difficulty NOT NULL DEFAULT 'medium',
   question_text    TEXT NOT NULL,
@@ -45,6 +46,7 @@ CREATE TABLE IF NOT EXISTS practice_sessions (
   student_id          UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
   title               TEXT NOT NULL DEFAULT 'Practice Test',
   subject_filter      TEXT,
+  chapter_filter      TEXT,
   topic_filter        TEXT,
   difficulty_filter   qb_difficulty,
   question_count      INTEGER NOT NULL DEFAULT 20,
@@ -84,8 +86,10 @@ CREATE TABLE IF NOT EXISTS practice_answers (
 );
 
 CREATE INDEX IF NOT EXISTS idx_qb_subject            ON qb_questions(subject);
+CREATE INDEX IF NOT EXISTS idx_qb_chapter            ON qb_questions(chapter);
 CREATE INDEX IF NOT EXISTS idx_qb_topic              ON qb_questions(topic);
 CREATE INDEX IF NOT EXISTS idx_qb_difficulty         ON qb_questions(difficulty);
+CREATE INDEX IF NOT EXISTS idx_qb_subject_chapter    ON qb_questions(subject, chapter);
 CREATE INDEX IF NOT EXISTS idx_qb_subject_topic      ON qb_questions(subject, topic);
 CREATE INDEX IF NOT EXISTS idx_qb_subject_difficulty ON qb_questions(subject, difficulty);
 CREATE INDEX IF NOT EXISTS idx_qb_active             ON qb_questions(is_active) WHERE is_active = TRUE;
@@ -166,15 +170,18 @@ CREATE POLICY "Staff view all practice answers"    ON practice_answers FOR SELEC
 
 
 CREATE OR REPLACE FUNCTION get_random_question_ids(
-  p_count INTEGER, p_subject TEXT DEFAULT NULL, p_topic TEXT DEFAULT NULL, p_difficulty TEXT DEFAULT NULL
+  p_count INTEGER, p_subject TEXT DEFAULT NULL, p_chapter TEXT DEFAULT NULL, p_topic TEXT DEFAULT NULL, p_difficulty TEXT DEFAULT NULL
 ) RETURNS TABLE(question_id UUID) LANGUAGE sql STABLE AS $$
   SELECT id FROM qb_questions
   WHERE is_active = TRUE
     AND (p_subject    IS NULL OR subject        = p_subject)
+    AND (p_chapter    IS NULL OR chapter        = p_chapter)
     AND (p_topic      IS NULL OR topic          = p_topic)
     AND (p_difficulty IS NULL OR difficulty::TEXT = p_difficulty)
   ORDER BY random() LIMIT p_count;
 $$;
 
-CREATE OR REPLACE VIEW qb_subjects_topics AS
-SELECT DISTINCT subject, topic FROM qb_questions WHERE is_active = TRUE ORDER BY subject, topic;
+DROP VIEW IF EXISTS qb_subjects_topics;
+
+CREATE VIEW qb_subjects_topics AS
+SELECT DISTINCT subject, chapter, topic FROM qb_questions WHERE is_active = TRUE ORDER BY subject, chapter, topic;

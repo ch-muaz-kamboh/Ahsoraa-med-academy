@@ -24,6 +24,47 @@ const SUBJECTS = [
   { name:'General Knowledge',icon:<Globe size={20}/>,       color:'#F97316', bg:'#FFF7ED' },
 ];
 
+const BIOLOGY_STRUCTURE: Record<string, string[]> = {
+  'Genetics, Heredity & Molecular Biology': [
+    'DNA, Chromosomes & Genome Organisation',
+    'DNA Replication, Genetic Code & Protein Synthesis',
+    'Mendelian Genetics & Probability',
+    'Classical & Human Genetics',
+    'Cell Cycle, Mitosis & Meiosis',
+    'Reproduction & Life Cycles',
+  ],
+  'Biochemistry, Biological Molecules & Bioenergetics': [
+    'Water, Weak Interactions & Chemical Basis of Life',
+    'Carbohydrates, Lipids, Proteins & Nucleic Acids',
+    'Enzymes',
+    'ATP, Cellular Respiration & Fermentation',
+    'Photosynthesis',
+  ],
+  'Cell Biology': [
+    'Cell Theory, Cell Types & Cell Size',
+    'Organelles & Cellular Structures',
+    'Cell Membrane & Transport',
+    'Viruses',
+  ],
+  'Human Anatomy, Physiology & Homeostasis': [
+    'Animal Tissues & Homeostasis',
+    'Digestive System & Nutrition',
+    'Respiratory System & Gas Exchange',
+    'Circulatory System',
+    'Excretion, Kidney & Osmoregulation',
+    'Nervous & Endocrine Coordination',
+    'Musculoskeletal System',
+    'Human Reproduction',
+    'Immunity',
+  ],
+  'Evolution, Variation & Biotechnology': [
+    'Mutation, Variation & Selection',
+    'Evolutionary Theory & Genetic Basis of Evolution',
+    'Recombinant DNA & Biotechnology',
+  ],
+};
+const BIOLOGY_CHAPTERS = Object.keys(BIOLOGY_STRUCTURE);
+
 interface SubjectCount { subject: string; count: number; }
 
 export default function PracticePage() {
@@ -36,10 +77,12 @@ export default function PracticePage() {
 
   // Form state
   const [subject, setSubject]     = useState('');
+  const [chapter, setChapter]     = useState('');
   const [topic, setTopic]         = useState('');
   const [difficulty, setDifficulty] = useState('');
   const [questionCount, setQCount]= useState(20);
   const [timeLimit, setTimeLimit] = useState(30);
+  const [availableChapters, setAvailableChapters] = useState<string[]>([]);
   const [availableTopics, setAvailableTopics] = useState<string[]>([]);
 
   useEffect(() => {
@@ -70,27 +113,37 @@ export default function PracticePage() {
   }, [supabase]);
 
   useEffect(() => {
-    if (!subject) { setAvailableTopics([]); return; }
-    const fetchTopics = async () => {
+    if (!subject) { setAvailableChapters([]); setAvailableTopics([]); return; }
+    const fetchStructure = async () => {
       try {
         const { data } = await supabase
           .from('qb_questions')
-          .select('topic')
+          .select('chapter, topic')
           .eq('subject', subject)
           .eq('is_active', true);
         if (data && data.length > 0) {
-          const unique = [...new Set(data.map(r => r.topic).filter(Boolean))].sort();
-          setAvailableTopics(unique as string[]);
+          const uniqueChapters = [...new Set(data.map(r => r.chapter).filter(Boolean))].sort();
+          setAvailableChapters(uniqueChapters as string[]);
+          
+          let topicsData = data;
+          if (chapter) topicsData = topicsData.filter(r => r.chapter === chapter);
+          const uniqueTopics = [...new Set(topicsData.map(r => r.topic).filter(Boolean))].sort();
+          setAvailableTopics(uniqueTopics as string[]);
           return;
         }
       } catch (e) {}
 
       const filtered = getPool().filter(q => q.subject === subject);
-      const unique = [...new Set(filtered.map(q => q.topic).filter(Boolean))].sort();
-      setAvailableTopics(unique as string[]);
+      const uniqueChapters = [...new Set(filtered.map(q => q.chapter).filter(Boolean))].sort();
+      setAvailableChapters(uniqueChapters as string[]);
+      
+      let topicsData = filtered;
+      if (chapter) topicsData = topicsData.filter(q => q.chapter === chapter);
+      const uniqueTopics = [...new Set(topicsData.map(q => q.topic).filter(Boolean))].sort();
+      setAvailableTopics(uniqueTopics as string[]);
     };
-    fetchTopics();
-  }, [subject, supabase]);
+    fetchStructure();
+  }, [subject, chapter, supabase]);
 
   const totalAvailable = subjectCounts.reduce((s,r) => s+r.count, 0);
 
@@ -102,6 +155,7 @@ export default function PracticePage() {
     // Build session title
     const parts = [];
     if (subject) parts.push(subject); else parts.push('All Subjects');
+    if (chapter) parts.push(chapter);
     if (topic)   parts.push(topic);
     if (difficulty) parts.push(difficulty.charAt(0).toUpperCase()+difficulty.slice(1));
     parts.push(`${questionCount} Qs`);
@@ -113,6 +167,7 @@ export default function PracticePage() {
       .insert({
         student_id: user.id, title,
         subject_filter: subject || null,
+        chapter_filter: chapter || null,
         topic_filter: topic || null,
         difficulty_filter: difficulty || null,
         question_count: questionCount,
@@ -130,6 +185,7 @@ export default function PracticePage() {
       const { data: qids } = await supabase.rpc('get_random_question_ids', {
         p_count: questionCount,
         p_subject: subject || null,
+        p_chapter: chapter || null,
         p_topic: topic || null,
         p_difficulty: difficulty || null,
       });
@@ -137,7 +193,7 @@ export default function PracticePage() {
         const ids = qids.map((r: { question_id: string }) => r.question_id);
         const { data: dbQs } = await supabase
           .from('qb_questions')
-          .select('id,subject,topic,difficulty,question_text,question_image_url,option_a,option_b,option_c,option_d,option_e,correct_option,explanation')
+          .select('id,subject,chapter,topic,difficulty,question_text,question_image_url,option_a,option_b,option_c,option_d,option_e,correct_option,explanation')
           .in('id', ids);
         if (dbQs && dbQs.length > 0) {
           pickedQuestions = dbQs;
@@ -158,6 +214,7 @@ export default function PracticePage() {
 
       let filtered = pool;
       if (subject) filtered = filtered.filter(q => q.subject && q.subject.toLowerCase() === subject.toLowerCase());
+      if (chapter) filtered = filtered.filter(q => q.chapter && q.chapter.toLowerCase() === chapter.toLowerCase());
       if (topic) filtered = filtered.filter(q => q.topic && q.topic.toLowerCase() === topic.toLowerCase());
       if (difficulty) filtered = filtered.filter(q => q.difficulty && q.difficulty.toLowerCase() === difficulty.toLowerCase());
       if (filtered.length === 0) filtered = pool; // Widen criteria if too narrow
@@ -221,7 +278,7 @@ export default function PracticePage() {
                 const active = subject === s.name;
                 return (
                   <button key={s.name}
-                    onClick={() => { setSubject(active ? '' : s.name); setTopic(''); }}
+                    onClick={() => { setSubject(active ? '' : s.name); setChapter(''); setTopic(''); }}
                     style={{ textAlign:'left', padding:'16px', borderRadius:'12px',
                       border: `2px solid ${active ? s.color : '#E2E8F0'}`,
                       backgroundColor: active ? s.bg : '#fff',
@@ -246,14 +303,43 @@ export default function PracticePage() {
           {/* Subject */}
           <div style={{ marginBottom:'14px' }}>
             <label style={LS}>Subject</label>
-            <select value={subject} onChange={e => { setSubject(e.target.value); setTopic(''); }} style={SS}>
+            <select value={subject} onChange={e => { setSubject(e.target.value); setChapter(''); setTopic(''); }} style={SS}>
               <option value="">All Subjects (Mixed)</option>
               {SUBJECTS.map(s => <option key={s.name} value={s.name}>{s.name}</option>)}
             </select>
           </div>
 
+          {/* Chapter */}
+          {subject === 'Biology' && (
+            <div style={{ marginBottom:'14px' }}>
+              <label style={LS}>Chapter (optional)</label>
+              <select value={chapter} onChange={e => { setChapter(e.target.value); setTopic(''); }} style={SS}>
+                <option value="">All Chapters</option>
+                {BIOLOGY_CHAPTERS.map(c => <option key={c} value={c}>{c}</option>)}
+              </select>
+            </div>
+          )}
+          {subject !== 'Biology' && availableChapters.length > 0 && (
+            <div style={{ marginBottom:'14px' }}>
+              <label style={LS}>Chapter (optional)</label>
+              <select value={chapter} onChange={e => { setChapter(e.target.value); setTopic(''); }} style={SS}>
+                <option value="">All Chapters</option>
+                {availableChapters.map(c => <option key={c} value={c}>{c}</option>)}
+              </select>
+            </div>
+          )}
+
           {/* Topic */}
-          {availableTopics.length > 0 && (
+          {subject === 'Biology' && chapter && BIOLOGY_STRUCTURE[chapter] && (
+            <div style={{ marginBottom:'14px' }}>
+              <label style={LS}>Topic (optional)</label>
+              <select value={topic} onChange={e => setTopic(e.target.value)} style={SS}>
+                <option value="">All Topics</option>
+                {BIOLOGY_STRUCTURE[chapter].map(t => <option key={t} value={t}>{t}</option>)}
+              </select>
+            </div>
+          )}
+          {subject !== 'Biology' && availableTopics.length > 0 && (
             <div style={{ marginBottom:'14px' }}>
               <label style={LS}>Topic (optional)</label>
               <select value={topic} onChange={e => setTopic(e.target.value)} style={SS}>
