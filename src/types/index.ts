@@ -329,3 +329,64 @@ export interface AuditLogItem {
   details: string;
   timestamp: string;
 }
+
+export interface ScheduleItem {
+  id: string;
+  title: string;
+  subject: string;
+  instructor: string;
+  date: string;
+  time: string;
+  durationMinutes: number;
+  meetingUrl?: string;
+  location?: string;
+  status: 'upcoming' | 'live' | 'completed';
+  description?: string;
+  createdAt: string;
+}
+
+export interface RecordedLecture {
+  id: string;
+  title: string;
+  subject: string;
+  topic?: string;
+  durationMinutes: number;
+  videoUrl: string;
+  thumbnailUrl?: string;
+  pdfAttachmentUrl?: string;
+  description?: string;
+  instructor?: string;
+  viewsCount?: number;
+  createdAt: string;
+}
+
+export interface LibraryResource {
+  id: string;
+  title: string;
+  category: 'Book' | 'PDF Notes' | 'Formula Sheet' | 'Past Paper' | 'Other';
+  subject: string;
+  fileUrl: string;
+  fileSizeBytes?: number;
+  pagesCount?: number;
+  authorOrSource?: string;
+  description?: string;
+  downloadCount?: number;
+  uploadedAt: string;
+}
+
+export interface StudentMistake {
+  id: string;
+  questionId: string;
+  questionText: string;
+  options: { id: string; text: string }[];
+  correctOption: string;
+  selectedOption: string;
+  explanation: string;
+  source: 'Practice Bank' | 'CBT Mock';
+  testTitle?: string;
+  subject: string;
+  topic?: string;
+  failedAt: string;
+  isResolved: boolean;
+}
+

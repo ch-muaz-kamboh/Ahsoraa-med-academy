@@ -16,6 +16,9 @@ import {
   History,
   ShieldCheck,
   LogOut,
+  Calendar,
+  Video,
+  Library,
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 
@@ -30,6 +33,9 @@ export default function AdminSidebar() {
     { href: '/admin/students', label: 'Student Management', icon: <GraduationCap size={18} /> },
     { href: '/admin/tests', label: 'Mock Tests', icon: <BookOpenCheck size={18} /> },
     { href: '/admin/question-bank', label: 'Question Bank', icon: <Database size={18} /> },
+    { href: '/admin/learn/schedule', label: 'Schedule Manager', icon: <Calendar size={18} /> },
+    { href: '/admin/learn/lectures', label: 'Video Lectures', icon: <Video size={18} /> },
+    { href: '/admin/learn/library', label: 'Library Resources', icon: <Library size={18} /> },
     { href: '/admin/content', label: 'Website Content', icon: <FileSignature size={18} /> },
   ];
 

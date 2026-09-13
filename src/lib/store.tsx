@@ -9,6 +9,10 @@ import {
   StudentDocument,
   DoubtItem,
   Course,
+  ScheduleItem,
+  RecordedLecture,
+  LibraryResource,
+  StudentMistake,
 } from '@/types';
 import {
   mockCurrentUser,
@@ -16,6 +20,10 @@ import {
   mockLeads,
   mockStudentDocuments,
   mockDoubts,
+  mockSchedules,
+  mockRecordedLectures,
+  mockLibraryResources,
+  mockStudentMistakes,
 } from './mock-data';
 
 export interface LiveTestSession {
@@ -51,6 +59,30 @@ interface AppContextType {
   liveTestSession: LiveTestSession | null;
   startLiveTest: (testId: string, testTitle: string) => void;
   endLiveTest: () => void;
+
+  // Schedule Management
+  schedules: ScheduleItem[];
+  addSchedule: (item: Omit<ScheduleItem, 'id' | 'createdAt'>) => void;
+  updateSchedule: (id: string, item: Partial<ScheduleItem>) => void;
+  deleteSchedule: (id: string) => void;
+
+  // Recorded Lectures Management
+  recordedLectures: RecordedLecture[];
+  addLecture: (item: Omit<RecordedLecture, 'id' | 'createdAt'>) => void;
+  updateLecture: (id: string, item: Partial<RecordedLecture>) => void;
+  deleteLecture: (id: string) => void;
+
+  // Library Management
+  libraryResources: LibraryResource[];
+  addLibraryResource: (item: Omit<LibraryResource, 'id' | 'uploadedAt'>) => void;
+  updateLibraryResource: (id: string, item: Partial<LibraryResource>) => void;
+  deleteLibraryResource: (id: string) => void;
+
+  // Student Mistakes
+  studentMistakes: StudentMistake[];
+  addMistake: (item: Omit<StudentMistake, 'id' | 'failedAt' | 'isResolved'>) => void;
+  toggleMistakeResolved: (id: string) => void;
+  deleteMistake: (id: string) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -66,6 +98,83 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [studentLoggedIn, setStudentLoggedIn] = useState<boolean>(false);
   const [adminLoggedIn, setAdminLoggedIn] = useState<boolean>(false);
   const [liveTestSession, setLiveTestSession] = useState<LiveTestSession | null>(null);
+
+  // New features state
+  const [schedules, setSchedules] = useState<ScheduleItem[]>(mockSchedules);
+  const [recordedLectures, setRecordedLectures] = useState<RecordedLecture[]>(mockRecordedLectures);
+  const [libraryResources, setLibraryResources] = useState<LibraryResource[]>(mockLibraryResources);
+  const [studentMistakes, setStudentMistakes] = useState<StudentMistake[]>(mockStudentMistakes);
+
+  const addSchedule = (item: Omit<ScheduleItem, 'id' | 'createdAt'>) => {
+    const newItem: ScheduleItem = {
+      ...item,
+      id: `sch-${Date.now()}`,
+      createdAt: new Date().toISOString(),
+    };
+    setSchedules((prev) => [newItem, ...prev]);
+  };
+
+  const updateSchedule = (id: string, item: Partial<ScheduleItem>) => {
+    setSchedules((prev) => prev.map((s) => (s.id === id ? { ...s, ...item } : s)));
+  };
+
+  const deleteSchedule = (id: string) => {
+    setSchedules((prev) => prev.filter((s) => s.id !== id));
+  };
+
+  const addLecture = (item: Omit<RecordedLecture, 'id' | 'createdAt'>) => {
+    const newItem: RecordedLecture = {
+      ...item,
+      id: `lec-${Date.now()}`,
+      createdAt: new Date().toISOString(),
+    };
+    setRecordedLectures((prev) => [newItem, ...prev]);
+  };
+
+  const updateLecture = (id: string, item: Partial<RecordedLecture>) => {
+    setRecordedLectures((prev) => prev.map((l) => (l.id === id ? { ...l, ...item } : l)));
+  };
+
+  const deleteLecture = (id: string) => {
+    setRecordedLectures((prev) => prev.filter((l) => l.id !== id));
+  };
+
+  const addLibraryResource = (item: Omit<LibraryResource, 'id' | 'uploadedAt'>) => {
+    const newItem: LibraryResource = {
+      ...item,
+      id: `lib-${Date.now()}`,
+      uploadedAt: new Date().toISOString(),
+    };
+    setLibraryResources((prev) => [newItem, ...prev]);
+  };
+
+  const updateLibraryResource = (id: string, item: Partial<LibraryResource>) => {
+    setLibraryResources((prev) => prev.map((r) => (r.id === id ? { ...r, ...item } : r)));
+  };
+
+  const deleteLibraryResource = (id: string) => {
+    setLibraryResources((prev) => prev.filter((r) => r.id !== id));
+  };
+
+  const addMistake = (item: Omit<StudentMistake, 'id' | 'failedAt' | 'isResolved'>) => {
+    const newItem: StudentMistake = {
+      ...item,
+      id: `mst-${Date.now()}`,
+      failedAt: new Date().toISOString(),
+      isResolved: false,
+    };
+    setStudentMistakes((prev) => [newItem, ...prev]);
+  };
+
+  const toggleMistakeResolved = (id: string) => {
+    setStudentMistakes((prev) =>
+      prev.map((m) => (m.id === id ? { ...m, isResolved: !m.isResolved } : m))
+    );
+  };
+
+  const deleteMistake = (id: string) => {
+    setStudentMistakes((prev) => prev.filter((m) => m.id !== id));
+  };
 
   const handleRoleChange = (role: UserRole) => {
     setRole(role);
@@ -240,6 +349,26 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         liveTestSession,
         startLiveTest,
         endLiveTest,
+
+        schedules,
+        addSchedule,
+        updateSchedule,
+        deleteSchedule,
+
+        recordedLectures,
+        addLecture,
+        updateLecture,
+        deleteLecture,
+
+        libraryResources,
+        addLibraryResource,
+        updateLibraryResource,
+        deleteLibraryResource,
+
+        studentMistakes,
+        addMistake,
+        toggleMistakeResolved,
+        deleteMistake,
       }}
     >
       {children}

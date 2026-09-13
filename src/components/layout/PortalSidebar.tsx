@@ -1,6 +1,4 @@
-'use client';
-
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
@@ -10,6 +8,14 @@ import {
   BookOpen,
   LogOut,
   Globe,
+  GraduationCap,
+  Calendar,
+  Video,
+  Library,
+  ChevronDown,
+  ChevronRight,
+  AlertCircle,
+  HelpCircle,
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { createClient } from '@/lib/supabase/client';
@@ -19,6 +25,9 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
   const pathname = usePathname();
   const router = useRouter();
   const { setStudentLoggedIn, logoutStudent } = useAppStore();
+
+  const [learnOpen, setLearnOpen] = useState<boolean>(true);
+  const [practiceOpen, setPracticeOpen] = useState<boolean>(true);
 
   const handleLogout = async () => {
     try {
@@ -30,12 +39,8 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
     logoutStudent();
   };
 
-  const links = [
-    { href: '/portal/dashboard', label: 'Dashboard', icon: <LayoutDashboard size={18} /> },
-    { href: '/portal/tests', label: 'CBT Mock Tests', icon: <FileCheck2 size={18} /> },
-    { href: '/portal/practice', label: 'Practice Bank', icon: <BookOpen size={18} /> },
-    { href: '/portal/documents', label: 'Document Vault', icon: <FolderLock size={18} /> },
-  ];
+  const isLearnActive = pathname?.startsWith('/portal/learn');
+  const isPracticeActive = pathname === '/portal/practice' || pathname?.startsWith('/portal/practice/') || pathname?.startsWith('/portal/tests');
 
   return (
     <aside
@@ -103,31 +108,252 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
       </div>
 
       {/* Navigation List */}
-      <nav style={{ padding: '8px 12px', flex: 1, display: 'flex', flexDirection: 'column', gap: '4px' }}>
-        {links.map((item) => {
-          const isActive = pathname === item.href || (item.href !== '/portal/dashboard' && pathname?.startsWith(item.href));
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-                padding: '10px 14px',
-                borderRadius: '8px',
-                fontSize: '0.875rem',
-                fontWeight: isActive ? 600 : 500,
-                color: isActive ? '#2563EB' : '#475569',
-                backgroundColor: isActive ? '#EFF6FF' : 'transparent',
-                transition: 'all 0.15s ease',
-              }}
-            >
-              <span style={{ color: isActive ? '#2563EB' : '#64748B' }}>{item.icon}</span>
-              <span>{item.label}</span>
-            </Link>
-          );
-        })}
+      <nav style={{ padding: '8px 12px', flex: 1, display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        {/* Dashboard Link */}
+        <Link
+          href="/portal/dashboard"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            padding: '10px 14px',
+            borderRadius: '8px',
+            fontSize: '0.875rem',
+            fontWeight: pathname === '/portal/dashboard' ? 600 : 500,
+            color: pathname === '/portal/dashboard' ? '#2563EB' : '#475569',
+            backgroundColor: pathname === '/portal/dashboard' ? '#EFF6FF' : 'transparent',
+            transition: 'all 0.15s ease',
+          }}
+        >
+          <span style={{ color: pathname === '/portal/dashboard' ? '#2563EB' : '#64748B' }}>
+            <LayoutDashboard size={18} />
+          </span>
+          <span>Dashboard</span>
+        </Link>
+
+        {/* Learn Section Dropdown */}
+        <div>
+          <button
+            type="button"
+            onClick={() => setLearnOpen(!learnOpen)}
+            style={{
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '10px 14px',
+              borderRadius: '8px',
+              fontSize: '0.875rem',
+              fontWeight: 600,
+              color: isLearnActive ? '#2563EB' : '#334155',
+              backgroundColor: isLearnActive ? '#EFF6FF' : 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              transition: 'all 0.15s ease',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <GraduationCap size={18} color={isLearnActive ? '#2563EB' : '#64748B'} />
+              <span>Learn</span>
+            </div>
+            {learnOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />}
+          </button>
+
+          {learnOpen && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', paddingLeft: '28px', marginTop: '4px' }}>
+              <Link
+                href="/portal/learn/schedule"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  padding: '8px 12px',
+                  borderRadius: '6px',
+                  fontSize: '0.8125rem',
+                  fontWeight: pathname === '/portal/learn/schedule' ? 600 : 500,
+                  color: pathname === '/portal/learn/schedule' ? '#2563EB' : '#64748B',
+                  backgroundColor: pathname === '/portal/learn/schedule' ? '#DBEAFE' : 'transparent',
+                  transition: 'all 0.15s ease',
+                }}
+              >
+                <Calendar size={15} />
+                <span>1. Schedule</span>
+              </Link>
+
+              <Link
+                href="/portal/learn/lectures"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  padding: '8px 12px',
+                  borderRadius: '6px',
+                  fontSize: '0.8125rem',
+                  fontWeight: pathname === '/portal/learn/lectures' ? 600 : 500,
+                  color: pathname === '/portal/learn/lectures' ? '#2563EB' : '#64748B',
+                  backgroundColor: pathname === '/portal/learn/lectures' ? '#DBEAFE' : 'transparent',
+                  transition: 'all 0.15s ease',
+                }}
+              >
+                <Video size={15} />
+                <span>2. Recorded Lectures</span>
+              </Link>
+
+              <Link
+                href="/portal/learn/library"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  padding: '8px 12px',
+                  borderRadius: '6px',
+                  fontSize: '0.8125rem',
+                  fontWeight: pathname === '/portal/learn/library' ? 600 : 500,
+                  color: pathname === '/portal/learn/library' ? '#2563EB' : '#64748B',
+                  backgroundColor: pathname === '/portal/learn/library' ? '#DBEAFE' : 'transparent',
+                  transition: 'all 0.15s ease',
+                }}
+              >
+                <Library size={15} />
+                <span>3. Library</span>
+              </Link>
+            </div>
+          )}
+        </div>
+
+        {/* Practice Section Dropdown */}
+        <div>
+          <button
+            type="button"
+            onClick={() => setPracticeOpen(!practiceOpen)}
+            style={{
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '10px 14px',
+              borderRadius: '8px',
+              fontSize: '0.875rem',
+              fontWeight: 600,
+              color: isPracticeActive ? '#2563EB' : '#334155',
+              backgroundColor: isPracticeActive ? '#EFF6FF' : 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              transition: 'all 0.15s ease',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <BookOpen size={18} color={isPracticeActive ? '#2563EB' : '#64748B'} />
+              <span>Practice</span>
+            </div>
+            {practiceOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />}
+          </button>
+
+          {practiceOpen && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', paddingLeft: '28px', marginTop: '4px' }}>
+              <Link
+                href="/portal/practice"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  padding: '8px 12px',
+                  borderRadius: '6px',
+                  fontSize: '0.8125rem',
+                  fontWeight: pathname === '/portal/practice' ? 600 : 500,
+                  color: pathname === '/portal/practice' ? '#2563EB' : '#64748B',
+                  backgroundColor: pathname === '/portal/practice' ? '#DBEAFE' : 'transparent',
+                  transition: 'all 0.15s ease',
+                }}
+              >
+                <BookOpen size={15} />
+                <span>1. Practice Bank</span>
+              </Link>
+
+              <Link
+                href="/portal/tests"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  padding: '8px 12px',
+                  borderRadius: '6px',
+                  fontSize: '0.8125rem',
+                  fontWeight: pathname?.startsWith('/portal/tests') ? 600 : 500,
+                  color: pathname?.startsWith('/portal/tests') ? '#2563EB' : '#64748B',
+                  backgroundColor: pathname?.startsWith('/portal/tests') ? '#DBEAFE' : 'transparent',
+                  transition: 'all 0.15s ease',
+                }}
+              >
+                <FileCheck2 size={15} />
+                <span>2. CBT Mock</span>
+              </Link>
+
+              <Link
+                href="/portal/practice/mistakes"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  padding: '8px 12px',
+                  borderRadius: '6px',
+                  fontSize: '0.8125rem',
+                  fontWeight: pathname === '/portal/practice/mistakes' ? 600 : 500,
+                  color: pathname === '/portal/practice/mistakes' ? '#2563EB' : '#64748B',
+                  backgroundColor: pathname === '/portal/practice/mistakes' ? '#DBEAFE' : 'transparent',
+                  transition: 'all 0.15s ease',
+                }}
+              >
+                <AlertCircle size={15} color={pathname === '/portal/practice/mistakes' ? '#2563EB' : '#EF4444'} />
+                <span>3. My Mistakes</span>
+              </Link>
+            </div>
+          )}
+        </div>
+
+        {/* Document Vault */}
+        <Link
+          href="/portal/documents"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            padding: '10px 14px',
+            borderRadius: '8px',
+            fontSize: '0.875rem',
+            fontWeight: pathname === '/portal/documents' ? 600 : 500,
+            color: pathname === '/portal/documents' ? '#2563EB' : '#475569',
+            backgroundColor: pathname === '/portal/documents' ? '#EFF6FF' : 'transparent',
+            transition: 'all 0.15s ease',
+          }}
+        >
+          <span style={{ color: pathname === '/portal/documents' ? '#2563EB' : '#64748B' }}>
+            <FolderLock size={18} />
+          </span>
+          <span>Document Vault</span>
+        </Link>
+
+        {/* Ask Doubts / Mentorship link */}
+        <Link
+          href="/portal/doubts"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            padding: '10px 14px',
+            borderRadius: '8px',
+            fontSize: '0.875rem',
+            fontWeight: pathname === '/portal/doubts' ? 600 : 500,
+            color: pathname === '/portal/doubts' ? '#2563EB' : '#475569',
+            backgroundColor: pathname === '/portal/doubts' ? '#EFF6FF' : 'transparent',
+            transition: 'all 0.15s ease',
+          }}
+        >
+          <span style={{ color: pathname === '/portal/doubts' ? '#2563EB' : '#64748B' }}>
+            <HelpCircle size={18} />
+          </span>
+          <span>Ask Doubts</span>
+        </Link>
       </nav>
 
       {/* Footer / Logout & Back to Public */}
