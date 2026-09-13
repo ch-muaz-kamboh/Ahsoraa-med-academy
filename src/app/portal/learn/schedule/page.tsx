@@ -181,11 +181,28 @@ export default function StudentSchedulePage() {
         >
           <CalendarIcon size={48} color="#94A3B8" style={{ marginBottom: '12px' }} />
           <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#334155', margin: '0 0 6px 0' }}>
-            No scheduled sessions found
+            No live classes or webinars scheduled yet
           </h3>
-          <p style={{ fontSize: '0.875rem', color: '#64748B', margin: 0 }}>
-            Try adjusting your search criteria or switching filter tabs.
+          <p style={{ fontSize: '0.875rem', color: '#64748B', margin: '0 0 16px 0' }}>
+            The class timetable is currently empty. Administrators can publish live sessions from the Admin Portal.
           </p>
+          <a
+            href="/admin/learn/schedule"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '8px 16px',
+              borderRadius: '8px',
+              backgroundColor: '#EFF6FF',
+              color: '#2563EB',
+              fontWeight: 700,
+              fontSize: '0.8125rem',
+              textDecoration: 'none',
+            }}
+          >
+            + Manage & Add Sessions in Admin Panel →
+          </a>
         </div>
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: '20px' }}>

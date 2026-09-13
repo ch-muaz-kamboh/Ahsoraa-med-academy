@@ -99,11 +99,70 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [adminLoggedIn, setAdminLoggedIn] = useState<boolean>(false);
   const [liveTestSession, setLiveTestSession] = useState<LiveTestSession | null>(null);
 
-  // New features state
-  const [schedules, setSchedules] = useState<ScheduleItem[]>(mockSchedules);
-  const [recordedLectures, setRecordedLectures] = useState<RecordedLecture[]>(mockRecordedLectures);
-  const [libraryResources, setLibraryResources] = useState<LibraryResource[]>(mockLibraryResources);
-  const [studentMistakes, setStudentMistakes] = useState<StudentMistake[]>(mockStudentMistakes);
+  // New features state with localStorage persistence
+  const [schedules, setSchedules] = useState<ScheduleItem[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('ahsora_schedules');
+      if (saved) {
+        try { return JSON.parse(saved); } catch (e) {}
+      }
+    }
+    return mockSchedules;
+  });
+
+  const [recordedLectures, setRecordedLectures] = useState<RecordedLecture[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('ahsora_lectures');
+      if (saved) {
+        try { return JSON.parse(saved); } catch (e) {}
+      }
+    }
+    return mockRecordedLectures;
+  });
+
+  const [libraryResources, setLibraryResources] = useState<LibraryResource[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('ahsora_library');
+      if (saved) {
+        try { return JSON.parse(saved); } catch (e) {}
+      }
+    }
+    return mockLibraryResources;
+  });
+
+  const [studentMistakes, setStudentMistakes] = useState<StudentMistake[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('ahsora_mistakes');
+      if (saved) {
+        try { return JSON.parse(saved); } catch (e) {}
+      }
+    }
+    return mockStudentMistakes;
+  });
+
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('ahsora_schedules', JSON.stringify(schedules));
+    }
+  }, [schedules]);
+
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('ahsora_lectures', JSON.stringify(recordedLectures));
+    }
+  }, [recordedLectures]);
+
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('ahsora_library', JSON.stringify(libraryResources));
+    }
+  }, [libraryResources]);
+
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('ahsora_mistakes', JSON.stringify(studentMistakes));
+    }
+  }, [studentMistakes]);
 
   const addSchedule = (item: Omit<ScheduleItem, 'id' | 'createdAt'>) => {
     const newItem: ScheduleItem = {

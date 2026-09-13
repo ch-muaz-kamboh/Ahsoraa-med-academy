@@ -162,11 +162,28 @@ export default function StudentRecordedLecturesPage() {
         >
           <Video size={48} color="#94A3B8" style={{ marginBottom: '12px' }} />
           <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#334155', margin: '0 0 6px 0' }}>
-            No recorded lectures found
+            No recorded video lectures added yet
           </h3>
-          <p style={{ fontSize: '0.875rem', color: '#64748B', margin: 0 }}>
-            Try changing your search terms or filter selection.
+          <p style={{ fontSize: '0.875rem', color: '#64748B', margin: '0 0 16px 0' }}>
+            The video archive is empty. Faculty and admins can upload recorded lectures from the Admin Panel.
           </p>
+          <a
+            href="/admin/learn/lectures"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '8px 16px',
+              borderRadius: '8px',
+              backgroundColor: '#EFF6FF',
+              color: '#2563EB',
+              fontWeight: 700,
+              fontSize: '0.8125rem',
+              textDecoration: 'none',
+            }}
+          >
+            + Upload Lectures in Admin Panel →
+          </a>
         </div>
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: '24px' }}>

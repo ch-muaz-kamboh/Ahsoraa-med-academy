@@ -24,7 +24,7 @@ export default function TakeTestPage({
 }) {
   const resolvedParams = use(params);
   const router = useRouter();
-  const { recordTestAttempt, currentUser } = useAppStore();
+  const { recordTestAttempt, currentUser, addMistake } = useAppStore();
 
   const [test] = useState(() => getMockTestWithCustom(resolvedParams.id));
 
@@ -116,6 +116,20 @@ export default function TakeTestPage({
         incorrectCount += 1;
         score -= test.negativeMark;
         subjectBreakdown[subj].score -= test.negativeMark;
+
+        // Push to My Mistakes Notebook
+        addMistake({
+          questionId: q.id,
+          questionText: q.questionText,
+          options: q.options,
+          correctOption: q.correctOption,
+          selectedOption: selected,
+          explanation: q.explanation || 'Detailed step-by-step faculty explanation.',
+          source: 'CBT Mock',
+          testTitle: test.title,
+          subject: subj,
+          topic: q.topic || '',
+        });
       }
     });
 

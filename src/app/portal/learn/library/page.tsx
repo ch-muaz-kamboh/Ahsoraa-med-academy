@@ -193,11 +193,28 @@ export default function StudentLibraryPage() {
         >
           <Library size={48} color="#94A3B8" style={{ marginBottom: '12px' }} />
           <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#334155', margin: '0 0 6px 0' }}>
-            No library resources matched your criteria
+            No library books or PDF notes uploaded yet
           </h3>
-          <p style={{ fontSize: '0.875rem', color: '#64748B', margin: 0 }}>
-            Try resetting your search filters to browse all documents.
+          <p style={{ fontSize: '0.875rem', color: '#64748B', margin: '0 0 16px 0' }}>
+            The digital repository is empty. Faculty and admins can upload books, notes, and past papers from the Admin Panel.
           </p>
+          <a
+            href="/admin/learn/library"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '8px 16px',
+              borderRadius: '8px',
+              backgroundColor: '#ECFDF5',
+              color: '#059669',
+              fontWeight: 700,
+              fontSize: '0.8125rem',
+              textDecoration: 'none',
+            }}
+          >
+            + Upload Books & Notes in Admin Panel →
+          </a>
         </div>
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: '20px' }}>

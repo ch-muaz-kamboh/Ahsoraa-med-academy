@@ -16,6 +16,12 @@ import {
   ChevronRight,
   AlertCircle,
   HelpCircle,
+  TrendingUp,
+  BarChart2,
+  Flame,
+  Building,
+  Award,
+  Compass,
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { createClient } from '@/lib/supabase/client';
@@ -28,6 +34,8 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
 
   const [learnOpen, setLearnOpen] = useState<boolean>(true);
   const [practiceOpen, setPracticeOpen] = useState<boolean>(true);
+  const [progressOpen, setProgressOpen] = useState<boolean>(true);
+  const [medpathOpen, setMedpathOpen] = useState<boolean>(true);
 
   const handleLogout = async () => {
     try {
@@ -41,6 +49,8 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
 
   const isLearnActive = pathname?.startsWith('/portal/learn');
   const isPracticeActive = pathname === '/portal/practice' || pathname?.startsWith('/portal/practice/') || pathname?.startsWith('/portal/tests');
+  const isProgressActive = pathname?.startsWith('/portal/progress');
+  const isMedpathActive = pathname?.startsWith('/portal/medpath');
 
   return (
     <aside
@@ -306,6 +316,148 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
               >
                 <AlertCircle size={15} color={pathname === '/portal/practice/mistakes' ? '#2563EB' : '#EF4444'} />
                 <span>3. My Mistakes</span>
+              </Link>
+            </div>
+          )}
+        </div>
+
+        {/* Progress Section Dropdown */}
+        <div>
+          <button
+            type="button"
+            onClick={() => setProgressOpen(!progressOpen)}
+            style={{
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '10px 14px',
+              borderRadius: '8px',
+              fontSize: '0.875rem',
+              fontWeight: 600,
+              color: isProgressActive ? '#2563EB' : '#334155',
+              backgroundColor: isProgressActive ? '#EFF6FF' : 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              transition: 'all 0.15s ease',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <TrendingUp size={18} color={isProgressActive ? '#2563EB' : '#64748B'} />
+              <span>Progress</span>
+            </div>
+            {progressOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />}
+          </button>
+
+          {progressOpen && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', paddingLeft: '28px', marginTop: '4px' }}>
+              <Link
+                href="/portal/progress/analysis"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  padding: '8px 12px',
+                  borderRadius: '6px',
+                  fontSize: '0.8125rem',
+                  fontWeight: pathname === '/portal/progress/analysis' ? 600 : 500,
+                  color: pathname === '/portal/progress/analysis' ? '#2563EB' : '#64748B',
+                  backgroundColor: pathname === '/portal/progress/analysis' ? '#DBEAFE' : 'transparent',
+                  transition: 'all 0.15s ease',
+                }}
+              >
+                <BarChart2 size={15} />
+                <span>1. Analysis</span>
+              </Link>
+
+              <Link
+                href="/portal/progress/streak"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  padding: '8px 12px',
+                  borderRadius: '6px',
+                  fontSize: '0.8125rem',
+                  fontWeight: pathname === '/portal/progress/streak' ? 600 : 500,
+                  color: pathname === '/portal/progress/streak' ? '#2563EB' : '#64748B',
+                  backgroundColor: pathname === '/portal/progress/streak' ? '#DBEAFE' : 'transparent',
+                  transition: 'all 0.15s ease',
+                }}
+              >
+                <Flame size={15} color={pathname === '/portal/progress/streak' ? '#2563EB' : '#F59E0B'} />
+                <span>2. Streak History</span>
+              </Link>
+            </div>
+          )}
+        </div>
+
+        {/* MedPath Elite Dropdown */}
+        <div>
+          <button
+            type="button"
+            onClick={() => setMedpathOpen(!medpathOpen)}
+            style={{
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '10px 14px',
+              borderRadius: '8px',
+              fontSize: '0.875rem',
+              fontWeight: 600,
+              color: isMedpathActive ? '#2563EB' : '#334155',
+              backgroundColor: isMedpathActive ? '#EFF6FF' : 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              transition: 'all 0.15s ease',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <Award size={18} color={isMedpathActive ? '#2563EB' : '#7C3AED'} />
+              <span style={{ fontWeight: 700 }}>MedPath Elite</span>
+            </div>
+            {medpathOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />}
+          </button>
+
+          {medpathOpen && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', paddingLeft: '28px', marginTop: '4px' }}>
+              <Link
+                href="/portal/medpath/applications"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  padding: '8px 12px',
+                  borderRadius: '6px',
+                  fontSize: '0.8125rem',
+                  fontWeight: pathname === '/portal/medpath/applications' ? 600 : 500,
+                  color: pathname === '/portal/medpath/applications' ? '#2563EB' : '#64748B',
+                  backgroundColor: pathname === '/portal/medpath/applications' ? '#DBEAFE' : 'transparent',
+                  transition: 'all 0.15s ease',
+                }}
+              >
+                <Building size={15} />
+                <span>1. Uni Applications & Status</span>
+              </Link>
+
+              <Link
+                href="/portal/medpath/pre-enrolment"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  padding: '8px 12px',
+                  borderRadius: '6px',
+                  fontSize: '0.8125rem',
+                  fontWeight: pathname === '/portal/medpath/pre-enrolment' ? 600 : 500,
+                  color: pathname === '/portal/medpath/pre-enrolment' ? '#2563EB' : '#64748B',
+                  backgroundColor: pathname === '/portal/medpath/pre-enrolment' ? '#DBEAFE' : 'transparent',
+                  transition: 'all 0.15s ease',
+                }}
+              >
+                <Compass size={15} />
+                <span>2. Pre-Enrolment Roadmap</span>
               </Link>
             </div>
           )}
