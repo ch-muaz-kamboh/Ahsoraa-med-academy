@@ -1,6 +1,5 @@
-'use client';
-
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { createClient } from '@/lib/supabase/client';
 import {
   UserRole,
   Profile,
@@ -99,7 +98,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [adminLoggedIn, setAdminLoggedIn] = useState<boolean>(false);
   const [liveTestSession, setLiveTestSession] = useState<LiveTestSession | null>(null);
 
-  // New features state with localStorage persistence
+  // New features state with localStorage persistence & Supabase sync
   const [schedules, setSchedules] = useState<ScheduleItem[]>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('ahsora_schedules');
@@ -140,82 +139,417 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     return mockStudentMistakes;
   });
 
-  React.useEffect(() => {
+  // Initial Supabase Sync on Mount
+  useEffect(() => {
+    const syncFromSupabase = async () => {
+      try {
+        const supabase = createClient();
+
+        // 1. Schedules
+        const { data: dbSchedules } = await supabase.from('portal_schedules').select('*').order('created_at', { ascending: false });
+        if (dbSchedules && dbSchedules.length > 0) {
+          const formatted: ScheduleItem[] = dbSchedules.map((s: any) => ({
+            id: s.id,
+            title: s.title,
+            subject: s.subject,
+            instructor: s.instructor,
+            date: s.date,
+            time: s.time,
+            durationMinutes: s.duration_minutes,
+            meetingUrl: s.meeting_url || '',
+            location: s.location || '',
+            status: s.status,
+            description: s.description || '',
+            createdAt: s.created_at,
+          }));
+          setSchedules(formatted);
+          localStorage.setItem('ahsora_schedules', JSON.stringify(formatted));
+        }
+
+        // 2. Lectures
+        const { data: dbLectures } = await supabase.from('portal_lectures').select('*').order('created_at', { ascending: false });
+        if (dbLectures && dbLectures.length > 0) {
+          const formatted: RecordedLecture[] = dbLectures.map((l: any) => ({
+            id: l.id,
+            title: l.title,
+            subject: l.subject,
+            topic: l.topic || '',
+            durationMinutes: l.duration_minutes,
+            videoUrl: l.video_url,
+            thumbnailUrl: l.thumbnail_url || '',
+            pdfAttachmentUrl: l.pdf_attachment_url || '',
+            description: l.description || '',
+            instructor: l.instructor || '',
+            viewsCount: l.views_count || 0,
+            createdAt: l.created_at,
+          }));
+          setRecordedLectures(formatted);
+          localStorage.setItem('ahsora_lectures', JSON.stringify(formatted));
+        }
+
+        // 3. Library Resources
+        const { data: dbLibrary } = await supabase.from('portal_library').select('*').order('uploaded_at', { ascending: false });
+        if (dbLibrary && dbLibrary.length > 0) {
+          const formatted: LibraryResource[] = dbLibrary.map((r: any) => ({
+            id: r.id,
+            title: r.title,
+            category: r.category,
+            subject: r.subject,
+            fileUrl: r.file_url,
+            fileSizeBytes: r.file_size_bytes || 0,
+            pagesCount: r.pages_count || 0,
+            authorOrSource: r.author_or_source || '',
+            description: r.description || '',
+            downloadCount: r.download_count || 0,
+            uploadedAt: r.uploaded_at,
+          }));
+          setLibraryResources(formatted);
+          localStorage.setItem('ahsora_library', JSON.stringify(formatted));
+        }
+
+        // 4. Student Mistakes
+        const { data: dbMistakes } = await supabase.from('portal_mistakes').select('*').order('failed_at', { ascending: false });
+        if (dbMistakes && dbMistakes.length > 0) {
+          const formatted: StudentMistake[] = dbMistakes.map((m: any) => ({
+            id: m.id,
+            questionId: m.question_id,
+            questionText: m.question_text,
+            options: typeof m.options === 'string' ? JSON.parse(m.options) : m.options,
+            correctOption: m.correct_option,
+            selectedOption: m.selected_option,
+            explanation: m.explanation || '',
+            source: m.source,
+            testTitle: m.test_title || '',
+            subject: m.subject,
+            topic: m.topic || '',
+            failedAt: m.failed_at,
+            isResolved: m.is_resolved,
+          }));
+          setStudentMistakes(formatted);
+          localStorage.setItem('ahsora_mistakes', JSON.stringify(formatted));
+        }
+      } catch (err) {
+        console.warn('Supabase sync info:', err);
+      }
+    };
+
+    syncFromSupabase();
+  }, []);
+
+  // Real-time subscriptions for data changes
+  useEffect(() => {
+    const supabase = createClient();
+
+    // Helper formatters
+    const formatSchedule = (s) => ({
+      id: s.id,
+      title: s.title,
+      subject: s.subject,
+      instructor: s.instructor,
+      date: s.date,
+      time: s.time,
+      durationMinutes: s.duration_minutes,
+      meetingUrl: s.meeting_url || '',
+      location: s.location || '',
+      status: s.status,
+      description: s.description || '',
+      createdAt: s.created_at,
+    });
+    const formatLecture = (l) => ({
+      id: l.id,
+      title: l.title,
+      subject: l.subject,
+      topic: l.topic || '',
+      durationMinutes: l.duration_minutes,
+      videoUrl: l.video_url,
+      thumbnailUrl: l.thumbnail_url || '',
+      pdfAttachmentUrl: l.pdf_attachment_url || '',
+      description: l.description || '',
+      instructor: l.instructor || '',
+      viewsCount: l.views_count || 0,
+      createdAt: l.created_at,
+    });
+    const formatLibrary = (r) => ({
+      id: r.id,
+      title: r.title,
+      category: r.category,
+      subject: r.subject,
+      fileUrl: r.file_url,
+      fileSizeBytes: r.file_size_bytes || 0,
+      pagesCount: r.pages_count || 0,
+      authorOrSource: r.author_or_source || '',
+      description: r.description || '',
+      downloadCount: r.download_count || 0,
+      uploadedAt: r.uploaded_at,
+    });
+    const formatMistake = (m) => ({
+      id: m.id,
+      questionId: m.question_id,
+      questionText: m.question_text,
+      options: typeof m.options === 'string' ? JSON.parse(m.options) : m.options,
+      correctOption: m.correct_option,
+      selectedOption: m.selected_option,
+      explanation: m.explanation || '',
+      source: m.source,
+      testTitle: m.test_title || '',
+      subject: m.subject,
+      topic: m.topic || '',
+      failedAt: m.failed_at,
+      isResolved: m.is_resolved,
+    });
+
+    // Schedules channel
+    const schedulesChannel = supabase
+      .channel('public:portal_schedules')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'portal_schedules' }, (payload) => {
+        const newItem = formatSchedule(payload.new);
+        setSchedules((prev) => {
+          if (payload.eventType === 'DELETE') {
+            return prev.filter((s) => s.id !== payload.old.id);
+          }
+          const filtered = prev.filter((s) => s.id !== newItem.id);
+          return [newItem, ...filtered];
+        });
+      })
+      .subscribe();
+
+    // Lectures channel
+    const lecturesChannel = supabase
+      .channel('public:portal_lectures')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'portal_lectures' }, (payload) => {
+        const newItem = formatLecture(payload.new);
+        setRecordedLectures((prev) => {
+          if (payload.eventType === 'DELETE') {
+            return prev.filter((l) => l.id !== payload.old.id);
+          }
+          const filtered = prev.filter((l) => l.id !== newItem.id);
+          return [newItem, ...filtered];
+        });
+      })
+      .subscribe();
+
+    // Library channel
+    const libraryChannel = supabase
+      .channel('public:portal_library')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'portal_library' }, (payload) => {
+        const newItem = formatLibrary(payload.new);
+        setLibraryResources((prev) => {
+          if (payload.eventType === 'DELETE') {
+            return prev.filter((r) => r.id !== payload.old.id);
+          }
+          const filtered = prev.filter((r) => r.id !== newItem.id);
+          return [newItem, ...filtered];
+        });
+      })
+      .subscribe();
+
+    // Mistakes channel
+    const mistakesChannel = supabase
+      .channel('public:portal_mistakes')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'portal_mistakes' }, (payload) => {
+        const newItem = formatMistake(payload.new);
+        setStudentMistakes((prev) => {
+          if (payload.eventType === 'DELETE') {
+            return prev.filter((m) => m.id !== payload.old.id);
+          }
+          const filtered = prev.filter((m) => m.id !== newItem.id);
+          return [newItem, ...filtered];
+        });
+      })
+      .subscribe();
+
+    // Cleanup on unmount
+    return () => {
+      supabase.removeChannel(schedulesChannel);
+      supabase.removeChannel(lecturesChannel);
+      supabase.removeChannel(libraryChannel);
+      supabase.removeChannel(mistakesChannel);
+    };
+  }, []);
+
+  useEffect(() => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('ahsora_schedules', JSON.stringify(schedules));
     }
   }, [schedules]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('ahsora_lectures', JSON.stringify(recordedLectures));
     }
   }, [recordedLectures]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('ahsora_library', JSON.stringify(libraryResources));
     }
   }, [libraryResources]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('ahsora_mistakes', JSON.stringify(studentMistakes));
     }
   }, [studentMistakes]);
 
-  const addSchedule = (item: Omit<ScheduleItem, 'id' | 'createdAt'>) => {
+  const addSchedule = async (item: Omit<ScheduleItem, 'id' | 'createdAt'>) => {
     const newItem: ScheduleItem = {
       ...item,
       id: `sch-${Date.now()}`,
       createdAt: new Date().toISOString(),
     };
     setSchedules((prev) => [newItem, ...prev]);
+
+    try {
+      const supabase = createClient();
+      await supabase.from('portal_schedules').insert({
+        id: newItem.id,
+        title: newItem.title,
+        subject: newItem.subject,
+        instructor: newItem.instructor,
+        date: newItem.date,
+        time: newItem.time,
+        duration_minutes: newItem.durationMinutes,
+        meeting_url: newItem.meetingUrl,
+        location: newItem.location,
+        status: newItem.status,
+        description: newItem.description,
+        created_at: newItem.createdAt,
+      });
+    } catch (e) { console.error('Supabase schedule insert error:', e); }
   };
 
-  const updateSchedule = (id: string, item: Partial<ScheduleItem>) => {
+  const updateSchedule = async (id: string, item: Partial<ScheduleItem>) => {
     setSchedules((prev) => prev.map((s) => (s.id === id ? { ...s, ...item } : s)));
+    try {
+      const supabase = createClient();
+      const payload: any = {};
+      if (item.title) payload.title = item.title;
+      if (item.subject) payload.subject = item.subject;
+      if (item.instructor) payload.instructor = item.instructor;
+      if (item.date) payload.date = item.date;
+      if (item.time) payload.time = item.time;
+      if (item.durationMinutes) payload.duration_minutes = item.durationMinutes;
+      if (item.meetingUrl !== undefined) payload.meeting_url = item.meetingUrl;
+      if (item.location !== undefined) payload.location = item.location;
+      if (item.status) payload.status = item.status;
+      if (item.description !== undefined) payload.description = item.description;
+
+      await supabase.from('portal_schedules').update(payload).eq('id', id);
+    } catch (e) { console.error('Supabase schedule update error:', e); }
   };
 
-  const deleteSchedule = (id: string) => {
+  const deleteSchedule = async (id: string) => {
     setSchedules((prev) => prev.filter((s) => s.id !== id));
+    try {
+      const supabase = createClient();
+      await supabase.from('portal_schedules').delete().eq('id', id);
+    } catch (e) { console.error('Supabase schedule delete error:', e); }
   };
 
-  const addLecture = (item: Omit<RecordedLecture, 'id' | 'createdAt'>) => {
+  const addLecture = async (item: Omit<RecordedLecture, 'id' | 'createdAt'>) => {
     const newItem: RecordedLecture = {
       ...item,
       id: `lec-${Date.now()}`,
       createdAt: new Date().toISOString(),
     };
     setRecordedLectures((prev) => [newItem, ...prev]);
+    try {
+      const supabase = createClient();
+      await supabase.from('portal_lectures').insert({
+        id: newItem.id,
+        title: newItem.title,
+        subject: newItem.subject,
+        topic: newItem.topic,
+        duration_minutes: newItem.durationMinutes,
+        video_url: newItem.videoUrl,
+        thumbnail_url: newItem.thumbnailUrl,
+        pdf_attachment_url: newItem.pdfAttachmentUrl,
+        description: newItem.description,
+        instructor: newItem.instructor,
+        views_count: newItem.viewsCount || 0,
+        created_at: newItem.createdAt,
+      });
+    } catch (e) { console.error('Supabase lecture insert error:', e); }
   };
 
-  const updateLecture = (id: string, item: Partial<RecordedLecture>) => {
+  const updateLecture = async (id: string, item: Partial<RecordedLecture>) => {
     setRecordedLectures((prev) => prev.map((l) => (l.id === id ? { ...l, ...item } : l)));
+    try {
+      const supabase = createClient();
+      const payload: any = {};
+      if (item.title) payload.title = item.title;
+      if (item.subject) payload.subject = item.subject;
+      if (item.topic !== undefined) payload.topic = item.topic;
+      if (item.durationMinutes) payload.duration_minutes = item.durationMinutes;
+      if (item.videoUrl) payload.video_url = item.videoUrl;
+      if (item.thumbnailUrl !== undefined) payload.thumbnail_url = item.thumbnailUrl;
+      if (item.pdfAttachmentUrl !== undefined) payload.pdf_attachment_url = item.pdfAttachmentUrl;
+      if (item.description !== undefined) payload.description = item.description;
+      if (item.instructor !== undefined) payload.instructor = item.instructor;
+
+      await supabase.from('portal_lectures').update(payload).eq('id', id);
+    } catch (e) { console.error('Supabase lecture update error:', e); }
   };
 
-  const deleteLecture = (id: string) => {
+  const deleteLecture = async (id: string) => {
     setRecordedLectures((prev) => prev.filter((l) => l.id !== id));
+    try {
+      const supabase = createClient();
+      await supabase.from('portal_lectures').delete().eq('id', id);
+    } catch (e) { console.error('Supabase lecture delete error:', e); }
   };
 
-  const addLibraryResource = (item: Omit<LibraryResource, 'id' | 'uploadedAt'>) => {
+  const addLibraryResource = async (item: Omit<LibraryResource, 'id' | 'uploadedAt'>) => {
     const newItem: LibraryResource = {
       ...item,
       id: `lib-${Date.now()}`,
       uploadedAt: new Date().toISOString(),
     };
     setLibraryResources((prev) => [newItem, ...prev]);
+    try {
+      const supabase = createClient();
+      await supabase.from('portal_library').insert({
+        id: newItem.id,
+        title: newItem.title,
+        category: newItem.category,
+        subject: newItem.subject,
+        file_url: newItem.fileUrl,
+        file_size_bytes: newItem.fileSizeBytes || 0,
+        pages_count: newItem.pagesCount || 0,
+        author_or_source: newItem.authorOrSource,
+        description: newItem.description,
+        download_count: newItem.downloadCount || 0,
+        uploaded_at: newItem.uploadedAt,
+      });
+    } catch (e) { console.error('Supabase library insert error:', e); }
   };
 
-  const updateLibraryResource = (id: string, item: Partial<LibraryResource>) => {
+  const updateLibraryResource = async (id: string, item: Partial<LibraryResource>) => {
     setLibraryResources((prev) => prev.map((r) => (r.id === id ? { ...r, ...item } : r)));
+    try {
+      const supabase = createClient();
+      const payload: any = {};
+      if (item.title) payload.title = item.title;
+      if (item.category) payload.category = item.category;
+      if (item.subject) payload.subject = item.subject;
+      if (item.fileUrl) payload.file_url = item.fileUrl;
+      if (item.pagesCount !== undefined) payload.pages_count = item.pagesCount;
+      if (item.authorOrSource !== undefined) payload.author_or_source = item.authorOrSource;
+      if (item.description !== undefined) payload.description = item.description;
+
+      await supabase.from('portal_library').update(payload).eq('id', id);
+    } catch (e) { console.error('Supabase library update error:', e); }
   };
 
-  const deleteLibraryResource = (id: string) => {
+  const deleteLibraryResource = async (id: string) => {
     setLibraryResources((prev) => prev.filter((r) => r.id !== id));
+    try {
+      const supabase = createClient();
+      await supabase.from('portal_library').delete().eq('id', id);
+    } catch (e) { console.error('Supabase library delete error:', e); }
   };
 
-  const addMistake = (item: Omit<StudentMistake, 'id' | 'failedAt' | 'isResolved'>) => {
+  const addMistake = async (item: Omit<StudentMistake, 'id' | 'failedAt' | 'isResolved'>) => {
     const newItem: StudentMistake = {
       ...item,
       id: `mst-${Date.now()}`,
@@ -223,16 +557,45 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       isResolved: false,
     };
     setStudentMistakes((prev) => [newItem, ...prev]);
+    try {
+      const supabase = createClient();
+      await supabase.from('portal_mistakes').insert({
+        id: newItem.id,
+        question_id: newItem.questionId,
+        question_text: newItem.questionText,
+        options: newItem.options,
+        correct_option: newItem.correctOption,
+        selected_option: newItem.selectedOption,
+        explanation: newItem.explanation,
+        source: newItem.source,
+        test_title: newItem.testTitle,
+        subject: newItem.subject,
+        topic: newItem.topic,
+        failed_at: newItem.failedAt,
+        is_resolved: newItem.isResolved,
+      });
+    } catch (e) { console.error('Supabase mistake insert error:', e); }
   };
 
-  const toggleMistakeResolved = (id: string) => {
+  const toggleMistakeResolved = async (id: string) => {
+    const target = studentMistakes.find((m) => m.id === id);
+    const newStatus = target ? !target.isResolved : true;
+
     setStudentMistakes((prev) =>
-      prev.map((m) => (m.id === id ? { ...m, isResolved: !m.isResolved } : m))
+      prev.map((m) => (m.id === id ? { ...m, isResolved: newStatus } : m))
     );
+    try {
+      const supabase = createClient();
+      await supabase.from('portal_mistakes').update({ is_resolved: newStatus }).eq('id', id);
+    } catch (e) { console.error('Supabase mistake toggle error:', e); }
   };
 
-  const deleteMistake = (id: string) => {
+  const deleteMistake = async (id: string) => {
     setStudentMistakes((prev) => prev.filter((m) => m.id !== id));
+    try {
+      const supabase = createClient();
+      await supabase.from('portal_mistakes').delete().eq('id', id);
+    } catch (e) { console.error('Supabase mistake delete error:', e); }
   };
 
   const handleRoleChange = (role: UserRole) => {

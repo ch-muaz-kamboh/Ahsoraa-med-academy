@@ -22,7 +22,7 @@ import {
   Building,
   Award,
   Compass,
-} from 'lucide-react';
+ChevronLeft, } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { createClient } from '@/lib/supabase/client';
 import Logo from '@/components/brand/Logo';
@@ -36,6 +36,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
   const [practiceOpen, setPracticeOpen] = useState<boolean>(true);
   const [progressOpen, setProgressOpen] = useState<boolean>(true);
   const [medpathOpen, setMedpathOpen] = useState<boolean>(true);
+  const [sidebarExpanded, setSidebarExpanded] = useState<boolean>(true);
 
   const handleLogout = async () => {
     try {
@@ -55,7 +56,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
   return (
     <aside
       style={{
-        width: '260px',
+        width: sidebarExpanded ? '260px' : '80px',
         backgroundColor: '#FFFFFF',
         borderRight: '1px solid #E2E8F0',
         minHeight: '100vh',
@@ -76,6 +77,20 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         }}
       >
         <Logo height={48} />
+        {/* Sidebar toggle button */}
+        <button
+          onClick={() => setSidebarExpanded(prev => !prev)}
+          style={{
+            margin: '8px 16px',
+            padding: '4px',
+            background: 'transparent',
+            border: 'none',
+            cursor: 'pointer',
+          }}
+          aria-label="Toggle sidebar"
+        >
+          {sidebarExpanded ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
+        </button>
       </Link>
 
       {/* User Badge */}
