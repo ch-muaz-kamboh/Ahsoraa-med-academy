@@ -23,6 +23,7 @@ import {
 import { createClient } from '@/lib/supabase/client';
 import {
   getAllMockTestsWithCustom,
+  getAllMockTestsWithCustomAsync,
   saveCustomTestQuestions,
   resetCustomTestQuestions,
 } from '@/lib/test-utils';
@@ -98,11 +99,7 @@ function parseBulkQuestions(rawInput: string, defaultSubject: string = 'General'
         if (Array.isArray(item.options)) {
           opts = item.options.map((o: any, oIdx: number) => {
             if (typeof o === 'string') return { id: String.fromCharCode(65 + oIdx), text: o.trim() };
-            return { id: String(o.id || String.fromCharCode(65 + oIdx)).toUpperCase(), text: String(o.text || '').trim() };
-          });
-        } else if (item.options && typeof item.options === 'object') {
-          Object.keys(item.options).forEach((k) => {
-            opts.push({ id: k.toUpperCase(), text: String(item.options[k]).trim() });
+            return { id: o.id || String.fromCharCode(65 + oIdx), text: (o.text || '').trim() };
           });
         } else {
           ['A', 'B', 'C', 'D', 'E'].forEach((letter) => {

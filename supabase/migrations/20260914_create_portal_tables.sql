@@ -119,3 +119,11 @@ CREATE POLICY "Allow public read portal_mistakes" ON portal_mistakes FOR SELECT 
 CREATE POLICY "Allow public insert portal_mistakes" ON portal_mistakes FOR INSERT WITH CHECK (true);
 CREATE POLICY "Allow public update portal_mistakes" ON portal_mistakes FOR UPDATE USING (true);
 CREATE POLICY "Allow public delete portal_mistakes" ON portal_mistakes FOR DELETE USING (true);
+
+-- Enable Realtime for multi-device sync across all users
+ALTER PUBLICATION supabase_realtime ADD TABLE portal_schedules;
+ALTER PUBLICATION supabase_realtime ADD TABLE portal_lectures;
+ALTER PUBLICATION supabase_realtime ADD TABLE portal_library;
+ALTER PUBLICATION supabase_realtime ADD TABLE cbt_test_questions;
+ALTER PUBLICATION supabase_realtime ADD TABLE portal_mistakes;
+

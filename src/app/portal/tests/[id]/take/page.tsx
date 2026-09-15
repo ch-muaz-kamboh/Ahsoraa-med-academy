@@ -13,9 +13,9 @@ import {
   X,
   Flag,
 } from 'lucide-react';
-import { getMockTestWithCustom } from '@/lib/test-utils';
+import { getMockTestWithCustom, getMockTestWithCustomAsync } from '@/lib/test-utils';
 import { useAppStore } from '@/lib/store';
-import { TestAttempt } from '@/types';
+import { Test, TestAttempt } from '@/types';
 
 export default function TakeTestPage({
   params,
@@ -26,7 +26,18 @@ export default function TakeTestPage({
   const router = useRouter();
   const { recordTestAttempt, currentUser, addMistake } = useAppStore();
 
-  const [test] = useState(() => getMockTestWithCustom(resolvedParams.id));
+  const [test, setTest] = useState<Test>(() => getMockTestWithCustom(resolvedParams.id));
+
+  useEffect(() => {
+    let isMounted = true;
+    getMockTestWithCustomAsync(resolvedParams.id).then((fetched) => {
+      if (isMounted && fetched) {
+        setTest(fetched);
+        setTimeLeft(fetched.durationMinutes * 60);
+      }
+    });
+    return () => { isMounted = false; };
+  }, [resolvedParams.id]);
 
   if (!test) {
     notFound();

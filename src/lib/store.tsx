@@ -303,14 +303,17 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     const schedulesChannel = supabase
       .channel('public:portal_schedules')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'portal_schedules' }, (payload) => {
-        const newItem = formatSchedule(payload.new);
-        setSchedules((prev) => {
-          if (payload.eventType === 'DELETE') {
-            return prev.filter((s) => s.id !== payload.old.id);
+        if (payload.eventType === 'DELETE') {
+          if (payload.old && payload.old.id) {
+            setSchedules((prev) => prev.filter((s) => s.id !== payload.old.id));
           }
-          const filtered = prev.filter((s) => s.id !== newItem.id);
-          return [newItem, ...filtered];
-        });
+        } else if (payload.new && payload.new.id) {
+          const newItem = formatSchedule(payload.new);
+          setSchedules((prev) => {
+            const filtered = prev.filter((s) => s.id !== newItem.id);
+            return [newItem, ...filtered];
+          });
+        }
       })
       .subscribe();
 
@@ -318,14 +321,17 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     const lecturesChannel = supabase
       .channel('public:portal_lectures')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'portal_lectures' }, (payload) => {
-        const newItem = formatLecture(payload.new);
-        setRecordedLectures((prev) => {
-          if (payload.eventType === 'DELETE') {
-            return prev.filter((l) => l.id !== payload.old.id);
+        if (payload.eventType === 'DELETE') {
+          if (payload.old && payload.old.id) {
+            setRecordedLectures((prev) => prev.filter((l) => l.id !== payload.old.id));
           }
-          const filtered = prev.filter((l) => l.id !== newItem.id);
-          return [newItem, ...filtered];
-        });
+        } else if (payload.new && payload.new.id) {
+          const newItem = formatLecture(payload.new);
+          setRecordedLectures((prev) => {
+            const filtered = prev.filter((l) => l.id !== newItem.id);
+            return [newItem, ...filtered];
+          });
+        }
       })
       .subscribe();
 
@@ -333,14 +339,17 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     const libraryChannel = supabase
       .channel('public:portal_library')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'portal_library' }, (payload) => {
-        const newItem = formatLibrary(payload.new);
-        setLibraryResources((prev) => {
-          if (payload.eventType === 'DELETE') {
-            return prev.filter((r) => r.id !== payload.old.id);
+        if (payload.eventType === 'DELETE') {
+          if (payload.old && payload.old.id) {
+            setLibraryResources((prev) => prev.filter((r) => r.id !== payload.old.id));
           }
-          const filtered = prev.filter((r) => r.id !== newItem.id);
-          return [newItem, ...filtered];
-        });
+        } else if (payload.new && payload.new.id) {
+          const newItem = formatLibrary(payload.new);
+          setLibraryResources((prev) => {
+            const filtered = prev.filter((r) => r.id !== newItem.id);
+            return [newItem, ...filtered];
+          });
+        }
       })
       .subscribe();
 
@@ -348,14 +357,17 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     const mistakesChannel = supabase
       .channel('public:portal_mistakes')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'portal_mistakes' }, (payload) => {
-        const newItem = formatMistake(payload.new);
-        setStudentMistakes((prev) => {
-          if (payload.eventType === 'DELETE') {
-            return prev.filter((m) => m.id !== payload.old.id);
+        if (payload.eventType === 'DELETE') {
+          if (payload.old && payload.old.id) {
+            setStudentMistakes((prev) => prev.filter((m) => m.id !== payload.old.id));
           }
-          const filtered = prev.filter((m) => m.id !== newItem.id);
-          return [newItem, ...filtered];
-        });
+        } else if (payload.new && payload.new.id) {
+          const newItem = formatMistake(payload.new);
+          setStudentMistakes((prev) => {
+            const filtered = prev.filter((m) => m.id !== newItem.id);
+            return [newItem, ...filtered];
+          });
+        }
       })
       .subscribe();
 
