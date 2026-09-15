@@ -242,7 +242,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     const supabase = createClient();
 
     // Helper formatters
-    const formatSchedule = (s) => ({
+    const formatSchedule = (s: any): ScheduleItem => ({
       id: s.id,
       title: s.title,
       subject: s.subject,
@@ -256,7 +256,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       description: s.description || '',
       createdAt: s.created_at,
     });
-    const formatLecture = (l) => ({
+    const formatLecture = (l: any): RecordedLecture => ({
       id: l.id,
       title: l.title,
       subject: l.subject,
@@ -270,7 +270,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       viewsCount: l.views_count || 0,
       createdAt: l.created_at,
     });
-    const formatLibrary = (r) => ({
+    const formatLibrary = (r: any): LibraryResource => ({
       id: r.id,
       title: r.title,
       category: r.category,
@@ -283,7 +283,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       downloadCount: r.download_count || 0,
       uploadedAt: r.uploaded_at,
     });
-    const formatMistake = (m) => ({
+    const formatMistake = (m: any): StudentMistake => ({
       id: m.id,
       questionId: m.question_id,
       questionText: m.question_text,
