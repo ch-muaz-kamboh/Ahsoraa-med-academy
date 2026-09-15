@@ -14,8 +14,9 @@ import {
   HelpCircle,
   TrendingUp,
 } from 'lucide-react';
-import { getMockTestWithCustom } from '@/lib/test-utils';
+import { getMockTestWithCustom, getMockTestWithCustomAsync } from '@/lib/test-utils';
 import { useAppStore } from '@/lib/store';
+import { Test, TestAttempt } from '@/types';
 
 
 export default function TestResultsPage({
@@ -28,15 +29,40 @@ export default function TestResultsPage({
   const attemptId = searchParams.get('attemptId');
   const { testAttempts } = useAppStore();
 
-  const [test] = useState(() => getMockTestWithCustom(resolvedParams.id));
+  const [test, setTest] = useState<Test>(() => getMockTestWithCustom(resolvedParams.id));
+
+  React.useEffect(() => {
+    let isMounted = true;
+    getMockTestWithCustomAsync(resolvedParams.id).then((fetched) => {
+      if (isMounted && fetched) {
+        setTest(fetched);
+      }
+    });
+    return () => { isMounted = false; };
+  }, [resolvedParams.id]);
 
   if (!test) {
     notFound();
   }
 
-  // Find latest attempt or build default
-  const attempt =
+  // Find attempt from store or local storage fallback
+  const getSavedAttempt = (): TestAttempt | null => {
+    if (typeof window === 'undefined') return null;
+    try {
+      const byId = attemptId ? localStorage.getItem('cbt_attempt_' + attemptId) : null;
+      if (byId) return JSON.parse(byId);
+      const latest = localStorage.getItem('cbt_latest_attempt_' + test.id);
+      if (latest) return JSON.parse(latest);
+    } catch (e) {}
+    return null;
+  };
+
+  const savedAttempt = getSavedAttempt();
+
+  const attempt: TestAttempt =
+    savedAttempt ||
     testAttempts.find((a) => a.id === attemptId) ||
+    testAttempts.find((a) => a.testId === test.id) ||
     testAttempts[0] || {
       id: 'mock-att',
       testId: test.id,
@@ -45,24 +71,19 @@ export default function TestResultsPage({
       status: 'completed' as const,
       startedAt: new Date().toISOString(),
       timeSpentSeconds: 1420,
-      totalScore: 19,
-      percentage: 79,
-      totalAttempted: 6,
-      totalCorrect: 5,
-      totalIncorrect: 1,
-      totalUnanswered: 0,
-      accuracyRate: 83,
-      percentile: 88,
-      subjectBreakdown: {
-        'Pathology & Pharmacology': { total: 2, correct: 2, score: 8 },
-        Microbiology: { total: 1, correct: 1, score: 4 },
-        'Biochemistry & Genetics': { total: 1, correct: 1, score: 4 },
-        Immunology: { total: 1, correct: 1, score: 4 },
-        Physiology: { total: 1, correct: 0, score: -1 },
-      },
+      totalScore: 0,
+      percentage: 0,
+      totalAttempted: 0,
+      totalCorrect: 0,
+      totalIncorrect: 0,
+      totalUnanswered: test.questions.length,
+      accuracyRate: 0,
+      percentile: 10,
+      subjectBreakdown: {},
     };
 
-  const isPassed = attempt.percentage >= test.passingPercentage;
+  const totalMaxMarks = test.questions.length > 0 ? Number((test.questions.length * 1.5).toFixed(1)) : (test.totalMarks || 90);
+  const isPassed = attempt.percentage >= (test.passingPercentage || 50);
 
   return (
     <div style={{ maxWidth: '1100px', margin: '0 auto', paddingBottom: '60px' }}>
@@ -126,7 +147,7 @@ export default function TestResultsPage({
         <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '20px', textAlign: 'center' }}>
           <div style={{ fontSize: '0.8125rem', color: '#64748B', marginBottom: '4px' }}>Net Final Score</div>
           <div style={{ fontSize: '2rem', fontWeight: 800, color: '#2563EB' }}>
-            {attempt.totalScore} <span style={{ fontSize: '1rem', color: '#94A3B8' }}>/ {test.totalMarks}</span>
+            {attempt.totalScore} <span style={{ fontSize: '1rem', color: '#94A3B8' }}>/ {totalMaxMarks}</span>
           </div>
           <div style={{ fontSize: '0.75rem', color: '#10B981', fontWeight: 600 }}>
             {attempt.percentage}% Overall

@@ -50,13 +50,123 @@ export default function TakeTestPage({
   const [submitModalOpen, setSubmitModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Sync refs to avoid stale closures during timer & auto-submit
+  const answersRef = React.useRef(answers);
+  answersRef.current = answers;
+
+  const testRef = React.useRef(test);
+  testRef.current = test;
+
+  const isSubmittingRef = React.useRef(isSubmitting);
+  isSubmittingRef.current = isSubmitting;
+
+  const timeLeftRef = React.useRef(timeLeft);
+  timeLeftRef.current = timeLeft;
+
+  // Submit test calculations with exact user scoring rules:
+  // Correct: +1.5 marks | Wrong: -1.9 marks | Unanswered/Blank: -1.5 marks
+  const handleSubmitTest = React.useCallback(() => {
+    if (isSubmittingRef.current) return;
+    isSubmittingRef.current = true;
+    setIsSubmitting(true);
+
+    const activeTest = testRef.current || test;
+    const activeAnswers = answersRef.current || answers;
+
+    let correctCount = 0;
+    let incorrectCount = 0;
+    let unansweredCount = 0;
+    let rawScore = 0;
+
+    const subjectBreakdown: Record<string, { total: number; correct: number; score: number }> = {};
+
+    activeTest.questions.forEach((q) => {
+      const selected = activeAnswers[q.id];
+      const subj = q.subject || 'General Medical';
+
+      if (!subjectBreakdown[subj]) {
+        subjectBreakdown[subj] = { total: 0, correct: 0, score: 0 };
+      }
+      subjectBreakdown[subj].total += 1;
+
+      if (!selected) {
+        unansweredCount += 1;
+        rawScore -= 1.5; // Deduct 1.5 for blank / unanswered
+        subjectBreakdown[subj].score -= 1.5;
+      } else if (selected === q.correctOption) {
+        correctCount += 1;
+        rawScore += 1.5; // +1.5 for correct
+        subjectBreakdown[subj].correct += 1;
+        subjectBreakdown[subj].score += 1.5;
+      } else {
+        incorrectCount += 1;
+        rawScore -= 1.9; // Deduct 1.9 for incorrect
+        subjectBreakdown[subj].score -= 1.9;
+
+        // Push to My Mistakes Notebook
+        addMistake({
+          questionId: q.id,
+          questionText: q.questionText,
+          options: q.options,
+          correctOption: q.correctOption,
+          selectedOption: selected,
+          explanation: q.explanation || 'Detailed step-by-step faculty explanation.',
+          source: 'CBT Mock',
+          testTitle: activeTest.title,
+          subject: subj,
+          topic: q.topic || '',
+        });
+      }
+    });
+
+    const attemptedCount = correctCount + incorrectCount;
+    const maxScore = activeTest.questions.length > 0 ? Number((activeTest.questions.length * 1.5).toFixed(1)) : 90;
+    const finalScore = Number(rawScore.toFixed(2));
+    const percentage = Math.max(0, Math.round((Math.max(0, finalScore) / maxScore) * 100));
+    const accuracyRate = attemptedCount > 0 ? Math.round((correctCount / attemptedCount) * 100) : 0;
+    const percentile = Math.min(99, Math.max(10, Math.round(percentage * 0.95 + 8)));
+
+    const attemptId = `att-${Date.now()}`;
+    const timeSpent = activeTest.durationMinutes * 60 - (timeLeftRef.current || 0);
+
+    const newAttempt: TestAttempt = {
+      id: attemptId,
+      testId: activeTest.id,
+      testTitle: activeTest.title,
+      studentId: currentUser?.id || 'usr-student',
+      status: 'completed',
+      startedAt: new Date().toISOString(),
+      submittedAt: new Date().toISOString(),
+      timeSpentSeconds: timeSpent,
+      totalScore: finalScore,
+      percentage: percentage,
+      totalAttempted: attemptedCount,
+      totalCorrect: correctCount,
+      totalIncorrect: incorrectCount,
+      totalUnanswered: unansweredCount,
+      accuracyRate: accuracyRate,
+      percentile: percentile,
+      subjectBreakdown: subjectBreakdown,
+    };
+
+    recordTestAttempt(newAttempt);
+
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('cbt_attempt_' + attemptId, JSON.stringify(newAttempt));
+        localStorage.setItem('cbt_latest_attempt_' + activeTest.id, JSON.stringify(newAttempt));
+      } catch (e) {}
+    }
+
+    router.push(`/portal/tests/${activeTest.id}/results?attemptId=${attemptId}`);
+  }, [addMistake, currentUser, recordTestAttempt, router, test]);
+
   // Timer countdown
   useEffect(() => {
+    if (timeLeft <= 0) return;
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
-          clearInterval(timer);
-          handleSubmitTest();
           return 0;
         }
         return prev - 1;
@@ -64,7 +174,14 @@ export default function TakeTestPage({
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [timeLeft]);
+
+  // Auto-submit when time reaches 0
+  useEffect(() => {
+    if (timeLeft === 0 && !isSubmittingRef.current && test) {
+      handleSubmitTest();
+    }
+  }, [timeLeft, handleSubmitTest, test]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -94,88 +211,6 @@ export default function TakeTestPage({
       ...prev,
       [currentQuestion.id]: !prev[currentQuestion.id],
     }));
-  };
-
-  // Submit test calculations
-  const handleSubmitTest = () => {
-    setIsSubmitting(true);
-
-    let correctCount = 0;
-    let incorrectCount = 0;
-    let unansweredCount = 0;
-    let score = 0;
-
-    const subjectBreakdown: Record<string, { total: number; correct: number; score: number }> = {};
-
-    test.questions.forEach((q) => {
-      const selected = answers[q.id];
-      const subj = q.subject || 'General Medical';
-
-      if (!subjectBreakdown[subj]) {
-        subjectBreakdown[subj] = { total: 0, correct: 0, score: 0 };
-      }
-      subjectBreakdown[subj].total += 1;
-
-      if (!selected) {
-        unansweredCount += 1;
-      } else if (selected === q.correctOption) {
-        correctCount += 1;
-        score += test.positiveMark;
-        subjectBreakdown[subj].correct += 1;
-        subjectBreakdown[subj].score += test.positiveMark;
-      } else {
-        incorrectCount += 1;
-        score -= test.negativeMark;
-        subjectBreakdown[subj].score -= test.negativeMark;
-
-        // Push to My Mistakes Notebook
-        addMistake({
-          questionId: q.id,
-          questionText: q.questionText,
-          options: q.options,
-          correctOption: q.correctOption,
-          selectedOption: selected,
-          explanation: q.explanation || 'Detailed step-by-step faculty explanation.',
-          source: 'CBT Mock',
-          testTitle: test.title,
-          subject: subj,
-          topic: q.topic || '',
-        });
-      }
-    });
-
-    const attemptedCount = correctCount + incorrectCount;
-    const finalScore = Math.max(0, Number(score.toFixed(2)));
-    const maxScore = test.totalMarks || test.questions.length * test.positiveMark;
-    const percentage = Math.max(0, Math.round((finalScore / maxScore) * 100));
-    const accuracyRate = attemptedCount > 0 ? Math.round((correctCount / attemptedCount) * 100) : 0;
-    const percentile = Math.min(99, Math.max(10, Math.round(percentage * 0.95 + 8)));
-
-    const attemptId = `att-${Date.now()}`;
-    const newAttempt: TestAttempt = {
-      id: attemptId,
-      testId: test.id,
-      testTitle: test.title,
-      studentId: currentUser.id,
-      status: 'completed',
-      startedAt: new Date().toISOString(),
-      submittedAt: new Date().toISOString(),
-      timeSpentSeconds: test.durationMinutes * 60 - timeLeft,
-      totalScore: finalScore,
-      percentage: percentage,
-      totalAttempted: attemptedCount,
-      totalCorrect: correctCount,
-      totalIncorrect: incorrectCount,
-      totalUnanswered: unansweredCount,
-      accuracyRate: accuracyRate,
-      percentile: percentile,
-      subjectBreakdown: subjectBreakdown,
-    };
-
-    recordTestAttempt(newAttempt);
-
-    // Redirect to results
-    router.push(`/portal/tests/${test.id}/results?attemptId=${attemptId}`);
   };
 
   const answeredCount = Object.keys(answers).length;
