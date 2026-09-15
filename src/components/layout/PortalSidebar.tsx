@@ -575,7 +575,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           }}
         >
           <LogOut size={16} />
-          <span>Sign Out</span>
+          {sidebarExpanded && <span>Sign Out</span>}
         </button>
 
         <Link
@@ -593,7 +593,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           }}
         >
           <Globe size={15} />
-          <span>Exit to Public Site</span>
+          {sidebarExpanded && <span>Exit to Public Site</span>}
         </Link>
       </div>
     </aside>
