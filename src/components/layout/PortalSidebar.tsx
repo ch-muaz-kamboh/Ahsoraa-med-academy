@@ -32,10 +32,10 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
   const router = useRouter();
   const { setStudentLoggedIn, logoutStudent } = useAppStore();
 
-  const [learnOpen, setLearnOpen] = useState<boolean>(true);
-  const [practiceOpen, setPracticeOpen] = useState<boolean>(true);
-  const [progressOpen, setProgressOpen] = useState<boolean>(true);
-  const [medpathOpen, setMedpathOpen] = useState<boolean>(true);
+  const [learnOpen, setLearnOpen] = useState<boolean>(false);
+  const [practiceOpen, setPracticeOpen] = useState<boolean>(false);
+  const [progressOpen, setProgressOpen] = useState<boolean>(false);
+  const [medpathOpen, setMedpathOpen] = useState<boolean>(false);
   const [sidebarExpanded, setSidebarExpanded] = useState<boolean>(true);
 
   const handleLogout = async () => {
@@ -63,35 +63,51 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         display: 'flex',
         flexDirection: 'column',
         flexShrink: 0,
+        position: 'relative',
+        transition: 'width 0.2s ease',
       }}
     >
-      {/* Header with logo and toggle */}
+      {/* Center-Right floating sidebar toggle button */}
+      <button
+        onClick={() => setSidebarExpanded((prev) => !prev)}
+        style={{
+          position: 'absolute',
+          top: '50%',
+          right: '-14px',
+          transform: 'translateY(-50%)',
+          width: '28px',
+          height: '28px',
+          borderRadius: '50%',
+          backgroundColor: '#FFFFFF',
+          border: '1px solid #CBD5E1',
+          boxShadow: '0 2px 6px rgba(0,0,0,0.12)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer',
+          zIndex: 40,
+          color: '#475569',
+          transition: 'all 0.15s ease',
+        }}
+        aria-label="Toggle sidebar"
+      >
+        {sidebarExpanded ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
+      </button>
+
+      {/* Header with logo */}
       <div
         style={{
           padding: '18px 20px',
           borderBottom: '1px solid #E2E8F0',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between',
+          justifyContent: sidebarExpanded ? 'flex-start' : 'center',
           textDecoration: 'none',
         }}
       >
         <Link href="/portal/dashboard" style={{ display: 'flex', alignItems: 'center' }}>
           <Logo height={48} />
         </Link>
-        {/* Sidebar toggle button */}
-        <button
-          onClick={() => setSidebarExpanded(prev => !prev)}
-          style={{
-            padding: '4px',
-            background: 'transparent',
-            border: 'none',
-            cursor: 'pointer',
-          }}
-          aria-label="Toggle sidebar"
-        >
-          {sidebarExpanded ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
-        </button>
       </div>
 
       {/* User Badge – only show when sidebar is expanded */}
@@ -163,7 +179,10 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         <div>
           <button
             type="button"
-            onClick={() => setLearnOpen(!learnOpen)}
+            onClick={() => {
+              setLearnOpen(!learnOpen);
+              if (!sidebarExpanded) setSidebarExpanded(true);
+            }}
             style={{
               width: '100%',
               display: 'flex',
@@ -184,7 +203,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
               <GraduationCap size={18} color={isLearnActive ? '#2563EB' : '#64748B'} />
               {sidebarExpanded && <span>Learn</span>}
             </div>
-            {learnOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />}
+            {sidebarExpanded && (learnOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />)}
           </button>
 
           {learnOpen && (
@@ -253,7 +272,10 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         <div>
           <button
             type="button"
-            onClick={() => setPracticeOpen(!practiceOpen)}
+            onClick={() => {
+              setPracticeOpen(!practiceOpen);
+              if (!sidebarExpanded) setSidebarExpanded(true);
+            }}
             style={{
               width: '100%',
               display: 'flex',
@@ -274,7 +296,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
               <BookOpen size={18} color={isPracticeActive ? '#2563EB' : '#64748B'} />
               {sidebarExpanded && <span>Practice</span>}
             </div>
-            {practiceOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />}
+            {sidebarExpanded && (practiceOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />)}
           </button>
 
           {practiceOpen && (
@@ -343,7 +365,10 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         <div>
           <button
             type="button"
-            onClick={() => setProgressOpen(!progressOpen)}
+            onClick={() => {
+              setProgressOpen(!progressOpen);
+              if (!sidebarExpanded) setSidebarExpanded(true);
+            }}
             style={{
               width: '100%',
               display: 'flex',
@@ -364,7 +389,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
               <TrendingUp size={18} color={isProgressActive ? '#2563EB' : '#64748B'} />
               {sidebarExpanded && <span>Progress</span>}
             </div>
-            {progressOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />}
+            {sidebarExpanded && (progressOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />)}
           </button>
 
           {progressOpen && (
@@ -414,7 +439,10 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         <div>
           <button
             type="button"
-            onClick={() => setMedpathOpen(!medpathOpen)}
+            onClick={() => {
+              setMedpathOpen(!medpathOpen);
+              if (!sidebarExpanded) setSidebarExpanded(true);
+            }}
             style={{
               width: '100%',
               display: 'flex',
@@ -435,7 +463,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
               <Award size={18} color={isMedpathActive ? '#2563EB' : '#7C3AED'} />
               {sidebarExpanded && <span style={{ fontWeight: 700 }}>MedPath Elite</span>}
             </div>
-            {medpathOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />}
+            {sidebarExpanded && (medpathOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />)}
           </button>
 
           {medpathOpen && (
