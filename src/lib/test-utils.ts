@@ -4,36 +4,68 @@ import { createClient } from '@/lib/supabase/client';
 
 export function getMockTestWithCustom(testId: string): Test {
   const base = mockTests.find((t) => t.id === testId) || mockTests[0];
-  if (typeof window === 'undefined') return base;
-  try {
-    const custom = localStorage.getItem('cbt_mock_test_questions_' + base.id);
-    if (custom) {
-      const questions: TestQuestion[] = JSON.parse(custom);
-      return {
-        ...base,
-        totalQuestions: questions.length,
-        questions,
-      };
+  let updated = { ...base };
+
+  if (typeof window !== 'undefined') {
+    try {
+      const customSettings = localStorage.getItem('cbt_mock_test_settings_' + base.id);
+      if (customSettings) {
+        const settings = JSON.parse(customSettings);
+        if (settings.title) updated.title = settings.title;
+        if (settings.durationMinutes) updated.durationMinutes = settings.durationMinutes;
+      }
+
+      const customQuestions = localStorage.getItem('cbt_mock_test_questions_' + base.id);
+      if (customQuestions) {
+        const questions: TestQuestion[] = JSON.parse(customQuestions);
+        updated.totalQuestions = questions.length;
+        updated.questions = questions;
+      }
+    } catch (e) {
+      console.error('Failed to load custom test data from localStorage', e);
     }
-  } catch (e) {
-    console.error('Failed to load custom test questions', e);
   }
-  return base;
+
+  return updated;
 }
 
 export async function getMockTestWithCustomAsync(testId: string): Promise<Test> {
   const base = mockTests.find((t) => t.id === testId) || mockTests[0];
+  let updated = { ...base };
 
   try {
     const supabase = createClient();
-    const { data, error } = await supabase
+
+    // Fetch test metadata/settings
+    const { data: testData } = await supabase
+      .from('cbt_tests')
+      .select('*')
+      .eq('id', base.id)
+      .maybeSingle();
+
+    if (testData) {
+      if (testData.title) updated.title = testData.title;
+      if (testData.duration_minutes) updated.durationMinutes = testData.duration_minutes;
+
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem(
+            'cbt_mock_test_settings_' + base.id,
+            JSON.stringify({ title: updated.title, durationMinutes: updated.durationMinutes })
+          );
+        } catch (e) {}
+      }
+    }
+
+    // Fetch questions
+    const { data: qData, error: qError } = await supabase
       .from('cbt_test_questions')
       .select('*')
       .eq('test_id', base.id)
       .order('order_index', { ascending: true });
 
-    if (!error && data && data.length > 0) {
-      const questions: TestQuestion[] = data.map((q: any, idx: number) => ({
+    if (!qError && qData && qData.length > 0) {
+      const questions: TestQuestion[] = qData.map((q: any, idx: number) => ({
         id: q.id,
         orderIndex: q.order_index || idx + 1,
         subject: q.subject,
@@ -46,20 +78,18 @@ export async function getMockTestWithCustomAsync(testId: string): Promise<Test> 
         explanation: q.explanation || '',
       }));
 
+      updated.totalQuestions = questions.length;
+      updated.questions = questions;
+
       if (typeof window !== 'undefined') {
         try {
           localStorage.setItem('cbt_mock_test_questions_' + base.id, JSON.stringify(questions));
         } catch (e) {}
       }
-
-      return {
-        ...base,
-        totalQuestions: questions.length,
-        questions,
-      };
     }
+    return updated;
   } catch (e) {
-    console.warn('Failed to fetch custom test questions from Supabase:', e);
+    console.warn('Failed to fetch custom test from Supabase:', e);
   }
 
   return getMockTestWithCustom(testId);
@@ -71,8 +101,104 @@ export function getAllMockTestsWithCustom(): Test[] {
 }
 
 export async function getAllMockTestsWithCustomAsync(): Promise<Test[]> {
-  const tests = await Promise.all(mockTests.map((t) => getMockTestWithCustomAsync(t.id)));
-  return tests;
+  try {
+    const supabase = createClient();
+    const [{ data: dbTests }, { data: dbQuestions }] = await Promise.all([
+      supabase.from('cbt_tests').select('*'),
+      supabase.from('cbt_test_questions').select('*').order('order_index', { ascending: true }),
+    ]);
+
+    const testsMap = new Map<string, { title?: string; duration_minutes?: number }>();
+    if (dbTests) {
+      dbTests.forEach((t: any) => testsMap.set(t.id, t));
+    }
+
+    const questionsMap = new Map<string, TestQuestion[]>();
+    if (dbQuestions) {
+      dbQuestions.forEach((q: any) => {
+        const list = questionsMap.get(q.test_id) || [];
+        list.push({
+          id: q.id,
+          orderIndex: q.order_index || list.length + 1,
+          subject: q.subject,
+          topic: q.topic || '',
+          difficulty: q.difficulty || 'medium',
+          questionText: q.question_text,
+          questionImageUrl: q.question_image_url || undefined,
+          options: typeof q.options === 'string' ? JSON.parse(q.options) : q.options,
+          correctOption: q.correct_option,
+          explanation: q.explanation || '',
+        });
+        questionsMap.set(q.test_id, list);
+      });
+    }
+
+    return mockTests.map((base) => {
+      let updated = { ...base };
+      const customMeta = testsMap.get(base.id);
+      if (customMeta) {
+        if (customMeta.title) updated.title = customMeta.title;
+        if (customMeta.duration_minutes) updated.durationMinutes = customMeta.duration_minutes;
+      } else if (typeof window !== 'undefined') {
+        const localSettings = localStorage.getItem('cbt_mock_test_settings_' + base.id);
+        if (localSettings) {
+          try {
+            const s = JSON.parse(localSettings);
+            if (s.title) updated.title = s.title;
+            if (s.durationMinutes) updated.durationMinutes = s.durationMinutes;
+          } catch (e) {}
+        }
+      }
+
+      const customQs = questionsMap.get(base.id);
+      if (customQs && customQs.length > 0) {
+        updated.totalQuestions = customQs.length;
+        updated.questions = customQs;
+      } else if (typeof window !== 'undefined') {
+        const localQs = localStorage.getItem('cbt_mock_test_questions_' + base.id);
+        if (localQs) {
+          try {
+            const qs = JSON.parse(localQs);
+            updated.totalQuestions = qs.length;
+            updated.questions = qs;
+          } catch (e) {}
+        }
+      }
+
+      return updated;
+    });
+  } catch (e) {
+    console.warn('Failed to fetch all mock tests from Supabase async:', e);
+    return getAllMockTestsWithCustom();
+  }
+}
+
+export async function saveTestSettingsAsync(testId: string, title: string, durationMinutes: number): Promise<void> {
+  if (typeof window !== 'undefined') {
+    try {
+      localStorage.setItem('cbt_mock_test_settings_' + testId, JSON.stringify({ title, durationMinutes }));
+    } catch (e) {}
+  }
+
+  try {
+    const supabase = createClient();
+    const { error } = await supabase.from('cbt_tests').upsert({
+      id: testId,
+      title,
+      duration_minutes: durationMinutes,
+      updated_at: new Date().toISOString(),
+    });
+
+    if (error) {
+      console.error('Supabase cbt_tests upsert error:', error);
+    }
+  } catch (e) {
+    console.error('Failed to sync test settings to Supabase', e);
+  }
+}
+
+export function saveTestSettings(testId: string, title: string, durationMinutes: number): void {
+  saveTestSettingsAsync(testId, title, durationMinutes);
 }
 
 export async function saveCustomTestQuestionsAsync(testId: string, questions: TestQuestion[]): Promise<void> {
@@ -119,9 +245,12 @@ export function resetCustomTestQuestions(testId: string): void {
   if (typeof window === 'undefined') return;
   try {
     localStorage.removeItem('cbt_mock_test_questions_' + testId);
+    localStorage.removeItem('cbt_mock_test_settings_' + testId);
     const supabase = createClient();
     supabase.from('cbt_test_questions').delete().eq('test_id', testId).then();
+    supabase.from('cbt_tests').delete().eq('id', testId).then();
   } catch (e) {
     console.error('Failed to reset custom test questions', e);
   }
 }
+

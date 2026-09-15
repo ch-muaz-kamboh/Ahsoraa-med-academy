@@ -91,7 +91,7 @@ export default function TakeTestPage({
 
       if (!selected) {
         unansweredCount += 1;
-        rawScore -= 1.5; // Deduct 1.5 for blank / unanswered
+        rawScore -= 1.5; // Deduct 1.5 for blank / skipped
         subjectBreakdown[subj].score -= 1.5;
       } else if (selected === q.correctOption) {
         correctCount += 1;

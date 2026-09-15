@@ -1,17 +1,26 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { FileCheck, Clock, Award, CheckCircle, ArrowRight, PlayCircle, Radio } from 'lucide-react';
 import { mockTests } from '@/lib/mock-data';
+import { getAllMockTestsWithCustom, getAllMockTestsWithCustomAsync } from '@/lib/test-utils';
 import { useAppStore } from '@/lib/store';
 import { createClient } from '@/lib/supabase/client';
+import { Test } from '@/types';
 
 export default function PortalTestsPage() {
   const { testAttempts } = useAppStore();
+  const [tests, setTests] = useState<Test[]>(() => getAllMockTestsWithCustom());
   const [liveSession, setLiveSession] = useState<{ id: string; test_id: string; test_title: string } | null>(null);
 
+  const fetchTests = useCallback(async () => {
+    const fetched = await getAllMockTestsWithCustomAsync();
+    setTests(fetched);
+  }, []);
+
   useEffect(() => {
+    fetchTests();
     const supabase = createClient();
     supabase
       .from('test_sessions')
@@ -23,7 +32,22 @@ export default function PortalTestsPage() {
       .then(({ data }) => {
         if (data) setLiveSession(data);
       });
-  }, []);
+
+    // Subscribe to realtime updates for cbt_tests and cbt_test_questions
+    const channel = supabase
+      .channel('portal-cbt-tests-changes')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'cbt_tests' }, () => {
+        fetchTests();
+      })
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'cbt_test_questions' }, () => {
+        fetchTests();
+      })
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [fetchTests]);
 
   return (
     <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
@@ -93,7 +117,7 @@ export default function PortalTestsPage() {
 
       {/* Available Tests Grid */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '24px', marginBottom: '40px' }}>
-        {mockTests.map((test) => (
+        {tests.map((test) => (
           <div
             key={test.id}
             className="card"

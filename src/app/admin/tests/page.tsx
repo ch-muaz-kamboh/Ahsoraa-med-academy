@@ -19,12 +19,14 @@ import {
   AlertCircle,
   FileSpreadsheet,
   Check,
+  Edit3,
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import {
   getAllMockTestsWithCustom,
   getAllMockTestsWithCustomAsync,
   saveCustomTestQuestions,
+  saveTestSettingsAsync,
   resetCustomTestQuestions,
 } from '@/lib/test-utils';
 import { Test, TestQuestion } from '@/types';
@@ -257,6 +259,12 @@ export default function AdminTestsPage() {
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState(false);
 
+  // Edit Test Settings Modal State
+  const [editingTestSettings, setEditingTestSettings] = useState<Test | null>(null);
+  const [editTitle, setEditTitle] = useState('');
+  const [editDuration, setEditDuration] = useState<number>(60);
+  const [savingSettings, setSavingSettings] = useState(false);
+
   // Question Management Modal State
   const [activeTest, setActiveTest] = useState<Test | null>(null);
   const [showAddForm, setShowAddForm] = useState(false);
@@ -269,8 +277,8 @@ export default function AdminTestsPage() {
   const [formError, setFormError] = useState('');
   const [saveToast, setSaveToast] = useState('');
 
-  const refreshTests = useCallback(() => {
-    const updated = getAllMockTestsWithCustom();
+  const refreshTests = useCallback(async () => {
+    const updated = await getAllMockTestsWithCustomAsync();
     setTests(updated);
     if (activeTest) {
       const refreshedActive = updated.find((t) => t.id === activeTest.id);
@@ -282,22 +290,47 @@ export default function AdminTestsPage() {
   const fetchLiveSession = useCallback(async () => {
     setLoading(true);
     const supabase = createClient();
-    const { data } = await supabase
-      .from('test_sessions')
-      .select('*')
-      .eq('is_live', true)
-      .order('started_at', { ascending: false })
-      .limit(1)
-      .maybeSingle();
+    const [{ data }, customTests] = await Promise.all([
+      supabase
+        .from('test_sessions')
+        .select('*')
+        .eq('is_live', true)
+        .order('started_at', { ascending: false })
+        .limit(1)
+        .maybeSingle(),
+      getAllMockTestsWithCustomAsync(),
+    ]);
 
     setLiveSession(data ?? null);
-    setTests(getAllMockTestsWithCustom());
+    setTests(customTests);
     setLoading(false);
   }, []);
 
   useEffect(() => {
     fetchLiveSession();
   }, [fetchLiveSession]);
+
+  const handleSaveTestSettings = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingTestSettings) return;
+    if (!editTitle.trim()) {
+      alert('Mock test title cannot be empty.');
+      return;
+    }
+    if (editDuration <= 0) {
+      alert('Mock test time must be at least 1 minute.');
+      return;
+    }
+
+    setSavingSettings(true);
+    await saveTestSettingsAsync(editingTestSettings.id, editTitle.trim(), editDuration);
+    setSaveToast('Mock test renamed & duration updated across all student portals!');
+    setTimeout(() => setSaveToast(''), 3500);
+
+    setEditingTestSettings(null);
+    setSavingSettings(false);
+    await refreshTests();
+  };
 
   const startTest = async (testId: string, testTitle: string) => {
     if (liveSession) {
@@ -610,6 +643,32 @@ export default function AdminTestsPage() {
                 >
                   <ListChecks size={16} color="#2563EB" />
                   <span>Manage Questions ({test.questions.length})</span>
+                </button>
+
+                {/* Edit Title & Time Button */}
+                <button
+                  onClick={() => {
+                    setEditingTestSettings(test);
+                    setEditTitle(test.title);
+                    setEditDuration(test.durationMinutes);
+                  }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '10px 18px',
+                    borderRadius: '8px',
+                    border: '1px solid #CBD5E1',
+                    backgroundColor: '#F8FAFC',
+                    color: '#0F172A',
+                    fontWeight: 600,
+                    fontSize: '0.875rem',
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  <Edit3 size={16} color="#7C3AED" />
+                  <span>Edit Title & Time</span>
                 </button>
 
                 {/* Broadcast Live Button */}
@@ -1196,6 +1255,97 @@ export default function AdminTestsPage() {
                 Close
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Test Details (Title & Duration) Modal */}
+      {editingTestSettings && (
+        <div style={{
+          position: 'fixed', inset: 0, backgroundColor: 'rgba(15, 23, 42, 0.6)',
+          backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+          zIndex: 1000, padding: '20px'
+        }}>
+          <div style={{
+            backgroundColor: '#FFFFFF', borderRadius: '16px', maxWidth: '500px', width: '100%',
+            padding: '28px', boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+              <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+                Edit Mock Test Settings
+              </h2>
+              <button
+                onClick={() => setEditingTestSettings(null)}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#64748B' }}
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveTestSettings}>
+              <div style={{ marginBottom: '18px' }}>
+                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
+                  Mock Test Title
+                </label>
+                <input
+                  type="text"
+                  value={editTitle}
+                  onChange={(e) => setEditTitle(e.target.value)}
+                  style={{
+                    width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #CBD5E1',
+                    fontSize: '0.95rem', color: '#0F172A', boxSizing: 'border-box'
+                  }}
+                  placeholder="e.g. IMAT Full-Length Mock Exam 1"
+                  required
+                />
+              </div>
+
+              <div style={{ marginBottom: '24px' }}>
+                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
+                  Test Duration (Minutes)
+                </label>
+                <input
+                  type="number"
+                  min="1"
+                  max="300"
+                  value={editDuration}
+                  onChange={(e) => setEditDuration(Number(e.target.value))}
+                  style={{
+                    width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #CBD5E1',
+                    fontSize: '0.95rem', color: '#0F172A', boxSizing: 'border-box'
+                  }}
+                  required
+                />
+                <span style={{ fontSize: '0.78rem', color: '#64748B', marginTop: '4px', display: 'block' }}>
+                  This duration will automatically sync to all student exam timers.
+                </span>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
+                <button
+                  type="button"
+                  onClick={() => setEditingTestSettings(null)}
+                  style={{
+                    padding: '10px 18px', borderRadius: '8px', border: '1px solid #CBD5E1',
+                    backgroundColor: '#FFF', color: '#475569', fontWeight: 600, cursor: 'pointer'
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={savingSettings}
+                  style={{
+                    padding: '10px 22px', borderRadius: '8px', border: 'none',
+                    backgroundColor: '#2563EB', color: '#FFF', fontWeight: 700, cursor: 'pointer',
+                    display: 'flex', alignItems: 'center', gap: '8px'
+                  }}
+                >
+                  {savingSettings ? <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> : <CheckCircle2 size={16} />}
+                  <span>Save & Sync for All Students</span>
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}

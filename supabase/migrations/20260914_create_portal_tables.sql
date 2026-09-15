@@ -120,10 +120,26 @@ CREATE POLICY "Allow public insert portal_mistakes" ON portal_mistakes FOR INSER
 CREATE POLICY "Allow public update portal_mistakes" ON portal_mistakes FOR UPDATE USING (true);
 CREATE POLICY "Allow public delete portal_mistakes" ON portal_mistakes FOR DELETE USING (true);
 
+-- 6. CBT Mock Test Settings / Metadata Table
+CREATE TABLE IF NOT EXISTS cbt_tests (
+  id TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  duration_minutes INTEGER NOT NULL,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+ALTER TABLE cbt_tests ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Allow public read cbt_tests" ON cbt_tests FOR SELECT USING (true);
+CREATE POLICY "Allow public insert cbt_tests" ON cbt_tests FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow public update cbt_tests" ON cbt_tests FOR UPDATE USING (true);
+CREATE POLICY "Allow public delete cbt_tests" ON cbt_tests FOR DELETE USING (true);
+
 -- Enable Realtime for multi-device sync across all users
 ALTER PUBLICATION supabase_realtime ADD TABLE portal_schedules;
 ALTER PUBLICATION supabase_realtime ADD TABLE portal_lectures;
 ALTER PUBLICATION supabase_realtime ADD TABLE portal_library;
 ALTER PUBLICATION supabase_realtime ADD TABLE cbt_test_questions;
 ALTER PUBLICATION supabase_realtime ADD TABLE portal_mistakes;
+ALTER PUBLICATION supabase_realtime ADD TABLE cbt_tests;
+
 
