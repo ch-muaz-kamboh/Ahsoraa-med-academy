@@ -65,23 +65,24 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         flexShrink: 0,
       }}
     >
-      {/* Brand Header */}
-      <Link
-        href="/portal/dashboard"
+      {/* Header with logo and toggle */}
+      <div
         style={{
           padding: '18px 20px',
           borderBottom: '1px solid #E2E8F0',
           display: 'flex',
           alignItems: 'center',
+          justifyContent: 'space-between',
           textDecoration: 'none',
         }}
       >
-        <Logo height={48} />
+        <Link href="/portal/dashboard" style={{ display: 'flex', alignItems: 'center' }}>
+          <Logo height={48} />
+        </Link>
         {/* Sidebar toggle button */}
         <button
           onClick={() => setSidebarExpanded(prev => !prev)}
           style={{
-            margin: '8px 16px',
             padding: '4px',
             background: 'transparent',
             border: 'none',
@@ -91,46 +92,48 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         >
           {sidebarExpanded ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
         </button>
-      </Link>
+      </div>
 
-      {/* User Badge */}
-      <div
-        style={{
-          margin: '16px 16px 8px 16px',
-          padding: '12px',
-          backgroundColor: '#F8FAFC',
-          border: '1px solid #E2E8F0',
-          borderRadius: '10px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '10px',
-        }}
-      >
+      {/* User Badge – only show when sidebar is expanded */}
+      {sidebarExpanded && (
         <div
           style={{
-            width: '36px',
-            height: '36px',
-            borderRadius: '50%',
-            backgroundColor: '#DBEAFE',
-            color: '#1D4ED8',
+            margin: '16px 16px 8px 16px',
+            padding: '12px',
+            backgroundColor: '#F8FAFC',
+            border: '1px solid #E2E8F0',
+            borderRadius: '10px',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
-            fontWeight: 700,
-            fontSize: '0.875rem',
+            gap: '10px',
           }}
         >
-          {userInitials}
-        </div>
-        <div style={{ overflow: 'hidden' }}>
-          <div style={{ fontWeight: 600, fontSize: '0.875rem', color: '#0F172A', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-            {userFullName}
+          <div
+            style={{
+              width: '36px',
+              height: '36px',
+              borderRadius: '50%',
+              backgroundColor: '#DBEAFE',
+              color: '#1D4ED8',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontWeight: 700,
+              fontSize: '0.875rem',
+            }}
+          >
+            {userInitials}
           </div>
-          <div style={{ fontSize: '0.75rem', color: '#10B981', fontWeight: 600 }}>
-            ● Enrolled Student
+          <div style={{ overflow: 'hidden' }}>
+            <div style={{ fontWeight: 600, fontSize: '0.875rem', color: '#0F172A', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+              {userFullName}
+            </div>
+            <div style={{ fontSize: '0.75rem', color: '#10B981', fontWeight: 600 }}>
+              ● Enrolled Student
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Navigation List */}
       <nav style={{ padding: '8px 12px', flex: 1, display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -153,7 +156,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           <span style={{ color: pathname === '/portal/dashboard' ? '#2563EB' : '#64748B' }}>
             <LayoutDashboard size={18} />
           </span>
-          <span>Dashboard</span>
+          {sidebarExpanded && <span>Dashboard</span>}
         </Link>
 
         {/* Learn Section Dropdown */}
@@ -179,7 +182,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <GraduationCap size={18} color={isLearnActive ? '#2563EB' : '#64748B'} />
-              <span>Learn</span>
+              {sidebarExpanded && <span>Learn</span>}
             </div>
             {learnOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />}
           </button>
@@ -202,7 +205,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                 }}
               >
                 <Calendar size={15} />
-                <span>1. Schedule</span>
+                {sidebarExpanded && <span>1. Schedule</span>}
               </Link>
 
               <Link
@@ -221,7 +224,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                 }}
               >
                 <Video size={15} />
-                <span>2. Recorded Lectures</span>
+                {sidebarExpanded && <span>2. Recorded Lectures</span>}
               </Link>
 
               <Link
@@ -240,7 +243,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                 }}
               >
                 <Library size={15} />
-                <span>3. Library</span>
+                {sidebarExpanded && <span>3. Library</span>}
               </Link>
             </div>
           )}
@@ -269,7 +272,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <BookOpen size={18} color={isPracticeActive ? '#2563EB' : '#64748B'} />
-              <span>Practice</span>
+              {sidebarExpanded && <span>Practice</span>}
             </div>
             {practiceOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />}
           </button>
@@ -292,7 +295,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                 }}
               >
                 <BookOpen size={15} />
-                <span>1. Practice Bank</span>
+                {sidebarExpanded && <span>1. Practice Bank</span>}
               </Link>
 
               <Link
@@ -311,7 +314,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                 }}
               >
                 <FileCheck2 size={15} />
-                <span>2. CBT Mock</span>
+                {sidebarExpanded && <span>2. CBT Mock</span>}
               </Link>
 
               <Link
@@ -330,7 +333,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                 }}
               >
                 <AlertCircle size={15} color={pathname === '/portal/practice/mistakes' ? '#2563EB' : '#EF4444'} />
-                <span>3. My Mistakes</span>
+                {sidebarExpanded && <span>3. My Mistakes</span>}
               </Link>
             </div>
           )}
@@ -359,7 +362,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <TrendingUp size={18} color={isProgressActive ? '#2563EB' : '#64748B'} />
-              <span>Progress</span>
+              {sidebarExpanded && <span>Progress</span>}
             </div>
             {progressOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />}
           </button>
@@ -382,7 +385,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                 }}
               >
                 <BarChart2 size={15} />
-                <span>1. Analysis</span>
+                {sidebarExpanded && <span>1. Analysis</span>}
               </Link>
 
               <Link
@@ -401,7 +404,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                 }}
               >
                 <Flame size={15} color={pathname === '/portal/progress/streak' ? '#2563EB' : '#F59E0B'} />
-                <span>2. Streak History</span>
+                {sidebarExpanded && <span>2. Streak History</span>}
               </Link>
             </div>
           )}
@@ -430,7 +433,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <Award size={18} color={isMedpathActive ? '#2563EB' : '#7C3AED'} />
-              <span style={{ fontWeight: 700 }}>MedPath Elite</span>
+              {sidebarExpanded && <span style={{ fontWeight: 700 }}>MedPath Elite</span>}
             </div>
             {medpathOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />}
           </button>
@@ -453,7 +456,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                 }}
               >
                 <Building size={15} />
-                <span>1. Uni Applications & Status</span>
+                {sidebarExpanded && <span>1. Uni Applications & Status</span>}
               </Link>
 
               <Link
@@ -472,7 +475,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                 }}
               >
                 <Compass size={15} />
-                <span>2. Pre-Enrolment Roadmap</span>
+                {sidebarExpanded && <span>2. Pre-Enrolment Roadmap</span>}
               </Link>
             </div>
           )}
@@ -497,7 +500,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           <span style={{ color: pathname === '/portal/documents' ? '#2563EB' : '#64748B' }}>
             <FolderLock size={18} />
           </span>
-          <span>Document Vault</span>
+          {sidebarExpanded && <span>Document Vault</span>}
         </Link>
 
         {/* Ask Doubts / Mentorship link */}
@@ -519,7 +522,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           <span style={{ color: pathname === '/portal/doubts' ? '#2563EB' : '#64748B' }}>
             <HelpCircle size={18} />
           </span>
-          <span>Ask Doubts</span>
+          {sidebarExpanded && <span>Ask Doubts</span>}
         </Link>
       </nav>
 
