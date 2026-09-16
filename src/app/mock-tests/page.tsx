@@ -1,11 +1,21 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { FileCheck, Clock, Award, CheckCircle, AlertCircle, ArrowRight } from 'lucide-react';
 import { mockTests } from '@/lib/mock-data';
+import { getAllMockTestsWithCustom, getAllMockTestsWithCustomAsync } from '@/lib/test-utils';
+import { Test } from '@/types';
 
 export default function MockTestsPage() {
+  const [tests, setTests] = useState<Test[]>(() => getAllMockTestsWithCustom());
+
+  useEffect(() => {
+    getAllMockTestsWithCustomAsync().then((fetched) => {
+      setTests(fetched);
+    });
+  }, []);
+
   return (
     <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', padding: '40px 0 80px 0' }}>
       <div className="container">
@@ -30,7 +40,7 @@ export default function MockTestsPage() {
             gap: '28px',
           }}
         >
-          {mockTests.map((test) => (
+          {tests.map((test) => (
             <div
               key={test.id}
               className="card"

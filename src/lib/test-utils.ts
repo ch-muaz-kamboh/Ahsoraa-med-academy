@@ -228,6 +228,9 @@ export async function saveTestSettingsAsync(testId: string, title: string, durat
       explanation: String(durationMinutes),
       updated_at: new Date().toISOString(),
     });
+
+    // 3. Update active live test sessions in test_sessions if any
+    await supabase.from('test_sessions').update({ test_title: title }).eq('test_id', testId).eq('is_live', true);
   } catch (e) {
     console.error('Failed to sync test settings to Supabase', e);
   }
@@ -245,8 +248,8 @@ export async function saveCustomTestQuestionsAsync(testId: string, questions: Te
   }
   try {
     const supabase = createClient();
-    // Delete existing custom questions for this test_id
-    await supabase.from('cbt_test_questions').delete().eq('test_id', testId);
+    // Delete existing custom questions for this test_id, but preserve __META__ metadata row
+    await supabase.from('cbt_test_questions').delete().eq('test_id', testId).neq('subject', '__META__');
 
     // Insert new questions
     if (questions.length > 0) {

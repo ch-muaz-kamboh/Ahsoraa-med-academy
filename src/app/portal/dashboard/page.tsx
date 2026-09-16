@@ -18,11 +18,14 @@ import {
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { mockApplicationCases, mockVisaCases } from '@/lib/mock-data';
+import { getMockTestWithCustom, getMockTestWithCustomAsync } from '@/lib/test-utils';
 import { createClient } from '@/lib/supabase/client';
+import { Test } from '@/types';
 
 export default function StudentDashboardPage() {
   const { currentUser, courses, documents, doubts, testAttempts } = useAppStore();
   const [liveSession, setLiveSession] = useState<{ id: string; test_id: string; test_title: string } | null>(null);
+  const [diagnosticTest, setDiagnosticTest] = useState<Test>(() => getMockTestWithCustom('tst-01'));
 
   useEffect(() => {
     const supabase = createClient();
@@ -36,6 +39,10 @@ export default function StudentDashboardPage() {
       .then(({ data }) => {
         if (data) setLiveSession(data);
       });
+
+    getMockTestWithCustomAsync('tst-01').then((fetched) => {
+      if (fetched) setDiagnosticTest(fetched);
+    });
   }, []);
 
   const activeApp = mockApplicationCases[0];
@@ -283,11 +290,11 @@ export default function StudentDashboardPage() {
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-                <span className="badge badge-blue">USMLE Step 1 Diagnostic</span>
-                <span style={{ fontSize: '0.75rem', color: '#64748B' }}>45 mins • 6 Questions</span>
+                <span className="badge badge-blue">{diagnosticTest.category}</span>
+                <span style={{ fontSize: '0.75rem', color: '#64748B' }}>{diagnosticTest.durationMinutes} mins • {diagnosticTest.questions?.length || diagnosticTest.totalQuestions} Questions</span>
               </div>
               <h4 style={{ fontSize: '1.0625rem', color: '#0F172A', marginBottom: '8px' }}>
-                Integrated Organ Systems Block 1 Simulation
+                {diagnosticTest.title}
               </h4>
               <p style={{ color: '#64748B', fontSize: '0.8125rem', marginBottom: '16px' }}>
                 Simulates real examination pacing, negative marking, and provides an instant topic-level analysis breakdown upon completion.
