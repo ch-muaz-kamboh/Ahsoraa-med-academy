@@ -4,10 +4,12 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
+import { useAppStore } from '@/lib/store';
 import { ArrowRight, Lock, Mail } from 'lucide-react';
 
 export default function LoginPage() {
   const router = useRouter();
+  const { loginStudent } = useAppStore();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -21,7 +23,7 @@ export default function LoginPage() {
     setError(null);
 
     const supabase = createClient();
-    const { error: signInError } = await supabase.auth.signInWithPassword({
+    const { data, error: signInError } = await supabase.auth.signInWithPassword({
       email: formData.email,
       password: formData.password,
     });
@@ -32,7 +34,13 @@ export default function LoginPage() {
       return;
     }
 
-    // Success! The middleware will handle redirecting to portal/dashboard or pending-payment
+    if (data.user?.email) {
+      loginStudent(data.user.email);
+    } else {
+      loginStudent(formData.email);
+    }
+
+    // Success! Redirect to portal dashboard
     router.push('/portal/dashboard');
     router.refresh();
   };

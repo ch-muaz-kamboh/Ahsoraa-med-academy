@@ -37,30 +37,33 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
   };
 
   useEffect(() => {
-    if (studentLoggedIn) {
-      const fetchUser = async () => {
+    const fetchUser = async () => {
+      try {
         const supabase = createClient();
         const { data: { user } } = await supabase.auth.getUser();
         if (user) {
+          if (!studentLoggedIn) {
+            loginStudent(user.email || 'student@example.com');
+          }
           const { data: profile } = await supabase
             .from('profiles')
             .select('full_name, email')
             .eq('id', user.id)
-            .single();
+            .maybeSingle();
 
-          if (profile && profile.full_name) {
-            const fullName = profile.full_name;
-            const fName = fullName.split(' ')[0];
-            const inits = fullName.split(' ').slice(0, 2).map((n: string) => n[0]).join('').toUpperCase() || 'ST';
-            setRealUser({ fullName, firstName: fName, initials: inits });
-          }
+          const fullName = profile?.full_name || user.user_metadata?.full_name || user.email?.split('@')[0] || 'Student';
+          const fName = fullName.split(' ')[0] || 'Student';
+          const inits = fullName.split(' ').slice(0, 2).map((n: string) => n[0]).join('').toUpperCase() || 'ST';
+          setRealUser({ fullName, firstName: fName, initials: inits });
+        } else if (!studentLoggedIn) {
+          setRealUser(null);
         }
-      };
-      fetchUser();
-    } else {
-      setRealUser(null);
-    }
-  }, [studentLoggedIn]);
+      } catch (e) {
+        console.error('Error fetching Supabase user in PortalLayout:', e);
+      }
+    };
+    fetchUser();
+  }, [studentLoggedIn, loginStudent]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -84,30 +87,23 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
           .from('profiles')
           .select('full_name, email')
           .eq('id', data.user.id)
-          .single();
+          .maybeSingle();
 
         const fullName = profile?.full_name || data.user.user_metadata?.full_name || loginEmail.split('@')[0];
         const fName = fullName.split(' ')[0] || 'Student';
         const inits = fullName.split(' ').slice(0, 2).map((n: string) => n[0]).join('').toUpperCase() || 'ST';
         setRealUser({ fullName, firstName: fName, initials: inits });
-        loginStudent(loginEmail);
+        loginStudent(data.user.email || loginEmail);
         setAuthLoading(false);
         return;
+      } else if (sbError) {
+        setError(sbError.message);
+      } else {
+        setError('Invalid Email Address or Password. Please check your credentials.');
       }
-    } catch (err) {
-      console.warn('Supabase login fallback:', err);
+    } catch (err: any) {
+      setError(err?.message || 'Authentication error. Please try again.');
     }
-
-    // Demo login fallback: update store and realUser to the credentials entered
-    loginStudent(loginEmail);
-    const rawUsername = loginEmail.split('@')[0] || 'Student';
-    const parts = rawUsername.split(/[._-]/);
-    const fName = parts[0] ? parts[0].charAt(0).toUpperCase() + parts[0].slice(1) : 'Student';
-    const lName = parts[1] ? parts[1].charAt(0).toUpperCase() + parts[1].slice(1) : '';
-    const fullName = `${fName} ${lName}`.trim();
-    const inits = `${fName[0] || 'S'}${lName[0] || 'T'}`.toUpperCase();
-
-    setRealUser({ fullName, firstName: fName, initials: inits });
     setAuthLoading(false);
   };
 
