@@ -36,7 +36,7 @@ export async function getMockTestWithCustomAsync(testId: string): Promise<Test> 
   try {
     const supabase = createClient();
 
-    // Fetch test metadata/settings
+    // Fetch test metadata/settings from cbt_tests
     const { data: testData } = await supabase
       .from('cbt_tests')
       .select('*')
@@ -46,18 +46,9 @@ export async function getMockTestWithCustomAsync(testId: string): Promise<Test> 
     if (testData) {
       if (testData.title) updated.title = testData.title;
       if (testData.duration_minutes) updated.durationMinutes = testData.duration_minutes;
-
-      if (typeof window !== 'undefined') {
-        try {
-          localStorage.setItem(
-            'cbt_mock_test_settings_' + base.id,
-            JSON.stringify({ title: updated.title, durationMinutes: updated.durationMinutes })
-          );
-        } catch (e) {}
-      }
     }
 
-    // Fetch questions
+    // Fetch questions from cbt_test_questions
     const { data: qData, error: qError } = await supabase
       .from('cbt_test_questions')
       .select('*')
@@ -65,21 +56,34 @@ export async function getMockTestWithCustomAsync(testId: string): Promise<Test> 
       .order('order_index', { ascending: true });
 
     if (!qError && qData && qData.length > 0) {
-      const questions: TestQuestion[] = qData.map((q: any, idx: number) => ({
-        id: q.id,
-        orderIndex: q.order_index || idx + 1,
-        subject: q.subject,
-        topic: q.topic || '',
-        difficulty: q.difficulty || 'medium',
-        questionText: q.question_text,
-        questionImageUrl: q.question_image_url || undefined,
-        options: typeof q.options === 'string' ? JSON.parse(q.options) : q.options,
-        correctOption: q.correct_option,
-        explanation: q.explanation || '',
-      }));
+      // Check for metadata row in questions table as fallback
+      const metaRow = qData.find((q: any) => q.id === '__test_meta__' + base.id || q.subject === '__META__');
+      if (metaRow) {
+        if (metaRow.question_text) updated.title = metaRow.question_text;
+        if (metaRow.explanation && !isNaN(Number(metaRow.explanation))) {
+          updated.durationMinutes = Number(metaRow.explanation);
+        }
+      }
 
-      updated.totalQuestions = questions.length;
-      updated.questions = questions;
+      const questions: TestQuestion[] = qData
+        .filter((q: any) => q.subject !== '__META__' && !q.id.startsWith('__test_meta__'))
+        .map((q: any, idx: number) => ({
+          id: q.id,
+          orderIndex: q.order_index || idx + 1,
+          subject: q.subject,
+          topic: q.topic || '',
+          difficulty: q.difficulty || 'medium',
+          questionText: q.question_text,
+          questionImageUrl: q.question_image_url || undefined,
+          options: typeof q.options === 'string' ? JSON.parse(q.options) : q.options,
+          correctOption: q.correct_option,
+          explanation: q.explanation || '',
+        }));
+
+      if (questions.length > 0) {
+        updated.totalQuestions = questions.length;
+        updated.questions = questions;
+      }
 
       if (typeof window !== 'undefined') {
         try {
@@ -87,6 +91,16 @@ export async function getMockTestWithCustomAsync(testId: string): Promise<Test> 
         } catch (e) {}
       }
     }
+
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem(
+          'cbt_mock_test_settings_' + base.id,
+          JSON.stringify({ title: updated.title, durationMinutes: updated.durationMinutes })
+        );
+      } catch (e) {}
+    }
+
     return updated;
   } catch (e) {
     console.warn('Failed to fetch custom test from Supabase:', e);
@@ -116,6 +130,16 @@ export async function getAllMockTestsWithCustomAsync(): Promise<Test[]> {
     const questionsMap = new Map<string, TestQuestion[]>();
     if (dbQuestions) {
       dbQuestions.forEach((q: any) => {
+        if (q.subject === '__META__' || q.id.startsWith('__test_meta__')) {
+          const testId = q.test_id;
+          const existing = testsMap.get(testId) || {};
+          testsMap.set(testId, {
+            title: q.question_text || existing.title,
+            duration_minutes: (q.explanation && !isNaN(Number(q.explanation))) ? Number(q.explanation) : existing.duration_minutes,
+          });
+          return;
+        }
+
         const list = questionsMap.get(q.test_id) || [];
         list.push({
           id: q.id,
@@ -182,16 +206,28 @@ export async function saveTestSettingsAsync(testId: string, title: string, durat
 
   try {
     const supabase = createClient();
-    const { error } = await supabase.from('cbt_tests').upsert({
+    // 1. Try upserting to cbt_tests
+    await supabase.from('cbt_tests').upsert({
       id: testId,
       title,
       duration_minutes: durationMinutes,
       updated_at: new Date().toISOString(),
     });
 
-    if (error) {
-      console.error('Supabase cbt_tests upsert error:', error);
-    }
+    // 2. Also upsert meta record into cbt_test_questions (guaranteed table)
+    await supabase.from('cbt_test_questions').upsert({
+      id: '__test_meta__' + testId,
+      test_id: testId,
+      order_index: -1,
+      subject: '__META__',
+      topic: 'test_settings',
+      difficulty: 'easy',
+      question_text: title,
+      options: [],
+      correct_option: 'A',
+      explanation: String(durationMinutes),
+      updated_at: new Date().toISOString(),
+    });
   } catch (e) {
     console.error('Failed to sync test settings to Supabase', e);
   }

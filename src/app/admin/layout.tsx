@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AdminSidebar from '@/components/layout/AdminSidebar';
 import { useAppStore } from '@/lib/store';
-import { Shield, Bell, Lock, Key, AlertCircle } from 'lucide-react';
+import { createClient } from '@/lib/supabase/client';
+import { Shield, Bell, Lock, Key, AlertCircle, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 
 import Logo from '@/components/brand/Logo';
@@ -13,15 +14,60 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleAdminLogin = (e: React.FormEvent) => {
+  useEffect(() => {
+    // Automatically grant access if student/admin is logged in via Supabase
+    const checkAuth = async () => {
+      try {
+        const supabase = createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          setAdminLoggedIn(true);
+        }
+      } catch (e) {}
+    };
+    checkAuth();
+  }, [setAdminLoggedIn]);
+
+  const handleAdminLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!username.trim() || !password.trim()) {
+      setError('Please enter your credentials.');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+
+    // Default admin fallback
     if (username === 'admin' && password === 'password123') {
       setAdminLoggedIn(true);
-      setError('');
-    } else {
-      setError('Invalid Username or Password. Please try again.');
+      setLoading(false);
+      return;
     }
+
+    try {
+      const supabase = createClient();
+      const loginEmail = username.includes('@') ? username.trim() : `${username.trim()}@ahsora.com`;
+      const { data, error: sbError } = await supabase.auth.signInWithPassword({
+        email: loginEmail,
+        password: password,
+      });
+
+      if (!sbError && data.user) {
+        setAdminLoggedIn(true);
+        setLoading(false);
+        return;
+      } else if (sbError) {
+        setError(sbError.message);
+      } else {
+        setError('Invalid Email or Password. Please try again.');
+      }
+    } catch (err: any) {
+      setError(err?.message || 'Authentication error. Please try again.');
+    }
+    setLoading(false);
   };
 
   if (!adminLoggedIn) {
@@ -71,7 +117,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               Staff & Admin Portal
             </h2>
             <p style={{ color: '#94A3B8', fontSize: '0.875rem', marginTop: '6px' }}>
-              Sign in with your administrator credentials
+              Sign in with your administrator account
             </p>
           </div>
 
@@ -97,13 +143,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <form onSubmit={handleAdminLogin} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <div>
               <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: '#CBD5E1', marginBottom: '8px' }}>
-                Username
+                Email Address or Username
               </label>
               <div style={{ position: 'relative' }}>
                 <input
                   type="text"
                   required
-                  placeholder="e.g. admin"
+                  placeholder="admin@example.com"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   style={{
@@ -115,7 +161,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     color: '#FFFFFF',
                     fontSize: '0.9375rem',
                     outline: 'none',
-                    transition: 'border-color 0.15s ease'
+                    transition: 'border-color 0.15s ease',
+                    boxSizing: 'border-box'
                   }}
                 />
                 <Shield size={18} color="#94A3B8" style={{ position: 'absolute', left: '14px', top: '14px' }} />
@@ -142,16 +189,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     color: '#FFFFFF',
                     fontSize: '0.9375rem',
                     outline: 'none',
-                    transition: 'border-color 0.15s ease'
+                    transition: 'border-color 0.15s ease',
+                    boxSizing: 'border-box'
                   }}
                 />
                 <Key size={18} color="#94A3B8" style={{ position: 'absolute', left: '14px', top: '14px' }} />
               </div>
             </div>
 
-
             <button
               type="submit"
+              disabled={loading}
               className="btn-primary"
               style={{
                 width: '100%',
@@ -163,11 +211,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 backgroundColor: '#F59E0B',
                 color: '#0F172A',
                 border: 'none',
-                cursor: 'pointer',
-                marginTop: '10px'
+                cursor: loading ? 'not-allowed' : 'pointer',
+                marginTop: '10px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
               }}
             >
-              Access Admin Panel
+              {loading ? <Loader2 size={18} style={{ animation: 'spin 1s linear infinite' }} /> : null}
+              <span>{loading ? 'Authenticating...' : 'Access Admin Panel'}</span>
             </button>
 
             <div style={{ textAlign: 'center', marginTop: '12px' }}>
