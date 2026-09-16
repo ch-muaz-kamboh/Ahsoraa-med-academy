@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import PortalSidebar from '@/components/layout/PortalSidebar';
 import { useAppStore } from '@/lib/store';
 import { createClient } from '@/lib/supabase/client';
@@ -10,16 +11,9 @@ import Link from 'next/link';
 import Logo from '@/components/brand/Logo';
 
 export default function PortalLayout({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
   const { studentLoggedIn, loginStudent, logoutStudent, liveTestSession } = useAppStore();
-  const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState('');
-  const [authLoading, setAuthLoading] = useState(false);
-
-  // Login Form State
-  const [loginEmail, setLoginEmail] = useState('');
-  const [loginPassword, setLoginPassword] = useState('');
-
-  // Real User State
+  const [checkingAuth, setCheckingAuth] = useState(true);
   const [realUser, setRealUser] = useState<{ fullName: string, firstName: string, initials: string } | null>(null);
 
   const handleLogout = async () => {
@@ -31,12 +25,11 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
     }
     setRealUser(null);
     logoutStudent();
-    setLoginEmail('');
-    setLoginPassword('');
-    setError('');
+    router.push('/login');
   };
 
   useEffect(() => {
+    let isMounted = true;
     const fetchUser = async () => {
       try {
         const supabase = createClient();
@@ -54,216 +47,36 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
           const fullName = profile?.full_name || user.user_metadata?.full_name || user.email?.split('@')[0] || 'Student';
           const fName = fullName.split(' ')[0] || 'Student';
           const inits = fullName.split(' ').slice(0, 2).map((n: string) => n[0]).join('').toUpperCase() || 'ST';
-          setRealUser({ fullName, firstName: fName, initials: inits });
+          if (isMounted) setRealUser({ fullName, firstName: fName, initials: inits });
         } else if (!studentLoggedIn) {
-          setRealUser(null);
+          if (isMounted) setRealUser(null);
         }
       } catch (e) {
         console.error('Error fetching Supabase user in PortalLayout:', e);
+      } finally {
+        if (isMounted) setCheckingAuth(false);
       }
     };
     fetchUser();
+    return () => { isMounted = false; };
   }, [studentLoggedIn, loginStudent]);
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!loginEmail || !loginPassword) {
-      setError('Please fill in both Email and Password fields.');
-      return;
+  useEffect(() => {
+    if (!checkingAuth && !studentLoggedIn) {
+      router.push('/login');
     }
+  }, [checkingAuth, studentLoggedIn, router]);
 
-    setAuthLoading(true);
-    setError('');
-
-    try {
-      const supabase = createClient();
-      const { data, error: sbError } = await supabase.auth.signInWithPassword({
-        email: loginEmail,
-        password: loginPassword,
-      });
-
-      if (!sbError && data.user) {
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('full_name, email')
-          .eq('id', data.user.id)
-          .maybeSingle();
-
-        const fullName = profile?.full_name || data.user.user_metadata?.full_name || loginEmail.split('@')[0];
-        const fName = fullName.split(' ')[0] || 'Student';
-        const inits = fullName.split(' ').slice(0, 2).map((n: string) => n[0]).join('').toUpperCase() || 'ST';
-        setRealUser({ fullName, firstName: fName, initials: inits });
-        loginStudent(data.user.email || loginEmail);
-        setAuthLoading(false);
-        return;
-      } else if (sbError) {
-        setError(sbError.message);
-      } else {
-        setError('Invalid Email Address or Password. Please check your credentials.');
-      }
-    } catch (err: any) {
-      setError(err?.message || 'Authentication error. Please try again.');
-    }
-    setAuthLoading(false);
-  };
-
-  if (!studentLoggedIn) {
+  if (checkingAuth || !studentLoggedIn) {
     return (
       <div style={{
-        minHeight: '90vh',
+        minHeight: '85vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'linear-gradient(135deg, #EEF2F6 0%, #E2E8F0 100%)',
-        padding: '40px 20px',
-        fontFamily: 'sans-serif'
+        backgroundColor: '#F8FAFC'
       }}>
-        <div style={{
-          backgroundColor: '#FFFFFF',
-          borderRadius: '24px',
-          boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-          width: '100%',
-          maxWidth: '520px',
-          padding: '40px',
-          border: '1px solid rgba(226, 232, 240, 0.8)',
-          position: 'relative',
-          overflow: 'hidden'
-        }}>
-          {/* Decorative Top Accent */}
-          <div style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            height: '6px',
-            background: 'linear-gradient(90deg, #2563EB 0%, #3B82F6 100%)'
-          }} />
-
-          {/* Logo / Header */}
-          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-            <div style={{ display: 'inline-flex', justifyContent: 'center', marginBottom: '16px' }}>
-              <Logo height={72} />
-            </div>
-            <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', letterSpacing: '-0.5px' }}>
-              Student Portal Sign In
-            </h2>
-            <p style={{ color: '#64748B', fontSize: '0.875rem', marginTop: '6px' }}>
-              Access your courses, mock test engine, and visa roadmap
-            </p>
-          </div>
-          {/* Unified Student Portal Login Form */}
-          {error && (
-            <div style={{
-              backgroundColor: '#FEF2F2',
-              border: '1px solid #FECACA',
-              color: '#DC2626',
-              padding: '10px 14px',
-              borderRadius: '8px',
-              fontSize: '0.875rem',
-              marginBottom: '16px'
-            }}>
-              {error}
-            </div>
-          )}
-          <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            <div>
-              <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: '#334155', marginBottom: '8px' }}>
-                Email Address
-              </label>
-              <div style={{ position: 'relative' }}>
-                <input
-                  type="email"
-                  required
-                  placeholder="you@example.com"
-                  value={loginEmail}
-                  onChange={(e) => setLoginEmail(e.target.value)}
-                  style={{
-                    width: '100%',
-                    padding: '12px 16px 12px 42px',
-                    borderRadius: '10px',
-                    border: '1px solid #CBD5E1',
-                    fontSize: '0.9375rem',
-                    outline: 'none',
-                    transition: 'border-color 0.15s ease'
-                  }}
-                />
-                <Mail size={18} color="#64748B" style={{ position: 'absolute', left: '14px', top: '14px' }} />
-              </div>
-            </div>
-
-            <div>
-              <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: '#334155', marginBottom: '8px' }}>
-                Password
-              </label>
-              <div style={{ position: 'relative' }}>
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  required
-                  placeholder="••••••••"
-                  value={loginPassword}
-                  onChange={(e) => setLoginPassword(e.target.value)}
-                  style={{
-                    width: '100%',
-                    padding: '12px 42px 12px 42px',
-                    borderRadius: '10px',
-                    border: '1px solid #CBD5E1',
-                    fontSize: '0.9375rem',
-                    outline: 'none',
-                    transition: 'border-color 0.15s ease'
-                  }}
-                />
-                <Lock size={18} color="#64748B" style={{ position: 'absolute', left: '14px', top: '14px' }} />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  style={{
-                    position: 'absolute',
-                    right: '14px',
-                    top: '12px',
-                    border: 'none',
-                    background: 'none',
-                    cursor: 'pointer',
-                    padding: 2
-                  }}
-                >
-                  {showPassword ? <EyeOff size={18} color="#64748B" /> : <Eye size={18} color="#64748B" />}
-                </button>
-              </div>
-            </div>
-
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.8125rem' }}>
-              <span style={{ color: '#64748B', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <Check size={14} color="#2563EB" /> Demo & Live Access
-              </span>
-              <span style={{ color: '#2563EB', fontWeight: 600, cursor: 'pointer' }}>Forgot Password?</span>
-            </div>
-
-            <button
-              type="submit"
-              disabled={authLoading}
-              className="btn-primary"
-              style={{
-                width: '100%',
-                padding: '14px',
-                justifyContent: 'center',
-                fontSize: '0.9375rem',
-                fontWeight: 700,
-                borderRadius: '10px',
-                marginTop: '10px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px'
-              }}
-            >
-              {authLoading ? <Loader2 size={18} style={{ animation: 'spin 1s linear infinite' }} /> : <User size={18} />}
-              <span>Sign In to Student Portal</span>
-            </button>
-
-            <p style={{ textAlign: 'center', fontSize: '0.8125rem', color: '#64748B', marginTop: '8px', lineHeight: '1.4' }}>
-              Enter your student email and password to log in or start learning instantly.
-            </p>
-          </form>
-        </div>
+        <Loader2 size={36} style={{ animation: 'spin 1s linear infinite', color: '#2563EB' }} />
       </div>
     );
   }
