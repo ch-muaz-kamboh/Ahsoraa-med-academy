@@ -4,6 +4,12 @@ import React, { useState } from 'react';
 import { FolderCheck, CheckCircle2, XCircle, AlertTriangle, FileText, Download } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { StudentDocument } from '@/types';
+import { uploadDocument } from '@/lib/library-utils';
+
+// New state for upload modal
+const [uploadModal, setUploadModal] = useState(false);
+const [selectedFile, setSelectedFile] = useState<File | null>(null);
+const [uploadError, setUploadError] = useState('');
 
 export default function AdminDocumentsPage() {
   const { documents, updateDocStatus } = useAppStore();
@@ -25,13 +31,22 @@ export default function AdminDocumentsPage() {
 
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-      <div style={{ marginBottom: '28px' }}>
-        <h1 style={{ fontSize: '1.875rem', color: '#0F172A', marginBottom: '6px' }}>
-          Document Verification & Approval Queue
-        </h1>
-        <p style={{ color: '#64748B', fontSize: '0.9375rem' }}>
-          Review uploaded student files, verify apostilles and language certificates, and issue certified approvals.
-        </p>
+      <div style={{ marginBottom: '28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div>
+          <h1 style={{ fontSize: '1.875rem', color: '#0F172A', marginBottom: '6px' }}>
+            Document Verification & Approval Queue
+          </h1>
+          <p style={{ color: '#64748B', fontSize: '0.9375rem' }}>
+            Review uploaded student files, verify apostilles and language certificates, and issue certified approvals.
+          </p>
+        </div>
+        <button
+          onClick={() => setUploadModal(true)}
+          className="btn-primary"
+          style={{ backgroundColor: '#2563EB', padding: '8px 16px', fontSize: '0.875rem' }}
+        >
+          Upload Document
+        </button>
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -143,6 +158,79 @@ export default function AdminDocumentsPage() {
 
       {/* Revision Request Modal */}
       {rejectModalDoc && (
+        // existing revision modal unchanged
+        // ...
+      )}
+
+      {/* Document Upload Modal */}
+      {uploadModal && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(15, 23, 42, 0.6)',
+            backdropFilter: 'blur(4px)',
+            zIndex: 1000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px',
+          }}
+          onClick={() => setUploadModal(false)}
+        >
+          <div
+            style={{
+              backgroundColor: '#FFFFFF',
+              borderRadius: '16px',
+              maxWidth: '480px',
+              width: '100%',
+              padding: '28px',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 style={{ fontSize: '1.25rem', color: '#0F172A', marginBottom: '8px' }}>
+              Upload New Document
+            </h3>
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                if (!selectedFile) return;
+                try {
+                  await uploadDocument(selectedFile);
+                  setUploadModal(false);
+                } catch (err: any) {
+                  setUploadError(err.message || 'Upload failed');
+                }
+              }}
+            >
+              <input
+                type="file"
+                accept=".pdf,.docx,.pptx,.xlsx"
+                onChange={(e) => setSelectedFile(e.target.files?.[0] || null)}
+                required
+                style={{ marginBottom: '12px' }}
+              />
+              {uploadError && (
+                <p style={{ color: '#DC2626', marginBottom: '8px' }}>{uploadError}</p>
+              )}
+              <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+                <button
+                  type="button"
+                  onClick={() => setUploadModal(false)}
+                  className="btn-outline"
+                  style={{ fontSize: '0.875rem' }}
+                >
+                  Cancel
+                </button>
+                <button type="submit" className="btn-primary" style={{ backgroundColor: '#2563EB', fontSize: '0.875rem' }}>
+                  Upload
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
         <div
           style={{
             position: 'fixed',
