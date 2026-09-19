@@ -7,6 +7,7 @@ import {
   BookOpen, Filter, Loader2, AlertCircle, FileSpreadsheet
 } from 'lucide-react';
 import importedQuestions, { getImportedQuestions } from '@/lib/imported_questions';
+import { useRouter, useSearchParams } from 'next/navigation';
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface QBQuestion {
   id: string;
@@ -82,6 +83,8 @@ const DIFF_COLOR: Record<string, string> = { easy: '#10B981', medium: '#F59E0B',
 const DIFF_BG:    Record<string, string> = { easy: '#F0FFF4', medium: '#FFFBEB', hard: '#FEF2F2' };
 
 export default function AdminQuestionBankPage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [questions, setQuestions]   = useState<QBQuestion[]>([]);
   const [total, setTotal]           = useState(0);
   const [loading, setLoading]       = useState(true);
@@ -101,6 +104,33 @@ export default function AdminQuestionBankPage() {
   const [filterDiff, setFilterDiff]   = useState('');
   const [page, setPage]               = useState(0);
   const PAGE_SIZE = 20;
+
+  // Initialize filters from URL query params
+  useEffect(() => {
+    const subj = searchParams.get('subject') || '';
+    const top = searchParams.get('topic') || '';
+    const diff = searchParams.get('difficulty') || '';
+    const q = searchParams.get('search') || '';
+    const p = parseInt(searchParams.get('page') || '0', 10);
+    setFilterSubject(subj);
+    setFilterTopic(top);
+    setFilterDiff(diff);
+    setSearchQ(q);
+    setPage(isNaN(p) ? 0 : p);
+  }, []);
+
+  // Sync filter state to URL
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (filterSubject) params.set('subject', filterSubject);
+    if (filterTopic) params.set('topic', filterTopic);
+    if (filterDiff) params.set('difficulty', filterDiff);
+    if (searchQ) params.set('search', searchQ);
+    if (page) params.set('page', String(page));
+    const query = params.toString();
+    router.replace('/admin/question-bank' + (query ? `?${query}` : ''));
+  }, [filterSubject, filterTopic, filterDiff, searchQ, page]);
+
 
   // Smart Paste
   const [smartPasteText, setSmartPasteText] = useState('');
