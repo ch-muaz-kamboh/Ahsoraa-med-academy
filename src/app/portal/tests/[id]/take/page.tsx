@@ -44,9 +44,21 @@ export default function TakeTestPage({
   }
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState<Record<string, string>>({}); // { questionId: "A" }
+  const [answers, setAnswers] = useState<Record<string, string>>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(`test-${resolvedParams.id}-answers`);
+      return saved ? JSON.parse(saved) : {};
+    }
+    return {};
+  }); // { questionId: "A" }
   const [markedReview, setMarkedReview] = useState<Record<string, boolean>>({});
-  const [timeLeft, setTimeLeft] = useState(test.durationMinutes * 60);
+  const [timeLeft, setTimeLeft] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(`test-${resolvedParams.id}-timeLeft`);
+      if (saved) return parseInt(saved, 10);
+    }
+    return test?.durationMinutes ? test.durationMinutes * 60 : 0;
+  });
   const [submitModalOpen, setSubmitModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -91,8 +103,7 @@ export default function TakeTestPage({
 
       if (!selected) {
         unansweredCount += 1;
-        rawScore -= 1.5; // Deduct 1.5 for blank / skipped
-        subjectBreakdown[subj].score -= 1.5;
+        // No score change for blank/skipped answers
       } else if (selected === q.correctOption) {
         correctCount += 1;
         rawScore += 1.5; // +1.5 for correct
@@ -100,8 +111,8 @@ export default function TakeTestPage({
         subjectBreakdown[subj].score += 1.5;
       } else {
         incorrectCount += 1;
-        rawScore -= 1.9; // Deduct 1.9 for incorrect
-        subjectBreakdown[subj].score -= 1.9;
+        rawScore -= 0.4; // Deduct 0.4 for incorrect
+        subjectBreakdown[subj].score -= 0.4;
 
         // Push to My Mistakes Notebook
         addMistake({
