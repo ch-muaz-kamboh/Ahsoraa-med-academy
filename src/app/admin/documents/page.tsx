@@ -6,12 +6,10 @@ import { useAppStore } from '@/lib/store';
 import { StudentDocument } from '@/types';
 import { uploadDocument } from '@/lib/library-utils';
 
-// New state for upload modal
-const [uploadModal, setUploadModal] = useState(false);
-const [selectedFile, setSelectedFile] = useState<File | null>(null);
-const [uploadError, setUploadError] = useState('');
-
 export default function AdminDocumentsPage() {
+  const [uploadModal, setUploadModal] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [uploadError, setUploadError] = useState('');
   const { documents, updateDocStatus } = useAppStore();
   const [rejectModalDoc, setRejectModalDoc] = useState<StudentDocument | null>(null);
   const [rejectionNote, setRejectionNote] = useState('');
@@ -158,8 +156,66 @@ export default function AdminDocumentsPage() {
 
       {/* Revision Request Modal */}
       {rejectModalDoc && (
-        // existing revision modal unchanged
-        // ...
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(15, 23, 42, 0.6)',
+            backdropFilter: 'blur(4px)',
+            zIndex: 1000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px',
+          }}
+          onClick={() => setRejectModalDoc(null)}
+        >
+          <div
+            style={{
+              backgroundColor: '#FFFFFF',
+              borderRadius: '16px',
+              maxWidth: '480px',
+              width: '100%',
+              padding: '28px',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 style={{ fontSize: '1.25rem', color: '#0F172A', marginBottom: '8px' }}>
+              Request Document Revision
+            </h3>
+            <p style={{ color: '#64748B', fontSize: '0.875rem', marginBottom: '16px' }}>
+              Explain to the student what changes or certified translations are required.
+            </p>
+
+            <form onSubmit={handleRejectSubmit}>
+              <div className="form-group">
+                <label className="form-label">Reviewer Instructions / Rejection Reason *</label>
+                <textarea
+                  rows={4}
+                  required
+                  placeholder="e.g. Please attach all 4 pages including the official Italian apostille stamp..."
+                  className="form-textarea"
+                  value={rejectionNote}
+                  onChange={(e) => setRejectionNote(e.target.value)}
+                />
+              </div>
+
+              <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+                <button
+                  type="button"
+                  onClick={() => setRejectModalDoc(null)}
+                  className="btn-outline"
+                  style={{ fontSize: '0.875rem' }}
+                >
+                  Cancel
+                </button>
+                <button type="submit" className="btn-primary" style={{ backgroundColor: '#D97706', fontSize: '0.875rem' }}>
+                  Send Revision Request
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       )}
 
       {/* Document Upload Modal */}
@@ -224,68 +280,6 @@ export default function AdminDocumentsPage() {
                 </button>
                 <button type="submit" className="btn-primary" style={{ backgroundColor: '#2563EB', fontSize: '0.875rem' }}>
                   Upload
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-        <div
-          style={{
-            position: 'fixed',
-            inset: 0,
-            backgroundColor: 'rgba(15, 23, 42, 0.6)',
-            backdropFilter: 'blur(4px)',
-            zIndex: 1000,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '20px',
-          }}
-          onClick={() => setRejectModalDoc(null)}
-        >
-          <div
-            style={{
-              backgroundColor: '#FFFFFF',
-              borderRadius: '16px',
-              maxWidth: '480px',
-              width: '100%',
-              padding: '28px',
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h3 style={{ fontSize: '1.25rem', color: '#0F172A', marginBottom: '8px' }}>
-              Request Document Revision
-            </h3>
-            <p style={{ color: '#64748B', fontSize: '0.875rem', marginBottom: '16px' }}>
-              Explain to the student what changes or certified translations are required.
-            </p>
-
-            <form onSubmit={handleRejectSubmit}>
-              <div className="form-group">
-                <label className="form-label">Reviewer Instructions / Rejection Reason *</label>
-                <textarea
-                  rows={4}
-                  required
-                  placeholder="e.g. Please attach all 4 pages including the official Italian apostille stamp..."
-                  className="form-textarea"
-                  value={rejectionNote}
-                  onChange={(e) => setRejectionNote(e.target.value)}
-                />
-              </div>
-
-              <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
-                <button
-                  type="button"
-                  onClick={() => setRejectModalDoc(null)}
-                  className="btn-outline"
-                  style={{ fontSize: '0.875rem' }}
-                >
-                  Cancel
-                </button>
-                <button type="submit" className="btn-primary" style={{ backgroundColor: '#D97706', fontSize: '0.875rem' }}>
-                  Send Revision Request
                 </button>
               </div>
             </form>
