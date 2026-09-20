@@ -10,8 +10,8 @@ import Logo from '@/components/brand/Logo';
 export default function Footer() {
   const pathname = usePathname();
 
-  // If inside portal or admin layout, hide public footer
-  if (pathname?.startsWith('/portal') || pathname?.startsWith('/admin')) {
+  // If inside portal, admin, or staff layout, hide public footer
+  if (pathname?.startsWith('/portal') || pathname?.startsWith('/admin') || pathname?.startsWith('/staff')) {
     return null;
   }
 
@@ -117,6 +117,7 @@ export default function Footer() {
             <Link href="/about">Privacy Policy</Link>
             <Link href="/about">Terms of Service</Link>
             <Link href="/about">Admissions Disclaimer</Link>
+            <Link href="/staff/dashboard" style={{ color: '#2563EB', fontWeight: 600 }}>Staff Portal</Link>
             <Link href="/admin/dashboard" style={{ color: '#64748B' }}>Admin Panel</Link>
           </div>
         </div>

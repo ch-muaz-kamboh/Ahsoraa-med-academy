@@ -13,7 +13,12 @@ import {
   RecordedLecture,
   LibraryResource,
   StudentMistake,
+  StaffProfile,
+  StaffRole,
+  LiveClassAttendance,
+  MockVersionSnapshot,
 } from '@/types';
+
 import {
   mockCurrentUser,
   mockCourses,
@@ -46,6 +51,7 @@ interface AppContextType {
   updateDocStatus: (id: string, status: StudentDocument['status'], note?: string) => void;
   doubts: DoubtItem[];
   addDoubt: (doubt: Omit<DoubtItem, 'id' | 'createdAt' | 'status' | 'studentName'>) => void;
+  answerDoubt: (doubtId: string, answerText: string) => void;
   testAttempts: TestAttempt[];
   recordTestAttempt: (attempt: TestAttempt) => void;
   toggleLessonCompletion: (courseId: string, lessonId: string) => void;
@@ -53,6 +59,10 @@ interface AppContextType {
   setStudentLoggedIn: (val: boolean) => void;
   adminLoggedIn: boolean;
   setAdminLoggedIn: (val: boolean) => void;
+  staffLoggedIn: boolean;
+  setStaffLoggedIn: (val: boolean) => void;
+  staffProfile: StaffProfile;
+  setStaffRole: (role: StaffRole) => void;
   registerStudent: (data: { firstName: string; lastName: string; email: string; phone: string; targetExam: string }) => void;
   loginStudent: (email: string) => void;
   logoutStudent: () => void;
@@ -83,6 +93,12 @@ interface AppContextType {
   addMistake: (item: Omit<StudentMistake, 'id' | 'failedAt' | 'isResolved'>) => void;
   toggleMistakeResolved: (id: string) => void;
   deleteMistake: (id: string) => void;
+
+  // Staff Attendance & Snapshots
+  attendances: LiveClassAttendance[];
+  markAttendance: (scheduleId: string, studentId: string, studentName: string, status: 'present' | 'absent' | 'late') => void;
+  mockSnapshots: MockVersionSnapshot[];
+  createMockSnapshot: (versionLabel: string, questionIds: string[]) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -97,6 +113,34 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [testAttempts, setTestAttempts] = useState<TestAttempt[]>([]);
   const [studentLoggedIn, setStudentLoggedIn] = useState<boolean>(false);
   const [adminLoggedIn, setAdminLoggedIn] = useState<boolean>(false);
+  const [staffLoggedIn, setStaffLoggedIn] = useState<boolean>(true);
+  const [staffProfile, setStaffProfile] = useState<StaffProfile>({
+    id: 'staff-001',
+    email: 'dr.farhan@ahsorameds.com',
+    displayName: 'Dr. Farhan Ali (Senior Biology Instructor)',
+    accountType: 'staff',
+    role: 'teacher',
+    isActive: true,
+    assignedSubjects: ['Biology', 'Biochemistry'],
+    assignedCohorts: ['IMAT 2026 Alpha Cohort', 'IMAT 2026 Intensive Track'],
+    createdAt: new Date().toISOString(),
+  });
+  const [attendances, setAttendances] = useState<LiveClassAttendance[]>([]);
+  const [mockSnapshots, setMockSnapshots] = useState<MockVersionSnapshot[]>([
+    {
+      id: 'snap-v1',
+      versionLabel: 'IMAT Official CBT 2026 v1.0',
+      questionsCount: 60,
+      durationMinutes: 100,
+      scoringCorrect: 1.5,
+      scoringIncorrect: -0.4,
+      scoringBlank: 0,
+      maxScore: 90,
+      questionIds: ['qb-BIO-BCH-WAT-001-1', 'qb-BIO-BCH-WAT-002-2'],
+      createdBy: 'staff-001',
+      createdAt: new Date().toISOString(),
+    }
+  ]);
   const [liveTestSession, setLiveTestSession] = useState<LiveTestSession | null>(null);
 
   // New features state with localStorage persistence & Supabase sync
@@ -756,6 +800,63 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     );
   };
 
+  const setStaffRole = (role: StaffRole) => {
+    setStaffProfile((prev) => ({ ...prev, role }));
+  };
+
+  const answerDoubt = (doubtId: string, answerText: string) => {
+    setDoubts((prev) =>
+      prev.map((d) =>
+        d.id === doubtId
+          ? {
+              ...d,
+              status: 'resolved',
+              answer: answerText,
+              answeredAt: new Date().toISOString(),
+              facultyName: staffProfile.displayName,
+            }
+          : d
+      )
+    );
+  };
+
+  const markAttendance = (
+    scheduleId: string,
+    studentId: string,
+    studentName: string,
+    status: 'present' | 'absent' | 'late'
+  ) => {
+    setAttendances((prev) => [
+      ...prev.filter((a) => !(a.scheduleId === scheduleId && a.studentId === studentId)),
+      {
+        id: 'att-' + Date.now() + Math.random().toString(36).substr(2, 4),
+        scheduleId,
+        studentId,
+        studentName,
+        status,
+        markedAt: new Date().toISOString(),
+        markedBy: staffProfile.displayName,
+      },
+    ]);
+  };
+
+  const createMockSnapshot = (versionLabel: string, questionIds: string[]) => {
+    const newSnap: MockVersionSnapshot = {
+      id: 'snap-' + Date.now(),
+      versionLabel,
+      questionsCount: questionIds.length || 60,
+      durationMinutes: 100,
+      scoringCorrect: 1.5,
+      scoringIncorrect: -0.4,
+      scoringBlank: 0,
+      maxScore: 90,
+      questionIds,
+      createdBy: staffProfile.id,
+      createdAt: new Date().toISOString(),
+    };
+    setMockSnapshots((prev) => [newSnap, ...prev]);
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -771,6 +872,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         updateDocStatus,
         doubts,
         addDoubt,
+        answerDoubt,
         testAttempts,
         recordTestAttempt,
         toggleLessonCompletion,
@@ -778,6 +880,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         setStudentLoggedIn,
         adminLoggedIn,
         setAdminLoggedIn,
+        staffLoggedIn,
+        setStaffLoggedIn,
+        staffProfile,
+        setStaffRole,
         registerStudent,
         loginStudent,
         logoutStudent,
@@ -804,6 +910,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         addMistake,
         toggleMistakeResolved,
         deleteMistake,
+
+        attendances,
+        markAttendance,
+        mockSnapshots,
+        createMockSnapshot,
       }}
     >
       {children}

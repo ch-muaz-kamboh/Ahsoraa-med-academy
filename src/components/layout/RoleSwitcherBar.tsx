@@ -90,6 +90,18 @@ export default function RoleSwitcherBar() {
             Portal Dashboard →
           </Link>
           <Link
+            href="/staff/dashboard"
+            style={{
+              fontSize: '0.75rem',
+              color: '#34D399',
+              fontWeight: 600,
+              textDecoration: 'underline',
+              padding: '2px 6px'
+            }}
+          >
+            Staff Workspace →
+          </Link>
+          <Link
             href="/admin/dashboard"
             style={{
               fontSize: '0.75rem',

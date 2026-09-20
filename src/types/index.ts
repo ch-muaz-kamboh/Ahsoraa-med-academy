@@ -390,3 +390,44 @@ export interface StudentMistake {
   isResolved: boolean;
 }
 
+// ── Staff Portal & RBAC Architecture Types ────────────────────────────────────
+export type StaffRole = 'super_admin' | 'academic_admin' | 'teacher' | 'admissions_staff';
+export type PublishingStatus = 'draft' | 'in_review' | 'published' | 'archived';
+
+export interface StaffProfile {
+  id: string;
+  email: string;
+  displayName: string;
+  accountType: 'student' | 'staff' | 'admin';
+  role: StaffRole;
+  isActive: boolean;
+  assignedSubjects: string[];
+  assignedCohorts: string[];
+  createdAt: string;
+}
+
+export interface LiveClassAttendance {
+  id: string;
+  scheduleId: string;
+  studentId: string;
+  studentName: string;
+  status: 'present' | 'absent' | 'late';
+  markedAt: string;
+  markedBy: string;
+}
+
+export interface MockVersionSnapshot {
+  id: string;
+  versionLabel: string;
+  questionsCount: number;
+  durationMinutes: number;
+  scoringCorrect: number;
+  scoringIncorrect: number;
+  scoringBlank: number;
+  maxScore: number;
+  questionIds: string[];
+  createdBy: string;
+  createdAt: string;
+}
+
+
