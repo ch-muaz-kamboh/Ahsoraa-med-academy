@@ -442,4 +442,29 @@ export interface MockVersionSnapshot {
   createdAt: string;
 }
 
+export interface StaffQuestion {
+  id: string;
+  subject: string;
+  majorCategory: string;
+  chapter: string;
+  topic: string;
+  difficulty: 'easy' | 'medium' | 'hard';
+  question_text: string;
+  option_a: string;
+  option_b: string;
+  option_c: string;
+  option_d: string;
+  option_e: string;
+  correct_option: 'A' | 'B' | 'C' | 'D' | 'E';
+  explanation: string;
+  status: PublishingStatus;
+  author: string;
+  authorId: string;
+  submittedAt?: string;
+  reviewedAt?: string;
+  reviewNote?: string;
+  createdAt: string;
+}
+
+
 

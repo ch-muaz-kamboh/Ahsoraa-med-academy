@@ -19,6 +19,8 @@ import {
   StaffAccountRequest,
   LiveClassAttendance,
   MockVersionSnapshot,
+  StaffQuestion,
+  PublishingStatus,
 } from '@/types';
 
 import {
@@ -107,6 +109,14 @@ interface AppContextType {
   markAttendance: (scheduleId: string, studentId: string, studentName: string, status: 'present' | 'absent' | 'late') => void;
   mockSnapshots: MockVersionSnapshot[];
   createMockSnapshot: (versionLabel: string, questionIds: string[]) => void;
+
+  // Staff MCQ Review Workflow
+  staffQuestions: StaffQuestion[];
+  addStaffQuestion: (q: Omit<StaffQuestion, 'id' | 'createdAt' | 'status'>) => void;
+  submitQuestionForReview: (id: string) => void;
+  approveStaffQuestion: (id: string, note?: string) => void;
+  declineStaffQuestion: (id: string, note: string) => void;
+  deleteStaffQuestion: (id: string) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -165,10 +175,31 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           setStaffAccounts(updated);
         } catch {}
       }
+      if (e.key === 'ahsora_staffQuestions' && e.newValue) {
+        try {
+          const updated = JSON.parse(e.newValue);
+          setStaffQuestions(updated);
+        } catch {}
+      }
     };
     window.addEventListener('storage', handleStorage);
     return () => window.removeEventListener('storage', handleStorage);
   }, []);
+
+  // Staff MCQ Question Bank — shared, persisted
+  const [staffQuestions, setStaffQuestions] = useState<StaffQuestion[]>(() => {
+    if (typeof window === 'undefined') return [];
+    try {
+      const saved = localStorage.getItem('ahsora_staffQuestions');
+      return saved ? JSON.parse(saved) : [];
+    } catch { return []; }
+  });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('ahsora_staffQuestions', JSON.stringify(staffQuestions));
+    }
+  }, [staffQuestions]);
   const [mockSnapshots, setMockSnapshots] = useState<MockVersionSnapshot[]>([
     {
       id: 'snap-v1',
@@ -961,6 +992,79 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     setMockSnapshots((prev) => [newSnap, ...prev]);
   };
 
+  // ── Staff MCQ Review Workflow Actions ────────────────────────────────────────
+  const addStaffQuestion = (q: Omit<StaffQuestion, 'id' | 'createdAt' | 'status'>) => {
+    const newQ: StaffQuestion = {
+      ...q,
+      id: 'sq-' + Date.now() + Math.random().toString(36).substr(2, 4),
+      status: 'draft',
+      createdAt: new Date().toISOString(),
+    };
+    setStaffQuestions((prev) => [newQ, ...prev]);
+  };
+
+  const submitQuestionForReview = (id: string) => {
+    setStaffQuestions((prev) =>
+      prev.map((q) => q.id === id ? { ...q, status: 'in_review' as PublishingStatus, submittedAt: new Date().toISOString() } : q)
+    );
+  };
+
+  const approveStaffQuestion = (id: string, note?: string) => {
+    setStaffQuestions((prev) => {
+      const updated = prev.map((q) => q.id === id ? { ...q, status: 'published' as PublishingStatus, reviewedAt: new Date().toISOString(), reviewNote: note } : q);
+
+      const approvedQ = updated.find((q) => q.id === id);
+      if (approvedQ) {
+        const qbFormat = {
+          id: approvedQ.id,
+          subject: approvedQ.subject,
+          chapter: approvedQ.chapter || '',
+          topic: approvedQ.topic || '',
+          difficulty: approvedQ.difficulty,
+          question_text: approvedQ.questionText,
+          option_a: approvedQ.options.find((o) => o.key === 'A')?.text || '',
+          option_b: approvedQ.options.find((o) => o.key === 'B')?.text || '',
+          option_c: approvedQ.options.find((o) => o.key === 'C')?.text || '',
+          option_d: approvedQ.options.find((o) => o.key === 'D')?.text || '',
+          option_e: approvedQ.options.find((o) => o.key === 'E')?.text || '',
+          correct_option: approvedQ.correctOption,
+          explanation: approvedQ.explanation || '',
+          source_reference: `Staff: ${approvedQ.authorName || approvedQ.authorEmail || 'Faculty'}`,
+          is_active: true,
+          created_at: approvedQ.createdAt,
+        };
+
+        // Merge into local question bank pool for instant student access
+        try {
+          const cachedPool = localStorage.getItem('ahsora_local_qb_questions');
+          let poolArray = cachedPool ? JSON.parse(cachedPool) : [];
+          if (!poolArray.some((item: any) => item.id === qbFormat.id)) {
+            poolArray.unshift(qbFormat);
+            localStorage.setItem('ahsora_local_qb_questions', JSON.stringify(poolArray));
+          }
+        } catch (e) {}
+
+        // Async write to Supabase if connected
+        try {
+          const supabase = createClient();
+          supabase.from('qb_questions').upsert([qbFormat]).then(() => {});
+        } catch (e) {}
+      }
+
+      return updated;
+    });
+  };
+
+  const declineStaffQuestion = (id: string, note: string) => {
+    setStaffQuestions((prev) =>
+      prev.map((q) => q.id === id ? { ...q, status: 'draft' as PublishingStatus, reviewedAt: new Date().toISOString(), reviewNote: note } : q)
+    );
+  };
+
+  const deleteStaffQuestion = (id: string) => {
+    setStaffQuestions((prev) => prev.filter((q) => q.id !== id));
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -1025,6 +1129,13 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         markAttendance,
         mockSnapshots,
         createMockSnapshot,
+
+        staffQuestions,
+        addStaffQuestion,
+        submitQuestionForReview,
+        approveStaffQuestion,
+        declineStaffQuestion,
+        deleteStaffQuestion,
       }}
     >
       {children}

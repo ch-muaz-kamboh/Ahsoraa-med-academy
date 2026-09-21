@@ -11,8 +11,42 @@ import {
 import importedQuestions, { getImportedQuestions } from '@/lib/imported_questions';
 
 const getPool = (): any[] => {
-  const q = getImportedQuestions();
-  return (q && q.length > 0) ? q : (importedQuestions as any[]);
+  let basePool = getImportedQuestions();
+  if (!basePool || basePool.length === 0) basePool = importedQuestions as any[];
+
+  try {
+    const staffQsStr = typeof window !== 'undefined' ? localStorage.getItem('ahsora_local_staff_questions') : null;
+    if (staffQsStr) {
+      const staffQs = JSON.parse(staffQsStr);
+      const publishedStaff = staffQs
+        .filter((q: any) => q.status === 'published')
+        .map((q: any) => ({
+          id: q.id,
+          subject: q.subject,
+          chapter: q.chapter || '',
+          topic: q.topic || '',
+          difficulty: q.difficulty,
+          question_text: q.questionText,
+          option_a: q.options?.find((o: any) => o.key === 'A')?.text || '',
+          option_b: q.options?.find((o: any) => o.key === 'B')?.text || '',
+          option_c: q.options?.find((o: any) => o.key === 'C')?.text || '',
+          option_d: q.options?.find((o: any) => o.key === 'D')?.text || '',
+          option_e: q.options?.find((o: any) => o.key === 'E')?.text || '',
+          correct_option: q.correctOption,
+          explanation: q.explanation || '',
+          source_reference: `Staff: ${q.authorName || q.authorEmail || 'Faculty'}`,
+          is_active: true,
+          created_at: q.createdAt,
+        }));
+
+      // Combine published staff MCQs with base pool
+      const existingIds = new Set(basePool.map((b: any) => b.id));
+      const newStaffQs = publishedStaff.filter((s: any) => !existingIds.has(s.id));
+      return [...newStaffQs, ...basePool];
+    }
+  } catch (e) {}
+
+  return basePool;
 };
 
 const SUBJECTS = [
