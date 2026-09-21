@@ -5,6 +5,7 @@ interface LogoProps {
   height?: number;
   className?: string;
   showText?: boolean; // Kept for compatibility but SVG handles text beautifully
+  variant?: 'light' | 'dark' | string;
 }
 
 export default function Logo({

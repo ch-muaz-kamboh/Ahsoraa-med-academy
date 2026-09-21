@@ -63,7 +63,7 @@ export default function StaffDoubtsPage() {
               </div>
 
               <p style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#0F172A', marginBottom: '8px' }}>
-                {doubt.question}
+                {doubt.questionText || doubt.question || doubt.title}
               </p>
 
               <div style={{ fontSize: '0.8125rem', color: '#64748B' }}>
@@ -84,15 +84,15 @@ export default function StaffDoubtsPage() {
               <div style={{ backgroundColor: '#F8FAFC', padding: '16px', borderRadius: '8px', marginBottom: '20px' }}>
                 <div style={{ fontSize: '0.75rem', color: '#64748B', marginBottom: '4px' }}>Student Question:</div>
                 <p style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#0F172A', margin: 0 }}>
-                  {selectedDoubt.question}
+                  {selectedDoubt.questionText || selectedDoubt.question || selectedDoubt.title}
                 </p>
               </div>
 
-              {selectedDoubt.answer && (
+              {(selectedDoubt.resolutionNote || selectedDoubt.answer) && (
                 <div style={{ backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', padding: '16px', borderRadius: '8px', marginBottom: '20px' }}>
                   <div style={{ fontSize: '0.75rem', color: '#059669', fontWeight: 700, marginBottom: '4px' }}>Existing Faculty Response:</div>
                   <p style={{ fontSize: '0.875rem', color: '#065F46', margin: 0 }}>
-                    {selectedDoubt.answer}
+                    {selectedDoubt.resolutionNote || selectedDoubt.answer}
                   </p>
                 </div>
               )}

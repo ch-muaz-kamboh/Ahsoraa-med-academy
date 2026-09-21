@@ -209,7 +209,7 @@ export default function StaffDashboardPage() {
                       <span style={{ fontSize: '0.75rem', color: '#94A3B8' }}>{doubt.studentName}</span>
                     </div>
                     <p style={{ fontSize: '0.875rem', color: '#0F172A', fontWeight: 600, marginBottom: '8px' }}>
-                      {doubt.question}
+                      {doubt.questionText || doubt.question || doubt.title}
                     </p>
                     <Link
                       href="/staff/doubts"

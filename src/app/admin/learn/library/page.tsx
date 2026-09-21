@@ -343,15 +343,50 @@ export default function AdminLibraryManagerPage() {
 
               <div>
                 <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
-                  PDF Download File Link / Path
+                  Upload Document / PDF File
                 </label>
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                  <label
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: '10px 16px',
+                      borderRadius: '8px',
+                      backgroundColor: '#EFF6FF',
+                      border: '1px dashed #3B82F6',
+                      color: '#2563EB',
+                      fontWeight: 600,
+                      fontSize: '0.875rem',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <FileText size={16} /> Choose File from Computer
+                    <input
+                      type="file"
+                      accept=".pdf,.docx,.doc,.epub,.pptx"
+                      style={{ display: 'none' }}
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          const localUrl = URL.createObjectURL(file);
+                          setFileUrl(localUrl);
+                          if (!title) {
+                            setTitle(file.name.replace(/\.[^/.]+$/, ""));
+                          }
+                        }
+                      }}
+                    />
+                  </label>
+                  <span style={{ fontSize: '0.75rem', color: '#64748B' }}>or enter URL directly:</span>
+                </div>
                 <input
                   type="text"
                   required
                   value={fileUrl}
                   onChange={(e) => setFileUrl(e.target.value)}
                   placeholder="/files/ahsora-biology-high-yield-2026.pdf"
-                  style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #CBD5E1' }}
+                  style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #CBD5E1', marginTop: '8px' }}
                 />
               </div>
 

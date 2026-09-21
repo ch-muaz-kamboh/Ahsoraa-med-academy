@@ -234,6 +234,10 @@ export interface DoubtItem {
   topic: string;
   title: string;
   questionText: string;
+  question?: string;
+  answer?: string;
+  answeredAt?: string;
+  facultyName?: string;
   status: DoubtStatus;
   assignedMentorName?: string;
   resolutionNote?: string;

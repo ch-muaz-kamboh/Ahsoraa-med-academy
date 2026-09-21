@@ -363,14 +363,49 @@ export default function AdminLecturesManagerPage() {
 
               <div>
                 <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
-                  Video Embed / Stream URL
+                  Upload Video File or Video Embed URL
                 </label>
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '8px' }}>
+                  <label
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: '10px 16px',
+                      borderRadius: '8px',
+                      backgroundColor: '#FEF3C7',
+                      border: '1px dashed #D97706',
+                      color: '#B45309',
+                      fontWeight: 600,
+                      fontSize: '0.875rem',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <Video size={16} /> Choose Video File from Device
+                    <input
+                      type="file"
+                      accept="video/mp4,video/webm,video/mkv,video/*"
+                      style={{ display: 'none' }}
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          const localUrl = URL.createObjectURL(file);
+                          setVideoUrl(localUrl);
+                          if (!title) {
+                            setTitle(file.name.replace(/\.[^/.]+$/, ""));
+                          }
+                        }
+                      }}
+                    />
+                  </label>
+                  <span style={{ fontSize: '0.75rem', color: '#64748B' }}>or enter video stream URL:</span>
+                </div>
                 <input
-                  type="url"
+                  type="text"
                   required
                   value={videoUrl}
                   onChange={(e) => setVideoUrl(e.target.value)}
-                  placeholder="https://www.youtube.com/embed/xyz"
+                  placeholder="https://www.youtube.com/embed/xyz or video link"
                   style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #CBD5E1' }}
                 />
               </div>
@@ -378,7 +413,7 @@ export default function AdminLecturesManagerPage() {
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
-                    Thumbnail Image URL
+                    Thumbnail Image URL / File
                   </label>
                   <input
                     type="text"
@@ -390,15 +425,46 @@ export default function AdminLecturesManagerPage() {
                 </div>
                 <div>
                   <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
-                    PDF Notes Attachment URL
+                    PDF Handout File / Link
                   </label>
-                  <input
-                    type="text"
-                    value={pdfAttachmentUrl}
-                    onChange={(e) => setPdfAttachmentUrl(e.target.value)}
-                    placeholder="/files/lecture-handout.pdf"
-                    style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #CBD5E1' }}
-                  />
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    <label
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '6px',
+                        padding: '8px 12px',
+                        borderRadius: '6px',
+                        backgroundColor: '#EFF6FF',
+                        border: '1px dashed #3B82F6',
+                        color: '#2563EB',
+                        fontWeight: 600,
+                        fontSize: '0.8125rem',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      <FileText size={14} /> Upload PDF Handout
+                      <input
+                        type="file"
+                        accept=".pdf"
+                        style={{ display: 'none' }}
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            setPdfAttachmentUrl(URL.createObjectURL(file));
+                          }
+                        }}
+                      />
+                    </label>
+                    <input
+                      type="text"
+                      value={pdfAttachmentUrl}
+                      onChange={(e) => setPdfAttachmentUrl(e.target.value)}
+                      placeholder="/files/lecture-handout.pdf"
+                      style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #CBD5E1' }}
+                    />
+                  </div>
                 </div>
               </div>
 
