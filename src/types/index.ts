@@ -408,7 +408,8 @@ export type StaffPermission =
   | 'attendance'
   | 'applications'
   | 'leads'
-  | 'visa';
+  | 'visa'
+  | 'medpath_elite';
 
 export const ALL_STAFF_PERMISSIONS: { key: StaffPermission; label: string; description: string }[] = [
   { key: 'schedule', label: 'My Schedule & Live', description: 'View and manage assigned live classes & schedule' },
@@ -420,6 +421,7 @@ export const ALL_STAFF_PERMISSIONS: { key: StaffPermission; label: string; descr
   { key: 'applications', label: 'Student Applications', description: 'View and update university admission applications' },
   { key: 'leads', label: 'Lead CRM Management', description: 'Manage sales leads and counsellors' },
   { key: 'visa', label: 'Visa & Enrolment', description: 'Track student visa and pre-enrolment status' },
+  { key: 'medpath_elite', label: 'Medpath Elite Tracker', description: 'Manage university process stages for Elite package students' },
 ];
 
 export interface StaffProfile {

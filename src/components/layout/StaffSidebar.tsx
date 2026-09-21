@@ -14,6 +14,7 @@ import {
   UserCheck,
   Sparkles,
   LogOut,
+  Star,
 } from 'lucide-react';
 import Logo from '@/components/brand/Logo';
 import { useAppStore } from '@/lib/store';
@@ -103,6 +104,13 @@ export default function StaffSidebar() {
       href: '/admin/visa',
       icon: <UserCheck size={18} />,
       permission: 'visa',
+    },
+    {
+      label: 'Medpath Elite',
+      href: '/staff/medpath-elite',
+      icon: <Star size={18} />,
+      permission: 'medpath_elite',
+      badge: 'Elite',
     },
     {
       label: 'My Staff Profile',

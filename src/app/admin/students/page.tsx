@@ -38,6 +38,7 @@ export default function AdminStudentsPage() {
   const [students, setStudents] = useState<StudentProfile[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const [packageFilter, setPackageFilter] = useState<string>('all');
   const [updating, setUpdating] = useState<string | null>(null);
   
   // Modals
@@ -202,8 +203,9 @@ export default function AdminStudentsPage() {
     const country = s.country || '';
     const pkg = s.selected_package || s.selectedPackage || '';
     const whatsapp = s.whatsapp_number || s.whatsappNumber || '';
+    const matchedPkgName = getPackageByIdOrName(pkg).name;
 
-    return (
+    const matchesSearch = (
       name.toLowerCase().includes(q) ||
       email.toLowerCase().includes(q) ||
       amaId.toLowerCase().includes(q) ||
@@ -211,10 +213,24 @@ export default function AdminStudentsPage() {
       pkg.toLowerCase().includes(q) ||
       whatsapp.toLowerCase().includes(q)
     );
+
+    const matchesPkg = packageFilter === 'all' || matchedPkgName === packageFilter;
+    return matchesSearch && matchesPkg;
   });
 
   const approvedCount = students.filter((s) => s.payment_approved).length;
   const pendingCount = students.filter((s) => !s.payment_approved).length;
+
+  const packageColors: Record<string, { bg: string; border: string; badge: string; text: string; accent: string }> = {
+    'Ahsora IMAT Ascend':  { bg: '#EFF6FF', border: '#BFDBFE', badge: '#2563EB', text: '#1E3A8A', accent: '#3B82F6' },
+    'Ahsora IMAT Mastery': { bg: '#F5F3FF', border: '#DDD6FE', badge: '#7C3AED', text: '#3B0764', accent: '#8B5CF6' },
+    'Ahsora Path Elite':   { bg: '#FFF7ED', border: '#FED7AA', badge: '#EA580C', text: '#7C2D12', accent: '#F97316' },
+  };
+
+  const getStudentPkgName = (s: StudentProfile) => {
+    const raw = s.selected_package || s.selectedPackage || '';
+    return getPackageByIdOrName(raw).name;
+  };
 
   return (
     <div style={{ padding: '32px' }}>
@@ -251,6 +267,80 @@ export default function AdminStudentsPage() {
             <div style={{ fontSize: '0.8125rem', color: '#64748B', marginTop: '4px', fontWeight: 600 }}>{stat.label}</div>
           </div>
         ))}
+      </div>
+
+      {/* Package Overview Section */}
+      <div style={{ marginBottom: '28px' }}>
+        <div style={{ fontSize: '1rem', fontWeight: 800, color: '#0F172A', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span style={{ width: '4px', height: '18px', backgroundColor: '#2563EB', borderRadius: '2px', display: 'inline-block' }} />
+          Package Plans Overview
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
+          {ACADEMY_PACKAGES.map((pkg) => {
+            const colors = packageColors[pkg.name] || { bg: '#F8FAFC', border: '#E2E8F0', badge: '#64748B', text: '#334155', accent: '#64748B' };
+            const enrolledCount = students.filter((s) => getStudentPkgName(s) === pkg.name).length;
+            const approvedInPkg = students.filter((s) => getStudentPkgName(s) === pkg.name && s.payment_approved).length;
+            const revenue = students
+              .filter((s) => getStudentPkgName(s) === pkg.name && s.payment_approved)
+              .reduce((sum) => sum + pkg.numericPrice, 0);
+            return (
+              <div
+                key={pkg.id}
+                onClick={() => setPackageFilter(packageFilter === pkg.name ? 'all' : pkg.name)}
+                style={{
+                  backgroundColor: packageFilter === pkg.name ? colors.bg : '#FFFFFF',
+                  border: `2px solid ${packageFilter === pkg.name ? colors.accent : '#E2E8F0'}`,
+                  borderRadius: '16px',
+                  padding: '20px 22px',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  boxShadow: packageFilter === pkg.name ? `0 8px 24px -6px ${colors.accent}40` : 'none',
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+                  <div>
+                    <span style={{ fontSize: '0.6875rem', fontWeight: 800, backgroundColor: colors.badge, color: '#FFFFFF', padding: '2px 8px', borderRadius: '10px', letterSpacing: '0.5px' }}>
+                      {pkg.badge || pkg.id.toUpperCase()}
+                    </span>
+                    <div style={{ fontSize: '1rem', fontWeight: 800, color: colors.text, marginTop: '6px' }}>{pkg.name}</div>
+                  </div>
+                  <div style={{ textAlign: 'right' }}>
+                    <div style={{ fontSize: '1.4rem', fontWeight: 900, color: colors.accent }}>{pkg.price}</div>
+                    <div style={{ fontSize: '0.7rem', color: '#94A3B8', fontWeight: 600 }}>{pkg.period}</div>
+                  </div>
+                </div>
+                <p style={{ fontSize: '0.8125rem', color: '#64748B', lineHeight: 1.5, marginBottom: '14px' }}>{pkg.description}</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '14px' }}>
+                  {pkg.features.map((f, idx) => (
+                    <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', color: '#475569' }}>
+                      <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: colors.accent, flexShrink: 0 }} />
+                      {f}
+                    </div>
+                  ))}
+                </div>
+                <div style={{ borderTop: `1px solid ${colors.border}`, paddingTop: '12px', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px', textAlign: 'center' }}>
+                  <div>
+                    <div style={{ fontSize: '1.4rem', fontWeight: 900, color: colors.accent }}>{enrolledCount}</div>
+                    <div style={{ fontSize: '0.6875rem', color: '#94A3B8', fontWeight: 600 }}>Enrolled</div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '1.4rem', fontWeight: 900, color: '#16A34A' }}>{approvedInPkg}</div>
+                    <div style={{ fontSize: '0.6875rem', color: '#94A3B8', fontWeight: 600 }}>Approved</div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '1.1rem', fontWeight: 900, color: '#2563EB' }}>€{revenue}</div>
+                    <div style={{ fontSize: '0.6875rem', color: '#94A3B8', fontWeight: 600 }}>Revenue</div>
+                  </div>
+                </div>
+                {packageFilter === pkg.name && (
+                  <div style={{ marginTop: '10px', textAlign: 'center', fontSize: '0.75rem', fontWeight: 700, color: colors.accent }}>
+                    ✓ Filtering by this package · click to clear
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       {/* Search & Refresh Bar */}

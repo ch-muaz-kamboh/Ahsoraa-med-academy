@@ -35,7 +35,6 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
   const [learnOpen, setLearnOpen] = useState<boolean>(false);
   const [practiceOpen, setPracticeOpen] = useState<boolean>(false);
   const [progressOpen, setProgressOpen] = useState<boolean>(false);
-  const [medpathOpen, setMedpathOpen] = useState<boolean>(false);
   const [sidebarExpanded, setSidebarExpanded] = useState<boolean>(true);
 
   const handleLogout = async () => {
@@ -435,79 +434,34 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           )}
         </div>
 
-        {/* MedPath Elite Dropdown */}
-        <div>
-          <button
-            type="button"
-            onClick={() => {
-              setMedpathOpen(!medpathOpen);
-              if (!sidebarExpanded) setSidebarExpanded(true);
-            }}
-            style={{
-              width: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '10px 14px',
-              borderRadius: '8px',
-              fontSize: '0.875rem',
-              fontWeight: 600,
-              color: isMedpathActive ? '#2563EB' : '#334155',
-              backgroundColor: isMedpathActive ? '#EFF6FF' : 'transparent',
-              border: 'none',
-              cursor: 'pointer',
-              transition: 'all 0.15s ease',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <Award size={18} color={isMedpathActive ? '#2563EB' : '#7C3AED'} />
-              {sidebarExpanded && <span style={{ fontWeight: 700 }}>MedPath Elite</span>}
-            </div>
-            {sidebarExpanded && (medpathOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />)}
-          </button>
-
-          {medpathOpen && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', paddingLeft: '28px', marginTop: '4px' }}>
-              <Link
-                href="/portal/medpath/applications"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  padding: '8px 12px',
-                  borderRadius: '6px',
-                  fontSize: '0.8125rem',
-                  fontWeight: pathname === '/portal/medpath/applications' ? 600 : 500,
-                  color: pathname === '/portal/medpath/applications' ? '#2563EB' : '#64748B',
-                  backgroundColor: pathname === '/portal/medpath/applications' ? '#DBEAFE' : 'transparent',
-                  transition: 'all 0.15s ease',
-                }}
-              >
-                <Building size={15} />
-                {sidebarExpanded && <span>1. Uni Applications & Status</span>}
-              </Link>
-
-              <Link
-                href="/portal/medpath/pre-enrolment"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  padding: '8px 12px',
-                  borderRadius: '6px',
-                  fontSize: '0.8125rem',
-                  fontWeight: pathname === '/portal/medpath/pre-enrolment' ? 600 : 500,
-                  color: pathname === '/portal/medpath/pre-enrolment' ? '#2563EB' : '#64748B',
-                  backgroundColor: pathname === '/portal/medpath/pre-enrolment' ? '#DBEAFE' : 'transparent',
-                  transition: 'all 0.15s ease',
-                }}
-              >
-                <Compass size={15} />
-                {sidebarExpanded && <span>2. Pre-Enrolment Roadmap</span>}
-              </Link>
-            </div>
+        {/* MedPath Elite — Direct Link (gate check happens on page) */}
+        <Link
+          href="/portal/medpath"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '10px 14px',
+            borderRadius: '8px',
+            fontSize: '0.875rem',
+            fontWeight: 600,
+            color: isMedpathActive ? '#EA580C' : '#334155',
+            backgroundColor: isMedpathActive ? '#FFF7ED' : 'transparent',
+            textDecoration: 'none',
+            transition: 'all 0.15s ease',
+            border: isMedpathActive ? '1px solid #FED7AA' : '1px solid transparent',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <Award size={18} color={isMedpathActive ? '#EA580C' : '#7C3AED'} />
+            {sidebarExpanded && <span style={{ fontWeight: 700 }}>MedPath Elite</span>}
+          </div>
+          {sidebarExpanded && (
+            <span style={{ fontSize: '0.6875rem', backgroundColor: '#EA580C', color: '#FFFFFF', padding: '2px 7px', borderRadius: '10px', fontWeight: 800, letterSpacing: '0.3px' }}>
+              ELITE
+            </span>
           )}
-        </div>
+        </Link>
 
         {/* Document Vault */}
         <Link

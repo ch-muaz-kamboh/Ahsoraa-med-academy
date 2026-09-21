@@ -43,6 +43,24 @@ export interface LiveTestSession {
   isLive: boolean;
 }
 
+export type MedpathStageStatus = 'pending' | 'in_progress' | 'completed';
+
+export interface MedpathEliteStudent {
+  id: string;
+  studentId: string;
+  studentName: string;
+  email: string;
+  registeredAt: string;
+  stages: {
+    pre_enrollment: MedpathStageStatus;
+    dov_submission: MedpathStageStatus;
+    university_application: MedpathStageStatus;
+    admission_decision: MedpathStageStatus;
+    visa_process: MedpathStageStatus;
+    housing_arrival: MedpathStageStatus;
+  };
+}
+
 interface AppContextType {
   currentRole: UserRole;
   setRole: (role: UserRole) => void;
@@ -119,6 +137,11 @@ interface AppContextType {
   approveStaffQuestion: (id: string, note?: string) => void;
   declineStaffQuestion: (id: string, note: string) => void;
   deleteStaffQuestion: (id: string) => void;
+
+  // Medpath Elite
+  eliteStudents: MedpathEliteStudent[];
+  addEliteStudent: (student: Omit<MedpathEliteStudent, 'id'>) => void;
+  updateEliteStage: (studentId: string, stage: keyof MedpathEliteStudent['stages'], status: MedpathStageStatus) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -149,6 +172,22 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         localStorage.setItem('ahsora_adminLoggedIn', 'true');
       } else {
         localStorage.removeItem('ahsora_adminLoggedIn');
+      }
+    }
+  };
+
+  const [studentLoggedIn, setStudentLoggedInState] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    return localStorage.getItem('ahsora_studentLoggedIn') === 'true';
+  });
+
+  const setStudentLoggedIn = (val: boolean) => {
+    setStudentLoggedInState(val);
+    if (typeof window !== 'undefined') {
+      if (val) {
+        localStorage.setItem('ahsora_studentLoggedIn', 'true');
+      } else {
+        localStorage.removeItem('ahsora_studentLoggedIn');
       }
     }
   };
@@ -774,8 +813,47 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     if (role === 'admin') {
       setAdminLoggedIn(true);
     } else if (role === 'student') {
-      setStudentLoggedIn(true);
+      setStudentLoggedInState(true);
     }
+  };
+
+  // ── Medpath Elite Students ───────────────────────────────────────────────────
+  const [eliteStudents, setEliteStudents] = useState<MedpathEliteStudent[]>(() => {
+    if (typeof window === 'undefined') return [];
+    try {
+      const saved = localStorage.getItem('ahsora_elite_students');
+      return saved ? JSON.parse(saved) : [];
+    } catch { return []; }
+  });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('ahsora_elite_students', JSON.stringify(eliteStudents));
+    }
+  }, [eliteStudents]);
+
+  const addEliteStudent = (student: Omit<MedpathEliteStudent, 'id'>) => {
+    const existing = eliteStudents.find((s) => s.studentId === student.studentId);
+    if (existing) return; // already registered
+    const newStudent: MedpathEliteStudent = {
+      ...student,
+      id: 'elite-' + Date.now(),
+    };
+    setEliteStudents((prev) => [newStudent, ...prev]);
+  };
+
+  const updateEliteStage = (
+    studentId: string,
+    stage: keyof MedpathEliteStudent['stages'],
+    status: MedpathStageStatus
+  ) => {
+    setEliteStudents((prev) =>
+      prev.map((s) =>
+        s.studentId === studentId
+          ? { ...s, stages: { ...s.stages, [stage]: status } }
+          : s
+      )
+    );
   };
 
   const startLiveTest = (testId: string, testTitle: string) => {
@@ -1185,6 +1263,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         approveStaffQuestion,
         declineStaffQuestion,
         deleteStaffQuestion,
+
+        eliteStudents,
+        addEliteStudent,
+        updateEliteStage,
       }}
     >
       {children}
