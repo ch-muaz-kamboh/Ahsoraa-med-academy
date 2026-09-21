@@ -121,37 +121,38 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [testAttempts, setTestAttempts] = useState<TestAttempt[]>([]);
   const [studentLoggedIn, setStudentLoggedIn] = useState<boolean>(false);
   const [adminLoggedIn, setAdminLoggedIn] = useState<boolean>(false);
-  const [staffLoggedIn, setStaffLoggedIn] = useState<boolean>(false);
-  const [staffAccounts, setStaffAccounts] = useState<StaffAccountRequest[]>([
-    {
-      id: 'staff-001',
-      email: 'dr.farhan@ahsorameds.com',
-      displayName: 'Dr. Farhan Ali (Senior Biology Instructor)',
-      accountType: 'staff',
-      role: 'teacher',
-      isActive: true,
-      status: 'approved',
-      assignedSubjects: ['Biology', 'Biochemistry'],
-      assignedCohorts: ['IMAT 2026 Alpha Cohort', 'IMAT 2026 Intensive Track'],
-      password: 'password123',
-      createdAt: new Date().toISOString(),
-    },
-    {
-      id: 'staff-002',
-      email: 'sarah.jenkins@ahsorameds.com',
-      displayName: 'Dr. Sarah Jenkins',
-      accountType: 'staff',
-      role: 'academic_admin',
-      isActive: false,
-      status: 'pending',
-      assignedSubjects: ['Chemistry', 'Physics'],
-      assignedCohorts: ['IMAT 2026 Alpha Cohort'],
-      password: 'password123',
-      createdAt: new Date().toISOString(),
-    },
-  ]);
-  const [staffProfile, setStaffProfile] = useState<StaffProfile>(staffAccounts[0]);
+  const [staffLoggedIn, setStaffLoggedIn] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    return localStorage.getItem('ahsora_staffLoggedIn') === 'true';
+  });
+  const [staffAccounts, setStaffAccounts] = useState<StaffAccountRequest[]>(() => {
+    if (typeof window === 'undefined') return [];
+    try {
+      const saved = localStorage.getItem('ahsora_staffAccounts');
+      return saved ? JSON.parse(saved) : [];
+    } catch { return []; }
+  });
+  const [staffProfile, setStaffProfile] = useState<StaffProfile>(() => {
+    if (typeof window === 'undefined') return {} as StaffProfile;
+    try {
+      const saved = localStorage.getItem('ahsora_staffProfile');
+      return saved ? JSON.parse(saved) : {} as StaffProfile;
+    } catch { return {} as StaffProfile; }
+  });
   const [attendances, setAttendances] = useState<LiveClassAttendance[]>([]);
+
+  // Persist staff accounts and profile to localStorage
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('ahsora_staffAccounts', JSON.stringify(staffAccounts));
+    }
+  }, [staffAccounts]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && staffProfile && staffProfile.id) {
+      localStorage.setItem('ahsora_staffProfile', JSON.stringify(staffProfile));
+    }
+  }, [staffProfile]);
   const [mockSnapshots, setMockSnapshots] = useState<MockVersionSnapshot[]>([
     {
       id: 'snap-v1',
@@ -876,11 +877,19 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
     setStaffProfile(acc);
     setStaffLoggedIn(true);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('ahsora_staffLoggedIn', 'true');
+      localStorage.setItem('ahsora_staffProfile', JSON.stringify(acc));
+    }
     return { success: true, message: 'Login successful!' };
   };
 
   const logoutStaffAccount = () => {
     setStaffLoggedIn(false);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('ahsora_staffLoggedIn');
+      localStorage.removeItem('ahsora_staffProfile');
+    }
   };
 
   const answerDoubt = (doubtId: string, answerText: string) => {
