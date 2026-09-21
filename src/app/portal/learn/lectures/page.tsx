@@ -429,21 +429,48 @@ export default function StudentRecordedLecturesPage() {
             </div>
 
             {/* Video Player Container */}
-            <div style={{ position: 'relative', paddingTop: '56.25%', backgroundColor: '#000000' }}>
-              <iframe
-                src={activeLecture.videoUrl}
-                title={activeLecture.title}
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  border: 'none',
-                }}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
+            <div style={{ position: 'relative', paddingTop: '56.25%', backgroundColor: '#000000', borderRadius: '0' }}>
+              {activeLecture.videoUrl && (
+                activeLecture.videoUrl.startsWith('blob:') ||
+                activeLecture.videoUrl.startsWith('data:') ||
+                activeLecture.videoUrl.match(/\.(mp4|webm|mkv|mov)($|\?)/i) ||
+                (!activeLecture.videoUrl.includes('youtube') && !activeLecture.videoUrl.includes('youtu.be') && !activeLecture.videoUrl.includes('vimeo')) ? (
+                  <video
+                    src={activeLecture.videoUrl}
+                    controls
+                    autoPlay
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'contain',
+                    }}
+                  />
+                ) : (
+                  <iframe
+                    src={
+                      activeLecture.videoUrl.includes('watch?v=')
+                        ? activeLecture.videoUrl.replace('watch?v=', 'embed/')
+                        : activeLecture.videoUrl.includes('youtu.be/')
+                        ? `https://www.youtube.com/embed/${activeLecture.videoUrl.split('youtu.be/')[1]?.split('?')[0]}`
+                        : activeLecture.videoUrl
+                    }
+                    title={activeLecture.title}
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      border: 'none',
+                    }}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                )
+              )}
             </div>
 
             {/* Modal Details & Attachments */}

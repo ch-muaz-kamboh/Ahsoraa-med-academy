@@ -26,11 +26,14 @@ import Logo from '@/components/brand/Logo';
 
 export default function AdminSidebar() {
   const pathname = usePathname();
-  const { currentRole } = useAppStore();
+  const { currentRole, staffAccounts } = useAppStore();
+
+  const pendingCount = staffAccounts ? staffAccounts.filter((a) => a.status === 'pending').length : 0;
 
   const links = [
     { href: '/admin/dashboard', label: 'Dashboard', icon: <LayoutDashboard size={18} /> },
     { href: '/admin/students', label: 'Student Management', icon: <GraduationCap size={18} /> },
+    { href: '/admin/staff-requests', label: `Faculty Requests ${pendingCount > 0 ? `(${pendingCount})` : ''}`, icon: <ShieldCheck size={18} />, badge: pendingCount },
     { href: '/admin/tests', label: 'Mock Tests', icon: <BookOpenCheck size={18} /> },
     { href: '/admin/question-bank', label: 'Question Bank', icon: <Database size={18} /> },
     { href: '/admin/learn/schedule', label: 'Schedule Manager', icon: <Calendar size={18} /> },

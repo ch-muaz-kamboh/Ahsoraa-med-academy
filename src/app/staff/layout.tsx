@@ -1,12 +1,31 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import StaffSidebar from '@/components/layout/StaffSidebar';
 import { useAppStore } from '@/lib/store';
-import { Shield, BookOpen, AlertCircle, Bell } from 'lucide-react';
+import { Shield, BookOpen, AlertCircle, Bell, LogOut } from 'lucide-react';
 
 export default function StaffLayout({ children }: { children: React.ReactNode }) {
-  const { staffProfile } = useAppStore();
+  const router = useRouter();
+  const pathname = usePathname();
+  const { staffProfile, staffLoggedIn, logoutStaffAccount } = useAppStore();
+
+  const isAuthPage = pathname === '/staff/auth';
+
+  useEffect(() => {
+    if (!isAuthPage && (!staffLoggedIn || staffProfile.status !== 'approved')) {
+      router.replace('/staff/auth');
+    }
+  }, [staffLoggedIn, staffProfile, isAuthPage, router]);
+
+  if (isAuthPage) {
+    return <>{children}</>;
+  }
+
+  if (!staffLoggedIn || staffProfile.status !== 'approved') {
+    return null;
+  }
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#F8FAFC' }}>
@@ -71,6 +90,28 @@ export default function StaffLayout({ children }: { children: React.ReactNode })
             >
               {staffProfile.displayName.charAt(0)}
             </div>
+            <button
+              onClick={() => {
+                logoutStaffAccount();
+                router.push('/staff/auth');
+              }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '6px 12px',
+                borderRadius: '8px',
+                backgroundColor: '#FEF2F2',
+                color: '#DC2626',
+                border: '1px solid #FCA5A5',
+                fontSize: '0.8125rem',
+                fontWeight: 600,
+                cursor: 'pointer',
+              }}
+            >
+              <LogOut size={14} />
+              Sign Out
+            </button>
           </div>
         </header>
 

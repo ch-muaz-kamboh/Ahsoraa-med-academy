@@ -15,6 +15,8 @@ import {
   StudentMistake,
   StaffProfile,
   StaffRole,
+  StaffAccountStatus,
+  StaffAccountRequest,
   LiveClassAttendance,
   MockVersionSnapshot,
 } from '@/types';
@@ -63,6 +65,12 @@ interface AppContextType {
   setStaffLoggedIn: (val: boolean) => void;
   staffProfile: StaffProfile;
   setStaffRole: (role: StaffRole) => void;
+  staffAccounts: StaffAccountRequest[];
+  registerStaffAccount: (data: Omit<StaffAccountRequest, 'id' | 'createdAt' | 'status' | 'isActive'>) => { success: boolean; message: string };
+  approveStaffAccount: (id: string) => void;
+  declineStaffAccount: (id: string, reason?: string) => void;
+  loginStaffAccount: (email: string, password?: string) => { success: boolean; message: string; status?: StaffAccountStatus };
+  logoutStaffAccount: () => void;
   registerStudent: (data: { firstName: string; lastName: string; email: string; phone: string; targetExam: string }) => void;
   loginStudent: (email: string) => void;
   logoutStudent: () => void;
@@ -113,18 +121,36 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [testAttempts, setTestAttempts] = useState<TestAttempt[]>([]);
   const [studentLoggedIn, setStudentLoggedIn] = useState<boolean>(false);
   const [adminLoggedIn, setAdminLoggedIn] = useState<boolean>(false);
-  const [staffLoggedIn, setStaffLoggedIn] = useState<boolean>(true);
-  const [staffProfile, setStaffProfile] = useState<StaffProfile>({
-    id: 'staff-001',
-    email: 'dr.farhan@ahsorameds.com',
-    displayName: 'Dr. Farhan Ali (Senior Biology Instructor)',
-    accountType: 'staff',
-    role: 'teacher',
-    isActive: true,
-    assignedSubjects: ['Biology', 'Biochemistry'],
-    assignedCohorts: ['IMAT 2026 Alpha Cohort', 'IMAT 2026 Intensive Track'],
-    createdAt: new Date().toISOString(),
-  });
+  const [staffLoggedIn, setStaffLoggedIn] = useState<boolean>(false);
+  const [staffAccounts, setStaffAccounts] = useState<StaffAccountRequest[]>([
+    {
+      id: 'staff-001',
+      email: 'dr.farhan@ahsorameds.com',
+      displayName: 'Dr. Farhan Ali (Senior Biology Instructor)',
+      accountType: 'staff',
+      role: 'teacher',
+      isActive: true,
+      status: 'approved',
+      assignedSubjects: ['Biology', 'Biochemistry'],
+      assignedCohorts: ['IMAT 2026 Alpha Cohort', 'IMAT 2026 Intensive Track'],
+      password: 'password123',
+      createdAt: new Date().toISOString(),
+    },
+    {
+      id: 'staff-002',
+      email: 'sarah.jenkins@ahsorameds.com',
+      displayName: 'Dr. Sarah Jenkins',
+      accountType: 'staff',
+      role: 'academic_admin',
+      isActive: false,
+      status: 'pending',
+      assignedSubjects: ['Chemistry', 'Physics'],
+      assignedCohorts: ['IMAT 2026 Alpha Cohort'],
+      password: 'password123',
+      createdAt: new Date().toISOString(),
+    },
+  ]);
+  const [staffProfile, setStaffProfile] = useState<StaffProfile>(staffAccounts[0]);
   const [attendances, setAttendances] = useState<LiveClassAttendance[]>([]);
   const [mockSnapshots, setMockSnapshots] = useState<MockVersionSnapshot[]>([
     {
@@ -804,6 +830,59 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     setStaffProfile((prev) => ({ ...prev, role }));
   };
 
+  const registerStaffAccount = (data: Omit<StaffAccountRequest, 'id' | 'createdAt' | 'status' | 'isActive'>) => {
+    const existing = staffAccounts.find((a) => a.email.toLowerCase() === data.email.toLowerCase());
+    if (existing) {
+      return { success: false, message: 'An account with this email address already exists.' };
+    }
+    const newAccount: StaffAccountRequest = {
+      ...data,
+      id: `staff-${Date.now()}`,
+      status: 'pending',
+      isActive: false,
+      createdAt: new Date().toISOString(),
+    };
+    setStaffAccounts((prev) => [newAccount, ...prev]);
+    return { success: true, message: 'Registration submitted! Your account request is pending Admin approval.' };
+  };
+
+  const approveStaffAccount = (id: string) => {
+    setStaffAccounts((prev) =>
+      prev.map((a) => (a.id === id ? { ...a, status: 'approved', isActive: true } : a))
+    );
+  };
+
+  const declineStaffAccount = (id: string, reason?: string) => {
+    setStaffAccounts((prev) =>
+      prev.map((a) =>
+        a.id === id ? { ...a, status: 'rejected', isActive: false, rejectionReason: reason } : a
+      )
+    );
+  };
+
+  const loginStaffAccount = (email: string, password?: string) => {
+    const acc = staffAccounts.find((a) => a.email.toLowerCase() === email.toLowerCase());
+    if (!acc) {
+      return { success: false, message: 'No staff account found with this email address.' };
+    }
+    if (password && acc.password && acc.password !== password) {
+      return { success: false, message: 'Incorrect password. Please check your credentials.' };
+    }
+    if (acc.status === 'pending') {
+      return { success: false, status: 'pending', message: 'Your faculty sign-up request is pending Admin approval.' };
+    }
+    if (acc.status === 'rejected' || !acc.isActive) {
+      return { success: false, status: 'rejected', message: 'Your faculty account access has been declined or disabled by an Admin.' };
+    }
+    setStaffProfile(acc);
+    setStaffLoggedIn(true);
+    return { success: true, message: 'Login successful!' };
+  };
+
+  const logoutStaffAccount = () => {
+    setStaffLoggedIn(false);
+  };
+
   const answerDoubt = (doubtId: string, answerText: string) => {
     setDoubts((prev) =>
       prev.map((d) =>
@@ -884,6 +963,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         setStaffLoggedIn,
         staffProfile,
         setStaffRole,
+        staffAccounts,
+        registerStaffAccount,
+        approveStaffAccount,
+        declineStaffAccount,
+        loginStaffAccount,
+        logoutStaffAccount,
         registerStudent,
         loginStudent,
         logoutStudent,

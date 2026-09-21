@@ -397,6 +397,7 @@ export interface StudentMistake {
 // ── Staff Portal & RBAC Architecture Types ────────────────────────────────────
 export type StaffRole = 'super_admin' | 'academic_admin' | 'teacher' | 'admissions_staff';
 export type PublishingStatus = 'draft' | 'in_review' | 'published' | 'archived';
+export type StaffAccountStatus = 'pending' | 'approved' | 'rejected';
 
 export interface StaffProfile {
   id: string;
@@ -407,7 +408,14 @@ export interface StaffProfile {
   isActive: boolean;
   assignedSubjects: string[];
   assignedCohorts: string[];
+  status?: StaffAccountStatus;
+  password?: string;
   createdAt: string;
+}
+
+export interface StaffAccountRequest extends StaffProfile {
+  status: StaffAccountStatus;
+  rejectionReason?: string;
 }
 
 export interface LiveClassAttendance {
