@@ -11,15 +11,10 @@ import {
   BookOpen,
   User,
   ShieldCheck,
-  AlertCircle,
-  FileEdit,
   Trash2,
-  Send,
-  Sparkles,
   ArrowLeft
 } from 'lucide-react';
 import Link from 'next/link';
-import { StaffQuestion } from '@/types';
 
 export default function AdminMCQReviewPage() {
   const { staffQuestions, approveStaffQuestion, declineStaffQuestion, deleteStaffQuestion } = useAppStore();
@@ -55,10 +50,10 @@ export default function AdminMCQReviewPage() {
     // Search filter
     if (searchQuery.trim()) {
       const sq = searchQuery.toLowerCase();
-      const textMatch = q.questionText.toLowerCase().includes(sq);
-      const subjectMatch = q.subject.toLowerCase().includes(sq);
-      const topicMatch = q.topic.toLowerCase().includes(sq);
-      const authorMatch = q.authorEmail?.toLowerCase().includes(sq);
+      const textMatch = q.question_text?.toLowerCase().includes(sq);
+      const subjectMatch = q.subject?.toLowerCase().includes(sq);
+      const topicMatch = q.topic?.toLowerCase().includes(sq);
+      const authorMatch = q.author?.toLowerCase().includes(sq);
       if (!textMatch && !subjectMatch && !topicMatch && !authorMatch) return false;
     }
 
@@ -239,174 +234,186 @@ export default function AdminMCQReviewPage() {
         </div>
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          {filteredQuestions.map((q) => (
-            <div
-              key={q.id}
-              style={{
-                backgroundColor: '#FFFFFF',
-                borderRadius: '12px',
-                border: q.status === 'in_review' ? '1px solid #93C5FD' : '1px solid #E2E8F0',
-                boxShadow: q.status === 'in_review' ? '0 4px 12px rgba(37, 99, 235, 0.08)' : '0 1px 3px rgba(0,0,0,0.05)',
-                padding: '20px',
-                transition: 'all 0.15s ease'
-              }}
-            >
-              {/* Question Header Metadata */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '10px', marginBottom: '14px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                  <span style={{ backgroundColor: '#F1F5F9', color: '#475569', padding: '4px 10px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700 }}>
-                    {q.subject}
-                  </span>
-                  {q.topic && (
-                    <span style={{ backgroundColor: '#F8FAFC', color: '#64748B', padding: '4px 10px', borderRadius: '6px', fontSize: '0.75rem', border: '1px solid #E2E8F0' }}>
-                      {q.topic}
-                    </span>
-                  )}
-                  {getDifficultyBadge(q.difficulty)}
-                </div>
+          {filteredQuestions.map((q) => {
+            const optionsList = [
+              { key: 'A', text: q.option_a },
+              { key: 'B', text: q.option_b },
+              { key: 'C', text: q.option_c },
+              { key: 'D', text: q.option_d },
+              ...(q.option_e ? [{ key: 'E', text: q.option_e }] : []),
+            ];
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  {/* Status Badge */}
-                  {q.status === 'in_review' && (
-                    <span style={{ backgroundColor: '#FEF3C7', color: '#D97706', padding: '4px 12px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
-                      <Clock size={14} /> Pending Approval
+            return (
+              <div
+                key={q.id}
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  borderRadius: '12px',
+                  border: q.status === 'in_review' ? '1px solid #93C5FD' : '1px solid #E2E8F0',
+                  boxShadow: q.status === 'in_review' ? '0 4px 12px rgba(37, 99, 235, 0.08)' : '0 1px 3px rgba(0,0,0,0.05)',
+                  padding: '20px',
+                  transition: 'all 0.15s ease'
+                }}
+              >
+                {/* Question Header Metadata */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '10px', marginBottom: '14px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                    <span style={{ backgroundColor: '#F1F5F9', color: '#475569', padding: '4px 10px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700 }}>
+                      {q.subject}
                     </span>
-                  )}
-                  {q.status === 'published' && (
-                    <span style={{ backgroundColor: '#DCFCE7', color: '#15803D', padding: '4px 12px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
-                      <CheckCircle2 size={14} /> Published
-                    </span>
-                  )}
-                  {q.status === 'draft' && q.reviewNote && (
-                    <span style={{ backgroundColor: '#FEE2E2', color: '#B91C1C', padding: '4px 12px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
-                      <XCircle size={14} /> Declined
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              {/* Author & Date info */}
-              <div style={{ fontSize: '0.8rem', color: '#64748B', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '16px' }}>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <User size={14} color="#94A3B8" /> Staff: <strong style={{ color: '#334155' }}>{q.authorName || q.authorEmail || 'Staff Member'}</strong>
-                </span>
-                <span>• Submitted: {new Date(q.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-              </div>
-
-              {/* Question Text */}
-              <div style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', marginBottom: '14px', lineHeight: 1.5 }}>
-                {q.questionText}
-              </div>
-
-              {/* Options grid */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '10px', marginBottom: '16px' }}>
-                {q.options.map((opt) => {
-                  const isCorrect = opt.key === q.correctOption;
-                  return (
-                    <div
-                      key={opt.key}
-                      style={{
-                        padding: '10px 14px',
-                        borderRadius: '8px',
-                        border: isCorrect ? '2px solid #10B981' : '1px solid #E2E8F0',
-                        backgroundColor: isCorrect ? '#F0FDF4' : '#FAFAFA',
-                        fontSize: '0.875rem',
-                        color: isCorrect ? '#14532D' : '#334155',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between'
-                      }}
-                    >
-                      <span>
-                        <strong style={{ marginRight: '8px' }}>{opt.key}.</strong> {opt.text}
+                    {q.topic && (
+                      <span style={{ backgroundColor: '#F8FAFC', color: '#64748B', padding: '4px 10px', borderRadius: '6px', fontSize: '0.75rem', border: '1px solid #E2E8F0' }}>
+                        {q.topic}
                       </span>
-                      {isCorrect && (
-                        <span style={{ fontSize: '0.7rem', fontWeight: 700, backgroundColor: '#10B981', color: '#FFF', padding: '2px 6px', borderRadius: '4px' }}>
-                          Correct
+                    )}
+                    {getDifficultyBadge(q.difficulty)}
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    {/* Status Badge */}
+                    {q.status === 'in_review' && (
+                      <span style={{ backgroundColor: '#FEF3C7', color: '#D97706', padding: '4px 12px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <Clock size={14} /> Pending Approval
+                      </span>
+                    )}
+                    {q.status === 'published' && (
+                      <span style={{ backgroundColor: '#DCFCE7', color: '#15803D', padding: '4px 12px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <CheckCircle2 size={14} /> Published
+                      </span>
+                    )}
+                    {q.status === 'draft' && q.reviewNote && (
+                      <span style={{ backgroundColor: '#FEE2E2', color: '#B91C1C', padding: '4px 12px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <XCircle size={14} /> Declined
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Author & Date info */}
+                <div style={{ fontSize: '0.8rem', color: '#64748B', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '16px' }}>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <User size={14} color="#94A3B8" /> Staff: <strong style={{ color: '#334155' }}>{q.author || 'Staff Member'}</strong>
+                  </span>
+                  {q.createdAt && (
+                    <span>• Submitted: {new Date(q.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                  )}
+                </div>
+
+                {/* Question Text */}
+                <div style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', marginBottom: '14px', lineHeight: 1.5 }}>
+                  {q.question_text}
+                </div>
+
+                {/* Options grid */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '10px', marginBottom: '16px' }}>
+                  {optionsList.map((opt) => {
+                    const isCorrect = opt.key === q.correct_option;
+                    return (
+                      <div
+                        key={opt.key}
+                        style={{
+                          padding: '10px 14px',
+                          borderRadius: '8px',
+                          border: isCorrect ? '2px solid #10B981' : '1px solid #E2E8F0',
+                          backgroundColor: isCorrect ? '#F0FDF4' : '#FAFAFA',
+                          fontSize: '0.875rem',
+                          color: isCorrect ? '#14532D' : '#334155',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between'
+                        }}
+                      >
+                        <span>
+                          <strong style={{ marginRight: '8px' }}>{opt.key}.</strong> {opt.text}
                         </span>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Explanation */}
-              {q.explanation && (
-                <div style={{ backgroundColor: '#F8FAFC', borderLeft: '4px solid #3B82F6', padding: '10px 14px', borderRadius: '0 8px 8px 0', fontSize: '0.85rem', color: '#475569', marginBottom: '16px' }}>
-                  <strong style={{ color: '#1E293B' }}>Explanation:</strong> {q.explanation}
+                        {isCorrect && (
+                          <span style={{ fontSize: '0.7rem', fontWeight: 700, backgroundColor: '#10B981', color: '#FFF', padding: '2px 6px', borderRadius: '4px' }}>
+                            Correct
+                          </span>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
-              )}
 
-              {/* Review Note if Declined */}
-              {q.reviewNote && (
-                <div style={{ backgroundColor: '#FEF2F2', border: '1px solid #FCA5A5', padding: '10px 14px', borderRadius: '8px', fontSize: '0.85rem', color: '#991B1B', marginBottom: '16px' }}>
-                  <strong>Admin Feedback:</strong> {q.reviewNote}
-                </div>
-              )}
+                {/* Explanation */}
+                {q.explanation && (
+                  <div style={{ backgroundColor: '#F8FAFC', borderLeft: '4px solid #3B82F6', padding: '10px 14px', borderRadius: '0 8px 8px 0', fontSize: '0.85rem', color: '#475569', marginBottom: '16px' }}>
+                    <strong style={{ color: '#1E293B' }}>Explanation:</strong> {q.explanation}
+                  </div>
+                )}
 
-              {/* Admin Actions Footer */}
-              <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
-                <button
-                  onClick={() => handleDelete(q.id)}
-                  style={{ backgroundColor: 'transparent', border: 'none', color: '#EF4444', fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}
-                >
-                  <Trash2 size={15} /> Delete
-                </button>
+                {/* Review Note if Declined */}
+                {q.reviewNote && (
+                  <div style={{ backgroundColor: '#FEF2F2', border: '1px solid #FCA5A5', padding: '10px 14px', borderRadius: '8px', fontSize: '0.85rem', color: '#991B1B', marginBottom: '16px' }}>
+                    <strong>Admin Feedback:</strong> {q.reviewNote}
+                  </div>
+                )}
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  {q.status === 'in_review' && (
-                    <>
+                {/* Admin Actions Footer */}
+                <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
+                  <button
+                    onClick={() => handleDelete(q.id)}
+                    style={{ backgroundColor: 'transparent', border: 'none', color: '#EF4444', fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}
+                  >
+                    <Trash2 size={15} /> Delete
+                  </button>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    {q.status === 'in_review' && (
+                      <>
+                        <button
+                          onClick={() => {
+                            setDeclineModalId(q.id);
+                            setDeclineReason('');
+                          }}
+                          style={{
+                            backgroundColor: '#FFFFFF', border: '1px solid #EF4444', color: '#DC2626',
+                            padding: '8px 16px', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 600, cursor: 'pointer',
+                            display: 'flex', alignItems: 'center', gap: '6px', transition: 'all 0.15s ease'
+                          }}
+                        >
+                          <XCircle size={16} /> Decline MCQ
+                        </button>
+
+                        <button
+                          onClick={() => handleApprove(q.id)}
+                          style={{
+                            backgroundColor: '#16A34A', border: 'none', color: '#FFFFFF',
+                            padding: '8px 20px', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 700, cursor: 'pointer',
+                            display: 'flex', alignItems: 'center', gap: '6px', boxShadow: '0 2px 6px rgba(22, 163, 74, 0.2)'
+                          }}
+                        >
+                          <CheckCircle2 size={16} /> Approve & Publish
+                        </button>
+                      </>
+                    )}
+
+                    {q.status === 'published' && (
                       <button
                         onClick={() => {
                           setDeclineModalId(q.id);
                           setDeclineReason('');
                         }}
-                        style={{
-                          backgroundColor: '#FFFFFF', border: '1px solid #EF4444', color: '#DC2626',
-                          padding: '8px 16px', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 600, cursor: 'pointer',
-                          display: 'flex', alignItems: 'center', gap: '6px', transition: 'all 0.15s ease'
-                        }}
+                        style={{ backgroundColor: '#F8FAFC', border: '1px solid #CBD5E1', color: '#64748B', padding: '6px 12px', borderRadius: '6px', fontSize: '0.8rem', cursor: 'pointer' }}
                       >
-                        <XCircle size={16} /> Decline MCQ
+                        Revoke Approval
                       </button>
+                    )}
 
+                    {q.status === 'draft' && (
                       <button
                         onClick={() => handleApprove(q.id)}
-                        style={{
-                          backgroundColor: '#16A34A', border: 'none', color: '#FFFFFF',
-                          padding: '8px 20px', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 700, cursor: 'pointer',
-                          display: 'flex', alignItems: 'center', gap: '6px', boxShadow: '0 2px 6px rgba(22, 163, 74, 0.2)'
-                        }}
+                        style={{ backgroundColor: '#2563EB', color: '#FFF', border: 'none', padding: '6px 14px', borderRadius: '6px', fontSize: '0.8rem', fontWeight: 600, cursor: 'pointer' }}
                       >
-                        <CheckCircle2 size={16} /> Approve & Publish
+                        Re-Approve Now
                       </button>
-                    </>
-                  )}
-
-                  {q.status === 'published' && (
-                    <button
-                      onClick={() => {
-                        setDeclineModalId(q.id);
-                        setDeclineReason('');
-                      }}
-                      style={{ backgroundColor: '#F8FAFC', border: '1px solid #CBD5E1', color: '#64748B', padding: '6px 12px', borderRadius: '6px', fontSize: '0.8rem', cursor: 'pointer' }}
-                    >
-                      Revoke Approval
-                    </button>
-                  )}
-
-                  {q.status === 'draft' && (
-                    <button
-                      onClick={() => handleApprove(q.id)}
-                      style={{ backgroundColor: '#2563EB', color: '#FFF', border: 'none', padding: '6px 14px', borderRadius: '6px', fontSize: '0.8rem', fontWeight: 600, cursor: 'pointer' }}
-                    >
-                      Re-Approve Now
-                    </button>
-                  )}
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
 
