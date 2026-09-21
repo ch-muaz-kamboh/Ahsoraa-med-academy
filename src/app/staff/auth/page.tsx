@@ -401,49 +401,26 @@ export default function StaffAuthPage() {
               />
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-              <div>
-                <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#CBD5E1', marginBottom: '6px' }}>
-                  Requested Role
-                </label>
-                <select
-                  value={regRole}
-                  onChange={(e) => setRegRole(e.target.value as StaffRole)}
-                  style={{
-                    width: '100%',
-                    padding: '10px 14px',
-                    borderRadius: '10px',
-                    border: '1px solid #334155',
-                    backgroundColor: '#0F172A',
-                    color: '#FFFFFF',
-                    fontSize: '0.875rem',
-                  }}
-                >
-                  <option value="teacher">Teaching Staff</option>
-                  <option value="admissions_staff">Admission Staff</option>
-                </select>
-              </div>
-              <div>
-                <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#CBD5E1', marginBottom: '6px' }}>
-                  Password
-                </label>
-                <input
-                  type="password"
-                  required
-                  value={regPassword}
-                  onChange={(e) => setRegPassword(e.target.value)}
-                  placeholder="••••••••"
-                  style={{
-                    width: '100%',
-                    padding: '10px 14px',
-                    borderRadius: '10px',
-                    border: '1px solid #334155',
-                    backgroundColor: '#0F172A',
-                    color: '#FFFFFF',
-                    fontSize: '0.875rem',
-                  }}
-                />
-              </div>
+            <div>
+              <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#CBD5E1', marginBottom: '6px' }}>
+                Account Password *
+              </label>
+              <input
+                type="password"
+                required
+                value={regPassword}
+                onChange={(e) => setRegPassword(e.target.value)}
+                placeholder="••••••••"
+                style={{
+                  width: '100%',
+                  padding: '10px 14px',
+                  borderRadius: '10px',
+                  border: '1px solid #334155',
+                  backgroundColor: '#0F172A',
+                  color: '#FFFFFF',
+                  fontSize: '0.875rem',
+                }}
+              />
             </div>
 
             <div>

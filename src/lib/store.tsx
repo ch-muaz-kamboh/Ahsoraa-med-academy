@@ -15,6 +15,7 @@ import {
   StudentMistake,
   StaffProfile,
   StaffRole,
+  StaffPermission,
   StaffAccountStatus,
   StaffAccountRequest,
   LiveClassAttendance,
@@ -71,6 +72,7 @@ interface AppContextType {
   registerStaffAccount: (data: Omit<StaffAccountRequest, 'id' | 'createdAt' | 'status' | 'isActive'>) => { success: boolean; message: string };
   approveStaffAccount: (id: string) => void;
   declineStaffAccount: (id: string, reason?: string) => void;
+  updateStaffPermissions: (staffId: string, permissions: StaffPermission[]) => void;
   loginStaffAccount: (email: string, password?: string) => { success: boolean; message: string; status?: StaffAccountStatus };
   logoutStaffAccount: () => void;
   registerStudent: (data: { firstName: string; lastName: string; email: string; phone: string; targetExam: string }) => void;
@@ -901,8 +903,13 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     if (existing) {
       return { success: false, message: 'An account with this email address already exists.' };
     }
+    const defaultPerms: StaffPermission[] = data.permissions && data.permissions.length > 0
+      ? data.permissions
+      : ['schedule', 'question_bank', 'doubts', 'assessments', 'students', 'attendance'];
+
     const newAccount: StaffAccountRequest = {
       ...data,
+      permissions: defaultPerms,
       id: `staff-${Date.now()}`,
       status: 'pending',
       isActive: false,
@@ -924,6 +931,13 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         a.id === id ? { ...a, status: 'rejected', isActive: false, rejectionReason: reason } : a
       )
     );
+  };
+
+  const updateStaffPermissions = (staffId: string, permissions: StaffPermission[]) => {
+    setStaffAccounts((prev) =>
+      prev.map((a) => (a.id === staffId ? { ...a, permissions } : a))
+    );
+    setStaffProfile((prev) => (prev.id === staffId ? { ...prev, permissions } : prev));
   };
 
   const loginStaffAccount = (email: string, password?: string): { success: boolean; message: string; status?: StaffAccountStatus } => {
@@ -1116,6 +1130,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         registerStaffAccount,
         approveStaffAccount,
         declineStaffAccount,
+        updateStaffPermissions,
         loginStaffAccount,
         logoutStaffAccount,
         registerStudent,

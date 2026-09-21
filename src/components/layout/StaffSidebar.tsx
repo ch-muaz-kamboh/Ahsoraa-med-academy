@@ -12,102 +12,108 @@ import {
   Users,
   CheckSquare,
   UserCheck,
-  ShieldAlert,
-  LogOut,
   Sparkles,
-  Layers,
 } from 'lucide-react';
 import Logo from '@/components/brand/Logo';
 import { useAppStore } from '@/lib/store';
-import { StaffRole } from '@/types';
+import { StaffPermission } from '@/types';
 
 interface NavItem {
   label: string;
   href: string;
   icon: React.ReactNode;
-  roles?: StaffRole[];
+  permission?: StaffPermission;
   badge?: string;
 }
 
 export default function StaffSidebar() {
   const pathname = usePathname();
-  const { staffProfile, setStaffRole } = useAppStore();
+  const { staffProfile } = useAppStore();
 
-  const isAdmissionStaff = staffProfile.role === 'admissions_staff';
+  const userPermissions: StaffPermission[] = staffProfile.permissions || [
+    'schedule',
+    'question_bank',
+    'doubts',
+    'assessments',
+    'students',
+    'attendance',
+  ];
 
-  const navItems: NavItem[] = isAdmissionStaff
-    ? [
-        {
-          label: 'Staff Dashboard',
-          href: '/staff/dashboard',
-          icon: <LayoutDashboard size={18} />,
-        },
-        {
-          label: 'Student Applications',
-          href: '/admin/applications',
-          icon: <FileCheck2 size={18} />,
-        },
-        {
-          label: 'Lead CRM Management',
-          href: '/admin/leads',
-          icon: <Users size={18} />,
-        },
-        {
-          label: 'Visa & Enrolment',
-          href: '/admin/visa',
-          icon: <UserCheck size={18} />,
-        },
-        {
-          label: 'My Staff Profile',
-          href: '/staff/profile',
-          icon: <UserCheck size={18} />,
-        },
-      ]
-    : [
-        {
-          label: 'Staff Dashboard',
-          href: '/staff/dashboard',
-          icon: <LayoutDashboard size={18} />,
-        },
-        {
-          label: 'My Schedule & Live',
-          href: '/staff/schedule',
-          icon: <Calendar size={18} />,
-          badge: 'Live',
-        },
-        {
-          label: 'Question Bank',
-          href: '/staff/question-bank',
-          icon: <BookOpen size={18} />,
-          badge: 'Drafts',
-        },
-        {
-          label: 'Assessments & Snapshots',
-          href: '/staff/assessments',
-          icon: <FileCheck2 size={18} />,
-        },
-        {
-          label: 'My Students',
-          href: '/staff/students',
-          icon: <Users size={18} />,
-        },
-        {
-          label: 'Mark Attendance',
-          href: '/staff/attendance',
-          icon: <CheckSquare size={18} />,
-        },
-        {
-          label: 'Student Doubts',
-          href: '/staff/doubts',
-          icon: <HelpCircle size={18} />,
-          badge: 'Desk',
-        },
-        {
-          label: 'My Staff Profile',
-          href: '/staff/profile',
-          icon: <UserCheck size={18} />,
-        },
-      ];
+  const allPossibleNavItems: NavItem[] = [
+    {
+      label: 'Staff Dashboard',
+      href: '/staff/dashboard',
+      icon: <LayoutDashboard size={18} />,
+    },
+    {
+      label: 'My Schedule & Live',
+      href: '/staff/schedule',
+      icon: <Calendar size={18} />,
+      permission: 'schedule',
+      badge: 'Live',
+    },
+    {
+      label: 'Question Bank',
+      href: '/staff/question-bank',
+      icon: <BookOpen size={18} />,
+      permission: 'question_bank',
+      badge: 'Drafts',
+    },
+    {
+      label: 'Student Doubts',
+      href: '/staff/doubts',
+      icon: <HelpCircle size={18} />,
+      permission: 'doubts',
+      badge: 'Desk',
+    },
+    {
+      label: 'Assessments & Snapshots',
+      href: '/staff/assessments',
+      icon: <FileCheck2 size={18} />,
+      permission: 'assessments',
+    },
+    {
+      label: 'My Students',
+      href: '/staff/students',
+      icon: <Users size={18} />,
+      permission: 'students',
+    },
+    {
+      label: 'Mark Attendance',
+      href: '/staff/attendance',
+      icon: <CheckSquare size={18} />,
+      permission: 'attendance',
+    },
+    {
+      label: 'Student Applications',
+      href: '/admin/applications',
+      icon: <FileCheck2 size={18} />,
+      permission: 'applications',
+    },
+    {
+      label: 'Lead CRM Management',
+      href: '/admin/leads',
+      icon: <Users size={18} />,
+      permission: 'leads',
+    },
+    {
+      label: 'Visa & Enrolment',
+      href: '/admin/visa',
+      icon: <UserCheck size={18} />,
+      permission: 'visa',
+    },
+    {
+      label: 'My Staff Profile',
+      href: '/staff/profile',
+      icon: <UserCheck size={18} />,
+    },
+  ];
+
+  // Filter items based on active staff permissions
+  const navItems = allPossibleNavItems.filter((item) => {
+    if (!item.permission) return true; // Always show Dashboard and Profile
+    return userPermissions.includes(item.permission);
+  });
 
   return (
     <aside
@@ -131,39 +137,14 @@ export default function StaffSidebar() {
         </Link>
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', color: '#10B981', fontWeight: 600 }}>
           <Sparkles size={14} />
-          <span>FACULTY WORKSPACE V1</span>
+          <span>STAFF WORKSPACE</span>
         </div>
-      </div>
-
-      {/* Role Scoping Switcher */}
-      <div style={{ padding: '14px 20px', backgroundColor: '#1E293B', borderBottom: '1px solid #334155' }}>
-        <div style={{ fontSize: '0.6875rem', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#94A3B8', marginBottom: '6px' }}>
-          Active Staff Role
-        </div>
-        <select
-          value={staffProfile.role || 'teacher'}
-          onChange={(e) => setStaffRole(e.target.value as StaffRole)}
-          style={{
-            width: '100%',
-            backgroundColor: '#0F172A',
-            color: '#38BDF8',
-            border: '1px solid #334155',
-            borderRadius: '6px',
-            padding: '6px 10px',
-            fontSize: '0.8125rem',
-            fontWeight: 600,
-            cursor: 'pointer',
-          }}
-        >
-          <option value="teacher">👨‍🏫 Teaching Staff</option>
-          <option value="admissions_staff">📋 Admission Staff</option>
-        </select>
       </div>
 
       {/* Navigation List */}
       <nav style={{ flex: 1, padding: '16px 12px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '4px' }}>
         {navItems.map((item) => {
-          const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
+          const isActive = pathname === item.href || (item.href !== '/staff/dashboard' && pathname?.startsWith(item.href));
           return (
             <Link
               key={item.href}
@@ -208,10 +189,10 @@ export default function StaffSidebar() {
       {/* Staff User Footer */}
       <div style={{ padding: '16px 20px', borderTop: '1px solid #1E293B', backgroundColor: '#090D16' }}>
         <div style={{ fontSize: '0.8125rem', fontWeight: 600, color: '#F8FAFC', marginBottom: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-          {staffProfile.displayName}
+          {staffProfile.displayName || 'Staff User'}
         </div>
-        <div style={{ fontSize: '0.75rem', color: '#64748B', marginBottom: '10px' }}>
-          {staffProfile.email}
+        <div style={{ fontSize: '0.75rem', color: '#64748B', marginBottom: '10px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          {staffProfile.email || 'staff@ahsorameds.com'}
         </div>
         <div style={{ display: 'flex', gap: '8px' }}>
           <Link
