@@ -171,7 +171,7 @@ export default function StaffDoubtsPage() {
         <div>
           {selectedDoubt ? (
             <div style={{ backgroundColor: '#FFFFFF', borderRadius: '16px', border: '1px solid #E2E8F0', padding: '24px', position: 'sticky', top: '88px', boxShadow: '0 4px 16px rgba(0,0,0,0.05)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', borderBottom: '1px solid #F1F5F9', pb: '10px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', borderBottom: '1px solid #F1F5F9', paddingBottom: '10px' }}>
                 <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#2563EB', backgroundColor: '#EFF6FF', padding: '4px 10px', borderRadius: '6px' }}>
                   {selectedDoubt.subject} {selectedDoubt.topic ? `— ${selectedDoubt.topic}` : ''}
                 </span>
