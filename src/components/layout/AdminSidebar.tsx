@@ -26,7 +26,7 @@ import Logo from '@/components/brand/Logo';
 
 export default function AdminSidebar() {
   const pathname = usePathname();
-  const { currentRole, staffAccounts, staffQuestions } = useAppStore();
+  const { currentRole, staffAccounts, staffQuestions, setAdminLoggedIn } = useAppStore();
 
   const pendingCount = staffAccounts ? staffAccounts.filter((a) => a.status === 'pending').length : 0;
   const pendingMcqCount = staffQuestions ? staffQuestions.filter((q) => q.status === 'in_review').length : 0;
@@ -98,22 +98,29 @@ export default function AdminSidebar() {
       </nav>
 
       {/* Footer */}
-      <div style={{ padding: '16px', borderTop: '1px solid #1E293B' }}>
-        <Link
-          href="/"
+      <div style={{ padding: '16px', borderTop: '1px solid #1E293B', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <button
+          onClick={() => setAdminLoggedIn(false)}
           style={{
+            width: '100%',
             display: 'flex',
             alignItems: 'center',
-            gap: '10px',
+            justifyContent: 'center',
+            gap: '8px',
             padding: '10px 14px',
             borderRadius: '8px',
+            backgroundColor: '#FEF2F2',
+            color: '#DC2626',
+            border: '1px solid #FCA5A5',
             fontSize: '0.875rem',
-            color: '#94A3B8',
+            fontWeight: 700,
+            cursor: 'pointer',
+            transition: 'all 0.15s ease'
           }}
         >
           <LogOut size={16} />
-          <span>Exit to Public Portal</span>
-        </Link>
+          <span>Log Out Admin Workspace</span>
+        </button>
       </div>
     </aside>
   );

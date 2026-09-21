@@ -137,8 +137,22 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     } catch { return mockDoubts; }
   });
   const [testAttempts, setTestAttempts] = useState<TestAttempt[]>([]);
-  const [studentLoggedIn, setStudentLoggedIn] = useState<boolean>(false);
-  const [adminLoggedIn, setAdminLoggedIn] = useState<boolean>(false);
+  const [adminLoggedIn, setAdminLoggedInState] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    return localStorage.getItem('ahsora_adminLoggedIn') === 'true';
+  });
+
+  const setAdminLoggedIn = (val: boolean) => {
+    setAdminLoggedInState(val);
+    if (typeof window !== 'undefined') {
+      if (val) {
+        localStorage.setItem('ahsora_adminLoggedIn', 'true');
+      } else {
+        localStorage.removeItem('ahsora_adminLoggedIn');
+      }
+    }
+  };
+
   const [staffLoggedIn, setStaffLoggedIn] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false;
     return localStorage.getItem('ahsora_staffLoggedIn') === 'true';

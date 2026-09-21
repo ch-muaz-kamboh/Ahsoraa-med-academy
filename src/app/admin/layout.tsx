@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import AdminSidebar from '@/components/layout/AdminSidebar';
 import { useAppStore } from '@/lib/store';
 import { createClient } from '@/lib/supabase/client';
-import { Shield, Bell, Lock, Key, AlertCircle, Loader2 } from 'lucide-react';
+import { Shield, Bell, Lock, Key, AlertCircle, Loader2, LogOut } from 'lucide-react';
 import Link from 'next/link';
 
 import Logo from '@/components/brand/Logo';
@@ -15,20 +15,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    // Automatically grant access if student/admin is logged in via Supabase
-    const checkAuth = async () => {
-      try {
-        const supabase = createClient();
-        const { data: { user } } = await supabase.auth.getUser();
-        if (user) {
-          setAdminLoggedIn(true);
-        }
-      } catch (e) {}
-    };
-    checkAuth();
-  }, [setAdminLoggedIn]);
 
   const handleAdminLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -269,6 +255,24 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             >
               + Create Lead
             </Link>
+            <button
+              onClick={() => setAdminLoggedIn(false)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '6px 14px',
+                borderRadius: '8px',
+                backgroundColor: '#FEF2F2',
+                color: '#DC2626',
+                border: '1px solid #FCA5A5',
+                fontSize: '0.8125rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+              }}
+            >
+              <LogOut size={14} /> Log Out Admin
+            </button>
           </div>
         </header>
 
