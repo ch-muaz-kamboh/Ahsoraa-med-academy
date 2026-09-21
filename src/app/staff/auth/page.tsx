@@ -419,9 +419,8 @@ export default function StaffAuthPage() {
                     fontSize: '0.875rem',
                   }}
                 >
-                  <option value="teacher">Teacher / Instructor</option>
-                  <option value="academic_admin">Academic Admin</option>
-                  <option value="admissions_staff">Admissions Staff</option>
+                  <option value="teacher">Teaching Staff</option>
+                  <option value="admissions_staff">Admission Staff</option>
                 </select>
               </div>
               <div>

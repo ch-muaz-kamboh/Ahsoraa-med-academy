@@ -33,51 +33,81 @@ export default function StaffSidebar() {
   const pathname = usePathname();
   const { staffProfile, setStaffRole } = useAppStore();
 
-  const navItems: NavItem[] = [
-    {
-      label: 'Staff Dashboard',
-      href: '/staff/dashboard',
-      icon: <LayoutDashboard size={18} />,
-    },
-    {
-      label: 'My Schedule & Live',
-      href: '/staff/schedule',
-      icon: <Calendar size={18} />,
-      badge: 'Live',
-    },
-    {
-      label: 'Question Bank',
-      href: '/staff/question-bank',
-      icon: <BookOpen size={18} />,
-      badge: 'Drafts',
-    },
-    {
-      label: 'Assessments & Snapshots',
-      href: '/staff/assessments',
-      icon: <FileCheck2 size={18} />,
-    },
-    {
-      label: 'My Students',
-      href: '/staff/students',
-      icon: <Users size={18} />,
-    },
-    {
-      label: 'Mark Attendance',
-      href: '/staff/attendance',
-      icon: <CheckSquare size={18} />,
-    },
-    {
-      label: 'Student Doubts',
-      href: '/staff/doubts',
-      icon: <HelpCircle size={18} />,
-      badge: 'Desk',
-    },
-    {
-      label: 'My Staff Profile',
-      href: '/staff/profile',
-      icon: <UserCheck size={18} />,
-    },
-  ];
+  const isAdmissionStaff = staffProfile.role === 'admissions_staff';
+
+  const navItems: NavItem[] = isAdmissionStaff
+    ? [
+        {
+          label: 'Staff Dashboard',
+          href: '/staff/dashboard',
+          icon: <LayoutDashboard size={18} />,
+        },
+        {
+          label: 'Student Applications',
+          href: '/admin/applications',
+          icon: <FileCheck2 size={18} />,
+        },
+        {
+          label: 'Lead CRM Management',
+          href: '/admin/leads',
+          icon: <Users size={18} />,
+        },
+        {
+          label: 'Visa & Enrolment',
+          href: '/admin/visa',
+          icon: <UserCheck size={18} />,
+        },
+        {
+          label: 'My Staff Profile',
+          href: '/staff/profile',
+          icon: <UserCheck size={18} />,
+        },
+      ]
+    : [
+        {
+          label: 'Staff Dashboard',
+          href: '/staff/dashboard',
+          icon: <LayoutDashboard size={18} />,
+        },
+        {
+          label: 'My Schedule & Live',
+          href: '/staff/schedule',
+          icon: <Calendar size={18} />,
+          badge: 'Live',
+        },
+        {
+          label: 'Question Bank',
+          href: '/staff/question-bank',
+          icon: <BookOpen size={18} />,
+          badge: 'Drafts',
+        },
+        {
+          label: 'Assessments & Snapshots',
+          href: '/staff/assessments',
+          icon: <FileCheck2 size={18} />,
+        },
+        {
+          label: 'My Students',
+          href: '/staff/students',
+          icon: <Users size={18} />,
+        },
+        {
+          label: 'Mark Attendance',
+          href: '/staff/attendance',
+          icon: <CheckSquare size={18} />,
+        },
+        {
+          label: 'Student Doubts',
+          href: '/staff/doubts',
+          icon: <HelpCircle size={18} />,
+          badge: 'Desk',
+        },
+        {
+          label: 'My Staff Profile',
+          href: '/staff/profile',
+          icon: <UserCheck size={18} />,
+        },
+      ];
 
   return (
     <aside
@@ -108,10 +138,10 @@ export default function StaffSidebar() {
       {/* Role Scoping Switcher */}
       <div style={{ padding: '14px 20px', backgroundColor: '#1E293B', borderBottom: '1px solid #334155' }}>
         <div style={{ fontSize: '0.6875rem', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#94A3B8', marginBottom: '6px' }}>
-          Active Role Scope
+          Active Staff Role
         </div>
         <select
-          value={staffProfile.role}
+          value={staffProfile.role || 'teacher'}
           onChange={(e) => setStaffRole(e.target.value as StaffRole)}
           style={{
             width: '100%',
@@ -125,10 +155,8 @@ export default function StaffSidebar() {
             cursor: 'pointer',
           }}
         >
-          <option value="teacher">👨‍🏫 Teacher (Scoped)</option>
-          <option value="academic_admin">🎓 Academic Admin</option>
-          <option value="super_admin">⚡ Super Admin</option>
-          <option value="admissions_staff">📋 Admissions Staff</option>
+          <option value="teacher">👨‍🏫 Teaching Staff</option>
+          <option value="admissions_staff">📋 Admission Staff</option>
         </select>
       </div>
 

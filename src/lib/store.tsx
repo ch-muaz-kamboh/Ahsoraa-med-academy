@@ -127,7 +127,13 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [courses, setCourses] = useState<Course[]>(mockCourses);
   const [leads, setLeads] = useState<Lead[]>(mockLeads);
   const [documents, setDocuments] = useState<StudentDocument[]>(mockStudentDocuments);
-  const [doubts, setDoubts] = useState<DoubtItem[]>(mockDoubts);
+  const [doubts, setDoubts] = useState<DoubtItem[]>(() => {
+    if (typeof window === 'undefined') return mockDoubts;
+    try {
+      const saved = localStorage.getItem('ahsora_local_doubts');
+      return saved ? JSON.parse(saved) : mockDoubts;
+    } catch { return mockDoubts; }
+  });
   const [testAttempts, setTestAttempts] = useState<TestAttempt[]>([]);
   const [studentLoggedIn, setStudentLoggedIn] = useState<boolean>(false);
   const [adminLoggedIn, setAdminLoggedIn] = useState<boolean>(false);
@@ -164,8 +170,14 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
   }, [staffProfile]);
 
-  // Cross-tab sync: when another tab (e.g. admin) updates staffAccounts in localStorage,
-  // reload it here automatically so staff login works without manual refresh
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('ahsora_local_doubts', JSON.stringify(doubts));
+    }
+  }, [doubts]);
+
+  // Cross-tab sync: when another tab (e.g. staff/student) updates staffAccounts, questions, or doubts in localStorage,
+  // reload it here automatically without manual refresh
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const handleStorage = (e: StorageEvent) => {
@@ -179,6 +191,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         try {
           const updated = JSON.parse(e.newValue);
           setStaffQuestions(updated);
+        } catch {}
+      }
+      if (e.key === 'ahsora_local_doubts' && e.newValue) {
+        try {
+          const updated = JSON.parse(e.newValue);
+          setDoubts(updated);
         } catch {}
       }
     };
@@ -947,8 +965,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
               ...d,
               status: 'resolved',
               answer: answerText,
+              resolutionNote: answerText,
               answeredAt: new Date().toISOString(),
-              facultyName: staffProfile.displayName,
+              facultyName: staffProfile.displayName || staffProfile.email || 'Assigned Faculty',
+              assignedMentorName: staffProfile.displayName || staffProfile.email || 'Assigned Faculty',
             }
           : d
       )
