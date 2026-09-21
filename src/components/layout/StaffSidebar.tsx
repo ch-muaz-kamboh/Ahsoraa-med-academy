@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   LayoutDashboard,
   Calendar,
@@ -13,6 +13,7 @@ import {
   CheckSquare,
   UserCheck,
   Sparkles,
+  LogOut,
 } from 'lucide-react';
 import Logo from '@/components/brand/Logo';
 import { useAppStore } from '@/lib/store';
@@ -28,7 +29,8 @@ interface NavItem {
 
 export default function StaffSidebar() {
   const pathname = usePathname();
-  const { staffProfile } = useAppStore();
+  const router = useRouter();
+  const { staffProfile, logoutStaffAccount } = useAppStore();
 
   const userPermissions: StaffPermission[] = staffProfile.permissions || [
     'schedule',
@@ -191,26 +193,34 @@ export default function StaffSidebar() {
         <div style={{ fontSize: '0.8125rem', fontWeight: 600, color: '#F8FAFC', marginBottom: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
           {staffProfile.displayName || 'Staff User'}
         </div>
-        <div style={{ fontSize: '0.75rem', color: '#64748B', marginBottom: '10px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+        <div style={{ fontSize: '0.75rem', color: '#64748B', marginBottom: '12px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
           {staffProfile.email || 'staff@ahsorameds.com'}
         </div>
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <Link
-            href="/admin/dashboard"
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <button
+            onClick={() => {
+              logoutStaffAccount();
+              router.push('/staff/auth');
+            }}
             style={{
-              flex: 1,
-              textAlign: 'center',
-              backgroundColor: '#1E293B',
-              color: '#CBD5E1',
-              padding: '6px 8px',
-              borderRadius: '6px',
-              fontSize: '0.75rem',
-              textDecoration: 'none',
-              fontWeight: 500,
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '6px',
+              backgroundColor: '#FEF2F2',
+              color: '#DC2626',
+              border: '1px solid #FCA5A5',
+              padding: '8px 12px',
+              borderRadius: '8px',
+              fontSize: '0.8125rem',
+              fontWeight: 700,
+              cursor: 'pointer',
+              transition: 'all 0.15s ease'
             }}
           >
-            Admin Ops →
-          </Link>
+            <LogOut size={14} /> Log Out Staff Workspace
+          </button>
         </div>
       </div>
     </aside>
