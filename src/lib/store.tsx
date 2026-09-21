@@ -153,6 +153,22 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       localStorage.setItem('ahsora_staffProfile', JSON.stringify(staffProfile));
     }
   }, [staffProfile]);
+
+  // Cross-tab sync: when another tab (e.g. admin) updates staffAccounts in localStorage,
+  // reload it here automatically so staff login works without manual refresh
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === 'ahsora_staffAccounts' && e.newValue) {
+        try {
+          const updated = JSON.parse(e.newValue);
+          setStaffAccounts(updated);
+        } catch {}
+      }
+    };
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, []);
   const [mockSnapshots, setMockSnapshots] = useState<MockVersionSnapshot[]>([
     {
       id: 'snap-v1',
