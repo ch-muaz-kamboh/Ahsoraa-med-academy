@@ -860,7 +860,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     );
   };
 
-  const loginStaffAccount = (email: string, password?: string) => {
+  const loginStaffAccount = (email: string, password?: string): { success: boolean; message: string; status?: StaffAccountStatus } => {
     const acc = staffAccounts.find((a) => a.email.toLowerCase() === email.toLowerCase());
     if (!acc) {
       return { success: false, message: 'No staff account found with this email address.' };
@@ -869,10 +869,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       return { success: false, message: 'Incorrect password. Please check your credentials.' };
     }
     if (acc.status === 'pending') {
-      return { success: false, status: 'pending', message: 'Your faculty sign-up request is pending Admin approval.' };
+      return { success: false, status: 'pending' as StaffAccountStatus, message: 'Your faculty sign-up request is pending Admin approval.' };
     }
     if (acc.status === 'rejected' || !acc.isActive) {
-      return { success: false, status: 'rejected', message: 'Your faculty account access has been declined or disabled by an Admin.' };
+      return { success: false, status: 'rejected' as StaffAccountStatus, message: 'Your faculty account access has been declined or disabled by an Admin.' };
     }
     setStaffProfile(acc);
     setStaffLoggedIn(true);
