@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAppStore, MedpathEliteStudent, MedpathStageStatus } from '@/lib/store';
+import { getPackageByIdOrName } from '@/lib/packages';
 import {
   Star, Users, CheckCircle2, Clock, Loader2, X,
   FileCheck, Building2, GraduationCap, Globe, Home, ChevronRight, Search,
