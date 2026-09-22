@@ -190,8 +190,28 @@ export default function StaffMedpathElitePage() {
       return updated;
     });
 
+    // Also update recentRegistration if email matches
+    try {
+      const recentStr = localStorage.getItem('recentRegistration');
+      if (recentStr) {
+        const recent = JSON.parse(recentStr);
+        if (
+          recent.id === studentId ||
+          (selectedStudent?.email && recent.email?.toLowerCase() === selectedStudent.email.toLowerCase())
+        ) {
+          recent.stages = { ...(recent.stages || {}), [stage]: status };
+          localStorage.setItem('recentRegistration', JSON.stringify(recent));
+        }
+      }
+    } catch (e) {}
+
     // Update local selectedStudent state for immediate UI feedback
     setSelectedStudent((prev) => (prev ? { ...prev, stages: { ...prev.stages, [stage]: status } } : prev));
+
+    // Broadcast custom event for same-tab/window components
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new Event('ahsora_elite_updated'));
+    }
 
     setTimeout(() => {
       setSaving(null);

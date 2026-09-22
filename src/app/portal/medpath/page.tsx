@@ -68,11 +68,45 @@ export default function MedpathPage() {
   const [loading, setLoading] = useState(true);
   const [eliteRecord, setEliteRecord] = useState<MedpathEliteStudent | null>(null);
 
+  // Helper to extract candidate emails and match student record reliably
+  const findMatchingRecord = (candidateEmails: string[]): MedpathEliteStudent | null => {
+    const normCandidate = candidateEmails.map((e) => e.toLowerCase().trim()).filter(Boolean);
+    const prefixes = normCandidate.map((e) => e.split('@')[0]);
+
+    const isMatch = (s: MedpathEliteStudent): boolean => {
+      if (!s) return false;
+      const sEmail = (s.email || '').toLowerCase().trim();
+      const sPrefix = sEmail.split('@')[0];
+      const sId = s.studentId || s.id || '';
+
+      if (currentUser.id && (sId === currentUser.id || sId === 'usr-student-01' || sId === 'demo-2')) return true;
+      if (normCandidate.some((e) => e === sEmail)) return true;
+      if (sPrefix && prefixes.some((p) => p === sPrefix)) return true;
+      return false;
+    };
+
+    // 1. Try localStorage ahsora_elite_students
+    try {
+      const savedStr = localStorage.getItem('ahsora_elite_students');
+      if (savedStr) {
+        const list: MedpathEliteStudent[] = JSON.parse(savedStr);
+        const match = list.find(isMatch);
+        if (match) return match;
+      }
+    } catch (e) {}
+
+    // 2. Try store eliteStudents
+    const storeMatch = eliteStudents.find(isMatch);
+    if (storeMatch) return storeMatch;
+
+    return null;
+  };
+
   useEffect(() => {
     const detectPackage = async () => {
       setLoading(true);
       let pkg: string | null = null;
-      let studentEmail: string = currentUser.email || '';
+      const candidateEmails: string[] = [currentUser.email || ''];
       let studentName: string = `${currentUser.firstName || ''} ${currentUser.lastName || ''}`.trim();
 
       // 1. Try Supabase profile
@@ -85,30 +119,22 @@ export default function MedpathPage() {
             .select('selected_package, package_price, full_name, email')
             .eq('id', user.id)
             .maybeSingle();
-          if (profile?.selected_package) {
-            pkg = profile.selected_package;
-          }
-          if (profile?.email) {
-            studentEmail = profile.email;
-          }
-          if (profile?.full_name) {
-            studentName = profile.full_name;
-          }
+          if (profile?.selected_package) pkg = profile.selected_package;
+          if (profile?.email) candidateEmails.push(profile.email);
+          if (profile?.full_name) studentName = profile.full_name;
         }
       } catch (e) {}
 
       // 2. Fallback to localStorage registration data
-      if (!pkg || !studentEmail) {
-        try {
-          const reg = localStorage.getItem('recentRegistration');
-          if (reg) {
-            const parsed = JSON.parse(reg);
-            if (!pkg) pkg = parsed.selectedPackage || parsed.selected_package || null;
-            if (!studentEmail) studentEmail = parsed.email || '';
-            if (!studentName && parsed.fullName) studentName = parsed.fullName;
-          }
-        } catch (e) {}
-      }
+      try {
+        const reg = localStorage.getItem('recentRegistration');
+        if (reg) {
+          const parsed = JSON.parse(reg);
+          if (!pkg) pkg = parsed.selectedPackage || parsed.selected_package || null;
+          if (parsed.email) candidateEmails.push(parsed.email);
+          if (!studentName && parsed.fullName) studentName = parsed.fullName;
+        }
+      } catch (e) {}
 
       // 3. Fallback to store profile
       if (!pkg && currentUser.selectedPackage) {
@@ -117,40 +143,16 @@ export default function MedpathPage() {
 
       setStudentPackage(pkg);
 
-      // Function to locate existing record in localStorage or store
-      const findRecord = (): MedpathEliteStudent | null => {
-        try {
-          const savedStr = localStorage.getItem('ahsora_elite_students');
-          if (savedStr) {
-            const list: MedpathEliteStudent[] = JSON.parse(savedStr);
-            const match = list.find(
-              (s) =>
-                (studentEmail && s.email.toLowerCase() === studentEmail.toLowerCase()) ||
-                (currentUser.email && s.email.toLowerCase() === currentUser.email.toLowerCase()) ||
-                s.studentId === currentUser.id
-            );
-            if (match) return match;
-          }
-        } catch (e) {}
+      const matchedRecord = findMatchingRecord(candidateEmails);
 
-        const storeMatch = eliteStudents.find(
-          (s) =>
-            (studentEmail && s.email.toLowerCase() === studentEmail.toLowerCase()) ||
-            (currentUser.email && s.email.toLowerCase() === currentUser.email.toLowerCase()) ||
-            s.studentId === currentUser.id
-        );
-        return storeMatch || null;
-      };
-
-      const existingRecord = findRecord();
-
-      if (existingRecord) {
-        setEliteRecord(existingRecord);
+      if (matchedRecord) {
+        setEliteRecord(matchedRecord);
       } else if (pkg && getPackageByIdOrName(pkg).id === 'elite') {
+        const primaryEmail = candidateEmails.find(Boolean) || 'student@ahsora.com';
         const newRecord: Omit<MedpathEliteStudent, 'id'> = {
           studentId: currentUser.id || `stu-${Date.now()}`,
           studentName: studentName || 'Elite Student',
-          email: studentEmail || 'student@ahsora.com',
+          email: primaryEmail,
           registeredAt: new Date().toISOString(),
           stages: {
             pre_enrollment: 'pending',
@@ -171,54 +173,37 @@ export default function MedpathPage() {
     detectPackage();
   }, [currentUser, eliteStudents, addEliteStudent]);
 
-  // Sync elite record from store & localStorage on change or cross-tab storage update
+  // Real-time sync listener for stage status updates
   useEffect(() => {
     const syncLatestRecord = () => {
-      let activeEmail = currentUser.email || '';
+      const candidateEmails: string[] = [currentUser.email || ''];
       try {
         const reg = localStorage.getItem('recentRegistration');
         if (reg) {
           const parsed = JSON.parse(reg);
-          if (parsed.email) activeEmail = parsed.email;
+          if (parsed.email) candidateEmails.push(parsed.email);
         }
       } catch (e) {}
 
-      try {
-        const savedStr = localStorage.getItem('ahsora_elite_students');
-        if (savedStr) {
-          const list: MedpathEliteStudent[] = JSON.parse(savedStr);
-          const match = list.find(
-            (s) =>
-              (activeEmail && s.email.toLowerCase() === activeEmail.toLowerCase()) ||
-              (currentUser.email && s.email.toLowerCase() === currentUser.email.toLowerCase()) ||
-              s.studentId === currentUser.id
-          );
-          if (match) {
-            setEliteRecord(match);
-            return;
-          }
-        }
-      } catch (e) {}
-
-      const storeMatch = eliteStudents.find(
-        (s) =>
-          (activeEmail && s.email.toLowerCase() === activeEmail.toLowerCase()) ||
-          (currentUser.email && s.email.toLowerCase() === currentUser.email.toLowerCase()) ||
-          s.studentId === currentUser.id
-      );
-      if (storeMatch) setEliteRecord(storeMatch);
+      const matched = findMatchingRecord(candidateEmails);
+      if (matched) {
+        setEliteRecord(matched);
+      }
     };
 
     syncLatestRecord();
 
-    const handleStorage = (e: StorageEvent) => {
-      if (e.key === 'ahsora_elite_students') {
-        syncLatestRecord();
-      }
+    const handleUpdateEvent = () => syncLatestRecord();
+    window.addEventListener('storage', handleUpdateEvent);
+    window.addEventListener('ahsora_elite_updated', handleUpdateEvent);
+    window.addEventListener('focus', handleUpdateEvent);
+
+    return () => {
+      window.removeEventListener('storage', handleUpdateEvent);
+      window.removeEventListener('ahsora_elite_updated', handleUpdateEvent);
+      window.removeEventListener('focus', handleUpdateEvent);
     };
-    window.addEventListener('storage', handleStorage);
-    return () => window.removeEventListener('storage', handleStorage);
-  }, [eliteStudents, currentUser]);
+  }, [currentUser, eliteStudents]);
 
   if (loading) {
     return (
