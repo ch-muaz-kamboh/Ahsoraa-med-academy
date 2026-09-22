@@ -125,6 +125,32 @@ export default function RegisterPage() {
       );
       filteredList.unshift(pendingStudent);
       localStorage.setItem('adminStudentList', JSON.stringify(filteredList));
+
+      // If Ahsora Path Elite package selected, auto-add to MedPath Elite list
+      if (pkgObj.id === 'elite') {
+        const eliteItem = {
+          id: pendingStudent.id,
+          studentId: pendingStudent.id,
+          studentName: fullName,
+          email: formData.email,
+          registeredAt: pendingStudent.createdAt,
+          stages: {
+            pre_enrollment: 'pending',
+            dov_submission: 'pending',
+            university_application: 'pending',
+            admission_decision: 'pending',
+            visa_process: 'pending',
+            housing_arrival: 'pending',
+          },
+        };
+        const existingEliteStr = localStorage.getItem('ahsora_elite_students');
+        const existingElite: any[] = existingEliteStr ? JSON.parse(existingEliteStr) : [];
+        const filteredElite = existingElite.filter(
+          (e: any) => !e.email || e.email.toLowerCase() !== formData.email.toLowerCase()
+        );
+        filteredElite.unshift(eliteItem);
+        localStorage.setItem('ahsora_elite_students', JSON.stringify(filteredElite));
+      }
     } catch (e) {
       console.error('LocalStorage write error:', e);
     }
