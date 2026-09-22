@@ -72,6 +72,8 @@ export default function MedpathPage() {
     const detectPackage = async () => {
       setLoading(true);
       let pkg: string | null = null;
+      let studentEmail: string = currentUser.email || '';
+      let studentName: string = `${currentUser.firstName || ''} ${currentUser.lastName || ''}`.trim();
 
       // 1. Try Supabase profile
       try {
@@ -86,16 +88,24 @@ export default function MedpathPage() {
           if (profile?.selected_package) {
             pkg = profile.selected_package;
           }
+          if (profile?.email) {
+            studentEmail = profile.email;
+          }
+          if (profile?.full_name) {
+            studentName = profile.full_name;
+          }
         }
       } catch (e) {}
 
       // 2. Fallback to localStorage registration data
-      if (!pkg) {
+      if (!pkg || !studentEmail) {
         try {
           const reg = localStorage.getItem('recentRegistration');
           if (reg) {
             const parsed = JSON.parse(reg);
-            pkg = parsed.selectedPackage || null;
+            if (!pkg) pkg = parsed.selectedPackage || parsed.selected_package || null;
+            if (!studentEmail) studentEmail = parsed.email || '';
+            if (!studentName && parsed.fullName) studentName = parsed.fullName;
           }
         } catch (e) {}
       }
@@ -107,40 +117,107 @@ export default function MedpathPage() {
 
       setStudentPackage(pkg);
 
-      // If elite, ensure they have a record in elite students
-      if (pkg && getPackageByIdOrName(pkg).id === 'elite') {
-        const existing = eliteStudents.find((s) => s.email === (currentUser.email || ''));
-        if (!existing) {
-          const newRecord: Omit<MedpathEliteStudent, 'id'> = {
-            studentId: currentUser.id || `stu-${Date.now()}`,
-            studentName: `${currentUser.firstName} ${currentUser.lastName}`,
-            email: currentUser.email || '',
-            registeredAt: new Date().toISOString(),
-            stages: {
-              pre_enrollment: 'pending',
-              dov_submission: 'pending',
-              university_application: 'pending',
-              admission_decision: 'pending',
-              visa_process: 'pending',
-              housing_arrival: 'pending',
-            },
-          };
-          addEliteStudent(newRecord);
-          setEliteRecord({ ...newRecord, id: 'elite-new' });
-        } else {
-          setEliteRecord(existing);
-        }
+      // Function to locate existing record in localStorage or store
+      const findRecord = (): MedpathEliteStudent | null => {
+        try {
+          const savedStr = localStorage.getItem('ahsora_elite_students');
+          if (savedStr) {
+            const list: MedpathEliteStudent[] = JSON.parse(savedStr);
+            const match = list.find(
+              (s) =>
+                (studentEmail && s.email.toLowerCase() === studentEmail.toLowerCase()) ||
+                (currentUser.email && s.email.toLowerCase() === currentUser.email.toLowerCase()) ||
+                s.studentId === currentUser.id
+            );
+            if (match) return match;
+          }
+        } catch (e) {}
+
+        const storeMatch = eliteStudents.find(
+          (s) =>
+            (studentEmail && s.email.toLowerCase() === studentEmail.toLowerCase()) ||
+            (currentUser.email && s.email.toLowerCase() === currentUser.email.toLowerCase()) ||
+            s.studentId === currentUser.id
+        );
+        return storeMatch || null;
+      };
+
+      const existingRecord = findRecord();
+
+      if (existingRecord) {
+        setEliteRecord(existingRecord);
+      } else if (pkg && getPackageByIdOrName(pkg).id === 'elite') {
+        const newRecord: Omit<MedpathEliteStudent, 'id'> = {
+          studentId: currentUser.id || `stu-${Date.now()}`,
+          studentName: studentName || 'Elite Student',
+          email: studentEmail || 'student@ahsora.com',
+          registeredAt: new Date().toISOString(),
+          stages: {
+            pre_enrollment: 'pending',
+            dov_submission: 'pending',
+            university_application: 'pending',
+            admission_decision: 'pending',
+            visa_process: 'pending',
+            housing_arrival: 'pending',
+          },
+        };
+        addEliteStudent(newRecord);
+        setEliteRecord({ ...newRecord, id: 'elite-new' });
       }
 
       setLoading(false);
     };
+
     detectPackage();
   }, [currentUser, eliteStudents, addEliteStudent]);
 
-  // Sync elite record from store
+  // Sync elite record from store & localStorage on change or cross-tab storage update
   useEffect(() => {
-    const rec = eliteStudents.find((s) => s.email === currentUser.email || s.studentId === currentUser.id);
-    if (rec) setEliteRecord(rec);
+    const syncLatestRecord = () => {
+      let activeEmail = currentUser.email || '';
+      try {
+        const reg = localStorage.getItem('recentRegistration');
+        if (reg) {
+          const parsed = JSON.parse(reg);
+          if (parsed.email) activeEmail = parsed.email;
+        }
+      } catch (e) {}
+
+      try {
+        const savedStr = localStorage.getItem('ahsora_elite_students');
+        if (savedStr) {
+          const list: MedpathEliteStudent[] = JSON.parse(savedStr);
+          const match = list.find(
+            (s) =>
+              (activeEmail && s.email.toLowerCase() === activeEmail.toLowerCase()) ||
+              (currentUser.email && s.email.toLowerCase() === currentUser.email.toLowerCase()) ||
+              s.studentId === currentUser.id
+          );
+          if (match) {
+            setEliteRecord(match);
+            return;
+          }
+        }
+      } catch (e) {}
+
+      const storeMatch = eliteStudents.find(
+        (s) =>
+          (activeEmail && s.email.toLowerCase() === activeEmail.toLowerCase()) ||
+          (currentUser.email && s.email.toLowerCase() === currentUser.email.toLowerCase()) ||
+          s.studentId === currentUser.id
+      );
+      if (storeMatch) setEliteRecord(storeMatch);
+    };
+
+    syncLatestRecord();
+
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === 'ahsora_elite_students') {
+        syncLatestRecord();
+      }
+    };
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
   }, [eliteStudents, currentUser]);
 
   if (loading) {

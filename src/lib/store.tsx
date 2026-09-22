@@ -254,6 +254,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           setDoubts(updated);
         } catch {}
       }
+      if (e.key === 'ahsora_elite_students' && e.newValue) {
+        try {
+          const updated = JSON.parse(e.newValue);
+          setEliteStudents(updated);
+        } catch {}
+      }
     };
     window.addEventListener('storage', handleStorage);
     return () => window.removeEventListener('storage', handleStorage);
@@ -847,13 +853,17 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     stage: keyof MedpathEliteStudent['stages'],
     status: MedpathStageStatus
   ) => {
-    setEliteStudents((prev) =>
-      prev.map((s) =>
-        s.studentId === studentId
+    setEliteStudents((prev) => {
+      const updated = prev.map((s) =>
+        s.studentId === studentId || s.id === studentId
           ? { ...s, stages: { ...s.stages, [stage]: status } }
           : s
-      )
-    );
+      );
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('ahsora_elite_students', JSON.stringify(updated));
+      }
+      return updated;
+    });
   };
 
   const startLiveTest = (testId: string, testTitle: string) => {
