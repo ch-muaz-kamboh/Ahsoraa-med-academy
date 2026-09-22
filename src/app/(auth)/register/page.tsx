@@ -117,10 +117,14 @@ export default function RegisterPage() {
     try {
       localStorage.setItem('recentRegistration', JSON.stringify(pendingStudent));
       
-      // Also append to local pending students list for admin demo view
-      const existingList = JSON.parse(localStorage.getItem('adminStudentList') || '[]');
-      existingList.unshift(pendingStudent);
-      localStorage.setItem('adminStudentList', JSON.stringify(existingList));
+      // Also update local pending students list for admin demo view
+      const existingListStr = localStorage.getItem('adminStudentList');
+      const existingList: any[] = existingListStr ? JSON.parse(existingListStr) : [];
+      const filteredList = existingList.filter(
+        (item: any) => !item.email || item.email.toLowerCase() !== formData.email.toLowerCase()
+      );
+      filteredList.unshift(pendingStudent);
+      localStorage.setItem('adminStudentList', JSON.stringify(filteredList));
     } catch (e) {
       console.error('LocalStorage write error:', e);
     }

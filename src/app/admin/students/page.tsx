@@ -66,16 +66,27 @@ export default function AdminStudentsPage() {
       console.warn('Supabase fetch error:', e);
     }
 
-    // 2. Load cached local registrations for demo continuity
+    // 2. Load cached local registrations for demo continuity & update student entries
     try {
       const localListStr = localStorage.getItem('adminStudentList');
       if (localListStr) {
         const localList: any[] = JSON.parse(localListStr);
         localList.forEach((localItem) => {
-          const exists = combinedList.some(
-            (s) => s.id === localItem.id || (s.email && s.email.toLowerCase() === localItem.email.toLowerCase())
+          const existingIdx = combinedList.findIndex(
+            (s) =>
+              (localItem.id && s.id === localItem.id) ||
+              (s.email && localItem.email && s.email.toLowerCase() === localItem.email.toLowerCase())
           );
-          if (!exists) {
+          if (existingIdx !== -1) {
+            combinedList[existingIdx] = {
+              ...combinedList[existingIdx],
+              full_name: localItem.fullName || localItem.full_name || `${localItem.firstName || ''} ${localItem.lastName || ''}`.trim() || combinedList[existingIdx].full_name,
+              country: localItem.country || combinedList[existingIdx].country,
+              whatsapp_number: localItem.whatsappNumber || localItem.whatsapp_number || combinedList[existingIdx].whatsapp_number,
+              selected_package: localItem.selectedPackage || localItem.selected_package || combinedList[existingIdx].selected_package,
+              package_price: localItem.packagePrice || localItem.package_price || combinedList[existingIdx].package_price,
+            };
+          } else {
             combinedList.unshift({
               id: localItem.id,
               ama_id: localItem.ama_id,

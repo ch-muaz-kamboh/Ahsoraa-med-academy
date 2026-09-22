@@ -53,12 +53,12 @@ function PendingPaymentContent() {
             currentData = {
               ...currentData,
               ...profileData,
-              fullName: profileData.full_name || currentData?.fullName,
-              email: profileData.email || currentData?.email,
-              country: profileData.country || currentData?.country,
-              whatsappNumber: profileData.whatsapp_number || currentData?.whatsappNumber,
-              selectedPackage: profileData.selected_package || currentData?.selectedPackage,
-              packagePrice: profileData.package_price || currentData?.packagePrice,
+              fullName: currentData?.fullName || currentData?.full_name || profileData.full_name,
+              email: currentData?.email || profileData.email,
+              country: currentData?.country || profileData.country,
+              whatsappNumber: currentData?.whatsappNumber || currentData?.whatsapp_number || profileData.whatsapp_number,
+              selectedPackage: currentData?.selectedPackage || currentData?.selected_package || profileData.selected_package,
+              packagePrice: currentData?.packagePrice || currentData?.package_price || profileData.package_price,
               ama_id: profileData.ama_id || currentData?.ama_id,
             };
           }
