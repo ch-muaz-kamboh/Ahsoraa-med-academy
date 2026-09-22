@@ -77,8 +77,10 @@ export default function StaffMedpathElitePage() {
         stagesOverride?: MedpathEliteStudent['stages']
       ) => {
         if (!email) return;
-        const key = email.toLowerCase();
-        if (!combinedMap.has(key)) {
+        const key = email.toLowerCase().trim();
+        const existing = combinedMap.get(key);
+
+        if (!existing) {
           combinedMap.set(key, {
             id: id || `elite-${Date.now()}`,
             studentId: studentId || id || `stu-${Date.now()}`,
@@ -94,15 +96,18 @@ export default function StaffMedpathElitePage() {
               housing_arrival: 'pending',
             },
           });
+        } else if (stagesOverride) {
+          const mergedStages = { ...existing.stages };
+          (Object.keys(stagesOverride) as Array<keyof MedpathEliteStudent['stages']>).forEach((k) => {
+            if (stagesOverride[k] && stagesOverride[k] !== 'pending') {
+              mergedStages[k] = stagesOverride[k];
+            }
+          });
+          existing.stages = mergedStages;
         }
       };
 
-      // 1. Load from useAppStore() eliteStudents
-      eliteStudents.forEach((s) => {
-        addOrMerge(s.id, s.studentId, s.studentName, s.email, s.registeredAt, s.stages);
-      });
-
-      // 2. Load from localStorage ahsora_elite_students
+      // 1. Load from localStorage ahsora_elite_students FIRST (contains active staff edits)
       try {
         const savedEliteStr = localStorage.getItem('ahsora_elite_students');
         if (savedEliteStr) {
@@ -110,6 +115,11 @@ export default function StaffMedpathElitePage() {
           savedElite.forEach((s) => addOrMerge(s.id, s.studentId, s.studentName, s.email, s.registeredAt, s.stages));
         }
       } catch (e) {}
+
+      // 2. Load from useAppStore() eliteStudents
+      eliteStudents.forEach((s) => {
+        addOrMerge(s.id, s.studentId, s.studentName, s.email, s.registeredAt, s.stages);
+      });
 
       // 3. Load from localStorage adminStudentList for Path Elite packages
       try {
@@ -121,7 +131,7 @@ export default function StaffMedpathElitePage() {
             const isElite = getPackageByIdOrName(pkgName).id === 'elite' || pkgName.toLowerCase().includes('path');
             if (isElite) {
               const name = item.fullName || `${item.firstName || ''} ${item.lastName || ''}`.trim() || 'Elite Student';
-              addOrMerge(item.id, item.id, name, item.email, item.createdAt || item.created_at);
+              addOrMerge(item.id, item.id, name, item.email, item.createdAt || item.created_at, item.stages);
             }
           });
         }
@@ -136,7 +146,7 @@ export default function StaffMedpathElitePage() {
           const isElite = getPackageByIdOrName(pkgName).id === 'elite' || pkgName.toLowerCase().includes('path');
           if (isElite) {
             const name = recent.fullName || `${recent.firstName || ''} ${recent.lastName || ''}`.trim() || 'Elite Student';
-            addOrMerge(recent.id, recent.id, name, recent.email, recent.createdAt);
+            addOrMerge(recent.id, recent.id, name, recent.email, recent.createdAt, recent.stages);
           }
         }
       } catch (e) {}

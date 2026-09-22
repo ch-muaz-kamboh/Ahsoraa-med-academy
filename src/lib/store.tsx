@@ -849,18 +849,95 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   };
 
   const updateEliteStage = (
-    studentId: string,
+    studentIdOrEmail: string,
     stage: keyof MedpathEliteStudent['stages'],
     status: MedpathStageStatus
   ) => {
     setEliteStudents((prev) => {
-      const updated = prev.map((s) =>
-        s.studentId === studentId || s.id === studentId
-          ? { ...s, stages: { ...s.stages, [stage]: status } }
-          : s
-      );
+      let currentList: MedpathEliteStudent[] = [...prev];
+
+      // Read from localStorage ahsora_elite_students to prevent losing records
       if (typeof window !== 'undefined') {
-        localStorage.setItem('ahsora_elite_students', JSON.stringify(updated));
+        try {
+          const savedStr = localStorage.getItem('ahsora_elite_students');
+          if (savedStr) {
+            const savedList: MedpathEliteStudent[] = JSON.parse(savedStr);
+            savedList.forEach((saved) => {
+              const idx = currentList.findIndex(
+                (c) =>
+                  (c.email && saved.email && c.email.toLowerCase().trim() === saved.email.toLowerCase().trim()) ||
+                  c.id === saved.id ||
+                  c.studentId === saved.studentId
+              );
+              if (idx === -1) {
+                currentList.push(saved);
+              } else {
+                currentList[idx] = { ...currentList[idx], stages: { ...currentList[idx].stages, ...saved.stages } };
+              }
+            });
+          }
+        } catch (e) {}
+      }
+
+      const q = studentIdOrEmail.toLowerCase().trim();
+      let found = false;
+
+      let updated = currentList.map((s) => {
+        const sEmail = (s.email || '').toLowerCase().trim();
+        const sId = (s.id || '').toLowerCase().trim();
+        const sStuId = (s.studentId || '').toLowerCase().trim();
+
+        if (
+          sId === q ||
+          sStuId === q ||
+          sEmail === q ||
+          (q.length > 3 && sEmail.includes(q.split('@')[0]))
+        ) {
+          found = true;
+          return { ...s, stages: { ...s.stages, [stage]: status } };
+        }
+        return s;
+      });
+
+      // If student was not found in currentList, try adminStudentList
+      if (!found && typeof window !== 'undefined') {
+        try {
+          const adminListStr = localStorage.getItem('adminStudentList');
+          if (adminListStr) {
+            const adminList: any[] = JSON.parse(adminListStr);
+            const match = adminList.find(
+              (item) =>
+                item.id === studentIdOrEmail ||
+                item.email?.toLowerCase().trim() === q ||
+                (q.length > 3 && item.email?.toLowerCase().trim().includes(q.split('@')[0]))
+            );
+            if (match) {
+              const newElite: MedpathEliteStudent = {
+                id: match.id || `elite-${Date.now()}`,
+                studentId: match.id || `stu-${Date.now()}`,
+                studentName: match.fullName || `${match.firstName || ''} ${match.lastName || ''}`.trim() || 'Elite Student',
+                email: match.email,
+                registeredAt: match.createdAt || new Date().toISOString(),
+                stages: {
+                  pre_enrollment: 'pending',
+                  dov_submission: 'pending',
+                  university_application: 'pending',
+                  admission_decision: 'pending',
+                  visa_process: 'pending',
+                  housing_arrival: 'pending',
+                  [stage]: status,
+                },
+              };
+              updated.unshift(newElite);
+            }
+          }
+        } catch (e) {}
+      }
+
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem('ahsora_elite_students', JSON.stringify(updated));
+        } catch (e) {}
       }
       return updated;
     });
