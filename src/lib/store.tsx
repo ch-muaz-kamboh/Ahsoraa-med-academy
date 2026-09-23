@@ -192,16 +192,55 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const DEFAULT_STAFF_ACCOUNTS: StaffAccountRequest[] = [
+    {
+      id: 'staff-farhan',
+      email: 'dr.farhan@ahsorameds.com',
+      displayName: 'Dr. Farhan Ahmed',
+      accountType: 'staff',
+      role: 'teacher',
+      assignedSubjects: ['Biology', 'Anatomy', 'Physiology'],
+      assignedCohorts: ['IMAT 2026 Alpha Cohort', 'MedPath Elite Track'],
+      password: 'password123',
+      status: 'approved',
+      isActive: true,
+      permissions: ['schedule', 'question_bank', 'doubts', 'assessments', 'students', 'attendance', 'medpath_elite'],
+      createdAt: '2026-01-10T10:00:00.000Z',
+    },
+    {
+      id: 'staff-sarah',
+      email: 'dr.sarah@ahsorameds.com',
+      displayName: 'Dr. Sarah Jenkins',
+      accountType: 'staff',
+      role: 'teacher',
+      assignedSubjects: ['General Chemistry', 'Organic Chemistry'],
+      assignedCohorts: ['IMAT 2026 Alpha Cohort'],
+      password: 'password123',
+      status: 'approved',
+      isActive: true,
+      permissions: ['schedule', 'question_bank', 'doubts', 'assessments', 'students', 'attendance'],
+      createdAt: '2026-01-15T10:00:00.000Z',
+    },
+  ];
+
   const [staffLoggedIn, setStaffLoggedIn] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false;
     return localStorage.getItem('ahsora_staffLoggedIn') === 'true';
   });
   const [staffAccounts, setStaffAccounts] = useState<StaffAccountRequest[]>(() => {
-    if (typeof window === 'undefined') return [];
+    if (typeof window === 'undefined') return DEFAULT_STAFF_ACCOUNTS;
     try {
       const saved = localStorage.getItem('ahsora_staffAccounts');
-      return saved ? JSON.parse(saved) : [];
-    } catch { return []; }
+      if (!saved) return DEFAULT_STAFF_ACCOUNTS;
+      const parsed: StaffAccountRequest[] = JSON.parse(saved);
+      const merged = [...parsed];
+      DEFAULT_STAFF_ACCOUNTS.forEach((def) => {
+        if (!merged.some((a) => a.email.toLowerCase() === def.email.toLowerCase())) {
+          merged.push(def);
+        }
+      });
+      return merged;
+    } catch { return DEFAULT_STAFF_ACCOUNTS; }
   });
   const [staffProfile, setStaffProfile] = useState<StaffProfile>(() => {
     if (typeof window === 'undefined') return {} as StaffProfile;
@@ -214,7 +253,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   // Persist staff accounts and profile to localStorage
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && staffAccounts.length > 0) {
       localStorage.setItem('ahsora_staffAccounts', JSON.stringify(staffAccounts));
     }
   }, [staffAccounts]);
@@ -235,34 +274,47 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   // reload it here automatically without manual refresh
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    const handleStorage = (e: StorageEvent) => {
-      if (e.key === 'ahsora_staffAccounts' && e.newValue) {
-        try {
-          const updated = JSON.parse(e.newValue);
-          setStaffAccounts(updated);
-        } catch {}
-      }
-      if (e.key === 'ahsora_staffQuestions' && e.newValue) {
-        try {
-          const updated = JSON.parse(e.newValue);
-          setStaffQuestions(updated);
-        } catch {}
-      }
-      if (e.key === 'ahsora_local_doubts' && e.newValue) {
-        try {
-          const updated = JSON.parse(e.newValue);
-          setDoubts(updated);
-        } catch {}
-      }
-      if (e.key === 'ahsora_elite_students' && e.newValue) {
-        try {
-          const updated = JSON.parse(e.newValue);
-          setEliteStudents(updated);
-        } catch {}
+    const handleStorage = (e?: StorageEvent | Event) => {
+      try {
+        const saved = localStorage.getItem('ahsora_staffAccounts');
+        if (saved) {
+          const parsed: StaffAccountRequest[] = JSON.parse(saved);
+          const merged = [...parsed];
+          DEFAULT_STAFF_ACCOUNTS.forEach((def) => {
+            if (!merged.some((a) => a.email.toLowerCase() === def.email.toLowerCase())) {
+              merged.push(def);
+            }
+          });
+          setStaffAccounts(merged);
+        }
+      } catch {}
+
+      if (e && 'key' in e) {
+        const se = e as StorageEvent;
+        if (se.key === 'ahsora_staffQuestions' && se.newValue) {
+          try {
+            setStaffQuestions(JSON.parse(se.newValue));
+          } catch {}
+        }
+        if (se.key === 'ahsora_local_doubts' && se.newValue) {
+          try {
+            setDoubts(JSON.parse(se.newValue));
+          } catch {}
+        }
+        if (se.key === 'ahsora_elite_students' && se.newValue) {
+          try {
+            setEliteStudents(JSON.parse(se.newValue));
+          } catch {}
+        }
       }
     };
+
     window.addEventListener('storage', handleStorage);
-    return () => window.removeEventListener('storage', handleStorage);
+    window.addEventListener('ahsora_staff_updated', handleStorage);
+    return () => {
+      window.removeEventListener('storage', handleStorage);
+      window.removeEventListener('ahsora_staff_updated', handleStorage);
+    };
   }, []);
 
   // Staff MCQ Question Bank — shared, persisted
@@ -1084,7 +1136,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
     const defaultPerms: StaffPermission[] = data.permissions && data.permissions.length > 0
       ? data.permissions
-      : ['schedule', 'question_bank', 'doubts', 'assessments', 'students', 'attendance'];
+      : ['schedule', 'question_bank', 'doubts', 'assessments', 'students', 'attendance', 'medpath_elite'];
 
     const newAccount: StaffAccountRequest = {
       ...data,
@@ -1094,28 +1146,74 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       isActive: false,
       createdAt: new Date().toISOString(),
     };
-    setStaffAccounts((prev) => [newAccount, ...prev]);
+    
+    setStaffAccounts((prev) => {
+      const updated = [newAccount, ...prev];
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('ahsora_staffAccounts', JSON.stringify(updated));
+        window.dispatchEvent(new Event('storage'));
+        window.dispatchEvent(new CustomEvent('ahsora_staff_updated'));
+      }
+      return updated;
+    });
+
+    // Fire and forget optional Supabase sync
+    try {
+      const supabase = createClient();
+      supabase.from('portal_staff_accounts').upsert({
+        id: newAccount.id,
+        email: newAccount.email,
+        display_name: newAccount.displayName,
+        account_type: 'staff',
+        role: newAccount.role,
+        assigned_subjects: newAccount.assignedSubjects,
+        assigned_cohorts: newAccount.assignedCohorts,
+        status: newAccount.status,
+        is_active: newAccount.isActive,
+        permissions: newAccount.permissions,
+        created_at: newAccount.createdAt,
+      }).then();
+    } catch {}
+
     return { success: true, message: 'Registration submitted! Your account request is pending Admin approval.' };
   };
 
   const approveStaffAccount = (id: string) => {
-    setStaffAccounts((prev) =>
-      prev.map((a) => (a.id === id ? { ...a, status: 'approved', isActive: true } : a))
-    );
+    setStaffAccounts((prev) => {
+      const updated = prev.map((a) => (a.id === id ? { ...a, status: 'approved' as StaffAccountStatus, isActive: true } : a));
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('ahsora_staffAccounts', JSON.stringify(updated));
+        window.dispatchEvent(new Event('storage'));
+        window.dispatchEvent(new CustomEvent('ahsora_staff_updated'));
+      }
+      return updated;
+    });
   };
 
   const declineStaffAccount = (id: string, reason?: string) => {
-    setStaffAccounts((prev) =>
-      prev.map((a) =>
-        a.id === id ? { ...a, status: 'rejected', isActive: false, rejectionReason: reason } : a
-      )
-    );
+    setStaffAccounts((prev) => {
+      const updated = prev.map((a) =>
+        a.id === id ? { ...a, status: 'rejected' as StaffAccountStatus, isActive: false, rejectionReason: reason } : a
+      );
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('ahsora_staffAccounts', JSON.stringify(updated));
+        window.dispatchEvent(new Event('storage'));
+        window.dispatchEvent(new CustomEvent('ahsora_staff_updated'));
+      }
+      return updated;
+    });
   };
 
   const updateStaffPermissions = (staffId: string, permissions: StaffPermission[]) => {
-    setStaffAccounts((prev) =>
-      prev.map((a) => (a.id === staffId ? { ...a, permissions } : a))
-    );
+    setStaffAccounts((prev) => {
+      const updated = prev.map((a) => (a.id === staffId ? { ...a, permissions } : a));
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('ahsora_staffAccounts', JSON.stringify(updated));
+        window.dispatchEvent(new Event('storage'));
+        window.dispatchEvent(new CustomEvent('ahsora_staff_updated'));
+      }
+      return updated;
+    });
     setStaffProfile((prev) => (prev.id === staffId ? { ...prev, permissions } : prev));
   };
 
