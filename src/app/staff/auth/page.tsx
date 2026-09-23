@@ -20,13 +20,33 @@ export default function StaffAuthPage() {
   const [loginError, setLoginError] = useState('');
   const [loginStatusNotice, setLoginStatusNotice] = useState<'pending' | 'rejected' | null>(null);
 
+  // Predefined options
+  const PRESET_SUBJECTS = [
+    'Biology & Human Anatomy',
+    'General Chemistry',
+    'Organic Chemistry & Biochemistry',
+    'Physics & Mathematics',
+    'Logical Reasoning & Critical Thinking',
+    'IMAT Exam Preparation',
+    'MedPath Elite Mentorship',
+    'University Admissions & DOV',
+  ];
+
+  const PRESET_COHORTS = [
+    'IMAT 2026 Alpha Cohort',
+    'IMAT 2026 Beta Cohort',
+    'MedPath Elite Track',
+    'Intensive Revision Track',
+  ];
+
   // Register Form
   const [regName, setRegName] = useState('');
   const [regEmail, setRegEmail] = useState('');
   const [regPassword, setRegPassword] = useState('');
   const [regRole, setRegRole] = useState<StaffRole>('teacher');
-  const [regSubjects, setRegSubjects] = useState('Biology, Biochemistry');
-  const [regCohorts, setRegCohorts] = useState('IMAT 2026 Alpha Cohort');
+  const [selectedSubjects, setSelectedSubjects] = useState<string[]>(['Biology & Human Anatomy']);
+  const [selectedCohorts, setSelectedCohorts] = useState<string[]>(['IMAT 2026 Alpha Cohort']);
+  const [customSubjectInput, setCustomSubjectInput] = useState('');
   const [regSuccessMessage, setRegSuccessMessage] = useState('');
   const [regErrorMessage, setRegErrorMessage] = useState('');
 
@@ -34,6 +54,25 @@ export default function StaffAuthPage() {
   if (staffLoggedIn) {
     router.replace('/staff/dashboard');
   }
+
+  const handleToggleSubject = (subj: string) => {
+    setSelectedSubjects((prev) =>
+      prev.includes(subj) ? (prev.length > 1 ? prev.filter((s) => s !== subj) : prev) : [...prev, subj]
+    );
+  };
+
+  const handleAddCustomSubject = () => {
+    if (customSubjectInput.trim() && !selectedSubjects.includes(customSubjectInput.trim())) {
+      setSelectedSubjects((prev) => [...prev, customSubjectInput.trim()]);
+      setCustomSubjectInput('');
+    }
+  };
+
+  const handleToggleCohort = (cohort: string) => {
+    setSelectedCohorts((prev) =>
+      prev.includes(cohort) ? (prev.length > 1 ? prev.filter((c) => c !== cohort) : prev) : [...prev, cohort]
+    );
+  };
 
   const handleSignIn = (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,16 +98,13 @@ export default function StaffAuthPage() {
     setRegSuccessMessage('');
     setRegErrorMessage('');
 
-    const subjectsArr = regSubjects.split(',').map((s) => s.trim()).filter(Boolean);
-    const cohortsArr = regCohorts.split(',').map((c) => c.trim()).filter(Boolean);
-
     const result = registerStaffAccount({
       email: regEmail,
       displayName: regName,
       accountType: 'staff',
       role: regRole,
-      assignedSubjects: subjectsArr.length > 0 ? subjectsArr : ['Biology'],
-      assignedCohorts: cohortsArr.length > 0 ? cohortsArr : ['IMAT 2026 Alpha Cohort'],
+      assignedSubjects: selectedSubjects.length > 0 ? selectedSubjects : ['Biology & Human Anatomy'],
+      assignedCohorts: selectedCohorts.length > 0 ? selectedCohorts : ['IMAT 2026 Alpha Cohort'],
       password: regPassword,
     });
 
@@ -423,15 +459,14 @@ export default function StaffAuthPage() {
               />
             </div>
 
+            {/* Faculty Role Dropdown */}
             <div>
               <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#CBD5E1', marginBottom: '6px' }}>
-                Assigned Subjects (Comma-separated)
+                Primary Academic Role
               </label>
-              <input
-                type="text"
-                value={regSubjects}
-                onChange={(e) => setRegSubjects(e.target.value)}
-                placeholder="Biology, Organic Chemistry, IMAT"
+              <select
+                value={regRole}
+                onChange={(e) => setRegRole(e.target.value as StaffRole)}
                 style={{
                   width: '100%',
                   padding: '10px 14px',
@@ -440,29 +475,114 @@ export default function StaffAuthPage() {
                   backgroundColor: '#0F172A',
                   color: '#FFFFFF',
                   fontSize: '0.875rem',
+                  cursor: 'pointer',
+                  outline: 'none',
                 }}
-              />
+              >
+                <option value="teacher">Instructor / Senior Lecturer</option>
+                <option value="admissions_staff">Admissions Specialist & Mentor</option>
+                <option value="staff">MedPath Elite Staff</option>
+              </select>
             </div>
 
+            {/* Assigned Subjects Dropdown & Selection Pills */}
             <div>
               <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#CBD5E1', marginBottom: '6px' }}>
-                Assigned Cohorts (Comma-separated)
+                Assigned Subjects & Disciplines (Select One or Multiple)
               </label>
-              <input
-                type="text"
-                value={regCohorts}
-                onChange={(e) => setRegCohorts(e.target.value)}
-                placeholder="IMAT 2026 Alpha Cohort, Intensive Track"
+
+              {/* Subject Dropdown Selector */}
+              <select
+                onChange={(e) => {
+                  if (e.target.value) {
+                    handleToggleSubject(e.target.value);
+                    e.target.value = '';
+                  }
+                }}
                 style={{
                   width: '100%',
                   padding: '10px 14px',
                   borderRadius: '10px',
                   border: '1px solid #334155',
                   backgroundColor: '#0F172A',
-                  color: '#FFFFFF',
+                  color: '#38BDF8',
                   fontSize: '0.875rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  marginBottom: '10px',
                 }}
-              />
+              >
+                <option value="">-- Click to Add/Select Subject from Dropdown --</option>
+                {PRESET_SUBJECTS.map((subj) => (
+                  <option key={subj} value={subj}>
+                    {selectedSubjects.includes(subj) ? `✓ ${subj} (Selected)` : `+ ${subj}`}
+                  </option>
+                ))}
+              </select>
+
+              {/* Interactive Subject Selection Pills */}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '8px' }}>
+                {PRESET_SUBJECTS.map((subj) => {
+                  const isSel = selectedSubjects.includes(subj);
+                  return (
+                    <button
+                      key={subj}
+                      type="button"
+                      onClick={() => handleToggleSubject(subj)}
+                      style={{
+                        padding: '6px 12px',
+                        borderRadius: '20px',
+                        fontSize: '0.78125rem',
+                        fontWeight: isSel ? 700 : 500,
+                        backgroundColor: isSel ? '#2563EB' : '#0F172A',
+                        color: isSel ? '#FFFFFF' : '#94A3B8',
+                        border: isSel ? '1px solid #3B82F6' : '1px solid #334155',
+                        cursor: 'pointer',
+                        transition: 'all 0.15s ease',
+                      }}
+                    >
+                      {isSel ? '✓ ' : '+ '}{subj}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Selected Pills Summary */}
+              <div style={{ fontSize: '0.75rem', color: '#94A3B8', marginTop: '4px' }}>
+                Selected ({selectedSubjects.length}): <strong style={{ color: '#38BDF8' }}>{selectedSubjects.join(', ')}</strong>
+              </div>
+            </div>
+
+            {/* Assigned Cohorts Dropdown & Selection */}
+            <div>
+              <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#CBD5E1', marginBottom: '6px' }}>
+                Assigned Cohort Tracks
+              </label>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                {PRESET_COHORTS.map((cohort) => {
+                  const isSel = selectedCohorts.includes(cohort);
+                  return (
+                    <button
+                      key={cohort}
+                      type="button"
+                      onClick={() => handleToggleCohort(cohort)}
+                      style={{
+                        padding: '6px 12px',
+                        borderRadius: '20px',
+                        fontSize: '0.78125rem',
+                        fontWeight: isSel ? 700 : 500,
+                        backgroundColor: isSel ? '#059669' : '#0F172A',
+                        color: isSel ? '#FFFFFF' : '#94A3B8',
+                        border: isSel ? '1px solid #10B981' : '1px solid #334155',
+                        cursor: 'pointer',
+                        transition: 'all 0.15s ease',
+                      }}
+                    >
+                      {isSel ? '✓ ' : '+ '}{cohort}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             <button

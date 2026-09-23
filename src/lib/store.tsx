@@ -478,6 +478,42 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           setStudentMistakes(formatted);
           localStorage.setItem('ahsora_mistakes', JSON.stringify(formatted));
         }
+
+        // 5. Staff Accounts (Cross-Device Cloud Sync)
+        try {
+          const { data: dbStaff } = await supabase.from('portal_staff_accounts').select('*').order('created_at', { ascending: false });
+          if (dbStaff && dbStaff.length > 0) {
+            const formatted: StaffAccountRequest[] = dbStaff.map((s: any) => ({
+              id: s.id,
+              email: s.email,
+              displayName: s.display_name || s.email,
+              accountType: 'staff',
+              role: s.role || 'teacher',
+              assignedSubjects: Array.isArray(s.assigned_subjects) ? s.assigned_subjects : (typeof s.assigned_subjects === 'string' ? JSON.parse(s.assigned_subjects) : ['Biology & Human Anatomy']),
+              assignedCohorts: Array.isArray(s.assigned_cohorts) ? s.assigned_cohorts : (typeof s.assigned_cohorts === 'string' ? JSON.parse(s.assigned_cohorts) : ['IMAT 2026 Alpha Cohort']),
+              password: s.password || '',
+              status: s.status || 'pending',
+              isActive: s.is_active ?? (s.status === 'approved'),
+              permissions: Array.isArray(s.permissions) ? s.permissions : (typeof s.permissions === 'string' ? JSON.parse(s.permissions) : ['schedule', 'question_bank', 'doubts', 'assessments', 'students', 'attendance', 'medpath_elite']),
+              createdAt: s.created_at || new Date().toISOString(),
+            }));
+
+            setStaffAccounts((prev) => {
+              const merged = [...formatted];
+              prev.forEach((localItem) => {
+                if (!merged.some((m) => m.email.toLowerCase() === localItem.email.toLowerCase())) {
+                  merged.push(localItem);
+                }
+              });
+              if (typeof window !== 'undefined') {
+                localStorage.setItem('ahsora_staffAccounts', JSON.stringify(merged));
+              }
+              return merged;
+            });
+          }
+        } catch (sErr) {
+          console.warn('Supabase staff sync notice:', sErr);
+        }
       } catch (err) {
         console.warn('Supabase sync info:', err);
       }
@@ -620,12 +656,48 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       })
       .subscribe();
 
+    // Staff accounts channel for real-time cross-device updates
+    const staffChannel = supabase
+      .channel('public:portal_staff_accounts')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'portal_staff_accounts' }, (payload) => {
+        if (payload.eventType === 'DELETE') {
+          if (payload.old && payload.old.id) {
+            setStaffAccounts((prev) => prev.filter((a) => a.id !== payload.old.id));
+          }
+        } else if (payload.new && payload.new.email) {
+          const newItem: StaffAccountRequest = {
+            id: payload.new.id,
+            email: payload.new.email,
+            displayName: payload.new.display_name || payload.new.email,
+            accountType: 'staff',
+            role: payload.new.role || 'teacher',
+            assignedSubjects: Array.isArray(payload.new.assigned_subjects) ? payload.new.assigned_subjects : ['Biology & Human Anatomy'],
+            assignedCohorts: Array.isArray(payload.new.assigned_cohorts) ? payload.new.assigned_cohorts : ['IMAT 2026 Alpha Cohort'],
+            password: payload.new.password || '',
+            status: payload.new.status || 'pending',
+            isActive: payload.new.is_active ?? (payload.new.status === 'approved'),
+            permissions: Array.isArray(payload.new.permissions) ? payload.new.permissions : ['schedule', 'question_bank', 'doubts', 'assessments', 'students', 'attendance', 'medpath_elite'],
+            createdAt: payload.new.created_at || new Date().toISOString(),
+          };
+          setStaffAccounts((prev) => {
+            const filtered = prev.filter((a) => a.email.toLowerCase() !== newItem.email.toLowerCase());
+            const updated = [newItem, ...filtered];
+            if (typeof window !== 'undefined') {
+              localStorage.setItem('ahsora_staffAccounts', JSON.stringify(updated));
+            }
+            return updated;
+          });
+        }
+      })
+      .subscribe();
+
     // Cleanup on unmount
     return () => {
       supabase.removeChannel(schedulesChannel);
       supabase.removeChannel(lecturesChannel);
       supabase.removeChannel(libraryChannel);
       supabase.removeChannel(mistakesChannel);
+      supabase.removeChannel(staffChannel);
     };
   }, []);
 
