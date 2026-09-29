@@ -320,7 +320,7 @@ export default function AdminStaffRequestsPage() {
 
             {/* Permissions List */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '24px' }}>
-              {ALL_STAFF_PERMISSIONS.map((perm) => {
+              {ALL_STAFF_PERMISSIONS.map((perm: { key: StaffPermission; label: string; description: string }) => {
                 const isChecked = selectedPermissions.includes(perm.key);
                 return (
                   <label

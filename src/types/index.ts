@@ -140,6 +140,7 @@ export interface Course {
   comparePrice?: number;
   isFeatured?: boolean;
   badge?: string;
+  progressPercent?: number;
   modules: CourseModule[];
 }
 
@@ -210,6 +211,7 @@ export interface TestAttempt {
   accuracyRate: number;
   percentile: number;
   subjectBreakdown: Record<string, { total: number; correct: number; score: number }>;
+  createdAt?: string;
 }
 
 export interface Mentor {
@@ -235,6 +237,10 @@ export interface DoubtItem {
   title: string;
   questionText: string;
   status: DoubtStatus;
+  question?: string;
+  answer?: string;
+  answeredAt?: string;
+  facultyName?: string;
   assignedMentorName?: string;
   resolutionNote?: string;
   createdAt: string;
@@ -396,12 +402,39 @@ export type PublishingStatus = 'draft' | 'in_review' | 'published' | 'archived';
 
 export type StaffAccountStatus = 'pending' | 'approved' | 'rejected';
 
+export type StaffPermission =
+  | 'schedule'
+  | 'question_bank'
+  | 'doubts'
+  | 'assessments'
+  | 'students'
+  | 'attendance'
+  | 'applications'
+  | 'leads'
+  | 'visa'
+  | 'medpath_elite';
+
+export const ALL_STAFF_PERMISSIONS: { key: StaffPermission; label: string; description: string }[] = [
+  { key: 'schedule', label: 'My Schedule & Live', description: 'View and manage assigned live classes & schedule' },
+  { key: 'question_bank', label: 'Question Bank', description: 'Create and submit MCQs for review' },
+  { key: 'doubts', label: 'Student Doubts Desk', description: 'Review and answer student doubts for assigned subjects' },
+  { key: 'assessments', label: 'Assessments & Snapshots', description: 'Manage test versions and assessments' },
+  { key: 'students', label: 'My Students & Cohorts', description: 'View student list and assigned cohorts' },
+  { key: 'attendance', label: 'Mark Attendance', description: 'Record student attendance for live sessions' },
+  { key: 'applications', label: 'Student Applications', description: 'View and update university admission applications' },
+  { key: 'leads', label: 'Lead CRM Management', description: 'Manage sales leads and counsellors' },
+  { key: 'visa', label: 'Visa & Enrolment', description: 'Track student visa and pre-enrolment status' },
+  { key: 'medpath_elite', label: 'Medpath Elite Tracker', description: 'Manage university process stages for Elite package students' },
+];
+
 export interface StaffProfile {
   id: string;
   email: string;
   displayName: string;
   accountType: 'student' | 'staff' | 'admin';
   role: StaffRole;
+  permissions?: StaffPermission[];
+  status?: StaffAccountStatus;
   isActive: boolean;
   assignedSubjects: string[];
   assignedCohorts: string[];
