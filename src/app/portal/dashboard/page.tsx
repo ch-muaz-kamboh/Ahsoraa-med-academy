@@ -84,7 +84,7 @@ export default function StudentDashboardPage() {
           {activeCourse ? (
             <>
               <div style={{ fontSize: '1.15rem', fontWeight: 800, color: '#0F172A', lineHeight: 1.2 }}>{activeCourse.title}</div>
-              <div style={{ fontSize: '0.75rem', color: '#10B981', fontWeight: 600, marginTop: '6px' }}>{activeCourse.progressPercent ?? 0}% Completed</div>
+              <div style={{ fontSize: '0.75rem', color: '#10B981', fontWeight: 600, marginTop: '6px' }}>{activeCourse.targetExam} • {activeCourse.totalLectures} Lectures</div>
             </>
           ) : (
             <div style={{ fontSize: '0.9rem', color: '#94A3B8', fontWeight: 500 }}>No course enrolled</div>

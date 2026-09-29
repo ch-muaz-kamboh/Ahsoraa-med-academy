@@ -234,10 +234,6 @@ export interface DoubtItem {
   topic: string;
   title: string;
   questionText: string;
-  question?: string;
-  answer?: string;
-  answeredAt?: string;
-  facultyName?: string;
   status: DoubtStatus;
   assignedMentorName?: string;
   resolutionNote?: string;
@@ -395,34 +391,10 @@ export interface StudentMistake {
 }
 
 // ── Staff Portal & RBAC Architecture Types ────────────────────────────────────
-export type StaffRole = 'teacher' | 'admissions_staff' | 'staff';
+export type StaffRole = 'super_admin' | 'academic_admin' | 'teacher' | 'admissions_staff';
 export type PublishingStatus = 'draft' | 'in_review' | 'published' | 'archived';
+
 export type StaffAccountStatus = 'pending' | 'approved' | 'rejected';
-
-export type StaffPermission =
-  | 'schedule'
-  | 'question_bank'
-  | 'doubts'
-  | 'assessments'
-  | 'students'
-  | 'attendance'
-  | 'applications'
-  | 'leads'
-  | 'visa'
-  | 'medpath_elite';
-
-export const ALL_STAFF_PERMISSIONS: { key: StaffPermission; label: string; description: string }[] = [
-  { key: 'schedule', label: 'My Schedule & Live', description: 'View and manage assigned live classes & schedule' },
-  { key: 'question_bank', label: 'Question Bank', description: 'Create and submit MCQs for review' },
-  { key: 'doubts', label: 'Student Doubts Desk', description: 'Review and answer student doubts for assigned subjects' },
-  { key: 'assessments', label: 'Assessments & Snapshots', description: 'Manage test versions and assessments' },
-  { key: 'students', label: 'My Students & Cohorts', description: 'View student list and assigned cohorts' },
-  { key: 'attendance', label: 'Mark Attendance', description: 'Record student attendance for live sessions' },
-  { key: 'applications', label: 'Student Applications', description: 'View and update university admission applications' },
-  { key: 'leads', label: 'Lead CRM Management', description: 'Manage sales leads and counsellors' },
-  { key: 'visa', label: 'Visa & Enrolment', description: 'Track student visa and pre-enrolment status' },
-  { key: 'medpath_elite', label: 'Medpath Elite Tracker', description: 'Manage university process stages for Elite package students' },
-];
 
 export interface StaffProfile {
   id: string;
@@ -430,11 +402,9 @@ export interface StaffProfile {
   displayName: string;
   accountType: 'student' | 'staff' | 'admin';
   role: StaffRole;
-  permissions?: StaffPermission[];
   isActive: boolean;
   assignedSubjects: string[];
   assignedCohorts: string[];
-  status?: StaffAccountStatus;
   password?: string;
   createdAt: string;
 }
