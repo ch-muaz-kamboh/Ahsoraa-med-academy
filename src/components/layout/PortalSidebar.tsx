@@ -30,7 +30,8 @@ import Logo from '@/components/brand/Logo';
 export default function PortalSidebar({ userFullName = 'Student', userInitials = 'ST' }: { userFullName?: string, userInitials?: string }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { setStudentLoggedIn, logoutStudent } = useAppStore();
+  const { setStudentLoggedIn, logoutStudent, studentMistakes } = useAppStore();
+  const unresolvedMistakesCount = studentMistakes ? studentMistakes.filter((m) => !m.isResolved).length : 0;
 
   const [learnOpen, setLearnOpen] = useState<boolean>(false);
   const [practiceOpen, setPracticeOpen] = useState<boolean>(false);
@@ -354,7 +355,26 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                 }}
               >
                 <AlertCircle size={15} color={pathname === '/portal/practice/mistakes' ? '#2563EB' : '#EF4444'} />
-                {sidebarExpanded && <span>3. My Mistakes</span>}
+                {sidebarExpanded && (
+                  <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                    <span>3. My Mistakes</span>
+                    {unresolvedMistakesCount > 0 && (
+                      <span
+                        style={{
+                          fontSize: '0.6875rem',
+                          fontWeight: 700,
+                          backgroundColor: '#EF4444',
+                          color: '#FFFFFF',
+                          padding: '2px 7px',
+                          borderRadius: '10px',
+                          lineHeight: 1,
+                        }}
+                      >
+                        {unresolvedMistakesCount}
+                      </span>
+                    )}
+                  </span>
+                )}
               </Link>
             </div>
           )}

@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/client';
 import { useParams, useRouter } from 'next/navigation';
 import { Flag, ChevronLeft, ChevronRight, Clock, Send, Loader2 } from 'lucide-react';
 import importedQuestions, { getImportedQuestions } from '@/lib/imported_questions';
+import { useAppStore } from '@/lib/store';
 
 const getPool = (): any[] => {
   const q = getImportedQuestions();
@@ -192,6 +193,8 @@ export default function PracticeTakePage() {
     setCurrent(Math.max(0, Math.min(questions.length - 1, idx)));
   };
 
+  const { addMistake } = useAppStore();
+
   const handleSubmit = useCallback(async (auto = false) => {
     if (submitting || submitted) return;
     if (!auto && !confirm('Submit this practice test?')) return;
@@ -201,7 +204,39 @@ export default function PracticeTakePage() {
       const ans = answers[q.id];
       const sel = ans?.selected_option || null;
       const isCorrect = sel ? sel === q.correct_option : null;
-      if (!sel) unanswered++; else if (isCorrect) correct++; else incorrect++;
+      if (!sel) {
+        unanswered++;
+      } else if (isCorrect) {
+        correct++;
+      } else {
+        incorrect++;
+        // Sync incorrect practice answer to My Mistakes Notebook
+        const formattedOptions = [
+          { id: 'A', text: q.option_a || '' },
+          { id: 'B', text: q.option_b || '' },
+          { id: 'C', text: q.option_c || '' },
+          { id: 'D', text: q.option_d || '' },
+          { id: 'E', text: q.option_e || '' },
+        ].filter(opt => opt.text);
+
+        addMistake({
+          questionId: q.id,
+          questionText: q.question_text || 'Practice MCQ',
+          options: formattedOptions.length > 0 ? formattedOptions : [
+            { id: 'A', text: 'Option A' },
+            { id: 'B', text: 'Option B' },
+            { id: 'C', text: 'Option C' },
+            { id: 'D', text: 'Option D' },
+          ],
+          correctOption: q.correct_option || 'A',
+          selectedOption: sel,
+          explanation: q.explanation || 'Detailed step-by-step faculty explanation.',
+          source: 'Practice Bank',
+          testTitle: 'Practice Bank Session',
+          subject: q.subject || 'General Medicine',
+          topic: q.topic || 'General Topic',
+        });
+      }
       return { session_id: sessionId, question_id: q.id, selected_option: sel, is_correct: isCorrect,
         is_marked_review: ans?.is_marked_review || false, time_spent_seconds: ans?.time_spent_seconds || 0,
         answered_at: new Date().toISOString() };
@@ -217,7 +252,7 @@ export default function PracticeTakePage() {
     }).eq('id', sessionId);
     setSubmitted(true);
     router.push('/portal/practice/' + sessionId + '/results');
-  }, [submitting, submitted, questions, answers, sessionId, elapsed, router, supabase]);
+  }, [submitting, submitted, questions, answers, sessionId, elapsed, router, supabase, addMistake]);
 
   if (loading) return (
     <div style={{ display:'flex', alignItems:'center', justifyContent:'center', minHeight:'60vh', gap:'12px', color:'#64748B' }}>
