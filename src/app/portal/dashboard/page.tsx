@@ -39,7 +39,7 @@ export default function StudentDashboardPage() {
   const totalCorrect = testAttempts.reduce((acc, t) => acc + (t.totalCorrect || 0), 0);
   const avgAccuracy = totalAttempted > 0 ? Math.round((totalCorrect / totalAttempted) * 100) : 0;
   const unresolvedMistakes = studentMistakes.filter((m) => !m.isResolved).length;
-  const firstName = currentUser?.name?.split(' ')[0] || 'Student';
+  const firstName = currentUser?.firstName || 'Student';
 
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
