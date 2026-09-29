@@ -159,6 +159,5 @@ export default function StudentProgressAnalysisPage() {
       </div>
     </div>
   );
-}    </div>
-  );
 }
+
