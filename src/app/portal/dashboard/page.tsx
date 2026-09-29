@@ -5,27 +5,19 @@ import Link from 'next/link';
 import {
   BookOpen,
   FileCheck2,
-  Calendar,
-  FolderLock,
-  Globe2,
-  ArrowRight,
   TrendingUp,
-  Clock,
-  CheckCircle,
-  AlertCircle,
   Radio,
   PlayCircle,
+  Target,
+  AlertTriangle,
+  ChevronRight,
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
-import { mockApplicationCases, mockVisaCases } from '@/lib/mock-data';
-import { getMockTestWithCustom, getMockTestWithCustomAsync } from '@/lib/test-utils';
 import { createClient } from '@/lib/supabase/client';
-import { Test } from '@/types';
 
 export default function StudentDashboardPage() {
-  const { currentUser, courses, documents, doubts, testAttempts } = useAppStore();
+  const { currentUser, courses, testAttempts, studentMistakes } = useAppStore();
   const [liveSession, setLiveSession] = useState<{ id: string; test_id: string; test_title: string } | null>(null);
-  const [diagnosticTest, setDiagnosticTest] = useState<Test>(() => getMockTestWithCustom('tst-01'));
 
   useEffect(() => {
     const supabase = createClient();
@@ -39,374 +31,233 @@ export default function StudentDashboardPage() {
       .then(({ data }) => {
         if (data) setLiveSession(data);
       });
-
-    getMockTestWithCustomAsync('tst-01').then((fetched) => {
-      if (fetched) setDiagnosticTest(fetched);
-    });
   }, []);
 
-  const activeApp = mockApplicationCases[0];
-  const activeVisa = mockVisaCases[0];
-  const pendingDocsCount = documents.filter((d) => d.status === 'revision_requested' || d.status === 'requested').length;
+  // Real computed stats
+  const activeCourse = courses && courses.length > 0 ? courses[0] : null;
+  const totalAttempted = testAttempts.reduce((acc, t) => acc + (t.totalAttempted || 0), 0);
+  const totalCorrect = testAttempts.reduce((acc, t) => acc + (t.totalCorrect || 0), 0);
+  const avgAccuracy = totalAttempted > 0 ? Math.round((totalCorrect / totalAttempted) * 100) : 0;
+  const unresolvedMistakes = studentMistakes.filter((m) => !m.isResolved).length;
+  const firstName = currentUser?.name?.split(' ')[0] || 'Student';
 
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-      {/* Live Exam Broadcast Alert */}
+      {/* Live Exam Alert */}
       {liveSession && (
-        <div style={{
-          backgroundColor: '#FEF2F2',
-          border: '2px solid #EF4444',
-          borderRadius: '14px',
-          padding: '18px 24px',
-          marginBottom: '24px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: '16px',
-        }}>
+        <div style={{ backgroundColor: '#FEF2F2', border: '2px solid #EF4444', borderRadius: '14px', padding: '18px 24px', marginBottom: '24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-            <div style={{
-              width: '42px', height: '42px', borderRadius: '50%',
-              backgroundColor: '#EF4444', color: '#FFF',
-              display: 'flex', alignItems: 'center', justifyContent: 'center'
-            }}>
+            <div style={{ width: '42px', height: '42px', borderRadius: '50%', backgroundColor: '#EF4444', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Radio size={22} />
             </div>
             <div>
-              <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#EF4444', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                LIVE MOCK EXAM IN PROGRESS
-              </div>
-              <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '1.05rem' }}>
-                {liveSession.test_title}
-              </div>
-              <div style={{ fontSize: '0.8125rem', color: '#64748B' }}>
-                The academy admin has started this test for all students. Join now to participate!
-              </div>
+              <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#EF4444', textTransform: 'uppercase', letterSpacing: '1px' }}>LIVE MOCK EXAM IN PROGRESS</div>
+              <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '1.05rem' }}>{liveSession.test_title}</div>
+              <div style={{ fontSize: '0.8125rem', color: '#64748B' }}>Join now to participate!</div>
             </div>
           </div>
-          <Link
-            href={`/portal/tests/${liveSession.test_id}/take`}
-            style={{
-              backgroundColor: '#EF4444',
-              color: '#FFFFFF',
-              padding: '12px 24px',
-              borderRadius: '10px',
-              fontWeight: 700,
-              textDecoration: 'none',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              fontSize: '0.9rem',
-              boxShadow: '0 4px 12px rgba(239, 68, 68, 0.3)'
-            }}
-          >
-            <PlayCircle size={18} />
-            <span>Join Live Test Now</span>
+          <Link href={`/portal/tests/${liveSession.test_id}/take`} style={{ backgroundColor: '#EF4444', color: '#FFFFFF', padding: '12px 24px', borderRadius: '10px', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '0.9rem' }}>
+            <PlayCircle size={18} /><span>Join Live Test Now</span>
           </Link>
         </div>
       )}
 
-      {/* Top Banner Alert */}
-      <div
-        style={{
-          backgroundColor: '#EFF6FF',
-          border: '1px solid #BFDBFE',
-          borderRadius: '12px',
-          padding: '16px 20px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: '12px',
-          marginBottom: '28px',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div
-            style={{
-              width: '36px',
-              height: '36px',
-              borderRadius: '8px',
-              backgroundColor: '#2563EB',
-              color: '#FFFFFF',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <Clock size={20} />
-          </div>
-          <div>
-            <div style={{ fontWeight: 700, color: '#1E3A8A', fontSize: '0.9375rem' }}>
-              Action Required: Italian Universitaly Pre-enrolment Summary
-            </div>
-            <div style={{ color: '#3B82F6', fontSize: '0.8125rem' }}>
-              Your counselor Marcus Sterling requested an updated 4-page certified translation for CIMEA.
-            </div>
-          </div>
+      {/* Welcome Banner */}
+      <div style={{ background: 'linear-gradient(135deg, #1E1B4B 0%, #3730A3 100%)', borderRadius: '16px', padding: '28px 32px', color: '#FFFFFF', marginBottom: '28px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
+        <div>
+          <div style={{ fontSize: '0.8125rem', fontWeight: 700, opacity: 0.8, marginBottom: '6px' }}>WELCOME BACK</div>
+          <h1 style={{ fontSize: '1.75rem', fontWeight: 900, margin: '0 0 6px 0' }}>{firstName}</h1>
+          <p style={{ fontSize: '0.9rem', opacity: 0.9, margin: 0 }}>Keep the momentum going — your next exam is closer than you think!</p>
         </div>
-
-        <Link
-          href="/portal/documents"
-          className="btn-primary"
-          style={{ padding: '8px 16px', fontSize: '0.8125rem' }}
-        >
-          View Document Vault →
+        <Link href="/portal/tests" style={{ backgroundColor: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)', color: '#FFFFFF', padding: '12px 22px', borderRadius: '10px', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '0.875rem' }}>
+          Start Practice Test <ChevronRight size={16} />
         </Link>
       </div>
 
       {/* KPI Stats Grid */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-          gap: '20px',
-          marginBottom: '32px',
-        }}
-      >
-        <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '20px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px', marginBottom: '32px' }}>
+        <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '22px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
             <span style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>Active Course</span>
-            <BookOpen size={18} color="#2563EB" />
+            <div style={{ width: '34px', height: '34px', borderRadius: '8px', backgroundColor: '#EFF6FF', color: '#2563EB', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><BookOpen size={18} /></div>
           </div>
-          <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F172A' }}>USMLE Step 1</div>
-          <div style={{ fontSize: '0.75rem', color: '#10B981', fontWeight: 600, marginTop: '4px' }}>
-            68% Syllabus Completed
+          {activeCourse ? (
+            <>
+              <div style={{ fontSize: '1.15rem', fontWeight: 800, color: '#0F172A', lineHeight: 1.2 }}>{activeCourse.title}</div>
+              <div style={{ fontSize: '0.75rem', color: '#10B981', fontWeight: 600, marginTop: '6px' }}>{activeCourse.progressPercent ?? 0}% Completed</div>
+            </>
+          ) : (
+            <div style={{ fontSize: '0.9rem', color: '#94A3B8', fontWeight: 500 }}>No course enrolled</div>
+          )}
+        </div>
+
+        <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '22px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+            <span style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>Mocks Completed</span>
+            <div style={{ width: '34px', height: '34px', borderRadius: '8px', backgroundColor: '#EFF6FF', color: '#2563EB', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><FileCheck2 size={18} /></div>
+          </div>
+          <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A' }}>{testAttempts.length}</div>
+          <div style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 500, marginTop: '4px' }}>Test sessions done</div>
+        </div>
+
+        <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '22px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+            <span style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>Avg Accuracy</span>
+            <div style={{ width: '34px', height: '34px', borderRadius: '8px', backgroundColor: '#ECFDF5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Target size={18} /></div>
+          </div>
+          <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A' }}>{totalAttempted > 0 ? `${avgAccuracy}%` : '--'}</div>
+          <div style={{ fontSize: '0.75rem', color: totalAttempted > 0 ? '#10B981' : '#94A3B8', fontWeight: 600, marginTop: '4px' }}>
+            {totalAttempted > 0 ? `${totalCorrect} / ${totalAttempted} correct` : 'No attempts yet'}
           </div>
         </div>
 
-        <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '20px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-            <span style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>Mock Tests Completed</span>
-            <FileCheck2 size={18} color="#2563EB" />
+        <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '22px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+            <span style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>Mistakes Log</span>
+            <div style={{ width: '34px', height: '34px', borderRadius: '8px', backgroundColor: '#FEF2F2', color: '#DC2626', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><AlertTriangle size={18} /></div>
           </div>
-          <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F172A' }}>
-            {testAttempts.length + 3} Blocks
-          </div>
-          <div style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 600, marginTop: '4px' }}>
-            Average Accuracy: 84.5%
-          </div>
-        </div>
-
-        <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '20px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-            <span style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>Admissions Case</span>
-            <Globe2 size={18} color="#2563EB" />
-          </div>
-          <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F172A' }}>Italy (2026)</div>
-          <div style={{ fontSize: '0.75rem', color: '#D97706', fontWeight: 600, marginTop: '4px' }}>
-            Stage: Application Prepared
-          </div>
-        </div>
-
-        <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '20px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-            <span style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>Visa Appointment</span>
-            <Calendar size={18} color="#2563EB" />
-          </div>
-          <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F172A' }}>Sept 12, 2026</div>
-          <div style={{ fontSize: '0.75rem', color: '#10B981', fontWeight: 600, marginTop: '4px' }}>
-            Embassy Slot Confirmed
+          <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A' }}>{unresolvedMistakes}</div>
+          <div style={{ fontSize: '0.75rem', color: unresolvedMistakes > 0 ? '#DC2626' : '#10B981', fontWeight: 600, marginTop: '4px' }}>
+            {unresolvedMistakes > 0 ? 'Pending review' : 'All resolved!'}
           </div>
         </div>
       </div>
 
-      {/* Main 2-Column Content */}
+      {/* Main Content */}
       <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '28px' }}>
-        {/* Left Column */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
-          {/* Current Course Continue Learning */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+
+          {/* Continue Learning */}
           <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '24px' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
               <h3 style={{ fontSize: '1.125rem', color: '#0F172A' }}>Continue Learning</h3>
-              <Link href="/portal/courses" style={{ fontSize: '0.8125rem', color: '#2563EB', fontWeight: 600 }}>
-                All Courses →
-              </Link>
+              <Link href="/portal/courses" style={{ fontSize: '0.8125rem', color: '#2563EB', fontWeight: 600 }}>All Courses &rarr;</Link>
             </div>
-
-            <div
-              style={{
-                border: '1px solid #E2E8F0',
-                borderRadius: '12px',
-                padding: '16px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: '16px',
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                <div
-                  style={{
-                    width: '48px',
-                    height: '48px',
-                    borderRadius: '10px',
-                    backgroundColor: '#EFF6FF',
-                    color: '#2563EB',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <BookOpen size={24} />
-                </div>
-                <div>
-                  <h4 style={{ fontSize: '1rem', color: '#0F172A', marginBottom: '4px' }}>
-                    Cardiovascular Pathology: Ischemic Heart Disease EKG
-                  </h4>
-                  <div style={{ fontSize: '0.75rem', color: '#64748B' }}>
-                    Module 1 • Lesson 1 • Next: Valvular Murmurs
+            {activeCourse ? (
+              <div style={{ border: '1px solid #E2E8F0', borderRadius: '12px', padding: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                  <div style={{ width: '48px', height: '48px', borderRadius: '10px', backgroundColor: '#EFF6FF', color: '#2563EB', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><BookOpen size={24} /></div>
+                  <div>
+                    <h4 style={{ fontSize: '1rem', color: '#0F172A', marginBottom: '4px' }}>{activeCourse.title}</h4>
+                    <div style={{ fontSize: '0.75rem', color: '#64748B' }}>{activeCourse.progressPercent ?? 0}% complete</div>
+                    <div style={{ marginTop: '6px', height: '5px', backgroundColor: '#E2E8F0', borderRadius: '3px', width: '200px' }}>
+                      <div style={{ height: '100%', width: `${activeCourse.progressPercent ?? 0}%`, backgroundColor: '#2563EB', borderRadius: '3px' }} />
+                    </div>
                   </div>
                 </div>
+                <Link href={`/portal/courses/${activeCourse.id}/player`} className="btn-primary" style={{ padding: '8px 16px', fontSize: '0.875rem' }}>Resume Lecture</Link>
               </div>
-
-              <Link
-                href="/portal/courses/crs-01/player"
-                className="btn-primary"
-                style={{ padding: '8px 16px', fontSize: '0.875rem' }}
-              >
-                Resume Lecture
-              </Link>
-            </div>
+            ) : (
+              <div style={{ textAlign: 'center', padding: '28px', color: '#94A3B8' }}>
+                <BookOpen size={32} style={{ marginBottom: '8px', opacity: 0.5 }} />
+                <p style={{ fontSize: '0.875rem', margin: 0 }}>You have not enrolled in any courses yet.</p>
+                <Link href="/portal/courses" className="btn-primary" style={{ marginTop: '12px', display: 'inline-flex', padding: '8px 20px', fontSize: '0.875rem' }}>Browse Courses</Link>
+              </div>
+            )}
           </div>
 
-          {/* Quick Mock Exam Launcher */}
+          {/* Recent Test Attempts */}
           <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '24px' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
-              <h3 style={{ fontSize: '1.125rem', color: '#0F172A' }}>Recommended Diagnostic Mock</h3>
-              <Link href="/portal/tests" style={{ fontSize: '0.8125rem', color: '#2563EB', fontWeight: 600 }}>
-                Test Series →
-              </Link>
+              <h3 style={{ fontSize: '1.125rem', color: '#0F172A' }}>Recent Test Attempts</h3>
+              <Link href="/portal/tests" style={{ fontSize: '0.8125rem', color: '#2563EB', fontWeight: 600 }}>All Tests &rarr;</Link>
             </div>
-
-            <div
-              style={{
-                backgroundColor: '#F8FAFC',
-                border: '1px solid #E2E8F0',
-                borderRadius: '12px',
-                padding: '20px',
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-                <span className="badge badge-blue">{diagnosticTest.category}</span>
-                <span style={{ fontSize: '0.75rem', color: '#64748B' }}>{diagnosticTest.durationMinutes} mins • {diagnosticTest.questions?.length || diagnosticTest.totalQuestions} Questions</span>
+            {testAttempts.length === 0 ? (
+              <div style={{ textAlign: 'center', padding: '24px', color: '#94A3B8' }}>
+                <FileCheck2 size={32} style={{ marginBottom: '8px', opacity: 0.5 }} />
+                <p style={{ fontSize: '0.875rem', margin: 0 }}>No tests attempted yet.</p>
+                <Link href="/portal/tests" className="btn-primary" style={{ marginTop: '12px', display: 'inline-flex', padding: '8px 20px', fontSize: '0.875rem' }}>Start a Test</Link>
               </div>
-              <h4 style={{ fontSize: '1.0625rem', color: '#0F172A', marginBottom: '8px' }}>
-                {diagnosticTest.title}
-              </h4>
-              <p style={{ color: '#64748B', fontSize: '0.8125rem', marginBottom: '16px' }}>
-                Simulates real examination pacing, negative marking, and provides an instant topic-level analysis breakdown upon completion.
-              </p>
-              <Link
-                href="/portal/tests/tst-01/take"
-                className="btn-primary"
-                style={{ padding: '8px 18px', fontSize: '0.875rem' }}
-              >
-                Start Timed Test
-              </Link>
-            </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {testAttempts.slice(0, 4).map((attempt) => {
+                  const acc = (attempt.totalAttempted || 0) > 0 ? Math.round(((attempt.totalCorrect || 0) / attempt.totalAttempted) * 100) : 0;
+                  return (
+                    <div key={attempt.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 14px', borderRadius: '10px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0' }}>
+                      <div>
+                        <div style={{ fontWeight: 700, color: '#0F172A', fontSize: '0.9rem' }}>{attempt.testTitle || 'Practice Session'}</div>
+                        <div style={{ fontSize: '0.75rem', color: '#64748B', marginTop: '2px' }}>{attempt.totalAttempted} questions</div>
+                      </div>
+                      <div style={{ textAlign: 'right' }}>
+                        <div style={{ fontWeight: 800, fontSize: '1rem', color: acc >= 70 ? '#059669' : acc >= 50 ? '#D97706' : '#DC2626' }}>{acc}%</div>
+                        <div style={{ fontSize: '0.7rem', color: '#94A3B8' }}>accuracy</div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Right Column (Admissions & Documents Tracker) */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
-          {/* Admissions Pipeline Status */}
+        {/* Right Column */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+
           <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '24px' }}>
-            <h3 style={{ fontSize: '1.125rem', color: '#0F172A', marginBottom: '16px' }}>
-              Admissions Status
-            </h3>
-
-            <div style={{ marginBottom: '16px' }}>
-              <div style={{ fontSize: '0.8125rem', color: '#64748B', marginBottom: '4px' }}>Case Number:</div>
-              <strong style={{ color: '#0F172A', fontSize: '0.9375rem' }}>{activeApp.caseNumber}</strong>
-            </div>
-
-            <div style={{ marginBottom: '20px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8125rem', marginBottom: '6px' }}>
-                <span style={{ color: '#64748B' }}>Application Progress</span>
-                <strong style={{ color: '#2563EB' }}>{activeApp.progressPercent}%</strong>
-              </div>
-              <div style={{ height: '8px', backgroundColor: '#E2E8F0', borderRadius: '4px', overflow: 'hidden' }}>
-                <div style={{ width: `${activeApp.progressPercent}%`, height: '100%', backgroundColor: '#2563EB' }} />
-              </div>
-            </div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.8125rem' }}>
-              {activeApp.applications.map((app) => (
-                <div
-                  key={app.id}
-                  style={{
-                    backgroundColor: '#F8FAFC',
-                    border: '1px solid #E2E8F0',
-                    borderRadius: '8px',
-                    padding: '10px 12px',
-                  }}
-                >
-                  <div style={{ fontWeight: 600, color: '#0F172A', marginBottom: '2px' }}>
-                    {app.universityName}
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748B', fontSize: '0.75rem' }}>
-                    <span>Deadline: {app.deadline}</span>
-                    <span className="badge badge-amber" style={{ padding: '2px 6px', fontSize: '0.6875rem' }}>
-                      {app.status.replace('_', ' ')}
-                    </span>
-                  </div>
+            <h3 style={{ fontSize: '1.125rem', color: '#0F172A', marginBottom: '16px' }}>Performance Overview</h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8125rem', marginBottom: '5px' }}>
+                  <span style={{ color: '#64748B' }}>Questions Answered</span>
+                  <strong style={{ color: '#0F172A' }}>{totalAttempted}</strong>
                 </div>
-              ))}
+                <div style={{ height: '7px', backgroundColor: '#E2E8F0', borderRadius: '4px' }}>
+                  <div style={{ width: `${Math.min((totalAttempted / 500) * 100, 100)}%`, height: '100%', backgroundColor: '#2563EB', borderRadius: '4px' }} />
+                </div>
+              </div>
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8125rem', marginBottom: '5px' }}>
+                  <span style={{ color: '#64748B' }}>Correct Answers</span>
+                  <strong style={{ color: '#059669' }}>{totalCorrect}</strong>
+                </div>
+                <div style={{ height: '7px', backgroundColor: '#E2E8F0', borderRadius: '4px' }}>
+                  <div style={{ width: `${Math.min((totalCorrect / 500) * 100, 100)}%`, height: '100%', backgroundColor: '#10B981', borderRadius: '4px' }} />
+                </div>
+              </div>
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8125rem', marginBottom: '5px' }}>
+                  <span style={{ color: '#64748B' }}>Accuracy Rate</span>
+                  <strong style={{ color: avgAccuracy >= 70 ? '#059669' : '#D97706' }}>{totalAttempted > 0 ? `${avgAccuracy}%` : '--'}</strong>
+                </div>
+                <div style={{ height: '7px', backgroundColor: '#E2E8F0', borderRadius: '4px' }}>
+                  <div style={{ width: `${avgAccuracy}%`, height: '100%', backgroundColor: avgAccuracy >= 70 ? '#10B981' : '#F59E0B', borderRadius: '4px' }} />
+                </div>
+              </div>
             </div>
+            <Link href="/portal/progress/analysis" style={{ display: 'block', textAlign: 'center', marginTop: '16px', fontSize: '0.8125rem', color: '#2563EB', fontWeight: 600 }}>Full Analysis Report &rarr;</Link>
+          </div>
 
-            <Link
-              href="/portal/applications"
-              style={{
-                display: 'block',
-                textAlign: 'center',
-                marginTop: '16px',
-                fontSize: '0.8125rem',
-                color: '#2563EB',
-                fontWeight: 600,
-              }}
-            >
-              Full Application Roadmap →
+          <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '24px' }}>
+            <h3 style={{ fontSize: '1.125rem', color: '#0F172A', marginBottom: '12px' }}>Mistakes Notebook</h3>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '16px' }}>
+              <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: unresolvedMistakes > 0 ? '#FEF2F2' : '#ECFDF5', color: unresolvedMistakes > 0 ? '#DC2626' : '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                {unresolvedMistakes > 0 ? <AlertTriangle size={22} /> : <TrendingUp size={22} />}
+              </div>
+              <div>
+                <div style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0F172A' }}>{unresolvedMistakes}</div>
+                <div style={{ fontSize: '0.8125rem', color: '#64748B' }}>{unresolvedMistakes > 0 ? 'Questions need review' : 'All cleared!'}</div>
+              </div>
+            </div>
+            <Link href="/portal/practice/mistakes" className="btn-outline" style={{ width: '100%', justifyContent: 'center', fontSize: '0.8125rem' }}>
+              {unresolvedMistakes > 0 ? 'Review Mistakes Now' : 'View Mistakes Log'}
             </Link>
           </div>
 
-          {/* Mentorship & Doubts */}
           <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '24px' }}>
-            <h3 style={{ fontSize: '1.125rem', color: '#0F172A', marginBottom: '14px' }}>
-              Assigned Advisor
-            </h3>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-              <div
-                style={{
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '50%',
-                  backgroundColor: '#DBEAFE',
-                  color: '#1D4ED8',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontWeight: 700,
-                }}
-              >
-                EV
-              </div>
-              <div>
-                <div style={{ fontWeight: 600, color: '#0F172A', fontSize: '0.875rem' }}>
-                  {activeApp.assignedCounsellor}
-                </div>
-                <div style={{ fontSize: '0.75rem', color: '#10B981' }}>● Online • Senior Advisor</div>
-              </div>
+            <h3 style={{ fontSize: '1rem', color: '#0F172A', marginBottom: '12px' }}>Quick Access</h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {[
+                { href: '/portal/tests', label: 'Practice Tests' },
+                { href: '/portal/progress/streak', label: 'My Study Streak' },
+                { href: '/portal/progress/analysis', label: 'Performance Analysis' },
+                { href: '/portal/library', label: 'Study Library' },
+              ].map((link) => (
+                <Link key={link.href} href={link.href} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', borderRadius: '8px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', textDecoration: 'none', color: '#334155', fontWeight: 600, fontSize: '0.875rem' }}>
+                  {link.label}
+                  <ChevronRight size={14} color="#94A3B8" style={{ marginLeft: 'auto' }} />
+                </Link>
+              ))}
             </div>
-            <Link
-              href="/portal/mentorship"
-              className="btn-outline"
-              style={{ width: '100%', justifyContent: 'center', fontSize: '0.8125rem' }}
-            >
-              Schedule 1-on-1 Call
-            </Link>
           </div>
         </div>
       </div>
