@@ -17,7 +17,6 @@ export default function StudentProgressAnalysisPage() {
 
   const totalAttempted = testAttempts.reduce((acc, t) => acc + (t.totalAttempted || 0), 0);
   const totalCorrect = testAttempts.reduce((acc, t) => acc + (t.totalCorrect || 0), 0);
-  const totalIncorrect = testAttempts.reduce((acc, t) => acc + (t.totalIncorrect || 0), 0);
   const overallAccuracy = totalAttempted > 0 ? Math.round((totalCorrect / totalAttempted) * 100) : 0;
 
   // Build subject stats from mistakes log (grouped by subject)
@@ -158,3 +157,6 @@ export default function StudentProgressAnalysisPage() {
           </div>
         )}
       </div>
+    </div>
+  );
+}
