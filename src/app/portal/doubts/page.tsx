@@ -10,7 +10,7 @@ const SUBJECT_OPTIONS = [
   'Physics',
   'Mathematics',
   'Logical Reasoning',
-  'General Knowledge',
+  'Reading & Acquired Knowledge',
   'Admissions & Visa Guidance',
 ];
 

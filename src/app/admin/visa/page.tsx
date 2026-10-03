@@ -25,7 +25,7 @@ export default function AdminVisaPage() {
                   Destination: {vc.destinationCountry}
                 </span>
                 <h3 style={{ fontSize: '1.25rem', color: '#0F172A' }}>
-                  Student Case: Arham Farooq ({vc.visaType})
+                  Student Case: {vc.studentName || 'Demo Student'} ({vc.visaType})
                 </h3>
               </div>
 

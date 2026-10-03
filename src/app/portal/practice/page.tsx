@@ -55,7 +55,7 @@ const SUBJECTS = [
   { name:'Physics',          icon:<Sigma size={20}/>,       color:'#8B5CF6', bg:'#F5F3FF' },
   { name:'Mathematics',      icon:<Calculator size={20}/>,  color:'#3B82F6', bg:'#EFF6FF' },
   { name:'Logical Reasoning',icon:<Brain size={20}/>,       color:'#EC4899', bg:'#FDF2F8' },
-  { name:'General Knowledge',icon:<Globe size={20}/>,       color:'#F97316', bg:'#FFF7ED' },
+  { name:'Reading & Acquired Knowledge',icon:<Globe size={20}/>,       color:'#F97316', bg:'#FFF7ED' },
 ];
 
 const BIOLOGY_STRUCTURE: Record<string, string[]> = {

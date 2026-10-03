@@ -216,7 +216,7 @@ export default function AdminMCQReviewPage() {
             <option value="Chemistry">Chemistry</option>
             <option value="Physics">Physics</option>
             <option value="Logical Reasoning">Logical Reasoning</option>
-            <option value="General Knowledge">General Knowledge</option>
+            <option value="Reading & Acquired Knowledge">Reading &amp; Acquired Knowledge</option>
           </select>
         </div>
       </div>

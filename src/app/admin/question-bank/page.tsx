@@ -29,7 +29,7 @@ interface QBQuestion {
   created_at: string;
 }
 
-const SUBJECTS = ['Biology','Chemistry','Physics','Mathematics','Logical Reasoning','General Knowledge'];
+const SUBJECTS = ['Biology','Chemistry','Physics','Mathematics','Logical Reasoning','Reading & Acquired Knowledge'];
 const DIFFICULTIES: ('easy' | 'medium' | 'hard')[] = ['easy', 'medium', 'hard'];
 
 // 5 Biology topics and their chapters (used for dropdown filtering)

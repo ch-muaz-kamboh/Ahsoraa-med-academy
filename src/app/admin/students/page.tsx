@@ -126,8 +126,8 @@ export default function AdminStudentsPage() {
         {
           id: 'demo-2',
           ama_id: 'AMA-392018',
-          full_name: 'Arham Farooq',
-          email: 'arham.farooq@example.com',
+          full_name: 'Demo Student',
+          email: 'demo.student@example.com',
           country: 'Pakistan',
           whatsapp_number: '+92 300 9876543',
           selected_package: 'Ahsora Path Elite',

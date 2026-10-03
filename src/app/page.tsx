@@ -216,8 +216,8 @@ export default function HomePage() {
     {
       icon: <BookOpen size={26} color="#059669" />,
       title: 'Reading & Acquired Knowledge',
-      desc: 'General knowledge and reading comprehension skills. 4 questions.',
-      topics: 'General knowledge topics',
+      desc: 'Reading comprehension and acquired knowledge of scientific history. 4 questions.',
+      topics: 'Reading & acquired knowledge topics',
       color: '#ECFDF5',
       border: '#A7F3D0',
     },

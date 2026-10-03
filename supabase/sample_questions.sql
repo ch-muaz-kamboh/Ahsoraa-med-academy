@@ -135,7 +135,7 @@ INSERT INTO qb_questions (
   'IMAT Critical Thinking - Logical Fallacies'
 ),
 (
-  'General Knowledge',
+  'Reading & Acquired Knowledge',
   'History of Medicine',
   'easy',
   'Which scientist is credited with the discovery of penicillin in 1928, marking the beginning of the modern antibiotic era?',
@@ -146,5 +146,5 @@ INSERT INTO qb_questions (
   'Joseph Lister',
   'B',
   'Sir Alexander Fleming discovered penicillin in 1928 after observing that colonies of Staphylococcus aureus were destroyed by a contaminating mold (Penicillium notatum).',
-  'IMAT General Knowledge - Medical Milestones'
+  'IMAT Reading & Acquired Knowledge - Medical Milestones'
 );

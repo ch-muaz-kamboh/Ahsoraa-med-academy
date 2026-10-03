@@ -160,8 +160,8 @@ export default function StaffMedpathElitePage() {
           {
             id: 'demo-elite-1',
             studentId: 'demo-2',
-            studentName: 'Arham Farooq',
-            email: 'arham.farooq@example.com',
+            studentName: 'Demo Student',
+            email: 'demo.student@example.com',
             registeredAt: new Date(Date.now() - 86400000 * 3).toISOString(),
             stages: {
               pre_enrollment: 'completed',

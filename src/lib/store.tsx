@@ -937,8 +937,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     setCurrentUser((prev) => ({
       ...prev,
       role: role,
-      firstName: role === 'admin' ? 'Admin' : role === 'counsellor' ? 'Elena' : role === 'faculty' ? 'Dr. Sarah' : 'Arham',
-      lastName: role === 'admin' ? 'SuperUser' : role === 'counsellor' ? 'Vance' : role === 'faculty' ? 'Jenkins' : 'Farooq',
+      firstName: role === 'admin' ? 'Admin' : role === 'counsellor' ? 'Elena' : role === 'faculty' ? 'Dr. Sarah' : 'Student',
+      lastName: role === 'admin' ? 'SuperUser' : role === 'counsellor' ? 'Vance' : role === 'faculty' ? 'Jenkins' : 'User',
     }));
     if (role === 'admin') {
       setAdminLoggedIn(true);

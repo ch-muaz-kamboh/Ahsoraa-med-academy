@@ -16,8 +16,8 @@ export default function AdminApplicationsPage() {
   const [enrolledStudents] = useState([
     {
       id: 'enr-101',
-      name: 'Arham Farooq',
-      email: 'arham.farooq@student.ahsora.com',
+      name: 'Demo Student',
+      email: 'demo.student@ahsora.com',
       phone: '+1 (555) 234-8901',
       enrolledCourses: ['USMLE Step 1: Clinical Integrated High-Yield Mastery', 'IMAT Biology & Chemistry Booster'],
       targetExam: 'USMLE Step 1 / IMAT Italy',
