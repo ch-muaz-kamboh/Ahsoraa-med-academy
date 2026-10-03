@@ -316,6 +316,7 @@ export interface StudentDocument {
 
 export interface VisaCase {
   id: string;
+  studentName?: string;
   destinationCountry: string;
   visaType: string;
   status: VisaStatus;
