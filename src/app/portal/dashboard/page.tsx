@@ -34,7 +34,7 @@ export default function StudentDashboardPage() {
   }, []);
 
   // Real computed stats
-  const activeCourse = courses && courses.length > 0 ? courses[0] : null;
+  const activeCourse = courses ? courses.find((c) => c.slug === 'imat-italy-medical-entrance-prep') || courses[0] : null;
   const totalAttempted = testAttempts.reduce((acc, t) => acc + (t.totalAttempted || 0), 0);
   const totalCorrect = testAttempts.reduce((acc, t) => acc + (t.totalCorrect || 0), 0);
   const avgAccuracy = totalAttempted > 0 ? Math.round((totalCorrect / totalAttempted) * 100) : 0;
