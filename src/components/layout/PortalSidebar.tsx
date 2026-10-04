@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { Settings } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   LayoutDashboard,
   FileCheck2,
   FolderLock,
+  Settings,
   BookOpen,
   LogOut,
   Globe,
@@ -28,6 +30,18 @@ import { createClient } from '@/lib/supabase/client';
 import Logo from '@/components/brand/Logo';
 
 export default function PortalSidebar({ userFullName = 'Student', userInitials = 'ST' }: { userFullName?: string, userInitials?: string }) {
+  const {
+    currentUser,
+    testAttempts,
+    liveTestSession,
+    updateProfile,
+  } = useAppStore();
+  const isPortalLocked = liveTestSession && testAttempts.some(attempt => attempt.testId === liveTestSession.testId && attempt.studentId === currentUser.id && attempt.status === 'in_progress');
+  const canAccessSchedule = currentUser.selectedPackage && /elite|master/i.test(currentUser.selectedPackage);
+  const [showSettings, setShowSettings] = useState(false);
+  const [email, setEmail] = useState(currentUser.email);
+  const [phone, setPhone] = useState(currentUser.phone || '');
+  const [password, setPassword] = useState('');
   const pathname = usePathname();
   const router = useRouter();
   const { setStudentLoggedIn, logoutStudent, studentMistakes } = useAppStore();
@@ -65,115 +79,52 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         flexShrink: 0,
         position: 'relative',
         transition: 'width 0.2s ease',
+        overflowY: 'auto',
       }}
+      onWheel={(e) => e.stopPropagation()}
     >
-      {/* Center-Right floating sidebar toggle button */}
-      <button
-        onClick={() => setSidebarExpanded((prev) => !prev)}
-        style={{
-          position: 'absolute',
-          top: '50%',
-          right: '-14px',
-          transform: 'translateY(-50%)',
-          width: '28px',
-          height: '28px',
-          borderRadius: '50%',
-          backgroundColor: '#FFFFFF',
-          border: '1px solid #CBD5E1',
-          boxShadow: '0 2px 6px rgba(0,0,0,0.12)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'pointer',
-          zIndex: 40,
-          color: '#475569',
-          transition: 'all 0.15s ease',
-        }}
-        aria-label="Toggle sidebar"
-      >
-        {sidebarExpanded ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
-      </button>
+      {/* Removed floating toggle button, now placed in header */}
 
-      {/* Header with logo */}
+      {/* Header with logo and sidebar toggle */}
       <div
         style={{
           padding: '18px 20px',
           borderBottom: '1px solid #E2E8F0',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: sidebarExpanded ? 'flex-start' : 'center',
-          textDecoration: 'none',
+          justifyContent: 'flex-start',
         }}
       >
-        <Link href="/portal/dashboard" style={{ display: 'flex', alignItems: 'center' }}>
+        {/* Toggle button placed here */}
+        <button
+          onClick={() => setSidebarExpanded((prev) => !prev)}
+          style={{
+            marginRight: '8px',
+            width: '28px',
+            height: '28px',
+            borderRadius: '50%',
+            backgroundColor: '#FFFFFF',
+            border: '1px solid #CBD5E1',
+            boxShadow: '0 2px 6px rgba(0,0,0,0.12)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            color: '#475569',
+            transition: 'all 0.15s ease',
+          }}
+          aria-label="Toggle sidebar"
+        >
+          {sidebarExpanded ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
+        </button>
+        <Link href="/portal/dashboard" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
           <Logo height={48} />
         </Link>
       </div>
 
-      {/* User Badge – only show when sidebar is expanded */}
-      {sidebarExpanded && (
-        <div
-          style={{
-            margin: '16px 16px 8px 16px',
-            padding: '12px',
-            backgroundColor: '#F8FAFC',
-            border: '1px solid #E2E8F0',
-            borderRadius: '10px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-          }}
-        >
-          <div
-            style={{
-              width: '36px',
-              height: '36px',
-              borderRadius: '50%',
-              backgroundColor: '#DBEAFE',
-              color: '#1D4ED8',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontWeight: 700,
-              fontSize: '0.875rem',
-            }}
-          >
-            {userInitials}
-          </div>
-          <div style={{ overflow: 'hidden' }}>
-            <div style={{ fontWeight: 600, fontSize: '0.875rem', color: '#0F172A', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-              {userFullName}
-            </div>
-            <div style={{ fontSize: '0.75rem', color: '#10B981', fontWeight: 600 }}>
-              ● Enrolled Student
-            </div>
-          </div>
-        </div>
-      )}
 
-      {/* Navigation List */}
-      <nav style={{ padding: '8px 12px', flex: 1, display: 'flex', flexDirection: 'column', gap: '6px' }}>
-        {/* Dashboard Link */}
-        <Link
-          href="/portal/dashboard"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px',
-            padding: '10px 14px',
-            borderRadius: '8px',
-            fontSize: '0.875rem',
-            fontWeight: pathname === '/portal/dashboard' ? 600 : 500,
-            color: pathname === '/portal/dashboard' ? '#2563EB' : '#475569',
-            backgroundColor: pathname === '/portal/dashboard' ? '#EFF6FF' : 'transparent',
-            transition: 'all 0.15s ease',
-          }}
-        >
-          <span style={{ color: pathname === '/portal/dashboard' ? '#2563EB' : '#64748B' }}>
-            <LayoutDashboard size={18} />
-          </span>
-          {sidebarExpanded && <span>Dashboard</span>}
-        </Link>
+
+
 
         {/* Learn Section Dropdown */}
         <div>
@@ -197,6 +148,8 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
               border: 'none',
               cursor: 'pointer',
               transition: 'all 0.15s ease',
+              opacity: isPortalLocked ? 0.5 : 1,
+              pointerEvents: isPortalLocked ? 'none' : 'auto',
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -220,7 +173,9 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                   fontWeight: pathname === '/portal/learn/schedule' ? 600 : 500,
                   color: pathname === '/portal/learn/schedule' ? '#2563EB' : '#64748B',
                   backgroundColor: pathname === '/portal/learn/schedule' ? '#DBEAFE' : 'transparent',
-                  transition: 'all 0.15s ease',
+                  transition: 'all .15s ease',
+                  opacity: canAccessSchedule ? 1 : 0.4,
+                  pointerEvents: canAccessSchedule ? 'auto' : 'none',
                 }}
               >
                 <Calendar size={15} />
@@ -570,6 +525,86 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           {sidebarExpanded && <span>Exit to Public Site</span>}
         </Link>
       </div>
+    {/* Settings Modal */}
+    {showSettings && (
+      <div style={{
+        position: 'fixed',
+        inset: 0,
+        backgroundColor: 'rgba(15,23,42,0.6)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 10000,
+      }}>
+        <div style={{
+          backgroundColor: '#FFFFFF',
+          borderRadius: '12px',
+          width: '90%',
+          maxWidth: '400px',
+          padding: '24px',
+          boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
+        }}>
+          <h2 style={{ marginBottom: '16px', fontSize: '1.25rem', fontWeight: 600 }}>Settings</h2>
+          <form
+            onSubmit={async (e) => {
+              e.preventDefault();
+              // Update email and phone via Supabase
+              try {
+                const supabase = createClient();
+                if (email !== currentUser.email) {
+                  await supabase.auth.updateUser({ email });
+                }
+                if (phone !== currentUser.phone) {
+                  // Assuming a custom field in profile table
+                  await supabase.from('profiles').update({ phone }).eq('id', currentUser.id);
+                }
+                if (password) {
+                  await supabase.auth.updateUser({ password });
+                }
+                // Update local store
+                updateProfile({ email, phone });
+                setShowSettings(false);
+              } catch (err) {
+                console.error('Profile update error', err);
+              }
+            }}
+          >
+            <label style={{ display: 'block', marginBottom: '8px' }}>
+              Email
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                style={{ width: '100%', padding: '8px', marginTop: '4px', borderRadius: '4px', border: '1px solid #CBD5E1' }}
+                required
+              />
+            </label>
+            <label style={{ display: 'block', marginBottom: '8px' }}>
+              Phone
+              <input
+                type="text"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                style={{ width: '100%', padding: '8px', marginTop: '4px', borderRadius: '4px', border: '1px solid #CBD5E1' }}
+              />
+            </label>
+            <label style={{ display: 'block', marginBottom: '8px' }}>
+              New Password
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                style={{ width: '100%', padding: '8px', marginTop: '4px', borderRadius: '4px', border: '1px solid #CBD5E1' }}
+              />
+            </label>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', marginTop: '16px' }}>
+              <button type="button" onClick={() => setShowSettings(false)} style={{ padding: '8px 16px', background: '#F1F5F9', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Cancel</button>
+              <button type="submit" style={{ padding: '8px 16px', background: '#2563EB', color: '#FFF', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    )}
     </aside>
   );
 }
