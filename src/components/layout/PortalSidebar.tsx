@@ -38,6 +38,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
   } = useAppStore();
   const isPortalLocked = liveTestSession && testAttempts.some(attempt => attempt.testId === liveTestSession.testId && attempt.studentId === currentUser.id && attempt.status === 'in_progress');
   const canAccessSchedule = currentUser.selectedPackage && /elite|master/i.test(currentUser.selectedPackage);
+  const canAccessMedpath = currentUser.selectedPackage && /elite/i.test(currentUser.selectedPackage);
   const [showSettings, setShowSettings] = useState(false);
   const [email, setEmail] = useState(currentUser.email);
   const [phone, setPhone] = useState(currentUser.phone || '');
@@ -452,36 +453,39 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         </div>
 
         {/* MedPath Elite — Direct Link (gate check happens on page) */}
-        <Link
-          href="/portal/medpath"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: sidebarExpanded ? 'space-between' : 'center',
-            padding: '10px 14px',
-            borderRadius: '8px',
-            fontSize: '0.875rem',
-            fontWeight: 600,
-            color: isMedpathActive ? '#EA580C' : '#334155',
-            backgroundColor: isMedpathActive ? '#FFF7ED' : 'transparent',
-            textDecoration: 'none',
-            transition: 'all 0.15s ease',
-            border: isMedpathActive ? '1px solid #FED7AA' : '1px solid transparent',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'center' }}>
-            <Award size={18} color={isMedpathActive ? '#EA580C' : '#7C3AED'} />
-            {sidebarExpanded && <span style={{ fontWeight: 700 }}>MedPath Elite</span>}
-          </div>
-          {sidebarExpanded && (
-            <span style={{ fontSize: '0.6875rem', backgroundColor: '#EA580C', color: '#FFFFFF', padding: '2px 7px', borderRadius: '10px', fontWeight: 800, letterSpacing: '0.3px' }}>
-              ELITE
-            </span>
-          )}
-        </Link>
+        {canAccessMedpath && (
+          <Link
+            href="/portal/medpath"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: sidebarExpanded ? 'space-between' : 'center',
+              padding: '10px 14px',
+              borderRadius: '8px',
+              fontSize: '0.875rem',
+              fontWeight: 600,
+              color: isMedpathActive ? '#EA580C' : '#334155',
+              backgroundColor: isMedpathActive ? '#FFF7ED' : 'transparent',
+              textDecoration: 'none',
+              transition: 'all 0.15s ease',
+              border: isMedpathActive ? '1px solid #FED7AA' : '1px solid transparent',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'center' }}>
+              <Award size={18} color={isMedpathActive ? '#EA580C' : '#7C3AED'} />
+              {sidebarExpanded && <span style={{ fontWeight: 700 }}>MedPath Elite</span>}
+            </div>
+            {sidebarExpanded && (
+              <span style={{ fontSize: '0.6875rem', backgroundColor: '#EA580C', color: '#FFFFFF', padding: '2px 7px', borderRadius: '10px', fontWeight: 800, letterSpacing: '0.3px' }}>
+                ELITE
+              </span>
+            )}
+          </Link>
+        )}
 
         {/* Document Vault */}
-        <div style={{ padding: '0 12px', marginTop: '4px' }}>
+        {canAccessMedpath && (
+          <div style={{ padding: '0 12px', marginTop: '4px' }}>
           <Link
             href="/portal/documents"
             style={{
@@ -504,6 +508,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
             {sidebarExpanded && <span>Document Vault</span>}
           </Link>
         </div>
+        )}
 
         <div style={{ padding: '0 12px', marginTop: '4px' }}>
           {/* Ask Doubts / Mentorship link */}

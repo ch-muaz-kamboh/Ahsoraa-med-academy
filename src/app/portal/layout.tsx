@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import PortalSidebar from '@/components/layout/PortalSidebar';
 import { useAppStore } from '@/lib/store';
 import { createClient } from '@/lib/supabase/client';
@@ -12,11 +12,22 @@ import Logo from '@/components/brand/Logo';
 
 export default function PortalLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
+  const pathname = usePathname();
   const { studentLoggedIn, loginStudent, logoutStudent, liveTestSession, testAttempts, currentUser } = useAppStore();
   const [checkingAuth, setCheckingAuth] = useState(true);
   
   const isPortalLocked = liveTestSession && currentUser && testAttempts.some(attempt => attempt.testId === liveTestSession.testId && attempt.studentId === currentUser.id && attempt.status === 'in_progress');
   const hasCompletedLiveTest = liveTestSession && currentUser && testAttempts.some(attempt => attempt.testId === liveTestSession.testId && attempt.studentId === currentUser.id && attempt.status === 'completed');
+
+  // Enforce lockdown: if locked and not on the test page, force redirect
+  useEffect(() => {
+    if (isPortalLocked && liveTestSession) {
+      const targetUrl = `/portal/tests/${liveTestSession.testId}/take`;
+      if (!pathname?.startsWith(targetUrl)) {
+        router.replace(targetUrl);
+      }
+    }
+  }, [isPortalLocked, liveTestSession, pathname, router]);
 
   const [realUser, setRealUser] = useState<{ fullName: string, firstName: string, initials: string } | null>(null);
 

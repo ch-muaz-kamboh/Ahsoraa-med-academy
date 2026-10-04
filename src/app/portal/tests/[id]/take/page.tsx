@@ -24,7 +24,7 @@ export default function TakeTestPage({
 }) {
   const resolvedParams = use(params);
   const router = useRouter();
-  const { recordTestAttempt, currentUser, addMistake } = useAppStore();
+  const { recordTestAttempt, testAttempts, currentUser, addMistake } = useAppStore();
 
   const [test, setTest] = useState<Test>(() => getMockTestWithCustom(resolvedParams.id));
 
@@ -42,6 +42,22 @@ export default function TakeTestPage({
   if (!test) {
     notFound();
   }
+
+  // Register an in_progress attempt when they join, to lock the portal.
+  useEffect(() => {
+    if (!test || !currentUser) return;
+    const hasAttempt = testAttempts.some(a => a.testId === test.id && a.studentId === currentUser.id);
+    if (!hasAttempt) {
+      recordTestAttempt({
+        id: `att-ip-${Date.now()}`,
+        testId: test.id,
+        testTitle: test.title,
+        studentId: currentUser.id,
+        status: 'in_progress',
+        startedAt: new Date().toISOString(),
+      });
+    }
+  }, [test, currentUser, testAttempts, recordTestAttempt]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>(() => {
