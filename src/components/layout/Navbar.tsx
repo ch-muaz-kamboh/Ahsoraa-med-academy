@@ -139,6 +139,24 @@ export default function Navbar() {
           {/* Action CTAs */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <Link
+              href="/free-mock"
+              style={{
+                padding: '8px 16px',
+                fontSize: '0.875rem',
+                fontWeight: 600,
+                color: '#22C55E',
+                border: '1px solid #22C55E',
+                borderRadius: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                textDecoration: 'none',
+              }}
+            >
+              <span>Take Free Mock</span>
+            </Link>
+
+            <Link
               href="/portal/dashboard"
               className="btn-primary"
               style={{
