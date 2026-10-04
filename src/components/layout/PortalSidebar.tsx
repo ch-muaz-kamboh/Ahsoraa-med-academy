@@ -46,6 +46,11 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
   const router = useRouter();
   const { setStudentLoggedIn, logoutStudent, studentMistakes } = useAppStore();
   const unresolvedMistakesCount = studentMistakes ? studentMistakes.filter((m) => !m.isResolved).length : 0;
+  
+  // Compute initials from actual user data instead of relying on props default
+  const computedInitials = currentUser?.firstName 
+    ? `${currentUser.firstName[0]}${currentUser.lastName ? currentUser.lastName[0] : ''}`.toUpperCase() 
+    : userInitials;
 
   const [learnOpen, setLearnOpen] = useState<boolean>(false);
   const [practiceOpen, setPracticeOpen] = useState<boolean>(false);
@@ -79,7 +84,8 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         flexShrink: 0,
         position: 'relative',
         transition: 'width 0.2s ease',
-        overflowY: 'auto',
+        overflow: 'visible',
+        zIndex: 50,
       }}
       onWheel={(e) => e.stopPropagation()}
     >
@@ -139,7 +145,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', overflow: 'hidden' }}>
           <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#DBEAFE', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#2563EB', fontWeight: 'bold', flexShrink: 0 }}>
-            {userInitials}
+            {computedInitials}
           </div>
           {sidebarExpanded && (
             <div style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
@@ -157,12 +163,11 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         </button>
       </div>
 
-
-
-
+      {/* Scrollable Navigation Area */}
+      <div style={{ flex: 1, overflowY: 'auto', padding: '12px 0' }}>
 
         {/* Learn Section Dropdown */}
-        <div>
+        <div style={{ padding: '0 12px' }}>
           <button
             type="button"
             onClick={() => {
@@ -173,7 +178,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
               width: '100%',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'space-between',
+              justifyContent: sidebarExpanded ? 'space-between' : 'center',
               padding: '10px 14px',
               borderRadius: '8px',
               fontSize: '0.875rem',
@@ -187,7 +192,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
               pointerEvents: isPortalLocked ? 'none' : 'auto',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'center' }}>
               <GraduationCap size={18} color={isLearnActive ? '#2563EB' : '#64748B'} />
               {sidebarExpanded && <span>Learn</span>}
             </div>
@@ -259,7 +264,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         </div>
 
         {/* Practice Section Dropdown */}
-        <div>
+        <div style={{ padding: '0 12px', marginTop: '4px' }}>
           <button
             type="button"
             onClick={() => {
@@ -371,7 +376,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         </div>
 
         {/* Progress Section Dropdown */}
-        <div>
+        <div style={{ padding: '0 12px', marginTop: '4px' }}>
           <button
             type="button"
             onClick={() => {
@@ -450,7 +455,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           style={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between',
+            justifyContent: sidebarExpanded ? 'space-between' : 'center',
             padding: '10px 14px',
             borderRadius: '8px',
             fontSize: '0.875rem',
@@ -462,7 +467,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
             border: isMedpathActive ? '1px solid #FED7AA' : '1px solid transparent',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'center' }}>
             <Award size={18} color={isMedpathActive ? '#EA580C' : '#7C3AED'} />
             {sidebarExpanded && <span style={{ fontWeight: 700 }}>MedPath Elite</span>}
           </div>
@@ -479,6 +484,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           style={{
             display: 'flex',
             alignItems: 'center',
+            justifyContent: sidebarExpanded ? 'flex-start' : 'center',
             gap: '12px',
             padding: '10px 14px',
             borderRadius: '8px',
@@ -489,18 +495,21 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
             transition: 'all 0.15s ease',
           }}
         >
-          <span style={{ color: pathname === '/portal/documents' ? '#2563EB' : '#64748B' }}>
-            <FolderLock size={18} />
-          </span>
-          {sidebarExpanded && <span>Document Vault</span>}
-        </Link>
+            <span style={{ color: pathname === '/portal/documents' ? '#2563EB' : '#64748B' }}>
+              <FolderLock size={18} />
+            </span>
+            {sidebarExpanded && <span>Document Vault</span>}
+          </Link>
+        </div>
 
-        {/* Ask Doubts / Mentorship link */}
-        <Link
-          href="/portal/doubts"
+        <div style={{ padding: '0 12px', marginTop: '4px' }}>
+          {/* Ask Doubts / Mentorship link */}
+          <Link
+            href="/portal/doubts"
           style={{
             display: 'flex',
             alignItems: 'center',
+            justifyContent: sidebarExpanded ? 'flex-start' : 'center',
             gap: '12px',
             padding: '10px 14px',
             borderRadius: '8px',
@@ -511,12 +520,14 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
             transition: 'all 0.15s ease',
           }}
         >
-          <span style={{ color: pathname === '/portal/doubts' ? '#2563EB' : '#64748B' }}>
-            <HelpCircle size={18} />
-          </span>
-          {sidebarExpanded && <span>Ask Doubts</span>}
-        </Link>
+            <span style={{ color: pathname === '/portal/doubts' ? '#2563EB' : '#64748B' }}>
+              <HelpCircle size={18} />
+            </span>
+            {sidebarExpanded && <span>Ask Doubts</span>}
+          </Link>
+        </div>
 
+      </div>
 
       {/* Footer / Logout & Back to Public */}
       <div style={{ padding: '16px', borderTop: '1px solid #F1F5F9', display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -525,6 +536,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           style={{
             display: 'flex',
             alignItems: 'center',
+            justifyContent: sidebarExpanded ? 'flex-start' : 'center',
             gap: '10px',
             padding: '10px 14px',
             borderRadius: '8px',
@@ -547,6 +559,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           style={{
             display: 'flex',
             alignItems: 'center',
+            justifyContent: sidebarExpanded ? 'flex-start' : 'center',
             gap: '10px',
             padding: '8px 14px',
             borderRadius: '8px',
