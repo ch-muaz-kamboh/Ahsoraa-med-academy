@@ -55,6 +55,16 @@ export default function TakeTestPage({
         studentId: currentUser.id,
         status: 'in_progress',
         startedAt: new Date().toISOString(),
+        timeSpentSeconds: 0,
+        totalScore: 0,
+        percentage: 0,
+        totalAttempted: 0,
+        totalCorrect: 0,
+        totalIncorrect: 0,
+        totalUnanswered: 0,
+        accuracyRate: 0,
+        percentile: 0,
+        subjectBreakdown: {},
       });
     }
   }, [test, currentUser, testAttempts, recordTestAttempt]);
