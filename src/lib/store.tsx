@@ -142,6 +142,9 @@ interface AppContextType {
   eliteStudents: MedpathEliteStudent[];
   addEliteStudent: (student: Omit<MedpathEliteStudent, 'id'>) => void;
   updateEliteStage: (studentId: string, stage: keyof MedpathEliteStudent['stages'], status: MedpathStageStatus) => void;
+
+  // Profile update
+  updateProfile: (data: Partial<Profile>) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -1448,12 +1451,23 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     setStaffQuestions((prev) => prev.filter((q) => q.id !== id));
   };
 
+  const updateProfile = (data: Partial<Profile>) => {
+    setCurrentUser((prev) => {
+      const updated = { ...prev, ...data };
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('ahsora_currentUser', JSON.stringify(updated));
+      }
+      return updated;
+    });
+  };
+
   return (
     <AppContext.Provider
       value={{
         currentRole,
         setRole: handleRoleChange,
         currentUser,
+        updateProfile,
         courses,
         leads,
         addLead,

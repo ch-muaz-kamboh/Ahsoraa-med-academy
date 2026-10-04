@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Settings } from 'lucide-react';
+
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
@@ -481,7 +481,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           </span>
           {sidebarExpanded && <span>Ask Doubts</span>}
         </Link>
-      </nav>
+
 
       {/* Footer / Logout & Back to Public */}
       <div style={{ padding: '16px', borderTop: '1px solid #F1F5F9', display: 'flex', flexDirection: 'column', gap: '8px' }}>
