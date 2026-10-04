@@ -479,13 +479,14 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         </Link>
 
         {/* Document Vault */}
-        <Link
-          href="/portal/documents"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: sidebarExpanded ? 'flex-start' : 'center',
-            gap: '12px',
+        <div style={{ padding: '0 12px', marginTop: '4px' }}>
+          <Link
+            href="/portal/documents"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: sidebarExpanded ? 'flex-start' : 'center',
+              gap: '12px',
             padding: '10px 14px',
             borderRadius: '8px',
             fontSize: '0.875rem',
@@ -526,8 +527,6 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
             {sidebarExpanded && <span>Ask Doubts</span>}
           </Link>
         </div>
-
-      </div>
 
       {/* Footer / Logout & Back to Public */}
       <div style={{ padding: '16px', borderTop: '1px solid #F1F5F9', display: 'flex', flexDirection: 'column', gap: '8px' }}>
