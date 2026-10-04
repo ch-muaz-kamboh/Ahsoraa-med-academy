@@ -12,8 +12,12 @@ import Logo from '@/components/brand/Logo';
 
 export default function PortalLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
-  const { studentLoggedIn, loginStudent, logoutStudent, liveTestSession } = useAppStore();
+  const { studentLoggedIn, loginStudent, logoutStudent, liveTestSession, testAttempts, currentUser } = useAppStore();
   const [checkingAuth, setCheckingAuth] = useState(true);
+  
+  const isPortalLocked = liveTestSession && currentUser && testAttempts.some(attempt => attempt.testId === liveTestSession.testId && attempt.studentId === currentUser.id && attempt.status === 'in_progress');
+  const hasCompletedLiveTest = liveTestSession && currentUser && testAttempts.some(attempt => attempt.testId === liveTestSession.testId && attempt.studentId === currentUser.id && attempt.status === 'completed');
+
   const [realUser, setRealUser] = useState<{ fullName: string, firstName: string, initials: string } | null>(null);
 
   const handleLogout = async () => {
@@ -104,6 +108,8 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
             position: 'sticky',
             top: 0,
             zIndex: 30,
+            pointerEvents: isPortalLocked ? 'none' : 'auto',
+            opacity: isPortalLocked ? 0.6 : 1,
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -174,10 +180,10 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
         </header>
 
         {/* Live Broadcast Exam Alert for All Students */}
-        {liveTestSession?.isLive && (
+        {liveTestSession?.isLive && !isPortalLocked && (
           <div
             style={{
-              backgroundColor: '#DC2626',
+              backgroundColor: hasCompletedLiveTest ? '#10B981' : '#DC2626',
               color: '#FFFFFF',
               padding: '16px 28px',
               display: 'flex',
@@ -185,7 +191,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
               justifyContent: 'space-between',
               flexWrap: 'wrap',
               gap: '12px',
-              boxShadow: '0 4px 14px rgba(220, 38, 38, 0.35)',
+              boxShadow: hasCompletedLiveTest ? '0 4px 14px rgba(16, 185, 129, 0.35)' : '0 4px 14px rgba(220, 38, 38, 0.35)',
               position: 'sticky',
               top: '64px',
               zIndex: 25,
@@ -195,7 +201,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
               <span
                 style={{
                   backgroundColor: '#FFFFFF',
-                  color: '#DC2626',
+                  color: hasCompletedLiveTest ? '#10B981' : '#DC2626',
                   fontSize: '0.75rem',
                   fontWeight: 900,
                   padding: '4px 10px',
@@ -203,34 +209,36 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                   letterSpacing: '0.5px',
                 }}
               >
-                🚨 MANDATORY LIVE EXAM
+                {hasCompletedLiveTest ? '✅ EXAM COMPLETED' : '🚨 MANDATORY LIVE EXAM'}
               </span>
               <div>
                 <strong style={{ fontSize: '0.95rem' }}>{liveTestSession.testTitle}</strong>
                 <span style={{ fontSize: '0.8125rem', opacity: 0.9, marginLeft: '8px' }}>
-                  Started by Administrator • Participation is required for all active students!
+                  {hasCompletedLiveTest ? 'You have successfully completed this live exam.' : 'Started by Administrator • Participation is required for all active students!'}
                 </span>
               </div>
             </div>
 
-            <Link
-              href={`/portal/tests/${liveTestSession.testId}/take`}
-              style={{
-                backgroundColor: '#FFFFFF',
-                color: '#DC2626',
-                fontWeight: 800,
-                fontSize: '0.875rem',
-                padding: '8px 18px',
-                borderRadius: '8px',
-                textDecoration: 'none',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-              }}
-            >
-              <span>Join Live Exam Now →</span>
-            </Link>
+            {!hasCompletedLiveTest && (
+              <Link
+                href={`/portal/tests/${liveTestSession.testId}/take`}
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  color: '#DC2626',
+                  fontWeight: 800,
+                  fontSize: '0.875rem',
+                  padding: '8px 18px',
+                  borderRadius: '8px',
+                  textDecoration: 'none',
+                  boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                }}
+              >
+                <span>Join Live Exam Now →</span>
+              </Link>
+            )}
           </div>
         )}
 

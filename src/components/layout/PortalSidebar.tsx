@@ -86,6 +86,8 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         transition: 'width 0.2s ease',
         overflow: 'visible',
         zIndex: 50,
+        pointerEvents: isPortalLocked ? 'none' : 'auto',
+        opacity: isPortalLocked ? 0.6 : 1,
       }}
       onWheel={(e) => e.stopPropagation()}
     >

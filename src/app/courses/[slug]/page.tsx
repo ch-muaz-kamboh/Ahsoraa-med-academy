@@ -131,7 +131,7 @@ export default function CourseDetailPage({
             </Link>
 
             <Link
-              href="/portal/tests/tst-01/take"
+              href="/free-mock"
               className="btn-outline"
               style={{ width: '100%', padding: '12px', fontSize: '0.9375rem', backgroundColor: '#FFFFFF' }}
             >

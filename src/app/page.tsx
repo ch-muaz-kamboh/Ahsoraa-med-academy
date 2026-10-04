@@ -443,7 +443,7 @@ export default function HomePage() {
                 </Link>
 
                 <Link
-                  href="/portal/tests/tst-01/take"
+                  href="/free-mock"
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -1727,7 +1727,7 @@ export default function HomePage() {
 
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                   <Link
-                    href="/portal/tests/tst-01/take"
+                    href="/free-mock"
                     style={{
                       display: 'inline-flex',
                       alignItems: 'center',
@@ -2311,7 +2311,7 @@ export default function HomePage() {
                 <ArrowRight size={18} />
               </button>
               <Link
-                href="/portal/tests/tst-01/take"
+                href="/free-mock"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',

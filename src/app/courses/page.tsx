@@ -38,7 +38,7 @@ function useIntersectionObserver(options = {}) {
 }
 
 // ─── Floating Corner Actions (Compact, Transparent & Unobtrusive) ─────────────
-function FloatingCornerBar({ onTrial }: { onTrial: () => void }) {
+function FloatingCornerBar() {
   const [show, setShow] = useState(false);
   useEffect(() => {
     const handler = () => setShow(window.scrollY > 300);
@@ -95,8 +95,8 @@ function FloatingCornerBar({ onTrial }: { onTrial: () => void }) {
         <span>WhatsApp</span>
       </a>
 
-      <button
-        onClick={onTrial}
+      <a
+        href="/free-mock"
         style={{
           display: 'inline-flex',
           alignItems: 'center',
@@ -112,7 +112,8 @@ function FloatingCornerBar({ onTrial }: { onTrial: () => void }) {
           border: '1px solid rgba(92, 237, 115, 0.35)',
           cursor: 'pointer',
           boxShadow: '0 4px 14px rgba(0,0,0,0.2)',
-          transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
+          transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+          textDecoration: 'none',
         }}
         onMouseEnter={e => {
           e.currentTarget.style.transform = 'scale(1.04) translateY(-1px)';
@@ -127,7 +128,7 @@ function FloatingCornerBar({ onTrial }: { onTrial: () => void }) {
       >
         <Zap size={14} color="#5CED73" />
         <span>Try Free Mock</span>
-      </button>
+      </a>
     </div>
   );
 }
@@ -627,7 +628,7 @@ export default function CoursesPage() {
                 <p style={{ color: 'var(--text-secondary)', lineHeight: 1.75, fontSize: '1.05rem' }}>{block.desc}</p>
                 {i === 2 && (
                   <div style={{ marginTop: '24px' }}>
-                    <Link href="/portal/tests" className="btn-primary" style={{ padding: '12px 24px', fontSize: '0.95rem' }}>Try a Free Diagnostic Mock →</Link>
+                    <Link href="/free-mock" className="btn-primary" style={{ padding: '12px 24px', fontSize: '0.95rem' }}>Try a Free Diagnostic Mock →</Link>
                   </div>
                 )}
               </div>
@@ -846,7 +847,7 @@ export default function CoursesPage() {
                 <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '30px', fontWeight: 600 }}>12 months full portal access included</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   <a href="https://wa.me/393333444479" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textAlign: 'center', backgroundColor: prog.accentColor, color: '#fff', borderRadius: 'var(--radius-full)', padding: '14px', fontWeight: 800, fontSize: '0.95rem', textDecoration: 'none', transition: 'transform 0.2s', boxShadow: `0 8px 24px -4px ${prog.accentColor}40` }} onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(-2px)')} onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}>{prog.cta}</a>
-                  <Link href="/portal/tests" style={{ display: 'block', textAlign: 'center', color: prog.accentColor, border: `2px solid ${prog.accentColor}`, borderRadius: 'var(--radius-full)', padding: '12px', fontWeight: 800, fontSize: '0.9rem', textDecoration: 'none', transition: 'background-color 0.2s' }} onMouseEnter={e => (e.currentTarget.style.backgroundColor = `${prog.accentColor}10`)} onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}>Try Free Diagnostic Mock</Link>
+                  <Link href="/free-mock" style={{ display: 'block', textAlign: 'center', color: prog.accentColor, border: `2px solid ${prog.accentColor}`, borderRadius: 'var(--radius-full)', padding: '12px', fontWeight: 800, fontSize: '0.9rem', textDecoration: 'none', transition: 'background-color 0.2s' }} onMouseEnter={e => (e.currentTarget.style.backgroundColor = `${prog.accentColor}10`)} onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}>Try Free Diagnostic Mock</Link>
                 </div>
               </div>
             </div>
@@ -1008,7 +1009,7 @@ export default function CoursesPage() {
       </section>
 
       {/* Floating corner quick action buttons */}
-      <FloatingCornerBar onTrial={() => setLeadOpen(true)} />
+      <FloatingCornerBar />
 
       {leadOpen && (
         <LeadCaptureModal
