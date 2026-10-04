@@ -16,7 +16,7 @@ import { useAppStore } from '@/lib/store';
 import { DocumentCategory } from '@/types';
 
 export default function PortalDocumentsPage() {
-  const { documents, addDocument } = useAppStore();
+  const { documents, addDocument, currentUser } = useAppStore();
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [uploadData, setUploadData] = useState({
     title: '',
@@ -52,6 +52,42 @@ export default function PortalDocumentsPage() {
         return <span className="badge badge-gray">{status}</span>;
     }
   };
+
+  const isElite = currentUser?.selectedPackage && /elite/i.test(currentUser.selectedPackage);
+
+  if (!isElite) {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '70vh' }}>
+        <div style={{ textAlign: 'center', maxWidth: '560px', padding: '20px' }}>
+          <div style={{
+            width: '96px',
+            height: '96px',
+            borderRadius: '28px',
+            background: 'linear-gradient(135deg, #F97316, #EA580C)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: '0 auto 24px',
+            boxShadow: '0 20px 40px -8px rgba(249, 115, 22, 0.4)',
+          }}>
+            <FolderLock size={44} color="#FFFFFF" />
+          </div>
+
+          <div style={{ display: 'inline-block', backgroundColor: '#FFF7ED', border: '1px solid #FED7AA', color: '#C2410C', fontSize: '0.75rem', fontWeight: 800, padding: '4px 12px', borderRadius: '20px', letterSpacing: '0.5px', marginBottom: '16px' }}>
+            DOCUMENT VAULT — EXCLUSIVE ACCESS
+          </div>
+
+          <h1 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#0F172A', marginBottom: '12px', lineHeight: 1.2 }}>
+            This section is reserved for<br />
+            <span style={{ color: '#EA580C' }}>Ahsora Path Elite</span> students
+          </h1>
+          <p style={{ color: '#64748B', fontSize: '0.9375rem', lineHeight: 1.6, marginBottom: '28px' }}>
+            The Document Vault is a secure space where Elite students can safely upload and manage all their official university admission and visa application documents, directly reviewed by their senior advisor.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
