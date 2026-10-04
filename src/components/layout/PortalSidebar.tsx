@@ -528,6 +528,8 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           </Link>
         </div>
 
+      </div>{/* END Scrollable Navigation Area */}
+
       {/* Footer / Logout & Back to Public */}
       <div style={{ padding: '16px', borderTop: '1px solid #F1F5F9', display: 'flex', flexDirection: 'column', gap: '8px' }}>
         <button
