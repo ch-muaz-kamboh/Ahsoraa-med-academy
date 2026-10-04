@@ -88,18 +88,25 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
       {/* Header with logo and sidebar toggle */}
       <div
         style={{
-          padding: '18px 20px',
+          padding: sidebarExpanded ? '18px 20px' : '18px 0',
           borderBottom: '1px solid #E2E8F0',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'flex-start',
+          justifyContent: 'center',
+          position: 'relative',
+          minHeight: '84px',
         }}
       >
-        {/* Toggle button placed here */}
+        <Link href="/portal/dashboard" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+          <Logo height={sidebarExpanded ? 48 : 32} />
+        </Link>
+        {/* Toggle button placed to the right */}
         <button
           onClick={() => setSidebarExpanded((prev) => !prev)}
           style={{
-            marginRight: '8px',
+            position: 'absolute',
+            right: '-14px',
+            top: '28px',
             width: '28px',
             height: '28px',
             borderRadius: '50%',
@@ -112,14 +119,42 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
             cursor: 'pointer',
             color: '#475569',
             transition: 'all 0.15s ease',
+            zIndex: 10,
           }}
           aria-label="Toggle sidebar"
         >
           {sidebarExpanded ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
         </button>
-        <Link href="/portal/dashboard" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-          <Logo height={48} />
-        </Link>
+      </div>
+
+      {/* Student Profile & Settings */}
+      <div style={{ 
+        padding: sidebarExpanded ? '20px' : '20px 0', 
+        borderBottom: '1px solid #E2E8F0', 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: sidebarExpanded ? 'space-between' : 'center',
+        flexDirection: sidebarExpanded ? 'row' : 'column',
+        gap: '12px'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', overflow: 'hidden' }}>
+          <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#DBEAFE', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#2563EB', fontWeight: 'bold', flexShrink: 0 }}>
+            {userInitials}
+          </div>
+          {sidebarExpanded && (
+            <div style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+              <span style={{ fontWeight: 600, fontSize: '0.9rem', color: '#1E293B', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>{currentUser.firstName} {currentUser.lastName}</span>
+              <span style={{ fontSize: '0.75rem', color: '#64748B', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>{currentUser.email}</span>
+            </div>
+          )}
+        </div>
+        <button 
+          onClick={() => setShowSettings(true)}
+          style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#64748B', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '4px' }}
+          title="Settings"
+        >
+          <Settings size={20} />
+        </button>
       </div>
 
 
