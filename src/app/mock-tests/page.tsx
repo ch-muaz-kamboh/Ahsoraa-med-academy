@@ -27,9 +27,57 @@ export default function MockTestsPage() {
           <h1 style={{ fontSize: '2.4rem', color: '#0F172A', marginTop: '4px', marginBottom: '12px' }}>
             High-Yield Assessment & Mock Test Engine
           </h1>
-          <p style={{ color: '#64748B', fontSize: '1rem' }}>
+          <p style={{ color: '#64748B', fontSize: '1rem', marginBottom: '24px' }}>
             Simulate actual exam conditions with synchronized timers, negative marking, question palettes, and topic-level mastery analytics.
           </p>
+
+          {/* Free Mock Banner */}
+          <div
+            style={{
+              padding: '24px 28px',
+              backgroundColor: '#F0FDF4',
+              borderRadius: '16px',
+              border: '2px solid #BBF7D0',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '16px',
+              textAlign: 'left',
+              boxShadow: '0 4px 12px rgba(5,150,105,0.06)',
+            }}
+          >
+            <div>
+              <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#059669', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                Open to All Students • No Login Required
+              </span>
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', marginTop: '4px', marginBottom: '4px' }}>
+                Free IMAT 2026 Diagnostic Mock Test
+              </h3>
+              <p style={{ color: '#166534', fontSize: '0.875rem', margin: 0 }}>
+                60 Questions • 100 Minutes • Official +1.5 / -0.4 scoring logic • Unlimited Attempts
+              </p>
+            </div>
+            <Link
+              href="/free-mock"
+              style={{
+                padding: '12px 24px',
+                backgroundColor: '#059669',
+                color: '#FFFFFF',
+                borderRadius: '10px',
+                fontWeight: 700,
+                fontSize: '0.9375rem',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                boxShadow: '0 4px 12px rgba(5,150,105,0.3)',
+              }}
+            >
+              <span>Take Free Mock</span>
+              <ArrowRight size={16} />
+            </Link>
+          </div>
         </div>
 
         {/* Test Cards Grid */}
