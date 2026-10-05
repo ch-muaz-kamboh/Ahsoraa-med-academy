@@ -3,7 +3,12 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { CheckCircle2, XCircle, Clock, Search, RefreshCw, User, FileText, Download, X, Globe, Phone, Package, Mail } from 'lucide-react';
-import { ACADEMY_PACKAGES, getPackageByIdOrName } from '@/lib/packages';
+import {
+  ACADEMY_PACKAGES,
+  getPackageByIdOrName,
+  getStudentPackageMapping,
+  saveStudentPackageMapping,
+} from '@/lib/packages';
 
 interface StudentProfile {
   id: string;
@@ -47,6 +52,93 @@ export default function AdminStudentsPage() {
   const [studentDocs, setStudentDocs] = useState<StudentDocument[]>([]);
   const [docsLoading, setDocsLoading] = useState(false);
 
+  // Helper to resolve student package from local mappings and storage
+  const resolveStudentPkg = (email?: string, id?: string): { selectedPackage: string; packagePrice: string } | null => {
+    if (!email && !id) return null;
+    const cleanEmail = (email || '').toLowerCase().trim();
+
+    // 1. Check persistent mapping
+    if (cleanEmail) {
+      const mapped = getStudentPackageMapping(cleanEmail);
+      if (mapped?.selectedPackage) return mapped;
+    }
+
+    // 2. Check ahsora_elite_students
+    try {
+      const eliteStr = localStorage.getItem('ahsora_elite_students');
+      if (eliteStr) {
+        const list = JSON.parse(eliteStr);
+        if (Array.isArray(list)) {
+          const isElite = list.some((item: any) =>
+            (cleanEmail && item.email && item.email.toLowerCase().trim() === cleanEmail) ||
+            (id && (item.studentId === id || item.id === id))
+          );
+          if (isElite) return { selectedPackage: 'Ahsora Path Elite', packagePrice: '€799' };
+        }
+      }
+    } catch (e) {}
+
+    // 3. Check adminStudentList
+    try {
+      const adminListStr = localStorage.getItem('adminStudentList');
+      if (adminListStr) {
+        const list = JSON.parse(adminListStr);
+        if (Array.isArray(list)) {
+          const found = list.find((item: any) =>
+            (cleanEmail && item.email && item.email.toLowerCase().trim() === cleanEmail) ||
+            (id && item.id === id)
+          );
+          if (found && (found.selectedPackage || found.selected_package)) {
+            return {
+              selectedPackage: found.selectedPackage || found.selected_package,
+              packagePrice: found.packagePrice || found.package_price,
+            };
+          }
+        }
+      }
+    } catch (e) {}
+
+    // 4. Check recentRegistration
+    try {
+      const regStr = localStorage.getItem('recentRegistration');
+      if (regStr) {
+        const reg = JSON.parse(regStr);
+        if (
+          (cleanEmail && reg.email && reg.email.toLowerCase().trim() === cleanEmail) ||
+          (id && reg.id === id)
+        ) {
+          if (reg.selectedPackage || reg.selected_package) {
+            return {
+              selectedPackage: reg.selectedPackage || reg.selected_package,
+              packagePrice: reg.packagePrice || reg.package_price,
+            };
+          }
+        }
+      }
+    } catch (e) {}
+
+    // 5. Check ahsora_currentUser
+    try {
+      const curUserStr = localStorage.getItem('ahsora_currentUser');
+      if (curUserStr) {
+        const cur = JSON.parse(curUserStr);
+        if (
+          (cleanEmail && cur.email && cur.email.toLowerCase().trim() === cleanEmail) ||
+          (id && cur.id === id)
+        ) {
+          if (cur.selectedPackage && cur.selectedPackage !== 'Ahsora IMAT Ascend') {
+            return {
+              selectedPackage: cur.selectedPackage,
+              packagePrice: cur.packagePrice,
+            };
+          }
+        }
+      }
+    } catch (e) {}
+
+    return null;
+  };
+
   const fetchStudents = useCallback(async () => {
     setLoading(true);
     let combinedList: StudentProfile[] = [];
@@ -60,7 +152,19 @@ export default function AdminStudentsPage() {
         .order('created_at', { ascending: false });
 
       if (!error && data) {
-        combinedList = data as StudentProfile[];
+        combinedList = (data as StudentProfile[]).map((s) => {
+          const resolved = resolveStudentPkg(s.email, s.id);
+          const pkgName = s.selected_package || s.selectedPackage || resolved?.selectedPackage || 'Ahsora IMAT Ascend';
+          const matched = getPackageByIdOrName(pkgName);
+          const pkgPrice = s.package_price || s.packagePrice || resolved?.packagePrice || matched.price;
+          return {
+            ...s,
+            selected_package: matched.name,
+            selectedPackage: matched.name,
+            package_price: pkgPrice,
+            packagePrice: pkgPrice,
+          };
+        });
       }
     } catch (e) {
       console.warn('Supabase fetch error:', e);
@@ -157,6 +261,118 @@ export default function AdminStudentsPage() {
   useEffect(() => {
     fetchStudents();
   }, [fetchStudents]);
+
+  const handleUpdatePackage = (studentId: string, studentEmail: string | undefined, newPkgName: string) => {
+    const matched = getPackageByIdOrName(newPkgName);
+    const newPrice = matched.price;
+
+    // Update in students state
+    setStudents((prev) =>
+      prev.map((s) => {
+        if (s.id === studentId || (studentEmail && s.email && s.email.toLowerCase() === studentEmail.toLowerCase())) {
+          return {
+            ...s,
+            selected_package: matched.name,
+            selectedPackage: matched.name,
+            package_price: newPrice,
+            packagePrice: newPrice,
+          };
+        }
+        return s;
+      })
+    );
+
+    // If viewing this student in modal, update modal view as well
+    setViewingStudent((prev) => {
+      if (prev && (prev.id === studentId || (studentEmail && prev.email && prev.email.toLowerCase() === studentEmail.toLowerCase()))) {
+        return {
+          ...prev,
+          selected_package: matched.name,
+          selectedPackage: matched.name,
+          package_price: newPrice,
+          packagePrice: newPrice,
+        };
+      }
+      return prev;
+    });
+
+    if (studentEmail) {
+      saveStudentPackageMapping(studentEmail, matched.name, newPrice);
+    }
+
+    // Update adminStudentList in localStorage
+    try {
+      const localListStr = localStorage.getItem('adminStudentList');
+      const localList: any[] = localListStr ? JSON.parse(localListStr) : [];
+      const foundIdx = localList.findIndex(
+        (item) => (item.id && item.id === studentId) || (studentEmail && item.email && item.email.toLowerCase() === studentEmail.toLowerCase())
+      );
+      if (foundIdx !== -1) {
+        localList[foundIdx].selectedPackage = matched.name;
+        localList[foundIdx].selected_package = matched.name;
+        localList[foundIdx].packagePrice = newPrice;
+        localList[foundIdx].package_price = newPrice;
+      } else {
+        localList.push({
+          id: studentId,
+          email: studentEmail,
+          selectedPackage: matched.name,
+          packagePrice: newPrice,
+        });
+      }
+      localStorage.setItem('adminStudentList', JSON.stringify(localList));
+    } catch (e) {}
+
+    // If changing to Elite, add to ahsora_elite_students
+    try {
+      const eliteStr = localStorage.getItem('ahsora_elite_students');
+      const eliteList: any[] = eliteStr ? JSON.parse(eliteStr) : [];
+      const emailLower = (studentEmail || '').toLowerCase().trim();
+      const existingEliteIdx = eliteList.findIndex((el) => (el.email || '').toLowerCase().trim() === emailLower);
+
+      if (matched.id === 'elite') {
+        if (existingEliteIdx === -1) {
+          eliteList.unshift({
+            id: `elite-${Date.now()}`,
+            studentId: studentId,
+            studentName: studentEmail || 'Elite Student',
+            email: studentEmail || '',
+            registeredAt: new Date().toISOString(),
+            stages: {
+              pre_enrollment: 'pending',
+              dov_submission: 'pending',
+              university_application: 'pending',
+              admission_decision: 'pending',
+              visa_process: 'pending',
+              housing_arrival: 'pending',
+            },
+          });
+          localStorage.setItem('ahsora_elite_students', JSON.stringify(eliteList));
+          window.dispatchEvent(new Event('ahsora_elite_updated'));
+        }
+      } else {
+        // If changed to non-elite, remove from elite list
+        if (existingEliteIdx !== -1) {
+          eliteList.splice(existingEliteIdx, 1);
+          localStorage.setItem('ahsora_elite_students', JSON.stringify(eliteList));
+          window.dispatchEvent(new Event('ahsora_elite_updated'));
+        }
+      }
+    } catch (e) {}
+
+    // If current logged in student is this user, update ahsora_currentUser
+    try {
+      const savedUserStr = localStorage.getItem('ahsora_currentUser');
+      if (savedUserStr) {
+        const savedUser = JSON.parse(savedUserStr);
+        if (studentEmail && savedUser.email && savedUser.email.toLowerCase().trim() === studentEmail.toLowerCase().trim()) {
+          savedUser.selectedPackage = matched.name;
+          savedUser.packagePrice = newPrice;
+          localStorage.setItem('ahsora_currentUser', JSON.stringify(savedUser));
+        }
+      }
+    } catch (e) {}
+  };
 
   const toggleApproval = async (studentId: string, currentStatus: boolean) => {
     setUpdating(studentId);
@@ -418,11 +634,52 @@ export default function AdminStudentsPage() {
 
                       {/* Purchased Package */}
                       <td style={{ padding: '16px 18px' }}>
-                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', backgroundColor: '#F0FDF4', border: '1px solid #BBF7D0', padding: '6px 12px', borderRadius: '10px' }}>
-                          <Package size={16} color="#16A34A" />
-                          <div>
-                            <div style={{ fontWeight: 800, fontSize: '0.875rem', color: '#15803D' }}>{matchedPkg.name}</div>
-                            <div style={{ fontSize: '0.75rem', fontWeight: 900, color: '#16A34A' }}>Amount: {pkgPrice}</div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                          <div style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                            backgroundColor: matchedPkg.id === 'elite' ? '#FFF7ED' : matchedPkg.id === 'mastery' ? '#F5F3FF' : '#EFF6FF',
+                            border: `1px solid ${matchedPkg.id === 'elite' ? '#FED7AA' : matchedPkg.id === 'mastery' ? '#DDD6FE' : '#BFDBFE'}`,
+                            padding: '6px 10px',
+                            borderRadius: '10px',
+                            width: 'fit-content',
+                          }}>
+                            <Package size={15} color={matchedPkg.id === 'elite' ? '#EA580C' : matchedPkg.id === 'mastery' ? '#7C3AED' : '#2563EB'} />
+                            <div>
+                              <div style={{ fontWeight: 800, fontSize: '0.8125rem', color: matchedPkg.id === 'elite' ? '#C2410C' : matchedPkg.id === 'mastery' ? '#6D28D9' : '#1D4ED8' }}>
+                                {matchedPkg.name}
+                              </div>
+                              <div style={{ fontSize: '0.75rem', fontWeight: 900, color: matchedPkg.id === 'elite' ? '#EA580C' : matchedPkg.id === 'mastery' ? '#7C3AED' : '#2563EB' }}>
+                                Amount: {pkgPrice}
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Quick package changer */}
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <span style={{ fontSize: '0.7rem', color: '#94A3B8', fontWeight: 600 }}>Tier:</span>
+                            <select
+                              value={matchedPkg.name}
+                              onChange={(e) => handleUpdatePackage(student.id, student.email, e.target.value)}
+                              style={{
+                                fontSize: '0.75rem',
+                                fontWeight: 700,
+                                padding: '3px 8px',
+                                borderRadius: '6px',
+                                border: '1px solid #CBD5E1',
+                                backgroundColor: '#FFFFFF',
+                                color: '#334155',
+                                cursor: 'pointer',
+                                outline: 'none',
+                              }}
+                            >
+                              {ACADEMY_PACKAGES.map((p) => (
+                                <option key={p.id} value={p.name}>
+                                  {p.name} ({p.price})
+                                </option>
+                              ))}
+                            </select>
                           </div>
                         </div>
                       </td>
@@ -568,11 +825,31 @@ export default function AdminStudentsPage() {
             </div>
 
             <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '14px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed #E2E8F0', paddingBottom: '10px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px dashed #E2E8F0', paddingBottom: '12px' }}>
                 <span style={{ color: '#64748B', fontSize: '0.875rem' }}>Purchased Package</span>
-                <span style={{ color: '#16A34A', fontWeight: 800, fontSize: '0.9375rem' }}>
-                  {viewingStudent.selected_package || viewingStudent.selectedPackage || 'Ahsora IMAT Ascend'} ({viewingStudent.package_price || viewingStudent.packagePrice || '€299'})
-                </span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <select
+                    value={getPackageByIdOrName(viewingStudent.selected_package || viewingStudent.selectedPackage).name}
+                    onChange={(e) => handleUpdatePackage(viewingStudent.id, viewingStudent.email, e.target.value)}
+                    style={{
+                      fontSize: '0.8125rem',
+                      fontWeight: 800,
+                      padding: '5px 12px',
+                      borderRadius: '8px',
+                      border: '1px solid #CBD5E1',
+                      backgroundColor: '#FFFFFF',
+                      color: '#0F172A',
+                      cursor: 'pointer',
+                      outline: 'none',
+                    }}
+                  >
+                    {ACADEMY_PACKAGES.map((p) => (
+                      <option key={p.id} value={p.name}>
+                        {p.name} ({p.price})
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed #E2E8F0', paddingBottom: '10px' }}>

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
-import { ACADEMY_PACKAGES, CoursePackage, getPackageByIdOrName } from '@/lib/packages';
+import { ACADEMY_PACKAGES, CoursePackage, getPackageByIdOrName, saveStudentPackageMapping } from '@/lib/packages';
 import { ArrowRight, Check, CheckCircle2, Globe, Lock, Mail, Phone, Sparkles, User, ShieldCheck } from 'lucide-react';
 import Logo from '@/components/brand/Logo';
 
@@ -86,10 +86,6 @@ export default function RegisterPage() {
           id: authData.user.id,
           full_name: fullName,
           email: formData.email,
-          country: formData.country,
-          whatsapp_number: formData.whatsappNumber,
-          selected_package: pkgObj.name,
-          package_price: pkgObj.price,
           payment_approved: false,
           created_at: new Date().toISOString(),
         });
@@ -97,6 +93,9 @@ export default function RegisterPage() {
     } catch (err) {
       console.warn('Supabase fallback:', err);
     }
+
+    // Persist package mapping for instant resolution across admin and student portals
+    saveStudentPackageMapping(formData.email, pkgObj.name, pkgObj.price);
 
     // Store in localStorage for demo fallback persistence
     const pendingStudent = {
@@ -116,6 +115,19 @@ export default function RegisterPage() {
 
     try {
       localStorage.setItem('recentRegistration', JSON.stringify(pendingStudent));
+      localStorage.setItem('ahsora_currentUser', JSON.stringify({
+        id: pendingStudent.id,
+        role: 'student',
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.whatsappNumber,
+        country: formData.country,
+        isVerified: true,
+        selectedPackage: pkgObj.name,
+        packagePrice: pkgObj.price,
+        createdAt: pendingStudent.createdAt,
+      }));
       
       // Also update local pending students list for admin demo view
       const existingListStr = localStorage.getItem('adminStudentList');

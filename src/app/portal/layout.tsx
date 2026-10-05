@@ -8,6 +8,12 @@ import { createClient } from '@/lib/supabase/client';
 import { Bell, Lock, Mail, User, Eye, EyeOff, Check, Loader2, LogOut } from 'lucide-react';
 import Link from 'next/link';
 
+import {
+  getStudentPackageMapping,
+  saveStudentPackageMapping,
+  resolveEffectivePackage,
+  getPackageByIdOrName,
+} from '@/lib/packages';
 import Logo from '@/components/brand/Logo';
 
 export default function PortalLayout({ children }: { children: React.ReactNode }) {
@@ -50,22 +56,54 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
         const supabase = createClient();
         const { data: { user } } = await supabase.auth.getUser();
         if (user) {
-          if (!studentLoggedIn) {
-            loginStudent(user.email || 'student@example.com');
-          }
-          const { data: profile } = await supabase
-            .from('profiles')
-            .select('full_name, email, selected_package')
-            .eq('id', user.id)
-            .maybeSingle();
+          const userMeta = user.user_metadata || {};
+          const metaPackage = userMeta.selected_package || userMeta.selectedPackage;
+          const metaPrice = userMeta.package_price || userMeta.packagePrice;
+          const userEmail = user.email || '';
 
-          if (profile?.selected_package) {
-            updateProfile({ selectedPackage: profile.selected_package });
+          // 1. Fetch profile name from profiles table (safe query without non-existent selected_package column)
+          let dbFullName = '';
+          try {
+            const { data: profile } = await supabase
+              .from('profiles')
+              .select('full_name, email')
+              .eq('id', user.id)
+              .maybeSingle();
+            if (profile?.full_name) dbFullName = profile.full_name;
+          } catch (err) {
+            console.warn('Profile fetch note:', err);
           }
 
-          const fullName = profile?.full_name || user.user_metadata?.full_name || user.email?.split('@')[0] || 'Student';
+          // 2. Resolve effective package
+          const resolvedPkgName =
+            metaPackage ||
+            getStudentPackageMapping(userEmail)?.selectedPackage ||
+            resolveEffectivePackage({ email: userEmail, selectedPackage: currentUser?.selectedPackage });
+          const matchedPkg = getPackageByIdOrName(resolvedPkgName);
+          const resolvedPrice = metaPrice || getStudentPackageMapping(userEmail)?.packagePrice || matchedPkg.price;
+
+          // 3. Persist package mapping and update store profile
+          saveStudentPackageMapping(userEmail, matchedPkg.name, resolvedPrice);
+
+          const fullName = dbFullName || userMeta.full_name || `${userMeta.first_name || ''} ${userMeta.last_name || ''}`.trim() || userEmail.split('@')[0] || 'Student';
           const fName = fullName.split(' ')[0] || 'Student';
           const inits = fullName.split(' ').slice(0, 2).map((n: string) => n[0]).join('').toUpperCase() || 'ST';
+
+          if (!studentLoggedIn) {
+            loginStudent(userEmail, {
+              selectedPackage: matchedPkg.name,
+              packagePrice: resolvedPrice,
+              fullName,
+            });
+          } else {
+            updateProfile({
+              selectedPackage: matchedPkg.name,
+              packagePrice: resolvedPrice,
+              firstName: fName,
+              lastName: fullName.split(' ').slice(1).join(' ') || currentUser.lastName,
+            });
+          }
+
           if (isMounted) setRealUser({ fullName, firstName: fName, initials: inits });
         } else if (!studentLoggedIn) {
           if (isMounted) setRealUser(null);

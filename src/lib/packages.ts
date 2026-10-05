@@ -118,44 +118,126 @@ export function canAccessDocumentVault(pkg?: string | null): boolean {
 }
 
 /**
+ * Saves a student's package mapping in client storage keyed by email.
+ */
+export function saveStudentPackageMapping(email?: string | null, pkgName?: string, price?: string) {
+  if (!email || !pkgName || typeof window === 'undefined') return;
+  try {
+    const key = 'ahsora_student_packages';
+    const existing = localStorage.getItem(key);
+    const map = existing ? JSON.parse(existing) : {};
+    const normalizedPkg = getPackageByIdOrName(pkgName);
+    map[email.toLowerCase().trim()] = {
+      selectedPackage: normalizedPkg.name,
+      packagePrice: price || normalizedPkg.price,
+      updatedAt: new Date().toISOString(),
+    };
+    localStorage.setItem(key, JSON.stringify(map));
+  } catch (e) {
+    console.warn('saveStudentPackageMapping error:', e);
+  }
+}
+
+/**
+ * Retrieves a student's package mapping from client storage keyed by email.
+ */
+export function getStudentPackageMapping(email?: string | null): { selectedPackage: string; packagePrice: string } | null {
+  if (!email || typeof window === 'undefined') return null;
+  try {
+    const key = 'ahsora_student_packages';
+    const existing = localStorage.getItem(key);
+    if (existing) {
+      const map = JSON.parse(existing);
+      const found = map[email.toLowerCase().trim()];
+      if (found && found.selectedPackage) {
+        return found;
+      }
+    }
+  } catch (e) {
+    console.warn('getStudentPackageMapping error:', e);
+  }
+  return null;
+}
+
+/**
  * Resolves the student's active package with fallback to client storage.
  */
 export function resolveEffectivePackage(currentUser?: { email?: string; selectedPackage?: string } | null): string {
-  if (currentUser?.selectedPackage) {
+  // If explicitly set to Mastery or Elite, return immediately
+  if (currentUser?.selectedPackage && currentUser.selectedPackage !== 'Ahsora IMAT Ascend') {
     return currentUser.selectedPackage;
   }
+
   if (typeof window !== 'undefined') {
+    const rawEmail = currentUser?.email;
+    const email = rawEmail ? rawEmail.toLowerCase().trim() : '';
+
+    // 1. Check persistent package mapping by email
+    if (email) {
+      const mapped = getStudentPackageMapping(email);
+      if (mapped?.selectedPackage) {
+        return mapped.selectedPackage;
+      }
+    }
+
+    // 2. Check if student email is in ahsora_elite_students
+    if (email) {
+      try {
+        const eliteStr = localStorage.getItem('ahsora_elite_students');
+        if (eliteStr) {
+          const eliteList = JSON.parse(eliteStr);
+          if (Array.isArray(eliteList)) {
+            const isElite = eliteList.some((s: any) => {
+              const sEmail = (s?.email || '').toLowerCase().trim();
+              return sEmail === email || (s?.studentName && s.studentName.toLowerCase() === email);
+            });
+            if (isElite) return 'Ahsora Path Elite';
+          }
+        }
+      } catch {}
+    }
+
+    // 3. Check admin student list
+    try {
+      const adminList = localStorage.getItem('adminStudentList');
+      if (adminList && email) {
+        const list = JSON.parse(adminList);
+        if (Array.isArray(list)) {
+          const found = list.find((s: any) => s.email && s.email.toLowerCase().trim() === email);
+          if (found && (found.selectedPackage || found.selected_package)) {
+            return found.selectedPackage || found.selected_package;
+          }
+        }
+      }
+    } catch {}
+
+    // 4. Check saved user in localStorage
     try {
       const savedUser = localStorage.getItem('ahsora_currentUser');
       if (savedUser) {
         const parsed = JSON.parse(savedUser);
-        if (parsed.selectedPackage) {
+        const parsedEmail = (parsed.email || '').toLowerCase().trim();
+        if ((!email || parsedEmail === email) && parsed.selectedPackage && parsed.selectedPackage !== 'Ahsora IMAT Ascend') {
           return parsed.selectedPackage;
         }
       }
     } catch {}
 
+    // 5. Check recent registration
     try {
       const reg = localStorage.getItem('recentRegistration');
       if (reg) {
         const parsed = JSON.parse(reg);
-        if (parsed.selectedPackage || parsed.selected_package) {
+        const parsedEmail = (parsed.email || '').toLowerCase().trim();
+        if ((!email || parsedEmail === email) && (parsed.selectedPackage || parsed.selected_package)) {
           return parsed.selectedPackage || parsed.selected_package;
         }
       }
     } catch {}
-
-    try {
-      const adminList = localStorage.getItem('adminStudentList');
-      if (adminList && currentUser?.email) {
-        const list = JSON.parse(adminList);
-        const found = list.find((s: any) => s.email && s.email.toLowerCase() === currentUser.email?.toLowerCase());
-        if (found && (found.selectedPackage || found.selected_package)) {
-          return found.selectedPackage || found.selected_package;
-        }
-      }
-    } catch {}
   }
-  return 'Ahsora IMAT Ascend';
+
+  return currentUser?.selectedPackage || 'Ahsora IMAT Ascend';
 }
+
+
 

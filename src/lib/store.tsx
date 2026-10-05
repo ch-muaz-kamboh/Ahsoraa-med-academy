@@ -35,6 +35,11 @@ import {
   mockLibraryResources,
   mockStudentMistakes,
 } from './mock-data';
+import {
+  getStudentPackageMapping,
+  saveStudentPackageMapping,
+  getPackageByIdOrName,
+} from './packages';
 
 export interface LiveTestSession {
   testId: string;
@@ -94,7 +99,7 @@ interface AppContextType {
   loginStaffAccount: (email: string, password?: string) => { success: boolean; message: string; status?: StaffAccountStatus };
   logoutStaffAccount: () => void;
   registerStudent: (data: { firstName: string; lastName: string; email: string; phone: string; targetExam: string }) => void;
-  loginStudent: (email: string) => void;
+  loginStudent: (email: string, metadata?: { selectedPackage?: string; packagePrice?: string; fullName?: string }) => void;
   logoutStudent: () => void;
   liveTestSession: LiveTestSession | null;
   startLiveTest: (testId: string, testTitle: string) => void;
@@ -1111,37 +1116,146 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     setRole('student');
   };
 
-  const loginStudent = (email: string) => {
-    const username = email.split('@')[0] || 'student';
-    const parts = username.split(/[._-]/);
-    const firstName = parts[0] ? parts[0].charAt(0).toUpperCase() + parts[0].slice(1) : 'Student';
-    const lastName = parts[1] ? parts[1].charAt(0).toUpperCase() + parts[1].slice(1) : '';
+  const loginStudent = (
+    email: string,
+    metadata?: { selectedPackage?: string; packagePrice?: string; fullName?: string }
+  ) => {
+    const rawEmail = (email || '').toLowerCase().trim();
+    let firstName = 'Student';
+    let lastName = '';
 
-    let userPkg: string | undefined = undefined;
-    let userPrice: string | undefined = undefined;
+    if (metadata?.fullName) {
+      const parts = metadata.fullName.trim().split(/\s+/);
+      firstName = parts[0] || 'Student';
+      lastName = parts.slice(1).join(' ') || '';
+    } else {
+      const username = email.split('@')[0] || 'student';
+      const parts = username.split(/[._-]/);
+      firstName = parts[0] ? parts[0].charAt(0).toUpperCase() + parts[0].slice(1) : 'Student';
+      lastName = parts[1] ? parts[1].charAt(0).toUpperCase() + parts[1].slice(1) : '';
+    }
+
+    let userPkg: string | undefined = metadata?.selectedPackage;
+    let userPrice: string | undefined = metadata?.packagePrice;
+
     if (typeof window !== 'undefined') {
-      try {
-        const savedUser = localStorage.getItem('ahsora_currentUser');
-        if (savedUser) {
-          const parsed = JSON.parse(savedUser);
-          if (parsed.email === email && parsed.selectedPackage) {
-            userPkg = parsed.selectedPackage;
-            userPrice = parsed.packagePrice;
-          }
+      // Check persistent package mapping by email
+      if (!userPkg) {
+        const mapped = getStudentPackageMapping(rawEmail);
+        if (mapped?.selectedPackage) {
+          userPkg = mapped.selectedPackage;
+          userPrice = mapped.packagePrice;
         }
-      } catch {}
+      }
+
+      // Check if student email is in ahsora_elite_students
+      if (!userPkg) {
+        try {
+          const eliteStr = localStorage.getItem('ahsora_elite_students');
+          if (eliteStr) {
+            const eliteList = JSON.parse(eliteStr);
+            if (Array.isArray(eliteList)) {
+              const isElite = eliteList.some((s: any) => {
+                const sEmail = (s?.email || '').toLowerCase().trim();
+                return sEmail === rawEmail;
+              });
+              if (isElite) {
+                userPkg = 'Ahsora Path Elite';
+                userPrice = '€799';
+              }
+            }
+          }
+        } catch {}
+      }
+
+      // Check admin student list
+      if (!userPkg) {
+        try {
+          const adminListStr = localStorage.getItem('adminStudentList');
+          if (adminListStr) {
+            const adminList = JSON.parse(adminListStr);
+            if (Array.isArray(adminList)) {
+              const found = adminList.find((s: any) => s.email && s.email.toLowerCase().trim() === rawEmail);
+              if (found) {
+                userPkg = found.selectedPackage || found.selected_package;
+                userPrice = found.packagePrice || found.package_price;
+                if (!metadata?.fullName && (found.fullName || found.full_name)) {
+                  const parts = (found.fullName || found.full_name).trim().split(/\s+/);
+                  firstName = parts[0] || firstName;
+                  lastName = parts.slice(1).join(' ') || lastName;
+                }
+              }
+            }
+          }
+        } catch {}
+      }
+
+      // Check ahsora_currentUser
+      if (!userPkg) {
+        try {
+          const savedUser = localStorage.getItem('ahsora_currentUser');
+          if (savedUser) {
+            const parsed = JSON.parse(savedUser);
+            if (parsed.email && parsed.email.toLowerCase().trim() === rawEmail && parsed.selectedPackage) {
+              userPkg = parsed.selectedPackage;
+              userPrice = parsed.packagePrice;
+            }
+          }
+        } catch {}
+      }
+
+      // Check recent registration
       if (!userPkg) {
         try {
           const recent = localStorage.getItem('recentRegistration');
           if (recent) {
             const parsed = JSON.parse(recent);
-            if (parsed.email === email && (parsed.selectedPackage || parsed.selected_package)) {
+            if (parsed.email && parsed.email.toLowerCase().trim() === rawEmail && (parsed.selectedPackage || parsed.selected_package)) {
               userPkg = parsed.selectedPackage || parsed.selected_package;
               userPrice = parsed.packagePrice || parsed.package_price;
+              if (!metadata?.fullName && parsed.fullName) {
+                const parts = parsed.fullName.trim().split(/\s+/);
+                firstName = parts[0] || firstName;
+                lastName = parts.slice(1).join(' ') || lastName;
+              }
             }
           }
         } catch {}
       }
+    }
+
+    const matchedPkg = getPackageByIdOrName(userPkg || 'Ahsora IMAT Ascend');
+    const finalPkg = matchedPkg.name;
+    const finalPrice = userPrice || matchedPkg.price;
+
+    // Save package mapping
+    saveStudentPackageMapping(email, finalPkg, finalPrice);
+
+    // If Elite, ensure in ahsora_elite_students
+    if (typeof window !== 'undefined' && matchedPkg.id === 'elite') {
+      try {
+        const eliteStr = localStorage.getItem('ahsora_elite_students');
+        const eliteList = eliteStr ? JSON.parse(eliteStr) : [];
+        const already = Array.isArray(eliteList) && eliteList.some((s: any) => (s?.email || '').toLowerCase().trim() === rawEmail);
+        if (!already) {
+          eliteList.unshift({
+            id: `elite-${Date.now()}`,
+            studentId: `usr-${Date.now()}`,
+            studentName: `${firstName} ${lastName}`.trim() || 'Elite Student',
+            email: email,
+            registeredAt: new Date().toISOString(),
+            stages: {
+              pre_enrollment: 'pending',
+              dov_submission: 'pending',
+              university_application: 'pending',
+              admission_decision: 'pending',
+              visa_process: 'pending',
+              housing_arrival: 'pending',
+            },
+          });
+          localStorage.setItem('ahsora_elite_students', JSON.stringify(eliteList));
+        }
+      } catch {}
     }
 
     const newProfile: Profile = {
@@ -1154,8 +1268,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       country: 'United States',
       targetExam: 'IMAT / USMLE',
       isVerified: true,
-      selectedPackage: userPkg || 'Ahsora IMAT Ascend',
-      packagePrice: userPrice || '€299',
+      selectedPackage: finalPkg,
+      packagePrice: finalPrice,
       createdAt: new Date().toISOString(),
     };
 

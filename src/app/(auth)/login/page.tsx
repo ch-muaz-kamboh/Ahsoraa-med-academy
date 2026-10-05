@@ -7,6 +7,8 @@ import { createClient } from '@/lib/supabase/client';
 import { useAppStore } from '@/lib/store';
 import { ArrowRight, Lock, Mail } from 'lucide-react';
 
+import { saveStudentPackageMapping, getPackageByIdOrName } from '@/lib/packages';
+
 export default function LoginPage() {
   const router = useRouter();
   const { loginStudent, setAdminLoggedIn } = useAppStore();
@@ -42,11 +44,24 @@ export default function LoginPage() {
     }
 
     const email = data.user?.email || formData.email;
+    const meta = data.user?.user_metadata || {};
+    const pkg = meta.selected_package || meta.selectedPackage;
+    const price = meta.package_price || meta.packagePrice;
+    const fullName = meta.full_name || `${meta.first_name || ''} ${meta.last_name || ''}`.trim();
+
+    if (pkg) {
+      saveStudentPackageMapping(email, pkg, price);
+    }
+
     if (email.toLowerCase().includes('admin')) {
       setAdminLoggedIn(true);
       router.push('/admin/dashboard');
     } else {
-      loginStudent(email);
+      loginStudent(email, {
+        selectedPackage: pkg,
+        packagePrice: price,
+        fullName: fullName,
+      });
       router.push('/portal/dashboard');
     }
     router.refresh();

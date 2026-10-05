@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useAppStore, MedpathEliteStudent, MedpathStageStatus } from '@/lib/store';
-import { getPackageByIdOrName, canAccessMedpath, resolveEffectivePackage } from '@/lib/packages';
+import { getPackageByIdOrName, canAccessMedpath, resolveEffectivePackage, getStudentPackageMapping } from '@/lib/packages';
 import {
   Lock, Star, CheckCircle2, Clock, ArrowRight, Sparkles,
   FileCheck, Building2, GraduationCap, Globe, Home, Loader2,
@@ -109,23 +109,38 @@ export default function MedpathPage() {
       const candidateEmails: string[] = [currentUser.email || ''];
       let studentName: string = `${currentUser.firstName || ''} ${currentUser.lastName || ''}`.trim();
 
-      // 1. Try Supabase profile
+      // 1. Try Supabase user metadata and profile
       try {
         const supabase = createClient();
         const { data: { user } } = await supabase.auth.getUser();
         if (user) {
+          if (user.user_metadata?.selected_package || user.user_metadata?.selectedPackage) {
+            pkg = user.user_metadata.selected_package || user.user_metadata.selectedPackage;
+          }
+          if (user.user_metadata?.full_name) {
+            studentName = user.user_metadata.full_name;
+          }
+          if (user.email) candidateEmails.push(user.email);
+
           const { data: profile } = await supabase
             .from('profiles')
-            .select('selected_package, package_price, full_name, email')
+            .select('full_name, email')
             .eq('id', user.id)
             .maybeSingle();
-          if (profile?.selected_package) pkg = profile.selected_package;
           if (profile?.email) candidateEmails.push(profile.email);
-          if (profile?.full_name) studentName = profile.full_name;
+          if (profile?.full_name && !studentName) studentName = profile.full_name;
         }
       } catch (e) {}
 
-      // 2. Fallback to localStorage registration data
+      // 2. Persistent package mapping by email
+      if (!pkg && currentUser.email) {
+        const mapped = getStudentPackageMapping(currentUser.email);
+        if (mapped?.selectedPackage) {
+          pkg = mapped.selectedPackage;
+        }
+      }
+
+      // 3. Fallback to localStorage registration data
       try {
         const reg = localStorage.getItem('recentRegistration');
         if (reg) {
@@ -136,7 +151,7 @@ export default function MedpathPage() {
         }
       } catch (e) {}
 
-      // 3. Fallback to store profile or client storage
+      // 4. Fallback to store profile or client storage
       if (!pkg) {
         pkg = resolveEffectivePackage(currentUser);
       }
