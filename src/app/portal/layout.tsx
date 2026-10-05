@@ -13,7 +13,7 @@ import Logo from '@/components/brand/Logo';
 export default function PortalLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { studentLoggedIn, loginStudent, logoutStudent, liveTestSession, testAttempts, currentUser } = useAppStore();
+  const { studentLoggedIn, loginStudent, logoutStudent, liveTestSession, testAttempts, currentUser, updateProfile } = useAppStore();
   const [checkingAuth, setCheckingAuth] = useState(true);
   
   const isPortalLocked = liveTestSession && currentUser && testAttempts.some(attempt => attempt.testId === liveTestSession.testId && attempt.studentId === currentUser.id && attempt.status === 'in_progress');
@@ -55,9 +55,13 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
           }
           const { data: profile } = await supabase
             .from('profiles')
-            .select('full_name, email')
+            .select('full_name, email, selected_package')
             .eq('id', user.id)
             .maybeSingle();
+
+          if (profile?.selected_package) {
+            updateProfile({ selectedPackage: profile.selected_package });
+          }
 
           const fullName = profile?.full_name || user.user_metadata?.full_name || user.email?.split('@')[0] || 'Student';
           const fName = fullName.split(' ')[0] || 'Student';
@@ -74,7 +78,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
     };
     fetchUser();
     return () => { isMounted = false; };
-  }, [studentLoggedIn, loginStudent]);
+  }, [studentLoggedIn, loginStudent, updateProfile]);
 
   useEffect(() => {
     if (!checkingAuth && !studentLoggedIn) {

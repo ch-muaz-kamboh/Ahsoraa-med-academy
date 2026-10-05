@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useAppStore, MedpathEliteStudent, MedpathStageStatus } from '@/lib/store';
-import { getPackageByIdOrName } from '@/lib/packages';
+import { getPackageByIdOrName, canAccessMedpath, resolveEffectivePackage } from '@/lib/packages';
 import {
   Lock, Star, CheckCircle2, Clock, ArrowRight, Sparkles,
   FileCheck, Building2, GraduationCap, Globe, Home, Loader2,
@@ -136,9 +136,9 @@ export default function MedpathPage() {
         }
       } catch (e) {}
 
-      // 3. Fallback to store profile
-      if (!pkg && currentUser.selectedPackage) {
-        pkg = currentUser.selectedPackage;
+      // 3. Fallback to store profile or client storage
+      if (!pkg) {
+        pkg = resolveEffectivePackage(currentUser);
       }
 
       setStudentPackage(pkg);
@@ -213,7 +213,7 @@ export default function MedpathPage() {
     );
   }
 
-  const isElite = studentPackage && getPackageByIdOrName(studentPackage).id === 'elite';
+  const isElite = canAccessMedpath(studentPackage);
 
   if (!isElite) {
     return <LockedEliteScreen currentPackage={studentPackage} />;

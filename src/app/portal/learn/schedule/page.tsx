@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { useAppStore } from '@/lib/store';
 import {
   Calendar as CalendarIcon,
@@ -14,10 +15,17 @@ import {
   Filter,
   Sparkles,
   BookOpen,
+  Lock,
+  ArrowRight,
 } from 'lucide-react';
+import {
+  getPackageByIdOrName,
+  isScheduleLocked,
+  resolveEffectivePackage,
+} from '@/lib/packages';
 
 export default function StudentSchedulePage() {
-  const { schedules } = useAppStore();
+  const { schedules, currentUser } = useAppStore();
   const [filterStatus, setFilterStatus] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedSubject, setSelectedSubject] = useState<string>('all');
@@ -33,6 +41,107 @@ export default function StudentSchedulePage() {
   });
 
   const subjects = Array.from(new Set(schedules.map((s) => s.subject)));
+
+  const effectivePkg = resolveEffectivePackage(currentUser);
+  const currentPkgObj = getPackageByIdOrName(effectivePkg);
+  const isLocked = isScheduleLocked(effectivePkg);
+
+  if (isLocked) {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '70vh' }}>
+        <div style={{ textAlign: 'center', maxWidth: '580px', padding: '24px' }}>
+          <div style={{
+            width: '96px',
+            height: '96px',
+            borderRadius: '28px',
+            background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: '0 auto 24px',
+            boxShadow: '0 20px 40px -8px rgba(59, 130, 246, 0.4)',
+          }}>
+            <Lock size={44} color="#FFFFFF" />
+          </div>
+
+          <div style={{ display: 'inline-block', backgroundColor: '#DBEAFE', border: '1px solid #BFDBFE', color: '#1E40AF', fontSize: '0.75rem', fontWeight: 800, padding: '4px 12px', borderRadius: '20px', letterSpacing: '0.5px', marginBottom: '16px' }}>
+            LIVE CLASSES — EXCLUSIVE TO MASTERY & ELITE
+          </div>
+
+          <h1 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#0F172A', marginBottom: '12px', lineHeight: 1.2 }}>
+            This section is reserved for<br />
+            <span style={{ color: '#2563EB' }}>Mastery & Elite</span> students
+          </h1>
+          <p style={{ color: '#64748B', fontSize: '0.9375rem', lineHeight: 1.6, marginBottom: '24px' }}>
+            The interactive live schedule and real-time classes are exclusively available for students enrolled in our Mastery and Path Elite packages. Ascend students have full access to recorded lectures, library, and practice banks.
+          </p>
+
+          {/* Current Package Info */}
+          <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '14px 18px', marginBottom: '24px', textAlign: 'left' }}>
+            <div style={{ fontSize: '0.8125rem', color: '#94A3B8', marginBottom: '2px' }}>Your current enrolled plan</div>
+            <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '0.9375rem' }}>{currentPkgObj.name} — {currentPkgObj.price}</div>
+          </div>
+
+          {/* What Mastery & Elite Unlock */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '28px', textAlign: 'left' }}>
+            {[
+              'Live Interactive Masterclasses (3x Weekly)',
+              'Direct Q&A with Senior Medical Instructors',
+              'Priority 1-on-1 Doubt Resolution on WhatsApp',
+              'Full Past Paper Live Breakdowns (2011 - 2025)',
+            ].map((feat, idx) => (
+              <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.875rem', color: '#334155' }}>
+                <CheckCircle2 size={18} color="#2563EB" style={{ flexShrink: 0 }} />
+                <span>{feat}</span>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <a
+              href="https://wa.me/message/AHSORAELITE"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                backgroundColor: '#2563EB',
+                color: '#FFFFFF',
+                padding: '14px 28px',
+                borderRadius: '12px',
+                fontWeight: 700,
+                fontSize: '0.9375rem',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                boxShadow: '0 8px 20px -4px rgba(37, 99, 235, 0.4)',
+              }}
+            >
+              <Sparkles size={18} />
+              Upgrade to Mastery — €499
+              <ArrowRight size={18} />
+            </a>
+            <Link
+              href="/portal/dashboard"
+              style={{
+                padding: '14px 22px',
+                borderRadius: '12px',
+                border: '1px solid #CBD5E1',
+                color: '#475569',
+                fontWeight: 600,
+                fontSize: '0.9375rem',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+              }}
+            >
+              Back to Dashboard
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto' }}>

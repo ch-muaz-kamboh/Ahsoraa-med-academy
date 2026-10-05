@@ -70,3 +70,92 @@ export function getPackageByIdOrName(input?: string | null): CoursePackage {
   );
   return match || ACADEMY_PACKAGES[0];
 }
+
+export type StudentTier = 'ascend' | 'mastery' | 'elite';
+
+export function getStudentTier(pkg?: string | null): StudentTier {
+  if (!pkg) return 'ascend';
+  const id = getPackageByIdOrName(pkg).id;
+  if (id === 'elite') return 'elite';
+  if (id === 'mastery') return 'mastery';
+  return 'ascend';
+}
+
+/**
+ * Schedule option is locked for ONLY Ascend students.
+ * (Mastery & Elite students have full access).
+ */
+export function isScheduleLocked(pkg?: string | null): boolean {
+  return getStudentTier(pkg) === 'ascend';
+}
+
+export function canAccessSchedule(pkg?: string | null): boolean {
+  return !isScheduleLocked(pkg);
+}
+
+/**
+ * MedPath Elite is locked for Ascend and Mastery students.
+ * (Only Elite students have access).
+ */
+export function isMedpathLocked(pkg?: string | null): boolean {
+  return getStudentTier(pkg) !== 'elite';
+}
+
+export function canAccessMedpath(pkg?: string | null): boolean {
+  return !isMedpathLocked(pkg);
+}
+
+/**
+ * Document Vault menu is locked for Ascend and Mastery students.
+ * (Only Elite students have access).
+ */
+export function isDocumentVaultLocked(pkg?: string | null): boolean {
+  return getStudentTier(pkg) !== 'elite';
+}
+
+export function canAccessDocumentVault(pkg?: string | null): boolean {
+  return !isDocumentVaultLocked(pkg);
+}
+
+/**
+ * Resolves the student's active package with fallback to client storage.
+ */
+export function resolveEffectivePackage(currentUser?: { email?: string; selectedPackage?: string } | null): string {
+  if (currentUser?.selectedPackage) {
+    return currentUser.selectedPackage;
+  }
+  if (typeof window !== 'undefined') {
+    try {
+      const savedUser = localStorage.getItem('ahsora_currentUser');
+      if (savedUser) {
+        const parsed = JSON.parse(savedUser);
+        if (parsed.selectedPackage) {
+          return parsed.selectedPackage;
+        }
+      }
+    } catch {}
+
+    try {
+      const reg = localStorage.getItem('recentRegistration');
+      if (reg) {
+        const parsed = JSON.parse(reg);
+        if (parsed.selectedPackage || parsed.selected_package) {
+          return parsed.selectedPackage || parsed.selected_package;
+        }
+      }
+    } catch {}
+
+    try {
+      const adminList = localStorage.getItem('adminStudentList');
+      if (adminList && currentUser?.email) {
+        const list = JSON.parse(adminList);
+        const found = list.find((s: any) => s.email && s.email.toLowerCase() === currentUser.email?.toLowerCase());
+        if (found && (found.selectedPackage || found.selected_package)) {
+          return found.selectedPackage || found.selected_package;
+        }
+      }
+    } catch {}
+  }
+  return 'Ahsora IMAT Ascend';
+}
+

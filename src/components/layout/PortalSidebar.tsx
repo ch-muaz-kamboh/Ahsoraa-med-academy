@@ -24,10 +24,21 @@ import {
   Building,
   Award,
   Compass,
-ChevronLeft, } from 'lucide-react';
+  ChevronLeft,
+  Lock,
+} from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { createClient } from '@/lib/supabase/client';
 import Logo from '@/components/brand/Logo';
+import {
+  ACADEMY_PACKAGES,
+  getPackageByIdOrName,
+  getStudentTier,
+  isScheduleLocked,
+  isMedpathLocked,
+  isDocumentVaultLocked,
+  resolveEffectivePackage,
+} from '@/lib/packages';
 
 export default function PortalSidebar({ userFullName = 'Student', userInitials = 'ST' }: { userFullName?: string, userInitials?: string }) {
   const {
@@ -37,8 +48,13 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
     updateProfile,
   } = useAppStore();
   const isPortalLocked = liveTestSession && testAttempts.some(attempt => attempt.testId === liveTestSession.testId && attempt.studentId === currentUser.id && attempt.status === 'in_progress');
-  const canAccessSchedule = currentUser.selectedPackage && /elite|master/i.test(currentUser.selectedPackage);
-  const canAccessMedpath = currentUser.selectedPackage && /elite/i.test(currentUser.selectedPackage);
+  const effectivePkg = resolveEffectivePackage(currentUser);
+  const studentTier = getStudentTier(effectivePkg);
+  const currentPkgObj = getPackageByIdOrName(effectivePkg);
+  const scheduleLocked = isScheduleLocked(effectivePkg);
+  const medpathLocked = isMedpathLocked(effectivePkg);
+  const docVaultLocked = isDocumentVaultLocked(effectivePkg);
+
   const [showSettings, setShowSettings] = useState(false);
   const [email, setEmail] = useState(currentUser.email);
   const [phone, setPhone] = useState(currentUser.phone || '');
@@ -154,6 +170,23 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
             <div style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
               <span style={{ fontWeight: 600, fontSize: '0.9rem', color: '#1E293B', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>{currentUser.firstName} {currentUser.lastName}</span>
               <span style={{ fontSize: '0.75rem', color: '#64748B', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>{currentUser.email}</span>
+              <div style={{ marginTop: '4px' }}>
+                <span
+                  style={{
+                    fontSize: '0.6875rem',
+                    fontWeight: 700,
+                    padding: '2px 8px',
+                    borderRadius: '6px',
+                    backgroundColor: studentTier === 'elite' ? '#FFEDD5' : studentTier === 'mastery' ? '#DBEAFE' : '#DCFCE7',
+                    color: studentTier === 'elite' ? '#C2410C' : studentTier === 'mastery' ? '#1D4ED8' : '#15803D',
+                    border: `1px solid ${studentTier === 'elite' ? '#FED7AA' : studentTier === 'mastery' ? '#BFDBFE' : '#BBF7D0'}`,
+                    display: 'inline-block',
+                    lineHeight: 1.3,
+                  }}
+                >
+                  {currentPkgObj.name}
+                </span>
+              </div>
             </div>
           )}
         </div>
@@ -209,20 +242,42 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                 style={{
                   display: 'flex',
                   alignItems: 'center',
+                  justifyContent: 'space-between',
                   gap: '10px',
                   padding: '8px 12px',
                   borderRadius: '6px',
                   fontSize: '0.8125rem',
                   fontWeight: pathname === '/portal/learn/schedule' ? 600 : 500,
-                  color: pathname === '/portal/learn/schedule' ? '#2563EB' : '#64748B',
+                  color: pathname === '/portal/learn/schedule' ? '#2563EB' : scheduleLocked ? '#94A3B8' : '#64748B',
                   backgroundColor: pathname === '/portal/learn/schedule' ? '#DBEAFE' : 'transparent',
                   transition: 'all .15s ease',
-                  opacity: canAccessSchedule ? 1 : 0.4,
-                  pointerEvents: canAccessSchedule ? 'auto' : 'none',
+                  opacity: scheduleLocked && pathname !== '/portal/learn/schedule' ? 0.8 : 1,
                 }}
+                title={scheduleLocked ? 'Locked for Ascend students (Mastery/Elite only)' : '1. Schedule'}
               >
-                <Calendar size={15} />
-                {sidebarExpanded && <span>1. Schedule</span>}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <Calendar size={15} color={pathname === '/portal/learn/schedule' ? '#2563EB' : scheduleLocked ? '#94A3B8' : '#64748B'} />
+                  {sidebarExpanded && <span>1. Schedule</span>}
+                </div>
+                {sidebarExpanded && scheduleLocked && (
+                  <span
+                    style={{
+                      fontSize: '0.625rem',
+                      fontWeight: 700,
+                      backgroundColor: '#F1F5F9',
+                      color: '#64748B',
+                      border: '1px solid #CBD5E1',
+                      padding: '1px 6px',
+                      borderRadius: '8px',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '3px',
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    <Lock size={10} /> LOCKED
+                  </span>
+                )}
               </Link>
 
               <Link
@@ -452,7 +507,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           )}
         </div>
 
-        {/* MedPath Elite — Direct Link (gate check happens on page) */}
+        {/* MedPath Elite — Direct Link (locked for Ascend and Mastery) */}
         <Link
           href="/portal/medpath"
           style={{
@@ -463,46 +518,89 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
             borderRadius: '8px',
             fontSize: '0.875rem',
             fontWeight: 600,
-            color: isMedpathActive ? '#EA580C' : '#334155',
+            color: isMedpathActive ? '#EA580C' : medpathLocked ? '#64748B' : '#334155',
             backgroundColor: isMedpathActive ? '#FFF7ED' : 'transparent',
             textDecoration: 'none',
             transition: 'all 0.15s ease',
             border: isMedpathActive ? '1px solid #FED7AA' : '1px solid transparent',
+            opacity: medpathLocked && !isMedpathActive ? 0.8 : 1,
           }}
+          title={medpathLocked ? 'Locked for Ascend & Mastery students (Elite only)' : 'MedPath Elite'}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'center' }}>
-            <Award size={18} color={isMedpathActive ? '#EA580C' : '#7C3AED'} />
+            <Award size={18} color={isMedpathActive ? '#EA580C' : medpathLocked ? '#94A3B8' : '#7C3AED'} />
             {sidebarExpanded && <span style={{ fontWeight: 700 }}>MedPath Elite</span>}
           </div>
           {sidebarExpanded && (
-            <span style={{ fontSize: '0.6875rem', backgroundColor: '#EA580C', color: '#FFFFFF', padding: '2px 7px', borderRadius: '10px', fontWeight: 800, letterSpacing: '0.3px' }}>
+            <span
+              style={{
+                fontSize: '0.6875rem',
+                backgroundColor: medpathLocked ? '#F1F5F9' : '#EA580C',
+                color: medpathLocked ? '#64748B' : '#FFFFFF',
+                border: medpathLocked ? '1px solid #CBD5E1' : 'none',
+                padding: '2px 7px',
+                borderRadius: '10px',
+                fontWeight: 800,
+                letterSpacing: '0.3px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px',
+                lineHeight: 1.4,
+              }}
+            >
+              {medpathLocked && <Lock size={10} />}
               ELITE
             </span>
           )}
         </Link>
 
-        {/* Document Vault */}
+        {/* Document Vault — Direct Link (locked for Ascend and Mastery) */}
         <div style={{ padding: '0 12px', marginTop: '4px' }}>
           <Link
             href="/portal/documents"
             style={{
               display: 'flex',
               alignItems: 'center',
-              justifyContent: sidebarExpanded ? 'flex-start' : 'center',
+              justifyContent: sidebarExpanded ? 'space-between' : 'center',
               gap: '12px',
-            padding: '10px 14px',
-            borderRadius: '8px',
-            fontSize: '0.875rem',
-            fontWeight: pathname === '/portal/documents' ? 600 : 500,
-            color: pathname === '/portal/documents' ? '#2563EB' : '#475569',
-            backgroundColor: pathname === '/portal/documents' ? '#EFF6FF' : 'transparent',
-            transition: 'all 0.15s ease',
-          }}
-        >
-            <span style={{ color: pathname === '/portal/documents' ? '#2563EB' : '#64748B' }}>
-              <FolderLock size={18} />
-            </span>
-            {sidebarExpanded && <span>Document Vault</span>}
+              padding: '10px 14px',
+              borderRadius: '8px',
+              fontSize: '0.875rem',
+              fontWeight: pathname === '/portal/documents' ? 600 : 500,
+              color: pathname === '/portal/documents' ? '#2563EB' : docVaultLocked ? '#64748B' : '#475569',
+              backgroundColor: pathname === '/portal/documents' ? '#EFF6FF' : 'transparent',
+              transition: 'all 0.15s ease',
+              opacity: docVaultLocked && pathname !== '/portal/documents' ? 0.8 : 1,
+            }}
+            title={docVaultLocked ? 'Locked for Ascend & Mastery students (Elite only)' : 'Document Vault'}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <span style={{ color: pathname === '/portal/documents' ? '#2563EB' : docVaultLocked ? '#94A3B8' : '#64748B' }}>
+                <FolderLock size={18} />
+              </span>
+              {sidebarExpanded && <span>Document Vault</span>}
+            </div>
+            {sidebarExpanded && (
+              <span
+                style={{
+                  fontSize: '0.6875rem',
+                  backgroundColor: docVaultLocked ? '#F1F5F9' : '#DBEAFE',
+                  color: docVaultLocked ? '#64748B' : '#1D4ED8',
+                  border: docVaultLocked ? '1px solid #CBD5E1' : '1px solid #BFDBFE',
+                  padding: '2px 7px',
+                  borderRadius: '10px',
+                  fontWeight: 800,
+                  letterSpacing: '0.3px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  lineHeight: 1.4,
+                }}
+              >
+                {docVaultLocked && <Lock size={10} />}
+                ELITE
+              </span>
+            )}
           </Link>
         </div>
 
@@ -621,6 +719,49 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
               }
             }}
           >
+            <div style={{ marginBottom: '16px', padding: '12px', backgroundColor: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+              <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '6px' }}>
+                Enrolled Package Plan
+              </label>
+              <select
+                value={studentTier}
+                onChange={(e) => {
+                  const targetPkg = ACADEMY_PACKAGES.find((p) => p.id === e.target.value);
+                  if (targetPkg) {
+                    updateProfile({ selectedPackage: targetPkg.name, packagePrice: targetPkg.price });
+                    try {
+                      const recentStr = localStorage.getItem('recentRegistration');
+                      if (recentStr) {
+                        const parsed = JSON.parse(recentStr);
+                        parsed.selectedPackage = targetPkg.name;
+                        parsed.packagePrice = targetPkg.price;
+                        localStorage.setItem('recentRegistration', JSON.stringify(parsed));
+                      }
+                    } catch {}
+                  }
+                }}
+                style={{
+                  width: '100%',
+                  padding: '8px 10px',
+                  borderRadius: '6px',
+                  border: '1px solid #CBD5E1',
+                  backgroundColor: '#FFFFFF',
+                  fontSize: '0.875rem',
+                  fontWeight: 600,
+                  color: '#0F172A',
+                }}
+              >
+                {ACADEMY_PACKAGES.map((pkg) => (
+                  <option key={pkg.id} value={pkg.id}>
+                    {pkg.name} ({pkg.price})
+                  </option>
+                ))}
+              </select>
+              <div style={{ marginTop: '6px', fontSize: '0.75rem', color: '#64748B', lineHeight: 1.4 }}>
+                Selected plan controls access: <strong>Ascend</strong> locks Schedule, MedPath & Docs. <strong>Mastery</strong> unlocks Schedule. <strong>Elite</strong> unlocks everything.
+              </div>
+            </div>
+
             <label style={{ display: 'block', marginBottom: '8px' }}>
               Email
               <input

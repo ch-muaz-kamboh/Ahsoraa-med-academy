@@ -29,6 +29,8 @@ export const mockCurrentUser: Profile = {
   targetExam: 'IMAT (Italy)',
   targetCountry: 'Italy',
   isVerified: true,
+  selectedPackage: 'Ahsora IMAT Ascend',
+  packagePrice: '€299',
   createdAt: '2026-01-15T09:00:00Z',
 };
 

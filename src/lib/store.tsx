@@ -151,7 +151,17 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [currentRole, setRole] = useState<UserRole>('student');
-  const [currentUser, setCurrentUser] = useState<Profile>(mockCurrentUser);
+  const [currentUser, setCurrentUser] = useState<Profile>(() => {
+    if (typeof window === 'undefined') return mockCurrentUser;
+    try {
+      const saved = localStorage.getItem('ahsora_currentUser');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        return { ...mockCurrentUser, ...parsed };
+      }
+    } catch {}
+    return mockCurrentUser;
+  });
   const [courses, setCourses] = useState<Course[]>(mockCourses);
   const [leads, setLeads] = useState<Lead[]>(mockLeads);
   const [documents, setDocuments] = useState<StudentDocument[]>(mockStudentDocuments);
@@ -1107,7 +1117,34 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     const firstName = parts[0] ? parts[0].charAt(0).toUpperCase() + parts[0].slice(1) : 'Student';
     const lastName = parts[1] ? parts[1].charAt(0).toUpperCase() + parts[1].slice(1) : '';
 
-    setCurrentUser({
+    let userPkg: string | undefined = undefined;
+    let userPrice: string | undefined = undefined;
+    if (typeof window !== 'undefined') {
+      try {
+        const savedUser = localStorage.getItem('ahsora_currentUser');
+        if (savedUser) {
+          const parsed = JSON.parse(savedUser);
+          if (parsed.email === email && parsed.selectedPackage) {
+            userPkg = parsed.selectedPackage;
+            userPrice = parsed.packagePrice;
+          }
+        }
+      } catch {}
+      if (!userPkg) {
+        try {
+          const recent = localStorage.getItem('recentRegistration');
+          if (recent) {
+            const parsed = JSON.parse(recent);
+            if (parsed.email === email && (parsed.selectedPackage || parsed.selected_package)) {
+              userPkg = parsed.selectedPackage || parsed.selected_package;
+              userPrice = parsed.packagePrice || parsed.package_price;
+            }
+          }
+        } catch {}
+      }
+    }
+
+    const newProfile: Profile = {
       id: `usr-${Date.now()}`,
       role: 'student',
       firstName,
@@ -1117,8 +1154,15 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       country: 'United States',
       targetExam: 'IMAT / USMLE',
       isVerified: true,
+      selectedPackage: userPkg || 'Ahsora IMAT Ascend',
+      packagePrice: userPrice || '€299',
       createdAt: new Date().toISOString(),
-    });
+    };
+
+    setCurrentUser(newProfile);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('ahsora_currentUser', JSON.stringify(newProfile));
+    }
     setStudentLoggedIn(true);
     setRole('student');
   };

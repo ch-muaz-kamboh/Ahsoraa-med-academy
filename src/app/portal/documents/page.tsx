@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import {
   FolderLock,
   Upload,
@@ -11,9 +12,18 @@ import {
   Download,
   Plus,
   ShieldCheck,
+  Lock,
+  Sparkles,
+  ArrowRight,
+  CheckCircle2,
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { DocumentCategory } from '@/types';
+import {
+  getPackageByIdOrName,
+  isDocumentVaultLocked,
+  resolveEffectivePackage,
+} from '@/lib/packages';
 
 export default function PortalDocumentsPage() {
   const { documents, addDocument, currentUser } = useAppStore();
@@ -53,12 +63,14 @@ export default function PortalDocumentsPage() {
     }
   };
 
-  const isElite = currentUser?.selectedPackage && /elite/i.test(currentUser.selectedPackage);
+  const effectivePkg = resolveEffectivePackage(currentUser);
+  const currentPkgObj = getPackageByIdOrName(effectivePkg);
+  const isLocked = isDocumentVaultLocked(effectivePkg);
 
-  if (!isElite) {
+  if (isLocked) {
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '70vh' }}>
-        <div style={{ textAlign: 'center', maxWidth: '560px', padding: '20px' }}>
+        <div style={{ textAlign: 'center', maxWidth: '580px', padding: '24px' }}>
           <div style={{
             width: '96px',
             height: '96px',
@@ -70,20 +82,83 @@ export default function PortalDocumentsPage() {
             margin: '0 auto 24px',
             boxShadow: '0 20px 40px -8px rgba(249, 115, 22, 0.4)',
           }}>
-            <FolderLock size={44} color="#FFFFFF" />
+            <Lock size={44} color="#FFFFFF" />
           </div>
 
           <div style={{ display: 'inline-block', backgroundColor: '#FFF7ED', border: '1px solid #FED7AA', color: '#C2410C', fontSize: '0.75rem', fontWeight: 800, padding: '4px 12px', borderRadius: '20px', letterSpacing: '0.5px', marginBottom: '16px' }}>
-            DOCUMENT VAULT — EXCLUSIVE ACCESS
+            DOCUMENT VAULT — EXCLUSIVE TO PATH ELITE
           </div>
 
           <h1 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#0F172A', marginBottom: '12px', lineHeight: 1.2 }}>
             This section is reserved for<br />
             <span style={{ color: '#EA580C' }}>Ahsora Path Elite</span> students
           </h1>
-          <p style={{ color: '#64748B', fontSize: '0.9375rem', lineHeight: 1.6, marginBottom: '28px' }}>
+          <p style={{ color: '#64748B', fontSize: '0.9375rem', lineHeight: 1.6, marginBottom: '24px' }}>
             The Document Vault is a secure space where Elite students can safely upload and manage all their official university admission and visa application documents, directly reviewed by their senior advisor.
           </p>
+
+          {/* Current Package Info */}
+          <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '14px 18px', marginBottom: '24px', textAlign: 'left' }}>
+            <div style={{ fontSize: '0.8125rem', color: '#94A3B8', marginBottom: '2px' }}>Your current enrolled plan</div>
+            <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '0.9375rem' }}>{currentPkgObj.name} — {currentPkgObj.price}</div>
+          </div>
+
+          {/* What Path Elite Unlocks */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '28px', textAlign: 'left' }}>
+            {[
+              'Dedicated Senior Medical Student Advisor Document Review',
+              'Full Italian University Pre-Enrollment & DOV Submission',
+              'Complete Student Visa Dossier Preparation & Legalization',
+              'Guaranteed Admission & Housing Documentation Support',
+            ].map((feat, idx) => (
+              <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.875rem', color: '#334155' }}>
+                <CheckCircle2 size={18} color="#EA580C" style={{ flexShrink: 0 }} />
+                <span>{feat}</span>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <a
+              href="https://wa.me/message/AHSORAELITE"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                backgroundColor: '#EA580C',
+                color: '#FFFFFF',
+                padding: '14px 28px',
+                borderRadius: '12px',
+                fontWeight: 700,
+                fontSize: '0.9375rem',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                boxShadow: '0 8px 20px -4px rgba(234, 88, 12, 0.4)',
+              }}
+            >
+              <Sparkles size={18} />
+              Upgrade to Path Elite — €799
+              <ArrowRight size={18} />
+            </a>
+            <Link
+              href="/portal/dashboard"
+              style={{
+                padding: '14px 22px',
+                borderRadius: '12px',
+                border: '1px solid #CBD5E1',
+                color: '#475569',
+                fontWeight: 600,
+                fontSize: '0.9375rem',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+              }}
+            >
+              Back to Dashboard
+            </Link>
+          </div>
         </div>
       </div>
     );
