@@ -72,7 +72,7 @@ export default function PortalDoubtsPage() {
         <button
           onClick={() => setShowForm(!showForm)}
           style={{
-            backgroundColor: '#2563EB',
+            backgroundColor: '#059669',
             color: '#FFFFFF',
             border: 'none',
             borderRadius: '10px',
@@ -83,7 +83,7 @@ export default function PortalDoubtsPage() {
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            boxShadow: '0 4px 12px rgba(37, 99, 235, 0.2)'
+            boxShadow: '0 4px 12px rgba(5, 150, 105, 0.2)'
           }}
         >
           <Plus size={18} />
@@ -166,7 +166,7 @@ export default function PortalDoubtsPage() {
               </button>
               <button
                 type="submit"
-                style={{ backgroundColor: '#2563EB', color: '#FFF', border: 'none', padding: '10px 20px', borderRadius: '8px', fontSize: '0.875rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
+                style={{ backgroundColor: '#059669', color: '#FFF', border: 'none', padding: '10px 20px', borderRadius: '8px', fontSize: '0.875rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
               >
                 <Send size={16} /> Submit to Subject Teacher
               </button>
@@ -213,7 +213,7 @@ export default function PortalDoubtsPage() {
             <div key={item.id} style={{ backgroundColor: '#FFFFFF', borderRadius: '12px', border: '1px solid #E2E8F0', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', flexWrap: 'wrap', gap: '8px' }}>
                 <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                  <span style={{ backgroundColor: '#EFF6FF', color: '#2563EB', padding: '4px 10px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700 }}>
+                  <span style={{ backgroundColor: '#F0FFF4', color: '#059669', padding: '4px 10px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700 }}>
                     {item.subject}
                   </span>
                   {item.topic && (

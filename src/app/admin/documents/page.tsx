@@ -41,7 +41,7 @@ export default function AdminDocumentsPage() {
         <button
           onClick={() => setUploadModal(true)}
           className="btn-primary"
-          style={{ backgroundColor: '#2563EB', padding: '8px 16px', fontSize: '0.875rem' }}
+          style={{ backgroundColor: '#059669', padding: '8px 16px', fontSize: '0.875rem' }}
         >
           Upload Document
         </button>
@@ -278,7 +278,7 @@ export default function AdminDocumentsPage() {
                 >
                   Cancel
                 </button>
-                <button type="submit" className="btn-primary" style={{ backgroundColor: '#2563EB', fontSize: '0.875rem' }}>
+                <button type="submit" className="btn-primary" style={{ backgroundColor: '#059669', fontSize: '0.875rem' }}>
                   Upload
                 </button>
               </div>

@@ -34,7 +34,7 @@ export default function RoleSwitcherBar() {
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
         <span style={{
-          backgroundColor: '#2563EB',
+          backgroundColor: '#059669',
           color: '#FFFFFF',
           fontWeight: 700,
           padding: '2px 8px',
@@ -65,10 +65,10 @@ export default function RoleSwitcherBar() {
                 borderRadius: '6px',
                 fontSize: '0.75rem',
                 fontWeight: 600,
-                backgroundColor: isActive ? '#2563EB' : '#334155',
+                backgroundColor: isActive ? '#059669' : '#334155',
                 color: isActive ? '#FFFFFF' : '#CBD5E1',
                 transition: 'all 0.15s ease',
-                border: isActive ? '1px solid #60A5FA' : '1px solid transparent'
+                border: isActive ? '1px solid #5CED73' : '1px solid transparent'
               }}
             >
               {item.icon}
@@ -82,7 +82,7 @@ export default function RoleSwitcherBar() {
             href="/portal/dashboard"
             style={{
               fontSize: '0.75rem',
-              color: '#93C5FD',
+              color: '#A7F3D0',
               textDecoration: 'underline',
               padding: '2px 6px'
             }}

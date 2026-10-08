@@ -61,8 +61,8 @@ export default function StaffStudentsPage() {
                   width: '48px',
                   height: '48px',
                   borderRadius: '50%',
-                  backgroundColor: '#EFF6FF',
-                  color: '#2563EB',
+                  backgroundColor: '#F0FFF4',
+                  color: '#059669',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -88,7 +88,7 @@ export default function StaffStudentsPage() {
                 <div style={{ fontSize: '0.75rem', color: '#64748B' }}>Live Attendance</div>
               </div>
               <div style={{ textAlign: 'right' }}>
-                <div style={{ fontSize: '0.875rem', fontWeight: 700, color: '#2563EB' }}>{stu.avgMockScore}</div>
+                <div style={{ fontSize: '0.875rem', fontWeight: 700, color: '#059669' }}>{stu.avgMockScore}</div>
                 <div style={{ fontSize: '0.75rem', color: '#64748B' }}>Avg Mock Score</div>
               </div>
             </div>

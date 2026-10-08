@@ -104,7 +104,7 @@ export default function StaffQuestionBankPage() {
         <button
           onClick={() => setShowModal(true)}
           className="btn-primary"
-          style={{ backgroundColor: '#2563EB', padding: '10px 18px', fontSize: '0.875rem', display: 'flex', alignItems: 'center', gap: '6px' }}
+          style={{ backgroundColor: '#059669', padding: '10px 18px', fontSize: '0.875rem', display: 'flex', alignItems: 'center', gap: '6px' }}
         >
           <Plus size={16} /> Draft New MCQ
         </button>
@@ -113,7 +113,7 @@ export default function StaffQuestionBankPage() {
       {/* Stats Row */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '24px' }}>
         {[
-          { label: 'Total MCQs', value: myQuestions.length, color: '#2563EB' },
+          { label: 'Total MCQs', value: myQuestions.length, color: '#059669' },
           { label: 'Drafts', value: myQuestions.filter(q => q.status === 'draft').length, color: '#64748B' },
           { label: 'In Review', value: pendingCount, color: '#D97706' },
           { label: 'Published', value: publishedCount, color: '#10B981' },
@@ -203,8 +203,8 @@ export default function StaffQuestionBankPage() {
                           onClick={() => submitQuestionForReview(q.id)}
                           style={{
                             display: 'flex', alignItems: 'center', gap: '4px',
-                            padding: '6px 12px', borderRadius: '8px', border: '1px solid #2563EB',
-                            backgroundColor: '#EFF6FF', color: '#2563EB',
+                            padding: '6px 12px', borderRadius: '8px', border: '1px solid #059669',
+                            backgroundColor: '#F0FFF4', color: '#059669',
                             fontSize: '0.8125rem', fontWeight: 600, cursor: 'pointer',
                           }}
                         >
@@ -333,7 +333,7 @@ export default function StaffQuestionBankPage() {
 
               <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end', marginTop: '8px' }}>
                 <button type="button" onClick={() => setShowModal(false)} className="btn-outline">Cancel</button>
-                <button type="submit" className="btn-primary" style={{ backgroundColor: '#2563EB', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <button type="submit" className="btn-primary" style={{ backgroundColor: '#059669', display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <Plus size={15} /> Save as Draft
                 </button>
               </div>

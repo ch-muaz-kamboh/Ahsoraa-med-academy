@@ -164,7 +164,7 @@ export default function AdminLecturesManagerPage() {
                     position: 'absolute',
                     top: '10px',
                     left: '10px',
-                    backgroundColor: '#2563EB',
+                    backgroundColor: '#059669',
                     color: '#FFFFFF',
                     fontSize: '0.75rem',
                     fontWeight: 800,
@@ -197,7 +197,7 @@ export default function AdminLecturesManagerPage() {
                   {item.title}
                 </h3>
                 {item.topic && (
-                  <div style={{ fontSize: '0.8125rem', color: '#2563EB', fontWeight: 600, marginBottom: '8px' }}>
+                  <div style={{ fontSize: '0.8125rem', color: '#059669', fontWeight: 600, marginBottom: '8px' }}>
                     {item.topic}
                   </div>
                 )}
@@ -220,9 +220,9 @@ export default function AdminLecturesManagerPage() {
                   style={{
                     padding: '6px 12px',
                     borderRadius: '6px',
-                    backgroundColor: '#EFF6FF',
-                    color: '#2563EB',
-                    border: '1px solid #BFDBFE',
+                    backgroundColor: '#F0FFF4',
+                    color: '#059669',
+                    border: '1px solid #BBF7D0',
                     cursor: 'pointer',
                     fontSize: '0.75rem',
                     fontWeight: 700,
@@ -436,9 +436,9 @@ export default function AdminLecturesManagerPage() {
                         gap: '6px',
                         padding: '8px 12px',
                         borderRadius: '6px',
-                        backgroundColor: '#EFF6FF',
-                        border: '1px dashed #3B82F6',
-                        color: '#2563EB',
+                        backgroundColor: '#F0FFF4',
+                        border: '1px dashed #10B981',
+                        color: '#059669',
                         fontWeight: 600,
                         fontSize: '0.8125rem',
                         cursor: 'pointer',
@@ -491,7 +491,7 @@ export default function AdminLecturesManagerPage() {
                 </button>
                 <button
                   type="submit"
-                  style={{ padding: '12px 24px', borderRadius: '8px', border: 'none', background: '#2563EB', color: '#FFFFFF', fontWeight: 800, cursor: 'pointer' }}
+                  style={{ padding: '12px 24px', borderRadius: '8px', border: 'none', background: '#059669', color: '#FFFFFF', fontWeight: 800, cursor: 'pointer' }}
                 >
                   {editingId ? 'Save Changes' : 'Publish Video Lecture'}
                 </button>

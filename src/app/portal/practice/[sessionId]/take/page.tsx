@@ -293,7 +293,7 @@ export default function PracticeTakePage() {
           )}
           <button onClick={() => handleSubmit(false)} disabled={submitting}
             style={{ display:'flex', alignItems:'center', gap:'6px', padding:'9px 16px',
-              borderRadius:'8px', border:'none', backgroundColor:'#2563EB', color:'#fff',
+              borderRadius:'8px', border:'none', backgroundColor:'#059669', color:'#fff',
               fontWeight:700, fontSize:'0.875rem', cursor:'pointer' }}>
             {submitting ? <Loader2 size={14} style={{ animation:'spin 1s linear infinite' }} /> : <Send size={14} />}
             Submit
@@ -334,11 +334,11 @@ export default function PracticeTakePage() {
               return (
                 <button key={opt} onClick={() => selectOption(opt)}
                   style={{ display:'flex', alignItems:'flex-start', gap:'12px', padding:'14px 16px',
-                    borderRadius:'10px', border: '2px solid ' + (isSelected?'#2563EB':'#E2E8F0'),
-                    backgroundColor: isSelected?'#EFF6FF':'#FAFAFA', cursor:'pointer', textAlign:'left' }}>
+                    borderRadius:'10px', border: '2px solid ' + (isSelected?'#059669':'#E2E8F0'),
+                    backgroundColor: isSelected?'#F0FFF4':'#FAFAFA', cursor:'pointer', textAlign:'left' }}>
                   <span style={{ display:'inline-flex', alignItems:'center', justifyContent:'center',
                     width:26, height:26, borderRadius:'50%', flexShrink:0,
-                    backgroundColor: isSelected?'#2563EB':'#E2E8F0',
+                    backgroundColor: isSelected?'#059669':'#E2E8F0',
                     color: isSelected?'#fff':'#475569', fontWeight:800, fontSize:'0.8rem' }}>{opt}</span>
                   <span style={{ fontSize:'0.9rem', color:'#0F172A', lineHeight:1.6 }}>{val}</span>
                 </button>
@@ -355,7 +355,7 @@ export default function PracticeTakePage() {
             </button>
             <button onClick={() => goTo(current+1)} disabled={current===questions.length-1}
               style={{ display:'flex', alignItems:'center', gap:'6px', padding:'9px 16px',
-                borderRadius:'8px', border:'none', backgroundColor:'#2563EB', color:'#fff',
+                borderRadius:'8px', border:'none', backgroundColor:'#059669', color:'#fff',
                 cursor:current===questions.length-1?'not-allowed':'pointer',
                 opacity:current===questions.length-1?0.4:1, fontWeight:600, fontSize:'0.875rem' }}>
               Next <ChevronRight size={16} />
@@ -374,8 +374,8 @@ export default function PracticeTakePage() {
               return (
                 <button key={q.id} onClick={() => goTo(i)}
                   style={{ aspectRatio:'1', borderRadius:'6px',
-                    border: '2px solid ' + (isCur?'#2563EB':isRev?'#F59E0B':isAns?'#10B981':'#E2E8F0'),
-                    backgroundColor: isCur?'#2563EB':isRev?'#FFFBEB':isAns?'#F0FFF4':'#F8FAFC',
+                    border: '2px solid ' + (isCur?'#059669':isRev?'#F59E0B':isAns?'#10B981':'#E2E8F0'),
+                    backgroundColor: isCur?'#059669':isRev?'#FFFBEB':isAns?'#F0FFF4':'#F8FAFC',
                     color: isCur?'#fff':isRev?'#D97706':isAns?'#059669':'#64748B',
                     fontWeight:700, fontSize:'0.7rem', cursor:'pointer' }}>
                   {i+1}

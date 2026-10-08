@@ -58,7 +58,7 @@ export default function VisaPage() {
       <div className="container">
         {/* Header */}
         <div style={{ marginBottom: '36px' }}>
-          <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#2563EB', textTransform: 'uppercase' }}>
+          <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#059669', textTransform: 'uppercase' }}>
             Immigration & Embassy Guidance
           </span>
           <h1 style={{ fontSize: '2.4rem', color: '#0F172A', marginTop: '4px', marginBottom: '8px' }}>
@@ -72,8 +72,8 @@ export default function VisaPage() {
         {/* Disclaimer Alert */}
         <div
           style={{
-            backgroundColor: '#EFF6FF',
-            border: '1px solid #BFDBFE',
+            backgroundColor: '#F0FFF4',
+            border: '1px solid #BBF7D0',
             borderRadius: '12px',
             padding: '16px 20px',
             marginBottom: '32px',
@@ -82,8 +82,8 @@ export default function VisaPage() {
             gap: '12px',
           }}
         >
-          <ShieldCheck size={24} color="#2563EB" style={{ flexShrink: 0 }} />
-          <div style={{ fontSize: '0.875rem', color: '#1E3A8A', lineHeight: 1.5 }}>
+          <ShieldCheck size={24} color="#059669" style={{ flexShrink: 0 }} />
+          <div style={{ fontSize: '0.875rem', color: '#14532D', lineHeight: 1.5 }}>
             <strong>Official Advisory:</strong> Ahsora Meds Academy provides document preparation, verification, and mock interviews. Final visa decisions rest solely with the sovereign embassies and consulates of the respective destination nations.
           </div>
         </div>

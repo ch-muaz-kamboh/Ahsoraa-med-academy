@@ -17,7 +17,7 @@ const STAGES: { key: keyof MedpathEliteStudent['stages']; label: string; descrip
     label: 'Pre-Enrollment Documentation',
     description: 'Gather and verify all required academic and identity documents for pre-enrollment.',
     icon: <FileCheck size={22} />,
-    color: '#2563EB',
+    color: '#059669',
   },
   {
     key: 'dov_submission',
@@ -58,7 +58,7 @@ const STAGES: { key: keyof MedpathEliteStudent['stages']; label: string; descrip
 
 const STATUS_STYLES: Record<MedpathStageStatus, { bg: string; color: string; border: string; label: string; icon: React.ReactNode }> = {
   pending: { bg: '#F8FAFC', color: '#64748B', border: '#CBD5E1', label: 'Pending', icon: <Clock size={16} /> },
-  in_progress: { bg: '#EFF6FF', color: '#2563EB', border: '#93C5FD', label: 'In Progress', icon: <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> },
+  in_progress: { bg: '#F0FFF4', color: '#059669', border: '#86EFAC', label: 'In Progress', icon: <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> },
   completed: { bg: '#F0FFF4', color: '#16A34A', border: '#86EFAC', label: 'Completed', icon: <CheckCircle2 size={16} /> },
 };
 
@@ -226,7 +226,7 @@ export default function MedpathPage() {
   if (loading) {
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
-        <Loader2 size={36} style={{ animation: 'spin 1s linear infinite', color: '#2563EB' }} />
+        <Loader2 size={36} style={{ animation: 'spin 1s linear infinite', color: '#059669' }} />
       </div>
     );
   }
@@ -262,7 +262,7 @@ export default function MedpathPage() {
       </div>
 
       {/* Progress Bar Card */}
-      <div style={{ backgroundColor: '#0F172A', borderRadius: '20px', padding: '28px 32px', marginBottom: '28px', background: 'linear-gradient(135deg, #0F172A 0%, #1E3A8A 100%)' }}>
+      <div style={{ backgroundColor: '#0F172A', borderRadius: '20px', padding: '28px 32px', marginBottom: '28px', background: 'linear-gradient(135deg, #0F172A 0%, #14532D 100%)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '12px', flexWrap: 'wrap', gap: '12px' }}>
           <div>
             <div style={{ color: '#94A3B8', fontSize: '0.8125rem', fontWeight: 600, marginBottom: '4px' }}>Overall Progress</div>
@@ -270,13 +270,13 @@ export default function MedpathPage() {
           </div>
           <div style={{ textAlign: 'right' }}>
             <div style={{ color: '#94A3B8', fontSize: '0.8125rem' }}>{completedCount} of {totalStages} stages complete</div>
-            <div style={{ color: '#38BDF8', fontSize: '0.875rem', fontWeight: 700, marginTop: '2px' }}>
+            <div style={{ color: '#5CED73', fontSize: '0.875rem', fontWeight: 700, marginTop: '2px' }}>
               {progressPercent === 100 ? '🎉 Journey Complete!' : progressPercent > 50 ? '⚡ Great progress!' : '🚀 Journey Started'}
             </div>
           </div>
         </div>
         <div style={{ height: '10px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '10px', overflow: 'hidden' }}>
-          <div style={{ height: '100%', width: `${progressPercent}%`, background: 'linear-gradient(90deg, #38BDF8, #818CF8)', borderRadius: '10px', transition: 'width 0.6s ease' }} />
+          <div style={{ height: '100%', width: `${progressPercent}%`, background: 'linear-gradient(90deg, #5CED73, #818CF8)', borderRadius: '10px', transition: 'width 0.6s ease' }} />
         </div>
       </div>
 

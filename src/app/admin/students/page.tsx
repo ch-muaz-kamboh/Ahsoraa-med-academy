@@ -490,7 +490,7 @@ export default function AdminStudentsPage() {
   const pendingCount = students.filter((s) => !s.payment_approved).length;
 
   const packageColors: Record<string, { bg: string; border: string; badge: string; text: string; accent: string }> = {
-    'Ahsora IMAT Ascend':  { bg: '#EFF6FF', border: '#BFDBFE', badge: '#2563EB', text: '#1E3A8A', accent: '#3B82F6' },
+    'Ahsora IMAT Ascend':  { bg: '#F0FFF4', border: '#BBF7D0', badge: '#059669', text: '#14532D', accent: '#10B981' },
     'Ahsora IMAT Mastery': { bg: '#F5F3FF', border: '#DDD6FE', badge: '#7C3AED', text: '#3B0764', accent: '#8B5CF6' },
     'Ahsora Path Elite':   { bg: '#FFF7ED', border: '#FED7AA', badge: '#EA580C', text: '#7C2D12', accent: '#F97316' },
   };
@@ -526,8 +526,8 @@ export default function AdminStudentsPage() {
                 const pkg = getPackageByIdOrName(s.selected_package || s.selectedPackage);
                 return sum + pkg.numericPrice;
               }, 0)}`,
-            color: '#2563EB',
-            bg: '#EFF6FF',
+            color: '#059669',
+            bg: '#F0FFF4',
           },
         ].map((stat, i) => (
           <div key={i} style={{ backgroundColor: stat.bg, border: '1px solid #E2E8F0', borderRadius: '14px', padding: '20px 24px' }}>
@@ -540,7 +540,7 @@ export default function AdminStudentsPage() {
       {/* Package Overview Section */}
       <div style={{ marginBottom: '28px' }}>
         <div style={{ fontSize: '1rem', fontWeight: 800, color: '#0F172A', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ width: '4px', height: '18px', backgroundColor: '#2563EB', borderRadius: '2px', display: 'inline-block' }} />
+          <span style={{ width: '4px', height: '18px', backgroundColor: '#059669', borderRadius: '2px', display: 'inline-block' }} />
           Package Plans Overview
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
@@ -596,7 +596,7 @@ export default function AdminStudentsPage() {
                     <div style={{ fontSize: '0.6875rem', color: '#94A3B8', fontWeight: 600 }}>Approved</div>
                   </div>
                   <div>
-                    <div style={{ fontSize: '1.1rem', fontWeight: 900, color: '#2563EB' }}>€{revenue}</div>
+                    <div style={{ fontSize: '1.1rem', fontWeight: 900, color: '#059669' }}>€{revenue}</div>
                     <div style={{ fontSize: '0.6875rem', color: '#94A3B8', fontWeight: 600 }}>Revenue</div>
                   </div>
                 </div>
@@ -668,7 +668,7 @@ export default function AdminStudentsPage() {
                       <td style={{ padding: '16px 18px' }}>
                         <div style={{ fontWeight: 700, color: '#0F172A', fontSize: '0.9375rem' }}>{fullName}</div>
                         <div style={{ color: '#64748B', fontSize: '0.8125rem', marginTop: '2px' }}>{student.email}</div>
-                        <span style={{ fontFamily: 'monospace', fontWeight: 700, color: '#2563EB', fontSize: '0.75rem', backgroundColor: '#EFF6FF', padding: '2px 8px', borderRadius: '6px', marginTop: '4px', display: 'inline-block' }}>
+                        <span style={{ fontFamily: 'monospace', fontWeight: 700, color: '#059669', fontSize: '0.75rem', backgroundColor: '#F0FFF4', padding: '2px 8px', borderRadius: '6px', marginTop: '4px', display: 'inline-block' }}>
                           {student.ama_id || 'AMA-NEW'}
                         </span>
                       </td>
@@ -680,18 +680,18 @@ export default function AdminStudentsPage() {
                             display: 'inline-flex',
                             alignItems: 'center',
                             gap: '6px',
-                            backgroundColor: matchedPkg.id === 'elite' ? '#FFF7ED' : matchedPkg.id === 'mastery' ? '#F5F3FF' : '#EFF6FF',
-                            border: `1px solid ${matchedPkg.id === 'elite' ? '#FED7AA' : matchedPkg.id === 'mastery' ? '#DDD6FE' : '#BFDBFE'}`,
+                            backgroundColor: matchedPkg.id === 'elite' ? '#FFF7ED' : matchedPkg.id === 'mastery' ? '#F0FFF4' : '#F0FFF4',
+                            border: `1px solid ${matchedPkg.id === 'elite' ? '#FED7AA' : matchedPkg.id === 'mastery' ? '#BBF7D0' : '#BBF7D0'}`,
                             padding: '6px 10px',
                             borderRadius: '10px',
                             width: 'fit-content',
                           }}>
-                            <Package size={15} color={matchedPkg.id === 'elite' ? '#EA580C' : matchedPkg.id === 'mastery' ? '#7C3AED' : '#2563EB'} />
+                            <Package size={15} color={matchedPkg.id === 'elite' ? '#EA580C' : '#059669'} />
                             <div>
-                              <div style={{ fontWeight: 800, fontSize: '0.8125rem', color: matchedPkg.id === 'elite' ? '#C2410C' : matchedPkg.id === 'mastery' ? '#6D28D9' : '#1D4ED8' }}>
+                              <div style={{ fontWeight: 800, fontSize: '0.8125rem', color: matchedPkg.id === 'elite' ? '#C2410C' : '#047857' }}>
                                 {matchedPkg.name}
                               </div>
-                              <div style={{ fontSize: '0.75rem', fontWeight: 900, color: matchedPkg.id === 'elite' ? '#EA580C' : matchedPkg.id === 'mastery' ? '#7C3AED' : '#2563EB' }}>
+                              <div style={{ fontSize: '0.75rem', fontWeight: 900, color: matchedPkg.id === 'elite' ? '#EA580C' : '#059669' }}>
                                 Amount: {pkgPrice}
                               </div>
                             </div>
@@ -730,7 +730,7 @@ export default function AdminStudentsPage() {
                         <div style={{ fontSize: '0.8125rem', color: '#334155', display: 'flex', alignItems: 'center', gap: '6px' }}>
                           <Globe size={14} color="#64748B" /> {country}
                         </div>
-                        <div style={{ fontSize: '0.8125rem', color: '#2563EB', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px', marginTop: '4px' }}>
+                        <div style={{ fontSize: '0.8125rem', color: '#059669', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px', marginTop: '4px' }}>
                           <Phone size={14} /> {whatsapp}
                         </div>
                       </td>
@@ -852,7 +852,7 @@ export default function AdminStudentsPage() {
             </button>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '24px' }}>
-              <div style={{ width: '48px', height: '48px', borderRadius: '50%', backgroundColor: '#EFF6FF', color: '#2563EB', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '1.2rem' }}>
+              <div style={{ width: '48px', height: '48px', borderRadius: '50%', backgroundColor: '#F0FFF4', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '1.2rem' }}>
                 {(viewingStudent.full_name || 'S').charAt(0).toUpperCase()}
               </div>
               <div>
@@ -905,7 +905,7 @@ export default function AdminStudentsPage() {
 
               <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed #E2E8F0', paddingBottom: '10px' }}>
                 <span style={{ color: '#64748B', fontSize: '0.875rem' }}>WhatsApp Contact</span>
-                <span style={{ color: '#2563EB', fontWeight: 700, fontSize: '0.875rem' }}>{viewingStudent.whatsapp_number || viewingStudent.whatsappNumber || 'Not specified'}</span>
+                <span style={{ color: '#059669', fontWeight: 700, fontSize: '0.875rem' }}>{viewingStudent.whatsapp_number || viewingStudent.whatsappNumber || 'Not specified'}</span>
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed #E2E8F0', paddingBottom: '10px' }}>
@@ -975,7 +975,7 @@ export default function AdminStudentsPage() {
                         <div style={{ fontWeight: 600, fontSize: '0.9375rem', color: '#0F172A' }}>{doc.title}</div>
                         <div style={{ fontSize: '0.8125rem', color: '#64748B', marginTop: '2px' }}>
                           {doc.file_name} • {doc.file_size_bytes ? `${(doc.file_size_bytes / 1024 / 1024).toFixed(1)} MB` : ''} •
-                          <span style={{ marginLeft: '6px', fontWeight: 600, color: doc.status === 'approved' ? '#16A34A' : doc.status === 'revision_requested' ? '#D97706' : '#3B82F6' }}>
+                          <span style={{ marginLeft: '6px', fontWeight: 600, color: doc.status === 'approved' ? '#16A34A' : doc.status === 'revision_requested' ? '#D97706' : '#10B981' }}>
                             {doc.status.replace('_', ' ')}
                           </span>
                         </div>

@@ -168,8 +168,8 @@ export default function AdminScheduleManagerPage() {
                     style={{
                       fontSize: '0.75rem',
                       fontWeight: 700,
-                      color: '#2563EB',
-                      backgroundColor: '#EFF6FF',
+                      color: '#059669',
+                      backgroundColor: '#F0FFF4',
                       padding: '2px 8px',
                       borderRadius: '4px',
                       display: 'inline-block',
@@ -217,7 +217,7 @@ export default function AdminScheduleManagerPage() {
                       href={item.meetingUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      style={{ color: '#2563EB', textDecoration: 'underline', fontWeight: 600 }}
+                      style={{ color: '#059669', textDecoration: 'underline', fontWeight: 600 }}
                     >
                       Zoom Room Link
                     </a>
@@ -232,9 +232,9 @@ export default function AdminScheduleManagerPage() {
                       style={{
                         padding: '6px 10px',
                         borderRadius: '6px',
-                        backgroundColor: '#EFF6FF',
-                        color: '#2563EB',
-                        border: '1px solid #BFDBFE',
+                        backgroundColor: '#F0FFF4',
+                        color: '#059669',
+                        border: '1px solid #BBF7D0',
                         cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'center',
@@ -426,7 +426,7 @@ export default function AdminScheduleManagerPage() {
                 </button>
                 <button
                   type="submit"
-                  style={{ padding: '12px 24px', borderRadius: '8px', border: 'none', background: '#2563EB', color: '#FFFFFF', fontWeight: 800, cursor: 'pointer' }}
+                  style={{ padding: '12px 24px', borderRadius: '8px', border: 'none', background: '#059669', color: '#FFFFFF', fontWeight: 800, cursor: 'pointer' }}
                 >
                   {editingId ? 'Save Changes' : 'Publish Schedule'}
                 </button>

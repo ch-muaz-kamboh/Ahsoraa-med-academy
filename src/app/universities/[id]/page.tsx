@@ -38,8 +38,8 @@ export default function UniversityDetailPage({
       <div className="container">
         {/* Breadcrumb */}
         <div style={{ marginBottom: '20px', fontSize: '0.875rem', color: '#64748B' }}>
-          <Link href="/" style={{ color: '#2563EB' }}>Home</Link> /{' '}
-          <Link href="/universities" style={{ color: '#2563EB' }}>Universities</Link> /{' '}
+          <Link href="/" style={{ color: '#059669' }}>Home</Link> /{' '}
+          <Link href="/universities" style={{ color: '#059669' }}>Universities</Link> /{' '}
           <span>{university.name}</span>
         </div>
 
@@ -94,33 +94,33 @@ export default function UniversityDetailPage({
           {/* Quick Facts Card */}
           <div
             style={{
-              backgroundColor: '#EFF6FF',
+              backgroundColor: '#F0FFF4',
               borderRadius: '16px',
-              border: '1px solid #BFDBFE',
+              border: '1px solid #BBF7D0',
               padding: '28px',
             }}
           >
-            <h3 style={{ fontSize: '1.125rem', color: '#1E3A8A', marginBottom: '16px' }}>
+            <h3 style={{ fontSize: '1.125rem', color: '#14532D', marginBottom: '16px' }}>
               Admissions Summary
             </h3>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.875rem', marginBottom: '24px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #DBEAFE', paddingBottom: '8px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #DCFCE7', paddingBottom: '8px' }}>
                 <span style={{ color: '#334155' }}>Annual Tuition:</span>
-                <strong style={{ color: '#1E3A8A', fontSize: '1.1rem' }}>
+                <strong style={{ color: '#14532D', fontSize: '1.1rem' }}>
                   {university.currency === 'EUR' ? '€' : '$'}
                   {university.tuitionFeeAnnual.toLocaleString()}/yr
                 </strong>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #DBEAFE', paddingBottom: '8px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #DCFCE7', paddingBottom: '8px' }}>
                 <span style={{ color: '#334155' }}>Program:</span>
                 <strong style={{ color: '#0F172A' }}>6-Year MD / MBBS</strong>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #DBEAFE', paddingBottom: '8px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #DCFCE7', paddingBottom: '8px' }}>
                 <span style={{ color: '#334155' }}>Language:</span>
                 <strong style={{ color: '#10B981' }}>{university.language}</strong>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #DBEAFE', paddingBottom: '8px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #DCFCE7', paddingBottom: '8px' }}>
                 <span style={{ color: '#334155' }}>Intakes:</span>
                 <strong style={{ color: '#0F172A' }}>{university.intakes.join(', ')}</strong>
               </div>

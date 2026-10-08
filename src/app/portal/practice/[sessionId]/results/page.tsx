@@ -116,7 +116,7 @@ export default function PracticeResultsPage() {
           <Stat icon={<XCircle size={18} color='#EF4444'/>}    label='Incorrect' value={session.total_incorrect} color='#EF4444' />
           <Stat icon={<Minus size={18} color='#94A3B8'/>}      label='Unanswered' value={session.total_unanswered} color='#94A3B8' />
           <Stat icon={<Target size={18} color='#8B5CF6'/>}     label='Accuracy' value={session.accuracy_rate.toFixed(1)+'%'} color='#8B5CF6' />
-          <Stat icon={<Clock size={18} color='#2563EB'/>}      label='Time' value={fmtTime(session.time_spent_seconds||0)} color='#2563EB' />
+          <Stat icon={<Clock size={18} color='#059669'/>}      label='Time' value={fmtTime(session.time_spent_seconds||0)} color='#059669' />
         </div>
       </div>
 
@@ -168,7 +168,7 @@ export default function PracticeResultsPage() {
           <div style={{ display:'flex', gap:'12px', marginTop:'16px', flexWrap:'wrap' }}>
             <Link href='/portal/practice'
               style={{ display:'flex', alignItems:'center', gap:'8px', padding:'11px 20px',
-                borderRadius:'9px', border:'none', backgroundColor:'#2563EB', color:'#fff',
+                borderRadius:'9px', border:'none', backgroundColor:'#059669', color:'#fff',
                 fontWeight:700, fontSize:'0.875rem', textDecoration:'none' }}>
               <RotateCcw size={15} /> New Practice Test
             </Link>
@@ -241,8 +241,8 @@ export default function PracticeResultsPage() {
                       })}
                     </div>
                     {q.explanation && (
-                      <div style={{ backgroundColor:'#EFF6FF', borderRadius:'8px', padding:'12px 14px',
-                        fontSize:'0.875rem', color:'#1D4ED8', lineHeight:1.6 }}>
+                      <div style={{ backgroundColor:'#F0FFF4', borderRadius:'8px', padding:'12px 14px',
+                        fontSize:'0.875rem', color:'#047857', lineHeight:1.6 }}>
                         <strong>Explanation:</strong> {q.explanation}
                       </div>
                     )}

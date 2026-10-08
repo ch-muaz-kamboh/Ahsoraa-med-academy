@@ -164,7 +164,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         gap: '12px'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', overflow: 'hidden' }}>
-          <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#DBEAFE', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#2563EB', fontWeight: 'bold', flexShrink: 0 }}>
+          <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#DCFCE7', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#059669', fontWeight: 'bold', flexShrink: 0 }}>
             {computedInitials}
           </div>
           {sidebarExpanded && (
@@ -178,9 +178,9 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                     fontWeight: 700,
                     padding: '2px 8px',
                     borderRadius: '6px',
-                    backgroundColor: studentTier === 'elite' ? '#FFEDD5' : studentTier === 'mastery' ? '#DBEAFE' : '#DCFCE7',
-                    color: studentTier === 'elite' ? '#C2410C' : studentTier === 'mastery' ? '#1D4ED8' : '#15803D',
-                    border: `1px solid ${studentTier === 'elite' ? '#FED7AA' : studentTier === 'mastery' ? '#BFDBFE' : '#BBF7D0'}`,
+                    backgroundColor: studentTier === 'elite' ? '#FFEDD5' : studentTier === 'mastery' ? '#DCFCE7' : '#DCFCE7',
+                    color: studentTier === 'elite' ? '#C2410C' : studentTier === 'mastery' ? '#047857' : '#15803D',
+                    border: `1px solid ${studentTier === 'elite' ? '#FED7AA' : studentTier === 'mastery' ? '#BBF7D0' : '#BBF7D0'}`,
                     display: 'inline-block',
                     lineHeight: 1.3,
                   }}
@@ -215,13 +215,13 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
               borderRadius: '8px',
               fontSize: '0.875rem',
               fontWeight: 600,
-              color: pathname === '/portal/dashboard' ? '#2563EB' : '#334155',
-              backgroundColor: pathname === '/portal/dashboard' ? '#EFF6FF' : 'transparent',
+              color: pathname === '/portal/dashboard' ? '#059669' : '#334155',
+              backgroundColor: pathname === '/portal/dashboard' ? '#F0FFF4' : 'transparent',
               textDecoration: 'none',
               transition: 'all 0.15s ease',
             }}
           >
-            <LayoutDashboard size={18} color={pathname === '/portal/dashboard' ? '#2563EB' : '#64748B'} />
+            <LayoutDashboard size={18} color={pathname === '/portal/dashboard' ? '#059669' : '#64748B'} />
             {sidebarExpanded && <span>Dashboard</span>}
           </Link>
         </div>
@@ -243,8 +243,8 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
               borderRadius: '8px',
               fontSize: '0.875rem',
               fontWeight: 600,
-              color: isLearnActive ? '#2563EB' : '#334155',
-              backgroundColor: isLearnActive ? '#EFF6FF' : 'transparent',
+              color: isLearnActive ? '#059669' : '#334155',
+              backgroundColor: isLearnActive ? '#F0FFF4' : 'transparent',
               border: 'none',
               cursor: 'pointer',
               transition: 'all 0.15s ease',
@@ -253,7 +253,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'center' }}>
-              <GraduationCap size={18} color={isLearnActive ? '#2563EB' : '#64748B'} />
+              <GraduationCap size={18} color={isLearnActive ? '#059669' : '#64748B'} />
               {sidebarExpanded && <span>Learn</span>}
             </div>
             {sidebarExpanded && (learnOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />)}
@@ -272,15 +272,15 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                   borderRadius: '6px',
                   fontSize: '0.8125rem',
                   fontWeight: pathname === '/portal/learn/schedule' ? 600 : 500,
-                  color: pathname === '/portal/learn/schedule' ? '#2563EB' : scheduleLocked ? '#94A3B8' : '#64748B',
-                  backgroundColor: pathname === '/portal/learn/schedule' ? '#DBEAFE' : 'transparent',
+                  color: pathname === '/portal/learn/schedule' ? '#059669' : scheduleLocked ? '#94A3B8' : '#64748B',
+                  backgroundColor: pathname === '/portal/learn/schedule' ? '#DCFCE7' : 'transparent',
                   transition: 'all .15s ease',
                   opacity: scheduleLocked && pathname !== '/portal/learn/schedule' ? 0.8 : 1,
                 }}
                 title={scheduleLocked ? 'Locked for Ascend students (Mastery/Elite only)' : '1. Schedule'}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <Calendar size={15} color={pathname === '/portal/learn/schedule' ? '#2563EB' : scheduleLocked ? '#94A3B8' : '#64748B'} />
+                  <Calendar size={15} color={pathname === '/portal/learn/schedule' ? '#059669' : scheduleLocked ? '#94A3B8' : '#64748B'} />
                   {sidebarExpanded && <span>1. Schedule</span>}
                 </div>
                 {sidebarExpanded && scheduleLocked ? (
@@ -332,8 +332,8 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                   borderRadius: '6px',
                   fontSize: '0.8125rem',
                   fontWeight: pathname === '/portal/learn/lectures' ? 600 : 500,
-                  color: pathname === '/portal/learn/lectures' ? '#2563EB' : '#64748B',
-                  backgroundColor: pathname === '/portal/learn/lectures' ? '#DBEAFE' : 'transparent',
+                  color: pathname === '/portal/learn/lectures' ? '#059669' : '#64748B',
+                  backgroundColor: pathname === '/portal/learn/lectures' ? '#DCFCE7' : 'transparent',
                   transition: 'all 0.15s ease',
                 }}
               >
@@ -351,8 +351,8 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                   borderRadius: '6px',
                   fontSize: '0.8125rem',
                   fontWeight: pathname === '/portal/learn/library' ? 600 : 500,
-                  color: pathname === '/portal/learn/library' ? '#2563EB' : '#64748B',
-                  backgroundColor: pathname === '/portal/learn/library' ? '#DBEAFE' : 'transparent',
+                  color: pathname === '/portal/learn/library' ? '#059669' : '#64748B',
+                  backgroundColor: pathname === '/portal/learn/library' ? '#DCFCE7' : 'transparent',
                   transition: 'all 0.15s ease',
                 }}
               >
@@ -380,15 +380,15 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
               borderRadius: '8px',
               fontSize: '0.875rem',
               fontWeight: 600,
-              color: isPracticeActive ? '#2563EB' : '#334155',
-              backgroundColor: isPracticeActive ? '#EFF6FF' : 'transparent',
+              color: isPracticeActive ? '#059669' : '#334155',
+              backgroundColor: isPracticeActive ? '#F0FFF4' : 'transparent',
               border: 'none',
               cursor: 'pointer',
               transition: 'all 0.15s ease',
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <BookOpen size={18} color={isPracticeActive ? '#2563EB' : '#64748B'} />
+              <BookOpen size={18} color={isPracticeActive ? '#059669' : '#64748B'} />
               {sidebarExpanded && <span>Practice</span>}
             </div>
             {sidebarExpanded && (practiceOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />)}
@@ -406,8 +406,8 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                   borderRadius: '6px',
                   fontSize: '0.8125rem',
                   fontWeight: pathname === '/portal/practice' ? 600 : 500,
-                  color: pathname === '/portal/practice' ? '#2563EB' : '#64748B',
-                  backgroundColor: pathname === '/portal/practice' ? '#DBEAFE' : 'transparent',
+                  color: pathname === '/portal/practice' ? '#059669' : '#64748B',
+                  backgroundColor: pathname === '/portal/practice' ? '#DCFCE7' : 'transparent',
                   transition: 'all 0.15s ease',
                 }}
               >
@@ -425,8 +425,8 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                   borderRadius: '6px',
                   fontSize: '0.8125rem',
                   fontWeight: pathname?.startsWith('/portal/tests') ? 600 : 500,
-                  color: pathname?.startsWith('/portal/tests') ? '#2563EB' : '#64748B',
-                  backgroundColor: pathname?.startsWith('/portal/tests') ? '#DBEAFE' : 'transparent',
+                  color: pathname?.startsWith('/portal/tests') ? '#059669' : '#64748B',
+                  backgroundColor: pathname?.startsWith('/portal/tests') ? '#DCFCE7' : 'transparent',
                   transition: 'all 0.15s ease',
                 }}
               >
@@ -444,12 +444,12 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                   borderRadius: '6px',
                   fontSize: '0.8125rem',
                   fontWeight: pathname === '/portal/practice/mistakes' ? 600 : 500,
-                  color: pathname === '/portal/practice/mistakes' ? '#2563EB' : '#64748B',
-                  backgroundColor: pathname === '/portal/practice/mistakes' ? '#DBEAFE' : 'transparent',
+                  color: pathname === '/portal/practice/mistakes' ? '#059669' : '#64748B',
+                  backgroundColor: pathname === '/portal/practice/mistakes' ? '#DCFCE7' : 'transparent',
                   transition: 'all 0.15s ease',
                 }}
               >
-                <AlertCircle size={15} color={pathname === '/portal/practice/mistakes' ? '#2563EB' : '#EF4444'} />
+                <AlertCircle size={15} color={pathname === '/portal/practice/mistakes' ? '#059669' : '#EF4444'} />
                 {sidebarExpanded && (
                   <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
                     <span>3. My Mistakes</span>
@@ -492,15 +492,15 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
               borderRadius: '8px',
               fontSize: '0.875rem',
               fontWeight: 600,
-              color: isProgressActive ? '#2563EB' : '#334155',
-              backgroundColor: isProgressActive ? '#EFF6FF' : 'transparent',
+              color: isProgressActive ? '#059669' : '#334155',
+              backgroundColor: isProgressActive ? '#F0FFF4' : 'transparent',
               border: 'none',
               cursor: 'pointer',
               transition: 'all 0.15s ease',
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <TrendingUp size={18} color={isProgressActive ? '#2563EB' : '#64748B'} />
+              <TrendingUp size={18} color={isProgressActive ? '#059669' : '#64748B'} />
               {sidebarExpanded && <span>Progress</span>}
             </div>
             {sidebarExpanded && (progressOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />)}
@@ -518,8 +518,8 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                   borderRadius: '6px',
                   fontSize: '0.8125rem',
                   fontWeight: pathname === '/portal/progress/analysis' ? 600 : 500,
-                  color: pathname === '/portal/progress/analysis' ? '#2563EB' : '#64748B',
-                  backgroundColor: pathname === '/portal/progress/analysis' ? '#DBEAFE' : 'transparent',
+                  color: pathname === '/portal/progress/analysis' ? '#059669' : '#64748B',
+                  backgroundColor: pathname === '/portal/progress/analysis' ? '#DCFCE7' : 'transparent',
                   transition: 'all 0.15s ease',
                 }}
               >
@@ -537,12 +537,12 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                   borderRadius: '6px',
                   fontSize: '0.8125rem',
                   fontWeight: pathname === '/portal/progress/streak' ? 600 : 500,
-                  color: pathname === '/portal/progress/streak' ? '#2563EB' : '#64748B',
-                  backgroundColor: pathname === '/portal/progress/streak' ? '#DBEAFE' : 'transparent',
+                  color: pathname === '/portal/progress/streak' ? '#059669' : '#64748B',
+                  backgroundColor: pathname === '/portal/progress/streak' ? '#DCFCE7' : 'transparent',
                   transition: 'all 0.15s ease',
                 }}
               >
-                <Flame size={15} color={pathname === '/portal/progress/streak' ? '#2563EB' : '#F59E0B'} />
+                <Flame size={15} color={pathname === '/portal/progress/streak' ? '#059669' : '#F59E0B'} />
                 {sidebarExpanded && <span>2. Streak History</span>}
               </Link>
             </div>
@@ -610,15 +610,15 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
               borderRadius: '8px',
               fontSize: '0.875rem',
               fontWeight: pathname === '/portal/documents' ? 600 : 500,
-              color: pathname === '/portal/documents' ? '#2563EB' : docVaultLocked ? '#64748B' : '#475569',
-              backgroundColor: pathname === '/portal/documents' ? '#EFF6FF' : 'transparent',
+              color: pathname === '/portal/documents' ? '#059669' : docVaultLocked ? '#64748B' : '#475569',
+              backgroundColor: pathname === '/portal/documents' ? '#F0FFF4' : 'transparent',
               transition: 'all 0.15s ease',
               opacity: docVaultLocked && pathname !== '/portal/documents' ? 0.8 : 1,
             }}
             title={docVaultLocked ? 'Locked for Ascend & Mastery students (Elite only)' : 'Document Vault'}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <span style={{ color: pathname === '/portal/documents' ? '#2563EB' : docVaultLocked ? '#94A3B8' : '#64748B' }}>
+              <span style={{ color: pathname === '/portal/documents' ? '#059669' : docVaultLocked ? '#94A3B8' : '#64748B' }}>
                 <FolderLock size={18} />
               </span>
               {sidebarExpanded && <span>Document Vault</span>}
@@ -627,9 +627,9 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
               <span
                 style={{
                   fontSize: '0.625rem',
-                  backgroundColor: docVaultLocked ? '#F1F5F9' : '#DBEAFE',
-                  color: docVaultLocked ? '#64748B' : '#1D4ED8',
-                  border: docVaultLocked ? '1px solid #CBD5E1' : '1px solid #BFDBFE',
+                  backgroundColor: docVaultLocked ? '#F1F5F9' : '#DCFCE7',
+                  color: docVaultLocked ? '#64748B' : '#047857',
+                  border: docVaultLocked ? '1px solid #CBD5E1' : '1px solid #BBF7D0',
                   padding: '1px 6px',
                   borderRadius: '8px',
                   fontWeight: 800,
@@ -659,12 +659,12 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
             borderRadius: '8px',
             fontSize: '0.875rem',
             fontWeight: pathname === '/portal/doubts' ? 600 : 500,
-            color: pathname === '/portal/doubts' ? '#2563EB' : '#475569',
-            backgroundColor: pathname === '/portal/doubts' ? '#EFF6FF' : 'transparent',
+            color: pathname === '/portal/doubts' ? '#059669' : '#475569',
+            backgroundColor: pathname === '/portal/doubts' ? '#F0FFF4' : 'transparent',
             transition: 'all 0.15s ease',
           }}
         >
-            <span style={{ color: pathname === '/portal/doubts' ? '#2563EB' : '#64748B' }}>
+            <span style={{ color: pathname === '/portal/doubts' ? '#059669' : '#64748B' }}>
               <HelpCircle size={18} />
             </span>
             {sidebarExpanded && <span>Ask Doubts</span>}
@@ -846,7 +846,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
             </label>
             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', marginTop: '16px' }}>
               <button type="button" onClick={() => setShowSettings(false)} style={{ padding: '8px 16px', background: '#F1F5F9', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Cancel</button>
-              <button type="submit" style={{ padding: '8px 16px', background: '#2563EB', color: '#FFF', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Save</button>
+              <button type="submit" style={{ padding: '8px 16px', background: '#059669', color: '#FFF', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Save</button>
             </div>
           </form>
         </div>

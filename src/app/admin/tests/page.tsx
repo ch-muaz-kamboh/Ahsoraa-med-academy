@@ -641,7 +641,7 @@ export default function AdminTestsPage() {
                     transition: 'all 0.15s ease',
                   }}
                 >
-                  <ListChecks size={16} color="#2563EB" />
+                  <ListChecks size={16} color="#059669" />
                   <span>Manage Questions ({test.questions.length})</span>
                 </button>
 
@@ -739,7 +739,7 @@ export default function AdminTestsPage() {
               backgroundColor: '#F8FAFC',
             }}>
               <div>
-                <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#2563EB', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#059669', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   Question Manager
                 </div>
                 <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#0F172A', marginTop: '2px' }}>
@@ -778,7 +778,7 @@ export default function AdminTestsPage() {
                       gap: '8px',
                       padding: '10px 18px',
                       borderRadius: '10px',
-                      backgroundColor: showAddForm ? '#F1F5F9' : '#2563EB',
+                      backgroundColor: showAddForm ? '#F1F5F9' : '#059669',
                       color: showAddForm ? '#475569' : '#FFFFFF',
                       border: 'none',
                       fontWeight: 700,
@@ -836,7 +836,7 @@ export default function AdminTestsPage() {
                 <div
                   style={{
                     backgroundColor: '#F8FAFC',
-                    border: '2px dashed #93C5FD',
+                    border: '2px dashed #86EFAC',
                     borderRadius: '14px',
                     padding: '20px',
                     marginBottom: '24px',
@@ -844,7 +844,7 @@ export default function AdminTestsPage() {
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '10px' }}>
                     <div style={{ fontWeight: 700, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1rem' }}>
-                      <Upload size={18} color="#2563EB" />
+                      <Upload size={18} color="#059669" />
                       <span>Bulk Questions Importer (JSON / CSV)</span>
                     </div>
 
@@ -1030,7 +1030,7 @@ export default function AdminTestsPage() {
                   }}
                 >
                   <div style={{ fontWeight: 700, color: '#0F172A', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <Sparkles size={16} color="#2563EB" />
+                    <Sparkles size={16} color="#059669" />
                     <span>New Question Details</span>
                   </div>
 
@@ -1337,7 +1337,7 @@ export default function AdminTestsPage() {
                   disabled={savingSettings}
                   style={{
                     padding: '10px 22px', borderRadius: '8px', border: 'none',
-                    backgroundColor: '#2563EB', color: '#FFF', fontWeight: 700, cursor: 'pointer',
+                    backgroundColor: '#059669', color: '#FFF', fontWeight: 700, cursor: 'pointer',
                     display: 'flex', alignItems: 'center', gap: '8px'
                   }}
                 >

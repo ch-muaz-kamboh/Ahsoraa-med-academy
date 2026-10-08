@@ -133,7 +133,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
         justifyContent: 'center',
         backgroundColor: '#F8FAFC'
       }}>
-        <Loader2 size={36} style={{ animation: 'spin 1s linear infinite', color: '#2563EB' }} />
+        <Loader2 size={36} style={{ animation: 'spin 1s linear infinite', color: '#059669' }} />
       </div>
     );
   }
@@ -167,7 +167,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0F172A' }}>
-              Welcome back, <span style={{ color: '#2563EB' }}>{realUser ? realUser.firstName : 'Student'}!</span>
+              Welcome back, <span style={{ color: '#059669' }}>{realUser ? realUser.firstName : 'Student'}!</span>
             </span>
           </div>
 
@@ -178,8 +178,8 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                 width: '36px',
                 height: '36px',
                 borderRadius: '50%',
-                backgroundColor: '#EFF6FF',
-                color: '#2563EB',
+                backgroundColor: '#F0FFF4',
+                color: '#059669',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -195,8 +195,8 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                   width: '36px',
                   height: '36px',
                   borderRadius: '50%',
-                  backgroundColor: '#DBEAFE',
-                  color: '#1D4ED8',
+                  backgroundColor: '#DCFCE7',
+                  color: '#047857',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',

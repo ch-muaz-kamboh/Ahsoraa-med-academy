@@ -32,7 +32,7 @@ export default function StaffAssessmentsPage() {
         <button
           onClick={() => setShowModal(true)}
           className="btn-primary"
-          style={{ backgroundColor: '#2563EB', padding: '10px 18px', fontSize: '0.875rem' }}
+          style={{ backgroundColor: '#059669', padding: '10px 18px', fontSize: '0.875rem' }}
         >
           <Plus size={16} /> Create Immutable Version Snapshot
         </button>
@@ -130,13 +130,13 @@ export default function StaffAssessmentsPage() {
                 />
               </div>
 
-              <div style={{ backgroundColor: '#EFF6FF', padding: '12px 16px', borderRadius: '8px', fontSize: '0.8125rem', color: '#1E40AF', lineHeight: 1.5 }}>
+              <div style={{ backgroundColor: '#F0FFF4', padding: '12px 16px', borderRadius: '8px', fontSize: '0.8125rem', color: '#166534', lineHeight: 1.5 }}>
                 ℹ️ <strong>Rules Enforced:</strong> 60 Questions, 100 Minutes, +1.5 for Correct, -0.4 for Incorrect, Max 90 Score.
               </div>
 
               <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end', marginTop: '12px' }}>
                 <button type="button" onClick={() => setShowModal(false)} className="btn-outline">Cancel</button>
-                <button type="submit" className="btn-primary" style={{ backgroundColor: '#2563EB' }}>Create Snapshot</button>
+                <button type="submit" className="btn-primary" style={{ backgroundColor: '#059669' }}>Create Snapshot</button>
               </div>
             </form>
           </div>

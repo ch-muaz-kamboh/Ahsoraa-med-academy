@@ -69,8 +69,8 @@ export default function PortalApplicationsPage() {
               <div
                 key={sIdx}
                 style={{
-                  backgroundColor: isCurrent ? '#EFF6FF' : isCompleted ? '#ECFDF5' : '#F8FAFC',
-                  border: `1px solid ${isCurrent ? '#BFDBFE' : isCompleted ? '#A7F3D0' : '#E2E8F0'}`,
+                  backgroundColor: isCurrent ? '#F0FFF4' : isCompleted ? '#ECFDF5' : '#F8FAFC',
+                  border: `1px solid ${isCurrent ? '#BBF7D0' : isCompleted ? '#A7F3D0' : '#E2E8F0'}`,
                   borderRadius: '10px',
                   padding: '14px',
                   textAlign: 'center',
@@ -87,13 +87,13 @@ export default function PortalApplicationsPage() {
                     justifyContent: 'center',
                     fontWeight: 700,
                     fontSize: '0.75rem',
-                    backgroundColor: isCurrent ? '#2563EB' : isCompleted ? '#10B981' : '#CBD5E1',
+                    backgroundColor: isCurrent ? '#059669' : isCompleted ? '#10B981' : '#CBD5E1',
                     color: '#FFFFFF',
                   }}
                 >
                   {isCompleted ? '✓' : sIdx + 1}
                 </div>
-                <div style={{ fontSize: '0.8125rem', fontWeight: 600, color: isCurrent ? '#1E3A8A' : '#0F172A' }}>
+                <div style={{ fontSize: '0.8125rem', fontWeight: 600, color: isCurrent ? '#14532D' : '#0F172A' }}>
                   {stg.title}
                 </div>
               </div>

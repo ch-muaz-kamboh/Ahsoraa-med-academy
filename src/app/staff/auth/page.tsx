@@ -176,7 +176,7 @@ export default function StaffAuthPage() {
               padding: '10px',
               borderRadius: '8px',
               border: 'none',
-              backgroundColor: activeTab === 'signin' ? '#2563EB' : 'transparent',
+              backgroundColor: activeTab === 'signin' ? '#059669' : 'transparent',
               color: activeTab === 'signin' ? '#FFFFFF' : '#94A3B8',
               fontWeight: 700,
               fontSize: '0.875rem',
@@ -198,7 +198,7 @@ export default function StaffAuthPage() {
               padding: '10px',
               borderRadius: '8px',
               border: 'none',
-              backgroundColor: activeTab === 'signup' ? '#2563EB' : 'transparent',
+              backgroundColor: activeTab === 'signup' ? '#059669' : 'transparent',
               color: activeTab === 'signup' ? '#FFFFFF' : '#94A3B8',
               fontWeight: 700,
               fontSize: '0.875rem',
@@ -332,7 +332,7 @@ export default function StaffAuthPage() {
                 width: '100%',
                 padding: '12px',
                 borderRadius: '10px',
-                backgroundColor: '#2563EB',
+                backgroundColor: '#059669',
                 color: '#FFFFFF',
                 fontWeight: 800,
                 fontSize: '0.9375rem',
@@ -346,7 +346,7 @@ export default function StaffAuthPage() {
 
             <div style={{ textAlign: 'center', marginTop: '12px', fontSize: '0.8125rem', color: '#64748B' }}>
               Default Demo Staff Credentials: <br />
-              <code style={{ color: '#38BDF8' }}>dr.farhan@ahsorameds.com</code> / <code style={{ color: '#38BDF8' }}>password123</code>
+              <code style={{ color: '#5CED73' }}>dr.farhan@ahsorameds.com</code> / <code style={{ color: '#5CED73' }}>password123</code>
             </div>
           </form>
         )}
@@ -505,7 +505,7 @@ export default function StaffAuthPage() {
                   borderRadius: '10px',
                   border: '1px solid #334155',
                   backgroundColor: '#0F172A',
-                  color: '#38BDF8',
+                  color: '#5CED73',
                   fontSize: '0.875rem',
                   fontWeight: 600,
                   cursor: 'pointer',
@@ -534,9 +534,9 @@ export default function StaffAuthPage() {
                         borderRadius: '20px',
                         fontSize: '0.78125rem',
                         fontWeight: isSel ? 700 : 500,
-                        backgroundColor: isSel ? '#2563EB' : '#0F172A',
+                        backgroundColor: isSel ? '#059669' : '#0F172A',
                         color: isSel ? '#FFFFFF' : '#94A3B8',
-                        border: isSel ? '1px solid #3B82F6' : '1px solid #334155',
+                        border: isSel ? '1px solid #10B981' : '1px solid #334155',
                         cursor: 'pointer',
                         transition: 'all 0.15s ease',
                       }}
@@ -549,7 +549,7 @@ export default function StaffAuthPage() {
 
               {/* Selected Pills Summary */}
               <div style={{ fontSize: '0.75rem', color: '#94A3B8', marginTop: '4px' }}>
-                Selected ({selectedSubjects.length}): <strong style={{ color: '#38BDF8' }}>{selectedSubjects.join(', ')}</strong>
+                Selected ({selectedSubjects.length}): <strong style={{ color: '#5CED73' }}>{selectedSubjects.join(', ')}</strong>
               </div>
             </div>
 

@@ -30,7 +30,7 @@ export default function PrivacyPolicyPage() {
         }}
       >
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: 'rgba(255,255,255,0.1)', padding: '6px 14px', borderRadius: '20px', fontSize: '0.8125rem', fontWeight: 600, color: '#6EE7B7', marginBottom: '20px' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: 'rgba(92, 237, 115, 0.12)', padding: '6px 14px', borderRadius: '20px', fontSize: '0.8125rem', fontWeight: 600, color: '#5CED73', border: '1px solid rgba(92, 237, 115, 0.25)', marginBottom: '20px' }}>
             <ShieldCheck size={16} />
             STUDENT PRIVACY & DATA TRANSPARENCY
           </div>
@@ -38,16 +38,16 @@ export default function PrivacyPolicyPage() {
             Website Privacy Policy
           </h1>
           <p style={{ fontSize: '1.05rem', color: '#94A3B8', maxWidth: '800px', lineHeight: 1.6, margin: 0 }}>
-            How Ahsora Meds Academy handles personal information, student records, learning diagnostics, and data privacy rights across Italy, Pakistan, and internationally.
+            How Ahsora Med Academy handles personal information, student records, learning diagnostics, and data privacy rights across Italy, Pakistan, and internationally.
           </p>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', marginTop: '28px', fontSize: '0.875rem', color: '#CBD5E1' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <Clock size={16} color="#34D399" />
+              <Clock size={16} color="#5CED73" />
               <span><strong>Effective Date:</strong> 1 May 2026</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <Globe size={16} color="#60A5FA" />
+              <Globe size={16} color="#34D399" />
               <span><strong>Operations:</strong> Italy, Pakistan & International</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -77,8 +77,8 @@ export default function PrivacyPolicyPage() {
               <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '16px 20px', marginTop: '12px' }}>
                 <div style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#64748B', marginBottom: '4px' }}>PRIVACY INQUIRIES & DATA RIGHTS DESK</div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Mail size={16} color="#2563EB" />
-                  <a href="mailto:admissions@ahsorameds.com?subject=Privacy%20Request" style={{ color: '#2563EB', fontWeight: 700, textDecoration: 'none' }}>
+                  <Mail size={16} color="#059669" />
+                  <a href="mailto:admissions@ahsorameds.com?subject=Privacy%20Request" style={{ color: '#059669', fontWeight: 700, textDecoration: 'none' }}>
                     admissions@ahsorameds.com
                   </a>
                   <span style={{ fontSize: '0.8125rem', color: '#64748B' }}>(Include “Privacy Request” in the subject line)</span>
@@ -333,7 +333,7 @@ export default function PrivacyPolicyPage() {
             <div style={{ backgroundColor: '#FFFFFF', padding: '18px', borderRadius: '14px', border: '1px solid #E2E8F0' }}>
               <Link
                 href="/terms"
-                style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.875rem', fontWeight: 700, color: '#2563EB', textDecoration: 'none' }}
+                style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.875rem', fontWeight: 700, color: '#059669', textDecoration: 'none' }}
               >
                 <FileText size={16} /> Terms of Use & Course Purchase &rarr;
               </Link>

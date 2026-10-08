@@ -53,7 +53,7 @@ const SUBJECTS = [
   { name:'Biology',          icon:<Beaker size={20}/>,     color:'#10B981', bg:'#F0FFF4' },
   { name:'Chemistry',        icon:<FlaskConical size={20}/>,color:'#F59E0B', bg:'#FFFBEB' },
   { name:'Physics',          icon:<Sigma size={20}/>,       color:'#8B5CF6', bg:'#F5F3FF' },
-  { name:'Mathematics',      icon:<Calculator size={20}/>,  color:'#3B82F6', bg:'#EFF6FF' },
+  { name:'Mathematics',      icon:<Calculator size={20}/>,  color:'#10B981', bg:'#F0FFF4' },
   { name:'Logical Reasoning',icon:<Brain size={20}/>,       color:'#EC4899', bg:'#FDF2F8' },
   { name:'Reading & Acquired Knowledge',icon:<Globe size={20}/>,       color:'#F97316', bg:'#FFF7ED' },
 ];
@@ -281,7 +281,7 @@ export default function PracticePage() {
       {/* Header */}
       <div style={{ marginBottom:'32px' }}>
         <div style={{ display:'flex', alignItems:'center', gap:'10px', marginBottom:'8px' }}>
-          <BookOpen size={28} color="#2563EB" />
+          <BookOpen size={28} color="#059669" />
           <h1 style={{ fontSize:'1.875rem', fontWeight:800, color:'#0F172A' }}>Question Bank & Practice</h1>
         </div>
         <p style={{ color:'#64748B', fontSize:'0.9375rem' }}>
@@ -330,7 +330,7 @@ export default function PracticePage() {
         {/* Config Panel */}
         <div style={{ backgroundColor:'#fff', borderRadius:'16px', border:'1px solid #E2E8F0', padding:'24px', position:'sticky', top:'80px' }}>
           <h2 style={{ fontSize:'1rem', fontWeight:700, color:'#334155', marginBottom:'18px' }}>
-            <Shuffle size={16} style={{ verticalAlign:'middle', marginRight:'6px', color:'#2563EB' }} />
+            <Shuffle size={16} style={{ verticalAlign:'middle', marginRight:'6px', color:'#059669' }} />
             Build Your Test
           </h2>
 
@@ -399,7 +399,7 @@ export default function PracticePage() {
             <label style={LS}>Number of Questions: <strong>{questionCount}</strong></label>
             <input type="range" min={5} max={100} step={5} value={questionCount}
               onChange={e => setQCount(Number(e.target.value))}
-              style={{ width:'100%', accentColor:'#2563EB' }} />
+              style={{ width:'100%', accentColor:'#059669' }} />
             <div style={{ display:'flex', justifyContent:'space-between', fontSize:'0.75rem', color:'#94A3B8' }}>
               <span>5</span><span>100</span>
             </div>
@@ -413,7 +413,7 @@ export default function PracticePage() {
             </label>
             <input type="range" min={0} max={180} step={5} value={timeLimit}
               onChange={e => setTimeLimit(Number(e.target.value))}
-              style={{ width:'100%', accentColor:'#2563EB' }} />
+              style={{ width:'100%', accentColor:'#059669' }} />
             <div style={{ display:'flex', justifyContent:'space-between', fontSize:'0.75rem', color:'#94A3B8' }}>
               <span>Untimed</span><span>180 min</span>
             </div>
@@ -422,7 +422,7 @@ export default function PracticePage() {
           <button onClick={handleCreate} disabled={creating}
             style={{ width:'100%', display:'flex', alignItems:'center', justifyContent:'center',
               gap:'8px', padding:'13px', borderRadius:'10px', border:'none',
-              backgroundColor:'#2563EB', color:'#fff', fontWeight:700, fontSize:'0.9375rem',
+              backgroundColor:'#059669', color:'#fff', fontWeight:700, fontSize:'0.9375rem',
               cursor: creating?'not-allowed':'pointer', opacity: creating?0.7:1 }}>
             {creating
               ? <><Loader2 size={16} style={{ animation:'spin 1s linear infinite' }} /> Creating…</>

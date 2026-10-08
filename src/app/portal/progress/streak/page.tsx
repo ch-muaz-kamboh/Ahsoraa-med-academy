@@ -162,7 +162,7 @@ export default function StudentStreakHistoryPage() {
 
         <div style={{ backgroundColor: '#FFFFFF', padding: '24px', borderRadius: '16px', border: '1px solid #E2E8F0', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-            <TrendingUp size={20} color="#2563EB" />
+            <TrendingUp size={20} color="#059669" />
             <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#64748B' }}>TOTAL SESSIONS</span>
           </div>
           <div style={{ fontSize: '2rem', fontWeight: 900, color: '#0F172A' }}>{totalSessions}</div>
@@ -207,7 +207,7 @@ export default function StudentStreakHistoryPage() {
               <div key={idx} style={{ padding: '16px 20px', borderRadius: '12px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
                   <strong style={{ fontSize: '0.9rem', color: '#0F172A' }}>{w.label}</strong>
-                  <span style={{ fontSize: '0.8125rem', color: '#2563EB', fontWeight: 700 }}>
+                  <span style={{ fontSize: '0.8125rem', color: '#059669', fontWeight: 700 }}>
                     {w.days.filter(Boolean).length}/7 days active
                   </span>
                 </div>

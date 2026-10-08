@@ -42,7 +42,7 @@ export default function StaffDashboardPage() {
         }}
       >
         <div>
-          <div style={{ fontSize: '0.8125rem', color: '#38BDF8', fontWeight: 600, letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: '6px' }}>
+          <div style={{ fontSize: '0.8125rem', color: '#5CED73', fontWeight: 600, letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: '6px' }}>
             Faculty Task Workspace
           </div>
           <h1 style={{ fontSize: '1.75rem', fontWeight: 700, marginBottom: '8px', color: '#FFFFFF' }}>
@@ -57,7 +57,7 @@ export default function StaffDashboardPage() {
           <Link
             href="/staff/question-bank"
             className="btn-primary"
-            style={{ backgroundColor: '#2563EB', padding: '10px 18px', fontSize: '0.875rem' }}
+            style={{ backgroundColor: '#059669', padding: '10px 18px', fontSize: '0.875rem' }}
           >
             <Plus size={16} /> New Question Draft
           </Link>
@@ -73,10 +73,10 @@ export default function StaffDashboardPage() {
 
       {/* Metric Cards Grid */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px', marginBottom: '32px' }}>
-        <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '20px', borderLeft: '4px solid #2563EB' }}>
+        <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '20px', borderLeft: '4px solid #059669' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
             <span style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>TODAY'S CLASSES</span>
-            <div style={{ width: '36px', height: '36px', borderRadius: '8px', backgroundColor: '#EFF6FF', color: '#2563EB', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ width: '36px', height: '36px', borderRadius: '8px', backgroundColor: '#F0FFF4', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Calendar size={20} />
             </div>
           </div>
@@ -127,7 +127,7 @@ export default function StaffDashboardPage() {
               <h2 style={{ fontSize: '1.125rem', fontWeight: 700, color: '#0F172A' }}>
                 Assigned Live Class Schedule
               </h2>
-              <Link href="/staff/schedule" style={{ fontSize: '0.8125rem', color: '#2563EB', fontWeight: 600, textDecoration: 'none' }}>
+              <Link href="/staff/schedule" style={{ fontSize: '0.8125rem', color: '#059669', fontWeight: 600, textDecoration: 'none' }}>
                 View All Schedule →
               </Link>
             </div>
@@ -190,7 +190,7 @@ export default function StaffDashboardPage() {
               <h2 style={{ fontSize: '1.125rem', fontWeight: 700, color: '#0F172A' }}>
                 Pending Student Doubts & Questions
               </h2>
-              <Link href="/staff/doubts" style={{ fontSize: '0.8125rem', color: '#2563EB', fontWeight: 600, textDecoration: 'none' }}>
+              <Link href="/staff/doubts" style={{ fontSize: '0.8125rem', color: '#059669', fontWeight: 600, textDecoration: 'none' }}>
                 Doubt Resolution Desk →
               </Link>
             </div>
@@ -213,7 +213,7 @@ export default function StaffDashboardPage() {
                     </p>
                     <Link
                       href="/staff/doubts"
-                      style={{ fontSize: '0.8125rem', color: '#2563EB', fontWeight: 600, textDecoration: 'none' }}
+                      style={{ fontSize: '0.8125rem', color: '#059669', fontWeight: 600, textDecoration: 'none' }}
                     >
                       Answer Doubt →
                     </Link>
@@ -257,7 +257,7 @@ export default function StaffDashboardPage() {
             <Link
               href="/staff/question-bank"
               className="btn-primary"
-              style={{ width: '100%', textAlign: 'center', backgroundColor: '#2563EB', fontSize: '0.8125rem' }}
+              style={{ width: '100%', textAlign: 'center', backgroundColor: '#059669', fontSize: '0.8125rem' }}
             >
               Open Question Bank
             </Link>

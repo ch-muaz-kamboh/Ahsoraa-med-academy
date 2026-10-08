@@ -339,7 +339,7 @@ export default function IMATContent() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {[
                   { title: 'Biology', qs: 23, color: '#16A34A', pct: 38 },
-                  { title: 'Chemistry', qs: 15, color: '#0EA5E9', pct: 25 },
+                  { title: 'Chemistry', qs: 15, color: '#10B981', pct: 25 },
                   { title: 'Physics & Maths', qs: 13, color: '#8B5CF6', pct: 22 },
                   { title: 'Logical Reasoning', qs: 5, color: '#F59E0B', pct: 8 },
                   { title: 'Reading & Knowledge', qs: 4, color: '#EC4899', pct: 7 },
@@ -659,7 +659,7 @@ export default function IMATContent() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {[
                 { label: 'Average annual tuition (public)', value: '€156 – €3,000+', note: 'Scaled to ISEE household income', color: '#16A34A' },
-                { label: 'Regional Scholarship (living stipend)', value: 'Up to €11,000/yr', note: 'Accommodation + cash allowance for eligible students', color: '#0EA5E9' },
+                { label: 'Regional Scholarship (living stipend)', value: 'Up to €11,000/yr', note: 'Accommodation + cash allowance for eligible students', color: '#10B981' },
                 { label: 'Exam registration fee', value: '~€130', note: 'Paid at time of IMAT registration (TBC annually)', color: '#8B5CF6' },
                 { label: 'vs. UK private Medicine', value: '5–10× cheaper', note: 'Typical comparison against private UK med school fees', color: '#F59E0B' },
               ].map((fact, i) => (

@@ -167,7 +167,7 @@ export default function PortalTestsPage() {
                 <strong style={{ color: '#EF4444' }}>-{test.negativeMark}</strong>
               </div>
               <div>
-                Passing: <strong style={{ color: '#2563EB' }}>{test.passingPercentage}%</strong>
+                Passing: <strong style={{ color: '#059669' }}>{test.passingPercentage}%</strong>
               </div>
             </div>
 

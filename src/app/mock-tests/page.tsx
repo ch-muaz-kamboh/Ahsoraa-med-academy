@@ -21,7 +21,7 @@ export default function MockTestsPage() {
       <div className="container">
         {/* Header */}
         <div style={{ marginBottom: '36px', textAlign: 'center', maxWidth: '720px', margin: '0 auto 40px auto' }}>
-          <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#2563EB', textTransform: 'uppercase' }}>
+          <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#059669', textTransform: 'uppercase' }}>
             Computer-Based Testing (CBT)
           </span>
           <h1 style={{ fontSize: '2.4rem', color: '#0F172A', marginTop: '4px', marginBottom: '12px' }}>
@@ -143,7 +143,7 @@ export default function MockTestsPage() {
                 </div>
                 <div>
                   <span style={{ color: '#64748B' }}>Passing:</span>{' '}
-                  <strong style={{ color: '#2563EB' }}>{test.passingPercentage}%</strong>
+                  <strong style={{ color: '#059669' }}>{test.passingPercentage}%</strong>
                 </div>
               </div>
 

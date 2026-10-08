@@ -90,8 +90,8 @@ export default function TestResultsPage({
       {/* Top Banner */}
       <div
         style={{
-          backgroundColor: isPassed ? '#EFF6FF' : '#FEF2F2',
-          border: `1px solid ${isPassed ? '#BFDBFE' : '#FECACA'}`,
+          backgroundColor: isPassed ? '#F0FFF4' : '#FEF2F2',
+          border: `1px solid ${isPassed ? '#BBF7D0' : '#FECACA'}`,
           borderRadius: '16px',
           padding: '32px',
           marginBottom: '32px',
@@ -146,7 +146,7 @@ export default function TestResultsPage({
       >
         <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '20px', textAlign: 'center' }}>
           <div style={{ fontSize: '0.8125rem', color: '#64748B', marginBottom: '4px' }}>Net Final Score</div>
-          <div style={{ fontSize: '2rem', fontWeight: 800, color: '#2563EB' }}>
+          <div style={{ fontSize: '2rem', fontWeight: 800, color: '#059669' }}>
             {attempt.totalScore} <span style={{ fontSize: '1rem', color: '#94A3B8' }}>/ {totalMaxMarks}</span>
           </div>
           <div style={{ fontSize: '0.75rem', color: '#10B981', fontWeight: 600 }}>
@@ -207,7 +207,7 @@ export default function TestResultsPage({
                     style={{
                       width: `${mastery}%`,
                       height: '100%',
-                      backgroundColor: mastery >= 80 ? '#10B981' : mastery >= 50 ? '#2563EB' : '#EF4444',
+                      backgroundColor: mastery >= 80 ? '#10B981' : mastery >= 50 ? '#059669' : '#EF4444',
                     }}
                   />
                 </div>
@@ -235,7 +235,7 @@ export default function TestResultsPage({
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-                <span style={{ fontWeight: 700, color: '#2563EB', fontSize: '0.9375rem' }}>
+                <span style={{ fontWeight: 700, color: '#059669', fontSize: '0.9375rem' }}>
                   Question {idx + 1}: {q.subject}
                 </span>
                 <span className="badge badge-green">
@@ -280,12 +280,12 @@ export default function TestResultsPage({
               {/* Explanation Box */}
               <div
                 style={{
-                  backgroundColor: '#EFF6FF',
-                  border: '1px solid #DBEAFE',
+                  backgroundColor: '#F0FFF4',
+                  border: '1px solid #DCFCE7',
                   borderRadius: '8px',
                   padding: '14px 16px',
                   fontSize: '0.875rem',
-                  color: '#1E3A8A',
+                  color: '#14532D',
                   lineHeight: 1.6,
                 }}
               >

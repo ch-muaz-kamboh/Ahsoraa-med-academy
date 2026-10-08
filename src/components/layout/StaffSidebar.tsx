@@ -168,20 +168,20 @@ export default function StaffSidebar() {
                 fontSize: '0.875rem',
                 fontWeight: isActive ? 600 : 500,
                 color: isActive ? '#FFFFFF' : '#94A3B8',
-                backgroundColor: isActive ? '#2563EB' : 'transparent',
+                backgroundColor: isActive ? '#059669' : 'transparent',
                 textDecoration: 'none',
                 transition: 'all 0.15s ease',
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <span style={{ color: isActive ? '#FFFFFF' : '#38BDF8' }}>{item.icon}</span>
+                <span style={{ color: isActive ? '#FFFFFF' : '#5CED73' }}>{item.icon}</span>
                 <span>{item.label}</span>
               </div>
               {item.badge && (
                 <span
                   style={{
-                    backgroundColor: isActive ? '#1D4ED8' : '#1E293B',
-                    color: isActive ? '#FFFFFF' : '#38BDF8',
+                    backgroundColor: isActive ? '#047857' : '#1E293B',
+                    color: isActive ? '#FFFFFF' : '#5CED73',
                     fontSize: '0.6875rem',
                     padding: '2px 8px',
                     borderRadius: '12px',

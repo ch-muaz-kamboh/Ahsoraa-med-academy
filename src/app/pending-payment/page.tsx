@@ -156,8 +156,8 @@ function PendingPaymentContent() {
           {/* Selected Package Banner */}
           <div
             style={{
-              backgroundColor: '#EFF6FF',
-              border: '2px solid #3B82F6',
+              backgroundColor: '#F0FFF4',
+              border: '2px solid #10B981',
               borderRadius: '18px',
               padding: '20px 24px',
               marginBottom: '28px',
@@ -169,7 +169,7 @@ function PendingPaymentContent() {
             }}
           >
             <div>
-              <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#2563EB', textTransform: 'uppercase', letterSpacing: '1px' }}>
+              <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#059669', textTransform: 'uppercase', letterSpacing: '1px' }}>
                 Selected Academy Package
               </div>
               <div style={{ fontSize: '1.35rem', fontWeight: 900, color: '#0F172A', marginTop: '2px' }}>
@@ -194,7 +194,7 @@ function PendingPaymentContent() {
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <User size={18} color="#2563EB" />
+                <User size={18} color="#059669" />
                 <div>
                   <div style={{ fontSize: '0.75rem', color: '#64748B' }}>Full Name</div>
                   <div style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#0F172A' }}>{studentDetails?.fullName || studentDetails?.full_name || 'Student'}</div>
@@ -202,7 +202,7 @@ function PendingPaymentContent() {
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <Mail size={18} color="#2563EB" />
+                <Mail size={18} color="#059669" />
                 <div>
                   <div style={{ fontSize: '0.75rem', color: '#64748B' }}>Email</div>
                   <div style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#0F172A' }}>{studentDetails?.email}</div>
@@ -210,7 +210,7 @@ function PendingPaymentContent() {
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <Globe size={18} color="#2563EB" />
+                <Globe size={18} color="#059669" />
                 <div>
                   <div style={{ fontSize: '0.75rem', color: '#64748B' }}>Country</div>
                   <div style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#0F172A' }}>{studentDetails?.country || 'Italy'}</div>
@@ -218,7 +218,7 @@ function PendingPaymentContent() {
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <Phone size={18} color="#2563EB" />
+                <Phone size={18} color="#059669" />
                 <div>
                   <div style={{ fontSize: '0.75rem', color: '#64748B' }}>WhatsApp Number</div>
                   <div style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#0F172A' }}>{studentDetails?.whatsappNumber || studentDetails?.whatsapp_number || 'Not specified'}</div>

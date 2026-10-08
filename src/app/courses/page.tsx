@@ -193,7 +193,7 @@ function AnimatedDashboardMockup() {
 
   const subjects = [
     { name: 'Biology', pct: 94, color: '#10B981' },
-    { name: 'Chemistry', pct: 88, color: '#3B82F6' },
+    { name: 'Chemistry', pct: 88, color: '#10B981' },
     { name: 'Physics & Math', pct: 78, color: '#F59E0B' },
     { name: 'Logical Reasoning', pct: 92, color: '#8B5CF6' },
   ];
@@ -249,7 +249,7 @@ function AnimatedDashboardMockup() {
         }}>
           <div style={{ backgroundColor: 'rgba(30, 41, 59, 0.7)', borderRadius: '10px', padding: '10px 12px', border: '1px solid rgba(255,255,255,0.06)' }}>
             <div style={{ fontSize: '0.7rem', color: '#94A3B8', fontWeight: 600, marginBottom: '2px' }}>Solved Questions</div>
-            <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#38BDF8', letterSpacing: '-0.5px' }}>
+            <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#5CED73', letterSpacing: '-0.5px' }}>
               {questions.toLocaleString()}
             </div>
             <div style={{ fontSize: '0.65rem', color: '#10B981', fontWeight: 700, marginTop: '2px' }}>↑ +14 today</div>
@@ -331,7 +331,7 @@ function AnimatedDashboardMockup() {
                       width: '100%',
                       maxWidth: '14px',
                       height: inView ? `${bar.height}%` : '0%',
-                      backgroundColor: i === 6 ? '#5CED73' : '#38BDF8',
+                      backgroundColor: i === 6 ? '#5CED73' : '#5CED73',
                       borderRadius: '3px 3px 0 0',
                       transition: `height 1.6s cubic-bezier(0.16, 1, 0.3, 1) ${0.2 + i * 0.1}s`,
                       opacity: i === 6 ? 1 : 0.75
@@ -396,9 +396,9 @@ function ProgrammeQuiz({ onLead }: { onLead: () => void }) {
   };
 
   const resultMeta: Record<string, { icon: React.ReactNode; color: string; desc: string }> = {
-    'Ascent': { icon: <Compass size={32} color="#3B82F6" />, color: '#3B82F6', desc: 'Self-paced, structured preparation with full portal access.' },
+    'Ascent': { icon: <Compass size={32} color="#10B981" />, color: '#10B981', desc: 'Self-paced, structured preparation with full portal access.' },
     'Mastery': { icon: <GraduationCap size={32} color="#d4af37" />, color: '#d4af37', desc: 'Live classes, structured prep, and continuous support.' },
-    'MedPath Elite': { icon: <Globe2 size={32} color="#1E3A8A" />, color: '#1E3A8A', desc: 'Full IMAT prep plus admissions and university guidance.' },
+    'MedPath Elite': { icon: <Globe2 size={32} color="#14532D" />, color: '#14532D', desc: 'Full IMAT prep plus admissions and university guidance.' },
   };
 
   if (result) {
@@ -458,9 +458,9 @@ export default function CoursesPage() {
     {
       id: 'ascent',
       name: 'IMAT Ascent',
-      icon: <Compass size={24} color="#3B82F6" />,
-      accentColor: '#3B82F6',
-      accentBg: '#EFF6FF',
+      icon: <Compass size={24} color="#10B981" />,
+      accentColor: '#10B981',
+      accentBg: '#F0FFF4',
       badge: null,
       tagline: 'Start with Confidence.',
       desc: 'For students who want to prepare independently with a structured, proven system.',
@@ -487,9 +487,9 @@ export default function CoursesPage() {
     {
       id: 'elite',
       name: 'MedPath Elite',
-      icon: <Globe2 size={24} color="#1E3A8A" />,
-      accentColor: '#1E3A8A',
-      accentBg: '#EFF6FF',
+      icon: <Globe2 size={24} color="#14532D" />,
+      accentColor: '#14532D',
+      accentBg: '#F0FFF4',
       badge: 'Recommended',
       tagline: 'Your Complete Journey.',
       desc: 'For students who want IMAT preparation plus university and admissions support.',
@@ -610,7 +610,7 @@ export default function CoursesPage() {
               label: 'Student Portal', question: 'What will I use every day?',
               title: 'Your Entire Preparation. One Dashboard.',
               desc: 'Question bank, topic-wise practice, full mock exams, and a personal dashboard that tracks everything in one place with real-time score animations and insights.',
-              icon: <BarChart2 size={44} color="#3B82F6" />, flip: true,
+              icon: <BarChart2 size={44} color="#10B981" />, flip: true,
               isAnimatedDashboard: true,
             },
             {
@@ -899,7 +899,7 @@ export default function CoursesPage() {
               <p style={{ color: 'var(--text-light)', lineHeight: 1.7, fontSize: '1.05rem' }}>Four quick questions. Immediate result. No sign-up required to see your recommendation.</p>
               <div style={{ marginTop: '32px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 {[
-                  { icon: <Compass size={18} color="#3B82F6" />, label: 'Ascent', desc: 'Self-paced prep' },
+                  { icon: <Compass size={18} color="#10B981" />, label: 'Ascent', desc: 'Self-paced prep' },
                   { icon: <GraduationCap size={18} color="#d4af37" />, label: 'Mastery', desc: 'Live classes' },
                   { icon: <Globe2 size={18} color="var(--text-light)" />, label: 'MedPath Elite', desc: 'Full journey support' },
                 ].map((t, i) => (

@@ -290,7 +290,7 @@ export default function HomePage() {
       topic: 'Organic Chemistry: Reactions & Mechanisms',
       teacher: 'Dr. Rania S.',
       initials: 'RS',
-      color: '#3B82F6',
+      color: '#10B981',
       time: 'Thu — 5:30 PM',
       live: false,
     },

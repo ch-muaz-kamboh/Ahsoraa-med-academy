@@ -69,7 +69,7 @@ export default function PracticeHistoryPage() {
         </div>
         <Link href='/portal/practice'
           style={{ display:'flex', alignItems:'center', gap:'8px', padding:'10px 18px',
-            borderRadius:'9px', border:'none', backgroundColor:'#2563EB', color:'#fff',
+            borderRadius:'9px', border:'none', backgroundColor:'#059669', color:'#fff',
             fontWeight:700, fontSize:'0.875rem', textDecoration:'none' }}>
           <RefreshCcw size={14} /> New Practice Test
         </Link>
@@ -78,7 +78,7 @@ export default function PracticeHistoryPage() {
       {/* Summary Stats */}
       {sessions.filter(s => s.status==='submitted').length > 0 && (
         <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(160px,1fr))', gap:'14px', marginBottom:'24px' }}>
-          <StatCard label='Sessions Completed' value={sessions.filter(s=>s.status==='submitted').length.toString()} color='#2563EB' />
+          <StatCard label='Sessions Completed' value={sessions.filter(s=>s.status==='submitted').length.toString()} color='#059669' />
           <StatCard label='Total Questions' value={totalQs.toLocaleString()} color='#8B5CF6' />
           <StatCard label='Total Correct' value={totalCorrect.toLocaleString()} color='#059669' />
           <StatCard label='Average Score' value={avgPct.toFixed(1)+'%'} color={avgPct>=70?'#059669':avgPct>=50?'#F59E0B':'#EF4444'} />
@@ -88,8 +88,8 @@ export default function PracticeHistoryPage() {
       {/* Filter */}
       <div style={{ display:'flex', gap:'8px', marginBottom:'16px' }}>
         <button onClick={() => setMistakeFilter(false)}
-          style={{ padding:'7px 14px', borderRadius:'7px', border:'1px solid '+(mistakeFilter?'#E2E8F0':'#2563EB'),
-            backgroundColor: mistakeFilter?'#F8FAFC':'#EFF6FF', color: mistakeFilter?'#64748B':'#2563EB',
+          style={{ padding:'7px 14px', borderRadius:'7px', border:'1px solid '+(mistakeFilter?'#E2E8F0':'#059669'),
+            backgroundColor: mistakeFilter?'#F8FAFC':'#F0FFF4', color: mistakeFilter?'#64748B':'#059669',
             fontWeight:600, fontSize:'0.8125rem', cursor:'pointer' }}>All Sessions</button>
         <button onClick={() => setMistakeFilter(true)}
           style={{ padding:'7px 14px', borderRadius:'7px', border:'1px solid '+(mistakeFilter?'#EF4444':'#E2E8F0'),
@@ -103,7 +103,7 @@ export default function PracticeHistoryPage() {
         <div style={{ textAlign:'center', padding:'60px 20px', color:'#94A3B8' }}>
           <BookOpen size={40} strokeWidth={1} />
           <p style={{ marginTop:'12px' }}>{mistakeFilter ? 'No sessions with mistakes found.' : 'No practice sessions yet.'}</p>
-          <Link href='/portal/practice' style={{ color:'#2563EB', fontWeight:600, textDecoration:'none', fontSize:'0.9rem' }}>
+          <Link href='/portal/practice' style={{ color:'#059669', fontWeight:600, textDecoration:'none', fontSize:'0.9rem' }}>
             Start your first practice test →
           </Link>
         </div>
@@ -155,7 +155,7 @@ export default function PracticeHistoryPage() {
                     <span style={{ fontSize:'0.8125rem', color:'#F59E0B', fontWeight:600 }}>In Progress</span>
                     <Link href={'/portal/practice/' + sess.id + '/take'}
                       style={{ padding:'7px 14px', borderRadius:'7px', border:'none',
-                        backgroundColor:'#2563EB', color:'#fff', textDecoration:'none',
+                        backgroundColor:'#059669', color:'#fff', textDecoration:'none',
                         fontSize:'0.8125rem', fontWeight:700 }}>
                       Resume
                     </Link>

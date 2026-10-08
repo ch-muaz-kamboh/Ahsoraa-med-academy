@@ -66,7 +66,7 @@ export default function CoursePlayerPage({
               alignItems: 'center',
               gap: '6px',
               fontSize: '0.8125rem',
-              color: '#2563EB',
+              color: '#059669',
               fontWeight: 600,
               marginBottom: '4px',
             }}
@@ -85,9 +85,9 @@ export default function CoursePlayerPage({
               display: 'inline-flex',
               alignItems: 'center',
               gap: '8px',
-              backgroundColor: currentLesson.isCompleted ? '#ECFDF5' : '#EFF6FF',
-              color: currentLesson.isCompleted ? '#065F46' : '#1D4ED8',
-              border: `1px solid ${currentLesson.isCompleted ? '#A7F3D0' : '#BFDBFE'}`,
+              backgroundColor: currentLesson.isCompleted ? '#ECFDF5' : '#F0FFF4',
+              color: currentLesson.isCompleted ? '#065F46' : '#047857',
+              border: `1px solid ${currentLesson.isCompleted ? '#A7F3D0' : '#BBF7D0'}`,
               padding: '8px 16px',
               borderRadius: '8px',
               fontWeight: 600,
@@ -144,7 +144,7 @@ export default function CoursePlayerPage({
               />
             ) : (
               <div style={{ textAlign: 'center', color: '#94A3B8', padding: '20px' }}>
-                <Video size={48} color="#3B82F6" style={{ margin: '0 auto 12px auto' }} />
+                <Video size={48} color="#10B981" style={{ margin: '0 auto 12px auto' }} />
                 <h3 style={{ color: '#FFFFFF', fontSize: '1.2rem', marginBottom: '6px' }}>
                   {currentLesson?.title || 'Interactive Lesson'}
                 </h3>
@@ -171,8 +171,8 @@ export default function CoursePlayerPage({
                 style={{
                   fontWeight: 600,
                   fontSize: '0.9375rem',
-                  color: activeTab === 'notes' ? '#2563EB' : '#64748B',
-                  borderBottom: activeTab === 'notes' ? '2px solid #2563EB' : '2px solid transparent',
+                  color: activeTab === 'notes' ? '#059669' : '#64748B',
+                  borderBottom: activeTab === 'notes' ? '2px solid #059669' : '2px solid transparent',
                   paddingBottom: '10px',
                   display: 'flex',
                   alignItems: 'center',
@@ -186,8 +186,8 @@ export default function CoursePlayerPage({
                 style={{
                   fontWeight: 600,
                   fontSize: '0.9375rem',
-                  color: activeTab === 'resources' ? '#2563EB' : '#64748B',
-                  borderBottom: activeTab === 'resources' ? '2px solid #2563EB' : '2px solid transparent',
+                  color: activeTab === 'resources' ? '#059669' : '#64748B',
+                  borderBottom: activeTab === 'resources' ? '2px solid #059669' : '2px solid transparent',
                   paddingBottom: '10px',
                   display: 'flex',
                   alignItems: 'center',
@@ -201,8 +201,8 @@ export default function CoursePlayerPage({
                 style={{
                   fontWeight: 600,
                   fontSize: '0.9375rem',
-                  color: activeTab === 'qna' ? '#2563EB' : '#64748B',
-                  borderBottom: activeTab === 'qna' ? '2px solid #2563EB' : '2px solid transparent',
+                  color: activeTab === 'qna' ? '#059669' : '#64748B',
+                  borderBottom: activeTab === 'qna' ? '2px solid #059669' : '2px solid transparent',
                   paddingBottom: '10px',
                   display: 'flex',
                   alignItems: 'center',
@@ -244,7 +244,7 @@ export default function CoursePlayerPage({
                     }}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <FileText size={18} color="#2563EB" />
+                      <FileText size={18} color="#059669" />
                       <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0F172A' }}>
                         High-Yield Summary Sheet (PDF)
                       </span>
@@ -319,8 +319,8 @@ export default function CoursePlayerPage({
                           justifyContent: 'space-between',
                           padding: '10px 12px',
                           borderRadius: '8px',
-                          backgroundColor: isActive ? '#EFF6FF' : 'transparent',
-                          border: isActive ? '1px solid #BFDBFE' : '1px solid transparent',
+                          backgroundColor: isActive ? '#F0FFF4' : 'transparent',
+                          border: isActive ? '1px solid #BBF7D0' : '1px solid transparent',
                           cursor: 'pointer',
                           transition: 'all 0.15s ease',
                         }}
@@ -342,7 +342,7 @@ export default function CoursePlayerPage({
                             style={{
                               fontSize: '0.8125rem',
                               fontWeight: isActive ? 700 : 500,
-                              color: isActive ? '#1D4ED8' : '#334155',
+                              color: isActive ? '#047857' : '#334155',
                               whiteSpace: 'nowrap',
                               overflow: 'hidden',
                               textOverflow: 'ellipsis',

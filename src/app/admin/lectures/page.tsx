@@ -44,7 +44,7 @@ export default function AdminLecturesPage() {
         <button
           onClick={() => setUploadModal(true)}
           className="btn-primary"
-          style={{ backgroundColor: '#2563EB', padding: '8px 16px', fontSize: '0.875rem' }}
+          style={{ backgroundColor: '#059669', padding: '8px 16px', fontSize: '0.875rem' }}
         >
           Upload Video
         </button>
@@ -55,7 +55,7 @@ export default function AdminLecturesPage() {
         {videos.map((vid) => (
           <div key={vid.id} style={{ padding: '12px', border: '1px solid #E2E8F0', borderRadius: '8px' }}>
             <p style={{ fontWeight: '500' }}>{vid.title}</p>
-            <a href={vid.url} target="_blank" rel="noopener noreferrer" style={{ color: '#2563EB' }}>
+            <a href={vid.url} target="_blank" rel="noopener noreferrer" style={{ color: '#059669' }}>
               View
             </a>
           </div>
@@ -124,7 +124,7 @@ export default function AdminLecturesPage() {
                 >
                   Cancel
                 </button>
-                <button type="submit" className="btn-primary" style={{ backgroundColor: '#2563EB', fontSize: '0.875rem' }}>
+                <button type="submit" className="btn-primary" style={{ backgroundColor: '#059669', fontSize: '0.875rem' }}>
                   Upload
                 </button>
               </div>

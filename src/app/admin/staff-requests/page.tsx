@@ -77,7 +77,7 @@ export default function AdminStaffRequestsPage() {
         }}
       >
         <div>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', fontWeight: 700, color: '#38BDF8', letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: '8px' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', fontWeight: 700, color: '#5CED73', letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: '8px' }}>
             <ShieldCheck size={14} />
             <span>Governance & Granular Permission Control</span>
           </div>
@@ -129,7 +129,7 @@ export default function AdminStaffRequestsPage() {
               borderRadius: '8px',
               fontSize: '0.875rem',
               fontWeight: filterStatus === tab.id ? 700 : 500,
-              backgroundColor: filterStatus === tab.id ? '#2563EB' : '#FFFFFF',
+              backgroundColor: filterStatus === tab.id ? '#059669' : '#FFFFFF',
               color: filterStatus === tab.id ? '#FFFFFF' : '#64748B',
               border: '1px solid #E2E8F0',
               cursor: 'pointer',
@@ -215,7 +215,7 @@ export default function AdminStaffRequestsPage() {
                     </div>
                     <div style={{ fontSize: '0.8125rem', color: '#64748B', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                       <span><Mail size={14} style={{ display: 'inline', verticalAlign: '-2px' }} /> {account.email}</span>
-                      <span>• Access Modules: <strong style={{ color: '#2563EB' }}>{activePermsCount} Enabled</strong></span>
+                      <span>• Access Modules: <strong style={{ color: '#059669' }}>{activePermsCount} Enabled</strong></span>
                     </div>
                     <div style={{ fontSize: '0.8125rem', color: '#475569', marginTop: '6px' }}>
                       Assigned Subjects: <strong>{account.assignedSubjects.join(', ')}</strong> | Cohorts: <strong>{account.assignedCohorts.join(' & ')}</strong>
@@ -301,7 +301,7 @@ export default function AdminStaffRequestsPage() {
         }}>
           <div style={{ backgroundColor: '#FFFFFF', borderRadius: '20px', maxWidth: '600px', width: '100%', padding: '28px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', maxHeight: '90vh', overflowY: 'auto' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-              <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#EFF6FF', color: '#2563EB', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#F0FFF4', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Key size={20} />
               </div>
               <div>
@@ -332,8 +332,8 @@ export default function AdminStaffRequestsPage() {
                       gap: '14px',
                       padding: '12px 16px',
                       borderRadius: '12px',
-                      border: isChecked ? '2px solid #2563EB' : '1px solid #E2E8F0',
-                      backgroundColor: isChecked ? '#EFF6FF' : '#F8FAFC',
+                      border: isChecked ? '2px solid #059669' : '1px solid #E2E8F0',
+                      backgroundColor: isChecked ? '#F0FFF4' : '#F8FAFC',
                       cursor: 'pointer',
                       transition: 'all 0.15s ease'
                     }}
@@ -342,10 +342,10 @@ export default function AdminStaffRequestsPage() {
                       type="checkbox"
                       checked={isChecked}
                       onChange={() => {}} // handled by parent onClick
-                      style={{ marginTop: '3px', width: '18px', height: '18px', accentColor: '#2563EB', cursor: 'pointer' }}
+                      style={{ marginTop: '3px', width: '18px', height: '18px', accentColor: '#059669', cursor: 'pointer' }}
                     />
                     <div>
-                      <div style={{ fontSize: '0.9375rem', fontWeight: 700, color: isChecked ? '#1E40AF' : '#0F172A' }}>
+                      <div style={{ fontSize: '0.9375rem', fontWeight: 700, color: isChecked ? '#166534' : '#0F172A' }}>
                         {perm.label}
                       </div>
                       <div style={{ fontSize: '0.8rem', color: '#64748B', marginTop: '2px' }}>
@@ -366,7 +366,7 @@ export default function AdminStaffRequestsPage() {
               </button>
               <button
                 onClick={handleSavePermissions}
-                style={{ backgroundColor: '#2563EB', border: 'none', color: '#FFFFFF', padding: '10px 22px', borderRadius: '8px', fontSize: '0.875rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
+                style={{ backgroundColor: '#059669', border: 'none', color: '#FFFFFF', padding: '10px 22px', borderRadius: '8px', fontSize: '0.875rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
               >
                 <Check size={16} /> Save Access Permissions
               </button>

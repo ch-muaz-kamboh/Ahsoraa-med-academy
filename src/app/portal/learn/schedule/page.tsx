@@ -54,7 +54,7 @@ export default function StudentSchedulePage() {
             width: '96px',
             height: '96px',
             borderRadius: '28px',
-            background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)',
+            background: 'linear-gradient(135deg, #10B981, #047857)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -64,13 +64,13 @@ export default function StudentSchedulePage() {
             <Lock size={44} color="#FFFFFF" />
           </div>
 
-          <div style={{ display: 'inline-block', backgroundColor: '#DBEAFE', border: '1px solid #BFDBFE', color: '#1E40AF', fontSize: '0.75rem', fontWeight: 800, padding: '4px 12px', borderRadius: '20px', letterSpacing: '0.5px', marginBottom: '16px' }}>
+          <div style={{ display: 'inline-block', backgroundColor: '#DCFCE7', border: '1px solid #BBF7D0', color: '#166534', fontSize: '0.75rem', fontWeight: 800, padding: '4px 12px', borderRadius: '20px', letterSpacing: '0.5px', marginBottom: '16px' }}>
             LIVE CLASSES — EXCLUSIVE TO MASTERY & ELITE
           </div>
 
           <h1 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#0F172A', marginBottom: '12px', lineHeight: 1.2 }}>
             This section is reserved for<br />
-            <span style={{ color: '#2563EB' }}>Mastery & Elite</span> students
+            <span style={{ color: '#059669' }}>Mastery & Elite</span> students
           </h1>
           <p style={{ color: '#64748B', fontSize: '0.9375rem', lineHeight: 1.6, marginBottom: '24px' }}>
             The interactive live schedule and real-time classes are exclusively available for students enrolled in our Mastery and Path Elite packages. Ascend students have full access to recorded lectures, library, and practice banks.
@@ -91,7 +91,7 @@ export default function StudentSchedulePage() {
               'Full Past Paper Live Breakdowns (2011 - 2025)',
             ].map((feat, idx) => (
               <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.875rem', color: '#334155' }}>
-                <CheckCircle2 size={18} color="#2563EB" style={{ flexShrink: 0 }} />
+                <CheckCircle2 size={18} color="#059669" style={{ flexShrink: 0 }} />
                 <span>{feat}</span>
               </div>
             ))}
@@ -103,7 +103,7 @@ export default function StudentSchedulePage() {
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                backgroundColor: '#2563EB',
+                backgroundColor: '#059669',
                 color: '#FFFFFF',
                 padding: '14px 28px',
                 borderRadius: '12px',
@@ -113,7 +113,7 @@ export default function StudentSchedulePage() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '8px',
-                boxShadow: '0 8px 20px -4px rgba(37, 99, 235, 0.4)',
+                boxShadow: '0 8px 20px -4px rgba(5, 150, 105, 0.4)',
               }}
             >
               <Sparkles size={18} />
@@ -148,12 +148,12 @@ export default function StudentSchedulePage() {
       {/* Top Banner Header */}
       <div
         style={{
-          background: 'linear-gradient(135deg, #1E3A8A 0%, #2563EB 50%, #3B82F6 100%)',
+          background: 'linear-gradient(135deg, #14532D 0%, #059669 50%, #10B981 100%)',
           borderRadius: '20px',
           padding: '32px 36px',
           color: '#FFFFFF',
           marginBottom: '28px',
-          boxShadow: '0 10px 25px -5px rgba(37, 99, 235, 0.3)',
+          boxShadow: '0 10px 25px -5px rgba(5, 150, 105, 0.3)',
           position: 'relative',
           overflow: 'hidden',
         }}
@@ -239,9 +239,9 @@ export default function StudentSchedulePage() {
                 fontWeight: 600,
                 cursor: 'pointer',
                 border: '1px solid',
-                borderColor: filterStatus === btn.id ? '#2563EB' : '#E2E8F0',
-                backgroundColor: filterStatus === btn.id ? '#EFF6FF' : '#FFFFFF',
-                color: filterStatus === btn.id ? '#2563EB' : '#64748B',
+                borderColor: filterStatus === btn.id ? '#059669' : '#E2E8F0',
+                backgroundColor: filterStatus === btn.id ? '#F0FFF4' : '#FFFFFF',
+                color: filterStatus === btn.id ? '#059669' : '#64748B',
                 transition: 'all 0.15s ease',
               }}
             >
@@ -303,8 +303,8 @@ export default function StudentSchedulePage() {
               gap: '6px',
               padding: '8px 16px',
               borderRadius: '8px',
-              backgroundColor: '#EFF6FF',
-              color: '#2563EB',
+              backgroundColor: '#F0FFF4',
+              color: '#059669',
               fontWeight: 700,
               fontSize: '0.8125rem',
               textDecoration: 'none',
@@ -325,13 +325,13 @@ export default function StudentSchedulePage() {
                 style={{
                   backgroundColor: '#FFFFFF',
                   borderRadius: '16px',
-                  border: isLive ? '2px solid #2563EB' : '1px solid #E2E8F0',
+                  border: isLive ? '2px solid #059669' : '1px solid #E2E8F0',
                   padding: '24px',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
                   boxShadow: isLive
-                    ? '0 10px 20px -5px rgba(37, 99, 235, 0.15)'
+                    ? '0 10px 20px -5px rgba(5, 150, 105, 0.15)'
                     : '0 1px 3px rgba(0,0,0,0.05)',
                   position: 'relative',
                   overflow: 'hidden',
@@ -367,8 +367,8 @@ export default function StudentSchedulePage() {
                         fontWeight: 700,
                         padding: '4px 10px',
                         borderRadius: '6px',
-                        backgroundColor: '#EFF6FF',
-                        color: '#2563EB',
+                        backgroundColor: '#F0FFF4',
+                        color: '#059669',
                         textTransform: 'uppercase',
                       }}
                     >
@@ -394,11 +394,11 @@ export default function StudentSchedulePage() {
                   {/* Details */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.8125rem', color: '#475569', marginBottom: '20px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <User size={15} color="#2563EB" />
+                      <User size={15} color="#059669" />
                       <span><strong>Instructor:</strong> {item.instructor}</span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <CalendarIcon size={15} color="#2563EB" />
+                      <CalendarIcon size={15} color="#059669" />
                       <span><strong>Date & Time:</strong> {item.date} • {item.time}</span>
                     </div>
                   </div>
@@ -461,9 +461,9 @@ export default function StudentSchedulePage() {
                         width: '100%',
                         padding: '10px',
                         borderRadius: '10px',
-                        border: '1px solid #2563EB',
-                        color: '#2563EB',
-                        backgroundColor: '#EFF6FF',
+                        border: '1px solid #059669',
+                        color: '#059669',
+                        backgroundColor: '#F0FFF4',
                         fontWeight: 600,
                         fontSize: '0.875rem',
                         textDecoration: 'none',

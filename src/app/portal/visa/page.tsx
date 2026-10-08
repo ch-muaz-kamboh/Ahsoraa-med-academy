@@ -35,7 +35,7 @@ export default function PortalVisaPage() {
             </div>
             <div>
               <span style={{ color: '#64748B' }}>Embassy Appointment:</span>
-              <div style={{ fontWeight: 700, color: '#2563EB' }}>
+              <div style={{ fontWeight: 700, color: '#059669' }}>
                 Sept 12, 2026 (09:30 AM)
               </div>
             </div>

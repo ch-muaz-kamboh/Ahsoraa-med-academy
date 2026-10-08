@@ -52,9 +52,9 @@ export default function StaffLayout({ children }: { children: React.ReactNode })
             </span>
             <span
               style={{
-                backgroundColor: staffProfile.role === 'teacher' ? '#ECFDF5' : '#EFF6FF',
-                color: staffProfile.role === 'teacher' ? '#059669' : '#2563EB',
-                border: staffProfile.role === 'teacher' ? '1px solid #A7F3D0' : '1px solid #BFDBFE',
+                backgroundColor: staffProfile.role === 'teacher' ? '#ECFDF5' : '#F0FFF4',
+                color: staffProfile.role === 'teacher' ? '#059669' : '#059669',
+                border: staffProfile.role === 'teacher' ? '1px solid #A7F3D0' : '1px solid #BBF7D0',
                 padding: '4px 10px',
                 borderRadius: '16px',
                 fontSize: '0.75rem',
@@ -71,7 +71,7 @@ export default function StaffLayout({ children }: { children: React.ReactNode })
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <div style={{ fontSize: '0.8125rem', color: '#64748B', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <BookOpen size={16} color="#2563EB" />
+              <BookOpen size={16} color="#059669" />
               <span>Assigned Subjects: <strong style={{ color: '#0F172A' }}>{staffProfile.assignedSubjects.join(', ')}</strong></span>
             </div>
             <div
@@ -79,7 +79,7 @@ export default function StaffLayout({ children }: { children: React.ReactNode })
                 width: '36px',
                 height: '36px',
                 borderRadius: '50%',
-                backgroundColor: '#2563EB',
+                backgroundColor: '#059669',
                 color: '#FFFFFF',
                 display: 'flex',
                 alignItems: 'center',

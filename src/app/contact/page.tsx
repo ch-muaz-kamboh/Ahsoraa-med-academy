@@ -75,8 +75,8 @@ export default function ContactPage() {
 
                 {/* Office */}
                 <div style={{ display: 'flex', gap: '16px' }}>
-                  <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#EFF6FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <MapPin size={24} color="#2563EB" />
+                  <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#F0FFF4', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <MapPin size={24} color="#059669" />
                   </div>
                   <div>
                     <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0F172A', marginBottom: '4px' }}>Our Offices</h3>

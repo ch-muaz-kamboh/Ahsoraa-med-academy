@@ -62,10 +62,10 @@ export default function PortalCoursesPage() {
               <div style={{ marginBottom: '20px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8125rem', marginBottom: '6px' }}>
                   <span style={{ color: '#64748B' }}>Syllabus Progress</span>
-                  <strong style={{ color: '#2563EB' }}>{progressPercent}%</strong>
+                  <strong style={{ color: '#059669' }}>{progressPercent}%</strong>
                 </div>
                 <div style={{ height: '8px', backgroundColor: '#E2E8F0', borderRadius: '4px', overflow: 'hidden' }}>
-                  <div style={{ width: `${progressPercent}%`, height: '100%', backgroundColor: '#2563EB' }} />
+                  <div style={{ width: `${progressPercent}%`, height: '100%', backgroundColor: '#059669' }} />
                 </div>
               </div>
 

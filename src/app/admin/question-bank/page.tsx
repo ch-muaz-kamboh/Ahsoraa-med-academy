@@ -467,7 +467,7 @@ export default function AdminQuestionBankPage() {
           </label>
           <button onClick={() => { setEditId(null); setForm({ ...EMPTY_FORM }); setFormError(''); setShowModal(true); }}
             style={{ display:'flex', alignItems:'center', gap:'8px', padding:'10px 18px',
-              borderRadius:'8px', border:'none', backgroundColor:'#2563EB', color:'#fff',
+              borderRadius:'8px', border:'none', backgroundColor:'#059669', color:'#fff',
               fontWeight:700, fontSize:'0.875rem', cursor:'pointer' }}>
             <Plus size={16} /> Add Question
           </button>
@@ -618,7 +618,7 @@ export default function AdminQuestionBankPage() {
 
             {!editId && (
               <div style={{ marginBottom:'20px', backgroundColor:'#F8FAFC', padding:'16px', borderRadius:'10px', border:'1px dashed #CBD5E1' }}>
-                <label style={{...LS, color:'#2563EB'}}>Smart Paste (Auto-fill)</label>
+                <label style={{...LS, color:'#059669'}}>Smart Paste (Auto-fill)</label>
                 <p style={{ fontSize:'0.75rem', color:'#64748B', marginBottom:'8px' }}>
                   Paste raw text here to automatically fill the fields below. Try formatting like: <code>Chapter: ... Topic: ... Q: ... A) ... B) ... Answer: C</code>
                 </p>
@@ -727,7 +727,7 @@ export default function AdminQuestionBankPage() {
               </button>
               <button onClick={handleSave} disabled={saving}
                 style={{ display:'flex', alignItems:'center', gap:'8px', padding:'10px 20px',
-                  borderRadius:'8px', border:'none', backgroundColor:'#2563EB', color:'#fff',
+                  borderRadius:'8px', border:'none', backgroundColor:'#059669', color:'#fff',
                   fontWeight:700, fontSize:'0.875rem', cursor: saving?'not-allowed':'pointer', opacity: saving?0.7:1 }}>
                 {saving ? <Loader2 size={15} style={{ animation:'spin 1s linear infinite' }} /> : <Check size={15} />}
                 {editId ? 'Save Changes' : 'Add Question'}

@@ -40,12 +40,26 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Agreement checkboxes
+  const [agreements, setAgreements] = useState({
+    terms: false,
+    privacy: false,
+    refund: false,
+    admissions: false,
+  });
+
+  const allAgreed = Object.values(agreements).every(Boolean);
+
   const selectedPkg: CoursePackage = getPackageByIdOrName(formData.selectedPackage);
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.firstName || !formData.lastName || !formData.email || !formData.password || !formData.whatsappNumber) {
       setError('Please fill in all required fields.');
+      return;
+    }
+    if (!allAgreed) {
+      setError('Please agree to all policies (Terms & Conditions, Privacy Policy, Refund Policy, and Admissions Disclaimer) before proceeding.');
       return;
     }
 
@@ -241,7 +255,7 @@ export default function RegisterPage() {
               borderRadius: '20px',
               fontSize: '0.8125rem',
               fontWeight: 600,
-              color: '#38BDF8',
+              color: '#5CED73',
               display: 'flex',
               alignItems: 'center',
               gap: '6px',
@@ -277,7 +291,7 @@ export default function RegisterPage() {
                 style={{
                   fontSize: '0.875rem',
                   fontWeight: 800,
-                  color: '#2563EB',
+                  color: '#059669',
                   textTransform: 'uppercase',
                   letterSpacing: '1px',
                   marginBottom: '16px',
@@ -288,7 +302,7 @@ export default function RegisterPage() {
               >
                 <span
                   style={{
-                    backgroundColor: '#EFF6FF',
+                    backgroundColor: '#F0FFF4',
                     width: '24px',
                     height: '24px',
                     borderRadius: '50%',
@@ -468,7 +482,7 @@ export default function RegisterPage() {
                 style={{
                   fontSize: '0.875rem',
                   fontWeight: 800,
-                  color: '#2563EB',
+                  color: '#059669',
                   textTransform: 'uppercase',
                   letterSpacing: '1px',
                   marginBottom: '6px',
@@ -479,7 +493,7 @@ export default function RegisterPage() {
               >
                 <span
                   style={{
-                    backgroundColor: '#EFF6FF',
+                    backgroundColor: '#F0FFF4',
                     width: '24px',
                     height: '24px',
                     borderRadius: '50%',
@@ -506,8 +520,8 @@ export default function RegisterPage() {
                       key={pkg.id}
                       onClick={() => setFormData({ ...formData, selectedPackage: pkg.id })}
                       style={{
-                        border: isSelected ? '2px solid #2563EB' : '1px solid #E2E8F0',
-                        backgroundColor: isSelected ? '#EFF6FF' : '#FFFFFF',
+                        border: isSelected ? '2px solid #059669' : '1px solid #E2E8F0',
+                        backgroundColor: isSelected ? '#F0FFF4' : '#FFFFFF',
                         borderRadius: '16px',
                         padding: '20px 16px',
                         cursor: 'pointer',
@@ -516,7 +530,7 @@ export default function RegisterPage() {
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'space-between',
-                        boxShadow: isSelected ? '0 10px 25px -5px rgba(37, 99, 235, 0.2)' : 'none',
+                        boxShadow: isSelected ? '0 10px 25px -5px rgba(5, 150, 105, 0.2)' : 'none',
                       }}
                     >
                       {pkg.badge && (
@@ -525,7 +539,7 @@ export default function RegisterPage() {
                             position: 'absolute',
                             top: '-12px',
                             right: '12px',
-                            backgroundColor: isSelected ? '#2563EB' : '#0F172A',
+                            backgroundColor: isSelected ? '#059669' : '#0F172A',
                             color: '#FFFFFF',
                             fontSize: '0.6875rem',
                             fontWeight: 800,
@@ -548,7 +562,7 @@ export default function RegisterPage() {
                               width: '20px',
                               height: '20px',
                               borderRadius: '50%',
-                              border: isSelected ? '6px solid #2563EB' : '2px solid #CBD5E1',
+                              border: isSelected ? '6px solid #059669' : '2px solid #CBD5E1',
                               backgroundColor: '#FFFFFF',
                               flexShrink: 0,
                             }}
@@ -556,7 +570,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div style={{ marginBottom: '12px' }}>
-                          <span style={{ fontSize: '1.6rem', fontWeight: 900, color: isSelected ? '#1D4ED8' : '#0F172A' }}>
+                          <span style={{ fontSize: '1.6rem', fontWeight: 900, color: isSelected ? '#047857' : '#0F172A' }}>
                             {pkg.price}
                           </span>
                           <span style={{ fontSize: '0.75rem', color: '#64748B', marginLeft: '4px' }}>
@@ -571,7 +585,7 @@ export default function RegisterPage() {
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                           {pkg.features.map((feat, idx) => (
                             <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '6px', fontSize: '0.75rem', color: '#334155' }}>
-                              <CheckCircle2 size={14} color={isSelected ? '#2563EB' : '#16A34A'} style={{ flexShrink: 0, marginTop: '2px' }} />
+                              <CheckCircle2 size={14} color={isSelected ? '#059669' : '#16A34A'} style={{ flexShrink: 0, marginTop: '2px' }} />
                               <span>{feat}</span>
                             </div>
                           ))}
@@ -583,7 +597,107 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            {/* Submit Action Bar */}
+            {/* Section 3: Policy Agreements */}
+            <div>
+              <div
+                style={{
+                  fontSize: '0.875rem',
+                  fontWeight: 800,
+                  color: '#059669',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px',
+                  marginBottom: '16px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                }}
+              >
+                <span
+                  style={{
+                    backgroundColor: '#F0FFF4',
+                    width: '24px',
+                    height: '24px',
+                    borderRadius: '50%',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '0.75rem',
+                    color: '#059669',
+                  }}
+                >
+                  3
+                </span>
+                Agreement &amp; Consent
+              </div>
+              <p style={{ color: '#64748B', fontSize: '0.875rem', marginBottom: '16px' }}>
+                You must read and agree to all four policies before registering.
+              </p>
+
+              <div
+                style={{
+                  backgroundColor: '#F0FFF4',
+                  border: '1px solid #BBF7D0',
+                  borderRadius: '16px',
+                  padding: '20px 24px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '14px',
+                }}
+              >
+                {([
+                  { key: 'terms' as const,      label: 'Terms & Conditions',    href: '/terms',                 desc: 'Course purchase & usage terms' },
+                  { key: 'privacy' as const,    label: 'Privacy Policy',        href: '/privacy',               desc: 'How we handle your personal data' },
+                  { key: 'refund' as const,     label: 'Refund Policy',         href: '/refund-policy',         desc: 'Cancellation & refund rules' },
+                  { key: 'admissions' as const, label: 'Admissions Disclaimer', href: '/admissions-disclaimer', desc: 'No guarantee of admission or results' },
+                ] as const).map(({ key, label, href, desc }) => (
+                  <label
+                    key={key}
+                    htmlFor={`agree-${key}`}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: '12px',
+                      cursor: 'pointer',
+                      padding: '10px 14px',
+                      borderRadius: '10px',
+                      backgroundColor: agreements[key] ? 'rgba(5,150,105,0.07)' : '#FFFFFF',
+                      border: `1px solid ${agreements[key] ? '#6EE7B7' : '#E2E8F0'}`,
+                      transition: 'all 0.15s ease',
+                    }}
+                  >
+                    <input
+                      id={`agree-${key}`}
+                      type="checkbox"
+                      checked={agreements[key]}
+                      onChange={(e) => setAgreements({ ...agreements, [key]: e.target.checked })}
+                      style={{
+                        width: '18px',
+                        height: '18px',
+                        accentColor: '#059669',
+                        flexShrink: 0,
+                        marginTop: '2px',
+                        cursor: 'pointer',
+                      }}
+                    />
+                    <div>
+                      <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A' }}>
+                        I have read and agree to the{' '}
+                        <a
+                          href={href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ color: '#059669', textDecoration: 'underline', fontWeight: 800 }}
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {label}
+                        </a>
+                      </div>
+                      <div style={{ fontSize: '0.8rem', color: '#64748B', marginTop: '2px' }}>{desc}</div>
+                    </div>
+                  </label>
+                ))}
+              </div>
+            </div>
             <div
               style={{
                 backgroundColor: '#F8FAFC',
@@ -600,7 +714,7 @@ export default function RegisterPage() {
               <div>
                 <div style={{ fontSize: '0.8125rem', color: '#64748B' }}>Selected Package:</div>
                 <div style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0F172A' }}>
-                  {selectedPkg.name} — <span style={{ color: '#2563EB' }}>{selectedPkg.price}</span>
+                  {selectedPkg.name} — <span style={{ color: '#059669' }}>{selectedPkg.price}</span>
                 </div>
               </div>
 
@@ -633,7 +747,7 @@ export default function RegisterPage() {
 
           <div style={{ textAlign: 'center', marginTop: '24px', fontSize: '0.9375rem', color: '#64748B' }}>
             Already registered?{' '}
-            <Link href="/portal" style={{ color: '#2563EB', fontWeight: 700, textDecoration: 'none' }}>
+            <Link href="/portal" style={{ color: '#059669', fontWeight: 700, textDecoration: 'none' }}>
               Sign in to Student Portal
             </Link>
           </div>

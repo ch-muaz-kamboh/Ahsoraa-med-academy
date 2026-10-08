@@ -35,8 +35,8 @@ export default function CourseDetailPage({
       <div className="container">
         {/* Header Breadcrumbs */}
         <div style={{ marginBottom: '20px', fontSize: '0.875rem', color: '#64748B' }}>
-          <Link href="/" style={{ color: '#2563EB' }}>Home</Link> /{' '}
-          <Link href="/courses" style={{ color: '#2563EB' }}>Courses</Link> /{' '}
+          <Link href="/" style={{ color: '#059669' }}>Home</Link> /{' '}
+          <Link href="/courses" style={{ color: '#059669' }}>Courses</Link> /{' '}
           <span>{course.title}</span>
         </div>
 
@@ -78,19 +78,19 @@ export default function CourseDetailPage({
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Clock size={16} color="#2563EB" />
+                <Clock size={16} color="#059669" />
                 <span>{course.durationHours} Hours Video Lectures</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <FileCheck size={16} color="#2563EB" />
+                <FileCheck size={16} color="#059669" />
                 <span>{course.totalTests} Full Simulated Mock Tests</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <BookOpen size={16} color="#2563EB" />
+                <BookOpen size={16} color="#059669" />
                 <span>{course.totalResources} High-Yield Downloadable PDFs</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Users size={16} color="#2563EB" />
+                <Users size={16} color="#059669" />
                 <span>1-on-1 Faculty Mentorship Included</span>
               </div>
             </div>
@@ -99,17 +99,17 @@ export default function CourseDetailPage({
           {/* Pricing & Checkout Card */}
           <div
             style={{
-              backgroundColor: '#EFF6FF',
+              backgroundColor: '#F0FFF4',
               borderRadius: '16px',
-              border: '1px solid #BFDBFE',
+              border: '1px solid #BBF7D0',
               padding: '28px',
               textAlign: 'center',
             }}
           >
-            <div style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#2563EB', textTransform: 'uppercase', marginBottom: '4px' }}>
+            <div style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#059669', textTransform: 'uppercase', marginBottom: '4px' }}>
               Centralized Course Enrollment
             </div>
-            <div style={{ fontSize: '2.4rem', fontWeight: 800, color: '#1E3A8A', marginBottom: '4px' }}>
+            <div style={{ fontSize: '2.4rem', fontWeight: 800, color: '#14532D', marginBottom: '4px' }}>
               ${course.price}
               {course.comparePrice && (
                 <span style={{ fontSize: '1.125rem', color: '#94A3B8', textDecoration: 'line-through', marginLeft: '8px', fontWeight: 400 }}>
@@ -195,7 +195,7 @@ export default function CourseDetailPage({
                         }}
                       >
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#334155' }}>
-                          <PlayCircle size={16} color="#2563EB" />
+                          <PlayCircle size={16} color="#059669" />
                           <span>{les.title}</span>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -204,10 +204,10 @@ export default function CourseDetailPage({
                             <Link
                               href="/portal/courses/crs-01/player"
                               style={{
-                                color: '#2563EB',
+                                color: '#059669',
                                 fontWeight: 600,
                                 fontSize: '0.75rem',
-                                backgroundColor: '#EFF6FF',
+                                backgroundColor: '#F0FFF4',
                                 padding: '2px 8px',
                                 borderRadius: '4px',
                               }}

@@ -67,7 +67,7 @@ export default function PortalMentorshipPage() {
               />
               <div>
                 <h3 style={{ fontSize: '1.125rem', color: '#0F172A', marginBottom: '2px' }}>{m.name}</h3>
-                <div style={{ fontSize: '0.8125rem', color: '#2563EB', fontWeight: 600 }}>{m.title}</div>
+                <div style={{ fontSize: '0.8125rem', color: '#059669', fontWeight: 600 }}>{m.title}</div>
                 <div style={{ fontSize: '0.75rem', color: '#64748B' }}>{m.specialization}</div>
               </div>
             </div>

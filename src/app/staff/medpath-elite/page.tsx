@@ -16,7 +16,7 @@ const STAGES: {
   icon: React.ReactNode;
   color: string;
 }[] = [
-  { key: 'pre_enrollment', label: 'Pre-Enrollment Documentation', description: 'Gather and verify all required academic and identity documents.', icon: <FileCheck size={20} />, color: '#2563EB' },
+  { key: 'pre_enrollment', label: 'Pre-Enrollment Documentation', description: 'Gather and verify all required academic and identity documents.', icon: <FileCheck size={20} />, color: '#059669' },
   { key: 'dov_submission', label: 'DOV Submission', description: 'Submit Dichiarazione di Valore through the Italian Consulate.', icon: <Globe size={20} />, color: '#7C3AED' },
   { key: 'university_application', label: 'University Application', description: 'Complete and submit applications to target Italian medical universities.', icon: <Building2 size={20} />, color: '#0E7490' },
   { key: 'admission_decision', label: 'Admission Decision', description: 'Await and review the admission outcome from the university.', icon: <GraduationCap size={20} />, color: '#059669' },
@@ -26,7 +26,7 @@ const STAGES: {
 
 const STATUS_OPTS: { value: MedpathStageStatus; label: string; color: string; bg: string; border: string }[] = [
   { value: 'pending', label: 'Pending', color: '#64748B', bg: '#F8FAFC', border: '#CBD5E1' },
-  { value: 'in_progress', label: 'In Progress', color: '#2563EB', bg: '#EFF6FF', border: '#93C5FD' },
+  { value: 'in_progress', label: 'In Progress', color: '#059669', bg: '#F0FFF4', border: '#86EFAC' },
   { value: 'completed', label: 'Completed', color: '#16A34A', bg: '#F0FFF4', border: '#86EFAC' },
 ];
 
@@ -270,7 +270,7 @@ export default function StaffMedpathElitePage() {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '14px', marginBottom: '24px' }}>
         {[
           { label: 'Total Elite Students', value: allEliteList.length, color: '#EA580C', bg: '#FFF7ED' },
-          { label: 'In Progress', value: allEliteList.filter(s => Object.values(s.stages).some(v => v === 'in_progress')).length, color: '#2563EB', bg: '#EFF6FF' },
+          { label: 'In Progress', value: allEliteList.filter(s => Object.values(s.stages).some(v => v === 'in_progress')).length, color: '#059669', bg: '#F0FFF4' },
           { label: 'Fully Completed', value: allEliteList.filter(s => Object.values(s.stages).every(v => v === 'completed')).length, color: '#16A34A', bg: '#F0FFF4' },
         ].map((stat, i) => (
           <div key={i} style={{ backgroundColor: stat.bg, border: '1px solid #E2E8F0', borderRadius: '14px', padding: '18px 22px' }}>
@@ -351,7 +351,7 @@ export default function StaffMedpathElitePage() {
                 {/* Status Tags */}
                 <div style={{ display: 'flex', gap: '8px', flexShrink: 0, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
                   {isActive && (
-                    <span style={{ fontSize: '0.75rem', backgroundColor: '#EFF6FF', color: '#2563EB', border: '1px solid #93C5FD', padding: '3px 10px', borderRadius: '20px', fontWeight: 700 }}>Active</span>
+                    <span style={{ fontSize: '0.75rem', backgroundColor: '#F0FFF4', color: '#059669', border: '1px solid #86EFAC', padding: '3px 10px', borderRadius: '20px', fontWeight: 700 }}>Active</span>
                   )}
                   {percent === 100 && (
                     <span style={{ fontSize: '0.75rem', backgroundColor: '#F0FFF4', color: '#16A34A', border: '1px solid #86EFAC', padding: '3px 10px', borderRadius: '20px', fontWeight: 700 }}>✓ Complete</span>

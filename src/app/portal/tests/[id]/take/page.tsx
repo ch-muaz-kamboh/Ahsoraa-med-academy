@@ -286,9 +286,9 @@ export default function TakeTestPage({
               display: 'flex',
               alignItems: 'center',
               gap: '8px',
-              backgroundColor: timeLeft < 300 ? '#FEF2F2' : '#EFF6FF',
-              color: timeLeft < 300 ? '#DC2626' : '#1D4ED8',
-              border: `1px solid ${timeLeft < 300 ? '#FECACA' : '#BFDBFE'}`,
+              backgroundColor: timeLeft < 300 ? '#FEF2F2' : '#F0FFF4',
+              color: timeLeft < 300 ? '#DC2626' : '#047857',
+              border: `1px solid ${timeLeft < 300 ? '#FECACA' : '#BBF7D0'}`,
               padding: '8px 16px',
               borderRadius: '8px',
               fontWeight: 700,
@@ -346,7 +346,7 @@ export default function TakeTestPage({
                   style={{
                     fontWeight: 800,
                     fontSize: '1.125rem',
-                    color: '#2563EB',
+                    color: '#059669',
                   }}
                 >
                   Question {currentIndex + 1} of {test.questions.length}
@@ -402,8 +402,8 @@ export default function TakeTestPage({
                       gap: '14px',
                       padding: '14px 18px',
                       borderRadius: '10px',
-                      border: isSelected ? '2px solid #2563EB' : '1px solid #E2E8F0',
-                      backgroundColor: isSelected ? '#EFF6FF' : '#FFFFFF',
+                      border: isSelected ? '2px solid #059669' : '1px solid #E2E8F0',
+                      backgroundColor: isSelected ? '#F0FFF4' : '#FFFFFF',
                       cursor: 'pointer',
                       transition: 'all 0.15s ease',
                     }}
@@ -418,7 +418,7 @@ export default function TakeTestPage({
                         justifyContent: 'center',
                         fontWeight: 700,
                         fontSize: '0.875rem',
-                        backgroundColor: isSelected ? '#2563EB' : '#F1F5F9',
+                        backgroundColor: isSelected ? '#059669' : '#F1F5F9',
                         color: isSelected ? '#FFFFFF' : '#475569',
                         flexShrink: 0,
                       }}
@@ -428,7 +428,7 @@ export default function TakeTestPage({
                     <div
                       style={{
                         fontSize: '0.9375rem',
-                        color: isSelected ? '#1E3A8A' : '#334155',
+                        color: isSelected ? '#14532D' : '#334155',
                         fontWeight: isSelected ? 600 : 400,
                         lineHeight: 1.5,
                       }}
@@ -527,7 +527,7 @@ export default function TakeTestPage({
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <div style={{ width: '12px', height: '12px', borderRadius: '3px', backgroundColor: '#2563EB' }} />
+              <div style={{ width: '12px', height: '12px', borderRadius: '3px', backgroundColor: '#059669' }} />
               <span>Answered ({answeredCount})</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -559,7 +559,7 @@ export default function TakeTestPage({
               let borderColor = 'transparent';
 
               if (isAnswered) {
-                bgColor = '#2563EB';
+                bgColor = '#059669';
                 textColor = '#FFFFFF';
               }
               if (isMarked) {
@@ -585,7 +585,7 @@ export default function TakeTestPage({
                     alignItems: 'center',
                     justifyContent: 'center',
                     border: isCurrent ? '2px solid #0F172A' : `1px solid ${borderColor}`,
-                    boxShadow: isCurrent ? '0 0 0 2px rgba(37, 99, 235, 0.2)' : 'none',
+                    boxShadow: isCurrent ? '0 0 0 2px rgba(5, 150, 105, 0.2)' : 'none',
                     cursor: 'pointer',
                     transition: 'all 0.1s ease',
                   }}
@@ -661,8 +661,8 @@ export default function TakeTestPage({
                 <strong>{test.questions.length}</strong>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ color: '#2563EB' }}>Answered:</span>
-                <strong style={{ color: '#2563EB' }}>{answeredCount}</strong>
+                <span style={{ color: '#059669' }}>Answered:</span>
+                <strong style={{ color: '#059669' }}>{answeredCount}</strong>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span style={{ color: '#D97706' }}>Marked for Review:</span>

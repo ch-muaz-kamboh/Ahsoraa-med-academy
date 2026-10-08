@@ -33,7 +33,7 @@ export default function TermsAndConditionsPage() {
         }}
       >
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: 'rgba(255,255,255,0.1)', padding: '6px 14px', borderRadius: '20px', fontSize: '0.8125rem', fontWeight: 600, color: '#93C5FD', marginBottom: '20px' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: 'rgba(255,255,255,0.1)', padding: '6px 14px', borderRadius: '20px', fontSize: '0.8125rem', fontWeight: 600, color: '#86EFAC', marginBottom: '20px' }}>
             <Scale size={16} />
             LEGAL AGREEMENT & ACADEMY POLICIES
           </div>
@@ -46,11 +46,11 @@ export default function TermsAndConditionsPage() {
 
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', marginTop: '28px', fontSize: '0.875rem', color: '#CBD5E1' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <Clock size={16} color="#60A5FA" />
+              <Clock size={16} color="#5CED73" />
               <span><strong>Effective Date:</strong> 1 May 2026</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <FileText size={16} color="#60A5FA" />
+              <FileText size={16} color="#5CED73" />
               <span><strong>Version:</strong> 0.8 (Customer Release)</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -79,9 +79,9 @@ export default function TermsAndConditionsPage() {
               border: 'none',
               cursor: 'pointer',
               transition: 'all 0.15s ease',
-              backgroundColor: activeTab === 'terms' ? '#2563EB' : '#FFFFFF',
+              backgroundColor: activeTab === 'terms' ? '#059669' : '#FFFFFF',
               color: activeTab === 'terms' ? '#FFFFFF' : '#475569',
-              boxShadow: activeTab === 'terms' ? '0 4px 12px rgba(37,99,235,0.25)' : 'none',
+              boxShadow: activeTab === 'terms' ? '0 4px 12px rgba(5,150,105,0.25)' : 'none',
             }}
           >
             <FileText size={18} />
@@ -101,9 +101,9 @@ export default function TermsAndConditionsPage() {
               border: 'none',
               cursor: 'pointer',
               transition: 'all 0.15s ease',
-              backgroundColor: activeTab === 'refund' ? '#2563EB' : '#FFFFFF',
+              backgroundColor: activeTab === 'refund' ? '#059669' : '#FFFFFF',
               color: activeTab === 'refund' ? '#FFFFFF' : '#475569',
-              boxShadow: activeTab === 'refund' ? '0 4px 12px rgba(37,99,235,0.25)' : 'none',
+              boxShadow: activeTab === 'refund' ? '0 4px 12px rgba(5,150,105,0.25)' : 'none',
             }}
           >
             <RotateCcw size={18} />
@@ -127,7 +127,7 @@ export default function TermsAndConditionsPage() {
               border: '1px solid #E2E8F0',
             }}
           >
-            <ShieldCheck size={18} color="#2563EB" />
+            <ShieldCheck size={18} color="#059669" />
             View Privacy Policy &rarr;
           </Link>
         </div>
@@ -139,14 +139,14 @@ export default function TermsAndConditionsPage() {
             {/* Article Content */}
             <article style={{ backgroundColor: '#FFFFFF', padding: '40px', borderRadius: '16px', border: '1px solid #E2E8F0', boxShadow: '0 1px 3px rgba(0,0,0,0.05)', color: '#334155', lineHeight: 1.75, fontSize: '0.96rem' }}>
               
-              <div style={{ backgroundColor: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: '12px', padding: '16px 20px', marginBottom: '32px', color: '#1E40AF', fontSize: '0.9rem' }}>
+              <div style={{ backgroundColor: '#F0FFF4', border: '1px solid #BBF7D0', borderRadius: '12px', padding: '16px 20px', marginBottom: '32px', color: '#166534', fontSize: '0.9rem' }}>
                 <strong>Important Notice:</strong> These Terms and Conditions remain in effect until superseded by an updated version, subject to the notice and change provisions in section 19. This stated date does not retrospectively impose new terms on purchases made before those terms were presented and accepted.
               </div>
 
               {/* 1. Who We Are */}
               <section id="section-1" style={{ marginBottom: '36px' }}>
                 <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span style={{ backgroundColor: '#DBEAFE', color: '#1D4ED8', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>1</span>
+                  <span style={{ backgroundColor: '#DCFCE7', color: '#047857', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>1</span>
                   Who we are
                 </h2>
                 <p>
@@ -158,7 +158,7 @@ export default function TermsAndConditionsPage() {
                 <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '14px 18px', marginTop: '12px' }}>
                   <div>
                     <span style={{ fontSize: '0.75rem', color: '#64748B', display: 'block', fontWeight: 600 }}>OFFICIAL EMAIL</span>
-                    <a href="mailto:admissions@ahsorameds.com" style={{ color: '#2563EB', fontWeight: 700, textDecoration: 'none' }}>admissions@ahsorameds.com</a>
+                    <a href="mailto:admissions@ahsorameds.com" style={{ color: '#059669', fontWeight: 700, textDecoration: 'none' }}>admissions@ahsorameds.com</a>
                   </div>
                   <div>
                     <span style={{ fontSize: '0.75rem', color: '#64748B', display: 'block', fontWeight: 600 }}>WHATSAPP ADMISSIONS DESK</span>
@@ -173,7 +173,7 @@ export default function TermsAndConditionsPage() {
               {/* 2. Your Agreement */}
               <section id="section-2" style={{ marginBottom: '36px' }}>
                 <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span style={{ backgroundColor: '#DBEAFE', color: '#1D4ED8', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>2</span>
+                  <span style={{ backgroundColor: '#DCFCE7', color: '#047857', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>2</span>
                   Your agreement and purchased package
                 </h2>
                 <p>
@@ -193,7 +193,7 @@ export default function TermsAndConditionsPage() {
               {/* 3. Eligibility */}
               <section id="section-3" style={{ marginBottom: '36px' }}>
                 <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span style={{ backgroundColor: '#DBEAFE', color: '#1D4ED8', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>3</span>
+                  <span style={{ backgroundColor: '#DCFCE7', color: '#047857', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>3</span>
                   Eligibility and students under 18
                 </h2>
                 <p>
@@ -207,7 +207,7 @@ export default function TermsAndConditionsPage() {
               {/* 4. Course Content & Scope */}
               <section id="section-4" style={{ marginBottom: '36px' }}>
                 <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span style={{ backgroundColor: '#DBEAFE', color: '#1D4ED8', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>4</span>
+                  <span style={{ backgroundColor: '#DCFCE7', color: '#047857', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>4</span>
                   Course content and scope
                 </h2>
                 <p>
@@ -224,7 +224,7 @@ export default function TermsAndConditionsPage() {
               {/* 5. Prices, Payments and Instalments */}
               <section id="section-5" style={{ marginBottom: '36px' }}>
                 <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span style={{ backgroundColor: '#DBEAFE', color: '#1D4ED8', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>5</span>
+                  <span style={{ backgroundColor: '#DCFCE7', color: '#047857', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>5</span>
                   Prices, payments and instalments
                 </h2>
                 <p>
@@ -241,7 +241,7 @@ export default function TermsAndConditionsPage() {
               {/* 6. Activation, access periods and downloads */}
               <section id="section-6" style={{ marginBottom: '36px' }}>
                 <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span style={{ backgroundColor: '#DBEAFE', color: '#1D4ED8', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>6</span>
+                  <span style={{ backgroundColor: '#DCFCE7', color: '#047857', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>6</span>
                   Activation, access periods and downloads
                 </h2>
                 <div style={{ backgroundColor: '#FEF3C7', border: '1px solid #FCD34D', borderRadius: '10px', padding: '12px 16px', marginBottom: '16px', color: '#92400E', fontSize: '0.875rem' }}>
@@ -258,7 +258,7 @@ export default function TermsAndConditionsPage() {
               {/* 7. Live Teaching */}
               <section id="section-7" style={{ marginBottom: '36px' }}>
                 <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span style={{ backgroundColor: '#DBEAFE', color: '#1D4ED8', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>7</span>
+                  <span style={{ backgroundColor: '#DCFCE7', color: '#047857', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>7</span>
                   Live teaching and student responsibilities
                 </h2>
                 <p>
@@ -272,7 +272,7 @@ export default function TermsAndConditionsPage() {
               {/* 8. Intellectual Property */}
               <section id="section-8" style={{ marginBottom: '36px' }}>
                 <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span style={{ backgroundColor: '#DBEAFE', color: '#1D4ED8', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>8</span>
+                  <span style={{ backgroundColor: '#DCFCE7', color: '#047857', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>8</span>
                   Intellectual property and permitted use
                 </h2>
                 <p>
@@ -286,7 +286,7 @@ export default function TermsAndConditionsPage() {
               {/* 9. Account Security */}
               <section id="section-9" style={{ marginBottom: '36px' }}>
                 <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span style={{ backgroundColor: '#DBEAFE', color: '#1D4ED8', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>9</span>
+                  <span style={{ backgroundColor: '#DCFCE7', color: '#047857', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>9</span>
                   Account security and prohibited conduct
                 </h2>
                 <p>
@@ -296,9 +296,9 @@ export default function TermsAndConditionsPage() {
 
               {/* 10. Educational Outcomes / Admissions Disclaimer */}
               <section id="section-10" style={{ marginBottom: '36px' }}>
-                <div style={{ backgroundColor: '#F1F5F9', borderLeft: '4px solid #2563EB', padding: '16px 20px', borderRadius: '0 10px 10px 0', marginBottom: '16px' }}>
+                <div style={{ backgroundColor: '#F1F5F9', borderLeft: '4px solid #059669', padding: '16px 20px', borderRadius: '0 10px 10px 0', marginBottom: '16px' }}>
                   <h2 id="admissions-disclaimer" style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', margin: '0 0 8px 0', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <span style={{ backgroundColor: '#DBEAFE', color: '#1D4ED8', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>10</span>
+                    <span style={{ backgroundColor: '#DCFCE7', color: '#047857', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>10</span>
                     Educational outcomes and independent authorities (Admissions Disclaimer)
                   </h2>
                 </div>
@@ -313,7 +313,7 @@ export default function TermsAndConditionsPage() {
               {/* 11. Consultancy and Third-Party Expenses */}
               <section id="section-11" style={{ marginBottom: '36px' }}>
                 <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span style={{ backgroundColor: '#DBEAFE', color: '#1D4ED8', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>11</span>
+                  <span style={{ backgroundColor: '#DCFCE7', color: '#047857', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>11</span>
                   Consultancy and third-party expenses
                 </h2>
                 <p>
@@ -324,7 +324,7 @@ export default function TermsAndConditionsPage() {
               {/* 12. Suspension and Termination */}
               <section id="section-12" style={{ marginBottom: '36px' }}>
                 <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span style={{ backgroundColor: '#DBEAFE', color: '#1D4ED8', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>12</span>
+                  <span style={{ backgroundColor: '#DCFCE7', color: '#047857', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>12</span>
                   Suspension and termination
                 </h2>
                 <p>
@@ -335,7 +335,7 @@ export default function TermsAndConditionsPage() {
               {/* 13. Cancellation and Refunds Summary */}
               <section id="section-13" style={{ marginBottom: '36px' }}>
                 <h2 id="cancellation" style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span style={{ backgroundColor: '#DBEAFE', color: '#1D4ED8', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>13</span>
+                  <span style={{ backgroundColor: '#DCFCE7', color: '#047857', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>13</span>
                   Cancellation and refunds
                 </h2>
                 <p>
@@ -346,7 +346,7 @@ export default function TermsAndConditionsPage() {
               {/* 14. Availability */}
               <section id="section-14" style={{ marginBottom: '36px' }}>
                 <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span style={{ backgroundColor: '#DBEAFE', color: '#1D4ED8', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>14</span>
+                  <span style={{ backgroundColor: '#DCFCE7', color: '#047857', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>14</span>
                   Availability and service changes
                 </h2>
                 <p>
@@ -357,7 +357,7 @@ export default function TermsAndConditionsPage() {
               {/* 15. Responsibility and limits */}
               <section id="section-15" style={{ marginBottom: '36px' }}>
                 <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span style={{ backgroundColor: '#DBEAFE', color: '#1D4ED8', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>15</span>
+                  <span style={{ backgroundColor: '#DCFCE7', color: '#047857', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>15</span>
                   Responsibility and limits
                 </h2>
                 <p>
@@ -368,7 +368,7 @@ export default function TermsAndConditionsPage() {
               {/* 16. Complaints and Payment Disputes */}
               <section id="section-16" style={{ marginBottom: '36px' }}>
                 <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span style={{ backgroundColor: '#DBEAFE', color: '#1D4ED8', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>16</span>
+                  <span style={{ backgroundColor: '#DCFCE7', color: '#047857', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>16</span>
                   Complaints and payment disputes
                 </h2>
                 <p>
@@ -379,18 +379,18 @@ export default function TermsAndConditionsPage() {
               {/* 17. Privacy and External Services */}
               <section id="section-17" style={{ marginBottom: '36px' }}>
                 <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span style={{ backgroundColor: '#DBEAFE', color: '#1D4ED8', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>17</span>
+                  <span style={{ backgroundColor: '#DCFCE7', color: '#047857', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>17</span>
                   Privacy and external services
                 </h2>
                 <p>
-                  Our data handling is governed by our dedicated <Link href="/privacy" style={{ color: '#2563EB', fontWeight: 600 }}>Privacy Policy</Link>. Accepting these purchase terms does not imply blanket consent to marketing or unauthorized data usage.
+                  Our data handling is governed by our dedicated <Link href="/privacy" style={{ color: '#059669', fontWeight: 600 }}>Privacy Policy</Link>. Accepting these purchase terms does not imply blanket consent to marketing or unauthorized data usage.
                 </p>
               </section>
 
               {/* 18. Governing Law */}
               <section id="section-18" style={{ marginBottom: '36px' }}>
                 <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span style={{ backgroundColor: '#DBEAFE', color: '#1D4ED8', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>18</span>
+                  <span style={{ backgroundColor: '#DCFCE7', color: '#047857', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>18</span>
                   International customers, governing law and courts
                 </h2>
                 <p>
@@ -401,7 +401,7 @@ export default function TermsAndConditionsPage() {
               {/* 19. Amendments */}
               <section id="section-19">
                 <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span style={{ backgroundColor: '#DBEAFE', color: '#1D4ED8', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>19</span>
+                  <span style={{ backgroundColor: '#DCFCE7', color: '#047857', width: '28px', height: '28px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem' }}>19</span>
                   Amendments and other provisions
                 </h2>
                 <p>
@@ -439,7 +439,7 @@ export default function TermsAndConditionsPage() {
                       key={item.id}
                       href={`#${item.id}`}
                       style={{ color: '#475569', textDecoration: 'none', padding: '4px 6px', borderRadius: '6px', transition: 'all 0.15s ease' }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = '#2563EB')}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = '#059669')}
                       onMouseLeave={(e) => (e.currentTarget.style.color = '#475569')}
                     >
                       {item.title}
@@ -449,14 +449,14 @@ export default function TermsAndConditionsPage() {
               </div>
 
               {/* Help Card */}
-              <div style={{ backgroundColor: '#EFF6FF', padding: '20px', borderRadius: '14px', border: '1px solid #BFDBFE' }}>
-                <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#1E40AF', marginBottom: '8px' }}>Questions on our terms?</h4>
-                <p style={{ fontSize: '0.8125rem', color: '#3B82F6', lineHeight: 1.5, marginBottom: '14px' }}>
+              <div style={{ backgroundColor: '#F0FFF4', padding: '20px', borderRadius: '14px', border: '1px solid #BBF7D0' }}>
+                <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#166534', marginBottom: '8px' }}>Questions on our terms?</h4>
+                <p style={{ fontSize: '0.8125rem', color: '#10B981', lineHeight: 1.5, marginBottom: '14px' }}>
                   Reach our admissions and legal support desk directly via email or WhatsApp.
                 </p>
                 <a
                   href="mailto:admissions@ahsorameds.com"
-                  style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8125rem', fontWeight: 700, color: '#1D4ED8', textDecoration: 'none', marginBottom: '8px' }}
+                  style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8125rem', fontWeight: 700, color: '#047857', textDecoration: 'none', marginBottom: '8px' }}
                 >
                   <Mail size={14} /> admissions@ahsorameds.com
                 </a>
@@ -520,9 +520,9 @@ export default function TermsAndConditionsPage() {
               </p>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px', margin: '20px 0' }}>
-                <div style={{ border: '1px solid #BFDBFE', backgroundColor: '#EFF6FF', borderRadius: '12px', padding: '16px' }}>
-                  <div style={{ fontWeight: 700, color: '#1E40AF', marginBottom: '4px' }}>Email Support</div>
-                  <a href="mailto:admissions@ahsorameds.com" style={{ color: '#2563EB', fontWeight: 700, textDecoration: 'none' }}>
+                <div style={{ border: '1px solid #BBF7D0', backgroundColor: '#F0FFF4', borderRadius: '12px', padding: '16px' }}>
+                  <div style={{ fontWeight: 700, color: '#166534', marginBottom: '4px' }}>Email Support</div>
+                  <a href="mailto:admissions@ahsorameds.com" style={{ color: '#059669', fontWeight: 700, textDecoration: 'none' }}>
                     admissions@ahsorameds.com
                   </a>
                 </div>

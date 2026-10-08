@@ -82,7 +82,7 @@ export default function StaffDoubtsPage() {
               borderRadius: '20px',
               fontSize: '0.8rem',
               fontWeight: subjectFilter === subj ? 700 : 500,
-              backgroundColor: subjectFilter === subj ? '#2563EB' : '#F1F5F9',
+              backgroundColor: subjectFilter === subj ? '#059669' : '#F1F5F9',
               color: subjectFilter === subj ? '#FFFFFF' : '#475569',
               border: 'none',
               cursor: 'pointer'
@@ -121,10 +121,10 @@ export default function StaffDoubtsPage() {
                   key={doubt.id}
                   onClick={() => setSelectedDoubtId(doubt.id)}
                   style={{
-                    backgroundColor: isSelected ? '#EFF6FF' : '#FFFFFF',
+                    backgroundColor: isSelected ? '#F0FFF4' : '#FFFFFF',
                     borderRadius: '12px',
                     padding: '20px',
-                    border: isSelected ? '2px solid #2563EB' : '1px solid #E2E8F0',
+                    border: isSelected ? '2px solid #059669' : '1px solid #E2E8F0',
                     borderLeft: isResolved ? '4px solid #10B981' : '4px solid #F59E0B',
                     cursor: 'pointer',
                     boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
@@ -172,7 +172,7 @@ export default function StaffDoubtsPage() {
           {selectedDoubt ? (
             <div style={{ backgroundColor: '#FFFFFF', borderRadius: '16px', border: '1px solid #E2E8F0', padding: '24px', position: 'sticky', top: '88px', boxShadow: '0 4px 16px rgba(0,0,0,0.05)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', borderBottom: '1px solid #F1F5F9', paddingBottom: '10px' }}>
-                <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#2563EB', backgroundColor: '#EFF6FF', padding: '4px 10px', borderRadius: '6px' }}>
+                <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#059669', backgroundColor: '#F0FFF4', padding: '4px 10px', borderRadius: '6px' }}>
                   {selectedDoubt.subject} {selectedDoubt.topic ? `— ${selectedDoubt.topic}` : ''}
                 </span>
                 <span style={{ fontSize: '0.75rem', color: '#64748B' }}>
@@ -223,7 +223,7 @@ export default function StaffDoubtsPage() {
                   type="submit"
                   style={{
                     width: '100%',
-                    backgroundColor: '#2563EB',
+                    backgroundColor: '#059669',
                     color: '#FFFFFF',
                     border: 'none',
                     borderRadius: '10px',
@@ -235,7 +235,7 @@ export default function StaffDoubtsPage() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '8px',
-                    boxShadow: '0 4px 12px rgba(37, 99, 235, 0.2)'
+                    boxShadow: '0 4px 12px rgba(5, 150, 105, 0.2)'
                   }}
                 >
                   <Send size={16} /> Publish Faculty Answer to Student Portal

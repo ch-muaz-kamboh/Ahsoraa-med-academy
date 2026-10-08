@@ -25,7 +25,7 @@ export default function StaffProfilePage() {
               width: '72px',
               height: '72px',
               borderRadius: '50%',
-              backgroundColor: '#2563EB',
+              backgroundColor: '#059669',
               color: '#FFFFFF',
               display: 'flex',
               alignItems: 'center',
@@ -53,7 +53,7 @@ export default function StaffProfilePage() {
             <div style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase', marginBottom: '6px' }}>
               Active RBAC Role
             </div>
-            <div style={{ fontSize: '1rem', fontWeight: 700, color: '#2563EB', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ fontSize: '1rem', fontWeight: 700, color: '#059669', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Shield size={18} />
               <span>{staffProfile.role.toUpperCase().replace('_', ' ')}</span>
             </div>

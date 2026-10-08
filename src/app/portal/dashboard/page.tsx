@@ -82,8 +82,8 @@ export default function StudentDashboardPage() {
                 fontWeight: 800,
                 padding: '2px 10px',
                 borderRadius: '12px',
-                backgroundColor: studentTier === 'elite' ? '#FFEDD5' : studentTier === 'mastery' ? '#DBEAFE' : '#DCFCE7',
-                color: studentTier === 'elite' ? '#C2410C' : studentTier === 'mastery' ? '#1D4ED8' : '#15803D',
+                backgroundColor: studentTier === 'elite' ? '#FFEDD5' : studentTier === 'mastery' ? '#DCFCE7' : '#DCFCE7',
+                color: studentTier === 'elite' ? '#C2410C' : studentTier === 'mastery' ? '#047857' : '#15803D',
               }}
             >
               {currentPkgObj.name} ({currentPkgObj.price})
@@ -108,7 +108,7 @@ export default function StudentDashboardPage() {
         <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '22px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
             <span style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>Active Course</span>
-            <div style={{ width: '34px', height: '34px', borderRadius: '8px', backgroundColor: '#EFF6FF', color: '#2563EB', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><BookOpen size={18} /></div>
+            <div style={{ width: '34px', height: '34px', borderRadius: '8px', backgroundColor: '#F0FFF4', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><BookOpen size={18} /></div>
           </div>
           {activeCourse ? (
             <>
@@ -123,7 +123,7 @@ export default function StudentDashboardPage() {
         <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '22px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
             <span style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>Mocks Completed</span>
-            <div style={{ width: '34px', height: '34px', borderRadius: '8px', backgroundColor: '#EFF6FF', color: '#2563EB', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><FileCheck2 size={18} /></div>
+            <div style={{ width: '34px', height: '34px', borderRadius: '8px', backgroundColor: '#F0FFF4', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><FileCheck2 size={18} /></div>
           </div>
           <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A' }}>{testAttempts.length}</div>
           <div style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 500, marginTop: '4px' }}>Test sessions done</div>
@@ -160,17 +160,17 @@ export default function StudentDashboardPage() {
           <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '24px' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
               <h3 style={{ fontSize: '1.125rem', color: '#0F172A' }}>Continue Learning</h3>
-              <Link href="/portal/courses" style={{ fontSize: '0.8125rem', color: '#2563EB', fontWeight: 600 }}>All Courses &rarr;</Link>
+              <Link href="/portal/courses" style={{ fontSize: '0.8125rem', color: '#059669', fontWeight: 600 }}>All Courses &rarr;</Link>
             </div>
             {activeCourse ? (
               <div style={{ border: '1px solid #E2E8F0', borderRadius: '12px', padding: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                  <div style={{ width: '48px', height: '48px', borderRadius: '10px', backgroundColor: '#EFF6FF', color: '#2563EB', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><BookOpen size={24} /></div>
+                  <div style={{ width: '48px', height: '48px', borderRadius: '10px', backgroundColor: '#F0FFF4', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><BookOpen size={24} /></div>
                   <div>
                     <h4 style={{ fontSize: '1rem', color: '#0F172A', marginBottom: '4px' }}>{activeCourse.title}</h4>
                     <div style={{ fontSize: '0.75rem', color: '#64748B' }}>{activeCourse.progressPercent ?? 0}% complete</div>
                     <div style={{ marginTop: '6px', height: '5px', backgroundColor: '#E2E8F0', borderRadius: '3px', width: '200px' }}>
-                      <div style={{ height: '100%', width: `${activeCourse.progressPercent ?? 0}%`, backgroundColor: '#2563EB', borderRadius: '3px' }} />
+                      <div style={{ height: '100%', width: `${activeCourse.progressPercent ?? 0}%`, backgroundColor: '#059669', borderRadius: '3px' }} />
                     </div>
                   </div>
                 </div>
@@ -189,7 +189,7 @@ export default function StudentDashboardPage() {
           <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '24px' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
               <h3 style={{ fontSize: '1.125rem', color: '#0F172A' }}>Recent Test Attempts</h3>
-              <Link href="/portal/tests" style={{ fontSize: '0.8125rem', color: '#2563EB', fontWeight: 600 }}>All Tests &rarr;</Link>
+              <Link href="/portal/tests" style={{ fontSize: '0.8125rem', color: '#059669', fontWeight: 600 }}>All Tests &rarr;</Link>
             </div>
             {testAttempts.length === 0 ? (
               <div style={{ textAlign: 'center', padding: '24px', color: '#94A3B8' }}>
@@ -231,7 +231,7 @@ export default function StudentDashboardPage() {
                   <strong style={{ color: '#0F172A' }}>{totalAttempted}</strong>
                 </div>
                 <div style={{ height: '7px', backgroundColor: '#E2E8F0', borderRadius: '4px' }}>
-                  <div style={{ width: `${Math.min((totalAttempted / 500) * 100, 100)}%`, height: '100%', backgroundColor: '#2563EB', borderRadius: '4px' }} />
+                  <div style={{ width: `${Math.min((totalAttempted / 500) * 100, 100)}%`, height: '100%', backgroundColor: '#059669', borderRadius: '4px' }} />
                 </div>
               </div>
               <div>
@@ -253,7 +253,7 @@ export default function StudentDashboardPage() {
                 </div>
               </div>
             </div>
-            <Link href="/portal/progress/analysis" style={{ display: 'block', textAlign: 'center', marginTop: '16px', fontSize: '0.8125rem', color: '#2563EB', fontWeight: 600 }}>Full Analysis Report &rarr;</Link>
+            <Link href="/portal/progress/analysis" style={{ display: 'block', textAlign: 'center', marginTop: '16px', fontSize: '0.8125rem', color: '#059669', fontWeight: 600 }}>Full Analysis Report &rarr;</Link>
           </div>
 
           <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '24px' }}>

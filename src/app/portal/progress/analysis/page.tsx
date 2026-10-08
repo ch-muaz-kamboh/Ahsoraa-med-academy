@@ -72,7 +72,7 @@ export default function StudentProgressAnalysisPage() {
         <div style={{ backgroundColor: '#FFFFFF', padding: '24px', borderRadius: '16px', border: '1px solid #E2E8F0', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
             <span style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 700 }}>OVERALL ACCURACY</span>
-            <div style={{ width: '36px', height: '36px', borderRadius: '10px', backgroundColor: '#EFF6FF', color: '#2563EB', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Target size={20} /></div>
+            <div style={{ width: '36px', height: '36px', borderRadius: '10px', backgroundColor: '#F0FFF4', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Target size={20} /></div>
           </div>
           <div style={{ fontSize: '2.25rem', fontWeight: 900, color: '#0F172A' }}>{totalAttempted > 0 ? `${overallAccuracy}%` : '--'}</div>
           <div style={{ fontSize: '0.8125rem', color: totalAttempted > 0 ? '#10B981' : '#94A3B8', fontWeight: 600, marginTop: '4px' }}>
@@ -111,7 +111,7 @@ export default function StudentProgressAnalysisPage() {
       {/* Subject Breakdown */}
       <div style={{ backgroundColor: '#FFFFFF', borderRadius: '16px', padding: '28px', border: '1px solid #E2E8F0', marginBottom: '28px' }}>
         <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <BarChart2 size={20} color="#2563EB" /> Subject Proficiency &amp; Mastery Index
+          <BarChart2 size={20} color="#059669" /> Subject Proficiency &amp; Mastery Index
         </h3>
 
         {!hasData ? (

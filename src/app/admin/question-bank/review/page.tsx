@@ -133,14 +133,14 @@ export default function AdminMCQReviewPage() {
         <button
           onClick={() => setActiveTab('pending')}
           style={{
-            backgroundColor: activeTab === 'pending' ? '#EFF6FF' : '#FFFFFF',
-            border: activeTab === 'pending' ? '2px solid #2563EB' : '1px solid #E2E8F0',
+            backgroundColor: activeTab === 'pending' ? '#F0FFF4' : '#FFFFFF',
+            border: activeTab === 'pending' ? '2px solid #059669' : '1px solid #E2E8F0',
             borderRadius: '12px', padding: '16px', textAlign: 'left', cursor: 'pointer', transition: 'all 0.15s ease'
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#2563EB' }}>Pending Review</span>
-            <Clock size={20} color="#2563EB" />
+            <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#059669' }}>Pending Review</span>
+            <Clock size={20} color="#059669" />
           </div>
           <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#1E293B', marginTop: '8px' }}>{pendingCount}</div>
         </button>
@@ -249,8 +249,8 @@ export default function AdminMCQReviewPage() {
                 style={{
                   backgroundColor: '#FFFFFF',
                   borderRadius: '12px',
-                  border: q.status === 'in_review' ? '1px solid #93C5FD' : '1px solid #E2E8F0',
-                  boxShadow: q.status === 'in_review' ? '0 4px 12px rgba(37, 99, 235, 0.08)' : '0 1px 3px rgba(0,0,0,0.05)',
+                  border: q.status === 'in_review' ? '1px solid #86EFAC' : '1px solid #E2E8F0',
+                  boxShadow: q.status === 'in_review' ? '0 4px 12px rgba(5, 150, 105, 0.08)' : '0 1px 3px rgba(0,0,0,0.05)',
                   padding: '20px',
                   transition: 'all 0.15s ease'
                 }}
@@ -338,7 +338,7 @@ export default function AdminMCQReviewPage() {
 
                 {/* Explanation */}
                 {q.explanation && (
-                  <div style={{ backgroundColor: '#F8FAFC', borderLeft: '4px solid #3B82F6', padding: '10px 14px', borderRadius: '0 8px 8px 0', fontSize: '0.85rem', color: '#475569', marginBottom: '16px' }}>
+                  <div style={{ backgroundColor: '#F8FAFC', borderLeft: '4px solid #10B981', padding: '10px 14px', borderRadius: '0 8px 8px 0', fontSize: '0.85rem', color: '#475569', marginBottom: '16px' }}>
                     <strong style={{ color: '#1E293B' }}>Explanation:</strong> {q.explanation}
                   </div>
                 )}
@@ -404,7 +404,7 @@ export default function AdminMCQReviewPage() {
                     {q.status === 'draft' && (
                       <button
                         onClick={() => handleApprove(q.id)}
-                        style={{ backgroundColor: '#2563EB', color: '#FFF', border: 'none', padding: '6px 14px', borderRadius: '6px', fontSize: '0.8rem', fontWeight: 600, cursor: 'pointer' }}
+                        style={{ backgroundColor: '#059669', color: '#FFF', border: 'none', padding: '6px 14px', borderRadius: '6px', fontSize: '0.8rem', fontWeight: 600, cursor: 'pointer' }}
                       >
                         Re-Approve Now
                       </button>

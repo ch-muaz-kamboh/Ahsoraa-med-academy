@@ -49,7 +49,7 @@ export default function StaffSchedulePage() {
         <button
           onClick={() => setShowModal(true)}
           className="btn-primary"
-          style={{ backgroundColor: '#2563EB', padding: '10px 18px', fontSize: '0.875rem' }}
+          style={{ backgroundColor: '#059669', padding: '10px 18px', fontSize: '0.875rem' }}
         >
           <Plus size={16} /> Schedule Live Class
         </button>
@@ -77,8 +77,8 @@ export default function StaffSchedulePage() {
                   width: '56px',
                   height: '56px',
                   borderRadius: '12px',
-                  backgroundColor: item.status === 'live' ? '#FEF2F2' : '#EFF6FF',
-                  color: item.status === 'live' ? '#DC2626' : '#2563EB',
+                  backgroundColor: item.status === 'live' ? '#FEF2F2' : '#F0FFF4',
+                  color: item.status === 'live' ? '#DC2626' : '#059669',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
@@ -226,7 +226,7 @@ export default function StaffSchedulePage() {
                 >
                   Cancel
                 </button>
-                <button type="submit" className="btn-primary" style={{ backgroundColor: '#2563EB' }}>
+                <button type="submit" className="btn-primary" style={{ backgroundColor: '#059669' }}>
                   Create Session
                 </button>
               </div>

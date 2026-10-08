@@ -86,7 +86,7 @@ export default function AdminSidebar() {
                 fontSize: '0.875rem',
                 fontWeight: isActive ? 600 : 500,
                 color: isActive ? '#FFFFFF' : '#94A3B8',
-                backgroundColor: isActive ? '#2563EB' : 'transparent',
+                backgroundColor: isActive ? '#059669' : 'transparent',
                 transition: 'all 0.15s ease',
               }}
             >

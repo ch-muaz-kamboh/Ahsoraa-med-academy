@@ -120,9 +120,9 @@ export default function StudentRecordedLecturesPage() {
               fontWeight: 600,
               cursor: 'pointer',
               border: '1px solid',
-              borderColor: selectedSubject === 'all' ? '#2563EB' : '#E2E8F0',
-              backgroundColor: selectedSubject === 'all' ? '#EFF6FF' : '#FFFFFF',
-              color: selectedSubject === 'all' ? '#2563EB' : '#64748B',
+              borderColor: selectedSubject === 'all' ? '#059669' : '#E2E8F0',
+              backgroundColor: selectedSubject === 'all' ? '#F0FFF4' : '#FFFFFF',
+              color: selectedSubject === 'all' ? '#059669' : '#64748B',
             }}
           >
             All Subjects
@@ -138,9 +138,9 @@ export default function StudentRecordedLecturesPage() {
                 fontWeight: 600,
                 cursor: 'pointer',
                 border: '1px solid',
-                borderColor: selectedSubject === sub ? '#2563EB' : '#E2E8F0',
-                backgroundColor: selectedSubject === sub ? '#EFF6FF' : '#FFFFFF',
-                color: selectedSubject === sub ? '#2563EB' : '#64748B',
+                borderColor: selectedSubject === sub ? '#059669' : '#E2E8F0',
+                backgroundColor: selectedSubject === sub ? '#F0FFF4' : '#FFFFFF',
+                color: selectedSubject === sub ? '#059669' : '#64748B',
               }}
             >
               {sub}
@@ -175,8 +175,8 @@ export default function StudentRecordedLecturesPage() {
               gap: '6px',
               padding: '8px 16px',
               borderRadius: '8px',
-              backgroundColor: '#EFF6FF',
-              color: '#2563EB',
+              backgroundColor: '#F0FFF4',
+              color: '#059669',
               fontWeight: 700,
               fontSize: '0.8125rem',
               textDecoration: 'none',
@@ -235,7 +235,7 @@ export default function StudentRecordedLecturesPage() {
                     width: '56px',
                     height: '56px',
                     borderRadius: '50%',
-                    backgroundColor: 'rgba(37, 99, 235, 0.9)',
+                    backgroundColor: 'rgba(5, 150, 105, 0.9)',
                     color: '#FFFFFF',
                     display: 'flex',
                     alignItems: 'center',
@@ -273,7 +273,7 @@ export default function StudentRecordedLecturesPage() {
                     position: 'absolute',
                     top: '12px',
                     left: '12px',
-                    backgroundColor: '#2563EB',
+                    backgroundColor: '#059669',
                     color: '#FFFFFF',
                     padding: '4px 10px',
                     borderRadius: '6px',
@@ -292,7 +292,7 @@ export default function StudentRecordedLecturesPage() {
                     {item.title}
                   </h3>
                   {item.topic && (
-                    <div style={{ fontSize: '0.8125rem', color: '#2563EB', fontWeight: 600, marginBottom: '8px' }}>
+                    <div style={{ fontSize: '0.8125rem', color: '#059669', fontWeight: 600, marginBottom: '8px' }}>
                       Topic: {item.topic}
                     </div>
                   )}
@@ -306,7 +306,7 @@ export default function StudentRecordedLecturesPage() {
                 {/* Card Footer */}
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '12px', borderTop: '1px solid #F1F5F9' }}>
                   <div style={{ fontSize: '0.75rem', color: '#64748B', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                    <User size={13} color="#2563EB" />
+                    <User size={13} color="#059669" />
                     <span>{item.instructor || 'Faculty'}</span>
                   </div>
 
@@ -340,7 +340,7 @@ export default function StudentRecordedLecturesPage() {
                         gap: '6px',
                         padding: '6px 14px',
                         borderRadius: '6px',
-                        backgroundColor: '#2563EB',
+                        backgroundColor: '#059669',
                         color: '#FFFFFF',
                         border: 'none',
                         fontSize: '0.75rem',
@@ -399,8 +399,8 @@ export default function StudentRecordedLecturesPage() {
                   style={{
                     fontSize: '0.75rem',
                     fontWeight: 700,
-                    color: '#2563EB',
-                    backgroundColor: '#EFF6FF',
+                    color: '#059669',
+                    backgroundColor: '#F0FFF4',
                     padding: '2px 8px',
                     borderRadius: '4px',
                     marginRight: '8px',
@@ -488,7 +488,7 @@ export default function StudentRecordedLecturesPage() {
                     gap: '6px',
                     padding: '8px 16px',
                     borderRadius: '8px',
-                    backgroundColor: '#2563EB',
+                    backgroundColor: '#059669',
                     color: '#FFFFFF',
                     fontWeight: 600,
                     fontSize: '0.8125rem',

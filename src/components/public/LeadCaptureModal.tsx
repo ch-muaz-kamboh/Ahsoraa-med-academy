@@ -115,8 +115,8 @@ export default function LeadCaptureModal({
         <div
           style={{
             padding: '20px 24px',
-            backgroundColor: '#EFF6FF',
-            borderBottom: '1px solid #DBEAFE',
+            backgroundColor: '#F0FFF4',
+            borderBottom: '1px solid #BBF7D0',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -128,7 +128,7 @@ export default function LeadCaptureModal({
                 width: '32px',
                 height: '32px',
                 borderRadius: '8px',
-                backgroundColor: '#2563EB',
+                backgroundColor: '#059669',
                 color: '#FFFFFF',
                 display: 'flex',
                 alignItems: 'center',
@@ -138,10 +138,10 @@ export default function LeadCaptureModal({
               <Sparkles size={18} />
             </div>
             <div>
-              <h3 style={{ fontSize: '1.125rem', color: '#1E3A8A', margin: 0 }}>
+              <h3 style={{ fontSize: '1.125rem', color: '#064E3B', margin: 0 }}>
                 Book Free Medical Counselling
               </h3>
-              <p style={{ fontSize: '0.8125rem', color: '#3B82F6', margin: 0 }}>
+              <p style={{ fontSize: '0.8125rem', color: '#047857', margin: 0 }}>
                 1-on-1 Strategy Session with Senior Medical Admissions Advisors
               </p>
             </div>
@@ -297,7 +297,7 @@ export default function LeadCaptureModal({
                 }}
               >
                 🔒 Your information is confidential and protected by{' '}
-                <Link href="/privacy" target="_blank" style={{ color: '#2563EB', textDecoration: 'underline' }}>
+                <Link href="/privacy" target="_blank" style={{ color: '#059669', textDecoration: 'underline' }}>
                   Ahsora Privacy Policy
                 </Link>.
               </p>

@@ -14,7 +14,7 @@ export default function ScholarshipsPage() {
       <div className="container">
         {/* Header */}
         <div style={{ marginBottom: '36px' }}>
-          <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#2563EB', textTransform: 'uppercase' }}>
+          <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#059669', textTransform: 'uppercase' }}>
             Financial Aid & Grants
           </span>
           <h1 style={{ fontSize: '2.4rem', color: '#0F172A', marginTop: '4px', marginBottom: '8px' }}>
@@ -56,7 +56,7 @@ export default function ScholarshipsPage() {
                 {sch.title}
               </h3>
 
-              <div style={{ fontSize: '0.875rem', color: '#2563EB', fontWeight: 700, marginBottom: '14px' }}>
+              <div style={{ fontSize: '0.875rem', color: '#059669', fontWeight: 700, marginBottom: '14px' }}>
                 {sch.coverageAmount}
               </div>
 
