@@ -21,7 +21,10 @@ import {
   RefreshCw,
   Clock,
   Download,
-  Upload
+  Upload,
+  Flame,
+  Calendar,
+  Percent
 } from 'lucide-react';
 
 import {
@@ -43,13 +46,17 @@ import {
   getDynamicPackagePrices,
   updatePackagePricing,
   syncPricesFromSupabase,
-  DynamicPackagePrice
+  DynamicPackagePrice,
+  getSaleOfferConfig,
+  syncSaleOfferFromSupabase,
+  updateSaleOfferConfig,
+  SaleOfferConfig
 } from '@/lib/cms-store';
 
 import { createClient } from '@/lib/supabase/client';
 
 export default function AdminContentPage() {
-  const [activeTab, setActiveTab] = useState<'news' | 'docs' | 'ticker' | 'pricing' | 'hero'>('news');
+  const [activeTab, setActiveTab] = useState<'news' | 'docs' | 'ticker' | 'pricing' | 'offer' | 'hero'>('news');
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
@@ -91,18 +98,20 @@ export default function AdminContentPage() {
     const ext = file.name.split('.').pop()?.toUpperCase() || 'PDF';
     const validFormat: 'PDF' | 'DOCX' | 'ZIP' = ext === 'DOCX' ? 'DOCX' : ext === 'ZIP' ? 'ZIP' : 'PDF';
 
-    const blobUrl = URL.createObjectURL(file);
-
-    setNewDoc({
-      title: file.name.replace(/\.[^/.]+$/, "").replace(/[_-]/g, ' '),
-      description: `Official ${file.name} document uploaded for IMAT candidates.`,
-      category: newDoc.category,
-      format: validFormat,
-      fileUrl: blobUrl,
-      fileSize: formattedSize,
-    });
-
-    showToast('success', `📁 Selected "${file.name}" (${formattedSize}). Click "Add Document" to confirm.`);
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const fileDataUrl = (event.target?.result as string) || URL.createObjectURL(file);
+      setNewDoc({
+        title: file.name.replace(/\.[^/.]+$/, "").replace(/[_-]/g, ' '),
+        description: `Official ${file.name} document uploaded directly for IMAT candidates.`,
+        category: newDoc.category,
+        format: validFormat,
+        fileUrl: fileDataUrl,
+        fileSize: formattedSize,
+      });
+      showToast('success', `📁 Loaded "${file.name}" (${formattedSize}). Click "Add Document to Resource Page" below to publish.`);
+    };
+    reader.readAsDataURL(file);
   };
 
   // ── 3. Ticker Items State ────────────────────────────────────────────────
@@ -113,7 +122,17 @@ export default function AdminContentPage() {
   // ── 4. Package Pricing State ─────────────────────────────────────────────
   const [prices, setPrices] = useState<DynamicPackagePrice[]>([]);
 
-  // ── 5. Hero Content State ────────────────────────────────────────────────
+  // ── 5. Sale Offer & Countdown State ──────────────────────────────────────
+  const [saleOffer, setSaleOffer] = useState<SaleOfferConfig>({
+    isSaleActive: true,
+    offerTitle: '⚡ IMAT 2027 AUTUMN FLASH SALE — UP TO 25% OFF',
+    offerSubtitle: 'Enrol today to lock in special discounted pricing with 12 months full portal access!',
+    endDate: '2026-10-31T23:59:59',
+    discountBadgeText: 'LIMITED TIME OFFER',
+    promoCode: 'AUTUMN25',
+  });
+
+  // ── 6. Hero Content State ────────────────────────────────────────────────
   const [heroContent, setHeroContent] = useState({
     hero_headline_1: 'THE IMAT IS THE TEST.',
     hero_headline_2: 'YOUR JOURNEY IS MUCH BIGGER.',
@@ -134,19 +153,22 @@ export default function AdminContentPage() {
     setDocuments(getResourceDocuments());
     setTickerItems(getTickerItems());
     setPrices(getDynamicPackagePrices());
+    setSaleOffer(getSaleOfferConfig());
 
     // Sync with Supabase asynchronously
     try {
-      const [syncedNews, syncedDocs, syncedTicker, syncedPrices] = await Promise.all([
+      const [syncedNews, syncedDocs, syncedTicker, syncedPrices, syncedOffer] = await Promise.all([
         syncNewsFromSupabase(),
         syncDocumentsFromSupabase(),
         syncTickerFromSupabase(),
         syncPricesFromSupabase(),
+        syncSaleOfferFromSupabase(),
       ]);
       setNewsPosts(syncedNews);
       setDocuments(syncedDocs);
       setTickerItems(syncedTicker);
       setPrices(syncedPrices);
+      if (syncedOffer) setSaleOffer(syncedOffer);
     } catch (err) {
       console.warn('Supabase initial fetch notice:', err);
     } finally {
@@ -157,6 +179,12 @@ export default function AdminContentPage() {
   useEffect(() => {
     loadAllData();
   }, [loadAllData]);
+
+  const handleSaveSaleOffer = (e: React.FormEvent) => {
+    e.preventDefault();
+    updateSaleOfferConfig(saleOffer);
+    showToast('success', '🔥 Flash Sale offer configuration & countdown end date updated live across website!');
+  };
 
   // ── News Handlers ────────────────────────────────────────────────────────
   const handleAddNews = (e: React.FormEvent) => {
@@ -363,6 +391,7 @@ export default function AdminContentPage() {
           { id: 'docs', label: 'Resource Vault (Docs Only)', icon: <FileText size={18} />, badge: documents.length },
           { id: 'ticker', label: 'Homepage Moving Strip', icon: <Zap size={18} />, badge: tickerItems.length },
           { id: 'pricing', label: 'Course Pricing & Discounts', icon: <Tag size={18} />, badge: prices.length },
+          { id: 'offer', label: 'Flash Sale & Offer Banner', icon: <Flame size={18} /> },
           { id: 'hero', label: 'Hero Banner Copy', icon: <FileSignature size={18} /> },
         ].map((tab) => {
           const active = activeTab === tab.id;
@@ -1052,7 +1081,130 @@ export default function AdminContentPage() {
         </div>
       )}
 
-      {/* ── TAB 5: HERO BANNER COPY ─────────────────────────────────────────── */}
+      {/* ── TAB 5: FLASH SALE & OFFER MANAGER ─────────────────────────────── */}
+      {activeTab === 'offer' && (
+        <div style={{ backgroundColor: '#FFFFFF', padding: '32px', borderRadius: '16px', border: '1px solid #E2E8F0', maxWidth: '780px', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
+            <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#FEF2F2', color: '#DC2626', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Flame size={22} />
+            </div>
+            <div>
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+                Special Sale &amp; Flash Offer Manager
+              </h3>
+              <p style={{ color: '#64748B', fontSize: '0.875rem', margin: '2px 0 0 0' }}>
+                Configure live sale banners, discount offer titles, promo codes, and countdown end-dates synced live across the site.
+              </p>
+            </div>
+          </div>
+
+          <form onSubmit={handleSaveSaleOffer} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            
+            {/* Active Toggle */}
+            <label style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '16px', backgroundColor: saleOffer.isSaleActive ? '#F0FFF4' : '#F8FAFC', border: `1.5px solid ${saleOffer.isSaleActive ? '#86EFAC' : '#E2E8F0'}`, borderRadius: '12px', cursor: 'pointer' }}>
+              <input
+                type="checkbox"
+                checked={saleOffer.isSaleActive}
+                onChange={(e) => setSaleOffer({ ...saleOffer, isSaleActive: e.target.checked })}
+                style={{ width: '20px', height: '20px', accentColor: '#059669', cursor: 'pointer' }}
+              />
+              <div>
+                <div style={{ fontWeight: 800, fontSize: '0.9375rem', color: saleOffer.isSaleActive ? '#047857' : '#475569' }}>
+                  {saleOffer.isSaleActive ? '🔥 Flash Sale Offer is LIVE & Active' : '⏸️ Flash Sale Banner Hidden'}
+                </div>
+                <div style={{ fontSize: '0.8125rem', color: '#64748B' }}>
+                  When enabled, a prominent countdown banner and offer callouts will appear on the Courses page and Hero sections.
+                </div>
+              </div>
+            </label>
+
+            <div>
+              <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>Offer Headline / Title</label>
+              <input
+                type="text"
+                required
+                value={saleOffer.offerTitle}
+                onChange={(e) => setSaleOffer({ ...saleOffer, offerTitle: e.target.value })}
+                placeholder="e.g. ⚡ IMAT 2027 AUTUMN FLASH SALE — UP TO 25% OFF"
+                style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.9375rem', fontWeight: 700, outline: 'none', boxSizing: 'border-box' }}
+              />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>Offer Subtitle / Description</label>
+              <textarea
+                rows={2}
+                required
+                value={saleOffer.offerSubtitle}
+                onChange={(e) => setSaleOffer({ ...saleOffer, offerSubtitle: e.target.value })}
+                placeholder="e.g. Enrol today to lock in special discounted pricing with 12 months full portal access!"
+                style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.875rem', outline: 'none', boxSizing: 'border-box' }}
+              />
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>Sale End Date &amp; Time (Countdown Target)</label>
+                <input
+                  type="text"
+                  required
+                  value={saleOffer.endDate}
+                  onChange={(e) => setSaleOffer({ ...saleOffer, endDate: e.target.value })}
+                  placeholder="2026-10-31T23:59:59"
+                  style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.875rem', outline: 'none', boxSizing: 'border-box' }}
+                />
+                <span style={{ fontSize: '0.75rem', color: '#64748B', marginTop: '2px', display: 'block' }}>Format: YYYY-MM-DDTHH:MM:SS</span>
+              </div>
+
+              <div>
+                <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>Discount Badge Text</label>
+                <input
+                  type="text"
+                  value={saleOffer.discountBadgeText || ''}
+                  onChange={(e) => setSaleOffer({ ...saleOffer, discountBadgeText: e.target.value })}
+                  placeholder="e.g. LIMITED TIME OFFER"
+                  style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.875rem', outline: 'none', boxSizing: 'border-box' }}
+                />
+              </div>
+
+              <div>
+                <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>Promo Code (Optional)</label>
+                <input
+                  type="text"
+                  value={saleOffer.promoCode || ''}
+                  onChange={(e) => setSaleOffer({ ...saleOffer, promoCode: e.target.value })}
+                  placeholder="e.g. AUTUMN25"
+                  style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.875rem', outline: 'none', boxSizing: 'border-box' }}
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              style={{
+                backgroundColor: '#059669',
+                color: '#FFFFFF',
+                border: 'none',
+                borderRadius: '10px',
+                padding: '14px',
+                fontWeight: 700,
+                fontSize: '0.9375rem',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                marginTop: '10px',
+                boxShadow: '0 4px 12px rgba(5,150,105,0.25)',
+              }}
+            >
+              <Save size={18} /> Save &amp; Sync Sale Offer Live
+            </button>
+          </form>
+        </div>
+      )}
+
+      {/* ── TAB 6: HERO BANNER COPY ─────────────────────────────────────────── */}
       {activeTab === 'hero' && (
         <div style={{ backgroundColor: '#FFFFFF', padding: '32px', borderRadius: '16px', border: '1px solid #E2E8F0', maxWidth: '750px' }}>
           <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0F172A', marginBottom: '20px' }}>

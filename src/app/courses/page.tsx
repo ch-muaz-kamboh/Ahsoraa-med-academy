@@ -9,8 +9,98 @@ import {
   Users, Zap, TrendingUp, CheckCircle
 } from 'lucide-react';
 import LeadCaptureModal from '@/components/public/LeadCaptureModal';
-import { getDynamicPackagePrices, syncPricesFromSupabase, DynamicPackagePrice } from '@/lib/cms-store';
+import {
+  getDynamicPackagePrices,
+  syncPricesFromSupabase,
+  DynamicPackagePrice,
+  getSaleOfferConfig,
+  syncSaleOfferFromSupabase,
+  SaleOfferConfig
+} from '@/lib/cms-store';
 import './courses.css';
+
+// ─── Live Sale Banner & Countdown Timer Component ──────────────────────────────
+function SaleOfferBanner({ offer }: { offer: SaleOfferConfig }) {
+  const [timeLeft, setTimeLeft] = useState<{ days: number; hours: number; minutes: number; seconds: number }>({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  useEffect(() => {
+    if (!offer?.endDate || !offer?.isSaleActive) return;
+
+    const calculateTime = () => {
+      const target = new Date(offer.endDate).getTime();
+      const now = new Date().getTime();
+      const diff = target - now;
+
+      if (isNaN(target) || diff <= 0) {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      setTimeLeft({ days, hours, minutes, seconds });
+    };
+
+    calculateTime();
+    const interval = setInterval(calculateTime, 1000);
+    return () => clearInterval(interval);
+  }, [offer?.endDate, offer?.isSaleActive]);
+
+  if (!offer || !offer.isSaleActive) return null;
+
+  return (
+    <div
+      style={{
+        background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)',
+        borderBottom: '2px solid #059669',
+        color: '#FFFFFF',
+        padding: '16px 20px',
+        textAlign: 'center',
+        position: 'relative',
+        zIndex: 20,
+      }}
+    >
+      <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
+        <div style={{ textAlign: 'left' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px', flexWrap: 'wrap' }}>
+            <span style={{ backgroundColor: '#EF4444', color: '#FFFFFF', fontSize: '0.75rem', fontWeight: 800, padding: '3px 10px', borderRadius: '12px', letterSpacing: '0.5px' }}>
+              {offer.discountBadgeText || 'SPECIAL OFFER'}
+            </span>
+            <span style={{ fontSize: '1rem', fontWeight: 800, color: '#5CED73' }}>
+              {offer.offerTitle}
+            </span>
+          </div>
+          <p style={{ margin: 0, fontSize: '0.875rem', color: '#CBD5E1' }}>
+            {offer.offerSubtitle} {offer.promoCode && <span style={{ marginLeft: '8px' }}>• Use Code: <strong style={{ color: '#F59E0B' }}>{offer.promoCode}</strong></span>}
+          </p>
+        </div>
+
+        {/* Countdown Blocks */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {[
+            { label: 'Days', val: timeLeft.days },
+            { label: 'Hours', val: timeLeft.hours },
+            { label: 'Mins', val: timeLeft.minutes },
+            { label: 'Secs', val: timeLeft.seconds },
+          ].map((item, i) => (
+            <div key={i} style={{ backgroundColor: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.18)', padding: '6px 12px', borderRadius: '10px', minWidth: '48px', textAlign: 'center' }}>
+              <div style={{ fontSize: '1.15rem', fontWeight: 900, color: '#FFFFFF', lineHeight: 1 }}>{String(item.val).padStart(2, '0')}</div>
+              <div style={{ fontSize: '0.625rem', color: '#94A3B8', textTransform: 'uppercase', marginTop: '3px', fontWeight: 700 }}>{item.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 // ─── Intersection Observer Hook ──────────────────────────────────────────────
 function useIntersectionObserver(options = {}) {
@@ -454,22 +544,43 @@ export default function CoursesPage() {
   const [leadOpen, setLeadOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [dynamicPrices, setDynamicPrices] = useState<DynamicPackagePrice[]>([]);
+  const [saleOffer, setSaleOffer] = useState<SaleOfferConfig>({
+    isSaleActive: true,
+    offerTitle: '⚡ IMAT 2027 AUTUMN FLASH SALE — UP TO 25% OFF',
+    offerSubtitle: 'Enrol today to lock in special discounted pricing with 12 months full portal access!',
+    endDate: '2026-10-31T23:59:59',
+    discountBadgeText: 'LIMITED TIME OFFER',
+    promoCode: 'AUTUMN25',
+  });
+
   const { observe } = useIntersectionObserver();
 
   useEffect(() => {
     setDynamicPrices(getDynamicPackagePrices());
+    setSaleOffer(getSaleOfferConfig());
+
     syncPricesFromSupabase().then((prices) => {
       if (prices && prices.length > 0) setDynamicPrices(prices);
+    });
+
+    syncSaleOfferFromSupabase().then((offer) => {
+      if (offer) setSaleOffer(offer);
     });
   }, []);
 
   const getPriceInfo = (id: string) => {
-    const found = dynamicPrices.find((p) => p.id === id);
-    if (!found) return { price: id === 'ascent' ? '€299' : id === 'mastery' ? '€499' : '€799', originalPrice: null, badge: null };
+    const targetId = id === 'ascent' ? 'ascend' : id;
+    const found = dynamicPrices.find((p) => p.id === targetId || p.id === id);
+    if (!found) {
+      const orig = id === 'ascent' ? '€399' : id === 'mastery' ? '€649' : '€999';
+      const sale = id === 'ascent' ? '€299' : id === 'mastery' ? '€499' : '€799';
+      const badge = id === 'ascent' ? '25% OFF' : id === 'mastery' ? '23% OFF' : '20% OFF';
+      return { price: sale, originalPrice: orig, badge };
+    }
     return {
       price: found.price,
-      originalPrice: found.isDiscountActive ? found.originalPrice : null,
-      badge: found.isDiscountActive ? found.discountBadge : null,
+      originalPrice: (found.isDiscountActive ?? true) ? (found.originalPrice || null) : null,
+      badge: (found.isDiscountActive ?? true) ? (found.discountBadge || null) : null,
     };
   };
 
@@ -542,6 +653,9 @@ export default function CoursesPage() {
 
   return (
     <div style={{ backgroundColor: 'var(--bg-main)', minHeight: '100vh' }}>
+
+      {/* ── 00 SALE & COUNTDOWN BANNER ───────────────────────────────────── */}
+      <SaleOfferBanner offer={saleOffer} />
 
       {/* ── 01 HERO ─────────────────────────────────────────────────────── */}
       <section className="courses-hero" style={{ position: 'relative', overflow: 'hidden', padding: '116px 0 60px', background: 'linear-gradient(135deg, #064E3B 0%, #065F46 50%, #0F172A 100%)', color: '#FFFFFF' }}>
@@ -876,8 +990,29 @@ export default function CoursesPage() {
                 </div>
               </div>
               <div ref={observe} className={`sticky-pricing scroll-fade-left ${prog.isFeatured ? 'prog-card-featured' : ''}`} style={{ '--card-accent': prog.accentColor, padding: '32px' } as React.CSSProperties}>
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-light)', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '6px', fontWeight: 700 }}>Starting from</div>
-                <div style={{ fontSize: '3rem', fontWeight: 900, color: prog.accentColor, letterSpacing: '-1.5px', marginBottom: '6px' }}>{prog.price}</div>
+                {(() => {
+                  const pDetail = getPriceInfo(prog.id);
+                  return (
+                    <>
+                      {pDetail.badge && (
+                        <span style={{ fontSize: '0.72rem', fontWeight: 800, backgroundColor: '#EF4444', color: '#FFFFFF', borderRadius: '12px', padding: '3px 10px', marginBottom: '8px', display: 'inline-block', letterSpacing: '0.5px' }}>
+                          {pDetail.badge}
+                        </span>
+                      )}
+                      <div style={{ fontSize: '0.8rem', color: 'var(--text-light)', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '4px', fontWeight: 700 }}>Starting from</div>
+                      <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '6px', flexWrap: 'wrap' }}>
+                        <span style={{ fontSize: '2.8rem', fontWeight: 900, color: prog.accentColor, letterSpacing: '-1.5px' }}>
+                          {pDetail.price}
+                        </span>
+                        {pDetail.originalPrice && (
+                          <span style={{ fontSize: '1.25rem', color: '#94A3B8', textDecoration: 'line-through', fontWeight: 600 }}>
+                            {pDetail.originalPrice}
+                          </span>
+                        )}
+                      </div>
+                    </>
+                  );
+                })()}
                 <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '30px', fontWeight: 600 }}>12 months full portal access included</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   <a href="https://wa.me/393333444479" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textAlign: 'center', backgroundColor: prog.accentColor, color: '#fff', borderRadius: 'var(--radius-full)', padding: '14px', fontWeight: 800, fontSize: '0.95rem', textDecoration: 'none', transition: 'transform 0.2s', boxShadow: `0 8px 24px -4px ${prog.accentColor}40` }} onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(-2px)')} onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}>{prog.cta}</a>

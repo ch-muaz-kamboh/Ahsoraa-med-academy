@@ -562,3 +562,73 @@ export function updatePackagePricing(
     }
   }
 }
+
+// ── 5. SALE OFFER & FLASH PROMO CONFIG ────────────────────────────────────────
+
+export interface SaleOfferConfig {
+  isSaleActive: boolean;
+  offerTitle: string;
+  offerSubtitle: string;
+  endDate: string;
+  discountBadgeText?: string;
+  promoCode?: string;
+}
+
+const SALE_OFFER_KEY = 'ahsora_cms_sale_offer';
+
+const INITIAL_SALE_OFFER: SaleOfferConfig = {
+  isSaleActive: true,
+  offerTitle: '⚡ IMAT 2027 AUTUMN FLASH SALE — UP TO 25% OFF',
+  offerSubtitle: 'Enrol today to lock in special discounted pricing with 12 months full portal access!',
+  endDate: '2026-10-31T23:59:59',
+  discountBadgeText: 'LIMITED TIME OFFER',
+  promoCode: 'AUTUMN25',
+};
+
+export function getSaleOfferConfig(): SaleOfferConfig {
+  if (typeof window === 'undefined') return INITIAL_SALE_OFFER;
+  try {
+    const data = localStorage.getItem(SALE_OFFER_KEY);
+    return data ? JSON.parse(data) : INITIAL_SALE_OFFER;
+  } catch {
+    return INITIAL_SALE_OFFER;
+  }
+}
+
+export function saveSaleOfferConfig(config: SaleOfferConfig) {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem(SALE_OFFER_KEY, JSON.stringify(config));
+  } catch (e) {
+    console.error('Failed to save sale offer locally:', e);
+  }
+}
+
+export async function syncSaleOfferFromSupabase(): Promise<SaleOfferConfig> {
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase.from('site_content').select('*').eq('id', 1).single();
+    if (!error && data && data.sale_offer_config) {
+      const parsed: SaleOfferConfig = data.sale_offer_config;
+      saveSaleOfferConfig(parsed);
+      return parsed;
+    }
+  } catch (e) {
+    console.warn('Supabase sale offer fetch skipped/fallback:', e);
+  }
+  return getSaleOfferConfig();
+}
+
+export function updateSaleOfferConfig(config: SaleOfferConfig) {
+  saveSaleOfferConfig(config);
+  if (typeof window !== 'undefined') {
+    const supabase = createClient();
+    supabase.from('site_content').upsert({
+      id: 1,
+      sale_offer_config: config,
+      updated_at: new Date().toISOString(),
+    }).then(({ error }) => {
+      if (error) console.warn('Supabase sale offer upsert notice:', error.message);
+    });
+  }
+}

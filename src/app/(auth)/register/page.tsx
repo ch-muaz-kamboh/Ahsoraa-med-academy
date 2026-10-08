@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { ACADEMY_PACKAGES, CoursePackage, getPackageByIdOrName, saveStudentPackageMapping } from '@/lib/packages';
 import { getDynamicPackagePrices, syncPricesFromSupabase, DynamicPackagePrice } from '@/lib/cms-store';
-import { ArrowRight, Check, CheckCircle2, Globe, Lock, Mail, Phone, Sparkles, User, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Check, CheckCircle2, Globe, Lock, Mail, Phone, Sparkles, User, ShieldCheck, Eye, EyeOff, MapPin } from 'lucide-react';
 import Logo from '@/components/brand/Logo';
 
 const COUNTRIES = [
@@ -33,10 +33,15 @@ export default function RegisterPage() {
     lastName: '',
     email: '',
     password: '',
+    confirmPassword: '',
+    address: '',
     country: 'Italy',
     whatsappNumber: '',
     selectedPackage: 'ascend', // default: Ahsora IMAT Ascend (€299)
   });
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -54,16 +59,28 @@ export default function RegisterPage() {
   const getPriceData = (pkgId: string) => {
     const found = dynamicPrices.find((p) => p.id === pkgId);
     if (!found) {
+      const defaultOrig = pkgId === 'ascend' ? '€399' : pkgId === 'mastery' ? '€649' : '€999';
+      const defaultSale = pkgId === 'ascend' ? '€299' : pkgId === 'mastery' ? '€499' : '€799';
+      const defaultBadge = pkgId === 'ascend' ? '25% OFF' : pkgId === 'mastery' ? '23% OFF' : '20% OFF';
       return {
-        price: pkgId === 'ascend' ? '€299' : pkgId === 'mastery' ? '€499' : '€799',
-        originalPrice: null,
-        badge: null,
+        price: defaultSale,
+        originalPrice: defaultOrig,
+        badge: defaultBadge,
+        discountPercentage: defaultBadge,
       };
     }
+
+    let calculatedBadge = found.discountBadge;
+    if (!calculatedBadge && found.numericOriginalPrice && found.numericPrice && found.numericOriginalPrice > found.numericPrice) {
+      const pct = Math.round(((found.numericOriginalPrice - found.numericPrice) / found.numericOriginalPrice) * 100);
+      calculatedBadge = `${pct}% OFF`;
+    }
+
     return {
       price: found.price,
-      originalPrice: found.isDiscountActive ? found.originalPrice : null,
-      badge: found.isDiscountActive ? found.discountBadge : null,
+      originalPrice: (found.isDiscountActive ?? true) ? (found.originalPrice || null) : null,
+      badge: (found.isDiscountActive ?? true) ? (calculatedBadge || found.discountBadge || null) : null,
+      discountPercentage: calculatedBadge || found.discountBadge || null,
     };
   };
 
@@ -76,8 +93,20 @@ export default function RegisterPage() {
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.firstName || !formData.lastName || !formData.email || !formData.password || !formData.whatsappNumber) {
-      setError('Please fill in all required fields.');
+    if (
+      !formData.firstName.trim() ||
+      !formData.lastName.trim() ||
+      !formData.email.trim() ||
+      !formData.password.trim() ||
+      !formData.confirmPassword.trim() ||
+      !formData.address.trim() ||
+      !formData.whatsappNumber.trim()
+    ) {
+      setError('Please fill in all mandatory fields (*), including address and password confirmation.');
+      return;
+    }
+    if (formData.password !== formData.confirmPassword) {
+      setError('Passwords do not match. Please ensure Password and Confirm Password match.');
       return;
     }
     if (!allAgreed) {
@@ -103,6 +132,7 @@ export default function RegisterPage() {
             first_name: formData.firstName,
             last_name: formData.lastName,
             full_name: fullName,
+            address: formData.address,
             country: formData.country,
             whatsapp_number: formData.whatsappNumber,
             selected_package: pkgObj.name,
@@ -122,6 +152,7 @@ export default function RegisterPage() {
           id: authData.user.id,
           full_name: fullName,
           email: formData.email,
+          address: formData.address,
           payment_approved: false,
           created_at: new Date().toISOString(),
         });
@@ -415,20 +446,19 @@ export default function RegisterPage() {
                   </div>
                 </div>
 
-                {/* Password */}
+                {/* Full Address (Mandatory) */}
                 <div>
                   <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
-                    Password <span style={{ color: '#DC2626' }}>*</span>
+                    Full Physical Address <span style={{ color: '#DC2626' }}>*</span>
                   </label>
                   <div style={{ position: 'relative' }}>
-                    <Lock size={18} color="#94A3B8" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
+                    <MapPin size={18} color="#94A3B8" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
                     <input
-                      type="password"
+                      type="text"
                       required
-                      minLength={6}
-                      placeholder="Min. 6 characters"
-                      value={formData.password}
-                      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                      placeholder="House/Street, City, Postal Code"
+                      value={formData.address}
+                      onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                       style={{
                         width: '100%',
                         padding: '12px 16px 12px 42px',
@@ -438,6 +468,98 @@ export default function RegisterPage() {
                         outline: 'none',
                       }}
                     />
+                  </div>
+                </div>
+
+                {/* Password */}
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
+                    Password <span style={{ color: '#DC2626' }}>*</span>
+                  </label>
+                  <div style={{ position: 'relative' }}>
+                    <Lock size={18} color="#94A3B8" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      required
+                      minLength={6}
+                      placeholder="Min. 6 characters"
+                      value={formData.password}
+                      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                      style={{
+                        width: '100%',
+                        padding: '12px 42px 12px 42px',
+                        borderRadius: '10px',
+                        border: '1px solid #CBD5E1',
+                        fontSize: '0.9375rem',
+                        outline: 'none',
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      style={{
+                        position: 'absolute',
+                        right: '12px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        color: '#64748B',
+                        display: 'flex',
+                        alignItems: 'center',
+                        padding: '4px',
+                      }}
+                      title={showPassword ? 'Hide password' : 'Show password'}
+                    >
+                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Confirm Password */}
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
+                    Confirm Password <span style={{ color: '#DC2626' }}>*</span>
+                  </label>
+                  <div style={{ position: 'relative' }}>
+                    <Lock size={18} color="#94A3B8" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
+                    <input
+                      type={showConfirmPassword ? 'text' : 'password'}
+                      required
+                      minLength={6}
+                      placeholder="Re-enter password"
+                      value={formData.confirmPassword}
+                      onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                      style={{
+                        width: '100%',
+                        padding: '12px 42px 12px 42px',
+                        borderRadius: '10px',
+                        border: '1px solid #CBD5E1',
+                        fontSize: '0.9375rem',
+                        outline: 'none',
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      style={{
+                        position: 'absolute',
+                        right: '12px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        color: '#64748B',
+                        display: 'flex',
+                        alignItems: 'center',
+                        padding: '4px',
+                      }}
+                      title={showConfirmPassword ? 'Hide password' : 'Show password'}
+                    >
+                      {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </button>
                   </div>
                 </div>
 

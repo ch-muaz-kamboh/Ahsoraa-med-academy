@@ -31,10 +31,21 @@ export default function ResourcesPage() {
   const handleDownload = (doc: ResourceDocument) => {
     // Increment download count locally
     setDocuments((prev) =>
-      prev.map((d) => (d.id === doc.id ? { ...d, downloadsCount: d.downloadsCount + 1 } : d))
+      prev.map((d) => (d.id === doc.id ? { ...d, downloadsCount: (d.downloadsCount || 0) + 1 } : d))
     );
-    // Open lead capture or prompt download
-    setLeadOpen(true);
+
+    // Directly trigger browser download without modal or sign up prompt
+    if (doc.fileUrl) {
+      const link = document.createElement('a');
+      link.href = doc.fileUrl;
+      const fileExt = doc.format ? doc.format.toLowerCase() : 'pdf';
+      const cleanName = doc.title ? doc.title.replace(/[^a-zA-Z0-9_\-]/g, '_') : 'document';
+      link.download = `${cleanName}.${fileExt}`;
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
   };
 
   return (
@@ -79,7 +90,7 @@ export default function ResourcesPage() {
             Official IMAT Documents &amp; Revision Guides
           </h1>
           <p style={{ color: '#CBD5E1', fontSize: '1.1rem', lineHeight: 1.7, marginBottom: '32px' }}>
-            Access and download verified PDF study guides, past paper collections, formula cheat sheets, and official Italian university admission checklists.
+            Access and download verified PDF study guides, past paper collections, formula cheat sheets, and official Italian university admission checklists. Free &amp; instant download for everyone — no sign up or registration required.
           </p>
 
           {/* Search Bar */}
