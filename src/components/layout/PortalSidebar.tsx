@@ -38,6 +38,7 @@ import {
   isMedpathLocked,
   isDocumentVaultLocked,
   resolveEffectivePackage,
+  saveStudentPackageMapping,
 } from '@/lib/packages';
 
 export default function PortalSidebar({ userFullName = 'Student', userInitials = 'ST' }: { userFullName?: string, userInitials?: string }) {
