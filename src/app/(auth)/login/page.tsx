@@ -68,7 +68,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#F8FAFC', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 20px' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: '#F8FAFC', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '116px 20px 60px' }}>
       <div style={{ backgroundColor: '#FFFFFF', borderRadius: '24px', padding: '48px 40px', width: '100%', maxWidth: '460px', boxShadow: '0 10px 40px -10px rgba(0,0,0,0.08)' }}>
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
           <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#0F172A', marginBottom: '8px' }}>Welcome back</h1>
