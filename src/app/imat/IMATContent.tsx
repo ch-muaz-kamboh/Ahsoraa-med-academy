@@ -140,16 +140,16 @@ export default function IMATContent() {
     <div style={{ backgroundColor: '#FFFFFF', minHeight: '100vh', paddingBottom: '60px' }}>
       
       {/* 01 — Hero */}
-      <section style={{ background: 'linear-gradient(135deg, #F0FFF4 0%, #FFFFFF 60%)', padding: '116px 0 60px', borderBottom: '1px solid #E2E8F0' }}>
+      <section style={{ background: 'linear-gradient(135deg, #064E3B 0%, #065F46 50%, #0F172A 100%)', color: '#FFFFFF', padding: '116px 0 60px', borderBottom: '1px solid #1E293B' }}>
         <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px', alignItems: 'center' }}>
           <div ref={heroRef as React.RefObject<HTMLDivElement>} className="scroll-fade-up">
-            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#16A34A', textTransform: 'uppercase', letterSpacing: '1.5px' }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#5CED73', textTransform: 'uppercase', letterSpacing: '1.5px', backgroundColor: 'rgba(92,237,115,0.15)', padding: '4px 12px', borderRadius: '20px', border: '1px solid rgba(92,237,115,0.3)' }}>
               IMAT — International Medical Admissions Test
             </span>
-            <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 3.8rem)', fontWeight: 800, color: '#0F172A', marginTop: '16px', marginBottom: '24px', letterSpacing: '-1px', lineHeight: 1.1 }}>
+            <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 3.8rem)', fontWeight: 800, color: '#FFFFFF', marginTop: '16px', marginBottom: '24px', letterSpacing: '-1px', lineHeight: 1.1 }}>
               The IMAT Is the Test. Your Preparation Makes the Difference.
             </h1>
-            <p style={{ color: '#475569', fontSize: '1.15rem', lineHeight: 1.7, marginBottom: '36px' }}>
+            <p style={{ color: '#CBD5E1', fontSize: '1.15rem', lineHeight: 1.7, marginBottom: '36px' }}>
               Understand the exam, master the syllabus, practise under realistic conditions, and measure your progress — with a preparation system built for students pursuing Medicine in Italy.
             </p>
             <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>

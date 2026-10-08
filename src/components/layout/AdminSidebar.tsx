@@ -41,7 +41,7 @@ export default function AdminSidebar() {
     { href: '/admin/learn/schedule', label: 'Schedule Manager', icon: <Calendar size={18} /> },
     { href: '/admin/learn/lectures', label: 'Video Lectures', icon: <Video size={18} /> },
     { href: '/admin/learn/library', label: 'Library Resources', icon: <Library size={18} /> },
-    { href: '/admin/content', label: 'Website Content', icon: <FileSignature size={18} /> },
+    { href: '/admin/content', label: 'CMS & Website Manager', icon: <FileSignature size={18} /> },
   ];
 
   return (

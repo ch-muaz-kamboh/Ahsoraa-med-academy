@@ -17,11 +17,11 @@ export default function MockTestsPage() {
   }, []);
 
   return (
-    <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', padding: '116px 0 80px 0' }}>
+    <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', paddingBottom: '80px' }}>
       <div className="container">
         {/* Header */}
         <div style={{ marginBottom: '36px', textAlign: 'center', maxWidth: '720px', margin: '0 auto 40px auto' }}>
-          <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#059669', textTransform: 'uppercase' }}>
+          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#059669', textTransform: 'uppercase', letterSpacing: '1.5px', backgroundColor: '#ECFDF5', padding: '6px 16px', borderRadius: '20px', border: '1px solid #A7F3D0' }}>
             Computer-Based Testing (CBT)
           </span>
           <h1 style={{ fontSize: '2.4rem', color: '#0F172A', marginTop: '4px', marginBottom: '12px' }}>

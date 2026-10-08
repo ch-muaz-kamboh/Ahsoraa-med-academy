@@ -54,20 +54,31 @@ export default function VisaPage() {
   ];
 
   return (
-    <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', padding: '116px 0 80px 0' }}>
-      <div className="container">
-        {/* Header */}
-        <div style={{ marginBottom: '36px' }}>
-          <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#059669', textTransform: 'uppercase' }}>
+    <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', paddingBottom: '80px' }}>
+      {/* Header Banner */}
+      <div
+        style={{
+          background: 'linear-gradient(135deg, #064E3B 0%, #065F46 50%, #0F172A 100%)',
+          color: '#FFFFFF',
+          padding: '116px 20px 60px',
+          borderBottom: '1px solid #1E293B',
+          marginBottom: '40px',
+        }}
+      >
+        <div className="container">
+          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#5CED73', textTransform: 'uppercase', letterSpacing: '1.5px', backgroundColor: 'rgba(92,237,115,0.15)', padding: '4px 12px', borderRadius: '20px', border: '1px solid rgba(92,237,115,0.3)' }}>
             Immigration & Embassy Guidance
           </span>
-          <h1 style={{ fontSize: '2.4rem', color: '#0F172A', marginTop: '4px', marginBottom: '8px' }}>
+          <h1 style={{ fontSize: '2.4rem', color: '#FFFFFF', marginTop: '16px', marginBottom: '8px' }}>
             Medical Student Visa & Embassy Roadmaps
           </h1>
-          <p style={{ color: '#64748B', fontSize: '1rem', maxWidth: '750px' }}>
+          <p style={{ color: '#CBD5E1', fontSize: '1rem', maxWidth: '750px', margin: 0 }}>
             Complete step-by-step document legalization, Universitaly summaries, sponsor declarations, and embassy mock interviews.
           </p>
         </div>
+      </div>
+
+      <div className="container">
 
         {/* Disclaimer Alert */}
         <div

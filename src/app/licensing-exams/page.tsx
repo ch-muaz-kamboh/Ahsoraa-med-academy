@@ -60,15 +60,15 @@ export default function LicensingExamsPage() {
     <div style={{ backgroundColor: '#FFFFFF', minHeight: '100vh' }}>
 
       {/* ── HERO ── */}
-      <section style={{ background: 'linear-gradient(135deg, #F0FFF4 0%, #FFFFFF 60%)', padding: '116px 0 60px', borderBottom: '1px solid #E2E8F0' }}>
+      <section style={{ background: 'linear-gradient(135deg, #064E3B 0%, #065F46 50%, #0F172A 100%)', color: '#FFFFFF', padding: '116px 0 60px', borderBottom: '1px solid #1E293B' }}>
         <div className="container" style={{ maxWidth: '800px', textAlign: 'center' }}>
-          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#22C55E', textTransform: 'uppercase', letterSpacing: '1.5px' }}>
+          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#5CED73', textTransform: 'uppercase', letterSpacing: '1.5px', backgroundColor: 'rgba(92,237,115,0.15)', padding: '4px 12px', borderRadius: '20px', border: '1px solid rgba(92,237,115,0.3)' }}>
             Global Medical Licensing
           </span>
-          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.2rem)', fontWeight: 800, color: '#0F172A', marginTop: '12px', marginBottom: '20px', letterSpacing: '-1px', lineHeight: 1.15 }}>
+          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.2rem)', fontWeight: 800, color: '#FFFFFF', marginTop: '16px', marginBottom: '20px', letterSpacing: '-1px', lineHeight: 1.15 }}>
             Licensing Exams — Complete Global Guide
           </h1>
-          <p style={{ color: '#475569', fontSize: '1.1rem', lineHeight: 1.7, marginBottom: '36px' }}>
+          <p style={{ color: '#CBD5E1', fontSize: '1.1rem', lineHeight: 1.7, marginBottom: '36px' }}>
             Planning to practice medicine internationally after your Italian degree? We guide you through every major licensing exam — from PLAB to USMLE, AMC to FMGE.
           </p>
           <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>

@@ -1,170 +1,379 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { BookOpen, FileCheck, Download, Video, BookMarked, FlaskConical, ArrowRight, Zap } from 'lucide-react';
+import { Download, FileText, Search, Filter, CheckCircle2, ShieldCheck, ExternalLink, ArrowRight, Eye, Sparkles } from 'lucide-react';
 import LeadCaptureModal from '@/components/public/LeadCaptureModal';
-import { useState } from 'react';
-
-const resourceCategories = [
-  {
-    icon: <Video size={24} color="var(--primary-600)" />,
-    title: 'Video Lectures',
-    desc: 'High-yield, structured video modules covering every IMAT topic. Organized by subject and difficulty.',
-    count: '120+ Videos',
-    color: '#22C55E',
-    link: '/courses',
-  },
-  {
-    icon: <FileCheck size={24} color="var(--gold-500)" />,
-    title: 'Practice Question Banks',
-    desc: '2,800+ IMAT-style MCQs with fully worked explanations, tagged by topic and year.',
-    count: '2,800+ Questions',
-    color: '#D4AF37',
-    link: '/courses',
-  },
-  {
-    icon: <Download size={24} color="var(--primary-800)" />,
-    title: 'Downloadable Notes',
-    desc: 'Concise, exam-focused summary sheets for every IMAT topic — perfect for last-minute revision.',
-    count: '80+ PDF Sheets',
-    color: '#0B2B5C',
-    link: '/courses',
-  },
-  {
-    icon: <BookMarked size={24} color="var(--primary-700)" />,
-    title: 'Past Paper Library',
-    desc: 'Complete archive of official IMAT past papers with model answers, going back 10 years.',
-    count: '10 Years of Papers',
-    color: '#16A34A',
-    link: '/courses',
-  },
-  {
-    icon: <FlaskConical size={24} color="var(--primary-600)" />,
-    title: 'Lab & Experiment Guides',
-    desc: 'Illustrated science guides for Biology and Chemistry experiments commonly referenced in IMAT questions.',
-    count: '40+ Guides',
-    color: '#7C3AED',
-    link: '/courses',
-  },
-  {
-    icon: <BookOpen size={24} color="#DC2626" />,
-    title: 'IMAT Glossary',
-    desc: 'A complete indexed glossary of medical, biological, and chemistry terminology tested in IMAT.',
-    count: '500+ Terms',
-    color: '#DC2626',
-    link: '/courses',
-  },
-];
-
-const freeResources = [
-  { title: 'IMAT 2024 Official Past Paper', type: 'PDF', size: '1.2 MB' },
-  { title: 'IMAT Biology Quick Reference Sheet', type: 'PDF', size: '840 KB' },
-  { title: 'IMAT Scoring Calculator (Excel)', type: 'XLSX', size: '120 KB' },
-  { title: 'Italy University Ranking 2027/2028', type: 'PDF', size: '2.1 MB' },
-  { title: 'IMAT Study Schedule Template (12 Weeks)', type: 'PDF', size: '560 KB' },
-];
+import { getResourceDocuments, ResourceDocument } from '@/lib/cms-store';
 
 export default function ResourcesPage() {
+  const [documents, setDocuments] = useState<ResourceDocument[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const [leadOpen, setLeadOpen] = useState(false);
+  const [activePreview, setActivePreview] = useState<ResourceDocument | null>(null);
+
+  useEffect(() => {
+    setDocuments(getResourceDocuments());
+  }, []);
+
+  const categories = ['All', 'Syllabus & Blueprint', 'Biology Notes', 'Chemistry Cheat Sheets', 'Past Papers', 'Physics & Math', 'Admissions Checklists'];
+
+  const filteredDocs = documents.filter((doc) => {
+    const matchesCategory = selectedCategory === 'All' || doc.category === selectedCategory;
+    const matchesQuery =
+      doc.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      doc.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      doc.category.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesQuery;
+  });
+
+  const handleDownload = (doc: ResourceDocument) => {
+    // Increment download count locally
+    setDocuments((prev) =>
+      prev.map((d) => (d.id === doc.id ? { ...d, downloadsCount: d.downloadsCount + 1 } : d))
+    );
+    // Open lead capture or prompt download
+    setLeadOpen(true);
+  };
 
   return (
     <div style={{ backgroundColor: '#FFFFFF', minHeight: '100vh' }}>
 
-      {/* ── HERO ── */}
-      <section style={{ background: 'linear-gradient(135deg, #F0FFF4 0%, #FFFFFF 60%)', padding: '116px 0 60px', borderBottom: '1px solid #E2E8F0' }}>
-        <div className="container" style={{ maxWidth: '800px', textAlign: 'center' }}>
-          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#22C55E', textTransform: 'uppercase', letterSpacing: '1.5px' }}>
-            IMAT Study Resources
+      {/* ── HERO BANNER ── */}
+      <section
+        style={{
+          background: 'linear-gradient(135deg, #064E3B 0%, #065F46 50%, #0F172A 100%)',
+          color: '#FFFFFF',
+          padding: '116px 0 60px',
+          borderBottom: '1px solid #1E293B',
+        }}
+      >
+        <div className="container" style={{ maxWidth: '840px', textAlign: 'center' }}>
+          <span
+            style={{
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              color: '#5CED73',
+              textTransform: 'uppercase',
+              letterSpacing: '1.5px',
+              backgroundColor: 'rgba(92,237,115,0.15)',
+              padding: '4px 14px',
+              borderRadius: '20px',
+              border: '1px solid rgba(92,237,115,0.3)',
+            }}
+          >
+            DOCUMENT VAULT &amp; DOWNLOADS
           </span>
-          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.2rem)', fontWeight: 800, color: '#0F172A', marginTop: '12px', marginBottom: '20px', letterSpacing: '-1px', lineHeight: 1.15 }}>
-            Everything you need to ace the IMAT
+          <h1
+            style={{
+              fontSize: 'clamp(2rem, 5vw, 3.2rem)',
+              fontWeight: 800,
+              color: '#FFFFFF',
+              marginTop: '16px',
+              marginBottom: '20px',
+              letterSpacing: '-1px',
+              lineHeight: 1.15,
+            }}
+          >
+            Official IMAT Documents &amp; Revision Guides
           </h1>
-          <p style={{ color: '#475569', fontSize: '1.1rem', lineHeight: 1.7, marginBottom: '36px' }}>
-            Access our complete library of videos, question banks, notes, past papers, and downloadable tools — all curated specifically for IMAT success.
+          <p style={{ color: '#CBD5E1', fontSize: '1.1rem', lineHeight: 1.7, marginBottom: '32px' }}>
+            Access and download verified PDF study guides, past paper collections, formula cheat sheets, and official Italian university admission checklists.
           </p>
-          <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/courses" className="btn-primary" style={{ padding: '14px 32px', fontSize: '1rem' }}>
-              <span>Access Full Library</span>
-              <ArrowRight size={18} />
-            </Link>
-            <Link href="/#packages" className="btn-outline" style={{ padding: '14px 28px', fontSize: '1rem' }}>
-              View Packages
-            </Link>
+
+          {/* Search Bar */}
+          <div
+            style={{
+              position: 'relative',
+              maxWidth: '600px',
+              margin: '0 auto',
+            }}
+          >
+            <input
+              type="text"
+              placeholder="Search documents by title, subject, or keyword..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '16px 20px 16px 50px',
+                borderRadius: '16px',
+                border: '1px solid #A7F3D0',
+                backgroundColor: '#FFFFFF',
+                color: '#0F172A',
+                fontSize: '0.9375rem',
+                outline: 'none',
+                boxShadow: '0 10px 25px -5px rgba(0,0,0,0.2)',
+                boxSizing: 'border-box',
+              }}
+            />
+            <Search size={20} color="#059669" style={{ position: 'absolute', left: '18px', top: '16px' }} />
           </div>
         </div>
       </section>
 
-      {/* ── RESOURCE CATEGORIES ── */}
-      <section style={{ padding: '70px 0', backgroundColor: '#FFFFFF' }}>
+      {/* ── DOCUMENT CATEGORIES & GRID ── */}
+      <section style={{ padding: '60px 0 80px', backgroundColor: '#F8FAFC' }}>
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '50px' }}>
-            <h2 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.2rem)', fontWeight: 800, color: '#0F172A' }}>Resource Categories</h2>
-            <p style={{ color: '#64748B', marginTop: '10px' }}>Everything organized — so you can study smarter, not harder.</p>
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
-            {resourceCategories.map((cat, i) => (
-              <Link key={i} href={cat.link} style={{ textDecoration: 'none' }}>
-                <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '28px 24px', height: '100%', transition: 'all 0.2s ease', cursor: 'pointer' }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.boxShadow = '0 8px 24px -6px rgba(0,0,0,0.1)'; (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-3px)'; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.boxShadow = 'none'; (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)'; }}
-                >
-                  <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: `${cat.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
-                    {cat.icon}
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
-                    <h3 style={{ fontWeight: 700, fontSize: '1.05rem', color: '#0F172A' }}>{cat.title}</h3>
-                    <span style={{ backgroundColor: `${cat.color}15`, color: cat.color, borderRadius: '12px', padding: '3px 10px', fontSize: '0.75rem', fontWeight: 700, flexShrink: 0, marginLeft: '8px' }}>{cat.count}</span>
-                  </div>
-                  <p style={{ color: '#64748B', fontSize: '0.875rem', lineHeight: 1.6 }}>{cat.desc}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* ── FREE DOWNLOADS ── */}
-      <section style={{ padding: '70px 0', backgroundColor: '#F8FAFC' }}>
-        <div className="container" style={{ maxWidth: '760px' }}>
-          <div style={{ textAlign: 'center', marginBottom: '44px' }}>
-            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#22C55E', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Completely Free</span>
-            <h2 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.2rem)', fontWeight: 800, color: '#0F172A', marginTop: '8px' }}>Free Resources</h2>
-            <p style={{ color: '#64748B', marginTop: '10px' }}>Download these high-value IMAT materials at no cost.</p>
+          {/* Category Filter Pills */}
+          <div
+            style={{
+              display: 'flex',
+              gap: '10px',
+              overflowX: 'auto',
+              paddingBottom: '16px',
+              marginBottom: '36px',
+              scrollbarWidth: 'none',
+            }}
+          >
+            {categories.map((cat) => {
+              const active = selectedCategory === cat;
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  style={{
+                    padding: '8px 18px',
+                    borderRadius: '20px',
+                    fontSize: '0.875rem',
+                    fontWeight: active ? 700 : 600,
+                    backgroundColor: active ? '#059669' : '#FFFFFF',
+                    color: active ? '#FFFFFF' : '#475569',
+                    border: `1px solid ${active ? '#059669' : '#E2E8F0'}`,
+                    cursor: 'pointer',
+                    whiteSpace: 'nowrap',
+                    transition: 'all 0.15s ease',
+                    boxShadow: active ? '0 4px 12px rgba(5,150,105,0.25)' : 'none',
+                  }}
+                >
+                  {cat}
+                </button>
+              );
+            })}
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            {freeResources.map((r, i) => (
-              <div key={i} style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '14px', padding: '18px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#F0FFF4', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <Download size={18} color="#22C55E" />
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+            <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A' }}>
+              Available Documents ({filteredDocs.length})
+            </div>
+            <div style={{ fontSize: '0.875rem', color: '#64748B' }}>
+              Verified PDF Downloads • Free &amp; Premium Bundles
+            </div>
+          </div>
+
+          {/* Documents Grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '24px' }}>
+            {filteredDocs.map((doc) => (
+              <div
+                key={doc.id}
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #E2E8F0',
+                  borderRadius: '20px',
+                  padding: '24px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  gap: '16px',
+                  boxShadow: '0 4px 12px rgba(15,23,42,0.03)',
+                  transition: 'all 0.2s ease',
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.borderColor = '#6EE7B7';
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = '0 12px 28px -6px rgba(5,150,105,0.12)';
+                  (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.borderColor = '#E2E8F0';
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = '0 4px 12px rgba(15,23,42,0.03)';
+                  (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)';
+                }}
+              >
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
+                    <span
+                      style={{
+                        backgroundColor: '#ECFDF5',
+                        color: '#059669',
+                        border: '1px solid #A7F3D0',
+                        padding: '4px 10px',
+                        borderRadius: '12px',
+                        fontSize: '0.75rem',
+                        fontWeight: 700,
+                      }}
+                    >
+                      {doc.category}
+                    </span>
+                    <span
+                      style={{
+                        backgroundColor: '#F1F5F9',
+                        color: '#475569',
+                        padding: '2px 8px',
+                        borderRadius: '6px',
+                        fontSize: '0.75rem',
+                        fontWeight: 700,
+                      }}
+                    >
+                      {doc.format} • {doc.fileSize}
+                    </span>
                   </div>
-                  <div>
-                    <div style={{ fontWeight: 600, color: '#0F172A', fontSize: '0.9375rem' }}>{r.title}</div>
-                    <div style={{ color: '#94A3B8', fontSize: '0.8125rem', marginTop: '2px' }}>{r.type} · {r.size}</div>
+
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', marginBottom: '12px' }}>
+                    <div
+                      style={{
+                        width: '40px',
+                        height: '40px',
+                        borderRadius: '10px',
+                        backgroundColor: '#ECFDF5',
+                        color: '#059669',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <FileText size={22} />
+                    </div>
+                    <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#0F172A', lineHeight: 1.35, margin: 0 }}>
+                      {doc.title}
+                    </h3>
+                  </div>
+
+                  <p style={{ color: '#64748B', fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
+                    {doc.description}
+                  </p>
+                </div>
+
+                <div style={{ paddingTop: '16px', borderTop: '1px solid #F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div style={{ fontSize: '0.8125rem', color: '#94A3B8' }}>
+                    {doc.downloadsCount} downloads
+                  </div>
+
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <button
+                      onClick={() => setActivePreview(doc)}
+                      style={{
+                        backgroundColor: '#F8FAFC',
+                        color: '#475569',
+                        border: '1px solid #E2E8F0',
+                        borderRadius: '10px',
+                        padding: '8px 14px',
+                        fontSize: '0.8125rem',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                      }}
+                    >
+                      <Eye size={14} /> Preview
+                    </button>
+                    <button
+                      onClick={() => handleDownload(doc)}
+                      style={{
+                        backgroundColor: '#059669',
+                        color: '#FFFFFF',
+                        border: 'none',
+                        borderRadius: '10px',
+                        padding: '8px 16px',
+                        fontSize: '0.8125rem',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        boxShadow: '0 4px 10px rgba(5,150,105,0.2)',
+                      }}
+                    >
+                      <Download size={14} /> Download PDF
+                    </button>
                   </div>
                 </div>
-                <button onClick={() => setLeadOpen(true)} style={{ backgroundColor: '#F0FFF4', color: '#16A34A', border: '1px solid #BBF7D0', borderRadius: '8px', padding: '7px 16px', fontSize: '0.8125rem', fontWeight: 700, cursor: 'pointer', flexShrink: 0 }}>
-                  Download Free
-                </button>
               </div>
             ))}
           </div>
+
+          {filteredDocs.length === 0 && (
+            <div style={{ textAlign: 'center', padding: '60px 20px', color: '#64748B' }}>
+              <FileText size={48} color="#94A3B8" style={{ marginBottom: '16px' }} />
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#0F172A' }}>No documents found</h3>
+              <p style={{ fontSize: '0.9375rem' }}>Try selecting a different category or search term.</p>
+            </div>
+          )}
         </div>
       </section>
 
-      {/* ── CTA ── */}
-      <section style={{ padding: '70px 0', backgroundColor: '#0F172A', textAlign: 'center' }}>
-        <div className="container" style={{ maxWidth: '600px' }}>
-          <Zap size={36} color="#D4AF37" style={{ marginBottom: '16px' }} />
-          <h2 style={{ fontSize: '2rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '16px' }}>Unlock the full resource library</h2>
-          <p style={{ color: '#94A3B8', marginBottom: '32px', lineHeight: 1.7 }}>Get access to 2,800+ questions, 120+ video lectures, 12 mock exams, and personalized mentoring in one package.</p>
-          <Link href="/#packages" className="btn-primary" style={{ padding: '14px 36px', fontSize: '1rem', backgroundColor: '#D4AF37', color: '#0F172A', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-            <span>View All Packages</span>
-            <ArrowRight size={18} />
-          </Link>
+      {/* ── DOCUMENT PREVIEW MODAL ── */}
+      {activePreview && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(15, 23, 42, 0.75)',
+            backdropFilter: 'blur(4px)',
+            zIndex: 100,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px',
+          }}
+          onClick={() => setActivePreview(null)}
+        >
+          <div
+            style={{
+              backgroundColor: '#FFFFFF',
+              borderRadius: '24px',
+              maxWidth: '640px',
+              width: '100%',
+              padding: '32px',
+              boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+              <span style={{ backgroundColor: '#ECFDF5', color: '#059669', padding: '4px 12px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 700, border: '1px solid #A7F3D0' }}>
+                {activePreview.category}
+              </span>
+              <span style={{ fontSize: '0.8125rem', color: '#64748B' }}>{activePreview.format} • {activePreview.fileSize}</span>
+            </div>
+
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F172A', marginBottom: '12px' }}>
+              {activePreview.title}
+            </h2>
+
+            <p style={{ fontSize: '0.9375rem', color: '#475569', lineHeight: 1.6, marginBottom: '24px' }}>
+              {activePreview.description}
+            </p>
+
+            <div style={{ backgroundColor: '#F8FAFC', borderRadius: '16px', padding: '24px', border: '1px solid #E2E8F0', textAlign: 'center', marginBottom: '24px' }}>
+              <FileText size={48} color="#059669" style={{ marginBottom: '12px' }} />
+              <div style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#0F172A' }}>Document File Ready</div>
+              <div style={{ fontSize: '0.8125rem', color: '#64748B', marginTop: '4px' }}>Verified &amp; scanned for official IMAT candidates</div>
+            </div>
+
+            <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+              <button
+                onClick={() => setActivePreview(null)}
+                style={{ padding: '10px 20px', borderRadius: '10px', border: '1px solid #E2E8F0', backgroundColor: '#FFFFFF', color: '#475569', fontWeight: 600, cursor: 'pointer' }}
+              >
+                Close Preview
+              </button>
+              <button
+                onClick={() => {
+                  setActivePreview(null);
+                  handleDownload(activePreview);
+                }}
+                className="btn-primary"
+                style={{ padding: '10px 24px', fontSize: '0.875rem', borderRadius: '10px', display: 'flex', alignItems: 'center', gap: '6px' }}
+              >
+                <Download size={16} /> Download Full Document
+              </button>
+            </div>
+          </div>
         </div>
-      </section>
+      )}
 
       <LeadCaptureModal isOpen={leadOpen} onClose={() => setLeadOpen(false)} defaultExam="IMAT" />
     </div>

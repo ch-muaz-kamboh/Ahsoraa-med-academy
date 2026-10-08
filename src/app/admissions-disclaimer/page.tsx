@@ -46,7 +46,7 @@ export default function AdmissionsDisclaimerPage() {
       {/* Header */}
       <div
         style={{
-          background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)',
+          background: 'linear-gradient(135deg, #064E3B 0%, #065F46 50%, #0F172A 100%)',
           color: '#FFFFFF',
           padding: '116px 20px 60px',
           borderBottom: '1px solid #334155',

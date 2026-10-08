@@ -9,6 +9,7 @@ import {
   Users, Zap, TrendingUp, CheckCircle
 } from 'lucide-react';
 import LeadCaptureModal from '@/components/public/LeadCaptureModal';
+import { getDynamicPackagePrices, syncPricesFromSupabase, DynamicPackagePrice } from '@/lib/cms-store';
 import './courses.css';
 
 // ─── Intersection Observer Hook ──────────────────────────────────────────────
@@ -452,7 +453,25 @@ function ProgrammeQuiz({ onLead }: { onLead: () => void }) {
 export default function CoursesPage() {
   const [leadOpen, setLeadOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [dynamicPrices, setDynamicPrices] = useState<DynamicPackagePrice[]>([]);
   const { observe } = useIntersectionObserver();
+
+  useEffect(() => {
+    setDynamicPrices(getDynamicPackagePrices());
+    syncPricesFromSupabase().then((prices) => {
+      if (prices && prices.length > 0) setDynamicPrices(prices);
+    });
+  }, []);
+
+  const getPriceInfo = (id: string) => {
+    const found = dynamicPrices.find((p) => p.id === id);
+    if (!found) return { price: id === 'ascent' ? '€299' : id === 'mastery' ? '€499' : '€799', originalPrice: null, badge: null };
+    return {
+      price: found.price,
+      originalPrice: found.isDiscountActive ? found.originalPrice : null,
+      badge: found.isDiscountActive ? found.discountBadge : null,
+    };
+  };
 
   const programmes = [
     {
@@ -525,13 +544,13 @@ export default function CoursesPage() {
     <div style={{ backgroundColor: 'var(--bg-main)', minHeight: '100vh' }}>
 
       {/* ── 01 HERO ─────────────────────────────────────────────────────── */}
-      <section className="courses-hero" style={{ position: 'relative', overflow: 'hidden', padding: '116px 0 60px' }}>
+      <section className="courses-hero" style={{ position: 'relative', overflow: 'hidden', padding: '116px 0 60px', background: 'linear-gradient(135deg, #064E3B 0%, #065F46 50%, #0F172A 100%)', color: '#FFFFFF' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-          <Image src="/courses-hero-bg.jpg" alt="" fill style={{ objectFit: 'cover', opacity: 0.45 }} priority />
+          <Image src="/courses-hero-bg.jpg" alt="" fill style={{ objectFit: 'cover', opacity: 0.2 }} priority />
         </div>
         <div className="container" style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
-          <span ref={observe} className="section-tagline scroll-fade-up">IMAT Preparation Programmes</span>
-          <h1 ref={observe} className="section-title scroll-fade-up" style={{ transitionDelay: '100ms', marginBottom: '18px' }}>
+          <span ref={observe} className="section-tagline scroll-fade-up" style={{ color: '#5CED73', backgroundColor: 'rgba(92,237,115,0.15)', border: '1px solid rgba(92,237,115,0.3)', padding: '6px 16px', borderRadius: '20px' }}>IMAT Preparation Programmes</span>
+          <h1 ref={observe} className="section-title scroll-fade-up" style={{ transitionDelay: '100ms', marginBottom: '18px', color: '#FFFFFF' }}>
             Your Journey to Medicine<br />in Italy Starts Here
           </h1>
           <p ref={observe} className="scroll-fade-up" style={{ color: 'var(--text-secondary)', fontSize: '1.15rem', lineHeight: 1.7, marginBottom: '14px', transitionDelay: '200ms', padding: '0 20px' }}>
@@ -559,20 +578,34 @@ export default function CoursesPage() {
           </p>
           
           <div ref={observe} className="scroll-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))', gap: '28px' }}>
-            {programmes.map((prog) => (
-              <div key={prog.id} className={`prog-card ${prog.isFeatured ? 'prog-card-featured' : ''}`} style={{ '--card-accent': prog.accentColor, '--card-bg': prog.accentBg, padding: '28px 24px', borderRadius: 'var(--radius-xl)' } as React.CSSProperties}>
-                {prog.badge && (
-                  <span className="prog-badge" style={{ backgroundColor: prog.accentColor }}>{prog.badge}</span>
-                )}
-                <div className="prog-icon-wrap" style={{ width: '48px', height: '48px', marginBottom: '16px' }}>
-                  {prog.icon}
-                </div>
-                <div>
-                  <div style={{ fontWeight: 900, fontSize: '1.25rem', color: 'var(--text-primary)', letterSpacing: '-0.5px' }}>{prog.name}</div>
-                  <div style={{ fontWeight: 700, color: prog.accentColor, fontSize: '0.88rem', marginTop: '2px', marginBottom: '10px' }}>{prog.tagline}</div>
-                </div>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', lineHeight: 1.6, flex: 1, marginBottom: '18px' }}>{prog.desc}</p>
-                <div style={{ fontSize: '1.9rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '16px', letterSpacing: '-1px' }}>{prog.price}</div>
+            {programmes.map((prog) => {
+              const priceData = getPriceInfo(prog.id);
+              const displayBadge = priceData.badge || prog.badge;
+
+              return (
+                <div key={prog.id} className={`prog-card ${prog.isFeatured ? 'prog-card-featured' : ''}`} style={{ '--card-accent': prog.accentColor, '--card-bg': prog.accentBg, padding: '28px 24px', borderRadius: 'var(--radius-xl)' } as React.CSSProperties}>
+                  {displayBadge && (
+                    <span className="prog-badge" style={{ backgroundColor: prog.accentColor }}>{displayBadge}</span>
+                  )}
+                  <div className="prog-icon-wrap" style={{ width: '48px', height: '48px', marginBottom: '16px' }}>
+                    {prog.icon}
+                  </div>
+                  <div>
+                    <div style={{ fontWeight: 900, fontSize: '1.25rem', color: 'var(--text-primary)', letterSpacing: '-0.5px' }}>{prog.name}</div>
+                    <div style={{ fontWeight: 700, color: prog.accentColor, fontSize: '0.88rem', marginTop: '2px', marginBottom: '10px' }}>{prog.tagline}</div>
+                  </div>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', lineHeight: 1.6, flex: 1, marginBottom: '18px' }}>{prog.desc}</p>
+                  
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '16px' }}>
+                    <span style={{ fontSize: '1.9rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-1px' }}>
+                      {priceData.price}
+                    </span>
+                    {priceData.originalPrice && (
+                      <span style={{ fontSize: '1.1rem', color: '#94A3B8', textDecoration: 'line-through', fontWeight: 600 }}>
+                        {priceData.originalPrice}
+                      </span>
+                    )}
+                  </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: 'auto' }}>
                   <a href={`#${prog.id}`} style={{ display: 'block', textAlign: 'center', backgroundColor: prog.isFeatured ? prog.accentColor : 'transparent', color: prog.isFeatured ? '#fff' : prog.accentColor, border: `1.5px solid ${prog.accentColor}`, borderRadius: 'var(--radius-full)', padding: '11px', fontWeight: 700, textDecoration: 'none', fontSize: '0.88rem', transition: 'all 0.2s', boxShadow: prog.isFeatured ? `0 8px 20px -4px ${prog.accentColor}40` : 'none' }}
                      onMouseEnter={e => !prog.isFeatured && (e.currentTarget.style.backgroundColor = prog.accentBg)}
@@ -586,7 +619,8 @@ export default function CoursesPage() {
                   </a>
                 </div>
               </div>
-            ))}
+            );
+          })}
           </div>
         </div>
       </section>

@@ -36,6 +36,7 @@ import {
 } from 'lucide-react';
 import LeadCaptureModal from '@/components/public/LeadCaptureModal';
 import { useScrollAnimation, useStaggeredAnimation } from '@/hooks/useScrollAnimation';
+import { getTickerItems, syncTickerFromSupabase, TickerItem, getDynamicPackagePrices, syncPricesFromSupabase, DynamicPackagePrice } from '@/lib/cms-store';
 
 // ─── Reusable section observer wrapper ───────────────────────
 function AnimatedSection({
@@ -163,6 +164,14 @@ export default function HomePage() {
   const [leadModalOpen, setLeadModalOpen] = useState(false);
   const [cycleVisible, setCycleVisible] = useState(false);
   const [faqOpenIndex, setFaqOpenIndex] = useState<number | null>(0);
+  const [tickerItems, setTickerItems] = useState<TickerItem[]>([]);
+
+  useEffect(() => {
+    setTickerItems(getTickerItems());
+    syncTickerFromSupabase().then((items) => {
+      if (items && items.length > 0) setTickerItems(items);
+    });
+  }, []);
 
   const cycleRef = useRef<HTMLDivElement>(null);
   const statsRef = useStaggeredAnimation(4) as React.RefObject<HTMLDivElement>;
@@ -589,25 +598,29 @@ export default function HomePage() {
         />
         <div className="trust-marquee">
           <div className="trust-marquee-inner">
-            {[...trustItems, ...trustItems].map((item, i) => (
-              <div
-                key={i}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  padding: '0 32px',
-                  whiteSpace: 'nowrap',
-                  color: '#CBD5E1',
-                  fontSize: '0.875rem',
-                  fontWeight: 600,
-                }}
-              >
-                <span style={{ fontSize: '1rem' }}>{item.icon}</span>
-                <span>{item.text}</span>
-                <span style={{ color: '#334155', marginLeft: '16px' }}>·</span>
-              </div>
-            ))}
+            {(() => {
+              const itemsToDisplay = tickerItems.length > 0 ? tickerItems : trustItems;
+              const duplicated = [...itemsToDisplay, ...itemsToDisplay];
+              return duplicated.map((item, i) => (
+                <div
+                  key={i}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '0 32px',
+                    whiteSpace: 'nowrap',
+                    color: '#CBD5E1',
+                    fontSize: '0.875rem',
+                    fontWeight: 600,
+                  }}
+                >
+                  <span style={{ fontSize: '1rem' }}>{item.icon}</span>
+                  <span>{item.text}</span>
+                  <span style={{ color: '#334155', marginLeft: '16px' }}>·</span>
+                </div>
+              ));
+            })()}
           </div>
         </div>
       </div>
