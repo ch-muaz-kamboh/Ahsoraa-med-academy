@@ -54,7 +54,7 @@ export default function VisaPage() {
   ];
 
   return (
-    <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', padding: '40px 0 80px 0' }}>
+    <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', padding: '116px 0 80px 0' }}>
       <div className="container">
         {/* Header */}
         <div style={{ marginBottom: '36px' }}>

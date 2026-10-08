@@ -25,7 +25,7 @@ export default function PrivacyPolicyPage() {
         style={{
           background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)',
           color: '#FFFFFF',
-          padding: '60px 20px',
+          padding: '116px 20px 60px',
           borderBottom: '1px solid #334155',
         }}
       >

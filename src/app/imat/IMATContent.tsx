@@ -140,7 +140,7 @@ export default function IMATContent() {
     <div style={{ backgroundColor: '#FFFFFF', minHeight: '100vh', paddingBottom: '60px' }}>
       
       {/* 01 — Hero */}
-      <section style={{ background: 'linear-gradient(135deg, #F0FFF4 0%, #FFFFFF 60%)', padding: '80px 0 60px', borderBottom: '1px solid #E2E8F0' }}>
+      <section style={{ background: 'linear-gradient(135deg, #F0FFF4 0%, #FFFFFF 60%)', padding: '116px 0 60px', borderBottom: '1px solid #E2E8F0' }}>
         <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px', alignItems: 'center' }}>
           <div ref={heroRef as React.RefObject<HTMLDivElement>} className="scroll-fade-up">
             <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#16A34A', textTransform: 'uppercase', letterSpacing: '1.5px' }}>

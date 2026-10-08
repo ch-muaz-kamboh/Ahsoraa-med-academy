@@ -31,7 +31,7 @@ export default function CourseDetailPage({
   }
 
   return (
-    <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', padding: '40px 0 80px 0' }}>
+    <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', padding: '116px 0 80px 0' }}>
       <div className="container">
         {/* Header Breadcrumbs */}
         <div style={{ marginBottom: '20px', fontSize: '0.875rem', color: '#64748B' }}>

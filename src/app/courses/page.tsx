@@ -525,7 +525,7 @@ export default function CoursesPage() {
     <div style={{ backgroundColor: 'var(--bg-main)', minHeight: '100vh' }}>
 
       {/* ── 01 HERO ─────────────────────────────────────────────────────── */}
-      <section className="courses-hero" style={{ position: 'relative', overflow: 'hidden', padding: '90px 0 60px' }}>
+      <section className="courses-hero" style={{ position: 'relative', overflow: 'hidden', padding: '116px 0 60px' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
           <Image src="/courses-hero-bg.jpg" alt="" fill style={{ objectFit: 'cover', opacity: 0.45 }} priority />
         </div>

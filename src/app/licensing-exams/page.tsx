@@ -60,7 +60,7 @@ export default function LicensingExamsPage() {
     <div style={{ backgroundColor: '#FFFFFF', minHeight: '100vh' }}>
 
       {/* ── HERO ── */}
-      <section style={{ background: 'linear-gradient(135deg, #F0FFF4 0%, #FFFFFF 60%)', padding: '80px 0 60px', borderBottom: '1px solid #E2E8F0' }}>
+      <section style={{ background: 'linear-gradient(135deg, #F0FFF4 0%, #FFFFFF 60%)', padding: '116px 0 60px', borderBottom: '1px solid #E2E8F0' }}>
         <div className="container" style={{ maxWidth: '800px', textAlign: 'center' }}>
           <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#22C55E', textTransform: 'uppercase', letterSpacing: '1.5px' }}>
             Global Medical Licensing
