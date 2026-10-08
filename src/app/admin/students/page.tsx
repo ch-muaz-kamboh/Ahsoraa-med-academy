@@ -126,7 +126,7 @@ export default function AdminStudentsPage() {
           (cleanEmail && cur.email && cur.email.toLowerCase().trim() === cleanEmail) ||
           (id && cur.id === id)
         ) {
-          if (cur.selectedPackage && cur.selectedPackage !== 'Ahsora IMAT Ascend') {
+          if (cur.selectedPackage) {
             return {
               selectedPackage: cur.selectedPackage,
               packagePrice: cur.packagePrice,
@@ -143,31 +143,46 @@ export default function AdminStudentsPage() {
     setLoading(true);
     let combinedList: StudentProfile[] = [];
 
-    // 1. Fetch from Supabase
+    // 1. Fetch from Server API Route (contains real Supabase Auth user_metadata with selected_package)
     try {
-      const supabase = createClient();
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (!error && data) {
-        combinedList = (data as StudentProfile[]).map((s) => {
-          const resolved = resolveStudentPkg(s.email, s.id);
-          const pkgName = s.selected_package || s.selectedPackage || resolved?.selectedPackage || 'Ahsora IMAT Ascend';
-          const matched = getPackageByIdOrName(pkgName);
-          const pkgPrice = s.package_price || s.packagePrice || resolved?.packagePrice || matched.price;
-          return {
-            ...s,
-            selected_package: matched.name,
-            selectedPackage: matched.name,
-            package_price: pkgPrice,
-            packagePrice: pkgPrice,
-          };
-        });
+      const res = await fetch('/api/admin/students');
+      if (res.ok) {
+        const json = await res.json();
+        if (json.success && Array.isArray(json.students) && json.students.length > 0) {
+          combinedList = json.students;
+        }
       }
-    } catch (e) {
-      console.warn('Supabase fetch error:', e);
+    } catch (apiErr) {
+      console.warn('API /api/admin/students fetch note:', apiErr);
+    }
+
+    // 2. Fallback to Supabase client if server API returned empty
+    if (combinedList.length === 0) {
+      try {
+        const supabase = createClient();
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (!error && data) {
+          combinedList = (data as StudentProfile[]).map((s) => {
+            const resolved = resolveStudentPkg(s.email, s.id);
+            const pkgName = s.selected_package || s.selectedPackage || resolved?.selectedPackage || 'Ahsora IMAT Ascend';
+            const matched = getPackageByIdOrName(pkgName);
+            const pkgPrice = s.package_price || s.packagePrice || resolved?.packagePrice || matched.price;
+            return {
+              ...s,
+              selected_package: matched.name,
+              selectedPackage: matched.name,
+              package_price: pkgPrice,
+              packagePrice: pkgPrice,
+            };
+          });
+        }
+      } catch (e) {
+        console.warn('Supabase fetch error:', e);
+      }
     }
 
     // 2. Load cached local registrations for demo continuity & update student entries
@@ -360,7 +375,7 @@ export default function AdminStudentsPage() {
       }
     } catch (e) {}
 
-    // If current logged in student is this user, update ahsora_currentUser
+      // If current logged in student is this user, update ahsora_currentUser
     try {
       const savedUserStr = localStorage.getItem('ahsora_currentUser');
       if (savedUserStr) {
@@ -371,6 +386,20 @@ export default function AdminStudentsPage() {
           localStorage.setItem('ahsora_currentUser', JSON.stringify(savedUser));
         }
       }
+    } catch (e) {}
+
+    // Persist to Server API Route (Supabase Auth metadata & profiles)
+    try {
+      fetch('/api/admin/students', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          studentId,
+          studentEmail,
+          selectedPackage: matched.name,
+          packagePrice: newPrice,
+        }),
+      }).catch((e) => console.warn('API update package error:', e));
     } catch (e) {}
   };
 
@@ -394,7 +423,19 @@ export default function AdminStudentsPage() {
       }
     } catch (e) {}
 
-    // Update Supabase
+    // Update Server API Route
+    try {
+      fetch('/api/admin/students', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          studentId,
+          paymentApproved: !currentStatus,
+        }),
+      }).catch((e) => console.warn('API update approval error:', e));
+    } catch (e) {}
+
+    // Update Supabase profiles directly as well
     try {
       const supabase = createClient();
       await supabase

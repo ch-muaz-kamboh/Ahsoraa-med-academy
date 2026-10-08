@@ -14,6 +14,11 @@ import {
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { createClient } from '@/lib/supabase/client';
+import {
+  getPackageByIdOrName,
+  getStudentTier,
+  resolveEffectivePackage,
+} from '@/lib/packages';
 
 export default function StudentDashboardPage() {
   const { currentUser, courses, testAttempts, studentMistakes } = useAppStore();
@@ -41,6 +46,10 @@ export default function StudentDashboardPage() {
   const unresolvedMistakes = studentMistakes.filter((m) => !m.isResolved).length;
   const firstName = currentUser?.firstName || 'Student';
 
+  const effectivePkg = resolveEffectivePackage(currentUser);
+  const currentPkgObj = getPackageByIdOrName(effectivePkg);
+  const studentTier = getStudentTier(effectivePkg);
+
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
       {/* Live Exam Alert */}
@@ -65,9 +74,29 @@ export default function StudentDashboardPage() {
       {/* Welcome Banner */}
       <div style={{ background: 'linear-gradient(135deg, #1E1B4B 0%, #3730A3 100%)', borderRadius: '16px', padding: '28px 32px', color: '#FFFFFF', marginBottom: '28px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
         <div>
-          <div style={{ fontSize: '0.8125rem', fontWeight: 700, opacity: 0.8, marginBottom: '6px' }}>WELCOME BACK</div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.5px', textTransform: 'uppercase', opacity: 0.85 }}>WELCOME BACK</span>
+            <span
+              style={{
+                fontSize: '0.6875rem',
+                fontWeight: 800,
+                padding: '2px 10px',
+                borderRadius: '12px',
+                backgroundColor: studentTier === 'elite' ? '#FFEDD5' : studentTier === 'mastery' ? '#DBEAFE' : '#DCFCE7',
+                color: studentTier === 'elite' ? '#C2410C' : studentTier === 'mastery' ? '#1D4ED8' : '#15803D',
+              }}
+            >
+              {currentPkgObj.name} ({currentPkgObj.price})
+            </span>
+          </div>
           <h1 style={{ fontSize: '1.75rem', fontWeight: 900, margin: '0 0 6px 0' }}>{firstName}</h1>
-          <p style={{ fontSize: '0.9rem', opacity: 0.9, margin: 0 }}>Keep the momentum going — your next exam is closer than you think!</p>
+          <p style={{ fontSize: '0.85rem', opacity: 0.9, margin: 0 }}>
+            {studentTier === 'elite'
+              ? '👑 Full VIP Mentorship & Guidance: Live Masterclasses, MedPath Visa Guidance & Document Vault active.'
+              : studentTier === 'mastery'
+              ? '⚡ Mastery Track: Live Class Schedule, Masterclasses & Question Bank fully unlocked.'
+              : '📚 Ascend Track: Full 120+ Hr Video Lectures, CBT Mocks & 2,500+ Question Bank active.'}
+          </p>
         </div>
         <Link href="/portal/tests" style={{ backgroundColor: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)', color: '#FFFFFF', padding: '12px 22px', borderRadius: '10px', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '0.875rem' }}>
           Start Practice Test <ChevronRight size={16} />
@@ -246,12 +275,30 @@ export default function StudentDashboardPage() {
           <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '24px' }}>
             <h3 style={{ fontSize: '1rem', color: '#0F172A', marginBottom: '12px' }}>Quick Access</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {[
-                { href: '/portal/tests', label: 'Practice Tests' },
-                { href: '/portal/progress/streak', label: 'My Study Streak' },
-                { href: '/portal/progress/analysis', label: 'Performance Analysis' },
-                { href: '/portal/library', label: 'Study Library' },
-              ].map((link) => (
+              {(studentTier === 'elite'
+                ? [
+                    { href: '/portal/medpath', label: 'MedPath Elite Tracker' },
+                    { href: '/portal/documents', label: 'Document Vault' },
+                    { href: '/portal/learn/schedule', label: 'Live Class Schedule' },
+                    { href: '/portal/tests', label: 'CBT Mock Exams' },
+                    { href: '/portal/learn/lectures', label: 'Recorded Lectures' },
+                  ]
+                : studentTier === 'mastery'
+                ? [
+                    { href: '/portal/learn/schedule', label: 'Live Class Schedule' },
+                    { href: '/portal/tests', label: 'CBT Mock Exams' },
+                    { href: '/portal/practice', label: 'Practice Question Bank' },
+                    { href: '/portal/learn/lectures', label: 'Recorded Lectures' },
+                    { href: '/portal/learn/library', label: 'Study Library' },
+                  ]
+                : [
+                    { href: '/portal/practice', label: 'Practice Question Bank' },
+                    { href: '/portal/tests', label: 'CBT Mock Exams' },
+                    { href: '/portal/learn/lectures', label: 'Recorded Lectures' },
+                    { href: '/portal/learn/library', label: 'Study Library' },
+                    { href: '/portal/practice/mistakes', label: 'My Mistakes' },
+                  ]
+              ).map((link) => (
                 <Link key={link.href} href={link.href} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', borderRadius: '8px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', textDecoration: 'none', color: '#334155', fontWeight: 600, fontSize: '0.875rem' }}>
                   {link.label}
                   <ChevronRight size={14} color="#94A3B8" style={{ marginLeft: 'auto' }} />

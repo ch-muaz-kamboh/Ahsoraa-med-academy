@@ -79,9 +79,12 @@ export default function MedpathPage() {
       const sPrefix = sEmail.split('@')[0];
       const sId = s.studentId || s.id || '';
 
-      if (currentUser.id && (sId === currentUser.id || sId === 'usr-student-01' || sId === 'demo-2')) return true;
-      if (normCandidate.some((e) => e === sEmail)) return true;
-      if (sPrefix && prefixes.some((p) => p === sPrefix)) return true;
+      // Match by exact email first
+      if (normCandidate.some((e) => e && e === sEmail)) return true;
+      // Match by prefix if non-empty
+      if (sPrefix && prefixes.some((p) => p && p === sPrefix)) return true;
+      // Match by exact user ID if real user authenticated
+      if (currentUser.id && currentUser.id !== 'usr-student-01' && sId === currentUser.id) return true;
       return false;
     };
 

@@ -69,8 +69,8 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
     ? `${currentUser.firstName[0]}${currentUser.lastName ? currentUser.lastName[0] : ''}`.toUpperCase() 
     : userInitials;
 
-  const [learnOpen, setLearnOpen] = useState<boolean>(false);
-  const [practiceOpen, setPracticeOpen] = useState<boolean>(false);
+  const [learnOpen, setLearnOpen] = useState<boolean>(true);
+  const [practiceOpen, setPracticeOpen] = useState<boolean>(true);
   const [progressOpen, setProgressOpen] = useState<boolean>(false);
   const [sidebarExpanded, setSidebarExpanded] = useState<boolean>(true);
 
@@ -202,6 +202,29 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
       {/* Scrollable Navigation Area */}
       <div style={{ flex: 1, overflowY: 'auto', padding: '12px 0' }}>
 
+        {/* Dashboard Link */}
+        <div style={{ padding: '0 12px', marginBottom: '6px' }}>
+          <Link
+            href="/portal/dashboard"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              padding: '10px 14px',
+              borderRadius: '8px',
+              fontSize: '0.875rem',
+              fontWeight: 600,
+              color: pathname === '/portal/dashboard' ? '#2563EB' : '#334155',
+              backgroundColor: pathname === '/portal/dashboard' ? '#EFF6FF' : 'transparent',
+              textDecoration: 'none',
+              transition: 'all 0.15s ease',
+            }}
+          >
+            <LayoutDashboard size={18} color={pathname === '/portal/dashboard' ? '#2563EB' : '#64748B'} />
+            {sidebarExpanded && <span>Dashboard</span>}
+          </Link>
+        </div>
+
         {/* Learn Section Dropdown */}
         <div style={{ padding: '0 12px' }}>
           <button
@@ -259,7 +282,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                   <Calendar size={15} color={pathname === '/portal/learn/schedule' ? '#2563EB' : scheduleLocked ? '#94A3B8' : '#64748B'} />
                   {sidebarExpanded && <span>1. Schedule</span>}
                 </div>
-                {sidebarExpanded && scheduleLocked && (
+                {sidebarExpanded && scheduleLocked ? (
                   <span
                     style={{
                       fontSize: '0.625rem',
@@ -275,9 +298,27 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                       lineHeight: 1.4,
                     }}
                   >
-                    <Lock size={10} /> LOCKED
+                    <Lock size={10} /> MASTERY+
                   </span>
-                )}
+                ) : sidebarExpanded ? (
+                  <span
+                    style={{
+                      fontSize: '0.625rem',
+                      fontWeight: 800,
+                      backgroundColor: '#DCFCE7',
+                      color: '#15803D',
+                      border: '1px solid #BBF7D0',
+                      padding: '1px 6px',
+                      borderRadius: '8px',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '3px',
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    LIVE
+                  </span>
+                ) : null}
               </Link>
 
               <Link
@@ -508,51 +549,52 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         </div>
 
         {/* MedPath Elite — Direct Link (locked for Ascend and Mastery) */}
-        <Link
-          href="/portal/medpath"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: sidebarExpanded ? 'space-between' : 'center',
-            padding: '10px 14px',
-            borderRadius: '8px',
-            fontSize: '0.875rem',
-            fontWeight: 600,
-            color: isMedpathActive ? '#EA580C' : medpathLocked ? '#64748B' : '#334155',
-            backgroundColor: isMedpathActive ? '#FFF7ED' : 'transparent',
-            textDecoration: 'none',
-            transition: 'all 0.15s ease',
-            border: isMedpathActive ? '1px solid #FED7AA' : '1px solid transparent',
-            opacity: medpathLocked && !isMedpathActive ? 0.8 : 1,
-          }}
-          title={medpathLocked ? 'Locked for Ascend & Mastery students (Elite only)' : 'MedPath Elite'}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'center' }}>
-            <Award size={18} color={isMedpathActive ? '#EA580C' : medpathLocked ? '#94A3B8' : '#7C3AED'} />
-            {sidebarExpanded && <span style={{ fontWeight: 700 }}>MedPath Elite</span>}
-          </div>
-          {sidebarExpanded && (
-            <span
-              style={{
-                fontSize: '0.6875rem',
-                backgroundColor: medpathLocked ? '#F1F5F9' : '#EA580C',
-                color: medpathLocked ? '#64748B' : '#FFFFFF',
-                border: medpathLocked ? '1px solid #CBD5E1' : 'none',
-                padding: '2px 7px',
-                borderRadius: '10px',
-                fontWeight: 800,
-                letterSpacing: '0.3px',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '4px',
-                lineHeight: 1.4,
-              }}
-            >
-              {medpathLocked && <Lock size={10} />}
-              ELITE
-            </span>
-          )}
-        </Link>
+        <div style={{ padding: '0 12px', marginTop: '4px' }}>
+          <Link
+            href="/portal/medpath"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: sidebarExpanded ? 'space-between' : 'center',
+              padding: '10px 14px',
+              borderRadius: '8px',
+              fontSize: '0.875rem',
+              fontWeight: 600,
+              color: isMedpathActive ? '#EA580C' : medpathLocked ? '#64748B' : '#334155',
+              backgroundColor: isMedpathActive ? '#FFF7ED' : 'transparent',
+              textDecoration: 'none',
+              transition: 'all 0.15s ease',
+              border: isMedpathActive ? '1px solid #FED7AA' : '1px solid transparent',
+              opacity: medpathLocked && !isMedpathActive ? 0.8 : 1,
+            }}
+            title={medpathLocked ? 'Locked for Ascend & Mastery students (Elite only)' : 'MedPath Elite'}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'center' }}>
+              <Award size={18} color={isMedpathActive ? '#EA580C' : medpathLocked ? '#94A3B8' : '#7C3AED'} />
+              {sidebarExpanded && <span style={{ fontWeight: 700 }}>MedPath Elite</span>}
+            </div>
+            {sidebarExpanded && (
+              <span
+                style={{
+                  fontSize: '0.625rem',
+                  backgroundColor: medpathLocked ? '#F1F5F9' : '#FFEDD5',
+                  color: medpathLocked ? '#64748B' : '#C2410C',
+                  border: medpathLocked ? '1px solid #CBD5E1' : '1px solid #FED7AA',
+                  padding: '1px 6px',
+                  borderRadius: '8px',
+                  fontWeight: 800,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '3px',
+                  lineHeight: 1.4,
+                }}
+              >
+                {medpathLocked ? <Lock size={10} /> : null}
+                {medpathLocked ? 'ELITE ONLY' : 'VIP'}
+              </span>
+            )}
+          </Link>
+        </div>
 
         {/* Document Vault — Direct Link (locked for Ascend and Mastery) */}
         <div style={{ padding: '0 12px', marginTop: '4px' }}>
@@ -583,22 +625,21 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
             {sidebarExpanded && (
               <span
                 style={{
-                  fontSize: '0.6875rem',
+                  fontSize: '0.625rem',
                   backgroundColor: docVaultLocked ? '#F1F5F9' : '#DBEAFE',
                   color: docVaultLocked ? '#64748B' : '#1D4ED8',
                   border: docVaultLocked ? '1px solid #CBD5E1' : '1px solid #BFDBFE',
-                  padding: '2px 7px',
-                  borderRadius: '10px',
+                  padding: '1px 6px',
+                  borderRadius: '8px',
                   fontWeight: 800,
-                  letterSpacing: '0.3px',
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '4px',
+                  gap: '3px',
                   lineHeight: 1.4,
                 }}
               >
-                {docVaultLocked && <Lock size={10} />}
-                ELITE
+                {docVaultLocked ? <Lock size={10} /> : null}
+                {docVaultLocked ? 'ELITE ONLY' : 'INCLUDED'}
               </span>
             )}
           </Link>
@@ -729,6 +770,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                   const targetPkg = ACADEMY_PACKAGES.find((p) => p.id === e.target.value);
                   if (targetPkg) {
                     updateProfile({ selectedPackage: targetPkg.name, packagePrice: targetPkg.price });
+                    saveStudentPackageMapping(currentUser.email, targetPkg.name, targetPkg.price);
                     try {
                       const recentStr = localStorage.getItem('recentRegistration');
                       if (recentStr) {
@@ -737,6 +779,17 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                         parsed.packagePrice = targetPkg.price;
                         localStorage.setItem('recentRegistration', JSON.stringify(parsed));
                       }
+                    } catch {}
+                    try {
+                      fetch('/api/admin/students', {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                          studentEmail: currentUser.email,
+                          selectedPackage: targetPkg.name,
+                          packagePrice: targetPkg.price,
+                        }),
+                      }).catch(() => {});
                     } catch {}
                   }
                 }}

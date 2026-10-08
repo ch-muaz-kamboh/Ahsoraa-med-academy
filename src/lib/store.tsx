@@ -1231,31 +1231,44 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     // Save package mapping
     saveStudentPackageMapping(email, finalPkg, finalPrice);
 
-    // If Elite, ensure in ahsora_elite_students
-    if (typeof window !== 'undefined' && matchedPkg.id === 'elite') {
-      try {
-        const eliteStr = localStorage.getItem('ahsora_elite_students');
-        const eliteList = eliteStr ? JSON.parse(eliteStr) : [];
-        const already = Array.isArray(eliteList) && eliteList.some((s: any) => (s?.email || '').toLowerCase().trim() === rawEmail);
-        if (!already) {
-          eliteList.unshift({
-            id: `elite-${Date.now()}`,
-            studentId: `usr-${Date.now()}`,
-            studentName: `${firstName} ${lastName}`.trim() || 'Elite Student',
-            email: email,
-            registeredAt: new Date().toISOString(),
-            stages: {
-              pre_enrollment: 'pending',
-              dov_submission: 'pending',
-              university_application: 'pending',
-              admission_decision: 'pending',
-              visa_process: 'pending',
-              housing_arrival: 'pending',
-            },
-          });
-          localStorage.setItem('ahsora_elite_students', JSON.stringify(eliteList));
-        }
-      } catch {}
+    // If Elite, ensure in ahsora_elite_students. If Ascend or Mastery, remove from elite list!
+    if (typeof window !== 'undefined') {
+      if (matchedPkg.id === 'elite') {
+        try {
+          const eliteStr = localStorage.getItem('ahsora_elite_students');
+          const eliteList = eliteStr ? JSON.parse(eliteStr) : [];
+          const already = Array.isArray(eliteList) && eliteList.some((s: any) => (s?.email || '').toLowerCase().trim() === rawEmail);
+          if (!already) {
+            eliteList.unshift({
+              id: `elite-${Date.now()}`,
+              studentId: `usr-${Date.now()}`,
+              studentName: `${firstName} ${lastName}`.trim() || 'Elite Student',
+              email: email,
+              registeredAt: new Date().toISOString(),
+              stages: {
+                pre_enrollment: 'pending',
+                dov_submission: 'pending',
+                university_application: 'pending',
+                admission_decision: 'pending',
+                visa_process: 'pending',
+                housing_arrival: 'pending',
+              },
+            });
+            localStorage.setItem('ahsora_elite_students', JSON.stringify(eliteList));
+          }
+        } catch {}
+      } else {
+        try {
+          const eliteStr = localStorage.getItem('ahsora_elite_students');
+          if (eliteStr) {
+            let eliteList = JSON.parse(eliteStr);
+            if (Array.isArray(eliteList)) {
+              eliteList = eliteList.filter((s: any) => (s?.email || '').toLowerCase().trim() !== rawEmail);
+              localStorage.setItem('ahsora_elite_students', JSON.stringify(eliteList));
+            }
+          }
+        } catch {}
+      }
     }
 
     const newProfile: Profile = {

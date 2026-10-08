@@ -162,6 +162,18 @@ export default function RegisterPage() {
         );
         filteredElite.unshift(eliteItem);
         localStorage.setItem('ahsora_elite_students', JSON.stringify(filteredElite));
+      } else {
+        // If registering as Ascend or Mastery, strictly remove from elite list
+        const existingEliteStr = localStorage.getItem('ahsora_elite_students');
+        if (existingEliteStr) {
+          try {
+            const existingElite: any[] = JSON.parse(existingEliteStr);
+            const filteredElite = existingElite.filter(
+              (e: any) => !e.email || e.email.toLowerCase() !== formData.email.toLowerCase()
+            );
+            localStorage.setItem('ahsora_elite_students', JSON.stringify(filteredElite));
+          } catch {}
+        }
       }
     } catch (e) {
       console.error('LocalStorage write error:', e);
