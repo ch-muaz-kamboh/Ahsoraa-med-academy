@@ -20,7 +20,8 @@ import {
   ArrowRight,
   RefreshCw,
   Clock,
-  Download
+  Download,
+  Upload
 } from 'lucide-react';
 
 import {
@@ -76,6 +77,33 @@ export default function AdminContentPage() {
     fileUrl: '/docs/sample_document.pdf',
     fileSize: '2.5 MB',
   });
+
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+
+  const handleDeviceFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const formattedSize = file.size > 1024 * 1024
+      ? `${(file.size / (1024 * 1024)).toFixed(1)} MB`
+      : `${Math.round(file.size / 1024)} KB`;
+
+    const ext = file.name.split('.').pop()?.toUpperCase() || 'PDF';
+    const validFormat: 'PDF' | 'DOCX' | 'ZIP' = ext === 'DOCX' ? 'DOCX' : ext === 'ZIP' ? 'ZIP' : 'PDF';
+
+    const blobUrl = URL.createObjectURL(file);
+
+    setNewDoc({
+      title: file.name.replace(/\.[^/.]+$/, "").replace(/[_-]/g, ' '),
+      description: `Official ${file.name} document uploaded for IMAT candidates.`,
+      category: newDoc.category,
+      format: validFormat,
+      fileUrl: blobUrl,
+      fileSize: formattedSize,
+    });
+
+    showToast('success', `📁 Selected "${file.name}" (${formattedSize}). Click "Add Document" to confirm.`);
+  };
 
   // ── 3. Ticker Items State ────────────────────────────────────────────────
   const [tickerItems, setTickerItems] = useState<TickerItem[]>([]);
@@ -674,6 +702,41 @@ export default function AdminContentPage() {
             </h3>
 
             <form onSubmit={handleAddDocument} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              
+              {/* Direct File Picker Button */}
+              <div style={{ backgroundColor: '#F0FFF4', border: '1.5px dashed #059669', borderRadius: '12px', padding: '16px', textAlign: 'center' }}>
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleDeviceFileUpload}
+                  accept=".pdf,.docx,.zip,.doc,.txt"
+                  style={{ display: 'none' }}
+                />
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  style={{
+                    backgroundColor: '#059669',
+                    color: '#FFFFFF',
+                    border: 'none',
+                    borderRadius: '10px',
+                    padding: '10px 18px',
+                    fontSize: '0.875rem',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    boxShadow: '0 4px 10px rgba(5,150,105,0.2)',
+                  }}
+                >
+                  <Upload size={16} /> Choose File from Device
+                </button>
+                <div style={{ fontSize: '0.78rem', color: '#047857', marginTop: '6px', fontWeight: 600 }}>
+                  Directly pick any PDF, DOCX, or ZIP document from your computer
+                </div>
+              </div>
+
               <div>
                 <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>Document Title</label>
                 <input

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { ACADEMY_PACKAGES, CoursePackage, getPackageByIdOrName, saveStudentPackageMapping } from '@/lib/packages';
+import { getDynamicPackagePrices, syncPricesFromSupabase, DynamicPackagePrice } from '@/lib/cms-store';
 import { ArrowRight, Check, CheckCircle2, Globe, Lock, Mail, Phone, Sparkles, User, ShieldCheck } from 'lucide-react';
 import Logo from '@/components/brand/Logo';
 
@@ -39,6 +40,32 @@ export default function RegisterPage() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Dynamic pricing & discounts
+  const [dynamicPrices, setDynamicPrices] = useState<DynamicPackagePrice[]>([]);
+
+  React.useEffect(() => {
+    setDynamicPrices(getDynamicPackagePrices());
+    syncPricesFromSupabase().then((prices) => {
+      if (prices && prices.length > 0) setDynamicPrices(prices);
+    });
+  }, []);
+
+  const getPriceData = (pkgId: string) => {
+    const found = dynamicPrices.find((p) => p.id === pkgId);
+    if (!found) {
+      return {
+        price: pkgId === 'ascend' ? '€299' : pkgId === 'mastery' ? '€499' : '€799',
+        originalPrice: null,
+        badge: null,
+      };
+    }
+    return {
+      price: found.price,
+      originalPrice: found.isDiscountActive ? found.originalPrice : null,
+      badge: found.isDiscountActive ? found.discountBadge : null,
+    };
+  };
 
   // Agreement checkbox
   const [agreed, setAgreed] = useState(false);
@@ -509,6 +536,8 @@ export default function RegisterPage() {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
                 {ACADEMY_PACKAGES.map((pkg) => {
                   const isSelected = formData.selectedPackage === pkg.id || formData.selectedPackage === pkg.name;
+                  const pData = getPriceData(pkg.id);
+                  const displayBadge = pData.badge || pkg.badge;
 
                   return (
                     <div
@@ -528,7 +557,7 @@ export default function RegisterPage() {
                         boxShadow: isSelected ? '0 10px 25px -5px rgba(5, 150, 105, 0.2)' : 'none',
                       }}
                     >
-                      {pkg.badge && (
+                      {displayBadge && (
                         <div
                           style={{
                             position: 'absolute',
@@ -543,7 +572,7 @@ export default function RegisterPage() {
                             letterSpacing: '0.5px',
                           }}
                         >
-                          {pkg.badge}
+                          {displayBadge}
                         </div>
                       )}
 
@@ -564,11 +593,16 @@ export default function RegisterPage() {
                           />
                         </div>
 
-                        <div style={{ marginBottom: '12px' }}>
+                        <div style={{ marginBottom: '12px', display: 'flex', alignItems: 'baseline', gap: '6px', flexWrap: 'wrap' }}>
                           <span style={{ fontSize: '1.6rem', fontWeight: 900, color: isSelected ? '#047857' : '#0F172A' }}>
-                            {pkg.price}
+                            {pData.price}
                           </span>
-                          <span style={{ fontSize: '0.75rem', color: '#64748B', marginLeft: '4px' }}>
+                          {pData.originalPrice && (
+                            <span style={{ fontSize: '0.95rem', color: '#94A3B8', textDecoration: 'line-through', fontWeight: 600 }}>
+                              {pData.originalPrice}
+                            </span>
+                          )}
+                          <span style={{ fontSize: '0.75rem', color: '#64748B' }}>
                             / {pkg.period}
                           </span>
                         </div>
@@ -851,8 +885,19 @@ export default function RegisterPage() {
             >
               <div>
                 <div style={{ fontSize: '0.8125rem', color: '#64748B' }}>Selected Package:</div>
-                <div style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0F172A' }}>
-                  {selectedPkg.name} — <span style={{ color: '#059669' }}>{selectedPkg.price}</span>
+                <div style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                  <span>{selectedPkg.name} —</span>
+                  <span style={{ color: '#059669' }}>{getPriceData(selectedPkg.id).price}</span>
+                  {getPriceData(selectedPkg.id).originalPrice && (
+                    <span style={{ color: '#94A3B8', textDecoration: 'line-through', fontSize: '0.9rem', fontWeight: 600 }}>
+                      {getPriceData(selectedPkg.id).originalPrice}
+                    </span>
+                  )}
+                  {getPriceData(selectedPkg.id).badge && (
+                    <span style={{ backgroundColor: '#DCFCE7', color: '#047857', fontSize: '0.75rem', fontWeight: 800, padding: '2px 8px', borderRadius: '6px' }}>
+                      {getPriceData(selectedPkg.id).badge}
+                    </span>
+                  )}
                 </div>
               </div>
 
