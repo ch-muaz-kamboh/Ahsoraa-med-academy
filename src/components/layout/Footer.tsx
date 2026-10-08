@@ -72,6 +72,7 @@ export default function Footer() {
               <li><Link href="/scholarships">Scholarships & Grants</Link></li>
               <li><Link href="/visa">Student Visa Roadmap</Link></li>
               <li><Link href="/about">About Ahsora Meds</Link></li>
+              <li><Link href="/terms">Terms & Purchase Policies</Link></li>
             </ul>
           </div>
 
@@ -87,7 +88,7 @@ export default function Footer() {
               </li>
               <li style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <Phone size={16} color="#2563EB" />
-                <span>+39 333 3444 479</span>
+                <span>+39 333 344 4479</span>
               </li>
               <li style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <MapPin size={16} color="#2563EB" />
@@ -111,14 +112,15 @@ export default function Footer() {
           }}
         >
           <div>
-            © {new Date().getFullYear()} Ahsora Meds Academy Inc. All rights reserved. Centralized pricing and verified admissions curriculum.
+            © {new Date().getFullYear()} Ahsora Meds Academy. All rights reserved. Centralized pricing and verified admissions curriculum.
           </div>
-          <div style={{ display: 'flex', gap: '16px' }}>
-            <Link href="/about">Privacy Policy</Link>
-            <Link href="/about">Terms of Service</Link>
-            <Link href="/about">Admissions Disclaimer</Link>
-            <Link href="/staff/dashboard" style={{ color: '#2563EB', fontWeight: 600 }}>Staff Portal</Link>
-            <Link href="/admin/dashboard" style={{ color: '#64748B' }}>Admin Panel</Link>
+          <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+            <Link href="/privacy" style={{ color: '#64748B', textDecoration: 'none' }}>Privacy Policy</Link>
+            <Link href="/terms" style={{ color: '#64748B', textDecoration: 'none' }}>Terms of Use & Purchase</Link>
+            <Link href="/refund-policy" style={{ color: '#64748B', textDecoration: 'none' }}>Cancellation & Refunds</Link>
+            <Link href="/terms#admissions-disclaimer" style={{ color: '#64748B', textDecoration: 'none' }}>Admissions Disclaimer</Link>
+            <Link href="/staff/dashboard" style={{ color: '#2563EB', fontWeight: 600, textDecoration: 'none' }}>Staff Portal</Link>
+            <Link href="/admin/dashboard" style={{ color: '#64748B', textDecoration: 'none' }}>Admin Panel</Link>
           </div>
         </div>
       </div>

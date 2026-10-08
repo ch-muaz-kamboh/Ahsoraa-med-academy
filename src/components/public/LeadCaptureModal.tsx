@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { useAppStore } from '@/lib/store';
 import { X, CheckCircle, Send, Sparkles } from 'lucide-react';
 
@@ -295,7 +296,10 @@ export default function LeadCaptureModal({
                   marginBottom: 0,
                 }}
               >
-                🔒 Your information is confidential and protected by Ahsora Privacy Policy.
+                🔒 Your information is confidential and protected by{' '}
+                <Link href="/privacy" target="_blank" style={{ color: '#2563EB', textDecoration: 'underline' }}>
+                  Ahsora Privacy Policy
+                </Link>.
               </p>
             </form>
           )}
