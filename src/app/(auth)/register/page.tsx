@@ -693,34 +693,146 @@ export default function RegisterPage() {
                   </div>
                 </label>
 
-                {/* Guardian / legal confirmation paragraph */}
-                <div
-                  style={{
-                    fontSize: '0.8125rem',
-                    color: '#374151',
-                    lineHeight: '1.7',
-                    padding: '12px 14px',
-                    backgroundColor: '#ECFDF5',
-                    borderRadius: '10px',
-                    border: '1px solid #A7F3D0',
-                  }}
-                >
-                  I confirm that I am the parent or legal guardian of{' '}
-                  <strong style={{ color: '#059669' }}>
-                    {formData.firstName || formData.lastName
-                      ? `${formData.firstName} ${formData.lastName}`.trim()
-                      : '[Student Name]'}
-                  </strong>
-                  , am of legal age and legally able to enter this contract, and am purchasing this course on the student&apos;s behalf. I authorise their participation and accept responsibility for the purchaser&apos;s payment obligations and for supervising the student&apos;s compliance with the course and account-use rules, as described in the{' '}
-                  <a href="/terms" target="_blank" rel="noopener noreferrer"
-                    style={{ color: '#059669', textDecoration: 'underline', fontWeight: 600 }}>
-                    Terms of Use
-                  </a>{' '}and{' '}
-                  <a href="/terms#course-purchase" target="_blank" rel="noopener noreferrer"
-                    style={{ color: '#059669', textDecoration: 'underline', fontWeight: 600 }}>
-                    Course Purchase Terms
-                  </a>
-                  .
+                {/* Legal confirmation paragraphs */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+
+                  {/* Statement 1 — Guardian authority */}
+                  <div
+                    style={{
+                      fontSize: '0.8125rem',
+                      color: '#374151',
+                      lineHeight: '1.7',
+                      padding: '12px 14px',
+                      backgroundColor: '#ECFDF5',
+                      borderRadius: '10px',
+                      border: '1px solid #A7F3D0',
+                      display: 'flex',
+                      gap: '10px',
+                      alignItems: 'flex-start',
+                    }}
+                  >
+                    <span style={{
+                      flexShrink: 0,
+                      width: '20px',
+                      height: '20px',
+                      borderRadius: '50%',
+                      backgroundColor: '#059669',
+                      color: '#fff',
+                      fontSize: '0.7rem',
+                      fontWeight: 800,
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginTop: '2px',
+                    }}>1</span>
+                    <span>
+                      I confirm that I am the parent or legal guardian of{' '}
+                      <strong style={{ color: '#059669' }}>
+                        {formData.firstName || formData.lastName
+                          ? `${formData.firstName} ${formData.lastName}`.trim()
+                          : '[Student Name]'}
+                      </strong>
+                      , am of legal age and legally able to enter this contract, and am purchasing this course on the student&apos;s behalf. I authorise their participation and accept responsibility for the purchaser&apos;s payment obligations and for supervising the student&apos;s compliance with the course and account-use rules, as described in the{' '}
+                      <a href="/terms" target="_blank" rel="noopener noreferrer"
+                        style={{ color: '#059669', textDecoration: 'underline', fontWeight: 600 }}>
+                        Terms of Use
+                      </a>{' '}and{' '}
+                      <a href="/terms#course-purchase" target="_blank" rel="noopener noreferrer"
+                        style={{ color: '#059669', textDecoration: 'underline', fontWeight: 600 }}>
+                        Course Purchase Terms
+                      </a>
+                      .
+                    </span>
+                  </div>
+
+                  {/* Statement 2 — Personal legal capacity */}
+                  <div
+                    style={{
+                      fontSize: '0.8125rem',
+                      color: '#374151',
+                      lineHeight: '1.7',
+                      padding: '12px 14px',
+                      backgroundColor: '#ECFDF5',
+                      borderRadius: '10px',
+                      border: '1px solid #A7F3D0',
+                      display: 'flex',
+                      gap: '10px',
+                      alignItems: 'flex-start',
+                    }}
+                  >
+                    <span style={{
+                      flexShrink: 0,
+                      width: '20px',
+                      height: '20px',
+                      borderRadius: '50%',
+                      backgroundColor: '#059669',
+                      color: '#fff',
+                      fontSize: '0.7rem',
+                      fontWeight: 800,
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginTop: '2px',
+                    }}>2</span>
+                    <span>
+                      I confirm that I am of legal age and legally able to enter this contract under the law applicable to me. I accept the purchaser&apos;s responsibilities set out in the{' '}
+                      <a href="/terms" target="_blank" rel="noopener noreferrer"
+                        style={{ color: '#059669', textDecoration: 'underline', fontWeight: 600 }}>
+                        Terms of Use
+                      </a>{' '}and{' '}
+                      <a href="/terms#course-purchase" target="_blank" rel="noopener noreferrer"
+                        style={{ color: '#059669', textDecoration: 'underline', fontWeight: 600 }}>
+                        Course Purchase Terms
+                      </a>
+                      .
+                    </span>
+                  </div>
+
+                  {/* Statement 3 — Individual access & no credential sharing */}
+                  <div
+                    style={{
+                      fontSize: '0.8125rem',
+                      color: '#374151',
+                      lineHeight: '1.7',
+                      padding: '12px 14px',
+                      backgroundColor: '#ECFDF5',
+                      borderRadius: '10px',
+                      border: '1px solid #A7F3D0',
+                      display: 'flex',
+                      gap: '10px',
+                      alignItems: 'flex-start',
+                    }}
+                  >
+                    <span style={{
+                      flexShrink: 0,
+                      width: '20px',
+                      height: '20px',
+                      borderRadius: '50%',
+                      backgroundColor: '#059669',
+                      color: '#fff',
+                      fontSize: '0.7rem',
+                      fontWeight: 800,
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginTop: '2px',
+                    }}>3</span>
+                    <span>
+                      I understand that this purchase gives{' '}
+                      <strong style={{ color: '#059669' }}>
+                        {formData.firstName || formData.lastName
+                          ? `${formData.firstName} ${formData.lastName}`.trim()
+                          : '[Student Name]'}
+                      </strong>{' '}
+                      individual access. I must not share credentials or redistribute restricted course materials. Misuse may result in suspension or termination under section 12 of the{' '}
+                      <a href="/terms#section-12" target="_blank" rel="noopener noreferrer"
+                        style={{ color: '#059669', textDecoration: 'underline', fontWeight: 600 }}>
+                        Terms
+                      </a>
+                      , subject to applicable law.
+                    </span>
+                  </div>
+
                 </div>
               </div>
             </div>
