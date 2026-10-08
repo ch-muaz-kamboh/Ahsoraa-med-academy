@@ -40,15 +40,10 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Agreement checkboxes
-  const [agreements, setAgreements] = useState({
-    terms: false,
-    privacy: false,
-    refund: false,
-    admissions: false,
-  });
+  // Agreement checkbox
+  const [agreed, setAgreed] = useState(false);
 
-  const allAgreed = Object.values(agreements).every(Boolean);
+  const allAgreed = agreed;
 
   const selectedPkg: CoursePackage = getPackageByIdOrName(formData.selectedPackage);
 
@@ -59,7 +54,7 @@ export default function RegisterPage() {
       return;
     }
     if (!allAgreed) {
-      setError('Please agree to all policies (Terms & Conditions, Privacy Policy, Refund Policy, and Admissions Disclaimer) before proceeding.');
+      setError('Please agree to the Terms & Conditions, Privacy Policy, Refund Policy, and Admissions Disclaimer before proceeding.');
       return;
     }
 
@@ -629,14 +624,11 @@ export default function RegisterPage() {
                 </span>
                 Agreement &amp; Consent
               </div>
-              <p style={{ color: '#64748B', fontSize: '0.875rem', marginBottom: '16px' }}>
-                You must read and agree to all four policies before registering.
-              </p>
 
               <div
                 style={{
                   backgroundColor: '#F0FFF4',
-                  border: '1px solid #BBF7D0',
+                  border: `1px solid ${agreed ? '#6EE7B7' : '#BBF7D0'}`,
                   borderRadius: '16px',
                   padding: '20px 24px',
                   display: 'flex',
@@ -644,58 +636,92 @@ export default function RegisterPage() {
                   gap: '14px',
                 }}
               >
-                {([
-                  { key: 'terms' as const,      label: 'Terms & Conditions',    href: '/terms',                 desc: 'Course purchase & usage terms' },
-                  { key: 'privacy' as const,    label: 'Privacy Policy',        href: '/privacy',               desc: 'How we handle your personal data' },
-                  { key: 'refund' as const,     label: 'Refund Policy',         href: '/refund-policy',         desc: 'Cancellation & refund rules' },
-                  { key: 'admissions' as const, label: 'Admissions Disclaimer', href: '/admissions-disclaimer', desc: 'No guarantee of admission or results' },
-                ] as const).map(({ key, label, href, desc }) => (
-                  <label
-                    key={key}
-                    htmlFor={`agree-${key}`}
+                {/* Single combined checkbox */}
+                <label
+                  htmlFor="agree-all"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: '12px',
+                    cursor: 'pointer',
+                    padding: '10px 14px',
+                    borderRadius: '10px',
+                    backgroundColor: agreed ? 'rgba(5,150,105,0.07)' : '#FFFFFF',
+                    border: `1px solid ${agreed ? '#6EE7B7' : '#E2E8F0'}`,
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  <input
+                    id="agree-all"
+                    type="checkbox"
+                    checked={agreed}
+                    onChange={(e) => setAgreed(e.target.checked)}
                     style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '12px',
+                      width: '18px',
+                      height: '18px',
+                      accentColor: '#059669',
+                      flexShrink: 0,
+                      marginTop: '3px',
                       cursor: 'pointer',
-                      padding: '10px 14px',
-                      borderRadius: '10px',
-                      backgroundColor: agreements[key] ? 'rgba(5,150,105,0.07)' : '#FFFFFF',
-                      border: `1px solid ${agreements[key] ? '#6EE7B7' : '#E2E8F0'}`,
-                      transition: 'all 0.15s ease',
                     }}
-                  >
-                    <input
-                      id={`agree-${key}`}
-                      type="checkbox"
-                      checked={agreements[key]}
-                      onChange={(e) => setAgreements({ ...agreements, [key]: e.target.checked })}
-                      style={{
-                        width: '18px',
-                        height: '18px',
-                        accentColor: '#059669',
-                        flexShrink: 0,
-                        marginTop: '2px',
-                        cursor: 'pointer',
-                      }}
-                    />
-                    <div>
-                      <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A' }}>
-                        I have read and agree to the{' '}
-                        <a
-                          href={href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{ color: '#059669', textDecoration: 'underline', fontWeight: 800 }}
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          {label}
-                        </a>
-                      </div>
-                      <div style={{ fontSize: '0.8rem', color: '#64748B', marginTop: '2px' }}>{desc}</div>
-                    </div>
-                  </label>
-                ))}
+                  />
+                  <div style={{ fontSize: '0.9rem', fontWeight: 600, color: '#0F172A', lineHeight: '1.5' }}>
+                    I have read and agree to the{' '}
+                    <a href="/terms" target="_blank" rel="noopener noreferrer"
+                      style={{ color: '#059669', textDecoration: 'underline', fontWeight: 700 }}
+                      onClick={(e) => e.stopPropagation()}>
+                      Terms &amp; Conditions
+                    </a>
+                    ,{' '}
+                    <a href="/privacy" target="_blank" rel="noopener noreferrer"
+                      style={{ color: '#059669', textDecoration: 'underline', fontWeight: 700 }}
+                      onClick={(e) => e.stopPropagation()}>
+                      Privacy Policy
+                    </a>
+                    ,{' '}
+                    <a href="/refund-policy" target="_blank" rel="noopener noreferrer"
+                      style={{ color: '#059669', textDecoration: 'underline', fontWeight: 700 }}
+                      onClick={(e) => e.stopPropagation()}>
+                      Refund Policy
+                    </a>
+                    ,{' '}
+                    <a href="/admissions-disclaimer" target="_blank" rel="noopener noreferrer"
+                      style={{ color: '#059669', textDecoration: 'underline', fontWeight: 700 }}
+                      onClick={(e) => e.stopPropagation()}>
+                      Admissions Disclaimer
+                    </a>
+                  </div>
+                </label>
+
+                {/* Guardian / legal confirmation paragraph */}
+                <div
+                  style={{
+                    fontSize: '0.8125rem',
+                    color: '#374151',
+                    lineHeight: '1.7',
+                    padding: '12px 14px',
+                    backgroundColor: '#ECFDF5',
+                    borderRadius: '10px',
+                    border: '1px solid #A7F3D0',
+                  }}
+                >
+                  I confirm that I am the parent or legal guardian of{' '}
+                  <strong style={{ color: '#059669' }}>
+                    {formData.firstName || formData.lastName
+                      ? `${formData.firstName} ${formData.lastName}`.trim()
+                      : '[Student Name]'}
+                  </strong>
+                  , am of legal age and legally able to enter this contract, and am purchasing this course on the student&apos;s behalf. I authorise their participation and accept responsibility for the purchaser&apos;s payment obligations and for supervising the student&apos;s compliance with the course and account-use rules, as described in the{' '}
+                  <a href="/terms" target="_blank" rel="noopener noreferrer"
+                    style={{ color: '#059669', textDecoration: 'underline', fontWeight: 600 }}>
+                    Terms of Use
+                  </a>{' '}and{' '}
+                  <a href="/terms#course-purchase" target="_blank" rel="noopener noreferrer"
+                    style={{ color: '#059669', textDecoration: 'underline', fontWeight: 600 }}>
+                    Course Purchase Terms
+                  </a>
+                  .
+                </div>
               </div>
             </div>
             <div
