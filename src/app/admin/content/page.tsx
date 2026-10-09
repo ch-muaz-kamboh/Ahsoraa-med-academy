@@ -183,23 +183,26 @@ export default function AdminContentPage() {
     setNewsPosts(getNewsPosts());
     setDocuments(getResourceDocuments());
     setTickerItems(getTickerItems());
+    setPortalTickerConfig(getPortalTickerConfig());
     setPrices(getDynamicPackagePrices());
     setSaleOffer(getSaleOfferConfig());
 
     // Sync with Supabase asynchronously
     try {
-      const [syncedNews, syncedDocs, syncedTicker, syncedPrices, syncedOffer] = await Promise.all([
+      const [syncedNews, syncedDocs, syncedTicker, syncedPrices, syncedOffer, syncedPortalTicker] = await Promise.all([
         syncNewsFromSupabase(),
         syncDocumentsFromSupabase(),
         syncTickerFromSupabase(),
         syncPricesFromSupabase(),
         syncSaleOfferFromSupabase(),
+        syncPortalTickerFromSupabase(),
       ]);
       setNewsPosts(syncedNews);
       setDocuments(syncedDocs);
       setTickerItems(syncedTicker);
       setPrices(syncedPrices);
       if (syncedOffer) setSaleOffer(syncedOffer);
+      if (syncedPortalTicker) setPortalTickerConfig(syncedPortalTicker);
     } catch (err) {
       console.warn('Supabase initial fetch notice:', err);
     } finally {
@@ -1115,11 +1118,11 @@ export default function AdminContentPage() {
           {/* Live Preview Bar */}
           <div style={{ backgroundColor: '#0F172A', padding: '20px', borderRadius: '16px', color: '#FFFFFF', overflow: 'hidden' }}>
             <div style={{ fontSize: '0.8125rem', color: '#5CED73', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>
-              ⚡ Live {tickerSubTab === 'home' ? 'Homepage' : 'Portal'} Moving Strip Preview
+              ⚡ Live {tickerSubTab === 'home' ? 'Homepage' : 'Student Portal'} Moving Strip Preview
             </div>
             <div style={{ overflow: 'hidden', whiteSpace: 'nowrap', backgroundColor: 'rgba(255,255,255,0.05)', padding: '12px', borderRadius: '10px' }}>
               <div style={{ display: 'inline-flex', gap: '24px' }}>
-                {tickerItems.map((item) => (
+                {(tickerSubTab === 'home' ? tickerItems : (portalTickerConfig?.items || [])).map((item) => (
                   <span key={item.id} style={{ color: '#CBD5E1', fontSize: '0.9rem', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
                     <span>{item.icon}</span>
                     <span>{item.text}</span>
@@ -1130,99 +1133,222 @@ export default function AdminContentPage() {
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 380px', gap: '32px', alignItems: 'start' }}>
-            {/* Left: Ticker Items List */}
-            <div style={{ backgroundColor: '#FFFFFF', padding: '24px', borderRadius: '16px', border: '1px solid #E2E8F0' }}>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0F172A', marginBottom: '16px' }}>
-                Active Moving Strip Announcements ({tickerItems.length})
-              </h3>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                {tickerItems.map((item) => (
-                  <div
-                    key={item.id}
-                    style={{
-                      border: '1px solid #E2E8F0',
-                      borderRadius: '10px',
-                      padding: '12px 16px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      gap: '12px',
-                    }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9375rem', fontWeight: 600, color: '#0F172A' }}>
-                      <span style={{ fontSize: '1.2rem' }}>{item.icon}</span>
-                      <span>{item.text}</span>
-                    </div>
-                    <button
-                      onClick={() => handleDeleteTicker(item.id)}
-                      style={{ backgroundColor: '#FEE2E2', color: '#991B1B', border: 'none', borderRadius: '6px', padding: '6px 10px', cursor: 'pointer' }}
+          {/* ── HOME STRIP PANEL ── */}
+          {tickerSubTab === 'home' && (
+            <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 380px', gap: '32px', alignItems: 'start' }}>
+              {/* Left: Home Ticker Items List */}
+              <div style={{ backgroundColor: '#FFFFFF', padding: '24px', borderRadius: '16px', border: '1px solid #E2E8F0' }}>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0F172A', marginBottom: '16px' }}>
+                  Homepage Moving Strip Announcements ({tickerItems.length})
+                </h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  {tickerItems.map((item) => (
+                    <div
+                      key={item.id}
+                      style={{
+                        border: '1px solid #E2E8F0',
+                        borderRadius: '10px',
+                        padding: '12px 16px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        gap: '12px',
+                      }}
                     >
-                      <Trash2 size={16} />
-                    </button>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9375rem', fontWeight: 600, color: '#0F172A' }}>
+                        <span style={{ fontSize: '1.2rem' }}>{item.icon}</span>
+                        <span>{item.text}</span>
+                      </div>
+                      <button
+                        onClick={() => handleDeleteTicker(item.id)}
+                        style={{ backgroundColor: '#FEE2E2', color: '#991B1B', border: 'none', borderRadius: '6px', padding: '6px 10px', cursor: 'pointer' }}
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right: Add Home Ticker Form */}
+              <div style={{ backgroundColor: '#FFFFFF', padding: '24px', borderRadius: '16px', border: '1px solid #E2E8F0' }}>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0F172A', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Plus size={18} color="#059669" /> Add Homepage Announcement
+                </h3>
+                <form onSubmit={handleAddTicker} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>Icon Emoji</label>
+                    <select
+                      value={newTickerIcon}
+                      onChange={(e) => setNewTickerIcon(e.target.value)}
+                      style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '1rem', outline: 'none' }}
+                    >
+                      <option value="🎓">🎓 Graduation / Admission</option>
+                      <option value="⚡">⚡ Announcement / Discount</option>
+                      <option value="🏆">🏆 Achievement / Questions</option>
+                      <option value="📜">📜 Visa & Legal Support</option>
+                      <option value="💼">💼 Doctors & Mentors</option>
+                      <option value="✨">✨ Special Sparkle</option>
+                    </select>
                   </div>
-                ))}
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>Ticker Text</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. IMAT 2027 Registration Open — Special Discount Offer Active"
+                      value={newTickerText}
+                      onChange={(e) => setNewTickerText(e.target.value)}
+                      style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.875rem', outline: 'none' }}
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    style={{ backgroundColor: '#059669', color: '#FFFFFF', border: 'none', borderRadius: '10px', padding: '12px', fontWeight: 700, fontSize: '0.9375rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
+                  >
+                    <Plus size={18} /> Add to Homepage Moving Strip
+                  </button>
+                </form>
               </div>
             </div>
+          )}
 
-            {/* Right: Add Ticker Form */}
-            <div style={{ backgroundColor: '#FFFFFF', padding: '24px', borderRadius: '16px', border: '1px solid #E2E8F0' }}>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0F172A', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Plus size={18} color="#059669" /> Add Moving Strip Announcement
-              </h3>
+          {/* ── PORTAL STRIP PANEL ── */}
+          {tickerSubTab === 'portal' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              {/* Portal strip settings row */}
+              {portalTickerConfig && (
+                <div style={{ backgroundColor: '#FFFFFF', padding: '20px', borderRadius: '16px', border: '1px solid #E2E8F0', display: 'flex', gap: '24px', flexWrap: 'wrap', alignItems: 'center' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 700, fontSize: '0.875rem', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={portalTickerConfig.isActive}
+                      onChange={(e) => {
+                        const updated = { ...portalTickerConfig, isActive: e.target.checked };
+                        setPortalTickerConfig(updated);
+                        updatePortalTickerConfig(updated);
+                        showToast('success', `✅ Portal strip ${e.target.checked ? 'activated' : 'deactivated'} live!`);
+                      }}
+                    />
+                    Strip Active
+                  </label>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <label style={{ fontWeight: 700, fontSize: '0.875rem' }}>Speed (seconds):</label>
+                    <input
+                      type="number"
+                      min={10} max={60}
+                      value={portalTickerConfig.speedSeconds}
+                      onChange={(e) => setPortalTickerConfig({ ...portalTickerConfig, speedSeconds: Number(e.target.value) })}
+                      onBlur={() => { updatePortalTickerConfig(portalTickerConfig!); showToast('success', '✅ Portal strip speed updated!'); }}
+                      style={{ width: '70px', padding: '6px 8px', borderRadius: '8px', border: '1px solid #CBD5E1', fontWeight: 700 }}
+                    />
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <label style={{ fontWeight: 700, fontSize: '0.875rem' }}>Theme:</label>
+                    <select
+                      value={portalTickerConfig.bgStyle}
+                      onChange={(e) => {
+                        const updated = { ...portalTickerConfig, bgStyle: e.target.value as any };
+                        setPortalTickerConfig(updated);
+                        updatePortalTickerConfig(updated);
+                        showToast('success', '✅ Portal strip theme updated!');
+                      }}
+                      style={{ padding: '6px 10px', borderRadius: '8px', border: '1px solid #CBD5E1', fontWeight: 600 }}
+                    >
+                      <option value="emerald">🟢 Emerald (Dark Green)</option>
+                      <option value="dark">🔵 Dark (Slate Blue)</option>
+                      <option value="slate">⬜ Slate (Light)</option>
+                    </select>
+                  </div>
+                </div>
+              )}
 
-              <form onSubmit={handleAddTicker} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>Icon Emoji</label>
-                  <select
-                    value={newTickerIcon}
-                    onChange={(e) => setNewTickerIcon(e.target.value)}
-                    style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '1rem', outline: 'none' }}
+              <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 380px', gap: '32px', alignItems: 'start' }}>
+                {/* Left: Portal Ticker Items */}
+                <div style={{ backgroundColor: '#FFFFFF', padding: '24px', borderRadius: '16px', border: '1px solid #E2E8F0' }}>
+                  <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0F172A', marginBottom: '16px' }}>
+                    Student Portal Strip Items ({portalTickerConfig?.items?.length ?? 0})
+                  </h3>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    {(portalTickerConfig?.items || []).map((item) => (
+                      <div
+                        key={item.id}
+                        style={{ border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9375rem', fontWeight: 600, color: '#0F172A' }}>
+                          <span style={{ fontSize: '1.2rem' }}>{item.icon}</span>
+                          <span>{item.text}</span>
+                        </div>
+                        <button
+                          onClick={() => {
+                            const updated = deletePortalTickerItem(item.id);
+                            setPortalTickerConfig(updated);
+                            showToast('success', 'Portal strip item removed.');
+                          }}
+                          style={{ backgroundColor: '#FEE2E2', color: '#991B1B', border: 'none', borderRadius: '6px', padding: '6px 10px', cursor: 'pointer' }}
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Right: Add Portal Ticker Form */}
+                <div style={{ backgroundColor: '#FFFFFF', padding: '24px', borderRadius: '16px', border: '1px solid #E2E8F0' }}>
+                  <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0F172A', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <Plus size={18} color="#059669" /> Add Portal Announcement
+                  </h3>
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      if (!newTickerText.trim()) { showToast('error', 'Please enter ticker text.'); return; }
+                      const updated = addPortalTickerItem(newTickerText.trim(), newTickerIcon);
+                      setPortalTickerConfig(updated);
+                      setNewTickerText('');
+                      showToast('success', '✅ Portal strip updated & synced live to student portal!');
+                    }}
+                    style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}
                   >
-                    <option value="🎓">🎓 Graduation / Admission</option>
-                    <option value="⚡">⚡ Announcement / Discount</option>
-                    <option value="🏆">🏆 Achievement / Questions</option>
-                    <option value="📜">📜 Visa & Legal Support</option>
-                    <option value="💼">💼 Doctors & Mentors</option>
-                    <option value="✨">✨ Special Sparkle</option>
-                  </select>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>Icon Emoji</label>
+                      <select
+                        value={newTickerIcon}
+                        onChange={(e) => setNewTickerIcon(e.target.value)}
+                        style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '1rem', outline: 'none' }}
+                      >
+                        <option value="🎓">🎓 Graduation / Study</option>
+                        <option value="🎯">🎯 Mock Test / Exam</option>
+                        <option value="📅">📅 Event / Masterclass</option>
+                        <option value="💡">💡 Study Tip</option>
+                        <option value="🏆">🏆 Achievement</option>
+                        <option value="⚡">⚡ Announcement</option>
+                        <option value="📚">📚 Resources</option>
+                        <option value="📢">📢 Notice</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>Portal Message Text</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. Full-Length IMAT 2027 CBT Mock Test #12 is now live!"
+                        value={newTickerText}
+                        onChange={(e) => setNewTickerText(e.target.value)}
+                        style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.875rem', outline: 'none' }}
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      style={{ backgroundColor: '#059669', color: '#FFFFFF', border: 'none', borderRadius: '10px', padding: '12px', fontWeight: 700, fontSize: '0.9375rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
+                    >
+                      <Plus size={18} /> Add to Student Portal Strip
+                    </button>
+                  </form>
                 </div>
-
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>Ticker Text</label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. IMAT 2027 Registration Open — Special Discount Offer Active"
-                    value={newTickerText}
-                    onChange={(e) => setNewTickerText(e.target.value)}
-                    style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.875rem', outline: 'none' }}
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  style={{
-                    backgroundColor: '#059669',
-                    color: '#FFFFFF',
-                    border: 'none',
-                    borderRadius: '10px',
-                    padding: '12px',
-                    fontWeight: 700,
-                    fontSize: '0.9375rem',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '6px',
-                  }}
-                >
-                  <Plus size={18} /> Add to Homepage Moving Strip
-                </button>
-              </form>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       )}
 
