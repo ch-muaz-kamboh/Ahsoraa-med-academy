@@ -1027,7 +1027,10 @@ export const mockUniversities: University[] = [
     highlights: ['World leader in cancer immunotherapy research at Le Scotte', 'Unmatched historical atmosphere in iconic Tuscan city of Siena', 'Intimate academic cohort with focused faculty interaction'],
     campusLocation: 'Strada delle Scotte 4, Siena',
     scholarshipInfo: 'DSU Toscana regional grant covers tuition fee exemption plus living stipends up to €7,000.',
-    historicalCutoffNote: 'Moderately competitive (~65.4 EU / ~68.0 No  // Private / specialist Italian medical universities
+    historicalCutoffNote: 'Moderately competitive (~65.4 EU / ~68.0 Non-EU final cutoff).',
+    programs: ['Medicine and Surgery (MD 6 Years)'],
+  },
+  // Private / specialist Italian medical universities
   {
     id: 'uni-humanitas',
     name: 'Humanitas University',
