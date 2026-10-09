@@ -23,33 +23,12 @@ import {
 import LeadCaptureModal from '../public/LeadCaptureModal';
 
 import Logo from '@/components/brand/Logo';
+import TopOfferBar from './TopOfferBar';
 
 export default function Navbar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [leadModalOpen, setLeadModalOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (typeof window !== 'undefined') {
-        const currentScrollY = window.scrollY;
-        
-        // Hide if scrolling down past header height, show if scrolling up
-        if (currentScrollY > lastScrollY && currentScrollY > 76) {
-          setIsVisible(false);
-        } else {
-          setIsVisible(true);
-        }
-        
-        setLastScrollY(currentScrollY);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
 
   // If inside portal or admin layout, hide the public navbar
   if (pathname?.startsWith('/portal') || pathname?.startsWith('/admin')) {
@@ -71,19 +50,21 @@ export default function Navbar() {
   return (
     <>
       <header
+        role="banner"
         style={{
           position: 'fixed',
           top: 0,
           left: 0,
           right: 0,
-          zIndex: 40,
+          zIndex: 50,
           backgroundColor: '#FFFFFF',
           borderBottom: '1px solid #E2E8F0',
-          boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.05)',
-          transform: isVisible ? 'translateY(0)' : 'translateY(-100%)',
-          transition: 'transform 0.3s ease-in-out',
+          boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.06)',
         }}
       >
+        {/* Global Live Offer & Countdown Announcement Bar */}
+        <TopOfferBar />
+
         <div
           className="container"
           style={{

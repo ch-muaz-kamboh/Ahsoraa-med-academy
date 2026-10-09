@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import LeadCaptureModal from '@/components/public/LeadCaptureModal';
 import { useScrollAnimation, useStaggeredAnimation } from '@/hooks/useScrollAnimation';
+import { useDynamicPackagePrices } from '@/hooks/useDynamicPackagePrices';
 
 // Section components to keep the main file readable
 
@@ -90,6 +91,7 @@ function AnimatedNumber({ end, suffix = '', label }: { end: number, suffix?: str
 
 export default function IMATContent() {
   const [leadOpen, setLeadOpen] = useState(false);
+  const { getPrice } = useDynamicPackagePrices();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [scoreCalc, setScoreCalc] = useState({ correct: 0, incorrect: 0, blank: 0 });
   const [openSubject, setOpenSubject] = useState<number | null>(null);
@@ -747,16 +749,30 @@ export default function IMATContent() {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '30px' }}>
              {[
-               { name: 'IMAT Ascent', desc: 'Independent, structured self-paced preparation.', price: '$299' },
-               { name: 'IMAT Mastery', desc: 'Structured preparation + live teacher-led classes.', price: '$499', highlight: true },
-               { name: 'MedPath Elite', desc: 'Full IMAT preparation + university & admissions support.', price: '$999' }
-             ].map((path, i) => (
-               <div key={i} className="card" style={path.highlight ? { borderColor: '#5CED73', boxShadow: '0 8px 24px -4px rgba(92, 237, 115, 0.2)', transform: 'scale(1.02)' } : {}}>
-                  <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', marginBottom: '8px' }}>{path.name}</div>
-                  <div style={{ color: '#475569', fontSize: '0.95rem', height: '48px', marginBottom: '20px' }}>{path.desc}</div>
-                  <Link href="/#packages" className={path.highlight ? "btn-primary" : "btn-outline"} style={{ width: '100%' }}>Compare Programmes</Link>
-               </div>
-             ))}
+               { id: 'ascend', name: 'IMAT Ascent', desc: 'Independent, structured self-paced preparation.' },
+               { id: 'mastery', name: 'IMAT Mastery', desc: 'Structured preparation + live teacher-led classes.', highlight: true },
+               { id: 'elite', name: 'MedPath Elite', desc: 'Full IMAT preparation + university & admissions support.' }
+             ].map((path, i) => {
+               const p = getPrice(path.id);
+               return (
+                 <div key={i} className="card" style={path.highlight ? { borderColor: '#5CED73', boxShadow: '0 8px 24px -4px rgba(92, 237, 115, 0.2)', transform: 'scale(1.02)' } : {}}>
+                    {p.badge && (
+                      <span style={{ backgroundColor: '#059669', color: '#FFF', fontSize: '0.72rem', fontWeight: 800, padding: '3px 8px', borderRadius: '6px', alignSelf: 'flex-start', marginBottom: '8px', display: 'inline-block' }}>
+                        {p.badge}
+                      </span>
+                    )}
+                    <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', marginBottom: '8px' }}>{path.name}</div>
+                    <div style={{ color: '#475569', fontSize: '0.95rem', height: '48px', marginBottom: '16px' }}>{path.desc}</div>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '20px' }}>
+                      <span style={{ fontSize: '1.85rem', fontWeight: 900, color: '#0F172A' }}>{p.price}</span>
+                      {p.originalPrice && (
+                        <span style={{ fontSize: '1rem', color: '#94A3B8', textDecoration: 'line-through', fontWeight: 600 }}>{p.originalPrice}</span>
+                      )}
+                    </div>
+                    <Link href="/courses#programmes" className={path.highlight ? "btn-primary" : "btn-outline"} style={{ width: '100%', textAlign: 'center' }}>View Programme</Link>
+                 </div>
+               );
+             })}
           </div>
         </div>
       </section>

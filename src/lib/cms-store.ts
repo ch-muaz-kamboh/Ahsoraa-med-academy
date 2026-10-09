@@ -298,11 +298,43 @@ export function addNewsPost(post: Omit<NewsItem, 'id'>): NewsItem {
   return newPost;
 }
 
+export function updateNewsPost(updatedPost: NewsItem): NewsItem {
+  const posts = getNewsPosts();
+  const index = posts.findIndex((p) => p.id === updatedPost.id);
+  const updated = index !== -1
+    ? posts.map((p) => (p.id === updatedPost.id ? updatedPost : p))
+    : [updatedPost, ...posts];
+  saveNewsPosts(updated);
+
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('ahsora_cms_news_updated', { detail: updatedPost }));
+    const supabase = createClient();
+    supabase.from('news_posts').upsert({
+      id: updatedPost.id,
+      title: updatedPost.title,
+      slug: updatedPost.slug,
+      excerpt: updatedPost.excerpt,
+      content: updatedPost.content,
+      category: updatedPost.category,
+      author: updatedPost.author,
+      date: updatedPost.date,
+      read_time: updatedPost.readTime,
+      image_url: updatedPost.imageUrl || null,
+      featured: updatedPost.featured || false,
+    }).then(({ error }) => {
+      if (error) console.warn('Supabase news update warning:', error.message);
+    });
+  }
+
+  return updatedPost;
+}
+
 export function deleteNewsPost(id: string) {
   const posts = getNewsPosts().filter((p) => p.id !== id);
   saveNewsPosts(posts);
 
   if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('ahsora_cms_news_updated'));
     const supabase = createClient();
     supabase.from('news_posts').delete().eq('id', id).then(({ error }) => {
       if (error) console.warn('Supabase news delete warning:', error.message);
@@ -543,6 +575,7 @@ export function updatePackagePricing(
   saveDynamicPackagePrices(updated);
 
   if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('ahsora_cms_prices_updated', { detail: updated }));
     const supabase = createClient();
     const target = updated.find((p) => p.id === id);
     if (target) {
@@ -561,6 +594,27 @@ export function updatePackagePricing(
       });
     }
   }
+}
+
+export function getPackagePriceDisplay(pkgId: string, fallbackPrice?: string): { price: string; originalPrice?: string | null; badge?: string | null } {
+  const targetId = pkgId === 'ascent' ? 'ascend' : pkgId;
+  const prices = getDynamicPackagePrices();
+  const found = prices.find((p) => p.id === targetId || p.id === pkgId);
+  if (found) {
+    return {
+      price: found.price,
+      originalPrice: (found.isDiscountActive ?? true) ? (found.originalPrice || null) : null,
+      badge: (found.isDiscountActive ?? true) ? (found.discountBadge || null) : null,
+    };
+  }
+  const defaultSale = targetId === 'ascend' ? '€299' : targetId === 'mastery' ? '€499' : '€799';
+  const defaultOrig = targetId === 'ascend' ? '€399' : targetId === 'mastery' ? '€649' : '€999';
+  const defaultBadge = targetId === 'ascend' ? '25% OFF' : targetId === 'mastery' ? '23% OFF' : '20% OFF';
+  return {
+    price: fallbackPrice || defaultSale,
+    originalPrice: defaultOrig,
+    badge: defaultBadge,
+  };
 }
 
 // ── 5. SALE OFFER & FLASH PROMO CONFIG ────────────────────────────────────────
@@ -622,6 +676,7 @@ export async function syncSaleOfferFromSupabase(): Promise<SaleOfferConfig> {
 export function updateSaleOfferConfig(config: SaleOfferConfig) {
   saveSaleOfferConfig(config);
   if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('ahsora_cms_sale_offer_updated', { detail: config }));
     const supabase = createClient();
     supabase.from('site_content').upsert({
       id: 1,

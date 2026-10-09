@@ -109,7 +109,10 @@ export default function NewsPage() {
               <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2.2rem)', fontWeight: 800, color: '#0F172A', lineHeight: 1.25, margin: 0 }}>
                 {featured.title}
               </h2>
-              <p style={{ color: '#334155', fontSize: '1.05rem', lineHeight: 1.7, margin: 0 }}>{featured.excerpt}</p>
+              <p
+                style={{ color: '#334155', fontSize: '1.05rem', lineHeight: 1.7, margin: 0 }}
+                dangerouslySetInnerHTML={{ __html: featured.excerpt }}
+              />
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap', marginTop: '8px' }}>
                 <span style={{ fontSize: '0.875rem', color: '#64748B', display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <User size={14} color="#059669" /> {featured.author}
@@ -195,9 +198,10 @@ export default function NewsPage() {
                   {post.title}
                 </h3>
 
-                <p style={{ color: '#64748B', fontSize: '0.875rem', lineHeight: 1.6, flex: 1, margin: 0 }}>
-                  {post.excerpt}
-                </p>
+                <p
+                  style={{ color: '#64748B', fontSize: '0.875rem', lineHeight: 1.6, flex: 1, margin: 0 }}
+                  dangerouslySetInnerHTML={{ __html: post.excerpt }}
+                />
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '12px', borderTop: '1px solid #E2E8F0' }}>
                   <span style={{ fontSize: '0.8125rem', color: '#64748B', display: 'flex', alignItems: 'center', gap: '5px' }}>
@@ -280,13 +284,23 @@ export default function NewsPage() {
               <User size={16} /> Author: {selectedPost.author}
             </div>
 
-            <div style={{ backgroundColor: '#F8FAFC', padding: '18px 20px', borderRadius: '12px', borderLeft: '4px solid #059669', marginBottom: '24px', fontSize: '0.95rem', color: '#334155', lineHeight: 1.7 }}>
-              {selectedPost.excerpt}
-            </div>
+            <div
+              style={{ backgroundColor: '#F8FAFC', padding: '18px 20px', borderRadius: '12px', borderLeft: '4px solid #059669', marginBottom: '24px', fontSize: '0.95rem', color: '#334155', lineHeight: 1.7 }}
+              dangerouslySetInnerHTML={{ __html: selectedPost.excerpt }}
+            />
 
-            <div style={{ fontSize: '1rem', color: '#334155', lineHeight: 1.8, whiteSpace: 'pre-line' }}>
-              {selectedPost.content}
-            </div>
+            <div
+              className="rich-article-content"
+              style={{ fontSize: '1rem', color: '#334155', lineHeight: 1.85 }}
+              dangerouslySetInnerHTML={{
+                __html: /<[a-z][\s\S]*>/i.test(selectedPost.content || '')
+                  ? selectedPost.content
+                  : (selectedPost.content || '')
+                      .split(/\n\s*\n/)
+                      .map((p) => `<p>${p.replace(/\n/g, '<br/>')}</p>`)
+                      .join(''),
+              }}
+            />
 
             <div style={{ marginTop: '32px', paddingTop: '20px', borderTop: '1px solid #E2E8F0', display: 'flex', justifyContent: 'flex-end' }}>
               <button
@@ -315,6 +329,58 @@ export default function NewsPage() {
       </section>
 
       <LeadCaptureModal isOpen={leadOpen} onClose={() => setLeadOpen(false)} />
+
+      <style jsx global>{`
+        .rich-article-content h2 {
+          font-size: 1.45rem;
+          font-weight: 800;
+          color: #0F172A;
+          margin: 24px 0 12px;
+          line-height: 1.3;
+        }
+        .rich-article-content h3 {
+          font-size: 1.25rem;
+          font-weight: 700;
+          color: #0F172A;
+          margin: 18px 0 8px;
+        }
+        .rich-article-content p {
+          margin-bottom: 16px;
+        }
+        .rich-article-content a {
+          color: #059669;
+          font-weight: 700;
+          text-decoration: underline;
+          text-underline-offset: 3px;
+          transition: color 0.15s ease;
+        }
+        .rich-article-content a:hover {
+          color: #047857;
+        }
+        .rich-article-content mark {
+          background-color: #FEF08A;
+          color: #0F172A;
+          padding: 2px 6px;
+          border-radius: 4px;
+          font-weight: 600;
+        }
+        .rich-article-content blockquote {
+          border-left: 4px solid #059669;
+          background-color: #F8FAFC;
+          padding: 14px 20px;
+          margin: 18px 0;
+          border-radius: 0 10px 10px 0;
+          font-style: italic;
+          color: #334155;
+        }
+        .rich-article-content ul, .rich-article-content ol {
+          padding-left: 24px;
+          margin: 14px 0;
+        }
+        .rich-article-content li {
+          margin-bottom: 6px;
+        }
+      `}</style>
     </div>
   );
 }

@@ -19,88 +19,7 @@ import {
 } from '@/lib/cms-store';
 import './courses.css';
 
-// ─── Live Sale Banner & Countdown Timer Component ──────────────────────────────
-function SaleOfferBanner({ offer }: { offer: SaleOfferConfig }) {
-  const [timeLeft, setTimeLeft] = useState<{ days: number; hours: number; minutes: number; seconds: number }>({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
 
-  useEffect(() => {
-    if (!offer?.endDate || !offer?.isSaleActive) return;
-
-    const calculateTime = () => {
-      const target = new Date(offer.endDate).getTime();
-      const now = new Date().getTime();
-      const diff = target - now;
-
-      if (isNaN(target) || diff <= 0) {
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-      setTimeLeft({ days, hours, minutes, seconds });
-    };
-
-    calculateTime();
-    const interval = setInterval(calculateTime, 1000);
-    return () => clearInterval(interval);
-  }, [offer?.endDate, offer?.isSaleActive]);
-
-  if (!offer || !offer.isSaleActive) return null;
-
-  return (
-    <div
-      style={{
-        background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)',
-        borderBottom: '2px solid #059669',
-        color: '#FFFFFF',
-        padding: '16px 20px',
-        textAlign: 'center',
-        position: 'relative',
-        zIndex: 20,
-      }}
-    >
-      <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
-        <div style={{ textAlign: 'left' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px', flexWrap: 'wrap' }}>
-            <span style={{ backgroundColor: '#EF4444', color: '#FFFFFF', fontSize: '0.75rem', fontWeight: 800, padding: '3px 10px', borderRadius: '12px', letterSpacing: '0.5px' }}>
-              {offer.discountBadgeText || 'SPECIAL OFFER'}
-            </span>
-            <span style={{ fontSize: '1rem', fontWeight: 800, color: '#5CED73' }}>
-              {offer.offerTitle}
-            </span>
-          </div>
-          <p style={{ margin: 0, fontSize: '0.875rem', color: '#CBD5E1' }}>
-            {offer.offerSubtitle} {offer.promoCode && <span style={{ marginLeft: '8px' }}>• Use Code: <strong style={{ color: '#F59E0B' }}>{offer.promoCode}</strong></span>}
-          </p>
-        </div>
-
-        {/* Countdown Blocks */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          {[
-            { label: 'Days', val: timeLeft.days },
-            { label: 'Hours', val: timeLeft.hours },
-            { label: 'Mins', val: timeLeft.minutes },
-            { label: 'Secs', val: timeLeft.seconds },
-          ].map((item, i) => (
-            <div key={i} style={{ backgroundColor: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.18)', padding: '6px 12px', borderRadius: '10px', minWidth: '48px', textAlign: 'center' }}>
-              <div style={{ fontSize: '1.15rem', fontWeight: 900, color: '#FFFFFF', lineHeight: 1 }}>{String(item.val).padStart(2, '0')}</div>
-              <div style={{ fontSize: '0.625rem', color: '#94A3B8', textTransform: 'uppercase', marginTop: '3px', fontWeight: 700 }}>{item.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 // ─── Intersection Observer Hook ──────────────────────────────────────────────
 function useIntersectionObserver(options = {}) {
@@ -566,6 +485,19 @@ export default function CoursesPage() {
     syncSaleOfferFromSupabase().then((offer) => {
       if (offer) setSaleOffer(offer);
     });
+
+    const handlePricesUpdated = (e: any) => {
+      if (e?.detail) setDynamicPrices(e.detail);
+      else setDynamicPrices(getDynamicPackagePrices());
+    };
+
+    window.addEventListener('ahsora_cms_prices_updated', handlePricesUpdated);
+    window.addEventListener('storage', handlePricesUpdated);
+
+    return () => {
+      window.removeEventListener('ahsora_cms_prices_updated', handlePricesUpdated);
+      window.removeEventListener('storage', handlePricesUpdated);
+    };
   }, []);
 
   const getPriceInfo = (id: string) => {
@@ -654,8 +586,7 @@ export default function CoursesPage() {
   return (
     <div style={{ backgroundColor: 'var(--bg-main)', minHeight: '100vh' }}>
 
-      {/* ── 00 SALE & COUNTDOWN BANNER ───────────────────────────────────── */}
-      <SaleOfferBanner offer={saleOffer} />
+
 
       {/* ── 01 HERO ─────────────────────────────────────────────────────── */}
       <section className="courses-hero" style={{ position: 'relative', overflow: 'hidden', padding: '116px 0 60px', background: 'linear-gradient(135deg, #064E3B 0%, #065F46 50%, #0F172A 100%)', color: '#FFFFFF' }}>

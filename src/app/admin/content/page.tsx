@@ -24,12 +24,14 @@ import {
   Upload,
   Flame,
   Calendar,
-  Percent
+  Percent,
+  Edit3
 } from 'lucide-react';
 
 import {
   getNewsPosts,
   addNewsPost,
+  updateNewsPost,
   deleteNewsPost,
   syncNewsFromSupabase,
   NewsItem,
@@ -54,6 +56,7 @@ import {
 } from '@/lib/cms-store';
 
 import { createClient } from '@/lib/supabase/client';
+import RichTextEditor from '@/components/admin/RichTextEditor';
 
 export default function AdminContentPage() {
   const [activeTab, setActiveTab] = useState<'news' | 'docs' | 'ticker' | 'pricing' | 'offer' | 'hero'>('news');
@@ -63,6 +66,7 @@ export default function AdminContentPage() {
   // ── 1. News Posts State ──────────────────────────────────────────────────
   const [newsPosts, setNewsPosts] = useState<NewsItem[]>([]);
   const [newsSearch, setNewsSearch] = useState('');
+  const [editingNewsId, setEditingNewsId] = useState<string | null>(null);
   const [newNews, setNewNews] = useState({
     title: '',
     category: 'Admissions',
@@ -187,12 +191,72 @@ export default function AdminContentPage() {
   };
 
   // ── News Handlers ────────────────────────────────────────────────────────
+  const handleStartEditNews = (post: NewsItem) => {
+    setEditingNewsId(post.id);
+    setNewNews({
+      title: post.title,
+      category: post.category,
+      excerpt: post.excerpt,
+      content: post.content || post.excerpt,
+      author: post.author,
+      readTime: post.readTime,
+      featured: post.featured || false,
+    });
+    showToast('success', `✏️ Editing "${post.title}". Update the fields and click "Save & Update Article".`);
+  };
+
+  const handleCancelEditNews = () => {
+    setEditingNewsId(null);
+    setNewNews({
+      title: '',
+      category: 'Admissions',
+      excerpt: '',
+      content: '',
+      author: 'Ahsora Team',
+      readTime: '5 min read',
+      featured: false,
+    });
+  };
+
   const handleAddNews = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newNews.title || !newNews.excerpt) {
       showToast('error', 'Please fill in post title and summary excerpt.');
       return;
     }
+
+    if (editingNewsId) {
+      const existing = newsPosts.find((p) => p.id === editingNewsId);
+      const updatedPost: NewsItem = {
+        id: editingNewsId,
+        title: newNews.title,
+        slug: existing?.slug || newNews.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+        category: newNews.category,
+        excerpt: newNews.excerpt,
+        content: newNews.content || newNews.excerpt,
+        author: newNews.author,
+        date: existing?.date || new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        readTime: newNews.readTime,
+        featured: newNews.featured,
+        imageUrl: existing?.imageUrl,
+      };
+
+      updateNewsPost(updatedPost);
+      setNewsPosts(newsPosts.map((p) => (p.id === editingNewsId ? updatedPost : p)));
+      setEditingNewsId(null);
+      setNewNews({
+        title: '',
+        category: 'Admissions',
+        excerpt: '',
+        content: '',
+        author: 'Ahsora Team',
+        readTime: '5 min read',
+        featured: false,
+      });
+      showToast('success', '✅ Article & description updated and synced live!');
+      return;
+    }
+
     const created = addNewsPost({
       title: newNews.title,
       slug: newNews.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
@@ -219,6 +283,9 @@ export default function AdminContentPage() {
 
   const handleDeleteNews = (id: string) => {
     if (confirm('Are you sure you want to remove this news article?')) {
+      if (editingNewsId === id) {
+        handleCancelEditNews();
+      }
       deleteNewsPost(id);
       setNewsPosts(newsPosts.filter((p) => p.id !== id));
       showToast('success', 'Article removed.');
@@ -437,7 +504,7 @@ export default function AdminContentPage() {
 
       {/* ── TAB 1: NEWS & BLOGS MANAGER ────────────────────────────────────── */}
       {activeTab === 'news' && (
-        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 380px', gap: '32px', alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1.2fr)', gap: '32px', alignItems: 'start' }}>
           
           {/* Left: News List */}
           <div style={{ backgroundColor: '#FFFFFF', padding: '24px', borderRadius: '16px', border: '1px solid #E2E8F0' }}>
@@ -468,65 +535,126 @@ export default function AdminContentPage() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {newsPosts
                 .filter((p) => p.title.toLowerCase().includes(newsSearch.toLowerCase()) || p.category.toLowerCase().includes(newsSearch.toLowerCase()))
-                .map((post) => (
-                  <div
-                    key={post.id}
-                    style={{
-                      border: '1px solid #E2E8F0',
-                      borderRadius: '12px',
-                      padding: '16px',
-                      backgroundColor: post.featured ? '#F0FFF4' : '#FFFFFF',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'flex-start',
-                      gap: '16px',
-                    }}
-                  >
-                    <div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-                        <span style={{ backgroundColor: '#DCFCE7', color: '#047857', fontSize: '0.75rem', fontWeight: 700, padding: '2px 8px', borderRadius: '6px' }}>
-                          {post.category}
-                        </span>
-                        {post.featured && (
-                          <span style={{ backgroundColor: '#FEF3C7', color: '#92400E', fontSize: '0.75rem', fontWeight: 700, padding: '2px 8px', borderRadius: '6px' }}>
-                            Featured
-                          </span>
-                        )}
-                        <span style={{ fontSize: '0.75rem', color: '#64748B' }}>{post.date} • {post.readTime}</span>
-                      </div>
-                      <h4 style={{ fontSize: '1rem', fontWeight: 800, color: '#0F172A', margin: '0 0 6px 0' }}>
-                        {post.title}
-                      </h4>
-                      <p style={{ fontSize: '0.84rem', color: '#64748B', margin: 0, lineHeight: 1.5 }}>
-                        {post.excerpt}
-                      </p>
-                    </div>
-
-                    <button
-                      onClick={() => handleDeleteNews(post.id)}
+                .map((post) => {
+                  const isCurrentEditing = editingNewsId === post.id;
+                  return (
+                    <div
+                      key={post.id}
                       style={{
-                        backgroundColor: '#FEE2E2',
-                        color: '#991B1B',
-                        border: 'none',
-                        borderRadius: '8px',
-                        padding: '8px',
-                        cursor: 'pointer',
-                        flexShrink: 0,
+                        border: isCurrentEditing ? '2px solid #059669' : '1px solid #E2E8F0',
+                        borderRadius: '12px',
+                        padding: '16px',
+                        backgroundColor: isCurrentEditing ? '#F0FDF4' : post.featured ? '#F0FFF4' : '#FFFFFF',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'flex-start',
+                        gap: '16px',
+                        boxShadow: isCurrentEditing ? '0 4px 12px rgba(5,150,105,0.15)' : 'none',
+                        transition: 'all 0.2s ease',
                       }}
-                      title="Delete news article"
                     >
-                      <Trash2 size={16} />
-                    </button>
-                  </div>
-                ))}
+                      <div style={{ flex: 1 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px', flexWrap: 'wrap' }}>
+                          <span style={{ backgroundColor: '#DCFCE7', color: '#047857', fontSize: '0.75rem', fontWeight: 700, padding: '2px 8px', borderRadius: '6px' }}>
+                            {post.category}
+                          </span>
+                          {post.featured && (
+                            <span style={{ backgroundColor: '#FEF3C7', color: '#92400E', fontSize: '0.75rem', fontWeight: 700, padding: '2px 8px', borderRadius: '6px' }}>
+                              Featured
+                            </span>
+                          )}
+                          {isCurrentEditing && (
+                            <span style={{ backgroundColor: '#059669', color: '#FFFFFF', fontSize: '0.7rem', fontWeight: 800, padding: '2px 6px', borderRadius: '4px' }}>
+                              NOW EDITING
+                            </span>
+                          )}
+                          <span style={{ fontSize: '0.75rem', color: '#64748B' }}>{post.date} • {post.readTime}</span>
+                        </div>
+                        <h4 style={{ fontSize: '1rem', fontWeight: 800, color: '#0F172A', margin: '0 0 6px 0' }}>
+                          {post.title}
+                        </h4>
+                        <p style={{ fontSize: '0.84rem', color: '#64748B', margin: 0, lineHeight: 1.5 }}>
+                          {post.excerpt}
+                        </p>
+                      </div>
+
+                      <div style={{ display: 'flex', gap: '6px', flexShrink: 0 }}>
+                        <button
+                          onClick={() => handleStartEditNews(post)}
+                          style={{
+                            backgroundColor: isCurrentEditing ? '#059669' : '#EEF2FF',
+                            color: isCurrentEditing ? '#FFFFFF' : '#4F46E5',
+                            border: 'none',
+                            borderRadius: '8px',
+                            padding: '8px',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            transition: 'all 0.15s ease',
+                          }}
+                          title="Edit news article & rich description"
+                        >
+                          <Edit3 size={16} />
+                        </button>
+                        <button
+                          onClick={() => handleDeleteNews(post.id)}
+                          style={{
+                            backgroundColor: '#FEE2E2',
+                            color: '#991B1B',
+                            border: 'none',
+                            borderRadius: '8px',
+                            padding: '8px',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            transition: 'all 0.15s ease',
+                          }}
+                          title="Delete news article"
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
             </div>
           </div>
 
-          {/* Right: Add News Form */}
-          <div style={{ backgroundColor: '#FFFFFF', padding: '24px', borderRadius: '16px', border: '1px solid #E2E8F0', position: 'sticky', top: '24px' }}>
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0F172A', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Plus size={18} color="#059669" /> Add New Update or Article
-            </h3>
+          {/* Right: Add/Edit News Form with RichTextEditor */}
+          <div style={{ backgroundColor: '#FFFFFF', padding: '24px', borderRadius: '16px', border: editingNewsId ? '2px solid #059669' : '1px solid #E2E8F0', position: 'sticky', top: '24px', boxShadow: editingNewsId ? '0 10px 25px -5px rgba(5,150,105,0.1)' : 'none' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0F172A', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                {editingNewsId ? (
+                  <>
+                    <Edit3 size={18} color="#059669" /> Edit News / Blog Article
+                  </>
+                ) : (
+                  <>
+                    <Plus size={18} color="#059669" /> Add New Update or Article
+                  </>
+                )}
+              </h3>
+              {editingNewsId && (
+                <button
+                  type="button"
+                  onClick={handleCancelEditNews}
+                  style={{
+                    backgroundColor: '#F1F5F9',
+                    border: '1px solid #CBD5E1',
+                    borderRadius: '6px',
+                    padding: '4px 10px',
+                    fontSize: '0.75rem',
+                    fontWeight: 700,
+                    color: '#64748B',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Cancel Edit
+                </button>
+              )}
+            </div>
 
             <form onSubmit={handleAddNews} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
               <div>
@@ -558,11 +686,47 @@ export default function AdminContentPage() {
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>Summary Excerpt</label>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                  <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', margin: 0 }}>
+                    Summary Excerpt (Card &amp; Feed Preview)
+                  </label>
+                  <div style={{ display: 'flex', gap: '4px' }}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const sel = typeof window !== 'undefined' ? window.getSelection()?.toString() : '';
+                        if (sel && newNews.excerpt.includes(sel)) {
+                          setNewNews({ ...newNews, excerpt: newNews.excerpt.replace(sel, `<strong>${sel}</strong>`) });
+                        } else {
+                          setNewNews({ ...newNews, excerpt: newNews.excerpt + ' <strong>bold text</strong>' });
+                        }
+                      }}
+                      style={{ fontSize: '0.72rem', padding: '2px 8px', borderRadius: '5px', border: '1px solid #CBD5E1', background: '#F8FAFC', cursor: 'pointer', fontWeight: 800, color: '#1E293B' }}
+                      title="Wrap selected text in bold"
+                    >
+                      B Bold
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const sel = typeof window !== 'undefined' ? window.getSelection()?.toString() : '';
+                        if (sel && newNews.excerpt.includes(sel)) {
+                          setNewNews({ ...newNews, excerpt: newNews.excerpt.replace(sel, `<mark style="background-color:#FEF08A;color:#0F172A;padding:1px 4px;border-radius:3px;font-weight:600;">${sel}</mark>`) });
+                        } else {
+                          setNewNews({ ...newNews, excerpt: newNews.excerpt + ' <mark style="background-color:#FEF08A;color:#0F172A;padding:1px 4px;border-radius:3px;font-weight:600;">highlighted</mark>' });
+                        }
+                      }}
+                      style={{ fontSize: '0.72rem', padding: '2px 8px', borderRadius: '5px', border: '1px solid #F59E0B', background: '#FEF3C7', color: '#92400E', cursor: 'pointer', fontWeight: 800 }}
+                      title="Wrap selected text in highlight"
+                    >
+                      ✨ Highlight
+                    </button>
+                  </div>
+                </div>
                 <textarea
-                  rows={3}
+                  rows={2}
                   required
-                  placeholder="Short overview snippet shown on news cards..."
+                  placeholder="Short overview snippet shown on news cards and preview feeds..."
                   value={newNews.excerpt}
                   onChange={(e) => setNewNews({ ...newNews, excerpt: e.target.value })}
                   style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.875rem', outline: 'none', boxSizing: 'border-box' }}
@@ -570,13 +734,20 @@ export default function AdminContentPage() {
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>Full Content Details</label>
-                <textarea
-                  rows={5}
-                  placeholder="Full article content text..."
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                  <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+                    Full Content &amp; Description (Full Rich Text Editor)
+                  </label>
+                  <span style={{ fontSize: '0.75rem', color: '#059669', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                    ✨ Bold, Highlight, Links &amp; Headings Active
+                  </span>
+                </div>
+                {/* Full Rich Text Editor Component */}
+                <RichTextEditor
                   value={newNews.content}
-                  onChange={(e) => setNewNews({ ...newNews, content: e.target.value })}
-                  style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.875rem', outline: 'none', boxSizing: 'border-box' }}
+                  onChange={(val) => setNewNews({ ...newNews, content: val })}
+                  placeholder="Write the full news and blog content here. Highlight important texts, bold key phrases, add web links, headings, blockquotes, and callouts..."
+                  minHeight="260px"
                 />
               </div>
 
@@ -613,7 +784,7 @@ export default function AdminContentPage() {
               <button
                 type="submit"
                 style={{
-                  backgroundColor: '#059669',
+                  backgroundColor: editingNewsId ? '#059669' : '#059669',
                   color: '#FFFFFF',
                   border: 'none',
                   borderRadius: '10px',
@@ -626,9 +797,18 @@ export default function AdminContentPage() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '6px',
+                  boxShadow: '0 4px 12px rgba(5,150,105,0.25)',
                 }}
               >
-                <Plus size={18} /> Publish Update to News Page
+                {editingNewsId ? (
+                  <>
+                    <Save size={18} /> Save &amp; Update Article
+                  </>
+                ) : (
+                  <>
+                    <Plus size={18} /> Publish Update to News Page
+                  </>
+                )}
               </button>
             </form>
           </div>

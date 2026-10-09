@@ -67,12 +67,36 @@ export const ACADEMY_PACKAGES: CoursePackage[] = [
 ];
 
 export function getPackageByIdOrName(input?: string | null): CoursePackage {
-  if (!input) return ACADEMY_PACKAGES[0]; // default Ascend
-  const lower = input.toLowerCase().trim();
-  const match = ACADEMY_PACKAGES.find(
-    (p) => p.id.toLowerCase() === lower || p.name.toLowerCase() === lower || p.name.toLowerCase().includes(lower) || lower.includes(p.id.toLowerCase())
-  );
-  return match || ACADEMY_PACKAGES[0];
+  const base = (() => {
+    if (!input) return ACADEMY_PACKAGES[0]; // default Ascend
+    const lower = input.toLowerCase().trim();
+    const match = ACADEMY_PACKAGES.find(
+      (p) => p.id.toLowerCase() === lower || p.name.toLowerCase() === lower || p.name.toLowerCase().includes(lower) || lower.includes(p.id.toLowerCase())
+    );
+    return match || ACADEMY_PACKAGES[0];
+  })();
+
+  if (typeof window !== 'undefined') {
+    try {
+      const data = localStorage.getItem('ahsora_cms_package_prices');
+      if (data) {
+        const prices = JSON.parse(data);
+        if (Array.isArray(prices)) {
+          const dynamic = prices.find((p: any) => p.id === base.id || (p.id === 'ascend' && base.id === 'ascent'));
+          if (dynamic && dynamic.price) {
+            return {
+              ...base,
+              price: dynamic.price,
+              numericPrice: Number(dynamic.numericPrice) || base.numericPrice,
+              badge: dynamic.discountBadge || base.badge,
+            };
+          }
+        }
+      }
+    } catch {}
+  }
+
+  return base;
 }
 
 export type StudentTier = 'ascend' | 'mastery' | 'elite';

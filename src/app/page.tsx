@@ -37,6 +37,7 @@ import {
 import LeadCaptureModal from '@/components/public/LeadCaptureModal';
 import { useScrollAnimation, useStaggeredAnimation } from '@/hooks/useScrollAnimation';
 import { getTickerItems, syncTickerFromSupabase, TickerItem, getDynamicPackagePrices, syncPricesFromSupabase, DynamicPackagePrice } from '@/lib/cms-store';
+import { useDynamicPackagePrices } from '@/hooks/useDynamicPackagePrices';
 
 // ─── Reusable section observer wrapper ───────────────────────
 function AnimatedSection({
@@ -165,6 +166,7 @@ export default function HomePage() {
   const [cycleVisible, setCycleVisible] = useState(false);
   const [faqOpenIndex, setFaqOpenIndex] = useState<number | null>(0);
   const [tickerItems, setTickerItems] = useState<TickerItem[]>([]);
+  const { getPrice } = useDynamicPackagePrices();
 
   useEffect(() => {
     setTickerItems(getTickerItems());
@@ -313,7 +315,7 @@ export default function HomePage() {
       <section
         style={{
           backgroundColor: '#FFFFFF',
-          padding: '80px 0 100px 0',
+          padding: 'calc(88px + var(--top-offer-bar-height, 0px)) 0 100px 0',
           position: 'relative',
           overflow: 'hidden',
           borderBottom: '1px solid #E2E8F0',
@@ -1128,9 +1130,24 @@ export default function HomePage() {
               <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F172A', marginBottom: '8px' }}>
                 Ahsora IMAT Ascend
               </h3>
-              <p style={{ color: '#64748B', fontSize: '0.9375rem', marginBottom: '28px', lineHeight: 1.6 }}>
+              <p style={{ color: '#64748B', fontSize: '0.9375rem', marginBottom: '16px', lineHeight: 1.6 }}>
                 The perfect starter plan for self-paced study with full content access.
               </p>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '20px' }}>
+                <span style={{ fontSize: '2rem', fontWeight: 900, color: '#0F172A', letterSpacing: '-0.5px' }}>
+                  {getPrice('ascend').price}
+                </span>
+                {getPrice('ascend').originalPrice && (
+                  <span style={{ fontSize: '1.05rem', color: '#94A3B8', textDecoration: 'line-through', fontWeight: 600 }}>
+                    {getPrice('ascend').originalPrice}
+                  </span>
+                )}
+                {getPrice('ascend').badge && (
+                  <span style={{ backgroundColor: '#DCFCE7', color: '#047857', fontSize: '0.72rem', fontWeight: 800, padding: '2px 8px', borderRadius: '6px' }}>
+                    {getPrice('ascend').badge}
+                  </span>
+                )}
+              </div>
               <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px 0', flex: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {[
                   'Full Video Library Access',
@@ -1203,9 +1220,24 @@ export default function HomePage() {
               <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F172A', marginBottom: '8px' }}>
                 Ahsora IMAT Mastery
               </h3>
-              <p style={{ color: '#475569', fontSize: '0.9375rem', marginBottom: '28px', lineHeight: 1.6 }}>
+              <p style={{ color: '#475569', fontSize: '0.9375rem', marginBottom: '16px', lineHeight: 1.6 }}>
                 Everything you need to confidently ace the IMAT — live classes included.
               </p>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '20px' }}>
+                <span style={{ fontSize: '2rem', fontWeight: 900, color: '#047857', letterSpacing: '-0.5px' }}>
+                  {getPrice('mastery').price}
+                </span>
+                {getPrice('mastery').originalPrice && (
+                  <span style={{ fontSize: '1.05rem', color: '#94A3B8', textDecoration: 'line-through', fontWeight: 600 }}>
+                    {getPrice('mastery').originalPrice}
+                  </span>
+                )}
+                {getPrice('mastery').badge && (
+                  <span style={{ backgroundColor: '#059669', color: '#FFFFFF', fontSize: '0.72rem', fontWeight: 800, padding: '2px 8px', borderRadius: '6px' }}>
+                    {getPrice('mastery').badge}
+                  </span>
+                )}
+              </div>
               <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px 0', flex: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {[
                   { text: 'Everything in Ascend', bold: true },
@@ -1263,9 +1295,24 @@ export default function HomePage() {
               <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                 Ahsora MedPath elite <Sparkles size={18} color="#D4AF37" />
               </h3>
-              <p style={{ color: '#94A3B8', fontSize: '0.9375rem', marginBottom: '28px', lineHeight: 1.6 }}>
+              <p style={{ color: '#94A3B8', fontSize: '0.9375rem', marginBottom: '16px', lineHeight: 1.6 }}>
                 The ultimate 1-on-1 personalized mentorship from IMAT prep to admission.
               </p>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '20px' }}>
+                <span style={{ fontSize: '2rem', fontWeight: 900, color: '#D4AF37', letterSpacing: '-0.5px' }}>
+                  {getPrice('elite').price}
+                </span>
+                {getPrice('elite').originalPrice && (
+                  <span style={{ fontSize: '1.05rem', color: '#94A3B8', textDecoration: 'line-through', fontWeight: 600 }}>
+                    {getPrice('elite').originalPrice}
+                  </span>
+                )}
+                {getPrice('elite').badge && (
+                  <span style={{ backgroundColor: 'rgba(212, 175, 55, 0.2)', color: '#D4AF37', border: '1px solid #D4AF37', fontSize: '0.72rem', fontWeight: 800, padding: '2px 8px', borderRadius: '6px' }}>
+                    {getPrice('elite').badge}
+                  </span>
+                )}
+              </div>
               <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px 0', flex: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {[
                   { text: 'Everything in Mastery', bold: true },
