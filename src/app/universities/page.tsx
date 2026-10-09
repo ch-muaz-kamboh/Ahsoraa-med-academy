@@ -42,6 +42,27 @@ interface CutoffRecord {
 // ─── Static Data ────────────────────────────────────────────────
 const cutoffData: Record<string, Record<string, CutoffRecord[]>> = {
   EU: {
+    '2025': [
+      { university: 'Università degli Studi di Milano (La Statale)', seats: 55, seatsLeft: '4', round1Cutoff: '66.2', finalCutoff: '61.5' },
+      { university: 'Università degli Studi di Milano-Bicocca', seats: 30, seatsLeft: '2', round1Cutoff: '64.5', finalCutoff: '59.8' },
+      { university: 'Università degli Studi di Padova — MedTech', seats: 60, seatsLeft: '4', round1Cutoff: '63.8', finalCutoff: '59.2' },
+      { university: 'Università di Roma «La Sapienza»', seats: 45, seatsLeft: '—', round1Cutoff: '62.4', finalCutoff: '58.0' },
+      { university: 'Università di Bologna', seats: 97, seatsLeft: '7', round1Cutoff: '61.2', finalCutoff: '57.1' },
+      { university: 'Università degli Studi di Pavia', seats: 103, seatsLeft: '4', round1Cutoff: '60.5', finalCutoff: '56.4' },
+      { university: 'Università degli Studi di Padova', seats: 76, seatsLeft: '5', round1Cutoff: '59.8', finalCutoff: '55.8' },
+      { university: 'Università degli Studi di Torino', seats: 70, seatsLeft: '5', round1Cutoff: '59.2', finalCutoff: '55.1' },
+      { university: 'Università di Roma «Tor Vergata»', seats: 40, seatsLeft: '3', round1Cutoff: '58.5', finalCutoff: '54.6' },
+      { university: 'Università degli Studi di Firenze', seats: 35, seatsLeft: '2', round1Cutoff: '57.8', finalCutoff: '53.9' },
+      { university: 'Università degli Studi di Parma', seats: 75, seatsLeft: '6', round1Cutoff: '57.1', finalCutoff: '53.2' },
+      { university: 'Università di Napoli Federico II', seats: 25, seatsLeft: '2', round1Cutoff: '56.5', finalCutoff: '52.8' },
+      { university: 'Università degli Studi di Siena', seats: 28, seatsLeft: '2', round1Cutoff: '55.9', finalCutoff: '52.1' },
+      { university: 'Università Politecnica delle Marche', seats: 60, seatsLeft: '5', round1Cutoff: '55.4', finalCutoff: '51.7' },
+      { university: 'Università degli Studi di Bari Aldo Moro', seats: 69, seatsLeft: '6', round1Cutoff: '55.0', finalCutoff: '51.2' },
+      { university: 'Università degli Studi di Cagliari', seats: 80, seatsLeft: '8', round1Cutoff: '54.8', finalCutoff: '50.9' },
+      { university: 'Università della Campania «Luigi Vanvitelli»', seats: 60, seatsLeft: '7', round1Cutoff: '54.2', finalCutoff: '50.4' },
+      { university: 'Università degli Studi di Catania', seats: 30, seatsLeft: '3', round1Cutoff: '53.8', finalCutoff: '49.9' },
+      { university: 'Università degli Studi di Messina', seats: 55, seatsLeft: '5', round1Cutoff: '53.2', finalCutoff: '49.5' },
+    ],
     '2024': [
       { university: 'Università degli Studi di Milano (La Statale)', seats: 55, seatsLeft: '6', round1Cutoff: '84.7', finalCutoff: '78.2' },
       { university: 'Università degli Studi di Milano-Bicocca', seats: 30, seatsLeft: '3', round1Cutoff: '81.2', finalCutoff: '73.8' },
@@ -107,6 +128,27 @@ const cutoffData: Record<string, Record<string, CutoffRecord[]>> = {
     ],
   },
   'Non-EU': {
+    '2025': [
+      { university: 'Università degli Studi di Milano (La Statale)', seats: 25, seatsLeft: '2', round1Cutoff: '76.5', finalCutoff: '72.9' },
+      { university: 'Università degli Studi di Pavia', seats: 40, seatsLeft: '1', round1Cutoff: '75.8', finalCutoff: '73.0' },
+      { university: 'Università di Bologna', seats: 20, seatsLeft: '2', round1Cutoff: '74.0', finalCutoff: '70.3' },
+      { university: 'Università degli Studi di Milano-Bicocca', seats: 15, seatsLeft: '1', round1Cutoff: '73.2', finalCutoff: '69.5' },
+      { university: 'Università di Roma «La Sapienza»', seats: 13, seatsLeft: '—', round1Cutoff: '71.0', finalCutoff: '65.8' },
+      { university: 'Università degli Studi di Padova — MedTech', seats: 20, seatsLeft: '2', round1Cutoff: '70.2', finalCutoff: '66.0' },
+      { university: 'Università degli Studi di Padova', seats: 25, seatsLeft: '2', round1Cutoff: '69.8', finalCutoff: '65.4' },
+      { university: 'Università degli Studi di Torino', seats: 32, seatsLeft: '3', round1Cutoff: '68.5', finalCutoff: '64.8' },
+      { university: 'Università di Roma «Tor Vergata»', seats: 15, seatsLeft: '1', round1Cutoff: '67.9', finalCutoff: '64.2' },
+      { university: 'Università degli Studi di Firenze', seats: 15, seatsLeft: '1', round1Cutoff: '67.0', finalCutoff: '63.5' },
+      { university: 'Università degli Studi di Parma', seats: 45, seatsLeft: '3', round1Cutoff: '66.2', finalCutoff: '62.8' },
+      { university: 'Università di Napoli Federico II', seats: 25, seatsLeft: '2', round1Cutoff: '65.5', finalCutoff: '62.1' },
+      { university: 'Università degli Studi di Siena', seats: 14, seatsLeft: '1', round1Cutoff: '64.8', finalCutoff: '61.5' },
+      { university: 'Università Politecnica delle Marche', seats: 25, seatsLeft: '2', round1Cutoff: '64.0', finalCutoff: '60.9' },
+      { university: 'Università degli Studi di Bari Aldo Moro', seats: 11, seatsLeft: '1', round1Cutoff: '63.5', finalCutoff: '60.2' },
+      { university: 'Università degli Studi di Cagliari', seats: 20, seatsLeft: '2', round1Cutoff: '62.8', finalCutoff: '59.6' },
+      { university: 'Università della Campania «Luigi Vanvitelli»', seats: 50, seatsLeft: '4', round1Cutoff: '62.0', finalCutoff: '59.0' },
+      { university: 'Università degli Studi di Catania', seats: 30, seatsLeft: '3', round1Cutoff: '61.2', finalCutoff: '58.4' },
+      { university: 'Università degli Studi di Messina', seats: 40, seatsLeft: '3', round1Cutoff: '60.5', finalCutoff: '57.8' },
+    ],
     '2024': [
       { university: 'Università degli Studi di Milano (La Statale)', seats: 25, seatsLeft: '2', round1Cutoff: '88.2', finalCutoff: '82.5' },
       { university: 'Università degli Studi di Milano-Bicocca', seats: 15, seatsLeft: '1', round1Cutoff: '84.6', finalCutoff: '77.9' },
@@ -263,7 +305,7 @@ export default function UniversitiesPage() {
 
   // Cutoff state
   const [cutoffPool, setCutoffPool] = useState<'EU' | 'Non-EU'>('EU');
-  const [cutoffYear, setCutoffYear] = useState('2024');
+  const [cutoffYear, setCutoffYear] = useState('2025');
 
   // Map state
   const [selectedMapUni, setSelectedMapUni] = useState<string | null>('uni-bologna');
@@ -1008,7 +1050,7 @@ export default function UniversitiesPage() {
       )}
 
       {/* ── 07 CUTOFF HISTORY ─────────────────────────────────── */}
-      <section style={{ padding: '80px 0', background: '#fafcfa' }}>
+      <section id="cutoff-history" style={{ padding: '80px 0', background: '#fafcfa' }}>
         <div className="container">
           <FadeUp>
             <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 800, color: '#0f172a', marginBottom: '10px' }}>
@@ -1020,7 +1062,7 @@ export default function UniversitiesPage() {
             <div style={{ background: 'linear-gradient(135deg, #fffbeb, #fef3c7)', border: '1px solid #fde68a', borderRadius: '12px', padding: '12px 18px', display: 'flex', gap: '10px', alignItems: 'flex-start', maxWidth: '620px', marginBottom: '28px' }}>
               <span style={{ flexShrink: 0, marginTop: '2px' }}>⚠️</span>
               <p style={{ color: '#78350f', fontSize: '0.8125rem', margin: 0, lineHeight: 1.6 }}>
-                <strong>Historical cutoffs are reference points, not guarantees</strong> — competition and seat availability change every year. Source: Universitaly.it official published results. Last verified: August 2026.
+                <strong>Historical cutoffs are reference points, not guarantees</strong> — competition and seat availability change every year. Source: Universitaly.it official published results. Includes latest 2025 final cutoffs.
               </p>
             </div>
           </FadeUp>
@@ -1035,7 +1077,7 @@ export default function UniversitiesPage() {
                 ))}
               </div>
               <div style={{ display: 'flex', gap: '6px' }}>
-                {['2024', '2023', '2022'].map(yr => (
+                {['2025', '2024', '2023', '2022'].map(yr => (
                   <button key={yr} onClick={() => setCutoffYear(yr)} style={{ padding: '8px 16px', borderRadius: '8px', fontWeight: 600, fontSize: '0.875rem', background: cutoffYear === yr ? '#059669' : '#f1f5f9', color: cutoffYear === yr ? '#fff' : '#64748b', border: 'none', cursor: 'pointer', transition: 'all 0.2s' }}>
                     {yr}
                   </button>

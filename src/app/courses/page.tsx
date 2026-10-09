@@ -492,10 +492,12 @@ export default function CoursesPage() {
     };
 
     window.addEventListener('ahsora_cms_prices_updated', handlePricesUpdated);
+    window.addEventListener('ahsora_cms_package_availability_updated', handlePricesUpdated);
     window.addEventListener('storage', handlePricesUpdated);
 
     return () => {
       window.removeEventListener('ahsora_cms_prices_updated', handlePricesUpdated);
+      window.removeEventListener('ahsora_cms_package_availability_updated', handlePricesUpdated);
       window.removeEventListener('storage', handlePricesUpdated);
     };
   }, []);
@@ -503,16 +505,21 @@ export default function CoursesPage() {
   const getPriceInfo = (id: string) => {
     const targetId = id === 'ascent' ? 'ascend' : id;
     const found = dynamicPrices.find((p) => p.id === targetId || p.id === id);
+    const isAvail = found ? found.isAvailable !== false : true;
+    const disabledNotice = found?.disabledNotice || 'Currently Unavailable';
+
     if (!found) {
       const orig = id === 'ascent' ? '€399' : id === 'mastery' ? '€649' : '€999';
       const sale = id === 'ascent' ? '€299' : id === 'mastery' ? '€499' : '€799';
       const badge = id === 'ascent' ? '25% OFF' : id === 'mastery' ? '23% OFF' : '20% OFF';
-      return { price: sale, originalPrice: orig, badge };
+      return { price: sale, originalPrice: orig, badge, isAvailable: true, disabledNotice };
     }
     return {
       price: found.price,
       originalPrice: (found.isDiscountActive ?? true) ? (found.originalPrice || null) : null,
-      badge: (found.isDiscountActive ?? true) ? (found.discountBadge || null) : null,
+      badge: !isAvail ? 'UNAVAILABLE' : ((found.isDiscountActive ?? true) ? (found.discountBadge || null) : null),
+      isAvailable: isAvail,
+      disabledNotice,
     };
   };
 
@@ -627,45 +634,59 @@ export default function CoursesPage() {
               const priceData = getPriceInfo(prog.id);
               const displayBadge = priceData.badge || prog.badge;
 
-              return (
-                <div key={prog.id} className={`prog-card ${prog.isFeatured ? 'prog-card-featured' : ''}`} style={{ '--card-accent': prog.accentColor, '--card-bg': prog.accentBg, padding: '28px 24px', borderRadius: 'var(--radius-xl)' } as React.CSSProperties}>
-                  {displayBadge && (
-                    <span className="prog-badge" style={{ backgroundColor: prog.accentColor }}>{displayBadge}</span>
-                  )}
-                  <div className="prog-icon-wrap" style={{ width: '48px', height: '48px', marginBottom: '16px' }}>
-                    {prog.icon}
+                  const isAvail = priceData.isAvailable !== false;
+
+                  return (
+                    <div key={prog.id} className={`prog-card ${prog.isFeatured ? 'prog-card-featured' : ''}`} style={{ '--card-accent': prog.accentColor, '--card-bg': prog.accentBg, padding: '28px 24px', borderRadius: 'var(--radius-xl)', opacity: !isAvail ? 0.72 : 1, border: !isAvail ? '1.5px dashed #CBD5E1' : undefined } as React.CSSProperties}>
+                      {displayBadge && (
+                        <span className="prog-badge" style={{ backgroundColor: !isAvail ? '#DC2626' : prog.accentColor }}>{displayBadge}</span>
+                      )}
+                      <div className="prog-icon-wrap" style={{ width: '48px', height: '48px', marginBottom: '16px' }}>
+                        {prog.icon}
+                      </div>
+                      <div>
+                        <div style={{ fontWeight: 900, fontSize: '1.25rem', color: 'var(--text-primary)', letterSpacing: '-0.5px' }}>{prog.name}</div>
+                        <div style={{ fontWeight: 700, color: !isAvail ? '#94A3B8' : prog.accentColor, fontSize: '0.88rem', marginTop: '2px', marginBottom: '10px' }}>{prog.tagline}</div>
+                      </div>
+                      <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', lineHeight: 1.6, flex: 1, marginBottom: '18px' }}>{prog.desc}</p>
+                      
+                      {!isAvail && (
+                        <div style={{ backgroundColor: '#FEF2F2', border: '1px solid #FECACA', borderRadius: '8px', padding: '6px 12px', fontSize: '0.78rem', color: '#991B1B', fontWeight: 700, marginBottom: '14px' }}>
+                          ⚠️ {priceData.disabledNotice || 'Registration temporarily paused'}
+                        </div>
+                      )}
+
+                      <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '16px' }}>
+                        <span style={{ fontSize: '1.9rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-1px' }}>
+                          {priceData.price}
+                        </span>
+                        {priceData.originalPrice && (
+                          <span style={{ fontSize: '1.1rem', color: '#94A3B8', textDecoration: 'line-through', fontWeight: 600 }}>
+                            {priceData.originalPrice}
+                          </span>
+                        )}
+                      </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: 'auto' }}>
+                      {isAvail ? (
+                        <a href={`#${prog.id}`} style={{ display: 'block', textAlign: 'center', backgroundColor: prog.isFeatured ? prog.accentColor : 'transparent', color: prog.isFeatured ? '#fff' : prog.accentColor, border: `1.5px solid ${prog.accentColor}`, borderRadius: 'var(--radius-full)', padding: '11px', fontWeight: 700, textDecoration: 'none', fontSize: '0.88rem', transition: 'all 0.2s', boxShadow: prog.isFeatured ? `0 8px 20px -4px ${prog.accentColor}40` : 'none' }}
+                           onMouseEnter={e => !prog.isFeatured && (e.currentTarget.style.backgroundColor = prog.accentBg)}
+                           onMouseLeave={e => !prog.isFeatured && (e.currentTarget.style.backgroundColor = 'transparent')}>
+                          {prog.cta}
+                        </a>
+                      ) : (
+                        <div style={{ display: 'block', textAlign: 'center', backgroundColor: '#E2E8F0', color: '#94A3B8', border: '1.5px solid #CBD5E1', borderRadius: 'var(--radius-full)', padding: '11px', fontWeight: 700, fontSize: '0.88rem', cursor: 'not-allowed' }}>
+                          Currently Unavailable
+                        </div>
+                      )}
+                      <a href={`#${prog.id}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px', color: prog.accentColor, fontSize: '0.82rem', fontWeight: 700, textDecoration: 'none', padding: '6px', transition: 'transform 0.2s' }}
+                         onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(1px)')}
+                         onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}>
+                        Jump to details ↓
+                      </a>
+                    </div>
                   </div>
-                  <div>
-                    <div style={{ fontWeight: 900, fontSize: '1.25rem', color: 'var(--text-primary)', letterSpacing: '-0.5px' }}>{prog.name}</div>
-                    <div style={{ fontWeight: 700, color: prog.accentColor, fontSize: '0.88rem', marginTop: '2px', marginBottom: '10px' }}>{prog.tagline}</div>
-                  </div>
-                  <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', lineHeight: 1.6, flex: 1, marginBottom: '18px' }}>{prog.desc}</p>
-                  
-                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '16px' }}>
-                    <span style={{ fontSize: '1.9rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-1px' }}>
-                      {priceData.price}
-                    </span>
-                    {priceData.originalPrice && (
-                      <span style={{ fontSize: '1.1rem', color: '#94A3B8', textDecoration: 'line-through', fontWeight: 600 }}>
-                        {priceData.originalPrice}
-                      </span>
-                    )}
-                  </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: 'auto' }}>
-                  <a href={`#${prog.id}`} style={{ display: 'block', textAlign: 'center', backgroundColor: prog.isFeatured ? prog.accentColor : 'transparent', color: prog.isFeatured ? '#fff' : prog.accentColor, border: `1.5px solid ${prog.accentColor}`, borderRadius: 'var(--radius-full)', padding: '11px', fontWeight: 700, textDecoration: 'none', fontSize: '0.88rem', transition: 'all 0.2s', boxShadow: prog.isFeatured ? `0 8px 20px -4px ${prog.accentColor}40` : 'none' }}
-                     onMouseEnter={e => !prog.isFeatured && (e.currentTarget.style.backgroundColor = prog.accentBg)}
-                     onMouseLeave={e => !prog.isFeatured && (e.currentTarget.style.backgroundColor = 'transparent')}>
-                    {prog.cta}
-                  </a>
-                  <a href={`#${prog.id}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px', color: prog.accentColor, fontSize: '0.82rem', fontWeight: 700, textDecoration: 'none', padding: '6px', transition: 'transform 0.2s' }}
-                     onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(1px)')}
-                     onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}>
-                    Jump to details ↓
-                  </a>
-                </div>
-              </div>
-            );
-          })}
+                );
+              })}
           </div>
         </div>
       </section>
@@ -892,101 +913,103 @@ export default function CoursesPage() {
       </section>
 
       {/* ── 07-09 PROGRAMME DETAILS ─────────────────────────────────────── */}
-      {programmes.map((prog, pi) => (
-        <section key={prog.id} id={prog.id} style={{ padding: '60px 0', backgroundColor: pi % 2 === 0 ? 'var(--bg-subtle)' : '#FFFFFF', borderTop: '1px solid var(--border-light)' }}>
-          <div className="container">
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '56px', alignItems: 'flex-start' }}>
-              <div ref={observe} className="scroll-fade-right">
-                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '18px' }}>
-                  <div style={{ width: '52px', height: '52px', borderRadius: 'var(--radius-lg)', backgroundColor: prog.accentBg, display: 'flex', alignItems: 'center', justifyContent: 'center', border: `1px solid ${prog.accentColor}33`, boxShadow: `0 4px 12px ${prog.accentColor}20` }}>{prog.icon}</div>
-                  <div>
-                    {prog.badge && <span style={{ fontSize: '0.72rem', fontWeight: 800, backgroundColor: prog.accentColor, color: '#fff', borderRadius: 'var(--radius-sm)', padding: '3px 10px', marginBottom: '4px', display: 'inline-block', textTransform: 'uppercase', letterSpacing: '1px' }}>{prog.badge}</span>}
-                    <div style={{ fontWeight: 900, fontSize: '1.8rem', color: 'var(--text-primary)', letterSpacing: '-0.5px' }}>{prog.name}</div>
+      {programmes.map((prog, pi) => {
+        const pDetail = getPriceInfo(prog.id);
+        return (
+          <section key={prog.id} id={prog.id} style={{ padding: '60px 0', backgroundColor: pi % 2 === 0 ? 'var(--bg-subtle)' : '#FFFFFF', borderTop: '1px solid var(--border-light)' }}>
+            <div className="container">
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '56px', alignItems: 'flex-start' }}>
+                <div ref={observe} className="scroll-fade-right">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '18px' }}>
+                    <div style={{ width: '52px', height: '52px', borderRadius: 'var(--radius-lg)', backgroundColor: prog.accentBg, display: 'flex', alignItems: 'center', justifyContent: 'center', border: `1px solid ${prog.accentColor}33`, boxShadow: `0 4px 12px ${prog.accentColor}20` }}>{prog.icon}</div>
+                    <div>
+                      {prog.badge && <span style={{ fontSize: '0.72rem', fontWeight: 800, backgroundColor: prog.accentColor, color: '#fff', borderRadius: 'var(--radius-sm)', padding: '3px 10px', marginBottom: '4px', display: 'inline-block', textTransform: 'uppercase', letterSpacing: '1px' }}>{prog.badge}</span>}
+                      <div style={{ fontWeight: 900, fontSize: '1.8rem', color: 'var(--text-primary)', letterSpacing: '-5px' }}>{prog.name}</div>
+                    </div>
+                  </div>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: 1.7, marginBottom: '24px' }}>{prog.desc}</p>
+                  {pi > 0 && <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '24px', fontStyle: 'italic', fontWeight: 600 }}>
+                    {pi === 1 ? 'Everything in Ascent, plus:' : 'Same core IMAT academic preparation as Mastery, plus:'}
+                  </p>}
+                  <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '32px' }}>
+                    {prog.features.map((f, i) => (
+                      <li key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', color: 'var(--text-primary)', fontSize: '0.95rem', fontWeight: 600 }}>
+                        <CheckCircle2 size={18} color={prog.accentColor} style={{ flexShrink: 0, marginTop: '2px' }} />{f}
+                      </li>
+                    ))}
+                  </ul>
+                  <div style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-light)', padding: '14px 18px', marginBottom: '20px', fontSize: '0.85rem', color: 'var(--text-muted)', display: 'flex', gap: '10px', alignItems: 'center' }}>
+                    <AlertCircle size={18} style={{ flexShrink: 0 }} color="var(--text-light)" />
+                    <span style={{ fontWeight: 500 }}>Founder access: <strong>{prog.founderAccess}</strong></span>
                   </div>
                 </div>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: 1.7, marginBottom: '24px' }}>{prog.desc}</p>
-                {pi > 0 && <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '24px', fontStyle: 'italic', fontWeight: 600 }}>
-                  {pi === 1 ? 'Everything in Ascent, plus:' : 'Same core IMAT academic preparation as Mastery, plus:'}
-                </p>}
-                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '32px' }}>
-                  {prog.features.map((f, i) => (
-                    <li key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', color: 'var(--text-primary)', fontSize: '0.95rem', fontWeight: 600 }}>
-                      <CheckCircle2 size={18} color={prog.accentColor} style={{ flexShrink: 0, marginTop: '2px' }} />{f}
-                    </li>
-                  ))}
-                </ul>
-                <div style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-light)', padding: '14px 18px', marginBottom: '20px', fontSize: '0.85rem', color: 'var(--text-muted)', display: 'flex', gap: '10px', alignItems: 'center' }}>
-                  <AlertCircle size={18} style={{ flexShrink: 0 }} color="var(--text-light)" />
-                  <span style={{ fontWeight: 500 }}>Founder access: <strong>{prog.founderAccess}</strong></span>
-                </div>
-              </div>
-              <div ref={observe} className={`sticky-pricing scroll-fade-left ${prog.isFeatured ? 'prog-card-featured' : ''}`} style={{ '--card-accent': prog.accentColor, padding: '32px' } as React.CSSProperties}>
-                {(() => {
-                  const pDetail = getPriceInfo(prog.id);
-                  return (
-                    <>
-                      {pDetail.badge && (
-                        <span style={{ fontSize: '0.72rem', fontWeight: 800, backgroundColor: '#EF4444', color: '#FFFFFF', borderRadius: '12px', padding: '3px 10px', marginBottom: '8px', display: 'inline-block', letterSpacing: '0.5px' }}>
-                          {pDetail.badge}
-                        </span>
-                      )}
-                      <div style={{ fontSize: '0.8rem', color: 'var(--text-light)', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '4px', fontWeight: 700 }}>Starting from</div>
-                      <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '6px', flexWrap: 'wrap' }}>
-                        <span style={{ fontSize: '2.8rem', fontWeight: 900, color: prog.accentColor, letterSpacing: '-1.5px' }}>
-                          {pDetail.price}
-                        </span>
-                        {pDetail.originalPrice && (
-                          <span style={{ fontSize: '1.25rem', color: '#94A3B8', textDecoration: 'line-through', fontWeight: 600 }}>
-                            {pDetail.originalPrice}
-                          </span>
-                        )}
+                <div ref={observe} className={`sticky-pricing scroll-fade-left ${prog.isFeatured ? 'prog-card-featured' : ''}`} style={{ '--card-accent': prog.accentColor, padding: '32px' } as React.CSSProperties}>
+                  {pDetail.badge && (
+                    <span style={{ fontSize: '0.72rem', fontWeight: 800, backgroundColor: '#EF4444', color: '#FFFFFF', borderRadius: '12px', padding: '3px 10px', marginBottom: '8px', display: 'inline-block', letterSpacing: '0.5px' }}>
+                      {pDetail.badge}
+                    </span>
+                  )}
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-light)', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '4px', fontWeight: 700 }}>Starting from</div>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '6px', flexWrap: 'wrap' }}>
+                    <span style={{ fontSize: '2.8rem', fontWeight: 900, color: prog.accentColor, letterSpacing: '-1.5px' }}>
+                      {pDetail.price}
+                    </span>
+                    {pDetail.originalPrice && (
+                      <span style={{ fontSize: '1.25rem', color: '#94A3B8', textDecoration: 'line-through', fontWeight: 600 }}>
+                        {pDetail.originalPrice}
+                      </span>
+                    )}
+                  </div>
+                  <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '30px', fontWeight: 600 }}>12 months full portal access included</div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    {pDetail.isAvailable !== false ? (
+                      <a href="https://wa.me/393333444479" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textAlign: 'center', backgroundColor: prog.accentColor, color: '#fff', borderRadius: 'var(--radius-full)', padding: '14px', fontWeight: 800, fontSize: '0.95rem', textDecoration: 'none', transition: 'transform 0.2s', boxShadow: `0 8px 24px -4px ${prog.accentColor}40` }} onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(-2px)')} onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}>{prog.cta}</a>
+                    ) : (
+                      <div style={{ display: 'block', textAlign: 'center', backgroundColor: '#E2E8F0', color: '#94A3B8', borderRadius: 'var(--radius-full)', padding: '14px', fontWeight: 800, fontSize: '0.95rem', cursor: 'not-allowed' }}>
+                        Unavailable — Enrollment Paused
                       </div>
-                    </>
-                  );
-                })()}
-                <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '30px', fontWeight: 600 }}>12 months full portal access included</div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  <a href="https://wa.me/393333444479" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textAlign: 'center', backgroundColor: prog.accentColor, color: '#fff', borderRadius: 'var(--radius-full)', padding: '14px', fontWeight: 800, fontSize: '0.95rem', textDecoration: 'none', transition: 'transform 0.2s', boxShadow: `0 8px 24px -4px ${prog.accentColor}40` }} onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(-2px)')} onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}>{prog.cta}</a>
-                  <Link href="/free-mock" style={{ display: 'block', textAlign: 'center', color: prog.accentColor, border: `2px solid ${prog.accentColor}`, borderRadius: 'var(--radius-full)', padding: '12px', fontWeight: 800, fontSize: '0.9rem', textDecoration: 'none', transition: 'background-color 0.2s' }} onMouseEnter={e => (e.currentTarget.style.backgroundColor = `${prog.accentColor}10`)} onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}>Try Free Diagnostic Mock</Link>
+                    )}
+                    <Link href="/free-mock" style={{ display: 'block', textAlign: 'center', color: prog.accentColor, border: `2px solid ${prog.accentColor}`, borderRadius: 'var(--radius-full)', padding: '12px', fontWeight: 800, fontSize: '0.9rem', textDecoration: 'none', transition: 'background-color 0.2s' }} onMouseEnter={e => (e.currentTarget.style.backgroundColor = `${prog.accentColor}10`)} onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}>Try Free Diagnostic Mock</Link>
+                  </div>
                 </div>
               </div>
+              {prog.id === 'elite' && (
+                <div ref={observe} className="scroll-fade-up" style={{ marginTop: '56px', backgroundColor: '#F8FAFC', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-xl)', padding: '40px', boxShadow: 'var(--shadow-sm)' }}>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--primary-600)', textTransform: 'uppercase', letterSpacing: '1.5px', display: 'block', marginBottom: '8px' }}>Pakistani Applicants — Specialist Visa & Financial File Support</span>
+                  <h3 style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '16px', letterSpacing: '-0.5px' }}>Ahsora Med Academy × LeyNexo Law Firm</h3>
+                  <p style={{ color: 'var(--text-primary)', fontWeight: 700, fontSize: '1.05rem', marginBottom: '16px', fontStyle: 'italic' }}>"An additional level of specialist support for eligible Pakistani students applying to study in Italy."</p>
+                  <p style={{ color: 'var(--text-secondary)', lineHeight: 1.7, fontSize: '1rem', marginBottom: '32px' }}>
+                    Through our collaboration with LeyNexo Law Firm, eligible Pakistani MedPath Elite students receive specialist assistance with the preparation, organization and review of their financial and visa documentation:
+                  </p>
+                  
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', marginBottom: '36px' }}>
+                    {[
+                      { title: 'Financial File Preparation', desc: 'Organizing financial documentation into a clear, coherent file' },
+                      { title: 'Income & Tax Documentation', desc: 'Guidance on relevant income-tax and revenue documentation where applicable' },
+                      { title: 'Bank Statement Supporting Documentation', desc: 'Organizing and supporting the financial evidence presented' },
+                      { title: 'Financial Justification', desc: 'Preparing appropriate explanations for the financial information included' },
+                      { title: 'Visa File Organization', desc: 'Reviewing and organizing supporting documentation so the file is coherent and professionally prepared' },
+                      { title: 'Immigration/Visa Expertise', desc: 'Specialist input from LeyNexo Law Firm on the relevant documentation aspects' }
+                    ].map((item, idx) => (
+                      <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '14px' }}>
+                        <CheckCircle2 size={20} color="var(--primary-600)" style={{ flexShrink: 0, marginTop: '2px' }} />
+                        <div>
+                          <div style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '0.95rem', marginBottom: '4px' }}>{item.title}</div>
+                          <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.5 }}>{item.desc}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <div style={{ backgroundColor: 'var(--text-primary)', color: '#fff', borderRadius: 'var(--radius-md)', padding: '18px 24px', fontSize: '0.95rem', fontWeight: 500, fontStyle: 'italic', display: 'inline-block', lineHeight: 1.6 }}>
+                    "Ahsora guides the overall admissions journey. LeyNexo provides specialist financial-file and documentation expertise for eligible Pakistani applicants."
+                  </div>
+                </div>
+              )}
             </div>
-            {prog.id === 'elite' && (
-              <div ref={observe} className="scroll-fade-up" style={{ marginTop: '56px', backgroundColor: '#F8FAFC', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-xl)', padding: '40px', boxShadow: 'var(--shadow-sm)' }}>
-                <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--primary-600)', textTransform: 'uppercase', letterSpacing: '1.5px', display: 'block', marginBottom: '8px' }}>Pakistani Applicants — Specialist Visa & Financial File Support</span>
-                <h3 style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '16px', letterSpacing: '-0.5px' }}>Ahsora Med Academy × LeyNexo Law Firm</h3>
-                <p style={{ color: 'var(--text-primary)', fontWeight: 700, fontSize: '1.05rem', marginBottom: '16px', fontStyle: 'italic' }}>"An additional level of specialist support for eligible Pakistani students applying to study in Italy."</p>
-                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.7, fontSize: '1rem', marginBottom: '32px' }}>
-                  Through our collaboration with LeyNexo Law Firm, eligible Pakistani MedPath Elite students receive specialist assistance with the preparation, organization and review of their financial and visa documentation:
-                </p>
-                
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', marginBottom: '36px' }}>
-                  {[
-                    { title: 'Financial File Preparation', desc: 'Organizing financial documentation into a clear, coherent file' },
-                    { title: 'Income & Tax Documentation', desc: 'Guidance on relevant income-tax and revenue documentation where applicable' },
-                    { title: 'Bank Statement Supporting Documentation', desc: 'Organizing and supporting the financial evidence presented' },
-                    { title: 'Financial Justification', desc: 'Preparing appropriate explanations for the financial information included' },
-                    { title: 'Visa File Organization', desc: 'Reviewing and organizing supporting documentation so the file is coherent and professionally prepared' },
-                    { title: 'Immigration/Visa Expertise', desc: 'Specialist input from LeyNexo Law Firm on the relevant documentation aspects' }
-                  ].map((item, idx) => (
-                    <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '14px' }}>
-                      <CheckCircle2 size={20} color="var(--primary-600)" style={{ flexShrink: 0, marginTop: '2px' }} />
-                      <div>
-                        <div style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '0.95rem', marginBottom: '4px' }}>{item.title}</div>
-                        <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.5 }}>{item.desc}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                
-                <div style={{ backgroundColor: 'var(--text-primary)', color: '#fff', borderRadius: 'var(--radius-md)', padding: '18px 24px', fontSize: '0.95rem', fontWeight: 500, fontStyle: 'italic', display: 'inline-block', lineHeight: 1.6 }}>
-                  "Ahsora guides the overall admissions journey. LeyNexo provides specialist financial-file and documentation expertise for eligible Pakistani applicants."
-                </div>
-              </div>
-            )}
-          </div>
-        </section>
-      ))}
+          </section>
+        );
+      })}
 
       {/* ── 10 QUIZ ─────────────────────────────────────────────────────── */}
       <section id="quiz" style={{ padding: '70px 0', backgroundColor: 'var(--text-primary)', position: 'relative', overflow: 'hidden' }}>

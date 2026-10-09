@@ -50,6 +50,8 @@ export interface DynamicPackagePrice {
   numericOriginalPrice?: number;
   discountBadge?: string;
   isDiscountActive?: boolean;
+  isAvailable?: boolean;
+  disabledNotice?: string;
 }
 
 // ── Initial Mock Data Fallbacks ──────────────────────────────────────────────
@@ -247,6 +249,8 @@ const INITIAL_PACKAGE_PRICES: DynamicPackagePrice[] = ACADEMY_PACKAGES.map((pkg)
   numericOriginalPrice: pkg.id === 'ascend' ? 399 : pkg.id === 'mastery' ? 649 : 999,
   discountBadge: pkg.id === 'ascend' ? '25% OFF' : pkg.id === 'mastery' ? '23% OFF' : '20% OFF',
   isDiscountActive: true,
+  isAvailable: true,
+  disabledNotice: undefined,
 }));
 
 // ── LocalStorage Keys ────────────────────────────────────────────────────────
@@ -671,6 +675,8 @@ export async function syncPricesFromSupabase(): Promise<DynamicPackagePrice[]> {
         numericOriginalPrice: item.numeric_original_price ? Number(item.numeric_original_price) : undefined,
         discountBadge: item.discount_badge,
         isDiscountActive: item.is_discount_active ?? true,
+        isAvailable: item.is_available ?? true,
+        disabledNotice: item.disabled_notice || undefined,
       }));
       saveDynamicPackagePrices(formatted);
       return formatted;
@@ -688,7 +694,9 @@ export function updatePackagePricing(
   originalPrice?: string,
   numericOriginalPrice?: number,
   discountBadge?: string,
-  isDiscountActive = true
+  isDiscountActive = true,
+  isAvailable = true,
+  disabledNotice?: string
 ) {
   const prices = getDynamicPackagePrices();
   const updated = prices.map((p) => {
@@ -701,6 +709,8 @@ export function updatePackagePricing(
         numericOriginalPrice,
         discountBadge,
         isDiscountActive,
+        isAvailable: isAvailable !== undefined ? isAvailable : (p.isAvailable ?? true),
+        disabledNotice: disabledNotice !== undefined ? disabledNotice : p.disabledNotice,
       };
     }
     return p;
@@ -709,6 +719,7 @@ export function updatePackagePricing(
 
   if (typeof window !== 'undefined') {
     window.dispatchEvent(new CustomEvent('ahsora_cms_prices_updated', { detail: updated }));
+    window.dispatchEvent(new CustomEvent('ahsora_cms_package_availability_updated', { detail: updated }));
     const supabase = createClient();
     const target = updated.find((p) => p.id === id);
     if (target) {
@@ -721,12 +732,60 @@ export function updatePackagePricing(
         numeric_original_price: target.numericOriginalPrice || null,
         discount_badge: target.discountBadge || null,
         is_discount_active: target.isDiscountActive,
+        is_available: target.isAvailable ?? true,
+        disabled_notice: target.disabledNotice || null,
         updated_at: new Date().toISOString(),
       }).then(({ error }) => {
         if (error) console.warn('Supabase pricing upsert warning:', error.message);
       });
     }
   }
+}
+
+export function togglePackageAvailability(id: string, isAvailable: boolean, notice?: string) {
+  const prices = getDynamicPackagePrices();
+  const updated = prices.map((p) => {
+    if (p.id === id) {
+      return {
+        ...p,
+        isAvailable,
+        disabledNotice: notice !== undefined ? notice : (!isAvailable ? 'Registration Temporarily Paused' : undefined),
+      };
+    }
+    return p;
+  });
+  saveDynamicPackagePrices(updated);
+
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('ahsora_cms_prices_updated', { detail: updated }));
+    window.dispatchEvent(new CustomEvent('ahsora_cms_package_availability_updated', { detail: updated }));
+    const supabase = createClient();
+    const target = updated.find((p) => p.id === id);
+    if (target) {
+      supabase.from('package_prices').upsert({
+        id: target.id,
+        name: target.name,
+        price: target.price,
+        numeric_price: target.numericPrice,
+        is_available: target.isAvailable,
+        disabled_notice: target.disabledNotice || null,
+        updated_at: new Date().toISOString(),
+      }).then(({ error }) => {
+        if (error) console.warn('Supabase package availability upsert warning:', error.message);
+      });
+    }
+  }
+}
+
+export function isPackageAvailable(pkgId?: string | null): boolean {
+  if (!pkgId) return true;
+  const targetId = pkgId === 'ascent' ? 'ascend' : pkgId.toLowerCase().trim();
+  const prices = getDynamicPackagePrices();
+  const found = prices.find((p) => p.id === targetId || p.name.toLowerCase().includes(targetId) || targetId.includes(p.id));
+  if (found) {
+    return found.isAvailable !== false;
+  }
+  return true;
 }
 
 export function getPackagePriceDisplay(pkgId: string, fallbackPrice?: string): { price: string; originalPrice?: string | null; badge?: string | null } {

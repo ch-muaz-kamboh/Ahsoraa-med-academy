@@ -401,9 +401,11 @@ export default function AdminContentPage() {
       target.originalPrice,
       target.numericOriginalPrice ? Number(target.numericOriginalPrice) : undefined,
       target.discountBadge,
-      target.isDiscountActive ?? true
+      target.isDiscountActive ?? true,
+      target.isAvailable ?? true,
+      target.disabledNotice
     );
-    showToast('success', `✅ ${target.name} price & discount updated across website!`);
+    showToast('success', `✅ ${target.name} price, discount & availability updated across website!`);
   };
 
   // ── Hero Handlers ────────────────────────────────────────────────────────
@@ -1421,6 +1423,37 @@ export default function AdminContentPage() {
                   />
                   Enable Active Discount Display
                 </label>
+
+                {/* Live Course Availability Toggle */}
+                <div style={{ backgroundColor: (pkg.isAvailable ?? true) ? '#F0FFF4' : '#FEF2F2', border: (pkg.isAvailable ?? true) ? '1px solid #BBF7D0' : '1px solid #FECACA', borderRadius: '10px', padding: '12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap' }}>
+                  <div>
+                    <div style={{ fontSize: '0.8rem', fontWeight: 800, color: (pkg.isAvailable ?? true) ? '#166534' : '#991B1B' }}>
+                      Status: {(pkg.isAvailable ?? true) ? '🟢 Available (Open)' : '🔴 Disabled (Unavailable)'}
+                    </div>
+                    <div style={{ fontSize: '0.72rem', color: (pkg.isAvailable ?? true) ? '#15803D' : '#B91C1C' }}>
+                      {(pkg.isAvailable ?? true) ? 'Students can register' : 'Marked unavailable everywhere'}
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const nextState = !(pkg.isAvailable ?? true);
+                      handlePricingChange(pkg.id, 'isAvailable', nextState);
+                    }}
+                    style={{
+                      backgroundColor: (pkg.isAvailable ?? true) ? '#DC2626' : '#059669',
+                      color: '#FFFFFF',
+                      border: 'none',
+                      borderRadius: '6px',
+                      padding: '6px 12px',
+                      fontSize: '0.75rem',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    {(pkg.isAvailable ?? true) ? 'Disable Course' : 'Activate Course'}
+                  </button>
+                </div>
 
                 <button
                   onClick={() => handleSavePrice(pkg.id)}

@@ -50,11 +50,38 @@ export default function RegisterPage() {
   const [dynamicPrices, setDynamicPrices] = useState<DynamicPackagePrice[]>([]);
 
   React.useEffect(() => {
-    setDynamicPrices(getDynamicPackagePrices());
+    const loadPrices = () => {
+      const prices = getDynamicPackagePrices();
+      setDynamicPrices(prices);
+      // Auto-switch to available package if currently selected is disabled
+      const current = prices.find((p) => p.id === formData.selectedPackage);
+      if (current && current.isAvailable === false) {
+        const firstAvailable = ACADEMY_PACKAGES.find((pkg) => {
+          const match = prices.find((p) => p.id === pkg.id);
+          return match?.isAvailable !== false;
+        });
+        if (firstAvailable) {
+          setFormData((prev) => ({ ...prev, selectedPackage: firstAvailable.id }));
+        }
+      }
+    };
+
+    loadPrices();
     syncPricesFromSupabase().then((prices) => {
       if (prices && prices.length > 0) setDynamicPrices(prices);
     });
-  }, []);
+
+    const handlePriceUpdate = () => loadPrices();
+    window.addEventListener('ahsora_cms_prices_updated', handlePriceUpdate);
+    window.addEventListener('ahsora_cms_package_availability_updated', handlePriceUpdate);
+    window.addEventListener('storage', handlePriceUpdate);
+
+    return () => {
+      window.removeEventListener('ahsora_cms_prices_updated', handlePriceUpdate);
+      window.removeEventListener('ahsora_cms_package_availability_updated', handlePriceUpdate);
+      window.removeEventListener('storage', handlePriceUpdate);
+    };
+  }, [formData.selectedPackage]);
 
   const getPriceData = (pkgId: string) => {
     const found = dynamicPrices.find((p) => p.id === pkgId);
@@ -76,11 +103,16 @@ export default function RegisterPage() {
       calculatedBadge = `${pct}% OFF`;
     }
 
+    const isAvail = found ? found.isAvailable !== false : true;
+    const disabledNotice = found?.disabledNotice || 'Currently Unavailable';
+
     return {
-      price: found.price,
-      originalPrice: (found.isDiscountActive ?? true) ? (found.originalPrice || null) : null,
-      badge: (found.isDiscountActive ?? true) ? (calculatedBadge || found.discountBadge || null) : null,
-      discountPercentage: calculatedBadge || found.discountBadge || null,
+      price: found ? found.price : (pkgId === 'ascend' ? '€299' : pkgId === 'mastery' ? '€499' : '€799'),
+      originalPrice: (found?.isDiscountActive ?? true) ? (found?.originalPrice || null) : null,
+      badge: !isAvail ? 'UNAVAILABLE' : ((found?.isDiscountActive ?? true) ? (calculatedBadge || found?.discountBadge || null) : null),
+      discountPercentage: calculatedBadge || found?.discountBadge || null,
+      isAvailable: isAvail,
+      disabledNotice,
     };
   };
 
@@ -111,6 +143,12 @@ export default function RegisterPage() {
     }
     if (!allAgreed) {
       setError('Please agree to the Terms & Conditions, Privacy Policy, Refund Policy, and Admissions Disclaimer before proceeding.');
+      return;
+    }
+
+    const priceCheck = getPriceData(formData.selectedPackage);
+    if (!priceCheck.isAvailable) {
+      setError(`The selected package "${selectedPkg.name}" is currently unavailable for enrollment. Kindly choose another package.`);
       return;
     }
 
@@ -657,25 +695,34 @@ export default function RegisterPage() {
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
                 {ACADEMY_PACKAGES.map((pkg) => {
-                  const isSelected = formData.selectedPackage === pkg.id || formData.selectedPackage === pkg.name;
                   const pData = getPriceData(pkg.id);
-                  const displayBadge = pData.badge || pkg.badge;
+                  const isAvail = pData.isAvailable !== false;
+                  const isSelected = isAvail && (formData.selectedPackage === pkg.id || formData.selectedPackage === pkg.name);
+                  const displayBadge = !isAvail ? 'UNAVAILABLE' : (pData.badge || pkg.badge);
 
                   return (
                     <div
                       key={pkg.id}
-                      onClick={() => setFormData({ ...formData, selectedPackage: pkg.id })}
+                      onClick={() => {
+                        if (!isAvail) {
+                          setError(`"${pkg.name}" is currently unavailable for enrollment. Please choose an active package.`);
+                          return;
+                        }
+                        setError(null);
+                        setFormData({ ...formData, selectedPackage: pkg.id });
+                      }}
                       style={{
-                        border: isSelected ? '2px solid #059669' : '1px solid #E2E8F0',
-                        backgroundColor: isSelected ? '#F0FFF4' : '#FFFFFF',
+                        border: isSelected ? '2px solid #059669' : !isAvail ? '1.5px dashed #CBD5E1' : '1px solid #E2E8F0',
+                        backgroundColor: isSelected ? '#F0FFF4' : !isAvail ? '#F8FAFC' : '#FFFFFF',
                         borderRadius: '16px',
                         padding: '20px 16px',
-                        cursor: 'pointer',
+                        cursor: !isAvail ? 'not-allowed' : 'pointer',
                         transition: 'all 0.2s ease',
                         position: 'relative',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'space-between',
+                        opacity: !isAvail ? 0.72 : 1,
                         boxShadow: isSelected ? '0 10px 25px -5px rgba(5, 150, 105, 0.2)' : 'none',
                       }}
                     >
@@ -685,7 +732,7 @@ export default function RegisterPage() {
                             position: 'absolute',
                             top: '-12px',
                             right: '12px',
-                            backgroundColor: isSelected ? '#059669' : '#0F172A',
+                            backgroundColor: !isAvail ? '#DC2626' : (isSelected ? '#059669' : '#0F172A'),
                             color: '#FFFFFF',
                             fontSize: '0.6875rem',
                             fontWeight: 800,
@@ -700,7 +747,7 @@ export default function RegisterPage() {
 
                       <div>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
-                          <h3 style={{ fontSize: '1rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+                          <h3 style={{ fontSize: '1rem', fontWeight: 800, color: !isAvail ? '#64748B' : '#0F172A', margin: 0 }}>
                             {pkg.name}
                           </h3>
                           <div
@@ -709,11 +756,28 @@ export default function RegisterPage() {
                               height: '20px',
                               borderRadius: '50%',
                               border: isSelected ? '6px solid #059669' : '2px solid #CBD5E1',
-                              backgroundColor: '#FFFFFF',
+                              backgroundColor: !isAvail ? '#E2E8F0' : '#FFFFFF',
                               flexShrink: 0,
                             }}
                           />
                         </div>
+
+                        {!isAvail && (
+                          <div
+                            style={{
+                              backgroundColor: '#FEF2F2',
+                              border: '1px solid #FECACA',
+                              borderRadius: '8px',
+                              padding: '6px 10px',
+                              fontSize: '0.75rem',
+                              color: '#991B1B',
+                              fontWeight: 700,
+                              marginBottom: '10px',
+                            }}
+                          >
+                            ⚠️ {pData.disabledNotice || 'Enrollment paused for this package'}
+                          </div>
+                        )}
 
                         <div style={{ marginBottom: '12px', display: 'flex', alignItems: 'baseline', gap: '6px', flexWrap: 'wrap' }}>
                           <span style={{ fontSize: '1.6rem', fontWeight: 900, color: isSelected ? '#047857' : '#0F172A' }}>

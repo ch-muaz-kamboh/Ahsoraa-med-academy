@@ -1297,6 +1297,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const logoutStudent = () => {
     setStudentLoggedIn(false);
     setCurrentUser(mockCurrentUser);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('ahsora_currentUser');
+      localStorage.removeItem('ahsora_studentLoggedIn');
+    }
   };
 
   const addLead = (leadData: Omit<Lead, 'id' | 'leadCode' | 'createdAt' | 'leadScore'>) => {

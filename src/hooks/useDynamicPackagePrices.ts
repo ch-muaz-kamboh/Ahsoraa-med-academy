@@ -55,5 +55,23 @@ export function useDynamicPackagePrices() {
     [prices]
   );
 
-  return { prices, getPrice };
+  const isAvailable = useCallback(
+    (id: string) => {
+      const targetId = id === 'ascent' ? 'ascend' : id;
+      const found = prices.find((p) => p.id === targetId || p.id === id);
+      return found?.isAvailable !== false;
+    },
+    [prices]
+  );
+
+  const getDisabledNotice = useCallback(
+    (id: string) => {
+      const targetId = id === 'ascent' ? 'ascend' : id;
+      const found = prices.find((p) => p.id === targetId || p.id === id);
+      return found?.disabledNotice || 'Currently Unavailable';
+    },
+    [prices]
+  );
+
+  return { prices, getPrice, isAvailable, getDisabledNotice, refreshPrices };
 }
