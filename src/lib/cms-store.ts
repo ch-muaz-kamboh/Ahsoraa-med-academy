@@ -3,6 +3,11 @@
 import { createClient } from '@/lib/supabase/client';
 import { ACADEMY_PACKAGES } from './packages';
 
+export interface ArticleIndexItem {
+  id: string; // anchor slug (e.g. "application-timeline")
+  title: string; // heading label (e.g. "1. Important Deadlines")
+}
+
 export interface NewsItem {
   id: string;
   title: string;
@@ -15,6 +20,7 @@ export interface NewsItem {
   readTime: string;
   imageUrl?: string;
   featured?: boolean;
+  indexes?: ArticleIndexItem[];
 }
 
 export interface ResourceDocument {
@@ -57,9 +63,25 @@ const INITIAL_NEWS: NewsItem[] = [
     date: 'Sep 2, 2026',
     readTime: '4 min read',
     excerpt: 'The Italian Ministry of University and Research (MUR) has officially announced that applications for the 2027/2028 IMAT cycle are now open. Here is everything you need to know about deadlines, eligible universities, and what documents to prepare.',
-    content: 'Full details on Italian Ministry of University and Research (MUR) admissions guidelines, pre-enrollment timelines on Universitaly, required B2/C1 English proficiency, and DOV (Declaration of Value) requirements for international medical applicants.',
+    content: `<h2 id="mur-announcement">1. Official MUR Announcement & Timeline</h2>
+<p>The Italian Ministry of University and Research (MUR) has officially confirmed that the 2027/2028 admission cycle for public medical universities is active. Non-EU applicants must submit through the Universitaly portal.</p>
+
+<h2 id="universitaly-pre-enrollment">2. Universitaly Pre-Enrollment & Portal Steps</h2>
+<p>Applicants must register and complete the mandatory pre-enrollment application, selecting their single public university choice. Ensure that your secondary school qualifications and transcript translations are ready.</p>
+
+<h2 id="dov-and-document-checklist">3. DOV (Declaration of Value) & Essential Documents</h2>
+<p>International non-EU medical candidates must obtain either a Declaration of Value (DOV) from the Italian consulate or a Statement of Comparability issued by CIMEA. Certified translations and apostille stamps must be affixed.</p>
+
+<h2 id="english-licensing-universities">4. Eligible English-Taught Italian Medical Schools</h2>
+<p>Over 16 public universities across Italy offer fully English-medium Medicine and Surgery (MD, LM-41) degrees, including University of Milan, Bologna, Rome La Sapienza, Pavia, and Naples Vanvitelli.</p>`,
     author: 'Ahsora Admissions Team',
     featured: true,
+    indexes: [
+      { id: 'mur-announcement', title: '1. Official MUR Announcement & Timeline' },
+      { id: 'universitaly-pre-enrollment', title: '2. Universitaly Pre-Enrollment & Steps' },
+      { id: 'dov-and-document-checklist', title: '3. DOV & Essential Document Checklist' },
+      { id: 'english-licensing-universities', title: '4. Eligible English-Taught Medical Schools' },
+    ],
   },
   {
     id: 'news-2',
@@ -69,9 +91,25 @@ const INITIAL_NEWS: NewsItem[] = [
     date: 'Aug 28, 2026',
     readTime: '6 min read',
     excerpt: 'Scoring 60+ requires more than hard work — it demands the right strategy. We break down the exact approach top-scoring Ahsora students use to maximize their marks in Biology, Chemistry, and Logical Reasoning.',
-    content: 'Comprehensive analysis of IMAT weighting, negative marking management (-0.4 points per wrong response), time management (90 minutes for 60 questions), and topic prioritization across Cambridge-style questions.',
+    content: `<h2 id="anatomy-60-score">1. Anatomy of a 60+ Score on the IMAT</h2>
+<p>Achieving 60+ points puts candidates comfortably above cutoff ranks for Milan, Bologna, and Pavia. Out of 90 maximum points (60 questions), scoring 60+ requires a calculated approach balancing accuracy and calculated skips.</p>
+
+<h2 id="negative-marking-management">2. Negative Marking Management (-0.4 Rules)</h2>
+<p>Each incorrect answer carries a -0.4 point penalty. Avoid blind guessing on questions where you cannot eliminate at least 2 or 3 options. A question left blank awards 0 points and preserves your baseline score.</p>
+
+<h2 id="subject-priority">3. Biology & Chemistry Weighting Priorities</h2>
+<p>Biology and Chemistry account for the lion's share of the test. Master molecular biology, cellular metabolism, genetics, and organ systems first, alongside stoichiometry, chemical bonding, and acid-base equilibria.</p>
+
+<h2 id="mock-routines">4. CBT Timed Mock Strategy & Mistake Notebooks</h2>
+<p>Complete at least 10 to 12 timed CBT mocks under strict 90-minute examination conditions. Log every missed question in an active mistakes notebook to target recurring conceptual errors before exam day.</p>`,
     author: 'Dr. Sofia Renna',
     featured: false,
+    indexes: [
+      { id: 'anatomy-60-score', title: '1. Anatomy of a 60+ Score' },
+      { id: 'negative-marking-management', title: '2. Negative Marking Strategy (-0.4)' },
+      { id: 'subject-priority', title: '3. Biology & Chemistry Weighting' },
+      { id: 'mock-routines', title: '4. CBT Timed Mock & Notebook Routines' },
+    ],
   },
   {
     id: 'news-3',
@@ -501,6 +539,101 @@ export function deleteTickerItem(id: string) {
       if (error) console.warn('Supabase ticker delete warning:', error.message);
     });
   }
+}
+
+// ── 3B. STUDENT PORTAL MOVING STRIP (ADMIN CONTROLLED) ─────────────────────────
+
+export interface PortalTickerConfig {
+  isActive: boolean;
+  speedSeconds: number;
+  bgStyle: 'emerald' | 'dark' | 'slate';
+  items: TickerItem[];
+}
+
+const PORTAL_TICKER_KEY = 'ahsora_cms_portal_ticker';
+
+const INITIAL_PORTAL_TICKER: PortalTickerConfig = {
+  isActive: true,
+  speedSeconds: 26,
+  bgStyle: 'emerald',
+  items: [
+    { id: 'pt-1', text: '🎓 Full-Length IMAT 2027 CBT Mock Test #12 is now live in Mock Exams!', icon: '🎯' },
+    { id: 'pt-2', text: '💡 Study Tip: Review your personal Mistakes Tracker weekly to prevent repeat errors.', icon: '💡' },
+    { id: 'pt-3', text: '📅 Live Chemistry Question Solving Masterclass this Saturday at 4:00 PM CET.', icon: '📅' },
+    { id: 'pt-4', text: '🏆 2,800+ Verified Practice Questions with Step-by-Step Video Explanations active.', icon: '🏆' },
+    { id: 'pt-5', text: '⚡ MedPath Elite: Senior Doctor mentor advisory session slots open for booking.', icon: '⚡' },
+    { id: 'pt-6', text: '📚 High-yield Biology mindmaps updated in your Document Vault & Resources.', icon: '📚' },
+  ],
+};
+
+export function getPortalTickerConfig(): PortalTickerConfig {
+  if (typeof window === 'undefined') return INITIAL_PORTAL_TICKER;
+  try {
+    const data = localStorage.getItem(PORTAL_TICKER_KEY);
+    return data ? JSON.parse(data) : INITIAL_PORTAL_TICKER;
+  } catch {
+    return INITIAL_PORTAL_TICKER;
+  }
+}
+
+export function savePortalTickerConfig(config: PortalTickerConfig) {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem(PORTAL_TICKER_KEY, JSON.stringify(config));
+  } catch (e) {
+    console.error('Failed to save portal ticker config locally:', e);
+  }
+}
+
+export async function syncPortalTickerFromSupabase(): Promise<PortalTickerConfig> {
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase.from('site_content').select('*').eq('id', 1).single();
+    if (!error && data && data.portal_ticker_config) {
+      const parsed: PortalTickerConfig = data.portal_ticker_config;
+      savePortalTickerConfig(parsed);
+      return parsed;
+    }
+  } catch (e) {
+    console.warn('Supabase portal ticker fetch skipped/fallback:', e);
+  }
+  return getPortalTickerConfig();
+}
+
+export function updatePortalTickerConfig(config: PortalTickerConfig) {
+  savePortalTickerConfig(config);
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('ahsora_cms_portal_ticker_updated', { detail: config }));
+    const supabase = createClient();
+    supabase.from('site_content').upsert({
+      id: 1,
+      portal_ticker_config: config,
+      updated_at: new Date().toISOString(),
+    }).then(({ error }) => {
+      if (error) console.warn('Supabase portal ticker upsert notice:', error.message);
+    });
+  }
+}
+
+export function addPortalTickerItem(text: string, icon = '📢'): PortalTickerConfig {
+  const current = getPortalTickerConfig();
+  const newItem: TickerItem = { id: `pt-${Date.now()}`, text, icon };
+  const updated: PortalTickerConfig = {
+    ...current,
+    items: [...current.items, newItem],
+  };
+  updatePortalTickerConfig(updated);
+  return updated;
+}
+
+export function deletePortalTickerItem(id: string): PortalTickerConfig {
+  const current = getPortalTickerConfig();
+  const updated: PortalTickerConfig = {
+    ...current,
+    items: current.items.filter((item) => item.id !== id),
+  };
+  updatePortalTickerConfig(updated);
+  return updated;
 }
 
 // ── 4. DYNAMIC PACKAGE PRICING & DISCOUNTS ───────────────────────────────────

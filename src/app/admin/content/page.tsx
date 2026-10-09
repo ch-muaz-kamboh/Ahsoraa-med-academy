@@ -25,7 +25,11 @@ import {
   Flame,
   Calendar,
   Percent,
-  Edit3
+  Edit3,
+  ListOrdered,
+  Megaphone,
+  Sliders,
+  Bookmark
 } from 'lucide-react';
 
 import {
@@ -35,6 +39,7 @@ import {
   deleteNewsPost,
   syncNewsFromSupabase,
   NewsItem,
+  ArticleIndexItem,
   getResourceDocuments,
   addResourceDocument,
   deleteResourceDocument,
@@ -45,6 +50,13 @@ import {
   deleteTickerItem,
   syncTickerFromSupabase,
   TickerItem,
+  getPortalTickerConfig,
+  savePortalTickerConfig,
+  updatePortalTickerConfig,
+  addPortalTickerItem,
+  deletePortalTickerItem,
+  syncPortalTickerFromSupabase,
+  PortalTickerConfig,
   getDynamicPackagePrices,
   updatePackagePricing,
   syncPricesFromSupabase,
@@ -67,7 +79,16 @@ export default function AdminContentPage() {
   const [newsPosts, setNewsPosts] = useState<NewsItem[]>([]);
   const [newsSearch, setNewsSearch] = useState('');
   const [editingNewsId, setEditingNewsId] = useState<string | null>(null);
-  const [newNews, setNewNews] = useState({
+  const [newNews, setNewNews] = useState<{
+    title: string;
+    category: string;
+    excerpt: string;
+    content: string;
+    author: string;
+    readTime: string;
+    featured: boolean;
+    indexes: ArticleIndexItem[];
+  }>({
     title: '',
     category: 'Admissions',
     excerpt: '',
@@ -75,7 +96,10 @@ export default function AdminContentPage() {
     author: 'Ahsora Team',
     readTime: '5 min read',
     featured: false,
+    indexes: [],
   });
+  const [customIndexTitle, setCustomIndexTitle] = useState('');
+  const [customIndexId, setCustomIndexId] = useState('');
 
   // ── 2. Resource Documents State ──────────────────────────────────────────
   const [documents, setDocuments] = useState<ResourceDocument[]>([]);
@@ -135,6 +159,9 @@ export default function AdminContentPage() {
     discountBadgeText: 'LIMITED TIME OFFER',
     promoCode: 'AUTUMN25',
   });
+  // Portal ticker configuration state and sub‑tab selector
+  const [portalTickerConfig, setPortalTickerConfig] = useState<PortalTickerConfig | null>(null);
+  const [tickerSubTab, setTickerSubTab] = useState<'home' | 'portal'>('home');
 
   // ── 6. Hero Content State ────────────────────────────────────────────────
   const [heroContent, setHeroContent] = useState({
@@ -201,6 +228,7 @@ export default function AdminContentPage() {
       author: post.author,
       readTime: post.readTime,
       featured: post.featured || false,
+      indexes: (post as any).indexes || [],
     });
     showToast('success', `✏️ Editing "${post.title}". Update the fields and click "Save & Update Article".`);
   };
@@ -215,6 +243,7 @@ export default function AdminContentPage() {
       author: 'Ahsora Team',
       readTime: '5 min read',
       featured: false,
+      indexes: [],
     });
   };
 
@@ -252,6 +281,7 @@ export default function AdminContentPage() {
         author: 'Ahsora Team',
         readTime: '5 min read',
         featured: false,
+        indexes: [],
       });
       showToast('success', '✅ Article & description updated and synced live!');
       return;
@@ -277,6 +307,7 @@ export default function AdminContentPage() {
       author: 'Ahsora Team',
       readTime: '5 min read',
       featured: false,
+      indexes: [],
     });
     showToast('success', '✅ News & Update published & synced with Database!');
   };
@@ -1047,14 +1078,44 @@ export default function AdminContentPage() {
         </div>
       )}
 
-      {/* ── TAB 3: HOMEPAGE MOVING STRIP TICKER ────────────────────────────── */}
+      {/* ── TAB 3: MOVING STRIP TICKER (HOME & PORTAL) ────────────────────────────── */}
       {activeTab === 'ticker' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-          
+          {/* Sub‑tab selector */}
+          <div style={{ display: 'flex', gap: '8px', marginBottom: '12px' }}>
+            <button
+              onClick={() => setTickerSubTab('home')}
+              style={{
+                backgroundColor: tickerSubTab === 'home' ? '#059669' : '#FFFFFF',
+                color: tickerSubTab === 'home' ? '#FFFFFF' : '#475569',
+                border: 'none',
+                borderRadius: '8px',
+                padding: '6px 12px',
+                cursor: 'pointer',
+                fontWeight: 600,
+              }}
+            >
+              Home Strip
+            </button>
+            <button
+              onClick={() => setTickerSubTab('portal')}
+              style={{
+                backgroundColor: tickerSubTab === 'portal' ? '#059669' : '#FFFFFF',
+                color: tickerSubTab === 'portal' ? '#FFFFFF' : '#475569',
+                border: 'none',
+                borderRadius: '8px',
+                padding: '6px 12px',
+                cursor: 'pointer',
+                fontWeight: 600,
+              }}
+            >
+              Portal Strip
+            </button>
+          </div>
           {/* Live Preview Bar */}
           <div style={{ backgroundColor: '#0F172A', padding: '20px', borderRadius: '16px', color: '#FFFFFF', overflow: 'hidden' }}>
             <div style={{ fontSize: '0.8125rem', color: '#5CED73', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>
-              ⚡ Live Homepage Moving Strip Preview
+              ⚡ Live {tickerSubTab === 'home' ? 'Homepage' : 'Portal'} Moving Strip Preview
             </div>
             <div style={{ overflow: 'hidden', whiteSpace: 'nowrap', backgroundColor: 'rgba(255,255,255,0.05)', padding: '12px', borderRadius: '10px' }}>
               <div style={{ display: 'inline-flex', gap: '24px' }}>

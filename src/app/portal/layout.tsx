@@ -15,6 +15,7 @@ import {
   getPackageByIdOrName,
 } from '@/lib/packages';
 import Logo from '@/components/brand/Logo';
+import PortalMovingStrip from '@/components/portal/PortalMovingStrip';
 
 export default function PortalLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -148,6 +149,9 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
 
       {/* Main Content Area */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+        {/* Student Portal Dynamic Moving Strip (Admin Controlled) */}
+        <PortalMovingStrip />
+
         {/* Top bar */}
         <header
           style={{

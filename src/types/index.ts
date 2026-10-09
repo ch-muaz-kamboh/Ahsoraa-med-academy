@@ -267,6 +267,17 @@ export interface University {
   lastVerifiedAt: string;
   isFeatured?: boolean;
   programs: string[];
+  italianName?: string;
+  admissionRoute?: 'IMAT' | 'University-specific';
+  type?: 'Public' | 'Private';
+  region?: 'North' | 'Central' | 'South & Islands' | 'International';
+  euSeats?: number;
+  nonEuSeats?: number;
+  hospitalAffiliations?: string[];
+  highlights?: string[];
+  campusLocation?: string;
+  scholarshipInfo?: string;
+  historicalCutoffNote?: string;
 }
 
 export interface Scholarship {

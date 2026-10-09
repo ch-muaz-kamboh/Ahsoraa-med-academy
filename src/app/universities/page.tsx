@@ -39,56 +39,157 @@ interface CutoffRecord {
 }
 
 // ─── Static Data ────────────────────────────────────────────────
+// ─── Static Data ────────────────────────────────────────────────
 const cutoffData: Record<string, Record<string, CutoffRecord[]>> = {
   EU: {
     '2024': [
-      { university: 'University of Milan (La Statale)', seats: 100, seatsLeft: '12', round1Cutoff: '84.7', finalCutoff: '78.2' },
-      { university: 'Sapienza University of Rome', seats: 90, seatsLeft: '—', round1Cutoff: '79.3', finalCutoff: '72.1' },
-      { university: 'University of Bologna', seats: 60, seatsLeft: '8', round1Cutoff: '76.4', finalCutoff: '70.5' },
-      { university: 'University of Pavia', seats: 50, seatsLeft: '5', round1Cutoff: 'Not published', finalCutoff: '68.3' },
+      { university: 'Università degli Studi di Milano (La Statale)', seats: 55, seatsLeft: '6', round1Cutoff: '84.7', finalCutoff: '78.2' },
+      { university: 'Università degli Studi di Milano-Bicocca', seats: 30, seatsLeft: '3', round1Cutoff: '81.2', finalCutoff: '73.8' },
+      { university: 'Università degli Studi di Padova — MedTech', seats: 60, seatsLeft: '5', round1Cutoff: '80.5', finalCutoff: '73.1' },
+      { university: 'Università di Roma «La Sapienza»', seats: 45, seatsLeft: '—', round1Cutoff: '79.3', finalCutoff: '72.1' },
+      { university: 'Università degli Studi di Padova', seats: 76, seatsLeft: '7', round1Cutoff: '78.6', finalCutoff: '71.8' },
+      { university: 'Università di Bologna', seats: 97, seatsLeft: '8', round1Cutoff: '76.4', finalCutoff: '70.5' },
+      { university: 'Università degli Studi di Torino', seats: 70, seatsLeft: '6', round1Cutoff: '75.8', finalCutoff: '69.5' },
+      { university: 'Università di Roma «Tor Vergata»', seats: 40, seatsLeft: '4', round1Cutoff: '74.2', finalCutoff: '68.9' },
+      { university: 'Università degli Studi di Pavia', seats: 103, seatsLeft: '5', round1Cutoff: '73.5', finalCutoff: '68.3' },
+      { university: 'Università degli Studi di Firenze', seats: 35, seatsLeft: '3', round1Cutoff: '72.9', finalCutoff: '67.4' },
+      { university: 'Università degli Studi di Parma', seats: 75, seatsLeft: '7', round1Cutoff: '71.8', finalCutoff: '66.7' },
+      { university: 'Università di Napoli Federico II', seats: 25, seatsLeft: '2', round1Cutoff: '71.0', finalCutoff: '66.0' },
+      { university: 'Università degli Studi di Siena', seats: 28, seatsLeft: '3', round1Cutoff: '70.2', finalCutoff: '65.4' },
+      { university: 'Università Politecnica delle Marche', seats: 60, seatsLeft: '6', round1Cutoff: '69.8', finalCutoff: '64.9' },
+      { university: 'Università degli Studi di Bari Aldo Moro', seats: 69, seatsLeft: '7', round1Cutoff: '69.1', finalCutoff: '64.2' },
+      { university: 'Università degli Studi di Cagliari', seats: 80, seatsLeft: '9', round1Cutoff: '68.4', finalCutoff: '63.5' },
+      { university: 'Università della Campania «Luigi Vanvitelli»', seats: 60, seatsLeft: '8', round1Cutoff: '67.8', finalCutoff: '62.8' },
+      { university: 'Università degli Studi di Catania', seats: 30, seatsLeft: '4', round1Cutoff: '67.0', finalCutoff: '62.4' },
+      { university: 'Università degli Studi di Messina', seats: 55, seatsLeft: '6', round1Cutoff: '66.2', finalCutoff: '61.9' },
     ],
     '2023': [
-      { university: 'University of Milan (La Statale)', seats: 100, seatsLeft: '9', round1Cutoff: '82.1', finalCutoff: '75.9' },
-      { university: 'Sapienza University of Rome', seats: 90, seatsLeft: '—', round1Cutoff: '77.6', finalCutoff: '70.3' },
-      { university: 'University of Bologna', seats: 60, seatsLeft: '11', round1Cutoff: '74.2', finalCutoff: '68.0' },
-      { university: 'University of Pavia', seats: 50, seatsLeft: '3', round1Cutoff: 'Not published', finalCutoff: '65.7' },
+      { university: 'Università degli Studi di Milano (La Statale)', seats: 55, seatsLeft: '5', round1Cutoff: '82.1', finalCutoff: '75.9' },
+      { university: 'Università degli Studi di Milano-Bicocca', seats: 30, seatsLeft: '2', round1Cutoff: '79.0', finalCutoff: '71.5' },
+      { university: 'Università degli Studi di Padova — MedTech', seats: 60, seatsLeft: '4', round1Cutoff: '78.4', finalCutoff: '71.0' },
+      { university: 'Università di Roma «La Sapienza»', seats: 45, seatsLeft: '—', round1Cutoff: '77.6', finalCutoff: '70.3' },
+      { university: 'Università degli Studi di Padova', seats: 76, seatsLeft: '6', round1Cutoff: '76.8', finalCutoff: '69.8' },
+      { university: 'Università di Bologna', seats: 97, seatsLeft: '11', round1Cutoff: '74.2', finalCutoff: '68.0' },
+      { university: 'Università degli Studi di Torino', seats: 70, seatsLeft: '7', round1Cutoff: '73.5', finalCutoff: '67.6' },
+      { university: 'Università di Roma «Tor Vergata»', seats: 40, seatsLeft: '3', round1Cutoff: '72.0', finalCutoff: '66.5' },
+      { university: 'Università degli Studi di Pavia', seats: 103, seatsLeft: '3', round1Cutoff: '71.4', finalCutoff: '65.7' },
+      { university: 'Università degli Studi di Firenze', seats: 35, seatsLeft: '2', round1Cutoff: '70.5', finalCutoff: '65.0' },
+      { university: 'Università degli Studi di Parma', seats: 75, seatsLeft: '6', round1Cutoff: '69.6', finalCutoff: '64.2' },
+      { university: 'Università di Napoli Federico II', seats: 25, seatsLeft: '1', round1Cutoff: '68.9', finalCutoff: '63.5' },
+      { university: 'Università degli Studi di Siena', seats: 28, seatsLeft: '2', round1Cutoff: '68.0', finalCutoff: '62.8' },
+      { university: 'Università Politecnica delle Marche', seats: 60, seatsLeft: '5', round1Cutoff: '67.4', finalCutoff: '62.1' },
+      { university: 'Università degli Studi di Bari Aldo Moro', seats: 69, seatsLeft: '6', round1Cutoff: '66.7', finalCutoff: '61.4' },
+      { university: 'Università degli Studi di Cagliari', seats: 80, seatsLeft: '7', round1Cutoff: '65.9', finalCutoff: '60.8' },
+      { university: 'Università della Campania «Luigi Vanvitelli»', seats: 60, seatsLeft: '6', round1Cutoff: '65.0', finalCutoff: '60.1' },
+      { university: 'Università degli Studi di Catania', seats: 30, seatsLeft: '3', round1Cutoff: '64.5', finalCutoff: '59.7' },
+      { university: 'Università degli Studi di Messina', seats: 55, seatsLeft: '5', round1Cutoff: '63.8', finalCutoff: '59.0' },
     ],
     '2022': [
-      { university: 'University of Milan (La Statale)', seats: 95, seatsLeft: '14', round1Cutoff: '79.8', finalCutoff: '73.4' },
-      { university: 'Sapienza University of Rome', seats: 88, seatsLeft: '—', round1Cutoff: '75.0', finalCutoff: '68.5' },
-      { university: 'University of Bologna', seats: 55, seatsLeft: '7', round1Cutoff: '71.6', finalCutoff: '65.2' },
-      { university: 'University of Pavia', seats: 48, seatsLeft: '6', round1Cutoff: 'Not published', finalCutoff: '62.1' },
+      { university: 'Università degli Studi di Milano (La Statale)', seats: 50, seatsLeft: '7', round1Cutoff: '79.8', finalCutoff: '73.4' },
+      { university: 'Università degli Studi di Milano-Bicocca', seats: 30, seatsLeft: '3', round1Cutoff: '76.8', finalCutoff: '69.2' },
+      { university: 'Università degli Studi di Padova — MedTech', seats: 50, seatsLeft: '5', round1Cutoff: '76.0', finalCutoff: '68.8' },
+      { university: 'Università di Roma «La Sapienza»', seats: 45, seatsLeft: '—', round1Cutoff: '75.0', finalCutoff: '68.5' },
+      { university: 'Università degli Studi di Padova', seats: 70, seatsLeft: '6', round1Cutoff: '74.2', finalCutoff: '67.5' },
+      { university: 'Università di Bologna', seats: 90, seatsLeft: '7', round1Cutoff: '71.6', finalCutoff: '65.2' },
+      { university: 'Università degli Studi di Torino', seats: 70, seatsLeft: '5', round1Cutoff: '70.8', finalCutoff: '64.8' },
+      { university: 'Università di Roma «Tor Vergata»', seats: 35, seatsLeft: '3', round1Cutoff: '69.5', finalCutoff: '63.9' },
+      { university: 'Università degli Studi di Pavia', seats: 100, seatsLeft: '6', round1Cutoff: '68.7', finalCutoff: '62.1' },
+      { university: 'Università degli Studi di Firenze', seats: 30, seatsLeft: '2', round1Cutoff: '67.9', finalCutoff: '61.5' },
+      { university: 'Università degli Studi di Parma', seats: 70, seatsLeft: '5', round1Cutoff: '67.0', finalCutoff: '60.7' },
+      { university: 'Università di Napoli Federico II', seats: 25, seatsLeft: '1', round1Cutoff: '66.3', finalCutoff: '59.9' },
+      { university: 'Università degli Studi di Siena', seats: 28, seatsLeft: '2', round1Cutoff: '65.5', finalCutoff: '59.2' },
+      { university: 'Università Politecnica delle Marche', seats: 55, seatsLeft: '4', round1Cutoff: '64.8', finalCutoff: '58.6' },
+      { university: 'Università degli Studi di Bari Aldo Moro', seats: 60, seatsLeft: '5', round1Cutoff: '64.1', finalCutoff: '58.0' },
+      { university: 'Università degli Studi di Cagliari', seats: 75, seatsLeft: '6', round1Cutoff: '63.5', finalCutoff: '57.4' },
+      { university: 'Università della Campania «Luigi Vanvitelli»', seats: 55, seatsLeft: '5', round1Cutoff: '62.8', finalCutoff: '56.8' },
+      { university: 'Università degli Studi di Catania', seats: 30, seatsLeft: '3', round1Cutoff: '62.0', finalCutoff: '56.2' },
+      { university: 'Università degli Studi di Messina', seats: 50, seatsLeft: '4', round1Cutoff: '61.2', finalCutoff: '55.5' },
     ],
   },
   'Non-EU': {
     '2024': [
-      { university: 'University of Milan (La Statale)', seats: 65, seatsLeft: '4', round1Cutoff: '88.2', finalCutoff: '82.5' },
-      { university: 'Sapienza University of Rome', seats: 55, seatsLeft: '—', round1Cutoff: '84.0', finalCutoff: '76.8' },
-      { university: 'University of Bologna', seats: 40, seatsLeft: '2', round1Cutoff: '80.1', finalCutoff: '74.3' },
-      { university: 'University of Pavia', seats: 35, seatsLeft: '1', round1Cutoff: 'Not published', finalCutoff: '71.0' },
+      { university: 'Università degli Studi di Milano (La Statale)', seats: 25, seatsLeft: '2', round1Cutoff: '88.2', finalCutoff: '82.5' },
+      { university: 'Università degli Studi di Milano-Bicocca', seats: 15, seatsLeft: '1', round1Cutoff: '84.6', finalCutoff: '77.9' },
+      { university: 'Università di Roma «La Sapienza»', seats: 13, seatsLeft: '—', round1Cutoff: '84.0', finalCutoff: '76.8' },
+      { university: 'Università degli Studi di Padova — MedTech', seats: 20, seatsLeft: '2', round1Cutoff: '83.1', finalCutoff: '76.5' },
+      { university: 'Università degli Studi di Padova', seats: 25, seatsLeft: '2', round1Cutoff: '82.0', finalCutoff: '75.2' },
+      { university: 'Università di Bologna', seats: 20, seatsLeft: '2', round1Cutoff: '80.1', finalCutoff: '74.3' },
+      { university: 'Università degli Studi di Torino', seats: 32, seatsLeft: '3', round1Cutoff: '79.3', finalCutoff: '73.0' },
+      { university: 'Università di Roma «Tor Vergata»', seats: 15, seatsLeft: '1', round1Cutoff: '78.5', finalCutoff: '72.4' },
+      { university: 'Università degli Studi di Pavia', seats: 40, seatsLeft: '1', round1Cutoff: '77.2', finalCutoff: '71.0' },
+      { university: 'Università degli Studi di Firenze', seats: 15, seatsLeft: '1', round1Cutoff: '76.8', finalCutoff: '70.9' },
+      { university: 'Università degli Studi di Parma', seats: 45, seatsLeft: '3', round1Cutoff: '75.6', finalCutoff: '69.4' },
+      { university: 'Università di Napoli Federico II', seats: 25, seatsLeft: '2', round1Cutoff: '74.5', finalCutoff: '68.2' },
+      { university: 'Università degli Studi di Siena', seats: 14, seatsLeft: '1', round1Cutoff: '73.8', finalCutoff: '68.0' },
+      { university: 'Università Politecnica delle Marche', seats: 25, seatsLeft: '2', round1Cutoff: '73.0', finalCutoff: '67.2' },
+      { university: 'Università degli Studi di Bari Aldo Moro', seats: 11, seatsLeft: '1', round1Cutoff: '72.3', finalCutoff: '66.8' },
+      { university: 'Università degli Studi di Cagliari', seats: 20, seatsLeft: '2', round1Cutoff: '71.5', finalCutoff: '65.1' },
+      { university: 'Università della Campania «Luigi Vanvitelli»', seats: 50, seatsLeft: '4', round1Cutoff: '70.8', finalCutoff: '64.9' },
+      { university: 'Università degli Studi di Catania', seats: 30, seatsLeft: '3', round1Cutoff: '70.1', finalCutoff: '64.5' },
+      { university: 'Università degli Studi di Messina', seats: 40, seatsLeft: '3', round1Cutoff: '69.2', finalCutoff: '63.8' },
     ],
     '2023': [
-      { university: 'University of Milan (La Statale)', seats: 65, seatsLeft: '6', round1Cutoff: '85.9', finalCutoff: '79.7' },
-      { university: 'Sapienza University of Rome', seats: 55, seatsLeft: '—', round1Cutoff: '81.3', finalCutoff: '74.2' },
-      { university: 'University of Bologna', seats: 40, seatsLeft: '3', round1Cutoff: '77.5', finalCutoff: '71.8' },
-      { university: 'University of Pavia', seats: 35, seatsLeft: '2', round1Cutoff: 'Not published', finalCutoff: '68.4' },
+      { university: 'Università degli Studi di Milano (La Statale)', seats: 25, seatsLeft: '3', round1Cutoff: '85.9', finalCutoff: '79.7' },
+      { university: 'Università degli Studi di Milano-Bicocca', seats: 15, seatsLeft: '1', round1Cutoff: '82.3', finalCutoff: '75.6' },
+      { university: 'Università di Roma «La Sapienza»', seats: 13, seatsLeft: '—', round1Cutoff: '81.3', finalCutoff: '74.2' },
+      { university: 'Università degli Studi di Padova — MedTech', seats: 20, seatsLeft: '2', round1Cutoff: '80.5', finalCutoff: '74.0' },
+      { university: 'Università degli Studi di Padova', seats: 25, seatsLeft: '2', round1Cutoff: '79.4', finalCutoff: '72.8' },
+      { university: 'Università di Bologna', seats: 20, seatsLeft: '3', round1Cutoff: '77.5', finalCutoff: '71.8' },
+      { university: 'Università degli Studi di Torino', seats: 32, seatsLeft: '3', round1Cutoff: '76.8', finalCutoff: '70.5' },
+      { university: 'Università di Roma «Tor Vergata»', seats: 15, seatsLeft: '2', round1Cutoff: '75.9', finalCutoff: '69.9' },
+      { university: 'Università degli Studi di Pavia', seats: 40, seatsLeft: '2', round1Cutoff: '74.8', finalCutoff: '68.4' },
+      { university: 'Università degli Studi di Firenze', seats: 15, seatsLeft: '1', round1Cutoff: '74.0', finalCutoff: '68.1' },
+      { university: 'Università degli Studi di Parma', seats: 45, seatsLeft: '4', round1Cutoff: '73.0', finalCutoff: '66.9' },
+      { university: 'Università di Napoli Federico II', seats: 25, seatsLeft: '2', round1Cutoff: '72.1', finalCutoff: '65.8' },
+      { university: 'Università degli Studi di Siena', seats: 14, seatsLeft: '1', round1Cutoff: '71.4', finalCutoff: '65.3' },
+      { university: 'Università Politecnica delle Marche', seats: 25, seatsLeft: '2', round1Cutoff: '70.6', finalCutoff: '64.7' },
+      { university: 'Università degli Studi di Bari Aldo Moro', seats: 11, seatsLeft: '1', round1Cutoff: '69.8', finalCutoff: '64.0' },
+      { university: 'Università degli Studi di Cagliari', seats: 20, seatsLeft: '2', round1Cutoff: '69.0', finalCutoff: '63.2' },
+      { university: 'Università della Campania «Luigi Vanvitelli»', seats: 50, seatsLeft: '4', round1Cutoff: '68.2', finalCutoff: '62.7' },
+      { university: 'Università degli Studi di Catania', seats: 30, seatsLeft: '3', round1Cutoff: '67.6', finalCutoff: '62.0' },
+      { university: 'Università degli Studi di Messina', seats: 40, seatsLeft: '3', round1Cutoff: '66.8', finalCutoff: '61.4' },
     ],
     '2022': [
-      { university: 'University of Milan (La Statale)', seats: 60, seatsLeft: '8', round1Cutoff: '83.1', finalCutoff: '77.0' },
-      { university: 'Sapienza University of Rome', seats: 52, seatsLeft: '—', round1Cutoff: '78.6', finalCutoff: '72.1' },
-      { university: 'University of Bologna', seats: 38, seatsLeft: '4', round1Cutoff: '75.2', finalCutoff: '69.0' },
-      { university: 'University of Pavia', seats: 32, seatsLeft: '—', round1Cutoff: 'Not published', finalCutoff: '65.8' },
+      { university: 'Università degli Studi di Milano (La Statale)', seats: 25, seatsLeft: '4', round1Cutoff: '83.1', finalCutoff: '77.0' },
+      { university: 'Università degli Studi di Milano-Bicocca', seats: 15, seatsLeft: '2', round1Cutoff: '79.5', finalCutoff: '73.0' },
+      { university: 'Università di Roma «La Sapienza»', seats: 13, seatsLeft: '—', round1Cutoff: '78.6', finalCutoff: '72.1' },
+      { university: 'Università degli Studi di Padova — MedTech', seats: 15, seatsLeft: '2', round1Cutoff: '77.8', finalCutoff: '71.5' },
+      { university: 'Università degli Studi di Padova', seats: 25, seatsLeft: '3', round1Cutoff: '76.9', finalCutoff: '70.2' },
+      { university: 'Università di Bologna', seats: 20, seatsLeft: '4', round1Cutoff: '75.2', finalCutoff: '69.0' },
+      { university: 'Università degli Studi di Torino', seats: 30, seatsLeft: '4', round1Cutoff: '74.4', finalCutoff: '68.0' },
+      { university: 'Università di Roma «Tor Vergata»', seats: 15, seatsLeft: '2', round1Cutoff: '73.5', finalCutoff: '67.2' },
+      { university: 'Università degli Studi di Pavia', seats: 35, seatsLeft: '3', round1Cutoff: '72.3', finalCutoff: '65.8' },
+      { university: 'Università degli Studi di Firenze', seats: 15, seatsLeft: '1', round1Cutoff: '71.6', finalCutoff: '65.4' },
+      { university: 'Università degli Studi di Parma', seats: 40, seatsLeft: '4', round1Cutoff: '70.8', finalCutoff: '64.3' },
+      { university: 'Università di Napoli Federico II', seats: 25, seatsLeft: '2', round1Cutoff: '69.9', finalCutoff: '63.2' },
+      { university: 'Università degli Studi di Siena', seats: 14, seatsLeft: '1', round1Cutoff: '69.0', finalCutoff: '62.7' },
+      { university: 'Università Politecnica delle Marche', seats: 25, seatsLeft: '3', round1Cutoff: '68.2', finalCutoff: '62.0' },
+      { university: 'Università degli Studi di Bari Aldo Moro', seats: 11, seatsLeft: '1', round1Cutoff: '67.5', finalCutoff: '61.4' },
+      { university: 'Università degli Studi di Cagliari', seats: 20, seatsLeft: '3', round1Cutoff: '66.7', finalCutoff: '60.6' },
+      { university: 'Università della Campania «Luigi Vanvitelli»', seats: 45, seatsLeft: '4', round1Cutoff: '66.0', finalCutoff: '60.0' },
+      { university: 'Università degli Studi di Catania', seats: 30, seatsLeft: '3', round1Cutoff: '65.2', finalCutoff: '59.3' },
+      { university: 'Università degli Studi di Messina', seats: 35, seatsLeft: '3', round1Cutoff: '64.4', finalCutoff: '58.6' },
     ],
   },
 };
 
 const cityProfiles = [
-  { city: 'Milan', emoji: '🏙️', tag: 'Large International City', desc: 'Higher housing costs, world-class transport network, major financial & fashion hub', budget: '€900–€1,300/mo', cost: 'Higher' },
-  { city: 'Rome', emoji: '🏛️', tag: 'National Capital', desc: 'Large student population, rich history, varied housing options across districts', budget: '€850–€1,200/mo', cost: 'Higher' },
-  { city: 'Bologna', emoji: '🍝', tag: 'University City', desc: "One of Europe's oldest universities, student-oriented culture, good affordability", budget: '€750–€1,050/mo', cost: 'Moderate' },
-  { city: 'Pavia', emoji: '🏘️', tag: 'Compact University City', desc: 'Intimate university town, historically student-oriented, meaningfully lower costs', budget: '€650–€900/mo', cost: 'Lower' },
-  { city: 'Messina', emoji: '☀️', tag: 'Southern University City', desc: 'Mediterranean setting, very affordable living, close-knit student community', budget: '€500–€750/mo', cost: 'Lower' },
-  { city: 'Padua', emoji: '📚', tag: 'Historic University City', desc: 'Second-oldest university in the world, strong academic tradition, moderate costs', budget: '€700–€950/mo', cost: 'Moderate' },
+  { city: 'Milan', emoji: '🏙️', tag: 'Global Metropolis · North', desc: 'Financial capital, top hospitals (San Raffaele & Niguarda), world-class transport network', budget: '€950–€1,400/mo', cost: 'Higher' },
+  { city: 'Rome', emoji: '🏛️', tag: 'National Capital · Central', desc: 'Vibrant student population, historic Policlinico Umberto I & Tor Vergata clinical complexes', budget: '€850–€1,250/mo', cost: 'Higher' },
+  { city: 'Bologna', emoji: '🍝', tag: 'Oldest Academic Hub · North', desc: "Western world's oldest university, student-driven culture, Sant'Orsola teaching hospital", budget: '€750–€1,050/mo', cost: 'Moderate' },
+  { city: 'Pavia', emoji: '🏘️', tag: 'Collegiate Town · North', desc: 'Compact university town 30 min from Milan, historic Harvey MD course, San Matteo Hospital', budget: '€650–€900/mo', cost: 'Lower' },
+  { city: 'Padova', emoji: '📚', tag: 'Historic Biomedical Hub · North', desc: '800-year medical legacy, home of modern anatomy, top European organ transplant centers', budget: '€700–€980/mo', cost: 'Moderate' },
+  { city: 'Torino', emoji: '🏔️', tag: 'Alpine Metropolis · North', desc: 'Città della Salute mega-hospital, Molinette research, rich culture & affordable northern living', budget: '€700–€950/mo', cost: 'Moderate' },
+  { city: 'Firenze', emoji: '🎨', tag: 'Renaissance Hub · Central', desc: 'AOU Careggi medical campus, Meyer Pediatric hospital, rich art & international lifestyle', budget: '€800–€1,150/mo', cost: 'Higher' },
+  { city: 'Parma', emoji: '🧀', tag: 'Gastronomy Capital · North', desc: 'Friendly, cycle-oriented university city with high non-EU seat quota at Maggiore Hospital', budget: '€650–€900/mo', cost: 'Lower' },
+  { city: 'Napoli', emoji: '🌋', tag: 'Historic Coastal Hub · South', desc: 'Federico II & Vanvitelli hospitals, vibrant Mediterranean atmosphere, very affordable living', budget: '€550–€800/mo', cost: 'Lower' },
+  { city: 'Bari', emoji: '🌊', tag: 'Adriatic Coastal Port · South', desc: 'Sunny Puglia coastline, patient-focused BEMC curriculum at Policlinico di Bari', budget: '€550–€780/mo', cost: 'Lower' },
+  { city: 'Messina', emoji: '☀️', tag: 'Strait of Sicily · South', desc: 'Mediterranean seaside setting, warmest international community, lowest living costs', budget: '€500–€720/mo', cost: 'Lower' },
+  { city: 'Catania', emoji: '🌋', tag: 'Etna Seaside Hub · South', desc: 'Oldest university in Sicily, modern Rodolico-San Marco clinical center, low expenses', budget: '€520–€750/mo', cost: 'Lower' },
+  { city: 'Cagliari', emoji: '🏝️', tag: 'Sardinian Island Capital · South', desc: 'Breathtaking coastal quality of life, state-of-the-art Monserrato research citadel', budget: '€600–€850/mo', cost: 'Moderate' },
+  { city: 'Ancona', emoji: '⛵', tag: 'Adriatic Gateway · Central', desc: 'Torrette regional hospital trauma hub, maritime climate, peaceful student atmosphere', budget: '€600–€820/mo', cost: 'Lower' },
+  { city: 'Siena', emoji: '🏰', tag: 'Medieval Tuscan Gem · Central', desc: 'Immuno-oncology pioneer at Le Scotte Hospital, quiet pedestrian medieval streets', budget: '€700–€950/mo', cost: 'Moderate' },
+  { city: 'Tirana', emoji: '🇦🇱', tag: 'Balkan Crossroad · International', desc: 'EU-accredited Tor Vergata partnership campus, low cost of living, high seat availability', budget: '€450–€650/mo', cost: 'Lower' },
 ];
 
 const decisionFactors = [
@@ -164,6 +265,10 @@ export default function UniversitiesPage() {
   const [cutoffPool, setCutoffPool] = useState<'EU' | 'Non-EU'>('EU');
   const [cutoffYear, setCutoffYear] = useState('2024');
 
+  // Map state
+  const [selectedMapUni, setSelectedMapUni] = useState<string | null>('uni-bologna');
+  const [mapRegionFilter, setMapRegionFilter] = useState<string>('All');
+
   // FAQ state
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
@@ -192,15 +297,38 @@ export default function UniversitiesPage() {
 
   const filteredUnis = useMemo(() => {
     let results = mockUniversities.filter(u => {
-      const matchSearch = !search || u.name.toLowerCase().includes(search.toLowerCase()) || u.city.toLowerCase().includes(search.toLowerCase());
-      const isPublic = u.tuitionFeeAnnual < 5000;
+      const matchSearch = !search ||
+        u.name.toLowerCase().includes(search.toLowerCase()) ||
+        u.city.toLowerCase().includes(search.toLowerCase()) ||
+        (u.italianName && u.italianName.toLowerCase().includes(search.toLowerCase()));
+      const isPublic = u.type ? u.type === 'Public' : u.tuitionFeeAnnual < 5000;
       const matchType = filterType.length === 0 || (filterType.includes('Public') && isPublic) || (filterType.includes('Private') && !isPublic);
-      const route = isPublic ? 'IMAT' : 'University-specific';
+      const route = u.admissionRoute || (isPublic ? 'IMAT' : 'University-specific');
       const matchRoute = filterRoute.length === 0 || filterRoute.includes(route);
       const budgetTier = u.tuitionFeeAnnual < 3000 ? 'Lower' : u.tuitionFeeAnnual < 10000 ? 'Moderate' : 'Higher';
       const matchBudget = filterBudget.length === 0 || filterBudget.includes(budgetTier);
-      const regionMap: Record<string, string> = { Milan: 'North', Bologna: 'North', Pavia: 'North', Venice: 'North', Rome: 'Central', Florence: 'Central', Messina: 'South & Islands', Palermo: 'South & Islands' };
-      const region = regionMap[u.city] || 'North';
+      const regionMap: Record<string, string> = {
+        Milan: 'North',
+        'Bergamo / Milan': 'North',
+        Pavia: 'North',
+        Padova: 'North',
+        Bologna: 'North',
+        Parma: 'North',
+        Torino: 'North',
+        Rome: 'Central',
+        Florence: 'Central',
+        Firenze: 'Central',
+        Siena: 'Central',
+        Ancona: 'Central',
+        Bari: 'South & Islands',
+        Cagliari: 'South & Islands',
+        Catania: 'South & Islands',
+        Messina: 'South & Islands',
+        Naples: 'South & Islands',
+        'Caserta / Naples': 'South & Islands',
+        Tirana: 'International',
+      };
+      const region = u.region || regionMap[u.city] || 'North';
       const matchRegion = filterRegion.length === 0 || filterRegion.includes(region);
       return matchSearch && matchType && matchRoute && matchBudget && matchRegion;
     });
@@ -208,7 +336,7 @@ export default function UniversitiesPage() {
     if (sortBy === 'University Name') results = [...results].sort((a, b) => a.name.localeCompare(b.name));
     else if (sortBy === 'City') results = [...results].sort((a, b) => a.city.localeCompare(b.city));
     else if (sortBy === 'Tuition') results = [...results].sort((a, b) => a.tuitionFeeAnnual - b.tuitionFeeAnnual);
-    else if (sortBy === 'Seats') results = [...results].sort((a, b) => b.admissionRatePercent - a.admissionRatePercent);
+    else if (sortBy === 'Seats') results = [...results].sort((a, b) => (b.euSeats || b.admissionRatePercent) - (a.euSeats || a.admissionRatePercent));
 
     return results;
   }, [search, filterType, filterRoute, filterBudget, filterRegion, sortBy]);
@@ -444,27 +572,248 @@ export default function UniversitiesPage() {
       </section>
 
       {/* ── 05 MAP EXPLORER ───────────────────────────────────── */}
-      <section id="map-section" style={{ padding: '0 0 40px', background: '#fff' }}>
+      <section id="map-section" style={{ padding: '0 0 50px', background: '#fff' }}>
         <div className="container">
           <FadeUp>
-            <h2 style={{ fontSize: 'clamp(1.3rem, 2.5vw, 1.75rem)', fontWeight: 800, color: '#0f172a', marginBottom: '16px' }}>
-              Explore Medicine Across Italy
-            </h2>
-          </FadeUp>
-          <FadeUp delay={80}>
-            <div style={{ background: 'linear-gradient(135deg, #0f172a, #1e3a5f)', borderRadius: '20px', overflow: 'hidden', position: 'relative', height: '280px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <div style={{ textAlign: 'center', zIndex: 1, padding: '20px' }}>
-                <div style={{ fontSize: '3rem', marginBottom: '12px' }}>🗺️</div>
-                <p style={{ color: '#fff', fontWeight: 700, fontSize: '1.1rem', marginBottom: '6px' }}>Interactive Map — Coming Soon</p>
-                <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.875rem', maxWidth: '400px' }}>
-                  One pin per university, two-way linked with the results grid. Click a pin to see details. Hover a card to highlight its pin on the map.
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '16px', marginBottom: '20px' }}>
+              <div>
+                <h2 style={{ fontSize: 'clamp(1.3rem, 2.5vw, 1.75rem)', fontWeight: 800, color: '#0f172a', marginBottom: '6px' }}>
+                  Explore Medical Universities Across Italy &amp; Europe
+                </h2>
+                <p style={{ color: '#64748b', fontSize: '0.9375rem', margin: 0 }}>
+                  Click a city or medical faculty pin to inspect admission route, seats, and open the full subpage.
                 </p>
-                <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginTop: '16px', flexWrap: 'wrap' }}>
-                  {['🟢 Public (IMAT)', '🟣 Private (Own Test)'].map(l => (
-                    <span key={l} style={{ background: 'rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.8)', padding: '5px 14px', borderRadius: '999px', fontSize: '0.8125rem', fontWeight: 600 }}>{l}</span>
-                  ))}
+              </div>
+
+              {/* Region filter pills */}
+              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                {['All', 'North', 'Central', 'South & Islands', 'International'].map(reg => (
+                  <button
+                    key={reg}
+                    onClick={() => setMapRegionFilter(reg)}
+                    style={{
+                      padding: '6px 14px',
+                      borderRadius: '999px',
+                      fontSize: '0.8125rem',
+                      fontWeight: 700,
+                      border: 'none',
+                      cursor: 'pointer',
+                      transition: 'all 0.15s',
+                      background: mapRegionFilter === reg ? '#059669' : '#f1f5f9',
+                      color: mapRegionFilter === reg ? '#fff' : '#475569',
+                    }}
+                  >
+                    {reg}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </FadeUp>
+
+          <FadeUp delay={80}>
+            <div
+              style={{
+                background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f2d1a 100%)',
+                borderRadius: '24px',
+                overflow: 'hidden',
+                border: '1px solid rgba(255,255,255,0.1)',
+                boxShadow: '0 20px 40px rgba(15,23,42,0.15)',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                gap: '24px',
+                padding: '24px',
+                alignItems: 'center',
+              }}
+            >
+              {/* Left: Interactive Campus & City Pins */}
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+                  <span style={{ color: '#5CED73', fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                    📍 20 Medical Faculties Available
+                  </span>
+                  <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.75rem' }}>
+                    Select any pin to view details
+                  </span>
+                </div>
+
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))',
+                    gap: '8px',
+                    maxHeight: '340px',
+                    overflowY: 'auto',
+                    paddingRight: '6px',
+                  }}
+                >
+                  {mockUniversities
+                    .filter(u => mapRegionFilter === 'All' || (u.region || 'North') === mapRegionFilter)
+                    .map(u => {
+                      const isSelected = selectedMapUni === u.id;
+                      const isPublic = u.type ? u.type === 'Public' : u.tuitionFeeAnnual < 5000;
+                      return (
+                        <button
+                          key={u.id}
+                          onClick={() => setSelectedMapUni(u.id)}
+                          style={{
+                            textAlign: 'left',
+                            padding: '10px 12px',
+                            borderRadius: '12px',
+                            background: isSelected ? 'rgba(92,237,115,0.18)' : 'rgba(255,255,255,0.06)',
+                            border: isSelected ? '1.5px solid #5CED73' : '1px solid rgba(255,255,255,0.1)',
+                            cursor: 'pointer',
+                            transition: 'all 0.15s ease',
+                          }}
+                        >
+                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
+                            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: isSelected ? '#5CED73' : '#fff' }}>
+                              {u.city}
+                            </span>
+                            <span
+                              style={{
+                                width: '8px',
+                                height: '8px',
+                                borderRadius: '50%',
+                                background: isPublic ? '#10B981' : '#A855F7',
+                                display: 'inline-block',
+                              }}
+                            />
+                          </div>
+                          <p
+                            style={{
+                              fontSize: '0.7rem',
+                              color: 'rgba(255,255,255,0.7)',
+                              margin: 0,
+                              whiteSpace: 'nowrap',
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                            }}
+                          >
+                            {u.name}
+                          </p>
+                        </button>
+                      );
+                    })}
+                </div>
+
+                <div style={{ display: 'flex', gap: '16px', marginTop: '16px', fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)' }}>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10B981' }} />
+                    Public (IMAT Route)
+                  </span>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#A855F7' }} />
+                    Private / Independent
+                  </span>
                 </div>
               </div>
+
+              {/* Right: Selected University Showcase Card */}
+              {(() => {
+                const target = mockUniversities.find(u => u.id === selectedMapUni) || mockUniversities[0];
+                const isPublic = target.type ? target.type === 'Public' : target.tuitionFeeAnnual < 5000;
+                return (
+                  <div
+                    style={{
+                      background: 'rgba(255,255,255,0.05)',
+                      backdropFilter: 'blur(12px)',
+                      border: '1px solid rgba(255,255,255,0.15)',
+                      borderRadius: '20px',
+                      padding: '24px',
+                      color: '#fff',
+                    }}
+                  >
+                    <div style={{ display: 'flex', gap: '8px', marginBottom: '12px', flexWrap: 'wrap' }}>
+                      <span style={{ background: isPublic ? 'rgba(16,185,129,0.25)' : 'rgba(168,85,247,0.25)', color: isPublic ? '#5CED73' : '#d8b4fe', padding: '4px 10px', borderRadius: '999px', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase' }}>
+                        {isPublic ? 'Public · IMAT' : 'Private Route'}
+                      </span>
+                      <span style={{ background: 'rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.9)', padding: '4px 10px', borderRadius: '999px', fontSize: '0.7rem', fontWeight: 700 }}>
+                        📍 {target.city}, {target.country}
+                      </span>
+                      {target.region && (
+                        <span style={{ background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.7)', padding: '4px 10px', borderRadius: '999px', fontSize: '0.7rem', fontWeight: 600 }}>
+                          {target.region}
+                        </span>
+                      )}
+                    </div>
+
+                    <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '6px', lineHeight: 1.25 }}>
+                      {target.name}
+                    </h3>
+                    {target.italianName && target.italianName !== target.name && (
+                      <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.7875rem', marginBottom: '12px', fontStyle: 'italic' }}>
+                        {target.italianName}
+                      </p>
+                    )}
+
+                    <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.8125rem', lineHeight: 1.5, marginBottom: '16px', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                      {target.overview}
+                    </p>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', marginBottom: '20px' }}>
+                      <div style={{ background: 'rgba(255,255,255,0.07)', borderRadius: '10px', padding: '8px 10px' }}>
+                        <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', display: 'block' }}>Tuition</span>
+                        <strong style={{ fontSize: '0.8125rem', color: '#5CED73' }}>
+                          {target.currency === 'EUR' ? '€' : '$'}{target.tuitionFeeAnnual.toLocaleString()}/yr
+                        </strong>
+                      </div>
+                      <div style={{ background: 'rgba(255,255,255,0.07)', borderRadius: '10px', padding: '8px 10px' }}>
+                        <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', display: 'block' }}>EU Seats</span>
+                        <strong style={{ fontSize: '0.8125rem', color: '#fff' }}>
+                          {target.euSeats || 'Variable'}
+                        </strong>
+                      </div>
+                      <div style={{ background: 'rgba(255,255,255,0.07)', borderRadius: '10px', padding: '8px 10px' }}>
+                        <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', display: 'block' }}>Non-EU</span>
+                        <strong style={{ fontSize: '0.8125rem', color: '#fff' }}>
+                          {target.nonEuSeats || 'Variable'}
+                        </strong>
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '10px' }}>
+                      <Link
+                        href={`/universities/${target.slug || target.id}`}
+                        style={{
+                          flex: 1,
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '6px',
+                          background: '#5CED73',
+                          color: '#0f172a',
+                          borderRadius: '10px',
+                          padding: '10px 16px',
+                          fontWeight: 700,
+                          fontSize: '0.8125rem',
+                          textDecoration: 'none',
+                          transition: 'all 0.15s ease',
+                        }}
+                      >
+                        View Full Subpage Profile →
+                      </Link>
+                      <a
+                        href="#find-university"
+                        onClick={() => setSearch(target.city)}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          background: 'rgba(255,255,255,0.12)',
+                          color: '#fff',
+                          borderRadius: '10px',
+                          padding: '10px 14px',
+                          fontWeight: 600,
+                          fontSize: '0.8125rem',
+                          textDecoration: 'none',
+                        }}
+                      >
+                        Filter in List
+                      </a>
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
           </FadeUp>
         </div>
@@ -549,7 +898,7 @@ export default function UniversitiesPage() {
                       {/* Actions */}
                       <div style={{ display: 'flex', gap: '8px', marginTop: 'auto' }}>
                         <Link
-                          href={`/universities/${uni.id}`}
+                          href={`/universities/${uni.slug || uni.id}`}
                           style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', padding: '10px', borderRadius: '10px', fontWeight: 600, fontSize: '0.8125rem', border: '1.5px solid #e2e8f0', color: '#334155', transition: 'all 0.2s', textDecoration: 'none' }}
                           onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = '#bbf7d0'; (e.currentTarget as HTMLAnchorElement).style.background = '#f0fff4'; }}
                           onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = '#e2e8f0'; (e.currentTarget as HTMLAnchorElement).style.background = 'transparent'; }}
@@ -649,7 +998,7 @@ export default function UniversitiesPage() {
             </div>
             <div style={{ display: 'flex', gap: '12px', marginTop: '20px', flexWrap: 'wrap' }}>
               {compareUnis.map(u => (
-                <Link key={u.id} href={`/universities/${u.id}`} style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '10px 18px', borderRadius: '10px', background: '#f0fff4', color: '#059669', fontWeight: 600, fontSize: '0.875rem', border: '1px solid #bbf7d0', textDecoration: 'none' }}>
+                <Link key={u.id} href={`/universities/${u.slug || u.id}`} style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '10px 18px', borderRadius: '10px', background: '#f0fff4', color: '#059669', fontWeight: 600, fontSize: '0.875rem', border: '1px solid #bbf7d0', textDecoration: 'none' }}>
                   View Full Profile: {u.name.split(' ')[0]} →
                 </Link>
               ))}
