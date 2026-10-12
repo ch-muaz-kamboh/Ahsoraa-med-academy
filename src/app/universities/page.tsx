@@ -38,179 +38,178 @@ interface CutoffRecord {
   finalCutoff: string;
 }
 
-// ─── Static Data ────────────────────────────────────────────────
-// ─── Static Data ────────────────────────────────────────────────
+// ─── Static Data ───────────────────────────────────────────────
 const cutoffData: Record<string, Record<string, CutoffRecord[]>> = {
   EU: {
     '2025': [
       { university: 'Università degli Studi di Milano (La Statale)', seats: 55, seatsLeft: '4', round1Cutoff: '66.2', finalCutoff: '61.5' },
       { university: 'Università degli Studi di Milano-Bicocca', seats: 30, seatsLeft: '2', round1Cutoff: '64.5', finalCutoff: '59.8' },
-      { university: 'Università degli Studi di Padova — MedTech', seats: 60, seatsLeft: '4', round1Cutoff: '63.8', finalCutoff: '59.2' },
       { university: 'Università di Roma «La Sapienza»', seats: 45, seatsLeft: '—', round1Cutoff: '62.4', finalCutoff: '58.0' },
       { university: 'Università di Bologna', seats: 97, seatsLeft: '7', round1Cutoff: '61.2', finalCutoff: '57.1' },
       { university: 'Università degli Studi di Pavia', seats: 103, seatsLeft: '4', round1Cutoff: '60.5', finalCutoff: '56.4' },
-      { university: 'Università degli Studi di Padova', seats: 76, seatsLeft: '5', round1Cutoff: '59.8', finalCutoff: '55.8' },
+      { university: 'Università degli Studi di Padova (Venice)', seats: 76, seatsLeft: '5', round1Cutoff: '59.8', finalCutoff: '55.8' },
       { university: 'Università degli Studi di Torino', seats: 70, seatsLeft: '5', round1Cutoff: '59.2', finalCutoff: '55.1' },
       { university: 'Università di Roma «Tor Vergata»', seats: 40, seatsLeft: '3', round1Cutoff: '58.5', finalCutoff: '54.6' },
-      { university: 'Università degli Studi di Firenze', seats: 35, seatsLeft: '2', round1Cutoff: '57.8', finalCutoff: '53.9' },
-      { university: 'Università degli Studi di Parma', seats: 75, seatsLeft: '6', round1Cutoff: '57.1', finalCutoff: '53.2' },
+      { university: 'Università degli Studi di Parma (Piacenza)', seats: 75, seatsLeft: '6', round1Cutoff: '57.1', finalCutoff: '53.2' },
       { university: 'Università di Napoli Federico II', seats: 25, seatsLeft: '2', round1Cutoff: '56.5', finalCutoff: '52.8' },
-      { university: 'Università degli Studi di Siena', seats: 28, seatsLeft: '2', round1Cutoff: '55.9', finalCutoff: '52.1' },
+      { university: 'Università degli Studi di Siena (Dentistry LM-46)', seats: 28, seatsLeft: '2', round1Cutoff: '55.9', finalCutoff: '52.1' },
       { university: 'Università Politecnica delle Marche', seats: 60, seatsLeft: '5', round1Cutoff: '55.4', finalCutoff: '51.7' },
       { university: 'Università degli Studi di Bari Aldo Moro', seats: 69, seatsLeft: '6', round1Cutoff: '55.0', finalCutoff: '51.2' },
       { university: 'Università degli Studi di Cagliari', seats: 80, seatsLeft: '8', round1Cutoff: '54.8', finalCutoff: '50.9' },
       { university: 'Università della Campania «Luigi Vanvitelli»', seats: 60, seatsLeft: '7', round1Cutoff: '54.2', finalCutoff: '50.4' },
-      { university: 'Università degli Studi di Catania', seats: 30, seatsLeft: '3', round1Cutoff: '53.8', finalCutoff: '49.9' },
       { university: 'Università degli Studi di Messina', seats: 55, seatsLeft: '5', round1Cutoff: '53.2', finalCutoff: '49.5' },
+      { university: 'Università degli Studi di Catania', seats: 0, seatsLeft: '0', round1Cutoff: 'N/A', finalCutoff: 'N/A (0 EU seats)' },
+      { university: 'Università degli Studi di Firenze', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — New for 2026/27' },
+      { university: 'Università degli Studi di Padova — MedTech', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — Launched 2026/27' },
     ],
     '2024': [
       { university: 'Università degli Studi di Milano (La Statale)', seats: 55, seatsLeft: '6', round1Cutoff: '84.7', finalCutoff: '78.2' },
       { university: 'Università degli Studi di Milano-Bicocca', seats: 30, seatsLeft: '3', round1Cutoff: '81.2', finalCutoff: '73.8' },
-      { university: 'Università degli Studi di Padova — MedTech', seats: 60, seatsLeft: '5', round1Cutoff: '80.5', finalCutoff: '73.1' },
       { university: 'Università di Roma «La Sapienza»', seats: 45, seatsLeft: '—', round1Cutoff: '79.3', finalCutoff: '72.1' },
-      { university: 'Università degli Studi di Padova', seats: 76, seatsLeft: '7', round1Cutoff: '78.6', finalCutoff: '71.8' },
+      { university: 'Università degli Studi di Padova (Venice)', seats: 76, seatsLeft: '7', round1Cutoff: '78.6', finalCutoff: '71.8' },
       { university: 'Università di Bologna', seats: 97, seatsLeft: '8', round1Cutoff: '76.4', finalCutoff: '70.5' },
       { university: 'Università degli Studi di Torino', seats: 70, seatsLeft: '6', round1Cutoff: '75.8', finalCutoff: '69.5' },
       { university: 'Università di Roma «Tor Vergata»', seats: 40, seatsLeft: '4', round1Cutoff: '74.2', finalCutoff: '68.9' },
       { university: 'Università degli Studi di Pavia', seats: 103, seatsLeft: '5', round1Cutoff: '73.5', finalCutoff: '68.3' },
-      { university: 'Università degli Studi di Firenze', seats: 35, seatsLeft: '3', round1Cutoff: '72.9', finalCutoff: '67.4' },
-      { university: 'Università degli Studi di Parma', seats: 75, seatsLeft: '7', round1Cutoff: '71.8', finalCutoff: '66.7' },
+      { university: 'Università degli Studi di Parma (Piacenza)', seats: 75, seatsLeft: '7', round1Cutoff: '71.8', finalCutoff: '66.7' },
       { university: 'Università di Napoli Federico II', seats: 25, seatsLeft: '2', round1Cutoff: '71.0', finalCutoff: '66.0' },
-      { university: 'Università degli Studi di Siena', seats: 28, seatsLeft: '3', round1Cutoff: '70.2', finalCutoff: '65.4' },
+      { university: 'Università degli Studi di Siena (Dentistry LM-46)', seats: 28, seatsLeft: '3', round1Cutoff: '70.2', finalCutoff: '65.4' },
       { university: 'Università Politecnica delle Marche', seats: 60, seatsLeft: '6', round1Cutoff: '69.8', finalCutoff: '64.9' },
       { university: 'Università degli Studi di Bari Aldo Moro', seats: 69, seatsLeft: '7', round1Cutoff: '69.1', finalCutoff: '64.2' },
       { university: 'Università degli Studi di Cagliari', seats: 80, seatsLeft: '9', round1Cutoff: '68.4', finalCutoff: '63.5' },
       { university: 'Università della Campania «Luigi Vanvitelli»', seats: 60, seatsLeft: '8', round1Cutoff: '67.8', finalCutoff: '62.8' },
       { university: 'Università degli Studi di Catania', seats: 30, seatsLeft: '4', round1Cutoff: '67.0', finalCutoff: '62.4' },
       { university: 'Università degli Studi di Messina', seats: 55, seatsLeft: '6', round1Cutoff: '66.2', finalCutoff: '61.9' },
+      { university: 'Università degli Studi di Firenze', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — New for 2026/27' },
+      { university: 'Università degli Studi di Padova — MedTech', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — Launched 2026/27' },
     ],
     '2023': [
       { university: 'Università degli Studi di Milano (La Statale)', seats: 55, seatsLeft: '5', round1Cutoff: '82.1', finalCutoff: '75.9' },
       { university: 'Università degli Studi di Milano-Bicocca', seats: 30, seatsLeft: '2', round1Cutoff: '79.0', finalCutoff: '71.5' },
-      { university: 'Università degli Studi di Padova — MedTech', seats: 60, seatsLeft: '4', round1Cutoff: '78.4', finalCutoff: '71.0' },
       { university: 'Università di Roma «La Sapienza»', seats: 45, seatsLeft: '—', round1Cutoff: '77.6', finalCutoff: '70.3' },
-      { university: 'Università degli Studi di Padova', seats: 76, seatsLeft: '6', round1Cutoff: '76.8', finalCutoff: '69.8' },
+      { university: 'Università degli Studi di Padova (Venice)', seats: 76, seatsLeft: '6', round1Cutoff: '76.8', finalCutoff: '69.8' },
       { university: 'Università di Bologna', seats: 97, seatsLeft: '11', round1Cutoff: '74.2', finalCutoff: '68.0' },
       { university: 'Università degli Studi di Torino', seats: 70, seatsLeft: '7', round1Cutoff: '73.5', finalCutoff: '67.6' },
       { university: 'Università di Roma «Tor Vergata»', seats: 40, seatsLeft: '3', round1Cutoff: '72.0', finalCutoff: '66.5' },
       { university: 'Università degli Studi di Pavia', seats: 103, seatsLeft: '3', round1Cutoff: '71.4', finalCutoff: '65.7' },
-      { university: 'Università degli Studi di Firenze', seats: 35, seatsLeft: '2', round1Cutoff: '70.5', finalCutoff: '65.0' },
-      { university: 'Università degli Studi di Parma', seats: 75, seatsLeft: '6', round1Cutoff: '69.6', finalCutoff: '64.2' },
+      { university: 'Università degli Studi di Parma (Piacenza)', seats: 75, seatsLeft: '6', round1Cutoff: '69.6', finalCutoff: '64.2' },
       { university: 'Università di Napoli Federico II', seats: 25, seatsLeft: '1', round1Cutoff: '68.9', finalCutoff: '63.5' },
-      { university: 'Università degli Studi di Siena', seats: 28, seatsLeft: '2', round1Cutoff: '68.0', finalCutoff: '62.8' },
+      { university: 'Università degli Studi di Siena (Dentistry LM-46)', seats: 28, seatsLeft: '2', round1Cutoff: '68.0', finalCutoff: '62.8' },
       { university: 'Università Politecnica delle Marche', seats: 60, seatsLeft: '5', round1Cutoff: '67.4', finalCutoff: '62.1' },
       { university: 'Università degli Studi di Bari Aldo Moro', seats: 69, seatsLeft: '6', round1Cutoff: '66.7', finalCutoff: '61.4' },
       { university: 'Università degli Studi di Cagliari', seats: 80, seatsLeft: '7', round1Cutoff: '65.9', finalCutoff: '60.8' },
       { university: 'Università della Campania «Luigi Vanvitelli»', seats: 60, seatsLeft: '6', round1Cutoff: '65.0', finalCutoff: '60.1' },
       { university: 'Università degli Studi di Catania', seats: 30, seatsLeft: '3', round1Cutoff: '64.5', finalCutoff: '59.7' },
       { university: 'Università degli Studi di Messina', seats: 55, seatsLeft: '5', round1Cutoff: '63.8', finalCutoff: '59.0' },
+      { university: 'Università degli Studi di Firenze', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — New for 2026/27' },
+      { university: 'Università degli Studi di Padova — MedTech', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — Launched 2026/27' },
     ],
     '2022': [
       { university: 'Università degli Studi di Milano (La Statale)', seats: 50, seatsLeft: '7', round1Cutoff: '79.8', finalCutoff: '73.4' },
       { university: 'Università degli Studi di Milano-Bicocca', seats: 30, seatsLeft: '3', round1Cutoff: '76.8', finalCutoff: '69.2' },
-      { university: 'Università degli Studi di Padova — MedTech', seats: 50, seatsLeft: '5', round1Cutoff: '76.0', finalCutoff: '68.8' },
       { university: 'Università di Roma «La Sapienza»', seats: 45, seatsLeft: '—', round1Cutoff: '75.0', finalCutoff: '68.5' },
-      { university: 'Università degli Studi di Padova', seats: 70, seatsLeft: '6', round1Cutoff: '74.2', finalCutoff: '67.5' },
+      { university: 'Università degli Studi di Padova (Venice)', seats: 70, seatsLeft: '6', round1Cutoff: '74.2', finalCutoff: '67.5' },
       { university: 'Università di Bologna', seats: 90, seatsLeft: '7', round1Cutoff: '71.6', finalCutoff: '65.2' },
       { university: 'Università degli Studi di Torino', seats: 70, seatsLeft: '5', round1Cutoff: '70.8', finalCutoff: '64.8' },
       { university: 'Università di Roma «Tor Vergata»', seats: 35, seatsLeft: '3', round1Cutoff: '69.5', finalCutoff: '63.9' },
       { university: 'Università degli Studi di Pavia', seats: 100, seatsLeft: '6', round1Cutoff: '68.7', finalCutoff: '62.1' },
-      { university: 'Università degli Studi di Firenze', seats: 30, seatsLeft: '2', round1Cutoff: '67.9', finalCutoff: '61.5' },
-      { university: 'Università degli Studi di Parma', seats: 70, seatsLeft: '5', round1Cutoff: '67.0', finalCutoff: '60.7' },
+      { university: 'Università degli Studi di Parma (Piacenza)', seats: 70, seatsLeft: '5', round1Cutoff: '67.0', finalCutoff: '60.7' },
       { university: 'Università di Napoli Federico II', seats: 25, seatsLeft: '1', round1Cutoff: '66.3', finalCutoff: '59.9' },
-      { university: 'Università degli Studi di Siena', seats: 28, seatsLeft: '2', round1Cutoff: '65.5', finalCutoff: '59.2' },
+      { university: 'Università degli Studi di Siena (Dentistry LM-46)', seats: 28, seatsLeft: '2', round1Cutoff: '65.5', finalCutoff: '59.2' },
       { university: 'Università Politecnica delle Marche', seats: 55, seatsLeft: '4', round1Cutoff: '64.8', finalCutoff: '58.6' },
       { university: 'Università degli Studi di Bari Aldo Moro', seats: 60, seatsLeft: '5', round1Cutoff: '64.1', finalCutoff: '58.0' },
       { university: 'Università degli Studi di Cagliari', seats: 75, seatsLeft: '6', round1Cutoff: '63.5', finalCutoff: '57.4' },
       { university: 'Università della Campania «Luigi Vanvitelli»', seats: 55, seatsLeft: '5', round1Cutoff: '62.8', finalCutoff: '56.8' },
       { university: 'Università degli Studi di Catania', seats: 30, seatsLeft: '3', round1Cutoff: '62.0', finalCutoff: '56.2' },
       { university: 'Università degli Studi di Messina', seats: 50, seatsLeft: '4', round1Cutoff: '61.2', finalCutoff: '55.5' },
+      { university: 'Università degli Studi di Firenze', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — New for 2026/27' },
+      { university: 'Università degli Studi di Padova — MedTech', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — Launched 2026/27' },
     ],
   },
   'Non-EU': {
     '2025': [
       { university: 'Università degli Studi di Milano (La Statale)', seats: 25, seatsLeft: '2', round1Cutoff: '76.5', finalCutoff: '72.9' },
-      { university: 'Università degli Studi di Pavia', seats: 40, seatsLeft: '1', round1Cutoff: '75.8', finalCutoff: '73.0' },
-      { university: 'Università di Bologna', seats: 20, seatsLeft: '2', round1Cutoff: '74.0', finalCutoff: '70.3' },
+      { university: 'Università degli Studi di Pavia', seats: 40, seatsLeft: '1', round1Cutoff: '75.8', finalCutoff: '71.9' },
+      { university: 'Università di Bologna', seats: 20, seatsLeft: '2', round1Cutoff: '74.0', finalCutoff: '71.1' },
       { university: 'Università degli Studi di Milano-Bicocca', seats: 15, seatsLeft: '1', round1Cutoff: '73.2', finalCutoff: '69.5' },
       { university: 'Università di Roma «La Sapienza»', seats: 13, seatsLeft: '—', round1Cutoff: '71.0', finalCutoff: '65.8' },
-      { university: 'Università degli Studi di Padova — MedTech', seats: 20, seatsLeft: '2', round1Cutoff: '70.2', finalCutoff: '66.0' },
-      { university: 'Università degli Studi di Padova', seats: 25, seatsLeft: '2', round1Cutoff: '69.8', finalCutoff: '65.4' },
+      { university: 'Università della Campania «Luigi Vanvitelli»', seats: 50, seatsLeft: '4', round1Cutoff: '62.0', finalCutoff: '66.2' },
+      { university: 'Università degli Studi di Padova (Venice)', seats: 25, seatsLeft: '2', round1Cutoff: '69.8', finalCutoff: '65.4' },
       { university: 'Università degli Studi di Torino', seats: 32, seatsLeft: '3', round1Cutoff: '68.5', finalCutoff: '64.8' },
       { university: 'Università di Roma «Tor Vergata»', seats: 15, seatsLeft: '1', round1Cutoff: '67.9', finalCutoff: '64.2' },
-      { university: 'Università degli Studi di Firenze', seats: 15, seatsLeft: '1', round1Cutoff: '67.0', finalCutoff: '63.5' },
-      { university: 'Università degli Studi di Parma', seats: 45, seatsLeft: '3', round1Cutoff: '66.2', finalCutoff: '62.8' },
+      { university: 'Università degli Studi di Parma (Piacenza)', seats: 45, seatsLeft: '3', round1Cutoff: '66.2', finalCutoff: '62.8' },
       { university: 'Università di Napoli Federico II', seats: 25, seatsLeft: '2', round1Cutoff: '65.5', finalCutoff: '62.1' },
-      { university: 'Università degli Studi di Siena', seats: 14, seatsLeft: '1', round1Cutoff: '64.8', finalCutoff: '61.5' },
+      { university: 'Università degli Studi di Catania', seats: 30, seatsLeft: '3', round1Cutoff: '61.2', finalCutoff: '61.6' },
+      { university: 'Università degli Studi di Siena (Dentistry LM-46)', seats: 14, seatsLeft: '1', round1Cutoff: '64.8', finalCutoff: '61.5' },
       { university: 'Università Politecnica delle Marche', seats: 25, seatsLeft: '2', round1Cutoff: '64.0', finalCutoff: '60.9' },
-      { university: 'Università degli Studi di Bari Aldo Moro', seats: 11, seatsLeft: '1', round1Cutoff: '63.5', finalCutoff: '60.2' },
       { university: 'Università degli Studi di Cagliari', seats: 20, seatsLeft: '2', round1Cutoff: '62.8', finalCutoff: '59.6' },
-      { university: 'Università della Campania «Luigi Vanvitelli»', seats: 50, seatsLeft: '4', round1Cutoff: '62.0', finalCutoff: '59.0' },
-      { university: 'Università degli Studi di Catania', seats: 30, seatsLeft: '3', round1Cutoff: '61.2', finalCutoff: '58.4' },
       { university: 'Università degli Studi di Messina', seats: 40, seatsLeft: '3', round1Cutoff: '60.5', finalCutoff: '57.8' },
+      { university: 'Università degli Studi di Bari Aldo Moro', seats: 11, seatsLeft: '1', round1Cutoff: '63.5', finalCutoff: '50.9' },
+      { university: 'Università degli Studi di Firenze', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — New for 2026/27' },
+      { university: 'Università degli Studi di Padova — MedTech', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — Launched 2026/27' },
     ],
     '2024': [
       { university: 'Università degli Studi di Milano (La Statale)', seats: 25, seatsLeft: '2', round1Cutoff: '88.2', finalCutoff: '82.5' },
       { university: 'Università degli Studi di Milano-Bicocca', seats: 15, seatsLeft: '1', round1Cutoff: '84.6', finalCutoff: '77.9' },
       { university: 'Università di Roma «La Sapienza»', seats: 13, seatsLeft: '—', round1Cutoff: '84.0', finalCutoff: '76.8' },
-      { university: 'Università degli Studi di Padova — MedTech', seats: 20, seatsLeft: '2', round1Cutoff: '83.1', finalCutoff: '76.5' },
-      { university: 'Università degli Studi di Padova', seats: 25, seatsLeft: '2', round1Cutoff: '82.0', finalCutoff: '75.2' },
+      { university: 'Università degli Studi di Padova (Venice)', seats: 25, seatsLeft: '2', round1Cutoff: '82.0', finalCutoff: '75.2' },
       { university: 'Università di Bologna', seats: 20, seatsLeft: '2', round1Cutoff: '80.1', finalCutoff: '74.3' },
       { university: 'Università degli Studi di Torino', seats: 32, seatsLeft: '3', round1Cutoff: '79.3', finalCutoff: '73.0' },
       { university: 'Università di Roma «Tor Vergata»', seats: 15, seatsLeft: '1', round1Cutoff: '78.5', finalCutoff: '72.4' },
       { university: 'Università degli Studi di Pavia', seats: 40, seatsLeft: '1', round1Cutoff: '77.2', finalCutoff: '71.0' },
-      { university: 'Università degli Studi di Firenze', seats: 15, seatsLeft: '1', round1Cutoff: '76.8', finalCutoff: '70.9' },
-      { university: 'Università degli Studi di Parma', seats: 45, seatsLeft: '3', round1Cutoff: '75.6', finalCutoff: '69.4' },
+      { university: 'Università degli Studi di Parma (Piacenza)', seats: 45, seatsLeft: '3', round1Cutoff: '75.6', finalCutoff: '69.4' },
       { university: 'Università di Napoli Federico II', seats: 25, seatsLeft: '2', round1Cutoff: '74.5', finalCutoff: '68.2' },
-      { university: 'Università degli Studi di Siena', seats: 14, seatsLeft: '1', round1Cutoff: '73.8', finalCutoff: '68.0' },
+      { university: 'Università degli Studi di Siena (Dentistry LM-46)', seats: 14, seatsLeft: '1', round1Cutoff: '73.8', finalCutoff: '68.0' },
       { university: 'Università Politecnica delle Marche', seats: 25, seatsLeft: '2', round1Cutoff: '73.0', finalCutoff: '67.2' },
       { university: 'Università degli Studi di Bari Aldo Moro', seats: 11, seatsLeft: '1', round1Cutoff: '72.3', finalCutoff: '66.8' },
       { university: 'Università degli Studi di Cagliari', seats: 20, seatsLeft: '2', round1Cutoff: '71.5', finalCutoff: '65.1' },
       { university: 'Università della Campania «Luigi Vanvitelli»', seats: 50, seatsLeft: '4', round1Cutoff: '70.8', finalCutoff: '64.9' },
       { university: 'Università degli Studi di Catania', seats: 30, seatsLeft: '3', round1Cutoff: '70.1', finalCutoff: '64.5' },
       { university: 'Università degli Studi di Messina', seats: 40, seatsLeft: '3', round1Cutoff: '69.2', finalCutoff: '63.8' },
+      { university: 'Università degli Studi di Firenze', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — New for 2026/27' },
+      { university: 'Università degli Studi di Padova — MedTech', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — Launched 2026/27' },
     ],
     '2023': [
       { university: 'Università degli Studi di Milano (La Statale)', seats: 25, seatsLeft: '3', round1Cutoff: '85.9', finalCutoff: '79.7' },
       { university: 'Università degli Studi di Milano-Bicocca', seats: 15, seatsLeft: '1', round1Cutoff: '82.3', finalCutoff: '75.6' },
       { university: 'Università di Roma «La Sapienza»', seats: 13, seatsLeft: '—', round1Cutoff: '81.3', finalCutoff: '74.2' },
-      { university: 'Università degli Studi di Padova — MedTech', seats: 20, seatsLeft: '2', round1Cutoff: '80.5', finalCutoff: '74.0' },
-      { university: 'Università degli Studi di Padova', seats: 25, seatsLeft: '2', round1Cutoff: '79.4', finalCutoff: '72.8' },
+      { university: 'Università degli Studi di Padova (Venice)', seats: 25, seatsLeft: '2', round1Cutoff: '79.4', finalCutoff: '72.8' },
       { university: 'Università di Bologna', seats: 20, seatsLeft: '3', round1Cutoff: '77.5', finalCutoff: '71.8' },
       { university: 'Università degli Studi di Torino', seats: 32, seatsLeft: '3', round1Cutoff: '76.8', finalCutoff: '70.5' },
       { university: 'Università di Roma «Tor Vergata»', seats: 15, seatsLeft: '2', round1Cutoff: '75.9', finalCutoff: '69.9' },
       { university: 'Università degli Studi di Pavia', seats: 40, seatsLeft: '2', round1Cutoff: '74.8', finalCutoff: '68.4' },
-      { university: 'Università degli Studi di Firenze', seats: 15, seatsLeft: '1', round1Cutoff: '74.0', finalCutoff: '68.1' },
-      { university: 'Università degli Studi di Parma', seats: 45, seatsLeft: '4', round1Cutoff: '73.0', finalCutoff: '66.9' },
+      { university: 'Università degli Studi di Parma (Piacenza)', seats: 45, seatsLeft: '4', round1Cutoff: '73.0', finalCutoff: '66.9' },
       { university: 'Università di Napoli Federico II', seats: 25, seatsLeft: '2', round1Cutoff: '72.1', finalCutoff: '65.8' },
-      { university: 'Università degli Studi di Siena', seats: 14, seatsLeft: '1', round1Cutoff: '71.4', finalCutoff: '65.3' },
+      { university: 'Università degli Studi di Siena (Dentistry LM-46)', seats: 14, seatsLeft: '1', round1Cutoff: '71.4', finalCutoff: '65.3' },
       { university: 'Università Politecnica delle Marche', seats: 25, seatsLeft: '2', round1Cutoff: '70.6', finalCutoff: '64.7' },
       { university: 'Università degli Studi di Bari Aldo Moro', seats: 11, seatsLeft: '1', round1Cutoff: '69.8', finalCutoff: '64.0' },
       { university: 'Università degli Studi di Cagliari', seats: 20, seatsLeft: '2', round1Cutoff: '69.0', finalCutoff: '63.2' },
       { university: 'Università della Campania «Luigi Vanvitelli»', seats: 50, seatsLeft: '4', round1Cutoff: '68.2', finalCutoff: '62.7' },
       { university: 'Università degli Studi di Catania', seats: 30, seatsLeft: '3', round1Cutoff: '67.6', finalCutoff: '62.0' },
       { university: 'Università degli Studi di Messina', seats: 40, seatsLeft: '3', round1Cutoff: '66.8', finalCutoff: '61.4' },
+      { university: 'Università degli Studi di Firenze', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — New for 2026/27' },
+      { university: 'Università degli Studi di Padova — MedTech', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — Launched 2026/27' },
     ],
     '2022': [
       { university: 'Università degli Studi di Milano (La Statale)', seats: 25, seatsLeft: '4', round1Cutoff: '83.1', finalCutoff: '77.0' },
       { university: 'Università degli Studi di Milano-Bicocca', seats: 15, seatsLeft: '2', round1Cutoff: '79.5', finalCutoff: '73.0' },
       { university: 'Università di Roma «La Sapienza»', seats: 13, seatsLeft: '—', round1Cutoff: '78.6', finalCutoff: '72.1' },
-      { university: 'Università degli Studi di Padova — MedTech', seats: 15, seatsLeft: '2', round1Cutoff: '77.8', finalCutoff: '71.5' },
-      { university: 'Università degli Studi di Padova', seats: 25, seatsLeft: '3', round1Cutoff: '76.9', finalCutoff: '70.2' },
+      { university: 'Università degli Studi di Padova (Venice)', seats: 25, seatsLeft: '3', round1Cutoff: '76.9', finalCutoff: '70.2' },
       { university: 'Università di Bologna', seats: 20, seatsLeft: '4', round1Cutoff: '75.2', finalCutoff: '69.0' },
       { university: 'Università degli Studi di Torino', seats: 30, seatsLeft: '4', round1Cutoff: '74.4', finalCutoff: '68.0' },
       { university: 'Università di Roma «Tor Vergata»', seats: 15, seatsLeft: '2', round1Cutoff: '73.5', finalCutoff: '67.2' },
       { university: 'Università degli Studi di Pavia', seats: 35, seatsLeft: '3', round1Cutoff: '72.3', finalCutoff: '65.8' },
-      { university: 'Università degli Studi di Firenze', seats: 15, seatsLeft: '1', round1Cutoff: '71.6', finalCutoff: '65.4' },
-      { university: 'Università degli Studi di Parma', seats: 40, seatsLeft: '4', round1Cutoff: '70.8', finalCutoff: '64.3' },
+      { university: 'Università degli Studi di Parma (Piacenza)', seats: 40, seatsLeft: '4', round1Cutoff: '70.8', finalCutoff: '64.3' },
       { university: 'Università di Napoli Federico II', seats: 25, seatsLeft: '2', round1Cutoff: '69.9', finalCutoff: '63.2' },
-      { university: 'Università degli Studi di Siena', seats: 14, seatsLeft: '1', round1Cutoff: '69.0', finalCutoff: '62.7' },
+      { university: 'Università degli Studi di Siena (Dentistry LM-46)', seats: 14, seatsLeft: '1', round1Cutoff: '69.0', finalCutoff: '62.7' },
       { university: 'Università Politecnica delle Marche', seats: 25, seatsLeft: '3', round1Cutoff: '68.2', finalCutoff: '62.0' },
       { university: 'Università degli Studi di Bari Aldo Moro', seats: 11, seatsLeft: '1', round1Cutoff: '67.5', finalCutoff: '61.4' },
       { university: 'Università degli Studi di Cagliari', seats: 20, seatsLeft: '3', round1Cutoff: '66.7', finalCutoff: '60.6' },
       { university: 'Università della Campania «Luigi Vanvitelli»', seats: 45, seatsLeft: '4', round1Cutoff: '66.0', finalCutoff: '60.0' },
       { university: 'Università degli Studi di Catania', seats: 30, seatsLeft: '3', round1Cutoff: '65.2', finalCutoff: '59.3' },
       { university: 'Università degli Studi di Messina', seats: 35, seatsLeft: '3', round1Cutoff: '64.4', finalCutoff: '58.6' },
+      { university: 'Università degli Studi di Firenze', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — New for 2026/27' },
+      { university: 'Università degli Studi di Padova — MedTech', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — Launched 2026/27' },
     ],
   },
 };
@@ -378,7 +377,7 @@ export default function UniversitiesPage() {
     if (sortBy === 'University Name') results = [...results].sort((a, b) => a.name.localeCompare(b.name));
     else if (sortBy === 'City') results = [...results].sort((a, b) => a.city.localeCompare(b.city));
     else if (sortBy === 'Tuition') results = [...results].sort((a, b) => a.tuitionFeeAnnual - b.tuitionFeeAnnual);
-    else if (sortBy === 'Seats') results = [...results].sort((a, b) => (b.euSeats || b.admissionRatePercent) - (a.euSeats || a.admissionRatePercent));
+    else if (sortBy === 'Seats') results = [...results].sort((a, b) => ((b.euSeats || b.admissionRatePercent || 0) - (a.euSeats || a.admissionRatePercent || 0)));
 
     return results;
   }, [search, filterType, filterRoute, filterBudget, filterRegion, sortBy]);
@@ -395,24 +394,70 @@ export default function UniversitiesPage() {
           <div style={{ position: 'absolute', bottom: '-60px', left: '-60px', width: '400px', height: '400px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(92,237,115,0.08) 0%, transparent 70%)' }} />
         </div>
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <div style={{ maxWidth: '700px' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(92,237,115,0.15)', border: '1px solid rgba(92,237,115,0.3)', borderRadius: '999px', padding: '6px 14px', marginBottom: '24px' }}>
-              <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#5CED73', letterSpacing: '0.05em', textTransform: 'uppercase' }}>🧭 Medicine in Italy</span>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '48px', alignItems: 'center' }}>
+            <div style={{ maxWidth: '640px' }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(92,237,115,0.15)', border: '1px solid rgba(92,237,115,0.3)', borderRadius: '999px', padding: '6px 14px', marginBottom: '24px' }}>
+                <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#5CED73', letterSpacing: '0.05em', textTransform: 'uppercase' }}>🧭 Medicine in Italy · 2026/27 Verified Directory</span>
+              </div>
+              <h1 style={{ fontSize: 'clamp(2.2rem, 5vw, 3.4rem)', fontWeight: 800, color: '#ffffff', lineHeight: 1.15, marginBottom: '20px', fontFamily: 'var(--font-heading)' }}>
+                Find the Medical University<br />
+                <span style={{ color: '#5CED73' }}>That Fits Your Journey.</span>
+              </h1>
+              <p style={{ fontSize: '1.125rem', color: 'rgba(255,255,255,0.78)', lineHeight: 1.7, marginBottom: '36px', maxWidth: '600px' }}>
+                Explore English-taught Medicine programmes across Italy — public and private, admission routes, tuition, seats and historical cutoffs. Filter by what matters to you, then build your shortlist.
+              </p>
+              <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+                <a href="#find-university" className="btn-primary" style={{ fontSize: '0.9375rem' }}>
+                  🔍 Find Your University
+                </a>
+                <a href="#map-section" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', border: '1px solid rgba(255,255,255,0.25)', color: '#fff', borderRadius: '999px', padding: '12px 24px', fontWeight: 600, fontSize: '0.9375rem', transition: 'all 0.2s ease' }}>
+                  📍 Browse the Map
+                </a>
+              </div>
             </div>
-            <h1 style={{ fontSize: 'clamp(2.2rem, 5vw, 3.4rem)', fontWeight: 800, color: '#ffffff', lineHeight: 1.15, marginBottom: '20px', fontFamily: 'var(--font-heading)' }}>
-              Find the Medical University<br />
-              <span style={{ color: '#5CED73' }}>That Fits Your Journey.</span>
-            </h1>
-            <p style={{ fontSize: '1.125rem', color: 'rgba(255,255,255,0.78)', lineHeight: 1.7, marginBottom: '36px', maxWidth: '600px' }}>
-              Explore English-taught Medicine programmes across Italy — public and private, admission routes, tuition, seats and historical cutoffs. Filter by what matters to you, then build your shortlist.
-            </p>
-            <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
-              <a href="#find-university" className="btn-primary" style={{ fontSize: '0.9375rem' }}>
-                🔍 Find Your University
-              </a>
-              <a href="#map-section" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', border: '1px solid rgba(255,255,255,0.25)', color: '#fff', borderRadius: '999px', padding: '12px 24px', fontWeight: 600, fontSize: '0.9375rem', transition: 'all 0.2s ease' }}>
-                📍 Browse the Map
-              </a>
+
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <div style={{
+                position: 'relative',
+                borderRadius: '24px',
+                overflow: 'hidden',
+                border: '1.5px solid rgba(255,255,255,0.18)',
+                boxShadow: '0 25px 60px rgba(0,0,0,0.45)',
+                background: 'rgba(255,255,255,0.05)',
+                backdropFilter: 'blur(10px)',
+                maxWidth: '460px',
+                width: '100%',
+              }}>
+                <div style={{
+                  position: 'absolute',
+                  top: '14px',
+                  left: '14px',
+                  zIndex: 2,
+                  background: 'rgba(15,23,42,0.85)',
+                  backdropFilter: 'blur(8px)',
+                  border: '1px solid rgba(255,255,255,0.15)',
+                  borderRadius: '999px',
+                  padding: '5px 12px',
+                  fontSize: '0.75rem',
+                  fontWeight: 700,
+                  color: '#5CED73',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px'
+                }}>
+                  <span>📍</span> Medical Faculties Across Italy
+                </div>
+                <img
+                  src="/italy-universities-map.jpg"
+                  alt="Italy Medical Universities Map - IMAT and Private Faculties"
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                    display: 'block',
+                    objectFit: 'contain',
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -524,94 +569,6 @@ export default function UniversitiesPage() {
         </div>
       </section>
 
-      {/* ── 04 FIND YOUR UNIVERSITY ───────────────────────────── */}
-      <section id="find-university" style={{ padding: '80px 0', background: 'linear-gradient(180deg, #fafcfa 0%, #fff 100%)' }}>
-        <div className="container">
-          <FadeUp>
-            <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 800, color: '#0f172a', marginBottom: '8px' }}>
-              What Are You Looking For?
-            </h2>
-            <p style={{ color: '#64748b', marginBottom: '28px' }}>Filter universities by what actually matters to your decision — no score required.</p>
-          </FadeUp>
-
-          {/* Search bar */}
-          <FadeUp delay={80}>
-            <div style={{ position: 'relative', marginBottom: '16px' }}>
-              <span style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', fontSize: '1.1rem' }}>🔍</span>
-              <input
-                type="text"
-                placeholder="Search by university or city — Milan, Pavia, Messina, Rome..."
-                value={search}
-                onChange={e => setSearch(e.target.value)}
-                style={{ width: '100%', padding: '14px 14px 14px 48px', border: '1.5px solid #e2e8f0', borderRadius: '12px', fontSize: '0.9375rem', fontFamily: 'inherit', color: '#0f172a', background: '#fff', outline: 'none', boxShadow: '0 2px 8px rgba(0,0,0,0.04)', transition: 'border-color 0.2s' }}
-                onFocus={e => e.target.style.borderColor = '#059669'}
-                onBlur={e => e.target.style.borderColor = '#e2e8f0'}
-              />
-            </div>
-          </FadeUp>
-
-          {/* Filter toggle */}
-          <FadeUp delay={120}>
-            <button
-              onClick={() => setFiltersOpen(p => !p)}
-              style={{ display: 'flex', alignItems: 'center', gap: '8px', background: filtersOpen ? '#059669' : '#f1f5f9', color: filtersOpen ? '#fff' : '#334155', border: 'none', borderRadius: '10px', padding: '10px 18px', fontWeight: 600, fontSize: '0.875rem', cursor: 'pointer', transition: 'all 0.2s', marginBottom: '16px' }}
-            >
-              ⚙️ Filters
-              {activeFilters.length > 0 && (
-                <span style={{ background: filtersOpen ? 'rgba(255,255,255,0.25)' : '#059669', color: '#fff', borderRadius: '999px', padding: '1px 8px', fontSize: '0.75rem', marginLeft: '4px' }}>{activeFilters.length}</span>
-              )}
-              {filtersOpen ? '▲' : '▼'}
-            </button>
-          </FadeUp>
-
-          {/* Filter panel */}
-          {filtersOpen && (
-            <FadeUp>
-              <div style={{ background: '#fff', border: '1.5px solid #e2e8f0', borderRadius: '16px', padding: '24px', marginBottom: '16px', display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px,1fr))', gap: '20px' }}>
-                {[
-                  { label: 'Admission Route', opts: ['IMAT', 'University-specific'], val: filterRoute, set: setFilterRoute },
-                  { label: 'Type', opts: ['Public', 'Private'], val: filterType, set: setFilterType },
-                  { label: 'Tuition Budget', opts: ['Lower', 'Moderate', 'Higher'], val: filterBudget, set: setFilterBudget },
-                  { label: 'Region', opts: ['North', 'Central', 'South & Islands'], val: filterRegion, set: setFilterRegion },
-                ].map((f, fi) => (
-                  <div key={fi}>
-                    <p style={{ fontWeight: 700, fontSize: '0.8125rem', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '10px' }}>{f.label}</p>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                      {f.opts.map(opt => {
-                        const active = f.val.includes(opt);
-                        return (
-                          <button
-                            key={opt}
-                            onClick={() => f.set((p: string[]) => active ? p.filter((x: string) => x !== opt) : [...p, opt])}
-                            style={{ textAlign: 'left', padding: '7px 12px', borderRadius: '8px', fontSize: '0.875rem', fontWeight: active ? 700 : 500, background: active ? '#f0fff4' : 'transparent', color: active ? '#059669' : '#475569', border: active ? '1px solid #bbf7d0' : '1px solid transparent', cursor: 'pointer', transition: 'all 0.15s' }}
-                          >
-                            {active ? '✓ ' : ''}{opt}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </FadeUp>
-          )}
-
-          {/* Active filter chips */}
-          {activeFilters.length > 0 && (
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '20px', alignItems: 'center' }}>
-              {activeFilters.map((f, i) => (
-                <span key={i} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#f0fff4', color: '#059669', border: '1px solid #bbf7d0', borderRadius: '999px', padding: '5px 12px', fontSize: '0.8125rem', fontWeight: 600 }}>
-                  {f.label}
-                  <button onClick={f.clear} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, lineHeight: 1, color: '#059669', fontSize: '0.875rem' }}>×</button>
-                </span>
-              ))}
-              <button onClick={clearAllFilters} style={{ background: 'none', border: 'none', color: '#ef4444', fontSize: '0.8125rem', fontWeight: 600, cursor: 'pointer', padding: '4px 8px' }}>
-                Clear All
-              </button>
-            </div>
-          )}
-        </div>
-      </section>
 
       {/* ── 05 MAP EXPLORER ───────────────────────────────────── */}
       <section id="map-section" style={{ padding: '0 0 50px', background: '#fff' }}>
@@ -862,8 +819,84 @@ export default function UniversitiesPage() {
       </section>
 
       {/* ── 06 RESULTS & SHORTLIST ────────────────────────────── */}
-      <section style={{ padding: '20px 0 80px', background: '#fff' }}>
+      <section id="find-university" style={{ padding: '40px 0 80px', background: '#fff' }}>
         <div className="container">
+          {/* Integrated Search & Filter Controls */}
+          <FadeUp>
+            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '16px' }}>
+              <div style={{ position: 'relative', flex: 1, minWidth: '260px' }}>
+                <span style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', fontSize: '1.1rem' }}>🔍</span>
+                <input
+                  type="text"
+                  placeholder="Search universities or cities — Milan, Pavia, Messina, Rome, Bologna..."
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                  style={{ width: '100%', padding: '13px 14px 13px 48px', border: '1.5px solid #e2e8f0', borderRadius: '12px', fontSize: '0.9375rem', fontFamily: 'inherit', color: '#0f172a', background: '#fff', outline: 'none', boxShadow: '0 2px 8px rgba(0,0,0,0.03)', transition: 'border-color 0.2s' }}
+                  onFocus={e => e.target.style.borderColor = '#059669'}
+                  onBlur={e => e.target.style.borderColor = '#e2e8f0'}
+                />
+              </div>
+
+              <button
+                onClick={() => setFiltersOpen(p => !p)}
+                style={{ display: 'flex', alignItems: 'center', gap: '8px', background: filtersOpen ? '#059669' : '#f1f5f9', color: filtersOpen ? '#fff' : '#334155', border: 'none', borderRadius: '12px', padding: '13px 20px', fontWeight: 600, fontSize: '0.875rem', cursor: 'pointer', transition: 'all 0.2s' }}
+              >
+                ⚙️ Filters
+                {activeFilters.length > 0 && (
+                  <span style={{ background: filtersOpen ? 'rgba(255,255,255,0.25)' : '#059669', color: '#fff', borderRadius: '999px', padding: '1px 8px', fontSize: '0.75rem', marginLeft: '4px' }}>{activeFilters.length}</span>
+                )}
+                {filtersOpen ? '▲' : '▼'}
+              </button>
+            </div>
+          </FadeUp>
+
+          {/* Filter panel */}
+          {filtersOpen && (
+            <FadeUp>
+              <div style={{ background: '#f8fafc', border: '1.5px solid #e2e8f0', borderRadius: '16px', padding: '22px', marginBottom: '20px', display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px,1fr))', gap: '20px' }}>
+                {[
+                  { label: 'Admission Route', opts: ['IMAT', 'University-specific'], val: filterRoute, set: setFilterRoute },
+                  { label: 'Type', opts: ['Public', 'Private'], val: filterType, set: setFilterType },
+                  { label: 'Tuition Budget', opts: ['Lower', 'Moderate', 'Higher'], val: filterBudget, set: setFilterBudget },
+                  { label: 'Region', opts: ['North', 'Central', 'South & Islands'], val: filterRegion, set: setFilterRegion },
+                ].map((f, fi) => (
+                  <div key={fi}>
+                    <p style={{ fontWeight: 700, fontSize: '0.8125rem', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '10px' }}>{f.label}</p>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                      {f.opts.map(opt => {
+                        const active = f.val.includes(opt);
+                        return (
+                          <button
+                            key={opt}
+                            onClick={() => f.set((p: string[]) => active ? p.filter((x: string) => x !== opt) : [...p, opt])}
+                            style={{ textAlign: 'left', padding: '7px 12px', borderRadius: '8px', fontSize: '0.875rem', fontWeight: active ? 700 : 500, background: active ? '#f0fff4' : '#fff', color: active ? '#059669' : '#475569', border: active ? '1px solid #bbf7d0' : '1px solid #e2e8f0', cursor: 'pointer', transition: 'all 0.15s' }}
+                          >
+                            {active ? '✓ ' : ''}{opt}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </FadeUp>
+          )}
+
+          {/* Active filter chips */}
+          {activeFilters.length > 0 && (
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '20px', alignItems: 'center' }}>
+              {activeFilters.map((f, i) => (
+                <span key={i} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#f0fff4', color: '#059669', border: '1px solid #bbf7d0', borderRadius: '999px', padding: '5px 12px', fontSize: '0.8125rem', fontWeight: 600 }}>
+                  {f.label}
+                  <button onClick={f.clear} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, lineHeight: 1, color: '#059669', fontSize: '0.875rem' }}>×</button>
+                </span>
+              ))}
+              <button onClick={clearAllFilters} style={{ background: 'none', border: 'none', color: '#ef4444', fontSize: '0.8125rem', fontWeight: 600, cursor: 'pointer', padding: '4px 8px' }}>
+                Clear All
+              </button>
+            </div>
+          )}
+
           <FadeUp>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', marginBottom: '24px' }}>
               <p style={{ color: '#475569', fontWeight: 600, fontSize: '0.9375rem' }}>
@@ -1053,17 +1086,38 @@ export default function UniversitiesPage() {
       <section id="cutoff-history" style={{ padding: '80px 0', background: '#fafcfa' }}>
         <div className="container">
           <FadeUp>
-            <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 800, color: '#0f172a', marginBottom: '10px' }}>
-              IMAT Cutoff History
-            </h2>
-            <p style={{ color: '#64748b', marginBottom: '8px', maxWidth: '620px', lineHeight: 1.6 }}>
-              Historical reference only — applies to public (IMAT-route) universities. Private universities do not publish comparable national cutoff data.
-            </p>
-            <div style={{ background: 'linear-gradient(135deg, #fffbeb, #fef3c7)', border: '1px solid #fde68a', borderRadius: '12px', padding: '12px 18px', display: 'flex', gap: '10px', alignItems: 'flex-start', maxWidth: '620px', marginBottom: '28px' }}>
-              <span style={{ flexShrink: 0, marginTop: '2px' }}>⚠️</span>
-              <p style={{ color: '#78350f', fontSize: '0.8125rem', margin: 0, lineHeight: 1.6 }}>
-                <strong>Historical cutoffs are reference points, not guarantees</strong> — competition and seat availability change every year. Source: Universitaly.it official published results. Includes latest 2025 final cutoffs.
-              </p>
+            <div style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '24px',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: '20px',
+            }}>
+              <div style={{ flex: '1 1 340px', maxWidth: '560px' }}>
+                <h2 style={{ fontSize: 'clamp(1.4rem, 2.5vw, 1.85rem)', fontWeight: 800, color: '#0f172a', marginBottom: '6px' }}>
+                  IMAT Cutoff History
+                </h2>
+                <p style={{ color: '#64748b', fontSize: '0.875rem', lineHeight: 1.5, margin: 0 }}>
+                  Historical reference only — applies to public (IMAT-route) universities. Private universities do not publish comparable national cutoff data.
+                </p>
+              </div>
+
+              <div style={{
+                flex: '1 1 360px',
+                background: 'linear-gradient(135deg, #fffbeb, #fef3c7)',
+                border: '1px solid #fde68a',
+                borderRadius: '12px',
+                padding: '12px 18px',
+                display: 'flex',
+                gap: '10px',
+                alignItems: 'flex-start',
+              }}>
+                <span style={{ flexShrink: 0, marginTop: '1px' }}>⚠️</span>
+                <p style={{ color: '#78350f', fontSize: '0.8125rem', margin: 0, lineHeight: 1.5 }}>
+                  <strong>Historical cutoffs are reference points, not guarantees</strong> — competition and seat availability change every year. Source: Universitaly.it official published results. Includes latest 2025 final cutoffs.
+                </p>
+              </div>
             </div>
           </FadeUp>
 

@@ -259,7 +259,7 @@ export interface University {
   durationYears: number;
   language: string;
   intakes: string[];
-  admissionRatePercent: number;
+  admissionRatePercent?: number;
   overview: string;
   eligibility: string;
   imageUrl: string;

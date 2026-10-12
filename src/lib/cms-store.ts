@@ -558,7 +558,7 @@ const PORTAL_TICKER_KEY = 'ahsora_cms_portal_ticker';
 
 const INITIAL_PORTAL_TICKER: PortalTickerConfig = {
   isActive: true,
-  speedSeconds: 26,
+  speedSeconds: 65,
   bgStyle: 'emerald',
   items: [
     { id: 'pt-1', text: '🎓 Full-Length IMAT 2027 CBT Mock Test #12 is now live in Mock Exams!', icon: '🎯' },
@@ -574,7 +574,13 @@ export function getPortalTickerConfig(): PortalTickerConfig {
   if (typeof window === 'undefined') return INITIAL_PORTAL_TICKER;
   try {
     const data = localStorage.getItem(PORTAL_TICKER_KEY);
-    return data ? JSON.parse(data) : INITIAL_PORTAL_TICKER;
+    if (!data) return INITIAL_PORTAL_TICKER;
+    const parsed = JSON.parse(data);
+    // If previously saved with fast speed (e.g. 26s), automatically smooth to readable 65s
+    if (parsed && typeof parsed.speedSeconds === 'number' && parsed.speedSeconds < 45) {
+      parsed.speedSeconds = 65;
+    }
+    return parsed;
   } catch {
     return INITIAL_PORTAL_TICKER;
   }

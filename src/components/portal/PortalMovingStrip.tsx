@@ -43,7 +43,7 @@ export default function PortalMovingStrip() {
     return null;
   }
 
-  const speed = config.speedSeconds || 26;
+  const speed = Math.max(config.speedSeconds || 65, 50);
   const duplicated = [...config.items, ...config.items, ...config.items];
 
   // Theme styling based on config.bgStyle

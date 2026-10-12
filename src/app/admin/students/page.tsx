@@ -149,7 +149,19 @@ export default function AdminStudentsPage() {
       if (res.ok) {
         const json = await res.json();
         if (json.success && Array.isArray(json.students) && json.students.length > 0) {
-          combinedList = json.students;
+          combinedList = json.students.map((s: StudentProfile) => {
+            const resolved = resolveStudentPkg(s.email, s.id);
+            const rawPkg = resolved?.selectedPackage || s.selected_package || s.selectedPackage || 'Ahsora IMAT Ascend';
+            const matched = getPackageByIdOrName(rawPkg);
+            const rawPrice = resolved?.packagePrice || s.package_price || s.packagePrice || matched.price;
+            return {
+              ...s,
+              selected_package: matched.name,
+              selectedPackage: matched.name,
+              package_price: rawPrice,
+              packagePrice: rawPrice,
+            };
+          });
         }
       }
     } catch (apiErr) {
@@ -697,30 +709,12 @@ export default function AdminStudentsPage() {
                             </div>
                           </div>
 
-                          {/* Quick package changer */}
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                            <span style={{ fontSize: '0.7rem', color: '#94A3B8', fontWeight: 600 }}>Tier:</span>
-                            <select
-                              value={matchedPkg.name}
-                              onChange={(e) => handleUpdatePackage(student.id, student.email, e.target.value)}
-                              style={{
-                                fontSize: '0.75rem',
-                                fontWeight: 700,
-                                padding: '3px 8px',
-                                borderRadius: '6px',
-                                border: '1px solid #CBD5E1',
-                                backgroundColor: '#FFFFFF',
-                                color: '#334155',
-                                cursor: 'pointer',
-                                outline: 'none',
-                              }}
-                            >
-                              {ACADEMY_PACKAGES.map((p) => (
-                                <option key={p.id} value={p.name}>
-                                  {p.name} ({p.price})
-                                </option>
-                              ))}
-                            </select>
+                          {/* Enrolled Package Badge (Non-editable) */}
+                          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '3px 8px', borderRadius: '6px', background: matchedPkg.id === 'elite' ? '#FFF7ED' : matchedPkg.id === 'mastery' ? '#F0FDF4' : '#F8FAFC', border: matchedPkg.id === 'elite' ? '1px solid #FFEDD5' : matchedPkg.id === 'mastery' ? '1px solid #DCFCE7' : '1px solid #E2E8F0' }}>
+                            <span style={{ fontSize: '0.72rem', fontWeight: 800, color: matchedPkg.id === 'elite' ? '#C2410C' : matchedPkg.id === 'mastery' ? '#047857' : '#334155' }}>
+                              {matchedPkg.id === 'elite' ? '👑 Elite' : matchedPkg.id === 'mastery' ? '⚡ Mastery' : '🎓 Ascend'}
+                            </span>
+                            <span style={{ fontSize: '0.65rem', color: '#94A3B8', fontWeight: 600 }}>• Enrolled</span>
                           </div>
                         </div>
                       </td>
@@ -868,29 +862,29 @@ export default function AdminStudentsPage() {
             <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '14px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px dashed #E2E8F0', paddingBottom: '12px' }}>
                 <span style={{ color: '#64748B', fontSize: '0.875rem' }}>Purchased Package</span>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <select
-                    value={getPackageByIdOrName(viewingStudent.selected_package || viewingStudent.selectedPackage).name}
-                    onChange={(e) => handleUpdatePackage(viewingStudent.id, viewingStudent.email, e.target.value)}
-                    style={{
-                      fontSize: '0.8125rem',
-                      fontWeight: 800,
-                      padding: '5px 12px',
-                      borderRadius: '8px',
-                      border: '1px solid #CBD5E1',
-                      backgroundColor: '#FFFFFF',
-                      color: '#0F172A',
-                      cursor: 'pointer',
-                      outline: 'none',
-                    }}
-                  >
-                    {ACADEMY_PACKAGES.map((p) => (
-                      <option key={p.id} value={p.name}>
-                        {p.name} ({p.price})
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                {(() => {
+                  const viewingPkg = getPackageByIdOrName(viewingStudent.selected_package || viewingStudent.selectedPackage);
+                  return (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span
+                        style={{
+                          fontSize: '0.8125rem',
+                          fontWeight: 800,
+                          padding: '5px 12px',
+                          borderRadius: '8px',
+                          border: viewingPkg.id === 'elite' ? '1px solid #FDBA74' : viewingPkg.id === 'mastery' ? '1px solid #A7F3D0' : '1px solid #CBD5E1',
+                          backgroundColor: viewingPkg.id === 'elite' ? '#FFF7ED' : viewingPkg.id === 'mastery' ? '#ECFDF5' : '#FFFFFF',
+                          color: viewingPkg.id === 'elite' ? '#C2410C' : viewingPkg.id === 'mastery' ? '#047857' : '#0F172A',
+                        }}
+                      >
+                        {viewingPkg.name} ({viewingStudent.package_price || viewingStudent.packagePrice || viewingPkg.price})
+                      </span>
+                      <span style={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 600, background: '#F1F5F9', border: '1px solid #E2E8F0', padding: '3px 8px', borderRadius: '6px' }}>
+                        🔒 Registered Tier
+                      </span>
+                    </div>
+                  );
+                })()}
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed #E2E8F0', paddingBottom: '10px' }}>

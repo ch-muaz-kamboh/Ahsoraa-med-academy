@@ -765,54 +765,16 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
               <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '6px' }}>
                 Enrolled Package Plan
               </label>
-              <select
-                value={studentTier}
-                onChange={(e) => {
-                  const targetPkg = ACADEMY_PACKAGES.find((p) => p.id === e.target.value);
-                  if (targetPkg) {
-                    updateProfile({ selectedPackage: targetPkg.name, packagePrice: targetPkg.price });
-                    saveStudentPackageMapping(currentUser.email, targetPkg.name, targetPkg.price);
-                    try {
-                      const recentStr = localStorage.getItem('recentRegistration');
-                      if (recentStr) {
-                        const parsed = JSON.parse(recentStr);
-                        parsed.selectedPackage = targetPkg.name;
-                        parsed.packagePrice = targetPkg.price;
-                        localStorage.setItem('recentRegistration', JSON.stringify(parsed));
-                      }
-                    } catch {}
-                    try {
-                      fetch('/api/admin/students', {
-                        method: 'PATCH',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                          studentEmail: currentUser.email,
-                          selectedPackage: targetPkg.name,
-                          packagePrice: targetPkg.price,
-                        }),
-                      }).catch(() => {});
-                    } catch {}
-                  }
-                }}
-                style={{
-                  width: '100%',
-                  padding: '8px 10px',
-                  borderRadius: '6px',
-                  border: '1px solid #CBD5E1',
-                  backgroundColor: '#FFFFFF',
-                  fontSize: '0.875rem',
-                  fontWeight: 600,
-                  color: '#0F172A',
-                }}
-              >
-                {ACADEMY_PACKAGES.map((pkg) => (
-                  <option key={pkg.id} value={pkg.id}>
-                    {pkg.name} ({pkg.price})
-                  </option>
-                ))}
-              </select>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 12px', borderRadius: '8px', backgroundColor: '#FFFFFF', border: '1px solid #CBD5E1' }}>
+                <span style={{ fontSize: '0.875rem', fontWeight: 800, color: studentTier === 'elite' ? '#C2410C' : studentTier === 'mastery' ? '#047857' : '#0F172A' }}>
+                  {currentPkgObj.name} ({currentPkgObj.price})
+                </span>
+                <span style={{ fontSize: '0.7rem', fontWeight: 700, color: '#059669', backgroundColor: '#ECFDF5', padding: '2px 8px', borderRadius: '6px' }}>
+                  Active Plan
+                </span>
+              </div>
               <div style={{ marginTop: '6px', fontSize: '0.75rem', color: '#64748B', lineHeight: 1.4 }}>
-                Selected plan controls access: <strong>Ascend</strong> locks Schedule, MedPath & Docs. <strong>Mastery</strong> unlocks Schedule. <strong>Elite</strong> unlocks everything.
+                Your package tier was assigned upon registration. Contact your counselor to upgrade.
               </div>
             </div>
 
