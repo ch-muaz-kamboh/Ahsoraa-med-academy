@@ -124,7 +124,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         }}
       >
         <Link href="/portal/dashboard" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-          <Logo height={sidebarExpanded ? 48 : 32} />
+          <Logo height={sidebarExpanded ? 40 : 32} iconOnly={!sidebarExpanded} />
         </Link>
         {/* Toggle button placed to the right */}
         <button

@@ -66,7 +66,7 @@ export default function AdminSidebar() {
           gap: '10px',
         }}
       >
-        <Logo height={48} />
+        <Logo height={44} variant="white" />
       </div>
 
       {/* Navigation Links */}

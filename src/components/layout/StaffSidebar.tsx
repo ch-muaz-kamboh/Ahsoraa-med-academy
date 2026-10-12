@@ -143,7 +143,7 @@ export default function StaffSidebar() {
       {/* Brand Header */}
       <div style={{ padding: '24px 20px', borderBottom: '1px solid #1E293B' }}>
         <Link href="/" style={{ textDecoration: 'none', display: 'block', marginBottom: '8px' }}>
-          <Logo height={48} variant="dark" />
+          <Logo height={44} variant="white" />
         </Link>
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', color: '#10B981', fontWeight: 600 }}>
           <Sparkles size={14} />
