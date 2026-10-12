@@ -786,14 +786,24 @@ export default function CoursesPage() {
       <section style={{ padding: '70px 0', backgroundColor: '#FFFFFF' }}>
         <div className="container">
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '56px', alignItems: 'center' }}>
-            <div ref={observe} className="scroll-fade-right" style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-xl)', minHeight: '340px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '16px', padding: '36px', border: '1px solid var(--border-light)', position: 'relative' }}>
-              <div style={{ width: '100px', height: '100px', borderRadius: '50%', backgroundColor: '#E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '4px solid #fff', boxShadow: 'var(--shadow-md)' }}>
-                <Users size={40} color="var(--text-light)" />
+            <div ref={observe} className="scroll-fade-right" style={{ backgroundColor: '#0F172A', borderRadius: 'var(--radius-xl)', minHeight: '380px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '18px', padding: '36px', border: '1px solid rgba(255, 255, 255, 0.1)', position: 'relative', overflow: 'hidden', boxShadow: '0 20px 40px -15px rgba(0, 0, 0, 0.2)' }}>
+              <div style={{ position: 'relative', width: '160px', height: '160px', borderRadius: '50%', overflow: 'hidden', border: '4px solid #10B981', boxShadow: '0 8px 24px rgba(16, 185, 129, 0.25)' }}>
+                <Image
+                  src="/ahsan-jahangir.jpg"
+                  alt="Ahsan Jahangir — Founder of Ahsora Med Academy"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center 20%' }}
+                  sizes="160px"
+                  priority
+                />
               </div>
-              <div style={{ color: 'var(--text-light)', fontSize: '0.82rem', fontStyle: 'italic', textAlign: 'center' }}>Real founder photo — coming soon</div>
-              <div style={{ backgroundColor: 'var(--text-primary)', borderRadius: 'var(--radius-md)', padding: '14px 20px', textAlign: 'center', width: '100%', marginTop: '12px' }}>
-                <div style={{ color: 'var(--primary-400)', fontWeight: 700, fontSize: '0.88rem' }}>Final-Year Medicine & Surgery Student</div>
-                <div style={{ color: 'var(--text-light)', fontSize: '0.8rem', marginTop: '4px' }}>University of Messina, Italy · Founder, Ahsora Med Academy</div>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ color: '#FFFFFF', fontWeight: 800, fontSize: '1.25rem' }}>Ahsan Jahangir</div>
+                <div style={{ color: '#34D399', fontWeight: 700, fontSize: '0.85rem', marginTop: '2px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Founder & Academic Director</div>
+              </div>
+              <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', borderRadius: 'var(--radius-md)', padding: '12px 20px', textAlign: 'center', width: '100%', border: '1px solid rgba(255, 255, 255, 0.08)' }}>
+                <div style={{ color: '#E2E8F0', fontWeight: 600, fontSize: '0.88rem' }}>Final-Year Medicine & Surgery Student</div>
+                <div style={{ color: '#94A3B8', fontSize: '0.8rem', marginTop: '4px' }}>University of Messina, Italy · Ahsora Med Academy</div>
               </div>
             </div>
             <div ref={observe} className="scroll-fade-left">
