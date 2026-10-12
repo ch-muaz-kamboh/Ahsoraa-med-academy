@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { CHATBOT_SYSTEM_PROMPT } from '@/lib/chatbot-knowledge';
+import { CHATBOT_SYSTEM_PROMPT, getInstantKnowledgeReply } from '@/lib/chatbot-knowledge';
 
 // In-memory rate limiting map: ip -> timestamps[]
 const rateLimitMap = new Map<string, number[]>();
 const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
-const MAX_REQUESTS_PER_WINDOW = 15; // Max 15 requests per minute per IP
+const MAX_REQUESTS_PER_WINDOW = 25; // Generous 25 requests per minute per IP
 
 function isRateLimited(ip: string): boolean {
   const now = Date.now();
@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
     if (isRateLimited(ip)) {
       return NextResponse.json(
         {
-          error: 'Rate limit exceeded. Please wait a minute before sending more messages, or contact us directly at admissions@ahsorameds.com.',
+          error: 'Rate limit exceeded. Please wait a minute before sending more messages, or contact us directly on WhatsApp at +39 333 3444 479.',
         },
         { status: 429 }
       );
@@ -60,23 +60,18 @@ export async function POST(req: NextRequest) {
     }
 
     const message = rawMessage.trim();
-    if (message.length > 600) {
+    if (message.length > 800) {
       return NextResponse.json(
-        { error: 'Message is too long. Please keep your question under 600 characters.' },
+        { error: 'Message is too long. Please keep your question under 800 characters.' },
         { status: 400 }
       );
     }
 
-    // 3. Check API key
+    // 3. Check API key - if missing, use instant verified knowledge engine immediately
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey || apiKey.trim() === '' || apiKey.includes('YOUR_')) {
-      return NextResponse.json(
-        {
-          reply:
-            "Hello! Our AI customer support assistant is currently being set up. In the meantime, you can review our packages on our website or get instant answers directly from our admissions team at [admissions@ahsorameds.com](mailto:admissions@ahsorameds.com) or WhatsApp at **+39 333 3444 479**.",
-        },
-        { status: 200 }
-      );
+      const offlineReply = getInstantKnowledgeReply(message);
+      return NextResponse.json({ reply: offlineReply }, { status: 200 });
     }
 
     // 4. Sanitize history (last 8 turns max to control context size)
@@ -92,9 +87,16 @@ export async function POST(req: NextRequest) {
     // 5. Initialize Google Generative AI
     const genAI = new GoogleGenerativeAI(apiKey);
 
-    // Use active supported models for this Gemini API account
-    const candidateModels = ['gemini-3.8-flash', 'gemini-3.7-flash', 'gemini-3.5-flash', 'gemini-flash-latest'];
-    let lastError: any = null;
+    // Support all production Google Gemini models with automatic cascading fallback
+    const candidateModels = [
+      'gemini-2.0-flash',
+      'gemini-1.5-flash',
+      'gemini-2.5-flash',
+      'gemini-flash-latest',
+      'gemini-3.8-flash',
+      'gemini-1.5-pro',
+    ];
+
     let replyText = '';
 
     for (const modelName of candidateModels) {
@@ -112,72 +114,39 @@ export async function POST(req: NextRequest) {
           history: formattedHistory,
         });
 
-        // Add timeout controller (15s)
+        // Add 12s timeout to keep chat snappy
         const timeoutPromise = new Promise<never>((_, reject) =>
-          setTimeout(() => reject(new Error('Request timed out')), 15000)
+          setTimeout(() => reject(new Error('Request timed out')), 12000)
         );
 
         const resultPromise = chat.sendMessage(message);
         const result: any = await Promise.race([resultPromise, timeoutPromise]);
         const response = await result.response;
-        replyText = response.text();
+        const text = response.text();
 
-        if (replyText) {
-          break; // Successfully generated response
+        if (text && text.trim().length > 0) {
+          replyText = text.trim();
+          break; // Successfully generated response!
         }
       } catch (err: any) {
-        lastError = err;
-        // If it's a model-not-found error, loop to next candidate
-        const errMsg = String(err?.message || '');
-        if (errMsg.includes('not found') || errMsg.includes('404')) {
-          continue;
-        }
-        // If quota or authentication, break early to handle
-        break;
+        console.warn(`Gemini model ${modelName} failed, trying next candidate:`, err?.message || err);
+        // Continue to next candidate model
       }
     }
 
-    if (!replyText) {
-      const errString = String(lastError?.message || '');
-      if (errString.includes('quota') || errString.includes('429') || errString.includes('RESOURCE_EXHAUSTED')) {
-        return NextResponse.json(
-          {
-            reply:
-              "We are experiencing high chat volume at the moment! All our package details and admissions guides are available on our website. You can also contact our team directly at [admissions@ahsorameds.com](mailto:admissions@ahsorameds.com) or WhatsApp **+39 333 3444 479**.",
-          },
-          { status: 200 }
-        );
-      }
-
-      if (errString.includes('API_KEY_INVALID') || errString.includes('invalid') || errString.includes('401') || errString.includes('403')) {
-        return NextResponse.json(
-          {
-            reply:
-              "Welcome to Ahsora Med Academy! For any questions about our **Ahsora IMAT Ascend (€299)**, **Ahsora IMAT Mastery (€499)**, or **Ahsora Path Elite (€799)** packages, registration is open at [Register Now](/register). You can also speak with an advisor on WhatsApp at **+39 333 3444 479**.",
-          },
-          { status: 200 }
-        );
-      }
-
-      // General fallback
-      return NextResponse.json(
-        {
-          reply:
-            "I apologize, but I am momentarily unable to reach the knowledge service. Please explore our [Packages & Pricing](/register) or contact admissions at [admissions@ahsorameds.com](mailto:admissions@ahsorameds.com) / WhatsApp at **+39 333 3444 479**.",
-        },
-        { status: 200 }
-      );
+    // 6. If AI response is available, return it!
+    if (replyText) {
+      return NextResponse.json({ reply: replyText }, { status: 200 });
     }
 
-    return NextResponse.json({ reply: replyText }, { status: 200 });
+    // 7. Resilient Grounded Knowledge Fallback:
+    // If the external AI API is unreachable or rate limited, answer directly from the comprehensive knowledge base!
+    const groundedAnswer = getInstantKnowledgeReply(message);
+    return NextResponse.json({ reply: groundedAnswer }, { status: 200 });
   } catch (err: any) {
     console.error('Chatbot API route error:', err);
-    return NextResponse.json(
-      {
-        reply:
-          "Something went wrong while processing your request. Please reach out directly to [admissions@ahsorameds.com](mailto:admissions@ahsorameds.com) or WhatsApp at **+39 333 3444 479** for immediate help.",
-      },
-      { status: 200 }
-    );
+    // Never show an error screen to visitors; provide verified instant answer
+    const emergencyReply = getInstantKnowledgeReply('packages and contact');
+    return NextResponse.json({ reply: emergencyReply }, { status: 200 });
   }
 }
