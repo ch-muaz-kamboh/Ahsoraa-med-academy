@@ -177,8 +177,13 @@ CONTACT CHANNELS:
 - Offices in Messina, Italy and Lahore, Pakistan.
 
 OFFICIAL IMAT INFORMATION & DATES RULES:
-- The IMAT is organized by the Italian Ministry of University and Research (MUR).
+- The IMAT (International Medical Admissions Test) is organized by the Italian Ministry of University and Research (MUR) for entry into 100% English-taught public medical schools in Italy.
 - Format: 60 multiple-choice questions, 100 minutes. Correct: +1.5, Wrong: -0.4, Blank: 0. Max 90 points.
+- Subjects: Biology (23 Qs), Chemistry (15 Qs), Physics & Maths (13 Qs), Logical Reasoning (5 Qs), Reading Skills & General Knowledge (4 Qs).
+- Eligibility: Minimum 12 years of formal schooling qualifying for university in home country. No minimum high school GPA required.
+- Language: 100% in English. No Italian language test required for admission.
+- EU vs Non-EU: Non-EU students choose ONE 1st-choice university; EU students participate in national ranking with scorrimenti.
+- Test Centres: Authorized university centres in Italy and worldwide (London, New York, Islamabad, Dubai, Riyadh, Ankara, New Delhi, etc.).
 - Official authoritative websites:
   * [Universitaly](https://www.universitaly.it/)
   * [Accesso Programmato](https://accessoprogrammato.mur.gov.it/)
@@ -355,27 +360,174 @@ Need help with registration? Reach out to our admissions team directly on WhatsA
     q.includes('math') ||
     q.includes('physics')
   ) {
-    return `### Official IMAT Test Structure & Scoring Scheme
+    return `### Official IMAT Test Structure, Syllabus & Scoring
 
-The IMAT is a paper-based exam conducted in English:
+The IMAT (International Medical Admissions Test) is a 100-minute, paper-based exam conducted entirely in English:
 
 * **Total Questions:** 60 Multiple-Choice Questions (5 options each)
-* **Duration:** 100 Minutes
+* **Duration:** 100 Minutes (single test session)
 * **Maximum Score:** 90 Points
 
-**Official Scoring Scheme:**
+**Official MUR Scoring Scheme:**
 * **+1.5 points** for each correct answer
 * **-0.4 points** penalty for each incorrect answer (negative marking)
 * **0 points** for unanswered questions
 
-**Subject Breakdown:**
-1. **Biology (23 Questions):** Chemistry of living things, cells, bioenergetics, genetics, anatomy, and physiology.
-2. **Chemistry (15 Questions):** Atomic structure, periodic table, chemical bonds, stoichiometry, solutions, acids & bases, organic chemistry.
-3. **Physics & Mathematics (13 Questions):** Mechanics, thermodynamics, electromagnetism, optics, algebra, geometry, trigonometry, functions.
-4. **Logical Reasoning & Problem Solving (5 Questions):** Critical reasoning and numerical problem solving.
-5. **Reading Skills & General Knowledge (4 Questions):** Passage analysis and historical/scientific literacy.
+**Detailed Subject Breakdown:**
+1. **Biology (23 Questions · ~38.3% of exam):**
+   * Cellular biology, organelles, membrane transport, and enzymes.
+   * Bioenergetics: cellular respiration, photosynthesis, ATP cycle.
+   * Genetics & Evolution: Mendelian inheritance, DNA replication, transcription, translation, and mutations.
+   * Human Anatomy & Physiology: organ systems, nervous, endocrine, circulatory, digestive, respiratory, and urinary systems.
+2. **Chemistry (15 Questions · 25.0% of exam):**
+   * Atomic structure, electronic configurations, and periodic trends.
+   * Chemical bonding: ionic, covalent, metallic, intermolecular forces.
+   * Stoichiometry, gas laws, solutions, molarity, and solubility.
+   * Chemical equilibria, acids & bases, pH calculations, and redox reactions.
+   * Organic chemistry fundamentals: hydrocarbons, functional groups, and biomolecules.
+3. **Physics & Mathematics (13 Questions · ~21.7% of exam):**
+   * Physics: kinematics, Newton's laws of dynamics, work, energy, thermodynamics, electrostatics, basic DC circuits, optics.
+   * Mathematics: algebra, functions, quadratic equations, analytic geometry, trigonometry, probability & basic statistics.
+4. **Logical Reasoning & Problem Solving (5 Questions · ~8.3% of exam):**
+   * Critical thinking, argument analysis, and numerical problem solving.
+5. **Reading Skills & General Knowledge (4 Questions · ~6.7% of exam):**
+   * Text comprehension and cultural, scientific, or historical literacy.
 
-Practice realistic full-length timed tests on our [Free Mock Page](/free-mock) or get access to all 10 CBT mocks in [Ahsora IMAT Ascend](/register).`;
+Prepare with all 10 timed CBT mock simulations and our 2,500+ question bank on [Ahsora IMAT Packages](/register) or try our [Free Mock](/free-mock).`;
+  }
+
+  // 4b. IMAT Test Centres Worldwide
+  if (
+    q.includes('test centre') ||
+    q.includes('test center') ||
+    q.includes('centres') ||
+    q.includes('centers') ||
+    q.includes('where to sit') ||
+    q.includes('where can i take') ||
+    q.includes('where is the test held') ||
+    q.includes('pakistan test') ||
+    q.includes('exam location')
+  ) {
+    return `### Official IMAT Test Centres Worldwide
+
+The IMAT is sat **simultaneously worldwide on the same day in September**. When registering on Universitaly, candidates choose an authorized test centre:
+
+* **🇮🇹 Italy (University Campuses):**
+  * Rome (La Sapienza & Tor Vergata), Milan (Statale & Bicocca), Pavia, Bologna, Padua, Turin, Naples (Vanvitelli & Federico II), Pisa, Bari, Catania, Messina, Genoa, etc.
+* **🌍 Europe (Embassies & Cultural Institutes):**
+  * London (United Kingdom), Paris (France), Berlin (Germany), Madrid (Spain), Athens (Greece), Warsaw (Poland), Vienna (Austria), Brussels (Belgium).
+* **🌏 Asia & Middle East:**
+  * Islamabad (Pakistan), Dubai (UAE), Riyadh (Saudi Arabia), Ankara/Istanbul (Turkey), Cairo (Egypt), Beirut (Lebanon), Tehran (Iran), New Delhi (India).
+* **🌎 Americas & Africa:**
+  * New York (USA), Toronto (Canada), Buenos Aires (Argentina), Lagos (Nigeria), Nairobi (Kenya), Addis Ababa (Ethiopia).
+
+⚠️ *Test centre availability is confirmed annually by MUR during July registration on [Universitaly.it](https://www.universitaly.it/). Italian residents must sit at their chosen university; candidates abroad sit at designated local centres.*`;
+  }
+
+  // 4c. IMAT Eligibility, High School Requirements & Language
+  if (
+    q.includes('eligibility') ||
+    q.includes('requirement') ||
+    q.includes('requirements') ||
+    q.includes('who can apply') ||
+    q.includes('high school') ||
+    q.includes('12 years') ||
+    q.includes('gpa') ||
+    q.includes('a level') ||
+    q.includes('ib diploma') ||
+    q.includes('english requirement') ||
+    q.includes('italian language') ||
+    q.includes('do i need italian') ||
+    q.includes('ielts')
+  ) {
+    return `### IMAT Eligibility, High School & Language Requirements
+
+To be eligible for admission to public medical schools in Italy through the IMAT:
+
+1. **12 Years of Formal Schooling:**
+   * You must hold a high school diploma (e.g. A-Levels, IB, High School Diploma, FSc/HSSC, CBSE) obtained after a minimum of **12 years of education**.
+   * If your country has an 11-year school system, you must have completed either 1 year of university studies or an accredited foundation year.
+2. **High School GPA Cutoff:**
+   * **There is NO minimum high school GPA required by MUR** to sit the IMAT or qualify for admission! Admission to public medical schools is determined strictly by your **IMAT exam score**.
+   * You only need a legally valid diploma that qualifies you for university admission in your home country.
+3. **Language Requirements:**
+   * The IMAT exam and all 6 years of the Medicine & Surgery degree are **taught 100% in English**.
+   * **You do NOT need Italian language proficiency** to sit the exam or gain admission! (Universities provide Italian classes in years 1–2 so students can communicate with patients during hospital clinical rotations starting in year 3).
+   * Most universities accept proof of secondary schooling in English or standard English tests (IELTS 6.0–6.5 / TOEFL).
+4. **Legal Document Verification:**
+   * Non-EU candidates require a **Declaration of Value (DOV)** from the Italian Embassy or a **CIMEA Statement of Comparability**. Our **Ahsora Path Elite** package guides you through this step-by-step!
+
+Explore more details on our [Admissions Hub](/universities) or [Register with Ahsora](/register).`;
+  }
+
+  // 4d. EU vs Non-EU Rules & First-Choice University Policy
+  if (
+    q.includes('non-eu') ||
+    q.includes('non eu') ||
+    q.includes('eu candidate') ||
+    q.includes('first choice') ||
+    q.includes('1st choice') ||
+    q.includes('scorrimenti') ||
+    q.includes('quotas') ||
+    q.includes('seat quota')
+  ) {
+    return `### EU vs Non-EU Rules & The 1st-Choice Policy
+
+Italian medical admissions have distinct rules based on citizenship:
+
+* **Non-EU Candidates (Residing Abroad):**
+  * You compete exclusively within the **designated Non-EU seat quota** set by each university.
+  * **The 1st-Choice Rule:** Non-EU applicants must select **ONE single 1st-choice university** on Universitaly. Your IMAT score only competes against other Non-EU applicants applying to that same university. You cannot slide to a 2nd choice university!
+* **EU Candidates (and Non-EU Residing in Italy):**
+  * You list all preferred universities in ranked order on Universitaly.
+  * You compete on a **Single National Ranking List** (*graduatoria unica nazionale*). If you do not obtain your top choice initially, you can enter the weekly sliding reallocation list (*scorrimenti*) as seats open up.
+  * Minimum score to enter EU national ranking: **20 points**.
+
+Our admissions team provides personalized advice on selecting the safest, highest-probability university based on past cutoffs in our [Ahsora MedPath Elite](/register) mentorship!`;
+  }
+
+  // 4e. Cutoffs & Safe Scores
+  if (
+    q.includes('cutoff') ||
+    q.includes('cut off') ||
+    q.includes('safe score') ||
+    q.includes('what score do i need') ||
+    q.includes('passing mark') ||
+    q.includes('how many marks')
+  ) {
+    return `### IMAT Cutoffs & Safe Score Targets
+
+* **Minimum Formal Threshold:**
+  * EU candidates require a minimum of **20 points** to enter the national ranking.
+  * Non-EU candidates have no formal 20-point minimum, but admission depends on ranking high enough for the university's quota.
+* **Historical Competitive Ranges:**
+  * **Top-Tier Universities (Milan, Bologna, Pavia, Sapienza):** Typically require **50.0 to 65.0+ points**.
+  * **Mid-Tier & Southern Universities (Turin, Padua, Vanvitelli, Messina, Catania, Bari):** Typically range from **38.0 to 52.0 points** depending on EU vs Non-EU quota.
+  * *Ahsora's highest recorded student score in IMAT 2025 was **84.7 / 90 points**!*
+
+View the complete historical cutoffs for all 16+ Italian medical faculties on our [Universities Directory](/universities).`;
+  }
+
+  // 4f. What is IMAT / Overview
+  if (
+    q.includes('what is imat') ||
+    q.includes('about imat') ||
+    q.includes('tell me about imat') ||
+    q.includes('how to prepare for imat') ||
+    q.includes('study plan')
+  ) {
+    return `### What is the IMAT (International Medical Admissions Test)?
+
+The **IMAT** is the official national entrance exam used by Italian public universities to admit students into their prestigious, 100% English-taught **6-Year Medicine and Surgery (MD, LM-41)** degrees:
+
+* **Official Governing Body:** Italian Ministry of University and Research (**MUR**).
+* **Format:** 60 Multiple-Choice Questions sat in 100 minutes.
+* **Language:** 100% English.
+* **Universities:** 16+ Italian public universities (Milan, Bologna, Pavia, Sapienza Rome, Padua, Turin, Messina, Catania, etc.).
+* **Tuition:** Exceptionally affordable (€156 to €4,000/year based on family income) with regional **DSU scholarships up to €8,500/year**.
+* **Global Recognition:** Medical degrees awarded by Italian public medical schools are recognized across the **EU, UK (GMC), USA (USMLE/ECFMG), Canada, and worldwide**.
+
+Ready to prepare? Check out [Ahsora IMAT Preparation Courses](/courses) or get started at [Register Now](/register)!`;
   }
 
   // 5. Universities & Medical Schools in Italy

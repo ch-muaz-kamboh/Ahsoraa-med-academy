@@ -4,24 +4,35 @@ import React, { useState, useEffect, useCallback } from 'react';
 import {
   getPortalTickerConfig,
   syncPortalTickerFromSupabase,
+  getImatTickerConfig,
+  syncImatTickerFromSupabase,
   PortalTickerConfig,
 } from '@/lib/cms-store';
 import { Megaphone, Sparkles } from 'lucide-react';
 
-export default function PortalMovingStrip() {
-  const [config, setConfig] = useState<PortalTickerConfig>(() => getPortalTickerConfig());
+export default function PortalMovingStrip({ source = 'portal' }: { source?: 'portal' | 'imat' }) {
+  const isImat = source === 'imat';
+  const fetchConfig = useCallback(() => (isImat ? getImatTickerConfig() : getPortalTickerConfig()), [isImat]);
+  const [config, setConfig] = useState<PortalTickerConfig>(fetchConfig);
 
   const refreshConfig = useCallback(() => {
-    setConfig(getPortalTickerConfig());
-  }, []);
+    setConfig(fetchConfig());
+  }, [fetchConfig]);
 
   useEffect(() => {
     refreshConfig();
 
-    syncPortalTickerFromSupabase().then((synced) => {
-      if (synced) setConfig(synced);
-    });
+    if (isImat) {
+      syncImatTickerFromSupabase().then((synced) => {
+        if (synced) setConfig(synced);
+      });
+    } else {
+      syncPortalTickerFromSupabase().then((synced) => {
+        if (synced) setConfig(synced);
+      });
+    }
 
+    const eventName = isImat ? 'ahsora_cms_imat_ticker_updated' : 'ahsora_cms_portal_ticker_updated';
     const handleUpdate = (e: any) => {
       if (e?.detail) {
         setConfig(e.detail);
@@ -30,14 +41,14 @@ export default function PortalMovingStrip() {
       }
     };
 
-    window.addEventListener('ahsora_cms_portal_ticker_updated', handleUpdate);
+    window.addEventListener(eventName, handleUpdate);
     window.addEventListener('storage', refreshConfig);
 
     return () => {
-      window.removeEventListener('ahsora_cms_portal_ticker_updated', handleUpdate);
+      window.removeEventListener(eventName, handleUpdate);
       window.removeEventListener('storage', refreshConfig);
     };
-  }, [refreshConfig]);
+  }, [isImat, refreshConfig]);
 
   if (!config.isActive || !config.items || config.items.length === 0) {
     return null;
@@ -128,7 +139,7 @@ export default function PortalMovingStrip() {
           }}
         >
           <Megaphone size={11} />
-          <span>PORTAL NOTICE</span>
+          <span>{isImat ? 'IMAT NOTICE' : 'PORTAL NOTICE'}</span>
         </span>
       </div>
 

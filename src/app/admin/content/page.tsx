@@ -56,6 +56,12 @@ import {
   addPortalTickerItem,
   deletePortalTickerItem,
   syncPortalTickerFromSupabase,
+  getImatTickerConfig,
+  saveImatTickerConfig,
+  updateImatTickerConfig,
+  addImatTickerItem,
+  deleteImatTickerItem,
+  syncImatTickerFromSupabase,
   PortalTickerConfig,
   getDynamicPackagePrices,
   updatePackagePricing,
@@ -159,9 +165,12 @@ export default function AdminContentPage() {
     discountBadgeText: 'LIMITED TIME OFFER',
     promoCode: 'AUTUMN25',
   });
-  // Portal ticker configuration state and sub‑tab selector
+  // Portal & IMAT ticker configuration states and sub‑tab selector
   const [portalTickerConfig, setPortalTickerConfig] = useState<PortalTickerConfig | null>(null);
-  const [tickerSubTab, setTickerSubTab] = useState<'home' | 'portal'>('home');
+  const [imatTickerConfig, setImatTickerConfig] = useState<PortalTickerConfig | null>(null);
+  const [tickerSubTab, setTickerSubTab] = useState<'home' | 'imat' | 'portal'>('home');
+  const [newImatTickerText, setNewImatTickerText] = useState('');
+  const [newImatTickerIcon, setNewImatTickerIcon] = useState('🚨');
 
   // ── 6. Hero Content State ────────────────────────────────────────────────
   const [heroContent, setHeroContent] = useState({
@@ -184,18 +193,20 @@ export default function AdminContentPage() {
     setDocuments(getResourceDocuments());
     setTickerItems(getTickerItems());
     setPortalTickerConfig(getPortalTickerConfig());
+    setImatTickerConfig(getImatTickerConfig());
     setPrices(getDynamicPackagePrices());
     setSaleOffer(getSaleOfferConfig());
 
     // Sync with Supabase asynchronously
     try {
-      const [syncedNews, syncedDocs, syncedTicker, syncedPrices, syncedOffer, syncedPortalTicker] = await Promise.all([
+      const [syncedNews, syncedDocs, syncedTicker, syncedPrices, syncedOffer, syncedPortalTicker, syncedImatTicker] = await Promise.all([
         syncNewsFromSupabase(),
         syncDocumentsFromSupabase(),
         syncTickerFromSupabase(),
         syncPricesFromSupabase(),
         syncSaleOfferFromSupabase(),
         syncPortalTickerFromSupabase(),
+        syncImatTickerFromSupabase(),
       ]);
       setNewsPosts(syncedNews);
       setDocuments(syncedDocs);
@@ -203,6 +214,7 @@ export default function AdminContentPage() {
       setPrices(syncedPrices);
       if (syncedOffer) setSaleOffer(syncedOffer);
       if (syncedPortalTicker) setPortalTickerConfig(syncedPortalTicker);
+      if (syncedImatTicker) setImatTickerConfig(syncedImatTicker);
     } catch (err) {
       console.warn('Supabase initial fetch notice:', err);
     } finally {
@@ -492,7 +504,7 @@ export default function AdminContentPage() {
         {[
           { id: 'news', label: 'News & Blogs', icon: <Newspaper size={18} />, badge: newsPosts.length },
           { id: 'docs', label: 'Resource Vault (Docs Only)', icon: <FileText size={18} />, badge: documents.length },
-          { id: 'ticker', label: 'Homepage Moving Strip', icon: <Zap size={18} />, badge: tickerItems.length },
+          { id: 'ticker', label: 'Moving Strips (Home, IMAT, Portal)', icon: <Zap size={18} />, badge: tickerItems.length + (imatTickerConfig?.items?.length ?? 0) + (portalTickerConfig?.items?.length ?? 0) },
           { id: 'pricing', label: 'Course Pricing & Discounts', icon: <Tag size={18} />, badge: prices.length },
           { id: 'offer', label: 'Flash Sale & Offer Banner', icon: <Flame size={18} /> },
           { id: 'hero', label: 'Hero Banner Copy', icon: <FileSignature size={18} /> },
@@ -1087,44 +1099,61 @@ export default function AdminContentPage() {
       {activeTab === 'ticker' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
           {/* Sub‑tab selector */}
-          <div style={{ display: 'flex', gap: '8px', marginBottom: '12px' }}>
+          <div style={{ display: 'flex', gap: '8px', marginBottom: '12px', flexWrap: 'wrap' }}>
             <button
               onClick={() => setTickerSubTab('home')}
               style={{
                 backgroundColor: tickerSubTab === 'home' ? '#059669' : '#FFFFFF',
                 color: tickerSubTab === 'home' ? '#FFFFFF' : '#475569',
-                border: 'none',
+                border: '1px solid #CBD5E1',
                 borderRadius: '8px',
-                padding: '6px 12px',
+                padding: '8px 16px',
                 cursor: 'pointer',
-                fontWeight: 600,
+                fontWeight: 700,
+                fontSize: '0.875rem',
               }}
             >
-              Home Strip
+              🏠 Homepage Strip ({tickerItems.length})
+            </button>
+            <button
+              onClick={() => setTickerSubTab('imat')}
+              style={{
+                backgroundColor: tickerSubTab === 'imat' ? '#059669' : '#FFFFFF',
+                color: tickerSubTab === 'imat' ? '#FFFFFF' : '#475569',
+                border: '1px solid #CBD5E1',
+                borderRadius: '8px',
+                padding: '8px 16px',
+                cursor: 'pointer',
+                fontWeight: 700,
+                fontSize: '0.875rem',
+              }}
+            >
+              🎯 IMAT Page Strip ({imatTickerConfig?.items?.length ?? 0})
             </button>
             <button
               onClick={() => setTickerSubTab('portal')}
               style={{
                 backgroundColor: tickerSubTab === 'portal' ? '#059669' : '#FFFFFF',
                 color: tickerSubTab === 'portal' ? '#FFFFFF' : '#475569',
-                border: 'none',
+                border: '1px solid #CBD5E1',
                 borderRadius: '8px',
-                padding: '6px 12px',
+                padding: '8px 16px',
                 cursor: 'pointer',
-                fontWeight: 600,
+                fontWeight: 700,
+                fontSize: '0.875rem',
               }}
             >
-              Portal Strip
+              🎓 Student Portal Strip ({portalTickerConfig?.items?.length ?? 0})
             </button>
           </div>
           {/* Live Preview Bar */}
           <div style={{ backgroundColor: '#0F172A', padding: '20px', borderRadius: '16px', color: '#FFFFFF', overflow: 'hidden' }}>
             <div style={{ fontSize: '0.8125rem', color: '#5CED73', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>
-              ⚡ Live {tickerSubTab === 'home' ? 'Homepage' : 'Student Portal'} Moving Strip Preview
+              ⚡ Live {tickerSubTab === 'home' ? 'Homepage' : tickerSubTab === 'imat' ? 'IMAT Page (Mark Your Calendar)' : 'Student Portal'} Moving Strip Preview
             </div>
             <div style={{ overflow: 'hidden', whiteSpace: 'nowrap', backgroundColor: 'rgba(255,255,255,0.05)', padding: '12px', borderRadius: '10px' }}>
               <div style={{ display: 'inline-flex', gap: '24px' }}>
-                {(tickerSubTab === 'home' ? tickerItems : (portalTickerConfig?.items || [])).map((item) => (
+                {(tickerSubTab === 'home' ? tickerItems : tickerSubTab === 'imat' ? (imatTickerConfig?.items || []) : (portalTickerConfig?.items || [])).map((item) => (
                   <span key={item.id} style={{ color: '#CBD5E1', fontSize: '0.9rem', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
                     <span>{item.icon}</span>
                     <span>{item.text}</span>
@@ -1211,6 +1240,143 @@ export default function AdminContentPage() {
                     <Plus size={18} /> Add to Homepage Moving Strip
                   </button>
                 </form>
+              </div>
+            </div>
+          )}
+
+          {/* ── IMAT STRIP PANEL ── */}
+          {tickerSubTab === 'imat' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              {/* IMAT strip settings row */}
+              {imatTickerConfig && (
+                <div style={{ backgroundColor: '#FFFFFF', padding: '20px', borderRadius: '16px', border: '1px solid #E2E8F0', display: 'flex', gap: '24px', flexWrap: 'wrap', alignItems: 'center' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 700, fontSize: '0.875rem', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={imatTickerConfig.isActive}
+                      onChange={(e) => {
+                        const updated = { ...imatTickerConfig, isActive: e.target.checked };
+                        setImatTickerConfig(updated);
+                        updateImatTickerConfig(updated);
+                        showToast('success', `✅ IMAT page strip ${e.target.checked ? 'activated' : 'deactivated'} live!`);
+                      }}
+                    />
+                    IMAT Strip Active
+                  </label>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <label style={{ fontWeight: 700, fontSize: '0.875rem' }}>Speed (seconds):</label>
+                    <input
+                      type="number"
+                      min={10} max={120}
+                      value={imatTickerConfig.speedSeconds}
+                      onChange={(e) => setImatTickerConfig({ ...imatTickerConfig, speedSeconds: Number(e.target.value) })}
+                      onBlur={() => { updateImatTickerConfig(imatTickerConfig!); showToast('success', '✅ IMAT strip speed updated!'); }}
+                      style={{ width: '70px', padding: '6px 8px', borderRadius: '8px', border: '1px solid #CBD5E1', fontWeight: 700 }}
+                    />
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <label style={{ fontWeight: 700, fontSize: '0.875rem' }}>Theme:</label>
+                    <select
+                      value={imatTickerConfig.bgStyle}
+                      onChange={(e) => {
+                        const updated = { ...imatTickerConfig, bgStyle: e.target.value as any };
+                        setImatTickerConfig(updated);
+                        updateImatTickerConfig(updated);
+                        showToast('success', '✅ IMAT strip theme updated!');
+                      }}
+                      style={{ padding: '6px 10px', borderRadius: '8px', border: '1px solid #CBD5E1', fontWeight: 600 }}
+                    >
+                      <option value="emerald">🟢 Emerald (Dark Green)</option>
+                      <option value="dark">🔵 Dark (Slate Navy)</option>
+                      <option value="slate">⬜ Slate (Light)</option>
+                    </select>
+                  </div>
+                </div>
+              )}
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 380px', gap: '32px', alignItems: 'start' }}>
+                {/* Left: IMAT Ticker Items */}
+                <div style={{ backgroundColor: '#FFFFFF', padding: '24px', borderRadius: '16px', border: '1px solid #E2E8F0' }}>
+                  <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0F172A', marginBottom: '16px' }}>
+                    IMAT Page Moving Strip Announcements ({imatTickerConfig?.items?.length ?? 0})
+                  </h3>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    {(imatTickerConfig?.items || []).map((item) => (
+                      <div
+                        key={item.id}
+                        style={{ border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9375rem', fontWeight: 600, color: '#0F172A' }}>
+                          <span style={{ fontSize: '1.2rem' }}>{item.icon}</span>
+                          <span>{item.text}</span>
+                        </div>
+                        <button
+                          onClick={() => {
+                            const updated = deleteImatTickerItem(item.id);
+                            setImatTickerConfig(updated);
+                            showToast('success', 'IMAT strip item removed.');
+                          }}
+                          style={{ backgroundColor: '#FEE2E2', color: '#991B1B', border: 'none', borderRadius: '6px', padding: '6px 10px', cursor: 'pointer' }}
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Right: Add IMAT Ticker Form */}
+                <div style={{ backgroundColor: '#FFFFFF', padding: '24px', borderRadius: '16px', border: '1px solid #E2E8F0' }}>
+                  <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0F172A', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <Plus size={18} color="#059669" /> Add IMAT Page Announcement
+                  </h3>
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      if (!newImatTickerText.trim()) { showToast('error', 'Please enter ticker text.'); return; }
+                      const updated = addImatTickerItem(newImatTickerText.trim(), newImatTickerIcon);
+                      setImatTickerConfig(updated);
+                      setNewImatTickerText('');
+                      showToast('success', '✅ IMAT page moving strip updated live!');
+                    }}
+                    style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}
+                  >
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>Icon Emoji</label>
+                      <select
+                        value={newImatTickerIcon}
+                        onChange={(e) => setNewImatTickerIcon(e.target.value)}
+                        style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '1rem', outline: 'none' }}
+                      >
+                        <option value="🚨">🚨 Urgent Alert</option>
+                        <option value="📅">📅 Official Date / Milestone</option>
+                        <option value="🏆">🏆 Ranking / Result</option>
+                        <option value="🏛️">🏛️ University News</option>
+                        <option value="💶">💶 Fees & Scholarships</option>
+                        <option value="⚡">⚡ Registration Update</option>
+                        <option value="📢">📢 Public Notice</option>
+                        <option value="🎓">🎓 IMAT Preparation</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>Announcement Text</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. Registration closes in 3 days on Universitaly.it!"
+                        value={newImatTickerText}
+                        onChange={(e) => setNewImatTickerText(e.target.value)}
+                        style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.875rem', outline: 'none' }}
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      style={{ backgroundColor: '#059669', color: '#FFFFFF', border: 'none', borderRadius: '10px', padding: '12px', fontWeight: 700, fontSize: '0.9375rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
+                    >
+                      <Plus size={18} /> Add to IMAT Page Strip
+                    </button>
+                  </form>
+                </div>
               </div>
             </div>
           )}

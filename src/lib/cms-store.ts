@@ -646,6 +646,98 @@ export function deletePortalTickerItem(id: string): PortalTickerConfig {
   return updated;
 }
 
+// ── 3b. IMAT PAGE MOVING STRIP (ADMIN CMS CONTROL) ───────────────────────────
+const IMAT_TICKER_KEY = 'ahsora_cms_imat_ticker';
+
+const INITIAL_IMAT_TICKER: PortalTickerConfig = {
+  isActive: true,
+  speedSeconds: 65,
+  bgStyle: 'emerald',
+  items: [
+    { id: 'it-1', text: '🚨 Official IMAT 2027 Registration opens on Universitaly.it in July 2027.', icon: '🚨' },
+    { id: 'it-2', text: '📅 Global Examination Date: Conducted simultaneously worldwide mid-September 2027.', icon: '📅' },
+    { id: 'it-3', text: '🏆 Ahsora Academy Highest IMAT Score: 84.7 / 90 points (Top 0.1% nationally).', icon: '🏆' },
+    { id: 'it-4', text: '🏛️ 100% English-taught Medicine & Surgery degrees across 16+ Italian public universities.', icon: '🏛️' },
+    { id: 'it-5', text: '⚡ New Florence (UniFI) & Padua MedTech medical degree cohorts active for admissions.', icon: '⚡' },
+    { id: 'it-6', text: '💶 Public tuition fees €156 – €4,000/yr based on ISEE + Regional DSU scholarships up to €8,500/yr.', icon: '💶' },
+  ],
+};
+
+export function getImatTickerConfig(): PortalTickerConfig {
+  if (typeof window === 'undefined') return INITIAL_IMAT_TICKER;
+  try {
+    const data = localStorage.getItem(IMAT_TICKER_KEY);
+    if (!data) return INITIAL_IMAT_TICKER;
+    const parsed = JSON.parse(data);
+    if (parsed && typeof parsed.speedSeconds === 'number' && parsed.speedSeconds < 45) {
+      parsed.speedSeconds = 65;
+    }
+    return parsed;
+  } catch {
+    return INITIAL_IMAT_TICKER;
+  }
+}
+
+export function saveImatTickerConfig(config: PortalTickerConfig) {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem(IMAT_TICKER_KEY, JSON.stringify(config));
+  } catch (e) {
+    console.error('Failed to save IMAT ticker config locally:', e);
+  }
+}
+
+export async function syncImatTickerFromSupabase(): Promise<PortalTickerConfig> {
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase.from('site_content').select('*').eq('id', 1).single();
+    if (!error && data && data.imat_ticker_config) {
+      const parsed: PortalTickerConfig = data.imat_ticker_config;
+      saveImatTickerConfig(parsed);
+      return parsed;
+    }
+  } catch (e) {
+    console.warn('Supabase IMAT ticker fetch skipped/fallback:', e);
+  }
+  return getImatTickerConfig();
+}
+
+export function updateImatTickerConfig(config: PortalTickerConfig) {
+  saveImatTickerConfig(config);
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('ahsora_cms_imat_ticker_updated', { detail: config }));
+    const supabase = createClient();
+    supabase.from('site_content').upsert({
+      id: 1,
+      imat_ticker_config: config,
+      updated_at: new Date().toISOString(),
+    }).then(({ error }) => {
+      if (error) console.warn('Supabase IMAT ticker upsert notice:', error.message);
+    });
+  }
+}
+
+export function addImatTickerItem(text: string, icon = '📢'): PortalTickerConfig {
+  const current = getImatTickerConfig();
+  const newItem: TickerItem = { id: `it-${Date.now()}`, text, icon };
+  const updated: PortalTickerConfig = {
+    ...current,
+    items: [...current.items, newItem],
+  };
+  updateImatTickerConfig(updated);
+  return updated;
+}
+
+export function deleteImatTickerItem(id: string): PortalTickerConfig {
+  const current = getImatTickerConfig();
+  const updated: PortalTickerConfig = {
+    ...current,
+    items: current.items.filter((item) => item.id !== id),
+  };
+  updateImatTickerConfig(updated);
+  return updated;
+}
+
 // ── 4. DYNAMIC PACKAGE PRICING & DISCOUNTS ───────────────────────────────────
 
 export function getDynamicPackagePrices(): DynamicPackagePrice[] {
