@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, MessageSquare, Clock } from 'lucide-react';
 import LeadCaptureModal from '@/components/public/LeadCaptureModal';
+import SocialLinks from '@/components/common/SocialLinks';
 
 export default function ContactPage() {
   const [leadOpen, setLeadOpen] = useState(false);
@@ -87,6 +88,16 @@ export default function ContactPage() {
                   </div>
                 </div>
 
+                {/* Social Media Channels */}
+                <div style={{ marginTop: '8px', paddingTop: '24px', borderTop: '1px solid #E2E8F0' }}>
+                  <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>
+                    Follow Our Official Channels
+                  </h3>
+                  <p style={{ color: '#64748B', fontSize: '0.875rem', marginBottom: '14px' }}>
+                    Get daily IMAT question walkthroughs, Italian admission news, and updates:
+                  </p>
+                  <SocialLinks variant="emerald" showLabels />
+                </div>
               </div>
             </div>
 

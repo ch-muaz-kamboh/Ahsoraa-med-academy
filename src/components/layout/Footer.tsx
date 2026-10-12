@@ -3,9 +3,9 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Stethoscope, Mail, Phone, MapPin, ShieldCheck } from 'lucide-react';
-
+import { Mail, Phone, MapPin, ShieldCheck } from 'lucide-react';
 import Logo from '@/components/brand/Logo';
+import SocialLinks from '@/components/common/SocialLinks';
 
 export default function Footer() {
   const pathname = usePathname();
@@ -18,9 +18,9 @@ export default function Footer() {
   return (
     <footer
       style={{
-        background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)',
+        background: 'linear-gradient(135deg, #071912 0%, #0F2018 50%, #081510 100%)',
         color: '#CBD5E1',
-        borderTop: '1px solid #1E293B',
+        borderTop: '1px solid rgba(16, 185, 129, 0.15)',
         paddingTop: '60px',
         paddingBottom: '40px',
         marginTop: '80px',
@@ -38,14 +38,22 @@ export default function Footer() {
           {/* Brand Col */}
           <div>
             <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', marginBottom: '16px', textDecoration: 'none' }}>
-              <Logo height={52} variant="white" />
+              <Logo height={42} variant="white" />
             </Link>
             <p style={{ color: '#94A3B8', fontSize: '0.875rem', lineHeight: 1.6, marginBottom: '16px' }}>
               Complete exam preparation, admissions consultancy, and university placement support across Italy, the UK, Germany, Hungary, and the USA.
             </p>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#5CED73', fontSize: '0.8125rem', fontWeight: 600 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#5CED73', fontSize: '0.8125rem', fontWeight: 600, marginBottom: '18px' }}>
               <ShieldCheck size={16} />
               <span>Certified Admissions &amp; Exam Mentors</span>
+            </div>
+
+            {/* Social Media Links */}
+            <div>
+              <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#A7F3D0', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px' }}>
+                Follow Our Official Channels
+              </div>
+              <SocialLinks variant="dark" />
             </div>
           </div>
 
@@ -120,7 +128,7 @@ export default function Footer() {
             <Link href="/terms" style={{ color: '#64748B', textDecoration: 'none' }}>Terms of Use &amp; Purchase</Link>
             <Link href="/refund-policy" style={{ color: '#64748B', textDecoration: 'none' }}>Cancellation &amp; Refunds</Link>
             <Link href="/admissions-disclaimer" style={{ color: '#64748B', textDecoration: 'none' }}>Admissions Disclaimer</Link>
-            <Link href="/staff/dashboard" style={{ color: '#5CED73', fontWeight: 600, textDecoration: 'none' }}>Staff Portal</Link>
+            <Link href="/staff/auth" style={{ color: '#5CED73', fontWeight: 600, textDecoration: 'none' }}>Staff Portal</Link>
             <Link href="/admin/dashboard" style={{ color: '#64748B', textDecoration: 'none' }}>Admin Panel</Link>
           </div>
         </div>

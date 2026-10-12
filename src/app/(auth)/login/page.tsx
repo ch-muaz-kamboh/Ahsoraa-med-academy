@@ -17,9 +17,11 @@ import {
   AlertCircle,
   Award,
   ShieldCheck,
-  CheckCircle2,
+  UserPlus,
+  Sparkles,
 } from 'lucide-react';
 import Logo from '@/components/brand/Logo';
+import SocialLinks from '@/components/common/SocialLinks';
 import { saveStudentPackageMapping } from '@/lib/packages';
 
 export default function LoginPage() {
@@ -30,7 +32,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Social proof rotating notifications (matching reference screenshot)
+  // Rotating student admission updates
   const [notificationIndex, setNotificationIndex] = useState(0);
   const notifications = [
     {
@@ -38,24 +40,21 @@ export default function LoginPage() {
       name: 'Jayant J. (India)',
       action: 'joined the PREP Foundation',
       subtext: 'for medical studies · 14d ago',
-      color: '#15803D',
-      bg: '#DCFCE7',
+      badge: 'IMAT Prep',
     },
     {
       initials: 'MK',
       name: 'Maria K. (Germany)',
       action: 'enrolled in IMAT Comprehensive',
       subtext: 'for medicine in Italy · 2d ago',
-      color: '#1D4ED8',
-      bg: '#DBEAFE',
+      badge: 'Medicine in Italy',
     },
     {
       initials: 'SA',
       name: 'Sameer A. (UAE)',
       action: 'scored 78.4 in Mock Exam',
       subtext: 'University of Milan prep · 5h ago',
-      color: '#7C3AED',
-      bg: '#F3E8FF',
+      badge: 'Top Scorer',
     },
   ];
 
@@ -121,14 +120,14 @@ export default function LoginPage() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700&display=swap');
         
         * { box-sizing: border-box; }
-        .login-page-root {
+        .ahsora-login-root {
           font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
           min-height: 100vh;
           display: flex;
-          background: #F8FAFC;
+          background: #F7FAF8;
           overflow-x: hidden;
         }
 
@@ -139,7 +138,7 @@ export default function LoginPage() {
 
         @keyframes pulseDot {
           0%, 100% { transform: scale(1); opacity: 1; }
-          50% { transform: scale(1.4); opacity: 0.6; }
+          50% { transform: scale(1.3); opacity: 0.6; }
         }
 
         @keyframes spin {
@@ -154,12 +153,12 @@ export default function LoginPage() {
 
         .login-input {
           width: 100%;
-          height: 52px;
-          padding: 0 16px 0 48px;
+          height: 50px;
+          padding: 0 16px 0 46px;
           border: 1.5px solid #E2E8F0;
           border-radius: 12px;
           font-size: 0.9375rem;
-          color: #0F172A;
+          color: #0F291E;
           background: #FFFFFF;
           outline: none;
           transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -172,52 +171,78 @@ export default function LoginPage() {
         }
 
         .login-input:focus {
-          border-color: #2563EB;
+          border-color: #059669;
           background: #FFFFFF;
-          box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+          box-shadow: 0 0 0 3.5px rgba(5, 150, 105, 0.15);
         }
 
-        .sign-in-button {
+        .sign-in-btn {
           width: 100%;
-          height: 52px;
-          background: #2563EB;
+          height: 50px;
+          background: linear-gradient(135deg, #059669 0%, #047857 100%);
           color: #FFFFFF;
           border: none;
           border-radius: 12px;
           font-size: 0.95rem;
           font-weight: 700;
-          letter-spacing: 0.5px;
+          letter-spacing: 0.4px;
           cursor: pointer;
           display: flex;
           align-items: center;
           justify-content: center;
           gap: 10px;
           transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-          box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+          box-shadow: 0 6px 20px rgba(5, 150, 105, 0.28);
           font-family: inherit;
         }
 
-        .sign-in-button:not(:disabled):hover {
-          background: #1D4ED8;
+        .sign-in-btn:not(:disabled):hover {
+          background: linear-gradient(135deg, #10B981 0%, #059669 100%);
           transform: translateY(-1px);
-          box-shadow: 0 8px 22px rgba(37, 99, 235, 0.4);
+          box-shadow: 0 8px 24px rgba(5, 150, 105, 0.38);
         }
 
-        .sign-in-button:active {
+        .sign-in-btn:active {
           transform: translateY(0);
         }
 
-        .sign-in-button:disabled {
+        .sign-in-btn:disabled {
           opacity: 0.7;
           cursor: not-allowed;
+        }
+
+        .register-now-btn {
+          width: 100%;
+          height: 48px;
+          background: #ECFDF5;
+          color: #065F46;
+          border: 1.5px solid #A7F3D0;
+          border-radius: 12px;
+          font-size: 0.92rem;
+          font-weight: 700;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          text-decoration: none;
+          transition: all 0.2s ease;
+          font-family: inherit;
+        }
+
+        .register-now-btn:hover {
+          background: #D1FAE5;
+          border-color: #059669;
+          color: #047857;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 14px rgba(5, 150, 105, 0.15);
         }
 
         .result-portal-card {
           display: flex;
           align-items: center;
           gap: 14px;
-          background: #F8FAFC;
-          border: 1.5px solid #E2E8F0;
+          background: linear-gradient(135deg, #F0FDF4 0%, #FFFFFF 100%);
+          border: 1.5px solid #A7F3D0;
           border-radius: 14px;
           padding: 12px 14px;
           text-decoration: none;
@@ -225,72 +250,68 @@ export default function LoginPage() {
         }
 
         .result-portal-card:hover {
-          border-color: #7C3AED;
-          background: #FAF5FF;
-          box-shadow: 0 4px 16px rgba(124, 58, 237, 0.08);
+          border-color: #059669;
+          background: #ECFDF5;
+          box-shadow: 0 4px 16px rgba(5, 150, 105, 0.12);
           transform: translateY(-1px);
         }
 
         .result-btn {
-          background: #701A75;
+          background: linear-gradient(135deg, #B48D39 0%, #99732B 100%);
           color: #FFFFFF;
           border: none;
           border-radius: 8px;
-          padding: 8px 14px;
+          padding: 8px 13px;
           font-size: 0.78rem;
           font-weight: 700;
           white-space: nowrap;
           display: inline-flex;
           align-items: center;
           gap: 4px;
-          transition: background 0.2s;
-        }
-
-        .result-portal-card:hover .result-btn {
-          background: #86198F;
+          box-shadow: 0 2px 6px rgba(180, 141, 57, 0.3);
         }
 
         .social-proof-toast {
           position: fixed;
-          bottom: 24px;
-          right: 28px;
+          bottom: 22px;
+          right: 26px;
           z-index: 50;
           background: #FFFFFF;
-          border: 1px solid #E2E8F0;
+          border: 1px solid #D1FAE5;
           border-radius: 16px;
           padding: 10px 16px;
           display: flex;
           align-items: center;
           gap: 12px;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+          box-shadow: 0 10px 30px rgba(6, 78, 59, 0.1), 0 1px 3px rgba(0, 0, 0, 0.04);
           animation: fadeIn 0.4s ease-out;
-          max-width: 380px;
+          max-width: 370px;
         }
 
         @media (max-width: 960px) {
           .left-hero-panel { display: none !important; }
-          .right-auth-panel { width: 100% !important; flex: 1 !important; padding: 32px 20px !important; }
+          .right-auth-panel { width: 100% !important; flex: 1 !important; padding: 28px 18px !important; }
           .social-proof-toast { display: none !important; }
         }
       `}</style>
 
-      <div className="login-page-root">
-        {/* ── LEFT HERO PANEL (MATCHING REFERENCE EXACTLY) ──────────────── */}
+      <div className="ahsora-login-root">
+        {/* ── LEFT HERO PANEL (AHSORA EMERALD & GOLD THEME) ─────────────── */}
         <div
           className="left-hero-panel"
           style={{
             flex: '0 0 52%',
             position: 'relative',
             overflow: 'hidden',
-            backgroundColor: '#071324',
+            backgroundColor: '#021B14',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            padding: '40px 48px',
+            padding: '38px 46px',
             minHeight: '100vh',
           }}
         >
-          {/* Authentic Doctor Photography Background */}
+          {/* Authentic Doctor Photography Background with Deep Emerald Tint */}
           <div style={{ position: 'absolute', inset: 0, zIndex: 1 }}>
             <Image
               src="/login-doctor-bg.jpg"
@@ -299,37 +320,37 @@ export default function LoginPage() {
               style={{ objectFit: 'cover', objectPosition: 'center 20%' }}
               priority
             />
-            {/* Cinematic Moody Gradient Overlay for 100% Contrast */}
+            {/* Emerald Vignette Gradient Overlay */}
             <div
               style={{
                 position: 'absolute',
                 inset: 0,
                 background:
-                  'linear-gradient(135deg, rgba(6, 17, 33, 0.94) 0%, rgba(7, 19, 36, 0.78) 45%, rgba(6, 15, 29, 0.96) 100%)',
+                  'linear-gradient(145deg, rgba(2, 27, 20, 0.94) 0%, rgba(4, 52, 38, 0.78) 50%, rgba(2, 22, 16, 0.97) 100%)',
               }}
             />
-            {/* Soft Ambient Radial Lights */}
+            {/* Atmospheric Emerald & Gold Glows */}
             <div
               style={{
                 position: 'absolute',
-                top: '-10%',
-                left: '-10%',
-                width: '450px',
-                height: '450px',
+                top: '-8%',
+                left: '-8%',
+                width: '420px',
+                height: '420px',
                 borderRadius: '50%',
-                background: 'radial-gradient(circle, rgba(37, 99, 235, 0.22) 0%, transparent 70%)',
+                background: 'radial-gradient(circle, rgba(16, 185, 129, 0.25) 0%, transparent 70%)',
                 pointerEvents: 'none',
               }}
             />
             <div
               style={{
                 position: 'absolute',
-                bottom: '10%',
-                right: '-5%',
-                width: '380px',
-                height: '380px',
+                bottom: '12%',
+                right: '-6%',
+                width: '400px',
+                height: '400px',
                 borderRadius: '50%',
-                background: 'radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%)',
+                background: 'radial-gradient(circle, rgba(212, 175, 55, 0.16) 0%, transparent 70%)',
                 pointerEvents: 'none',
               }}
             />
@@ -346,24 +367,24 @@ export default function LoginPage() {
                 textDecoration: 'none',
               }}
             >
-              {/* Logo Emblem Icon */}
-              <Logo height={42} iconOnly />
+              {/* Standalone Emblem (Mark only) */}
+              <Logo height={38} iconOnly />
               <div>
                 <div
                   style={{
                     color: '#FFFFFF',
                     fontWeight: 800,
                     fontSize: '1.15rem',
-                    letterSpacing: '-0.3px',
+                    letterSpacing: '-0.2px',
                     lineHeight: 1.15,
                   }}
                 >
-                  Ahsora <span style={{ color: '#EAB308' }}>MedsAcademy</span>
+                  AHSORA <span style={{ color: '#FCD34D' }}>MEDS ACADEMY</span>
                 </div>
                 <div
                   style={{
-                    color: '#94A3B8',
-                    fontSize: '0.68rem',
+                    color: '#6EE7B7',
+                    fontSize: '0.67rem',
                     fontWeight: 700,
                     letterSpacing: '1.8px',
                     textTransform: 'uppercase',
@@ -376,24 +397,28 @@ export default function LoginPage() {
             </Link>
           </div>
 
-          {/* Main Hero Story Block */}
-          <div style={{ position: 'relative', zIndex: 2, margin: 'auto 0 36px 0', maxWidth: '520px' }}>
+          {/* Main Story Block */}
+          <div style={{ position: 'relative', zIndex: 2, margin: 'auto 0 32px 0', maxWidth: '520px' }}>
             {/* Tagline Badge */}
             <div
               style={{
-                display: 'flex',
+                display: 'inline-flex',
                 alignItems: 'center',
-                gap: '10px',
-                marginBottom: '20px',
+                gap: '8px',
+                padding: '6px 14px',
+                borderRadius: '999px',
+                background: 'rgba(16, 185, 129, 0.15)',
+                border: '1px solid rgba(110, 231, 183, 0.35)',
+                marginBottom: '18px',
               }}
             >
-              <div style={{ width: '28px', height: '2px', background: '#38BDF8' }} />
+              <Sparkles size={13} color="#FCD34D" />
               <span
                 style={{
-                  fontSize: '0.75rem',
+                  fontSize: '0.74rem',
                   fontWeight: 800,
-                  color: '#38BDF8',
-                  letterSpacing: '2px',
+                  color: '#A7F3D0',
+                  letterSpacing: '1.5px',
                   textTransform: 'uppercase',
                 }}
               >
@@ -407,13 +432,15 @@ export default function LoginPage() {
                 fontSize: 'clamp(2.3rem, 4vw, 3.1rem)',
                 fontWeight: 900,
                 color: '#FFFFFF',
-                lineHeight: 1.14,
+                lineHeight: 1.15,
                 letterSpacing: '-1px',
-                margin: '0 0 18px 0',
+                margin: '0 0 16px 0',
               }}
             >
               The school of{' '}
-              <span style={{ color: '#60A5FA' }}>tomorrow&apos;s</span>
+              <span style={{ color: '#5CED73', textShadow: '0 0 20px rgba(92,237,115,0.4)' }}>
+                tomorrow&apos;s
+              </span>
               <br />
               physicians.
             </h1>
@@ -422,29 +449,29 @@ export default function LoginPage() {
             <p
               style={{
                 color: '#CBD5E1',
-                fontSize: '0.95rem',
+                fontSize: '0.94rem',
                 lineHeight: 1.7,
-                margin: '0 0 32px 0',
-                maxWidth: '440px',
+                margin: '0 0 30px 0',
+                maxWidth: '450px',
               }}
             >
               Empowering future doctors worldwide — structured IMAT preparation, one-to-one mentorship and
               complete admissions support for medicine in Italy.
             </p>
 
-            {/* Frosted Glass Stats Card (Matching Reference Screenshot) */}
+            {/* Frosted Glass Stats Card (Emerald & Gold Accents) */}
             <div
               style={{
-                background: 'rgba(255, 255, 255, 0.06)',
+                background: 'rgba(4, 45, 33, 0.45)',
                 backdropFilter: 'blur(16px)',
                 WebkitBackdropFilter: 'blur(16px)',
-                border: '1px solid rgba(255, 255, 255, 0.12)',
+                border: '1px solid rgba(110, 231, 183, 0.22)',
                 borderRadius: '16px',
-                padding: '22px 28px',
+                padding: '22px 26px',
                 display: 'grid',
                 gridTemplateColumns: 'repeat(3, 1fr)',
-                gap: '20px',
-                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.25)',
+                gap: '16px',
+                boxShadow: '0 12px 36px rgba(0, 0, 0, 0.35)',
               }}
             >
               <div>
@@ -452,7 +479,7 @@ export default function LoginPage() {
                   style={{
                     fontSize: '1.65rem',
                     fontWeight: 900,
-                    color: '#FFFFFF',
+                    color: '#FCD34D',
                     letterSpacing: '-0.5px',
                     lineHeight: 1,
                   }}
@@ -473,12 +500,12 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              <div style={{ borderLeft: '1px solid rgba(255, 255, 255, 0.1)', paddingLeft: '20px' }}>
+              <div style={{ borderLeft: '1px solid rgba(255, 255, 255, 0.1)', paddingLeft: '16px' }}>
                 <div
                   style={{
                     fontSize: '1.65rem',
                     fontWeight: 900,
-                    color: '#38BDF8',
+                    color: '#5CED73',
                     letterSpacing: '-0.5px',
                     lineHeight: 1,
                   }}
@@ -499,7 +526,7 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              <div style={{ borderLeft: '1px solid rgba(255, 255, 255, 0.1)', paddingLeft: '20px' }}>
+              <div style={{ borderLeft: '1px solid rgba(255, 255, 255, 0.1)', paddingLeft: '16px' }}>
                 <div
                   style={{
                     fontSize: '1.65rem',
@@ -534,74 +561,89 @@ export default function LoginPage() {
               zIndex: 2,
               display: 'flex',
               alignItems: 'center',
-              gap: '24px',
+              justifyContent: 'space-between',
+              gap: '20px',
               flexWrap: 'wrap',
             }}
           >
-            <Link
-              href="/"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                background: '#2563EB',
-                color: '#FFFFFF',
-                borderRadius: '999px',
-                padding: '12px 24px',
-                fontWeight: 700,
-                fontSize: '0.875rem',
-                textDecoration: 'none',
-                boxShadow: '0 4px 14px rgba(37, 99, 235, 0.4)',
-                transition: 'all 0.2s',
-              }}
-            >
-              Explore Ahsora MedsAcademy <ArrowRight size={15} />
-            </Link>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
+              <Link
+                href="/courses"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  background: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
+                  color: '#FFFFFF',
+                  borderRadius: '999px',
+                  padding: '11px 22px',
+                  fontWeight: 700,
+                  fontSize: '0.86rem',
+                  textDecoration: 'none',
+                  boxShadow: '0 4px 14px rgba(5, 150, 105, 0.4)',
+                  transition: 'all 0.2s',
+                }}
+              >
+                Explore Programmes <ArrowRight size={14} color="#FCD34D" />
+              </Link>
 
-            <Link
-              href="/"
-              style={{
-                color: '#94A3B8',
-                fontSize: '0.85rem',
-                textDecoration: 'none',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '4px',
-                transition: 'color 0.2s',
-              }}
-            >
-              ahsoramedsacademy.com <ExternalLink size={13} />
-            </Link>
+              <Link
+                href="/"
+                style={{
+                  color: '#94A3B8',
+                  fontSize: '0.82rem',
+                  textDecoration: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                }}
+              >
+                ahsoramedsacademy.com <ExternalLink size={12} />
+              </Link>
+            </div>
+
+            {/* Official Social Channels */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <SocialLinks variant="dark" size="sm" />
+            </div>
           </div>
         </div>
 
-        {/* ── RIGHT AUTH PANEL ────────────────────────────────────────── */}
+        {/* ── RIGHT AUTH PANEL (CREATIVE EMERALD & PORCELAIN THEME) ────── */}
         <div
           className="right-auth-panel"
           style={{
             flex: '0 0 48%',
-            backgroundColor: '#F8FAFC',
+            backgroundColor: '#F8FAF8',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
             alignItems: 'center',
-            padding: '40px 48px',
+            padding: '36px 44px',
             minHeight: '100vh',
             position: 'relative',
           }}
         >
-          {/* Top Brand Logo (Aligned to Right/Center as in reference) */}
+          {/* Top Brand Logo - Compact / Reduced width as requested */}
           <div
             style={{
               width: '100%',
-              maxWidth: '430px',
+              maxWidth: '420px',
               display: 'flex',
               justifyContent: 'flex-end',
-              marginBottom: '20px',
+              marginBottom: '16px',
             }}
           >
-            <Link href="/" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>
-              <Logo height={42} />
+            <Link
+              href="/"
+              style={{
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                transition: 'opacity 0.2s',
+              }}
+            >
+              <Logo height={34} />
             </Link>
           </div>
 
@@ -609,67 +651,81 @@ export default function LoginPage() {
           <div
             style={{
               width: '100%',
-              maxWidth: '430px',
+              maxWidth: '420px',
               background: '#FFFFFF',
-              borderRadius: '24px',
-              padding: '36px 36px 32px',
-              boxShadow: '0 8px 30px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.03)',
-              border: '1px solid #EEF2F6',
+              borderRadius: '22px',
+              padding: '34px 34px 30px',
+              boxShadow: '0 12px 36px rgba(6, 78, 59, 0.07), 0 1px 3px rgba(0, 0, 0, 0.04)',
+              border: '1.5px solid #E6F4EA',
               margin: 'auto 0',
+              position: 'relative',
             }}
           >
-            {/* Header / Active Tab Pill (Guest Button Removed as requested) */}
-            <div style={{ marginBottom: '24px' }}>
+            {/* Top Emerald Accent Bar */}
+            <div
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: '32px',
+                right: '32px',
+                height: '3px',
+                background: 'linear-gradient(90deg, #059669 0%, #FCD34D 50%, #059669 100%)',
+                borderRadius: '0 0 4px 4px',
+              }}
+            />
+
+            {/* Header / Single Academy Portal Active Pill (No Guest button) */}
+            <div style={{ marginBottom: '22px' }}>
               <div
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '10px',
-                  padding: '10px 18px',
-                  background: '#F0F7FF',
-                  border: '1.5px solid #BFDBFE',
+                  gap: '8px',
+                  padding: '8px 16px',
+                  background: '#ECFDF5',
+                  border: '1.5px solid #A7F3D0',
                   borderRadius: '12px',
-                  color: '#1D4ED8',
-                  fontSize: '0.85rem',
+                  color: '#065F46',
+                  fontSize: '0.82rem',
                   fontWeight: 700,
-                  boxShadow: '0 2px 8px rgba(37, 99, 235, 0.08)',
+                  boxShadow: '0 2px 8px rgba(16, 185, 129, 0.08)',
                 }}
               >
-                <GraduationCap size={18} color="#2563EB" />
-                <span>Academy Portal</span>
+                <GraduationCap size={17} color="#059669" />
+                <span>Academy Student Portal</span>
                 <span
                   style={{
-                    width: '7px',
-                    height: '7px',
+                    width: '6px',
+                    height: '6px',
                     borderRadius: '50%',
-                    background: '#2563EB',
+                    background: '#10B981',
                     display: 'inline-block',
-                    marginLeft: '4px',
+                    marginLeft: '3px',
                     animation: 'pulseDot 2s infinite ease-in-out',
                   }}
                 />
               </div>
             </div>
 
-            {/* Secure Sign-In Eyebrow */}
-            <div style={{ marginBottom: '24px' }}>
+            {/* Secure Sign-In Header */}
+            <div style={{ marginBottom: '22px' }}>
               <p
                 style={{
                   fontSize: '0.72rem',
                   fontWeight: 800,
-                  color: '#2563EB',
-                  letterSpacing: '1.8px',
+                  color: '#059669',
+                  letterSpacing: '1.6px',
                   textTransform: 'uppercase',
-                  margin: '0 0 6px 0',
+                  margin: '0 0 5px 0',
                 }}
               >
-                Secure Sign-In
+                Secure Candidate Sign-In
               </p>
               <h2
                 style={{
-                  fontSize: '1.85rem',
+                  fontSize: '1.8rem',
                   fontWeight: 900,
-                  color: '#0F172A',
+                  color: '#0F291E',
                   margin: 0,
                   letterSpacing: '-0.5px',
                   lineHeight: 1.2,
@@ -687,11 +743,11 @@ export default function LoginPage() {
                   border: '1px solid #FECACA',
                   borderRadius: '12px',
                   padding: '12px 14px',
-                  marginBottom: '20px',
+                  marginBottom: '18px',
                   display: 'flex',
                   gap: '10px',
                   alignItems: 'flex-start',
-                  fontSize: '0.85rem',
+                  fontSize: '0.84rem',
                   color: '#991B1B',
                 }}
               >
@@ -701,12 +757,12 @@ export default function LoginPage() {
             )}
 
             {/* Form */}
-            <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              {/* Username or Email Input (User Icon as in reference screenshot) */}
+            <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '13px' }}>
+              {/* Username or Email Input */}
               <div className="login-input-group">
                 <User
                   size={18}
-                  color="#94A3B8"
+                  color="#059669"
                   style={{ position: 'absolute', left: '16px', pointerEvents: 'none' }}
                 />
                 <input
@@ -719,11 +775,11 @@ export default function LoginPage() {
                 />
               </div>
 
-              {/* Password Input (Lock Icon as in reference screenshot) */}
+              {/* Password Input */}
               <div className="login-input-group">
                 <Lock
                   size={18}
-                  color="#94A3B8"
+                  color="#059669"
                   style={{ position: 'absolute', left: '16px', pointerEvents: 'none' }}
                 />
                 <input
@@ -760,8 +816,8 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="sign-in-button"
-                style={{ marginTop: '6px' }}
+                className="sign-in-btn"
+                style={{ marginTop: '4px' }}
               >
                 {loading ? (
                   <>
@@ -776,7 +832,7 @@ export default function LoginPage() {
                         display: 'inline-block',
                       }}
                     />
-                    Signing in…
+                    Authenticating…
                   </>
                 ) : (
                   <>
@@ -786,27 +842,34 @@ export default function LoginPage() {
               </button>
             </form>
 
-            {/* Forgot Password Link */}
-            <div style={{ textAlign: 'center', marginTop: '16px' }}>
-              <a
-                href="https://wa.me/393333444479?text=Hello%20Ahsora%20Support,%20I%20need%20help%20with%20my%20password."
-                target="_blank"
-                rel="noopener noreferrer"
+            {/* Prominent Register Now Section (Forgot password removed) */}
+            <div style={{ marginTop: '18px' }}>
+              <div
                 style={{
-                  fontSize: '0.875rem',
-                  color: '#2563EB',
-                  fontWeight: 600,
-                  textDecoration: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  marginBottom: '14px',
                 }}
               >
-                Forgot password?
-              </a>
+                <div style={{ flex: 1, height: '1px', background: '#E2E8F0' }} />
+                <span style={{ fontSize: '0.74rem', fontWeight: 700, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  New to Ahsora?
+                </span>
+                <div style={{ flex: 1, height: '1px', background: '#E2E8F0' }} />
+              </div>
+
+              <Link href="/register" className="register-now-btn">
+                <UserPlus size={16} color="#059669" />
+                Register New Account
+                <ArrowRight size={14} color="#059669" />
+              </Link>
             </div>
 
             {/* Subtle Divider */}
-            <div style={{ height: '1px', background: '#F1F5F9', margin: '22px 0 18px 0' }} />
+            <div style={{ height: '1px', background: '#F1F5F9', margin: '20px 0 16px 0' }} />
 
-            {/* IMAT Result Portal Card (Matching Reference Screenshot) */}
+            {/* IMAT Result Portal Card */}
             <a
               href="https://wa.me/393333444479?text=Hi%20Ahsora,%20I%20have%20a%20candidate%20code%20and%20want%20to%20check%20my%20IMAT%202026%20result."
               target="_blank"
@@ -815,25 +878,25 @@ export default function LoginPage() {
             >
               <div
                 style={{
-                  width: '40px',
-                  height: '40px',
+                  width: '38px',
+                  height: '38px',
                   borderRadius: '10px',
-                  background: '#581C87',
+                  background: 'linear-gradient(135deg, #064E3B 0%, #022C22 100%)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   flexShrink: 0,
-                  color: '#FFFFFF',
+                  color: '#FCD34D',
                 }}
               >
-                <Award size={20} />
+                <Award size={19} />
               </div>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div
                   style={{
                     fontWeight: 800,
-                    fontSize: '0.85rem',
-                    color: '#0F172A',
+                    fontSize: '0.84rem',
+                    color: '#0F291E',
                     lineHeight: 1.2,
                   }}
                 >
@@ -841,7 +904,7 @@ export default function LoginPage() {
                 </div>
                 <div
                   style={{
-                    fontSize: '0.74rem',
+                    fontSize: '0.73rem',
                     color: '#64748B',
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
@@ -853,47 +916,51 @@ export default function LoginPage() {
                 </div>
               </div>
               <span className="result-btn">
-                Check Result <ArrowRight size={13} />
+                Check Result <ArrowRight size={12} />
               </span>
             </a>
           </div>
 
-          {/* Footer Bottom Metadata & Security Badges */}
-          <div style={{ marginTop: 'auto', paddingTop: '24px', textAlign: 'center' }}>
+          {/* Footer Metadata & Social Links */}
+          <div style={{ marginTop: 'auto', paddingTop: '20px', textAlign: 'center', width: '100%', maxWidth: '420px' }}>
+            {/* Social Media Links for Quick Access */}
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '12px' }}>
+              <SocialLinks variant="emerald" size="sm" />
+            </div>
+
             <div
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: '16px',
+                gap: '14px',
                 fontSize: '0.72rem',
                 color: '#94A3B8',
-                marginBottom: '10px',
+                marginBottom: '8px',
               }}
             >
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                <ShieldCheck size={14} color="#10B981" /> 256-Bit SSL Encrypted
+                <ShieldCheck size={13} color="#059669" /> 256-Bit SSL Encrypted
               </span>
               <span>•</span>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                <CheckCircle2 size={14} color="#2563EB" /> Verified Admissions
-              </span>
+              <span>Official IMAT Academy</span>
             </div>
 
-            <p style={{ margin: 0, fontSize: '0.75rem', color: '#94A3B8' }}>
-              © Ahsora MedsAcademy
+            <p style={{ margin: 0, fontSize: '0.74rem', color: '#94A3B8' }}>
+              © {new Date().getFullYear()} Ahsora Meds Academy
             </p>
           </div>
 
-          {/* Floating Social Proof Toast (Jayant J. joined PREP Foundation...) */}
+          {/* Floating Social Proof Toast */}
           <div className="social-proof-toast">
             <div
               style={{
                 width: '36px',
                 height: '36px',
                 borderRadius: '50%',
-                background: currentNotif.bg,
-                color: currentNotif.color,
+                background: '#ECFDF5',
+                color: '#065F46',
+                border: '1px solid #A7F3D0',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -906,8 +973,8 @@ export default function LoginPage() {
             </div>
             <div style={{ fontSize: '0.78rem', lineHeight: 1.35 }}>
               <div>
-                <strong style={{ color: '#0F172A' }}>{currentNotif.name}</strong>{' '}
-                <span style={{ color: '#2563EB', fontWeight: 600 }}>{currentNotif.action}</span>
+                <strong style={{ color: '#0F291E' }}>{currentNotif.name}</strong>{' '}
+                <span style={{ color: '#059669', fontWeight: 600 }}>{currentNotif.action}</span>
               </div>
               <div style={{ color: '#94A3B8', fontSize: '0.7rem', marginTop: '2px' }}>
                 {currentNotif.subtext}
