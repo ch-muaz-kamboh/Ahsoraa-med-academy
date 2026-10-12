@@ -3,6 +3,7 @@ import './globals.css';
 import { AppProvider } from '@/lib/store';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import SupportChatWidget from '@/components/chat/SupportChatWidget';
 
 export const metadata: Metadata = {
   title: 'Ahsora Med Academy | #1 IMAT Preparation Platform — Study Medicine in Italy',
@@ -26,6 +27,7 @@ export default function RootLayout({
           <Navbar />
           <main style={{ minHeight: '80vh' }}>{children}</main>
           <Footer />
+          <SupportChatWidget />
         </AppProvider>
       </body>
     </html>
