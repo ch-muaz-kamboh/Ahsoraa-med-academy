@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -15,10 +15,12 @@ import {
   GraduationCap,
   ExternalLink,
   AlertCircle,
-  Award,
   ShieldCheck,
   UserPlus,
   Sparkles,
+  BookOpen,
+  Target,
+  Compass,
 } from 'lucide-react';
 import Logo from '@/components/brand/Logo';
 import SocialLinks from '@/components/common/SocialLinks';
@@ -31,41 +33,6 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  // Rotating student admission updates
-  const [notificationIndex, setNotificationIndex] = useState(0);
-  const notifications = [
-    {
-      initials: 'JJ',
-      name: 'Jayant J. (India)',
-      action: 'joined the PREP Foundation',
-      subtext: 'for medical studies · 14d ago',
-      badge: 'IMAT Prep',
-    },
-    {
-      initials: 'MK',
-      name: 'Maria K. (Germany)',
-      action: 'enrolled in IMAT Comprehensive',
-      subtext: 'for medicine in Italy · 2d ago',
-      badge: 'Medicine in Italy',
-    },
-    {
-      initials: 'SA',
-      name: 'Sameer A. (UAE)',
-      action: 'scored 78.4 in Mock Exam',
-      subtext: 'University of Milan prep · 5h ago',
-      badge: 'Top Scorer',
-    },
-  ];
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setNotificationIndex((prev) => (prev + 1) % notifications.length);
-    }, 6000);
-    return () => clearInterval(timer);
-  }, [notifications.length]);
-
-  const currentNotif = notifications[notificationIndex];
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -120,7 +87,7 @@ export default function LoginPage() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap');
         
         * { box-sizing: border-box; }
         .ahsora-login-root {
@@ -129,11 +96,6 @@ export default function LoginPage() {
           display: flex;
           background: #F7FAF8;
           overflow-x: hidden;
-        }
-
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(6px); }
-          to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes pulseDot {
@@ -213,7 +175,7 @@ export default function LoginPage() {
 
         .register-now-btn {
           width: 100%;
-          height: 48px;
+          height: 50px;
           background: #ECFDF5;
           color: #065F46;
           border: 1.5px solid #A7F3D0;
@@ -237,61 +199,9 @@ export default function LoginPage() {
           box-shadow: 0 4px 14px rgba(5, 150, 105, 0.15);
         }
 
-        .result-portal-card {
-          display: flex;
-          align-items: center;
-          gap: 14px;
-          background: linear-gradient(135deg, #F0FDF4 0%, #FFFFFF 100%);
-          border: 1.5px solid #A7F3D0;
-          border-radius: 14px;
-          padding: 12px 14px;
-          text-decoration: none;
-          transition: all 0.2s ease;
-        }
-
-        .result-portal-card:hover {
-          border-color: #059669;
-          background: #ECFDF5;
-          box-shadow: 0 4px 16px rgba(5, 150, 105, 0.12);
-          transform: translateY(-1px);
-        }
-
-        .result-btn {
-          background: linear-gradient(135deg, #B48D39 0%, #99732B 100%);
-          color: #FFFFFF;
-          border: none;
-          border-radius: 8px;
-          padding: 8px 13px;
-          font-size: 0.78rem;
-          font-weight: 700;
-          white-space: nowrap;
-          display: inline-flex;
-          align-items: center;
-          gap: 4px;
-          box-shadow: 0 2px 6px rgba(180, 141, 57, 0.3);
-        }
-
-        .social-proof-toast {
-          position: fixed;
-          bottom: 22px;
-          right: 26px;
-          z-index: 50;
-          background: #FFFFFF;
-          border: 1px solid #D1FAE5;
-          border-radius: 16px;
-          padding: 10px 16px;
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          box-shadow: 0 10px 30px rgba(6, 78, 59, 0.1), 0 1px 3px rgba(0, 0, 0, 0.04);
-          animation: fadeIn 0.4s ease-out;
-          max-width: 370px;
-        }
-
         @media (max-width: 960px) {
           .left-hero-panel { display: none !important; }
           .right-auth-panel { width: 100% !important; flex: 1 !important; padding: 28px 18px !important; }
-          .social-proof-toast { display: none !important; }
         }
       `}</style>
 
@@ -399,7 +309,7 @@ export default function LoginPage() {
 
           {/* Main Story Block */}
           <div style={{ position: 'relative', zIndex: 2, margin: 'auto 0 32px 0', maxWidth: '520px' }}>
-            {/* Tagline Badge */}
+            {/* Tagline Badge — IMAT 2027 Admissions Open */}
             <div
               style={{
                 display: 'inline-flex',
@@ -422,11 +332,11 @@ export default function LoginPage() {
                   textTransform: 'uppercase',
                 }}
               >
-                IMAT 2026 · Admissions Open
+                IMAT 2027 · ADMISSIONS OPEN
               </span>
             </div>
 
-            {/* Display Headline */}
+            {/* Display Headline: Prepare Smarter. Pursue Medicine in Italy. */}
             <h1
               style={{
                 fontSize: 'clamp(2.3rem, 4vw, 3.1rem)',
@@ -437,37 +347,35 @@ export default function LoginPage() {
                 margin: '0 0 16px 0',
               }}
             >
-              The school of{' '}
-              <span style={{ color: '#5CED73', textShadow: '0 0 20px rgba(92,237,115,0.4)' }}>
-                tomorrow&apos;s
-              </span>
+              Prepare Smarter.{' '}
               <br />
-              physicians.
+              <span style={{ color: '#5CED73', textShadow: '0 0 20px rgba(92,237,115,0.4)' }}>
+                Pursue Medicine in Italy.
+              </span>
             </h1>
 
-            {/* Mission Subtitle */}
+            {/* Subtitle: Join a community of aspiring doctors... */}
             <p
               style={{
                 color: '#CBD5E1',
-                fontSize: '0.94rem',
+                fontSize: '0.96rem',
                 lineHeight: 1.7,
                 margin: '0 0 30px 0',
                 maxWidth: '450px',
               }}
             >
-              Empowering future doctors worldwide — structured IMAT preparation, one-to-one mentorship and
-              complete admissions support for medicine in Italy.
+              Join a community of aspiring doctors and take the next step towards your future in medicine.
             </p>
 
-            {/* Frosted Glass Stats Card (Emerald & Gold Accents) */}
+            {/* 3 Pillars / Badges: UNDERSTAND The IMAT | PREPARE With purpose | PLAN Your next step */}
             <div
               style={{
-                background: 'rgba(4, 45, 33, 0.45)',
+                background: 'rgba(4, 45, 33, 0.55)',
                 backdropFilter: 'blur(16px)',
                 WebkitBackdropFilter: 'blur(16px)',
-                border: '1px solid rgba(110, 231, 183, 0.22)',
+                border: '1px solid rgba(110, 231, 183, 0.25)',
                 borderRadius: '16px',
-                padding: '22px 26px',
+                padding: '20px 24px',
                 display: 'grid',
                 gridTemplateColumns: 'repeat(3, 1fr)',
                 gap: '16px',
@@ -475,80 +383,77 @@ export default function LoginPage() {
               }}
             >
               <div>
-                <div
-                  style={{
-                    fontSize: '1.65rem',
-                    fontWeight: 900,
-                    color: '#FCD34D',
-                    letterSpacing: '-0.5px',
-                    lineHeight: 1,
-                  }}
-                >
-                  Rank 1
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+                  <BookOpen size={15} color="#FCD34D" />
+                  <span
+                    style={{
+                      fontSize: '0.95rem',
+                      fontWeight: 900,
+                      color: '#FCD34D',
+                      letterSpacing: '0.5px',
+                    }}
+                  >
+                    UNDERSTAND
+                  </span>
                 </div>
                 <div
                   style={{
-                    fontSize: '0.66rem',
-                    fontWeight: 700,
-                    color: '#94A3B8',
-                    letterSpacing: '1px',
-                    textTransform: 'uppercase',
-                    marginTop: '6px',
+                    fontSize: '0.8rem',
+                    fontWeight: 600,
+                    color: '#E2E8F0',
                   }}
                 >
-                  Pavia · Messina · Catania
-                </div>
-              </div>
-
-              <div style={{ borderLeft: '1px solid rgba(255, 255, 255, 0.1)', paddingLeft: '16px' }}>
-                <div
-                  style={{
-                    fontSize: '1.65rem',
-                    fontWeight: 900,
-                    color: '#5CED73',
-                    letterSpacing: '-0.5px',
-                    lineHeight: 1,
-                  }}
-                >
-                  84.7
-                </div>
-                <div
-                  style={{
-                    fontSize: '0.66rem',
-                    fontWeight: 700,
-                    color: '#94A3B8',
-                    letterSpacing: '1px',
-                    textTransform: 'uppercase',
-                    marginTop: '6px',
-                  }}
-                >
-                  Highest IMAT · 2025
+                  The IMAT
                 </div>
               </div>
 
-              <div style={{ borderLeft: '1px solid rgba(255, 255, 255, 0.1)', paddingLeft: '16px' }}>
-                <div
-                  style={{
-                    fontSize: '1.65rem',
-                    fontWeight: 900,
-                    color: '#FFFFFF',
-                    letterSpacing: '-0.5px',
-                    lineHeight: 1,
-                  }}
-                >
-                  10+
+              <div style={{ borderLeft: '1px solid rgba(255, 255, 255, 0.12)', paddingLeft: '16px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+                  <Target size={15} color="#5CED73" />
+                  <span
+                    style={{
+                      fontSize: '0.95rem',
+                      fontWeight: 900,
+                      color: '#5CED73',
+                      letterSpacing: '0.5px',
+                    }}
+                  >
+                    PREPARE
+                  </span>
                 </div>
                 <div
                   style={{
-                    fontSize: '0.66rem',
-                    fontWeight: 700,
-                    color: '#94A3B8',
-                    letterSpacing: '1px',
-                    textTransform: 'uppercase',
-                    marginTop: '6px',
+                    fontSize: '0.8rem',
+                    fontWeight: 600,
+                    color: '#E2E8F0',
                   }}
                 >
-                  Italian Universities
+                  With purpose
+                </div>
+              </div>
+
+              <div style={{ borderLeft: '1px solid rgba(255, 255, 255, 0.12)', paddingLeft: '16px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+                  <Compass size={15} color="#FFFFFF" />
+                  <span
+                    style={{
+                      fontSize: '0.95rem',
+                      fontWeight: 900,
+                      color: '#FFFFFF',
+                      letterSpacing: '0.5px',
+                    }}
+                  >
+                    PLAN
+                  </span>
+                </div>
+                <div
+                  style={{
+                    fontSize: '0.8rem',
+                    fontWeight: 600,
+                    color: '#E2E8F0',
+                  }}
+                >
+                  Your next step
                 </div>
               </div>
             </div>
@@ -609,7 +514,7 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* ── RIGHT AUTH PANEL (CREATIVE EMERALD & PORCELAIN THEME) ────── */}
+        {/* ── RIGHT AUTH PANEL ────────────────────────────────────────── */}
         <div
           className="right-auth-panel"
           style={{
@@ -624,7 +529,7 @@ export default function LoginPage() {
             position: 'relative',
           }}
         >
-          {/* Top Brand Logo - Compact / Reduced width as requested */}
+          {/* Top Brand Logo - Compact / Reduced width */}
           <div
             style={{
               width: '100%',
@@ -654,7 +559,7 @@ export default function LoginPage() {
               maxWidth: '420px',
               background: '#FFFFFF',
               borderRadius: '22px',
-              padding: '34px 34px 30px',
+              padding: '36px 34px',
               boxShadow: '0 12px 36px rgba(6, 78, 59, 0.07), 0 1px 3px rgba(0, 0, 0, 0.04)',
               border: '1.5px solid #E6F4EA',
               margin: 'auto 0',
@@ -757,7 +662,7 @@ export default function LoginPage() {
             )}
 
             {/* Form */}
-            <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '13px' }}>
+            <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
               {/* Username or Email Input */}
               <div className="login-input-group">
                 <User
@@ -842,14 +747,14 @@ export default function LoginPage() {
               </button>
             </form>
 
-            {/* Prominent Register Now Section (Forgot password removed) */}
-            <div style={{ marginTop: '18px' }}>
+            {/* Register Now Section (Forgot password and 2026 result removed) */}
+            <div style={{ marginTop: '22px' }}>
               <div
                 style={{
                   display: 'flex',
                   alignItems: 'center',
                   gap: '12px',
-                  marginBottom: '14px',
+                  marginBottom: '16px',
                 }}
               >
                 <div style={{ flex: 1, height: '1px', background: '#E2E8F0' }} />
@@ -865,60 +770,6 @@ export default function LoginPage() {
                 <ArrowRight size={14} color="#059669" />
               </Link>
             </div>
-
-            {/* Subtle Divider */}
-            <div style={{ height: '1px', background: '#F1F5F9', margin: '20px 0 16px 0' }} />
-
-            {/* IMAT Result Portal Card */}
-            <a
-              href="https://wa.me/393333444479?text=Hi%20Ahsora,%20I%20have%20a%20candidate%20code%20and%20want%20to%20check%20my%20IMAT%202026%20result."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="result-portal-card"
-            >
-              <div
-                style={{
-                  width: '38px',
-                  height: '38px',
-                  borderRadius: '10px',
-                  background: 'linear-gradient(135deg, #064E3B 0%, #022C22 100%)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0,
-                  color: '#FCD34D',
-                }}
-              >
-                <Award size={19} />
-              </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div
-                  style={{
-                    fontWeight: 800,
-                    fontSize: '0.84rem',
-                    color: '#0F291E',
-                    lineHeight: 1.2,
-                  }}
-                >
-                  IMAT 2026 Result Portal
-                </div>
-                <div
-                  style={{
-                    fontSize: '0.73rem',
-                    color: '#64748B',
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    marginTop: '2px',
-                  }}
-                >
-                  Have a candidate code? Check…
-                </div>
-              </div>
-              <span className="result-btn">
-                Check Result <ArrowRight size={12} />
-              </span>
-            </a>
           </div>
 
           {/* Footer Metadata & Social Links */}
@@ -949,37 +800,6 @@ export default function LoginPage() {
             <p style={{ margin: 0, fontSize: '0.74rem', color: '#94A3B8' }}>
               © {new Date().getFullYear()} Ahsora Meds Academy
             </p>
-          </div>
-
-          {/* Floating Social Proof Toast */}
-          <div className="social-proof-toast">
-            <div
-              style={{
-                width: '36px',
-                height: '36px',
-                borderRadius: '50%',
-                background: '#ECFDF5',
-                color: '#065F46',
-                border: '1px solid #A7F3D0',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontWeight: 800,
-                fontSize: '0.8rem',
-                flexShrink: 0,
-              }}
-            >
-              {currentNotif.initials}
-            </div>
-            <div style={{ fontSize: '0.78rem', lineHeight: 1.35 }}>
-              <div>
-                <strong style={{ color: '#0F291E' }}>{currentNotif.name}</strong>{' '}
-                <span style={{ color: '#059669', fontWeight: 600 }}>{currentNotif.action}</span>
-              </div>
-              <div style={{ color: '#94A3B8', fontSize: '0.7rem', marginTop: '2px' }}>
-                {currentNotif.subtext}
-              </div>
-            </div>
           </div>
         </div>
       </div>

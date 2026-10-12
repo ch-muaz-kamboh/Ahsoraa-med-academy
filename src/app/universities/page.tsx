@@ -1214,8 +1214,8 @@ export default function UniversitiesPage() {
 
           <FadeUp delay={200}>
             <div style={{ textAlign: 'center', marginTop: '28px' }}>
-              <Link href="/scholarships" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#059669', color: '#fff', padding: '13px 28px', borderRadius: '999px', fontWeight: 700, fontSize: '0.9375rem', textDecoration: 'none', boxShadow: '0 4px 18px rgba(5,150,105,0.35)' }}>
-                See Full Scholarship Guidance →
+              <Link href="/universities/scholarships" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#059669', color: '#fff', padding: '13px 28px', borderRadius: '999px', fontWeight: 700, fontSize: '0.9375rem', textDecoration: 'none', boxShadow: '0 4px 18px rgba(5,150,105,0.35)' }}>
+                See Full Scholarship Guidance (All 20 Regions) →
               </Link>
             </div>
           </FadeUp>

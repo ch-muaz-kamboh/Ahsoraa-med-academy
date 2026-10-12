@@ -35,8 +35,56 @@ export default function ScholarshipsPage() {
       </div>
 
       <div className="container">
+        {/* Banner: Full 20 Regions Hub */}
+        <div
+          style={{
+            background: 'linear-gradient(135deg, #022C22 0%, #064E3B 100%)',
+            borderRadius: '16px',
+            padding: '24px 28px',
+            color: '#FFFFFF',
+            marginBottom: '36px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '20px',
+            flexWrap: 'wrap',
+            boxShadow: '0 8px 24px rgba(6,78,59,0.18)',
+            border: '1.5px solid #059669',
+          }}
+        >
+          <div>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(92,237,115,0.2)', padding: '3px 10px', borderRadius: '20px', fontSize: '0.72rem', fontWeight: 800, color: '#5CED73', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px' }}>
+              <ShieldCheck size={12} />
+              New · Italy Scholarships Hub 2026/27
+            </div>
+            <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#FFFFFF', margin: '0 0 6px 0' }}>
+              Detailed Regional Directory: All 20 Italian Regions
+            </h3>
+            <p style={{ color: '#CBD5E1', fontSize: '0.88rem', margin: 0, maxWidth: '680px', lineHeight: 1.5 }}>
+              Compare official DSU calls across all 20 regions (ER.GO, ERSU Sicily, Lazio DiSCo, EDISU Piedmont, Lombardy), verified deadlines, ISEE Parificato cutoffs, and MUR-listed English medical degrees.
+            </p>
+          </div>
 
-        {/* Scholarships Grid */}
+          <Link
+            href="/universities/scholarships"
+            style={{
+              background: '#5CED73',
+              color: '#022C22',
+              borderRadius: '999px',
+              padding: '12px 24px',
+              fontWeight: 800,
+              fontSize: '0.88rem',
+              textDecoration: 'none',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              whiteSpace: 'nowrap',
+              boxShadow: '0 4px 14px rgba(92,237,115,0.3)',
+            }}
+          >
+            Explore 20-Region Directory <ArrowRight size={15} />
+          </Link>
+        </div>
         <div
           style={{
             display: 'grid',
