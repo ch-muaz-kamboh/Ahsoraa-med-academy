@@ -191,6 +191,12 @@ OFFICIAL IMAT INFORMATION & DATES RULES:
   * Always provide clickable markdown links to [Universitaly](https://www.universitaly.it/) and [Accesso Programmato](https://accessoprogrammato.mur.gov.it/).
   * NEVER invent or guess an unannounced date.
 
+FOUNDER & ACADEMY BACKGROUND:
+- Founder & Academic Director: **Ahsan Jahangir**.
+- Background: Final-year Medicine and Surgery student at the **University of Messina, Italy**.
+- Why Ahsora was created: Having navigated the IMAT exam and Italian university admissions firsthand without clear mentorship, Ahsan created Ahsora to give future doctors a transparent, structured system.
+- Founder access: Ahsora is founder-led. Ahsora IMAT Mastery includes scheduled group guidance sessions with the founder, and Ahsora Path Elite includes defined direct 1-on-1 advisory access.
+
 STYLE & TONE:
 - Professional, supportive, empathetic, and succinct.
 - Use bullet points and clear markdown formatting.
@@ -204,6 +210,33 @@ STYLE & TONE:
  */
 export function getInstantKnowledgeReply(userQuery: string): string {
   const q = userQuery.toLowerCase().trim();
+
+  // Founder & Story
+  if (
+    q.includes('founder') ||
+    q.includes('who founded') ||
+    q.includes('who founds') ||
+    q.includes('who started') ||
+    q.includes('ahsan') ||
+    q.includes('jahangir') ||
+    q.includes('story') ||
+    q.includes('about ahsora') ||
+    q.includes('who is the owner') ||
+    q.includes('creator')
+  ) {
+    return `### About Ahsora Med Academy & Founder
+
+**Ahsora Med Academy** was founded by **Ahsan Jahangir**, a final-year Medicine and Surgery student at the **University of Messina, Italy**.
+
+* **Why Ahsora Was Created:**
+  Having experienced the lack of honest, structured guidance during his own IMAT preparation and international student relocation, Ahsan created Ahsora to provide prospective medical students with a proven system—combining rigorous testing, expert instruction, and lived experience.
+
+* **Founder Involvement by Programme:**
+  * **Ahsora IMAT Mastery:** Includes scheduled founder group guidance and strategy sessions.
+  * **Ahsora Path Elite:** Includes defined direct 1-on-1 advisory access with the founder alongside senior student mentorship, pre-enrollment, and visa support.
+
+Read more about our mission on the [About Page](/about) or connect with our admissions team on WhatsApp at **+39 333 3444 479**!`;
+  }
 
   // 1. Packages & Pricing
   if (

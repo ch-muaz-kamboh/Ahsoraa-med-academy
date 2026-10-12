@@ -87,14 +87,12 @@ export async function POST(req: NextRequest) {
     // 5. Initialize Google Generative AI
     const genAI = new GoogleGenerativeAI(apiKey);
 
-    // Support all production Google Gemini models with automatic cascading fallback
+    // Highest capacity stable production models for this account
     const candidateModels = [
-      'gemini-2.0-flash',
-      'gemini-1.5-flash',
-      'gemini-2.5-flash',
+      'gemini-3.1-flash-lite',
       'gemini-flash-latest',
-      'gemini-3.8-flash',
-      'gemini-1.5-pro',
+      'gemini-3.6-flash',
+      'gemini-3.5-flash',
     ];
 
     let replyText = '';
