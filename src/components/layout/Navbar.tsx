@@ -37,14 +37,14 @@ export default function Navbar() {
 
   const navLinks = [
     { href: '/', label: 'Home', icon: null },
+    { href: '/courses', label: 'Courses', icon: <BookOpen size={14} /> },
+    { href: '/imat', label: 'IMAT', icon: <FileCheck size={14} /> },
+    { href: '/universities', label: 'Universities', icon: <Globe size={14} /> },
+    { href: '/resources', label: 'Resources', icon: <Book size={14} /> },
+    { href: '/news', label: 'News & Blogs', icon: <Newspaper size={14} /> },
+    { href: '/licensing-exams', label: 'Licensing Exams', icon: <Scale size={14} /> },
+    { href: '/contact', label: 'Contact Us', icon: <MessageSquare size={14} /> },
     { href: '/about', label: 'About', icon: null },
-    { href: '/courses', label: 'Courses', icon: <BookOpen size={16} /> },
-    { href: '/imat', label: 'IMAT', icon: <FileCheck size={16} /> },
-    { href: '/resources', label: 'Resources', icon: <Book size={16} /> },
-    { href: '/universities', label: 'Universities', icon: <Globe size={16} /> },
-    { href: '/licensing-exams', label: 'Licensing Exams', icon: <Scale size={16} /> },
-    { href: '/news', label: 'News & blogs', icon: <Newspaper size={16} /> },
-    { href: '/contact', label: 'Contact Us', icon: <MessageSquare size={16} /> },
   ];
 
   return (
@@ -59,7 +59,7 @@ export default function Navbar() {
           zIndex: 50,
           backgroundColor: '#FFFFFF',
           borderBottom: '1px solid #E2E8F0',
-          boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.06)',
+          boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.05)',
         }}
       >
         {/* Global Live Offer & Countdown Announcement Bar */}
@@ -71,7 +71,7 @@ export default function Navbar() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            height: '76px',
+            height: '60px',
           }}
         >
           {/* Brand Logo */}
@@ -83,7 +83,7 @@ export default function Navbar() {
               textDecoration: 'none',
             }}
           >
-            <Logo height={38} />
+            <Logo height={32} />
           </Link>
 
           {/* Desktop Nav Links */}
@@ -91,7 +91,7 @@ export default function Navbar() {
             style={{
               display: 'none',
               alignItems: 'center',
-              gap: '16px',
+              gap: '12px',
             }}
             className="desktop-nav"
           >
@@ -102,12 +102,13 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   style={{
-                    fontSize: '0.9375rem',
+                    fontSize: '0.84rem',
                     fontWeight: 600,
-                   color: isActive ? '#22C55E' : '#334155',
+                    color: isActive ? '#16A34A' : '#334155',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '6px',
+                    gap: '5px',
+                    whiteSpace: 'nowrap',
                     transition: 'color 0.15s ease',
                   }}
                 >
@@ -118,20 +119,21 @@ export default function Navbar() {
           </nav>
 
           {/* Action CTAs */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <Link
               href="/free-mock"
               style={{
-                padding: '8px 16px',
-                fontSize: '0.875rem',
+                padding: '6px 13px',
+                fontSize: '0.8125rem',
                 fontWeight: 600,
-                color: '#22C55E',
-                border: '1px solid #22C55E',
-                borderRadius: '8px',
+                color: '#16A34A',
+                border: '1px solid #16A34A',
+                borderRadius: '7px',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '6px',
+                gap: '5px',
                 textDecoration: 'none',
+                whiteSpace: 'nowrap',
               }}
             >
               <span>Take Free Mock</span>
@@ -141,14 +143,16 @@ export default function Navbar() {
               href="/portal/dashboard"
               className="btn-primary"
               style={{
-                padding: '8px 16px',
-                fontSize: '0.875rem',
+                padding: '6px 14px',
+                fontSize: '0.8125rem',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '6px',
+                gap: '5px',
+                borderRadius: '7px',
+                whiteSpace: 'nowrap',
               }}
             >
-              <User size={16} />
+              <User size={15} />
               <span>Portal</span>
             </Link>
 
@@ -208,7 +212,7 @@ export default function Navbar() {
       </header>
 
       <style jsx global>{`
-        @media (min-width: 900px) {
+        @media (min-width: 1060px) {
           .desktop-nav {
             display: flex !important;
           }
@@ -219,7 +223,7 @@ export default function Navbar() {
             display: none;
           }
         }
-        @media (max-width: 899px) {
+        @media (max-width: 1059px) {
           .desktop-nav {
             display: none !important;
           }
