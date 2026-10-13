@@ -6,7 +6,7 @@ import Link from 'next/link';
 import {
   Compass, GraduationCap, Globe2, ArrowRight, CheckCircle2,
   ChevronDown, ChevronUp, PlayCircle, Target, BarChart2, MessageCircle, AlertCircle, Star,
-  Users, Zap, TrendingUp, CheckCircle
+  Users, Zap, TrendingUp, CheckCircle, Mail
 } from 'lucide-react';
 import LeadCaptureModal from '@/components/public/LeadCaptureModal';
 import {
@@ -461,6 +461,7 @@ function ProgrammeQuiz({ onLead }: { onLead: () => void }) {
 // ─── Main Page ──────────────────────────────────────────────────────────────
 export default function CoursesPage() {
   const [leadOpen, setLeadOpen] = useState(false);
+  const [showFaqList, setShowFaqList] = useState(false);
   const [openFaqs, setOpenFaqs] = useState<number[]>([]);
   const toggleFaq = (i: number) => {
     setOpenFaqs((prev) => prev.includes(i) ? prev.filter((x) => x !== i) : [...prev, i]);
@@ -471,7 +472,7 @@ export default function CoursesPage() {
   const [saleOffer, setSaleOffer] = useState<SaleOfferConfig>({
     isSaleActive: true,
     offerTitle: '⚡ IMAT 2027 AUTUMN FLASH SALE — UP TO 25% OFF',
-    offerSubtitle: 'Enrol today to lock in special discounted pricing with 12 months full portal access!',
+    offerSubtitle: 'Enrol today to lock in special discounted pricing with upto 12 months full portal access!',
     endDate: '2026-10-31T23:59:59',
     discountBadgeText: 'LIMITED TIME OFFER',
     promoCode: 'AUTUMN25',
@@ -539,7 +540,14 @@ export default function CoursesPage() {
       tagline: 'Start with Confidence.',
       desc: 'For students who want to prepare independently with a structured, proven system.',
       price: '$299',
-      features: ['Full portal access — 12 months', 'Complete question bank (all subjects)', 'Full-length IMAT mock exams', 'Topic-wise practice sets', 'Performance analytics dashboard', 'Study plan & timeline guide'],
+      features: [
+        'Portal access upto 12 months',
+        'Complete Library access including Comprehensive Study Notes, Books, Solved past IMAT papers 2011-26, Formula sheets etc',
+        'Complete MCQS Bank (all subjects) 2800+ MCQs included',
+        '12 Full-length IMAT Mock Exams',
+        'Topic-wise practice sets & in-depth error analysis',
+        'Performance analytics dashboard & Study plan guide',
+      ],
       cta: 'Start Your Ascent',
       founderAccess: 'No direct access — programme built on the founder\'s method',
     },
@@ -553,9 +561,16 @@ export default function CoursesPage() {
       tagline: 'Prepare Without Compromise.',
       desc: 'For students who want structured preparation, live teaching and continuous support.',
       price: '$499',
-      features: ['Everything in Ascent', 'Live instructor-led classes (all subjects)', 'Recorded session library (Coming Soon)', 'Scheduled founder group guidance sessions', 'Direct Q&A during live classes', 'Structured weekly timetable'],
+      features: [
+        'Live instructor-led classes upto 150 hours (all subjects) — complete IMAT Syllabus coverage',
+        'Weekly Doubt Clarifications',
+        'Direct 1-on-1 founder advisory access',
+        'Scheduled founder group guidance & motivation sessions',
+        'Direct Q&A during live classes & structured timetable',
+        'Recorded session library archive',
+      ],
       cta: 'Join Mastery',
-      founderAccess: 'Scheduled group guidance and motivation sessions',
+      founderAccess: 'Direct 1-on-1 and scheduled group guidance sessions',
       isFeatured: true
     },
     {
@@ -568,7 +583,14 @@ export default function CoursesPage() {
       tagline: 'Your Complete Journey.',
       desc: 'For students who want IMAT preparation plus university and admissions support.',
       price: '$999',
-      features: ['Same core IMAT prep as Mastery', 'University application guidance', 'Pre-enrolment & Universitaly support', 'Visa process orientation', 'Scholarship guidance', 'Defined direct advisory access with the founder'],
+      features: [
+        'Including Everything in Ascend + Mastery, plus:',
+        'Comprehensive University application guidance & strategy',
+        'Pre-enrolment & Universitaly support',
+        'Visa process orientation & Scholarship guidance',
+        'Defined direct 1-on-1 advisory access with the founder',
+        'Step-by-step admissions mentorship until arrival in Italy',
+      ],
       cta: 'Talk to an Elite Advisor',
       founderAccess: 'Defined direct advisory access as part of admissions support',
     },
@@ -579,7 +601,7 @@ export default function CoursesPage() {
     { q: 'Are Mastery classes live?', a: 'Yes. Mastery includes scheduled live, teacher-led sessions for all IMAT subjects. All sessions are also recorded and added to your library.' },
     { q: 'Can I ask questions during live classes?', a: 'Yes. Live sessions include real-time Q&A with the subject instructor.' },
     { q: 'Are classes recorded?', a: 'Yes — every live session becomes a permanent part of your resource library immediately after the class ends.' },
-    { q: 'How long do I have access to the portal after enrolling?', a: 'Every Ahsora programme includes 12 months of full portal access from the date you enroll — mocks, question banks, and resources for every subject, at your own pace.' },
+    { q: 'How long do I have access to the portal after enrolling?', a: 'Every Ahsora programme includes upto 12 months of full portal access from the date you enroll — mocks, question banks, and resources for every subject, at your own pace.' },
     { q: 'Is the recorded lecture library complete, or still growing?', a: 'Our recorded lecture library is growing continuously — every live class we run becomes part of it. Biology and Chemistry are available now; Physics is being added this month; Logical Reasoning is in production.' },
     { q: 'What is the difference between Ascent and Mastery?', a: 'Ascent is self-paced — you get the full portal, question bank, mocks and analytics, but no live classes. Mastery adds live instructor-led teaching, session recordings, and founder group guidance sessions.' },
     { q: 'What is the difference between Mastery and MedPath Elite?', a: 'The core IMAT academic preparation is the same. Elite adds university application guidance, pre-enrolment support, visa process orientation, and defined direct advisory access with the founder.' },
@@ -601,24 +623,25 @@ export default function CoursesPage() {
 
 
       {/* ── 01 HERO ─────────────────────────────────────────────────────── */}
-      <section className="courses-hero" style={{ position: 'relative', overflow: 'hidden', padding: '116px 0 60px', background: 'linear-gradient(135deg, #064E3B 0%, #065F46 50%, #0F172A 100%)', color: '#FFFFFF' }}>
-        <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-          <Image src="/courses-hero-bg.jpg" alt="" fill style={{ objectFit: 'cover', opacity: 0.2 }} priority />
+      <section className="courses-hero" style={{ position: 'relative', overflow: 'hidden', padding: '120px 0 70px', background: 'linear-gradient(135deg, #022C22 0%, #064E3B 40%, #0F172A 100%)', color: '#FFFFFF' }}>
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
+          <Image src="/courses-hero-bg.jpg" alt="Ahsora Med Academy" fill sizes="100vw" style={{ objectFit: 'cover', opacity: 0.12 }} priority />
+          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 30%, rgba(16, 185, 129, 0.15) 0%, transparent 70%)' }} />
         </div>
-        <div className="container" style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
-          <span ref={observe} className="section-tagline scroll-fade-up" style={{ color: '#5CED73', backgroundColor: 'rgba(92,237,115,0.15)', border: '1px solid rgba(92,237,115,0.3)', padding: '6px 16px', borderRadius: '20px' }}>IMAT Preparation Programmes</span>
-          <h1 ref={observe} className="section-title scroll-fade-up" style={{ transitionDelay: '100ms', marginBottom: '18px', color: '#FFFFFF' }}>
+        <div className="container" style={{ maxWidth: '920px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+          <span ref={observe} className="section-tagline scroll-fade-up" style={{ color: '#5CED73', backgroundColor: 'rgba(92,237,115,0.12)', border: '1px solid rgba(92,237,115,0.3)', padding: '6px 18px', borderRadius: '9999px', fontSize: '0.82rem', fontWeight: 800, letterSpacing: '2px', display: 'inline-block' }}>IMAT PREPARATION PROGRAMMES</span>
+          <h1 ref={observe} className="section-title scroll-fade-up" style={{ transitionDelay: '100ms', marginTop: '16px', marginBottom: '18px', color: '#FFFFFF', textShadow: '0 2px 20px rgba(0,0,0,0.35)', fontSize: 'clamp(2.3rem, 5vw, 3.4rem)', fontWeight: 900, lineHeight: 1.15 }}>
             Your Journey to Medicine<br />in Italy Starts Here
           </h1>
-          <p ref={observe} className="scroll-fade-up" style={{ color: 'var(--text-secondary)', fontSize: '1.15rem', lineHeight: 1.7, marginBottom: '14px', transitionDelay: '200ms', padding: '0 20px' }}>
+          <p ref={observe} className="scroll-fade-up" style={{ color: '#F1F5F9', fontSize: '1.18rem', lineHeight: 1.7, marginBottom: '14px', transitionDelay: '200ms', padding: '0 20px', fontWeight: 500, textShadow: '0 1px 4px rgba(0,0,0,0.3)' }}>
             Prepare for the IMAT. Learn from experienced instructors. Measure your progress. And, when you're ready, let Ahsora guide you through the journey beyond the exam.
           </p>
-          <p ref={observe} className="scroll-fade-up" style={{ color: 'var(--text-light)', fontSize: '0.95rem', marginBottom: '32px', transitionDelay: '300ms' }}>
+          <p ref={observe} className="scroll-fade-up" style={{ color: '#A7F3D0', fontSize: '1rem', marginBottom: '32px', transitionDelay: '300ms', fontWeight: 600 }}>
             Three programmes. One complete ecosystem. Your choice of support.
           </p>
           <div ref={observe} className="scroll-fade-up" style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap', transitionDelay: '400ms' }}>
-            <a href="#programmes" className="btn-primary" style={{ padding: '14px 32px', fontSize: '1rem' }}>Explore Our Programmes</a>
-            <a href="#quiz" className="btn-outline" style={{ padding: '14px 26px', fontSize: '1rem', backgroundColor: '#fff' }}>Not Sure Which Is Right For Me?</a>
+            <a href="#programmes" className="btn-primary" style={{ padding: '14px 32px', fontSize: '1rem', boxShadow: '0 8px 24px -4px rgba(5,150,105,0.4)' }}>Explore Our Programmes</a>
+            <a href="#quiz" className="btn-outline" style={{ padding: '14px 26px', fontSize: '1rem', backgroundColor: '#FFFFFF', color: '#0F172A', border: '1px solid #E2E8F0' }}>Not Sure Which Is Right For Me?</a>
           </div>
         </div>
       </section>
@@ -631,7 +654,7 @@ export default function CoursesPage() {
             <h2 ref={observe} className="scroll-fade-up" style={{ fontSize: '2.3rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '6px' }}>Choose Your Ahsora Programme</h2>
           </div>
           <p ref={observe} className="scroll-fade-up" style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '48px', fontSize: '1rem', transitionDelay: '100ms' }}>
-            Every programme includes <strong style={{ color: 'var(--primary-600)' }}>12 months of full portal access</strong> — mocks, question banks, and resources for every subject, at your own pace.
+            Every programme includes <strong style={{ color: 'var(--primary-600)' }}>upto 12 months of full portal access</strong> — mocks, question banks, and resources for every subject, at your own pace.
           </p>
           
           <div ref={observe} className="scroll-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))', gap: '28px' }}>
@@ -746,6 +769,7 @@ export default function CoursesPage() {
                       src={i === 0 ? '/live-classes.jpg' : '/cbt-mock-exam.jpg'}
                       alt={block.title}
                       fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
                       style={{ objectFit: 'cover' }}
                     />
                   </div>
@@ -869,22 +893,35 @@ export default function CoursesPage() {
               <thead>
                 <tr style={{ backgroundColor: 'var(--bg-subtle)' }}>
                   <th style={{ padding: '12px 18px', textAlign: 'left', fontWeight: 800, color: 'var(--text-muted)', fontSize: '0.78rem', borderBottom: '2px solid var(--border-light)', textTransform: 'uppercase', letterSpacing: '0.8px' }}>Core Feature</th>
-                  {programmes.map((p) => (
-                    <th key={p.id} style={{ padding: '12px 16px', textAlign: 'center', borderBottom: `2px solid ${p.isFeatured ? p.accentColor : 'var(--border-light)'}`, backgroundColor: p.isFeatured ? `${p.accentColor}08` : 'transparent', width: '22%' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                        <div style={{ padding: '6px', background: p.accentBg, borderRadius: 'var(--radius-sm)', display: 'inline-flex' }}>
-                          {p.icon}
+                  {programmes.map((p) => {
+                    const pInfo = getPriceInfo(p.id);
+                    return (
+                      <th key={p.id} style={{ padding: '12px 16px', textAlign: 'center', borderBottom: `2px solid ${p.isFeatured ? p.accentColor : 'var(--border-light)'}`, backgroundColor: p.isFeatured ? `${p.accentColor}08` : 'transparent', width: '22%' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            <div style={{ padding: '5px', background: p.accentBg, borderRadius: 'var(--radius-sm)', display: 'inline-flex' }}>
+                              {p.icon}
+                            </div>
+                            <span style={{ fontWeight: 900, color: 'var(--text-primary)', fontSize: '0.95rem' }}>{p.name}</span>
+                          </div>
+                          <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
+                            <span style={{ fontWeight: 900, color: p.accentColor, fontSize: '1.15rem' }}>{pInfo.price}</span>
+                            {pInfo.originalPrice && (
+                              <span style={{ fontSize: '0.8rem', color: '#94A3B8', textDecoration: 'line-through', fontWeight: 600 }}>{pInfo.originalPrice}</span>
+                            )}
+                          </div>
+                          {pInfo.badge && (
+                            <span style={{ fontSize: '0.65rem', fontWeight: 800, backgroundColor: '#EF4444', color: '#fff', borderRadius: '4px', padding: '1px 6px', letterSpacing: '0.5px' }}>{pInfo.badge}</span>
+                          )}
                         </div>
-                        <span style={{ fontWeight: 900, color: 'var(--text-primary)', fontSize: '0.95rem' }}>{p.name}</span>
-                        <span style={{ fontWeight: 900, color: p.accentColor, fontSize: '1.05rem', marginLeft: '4px' }}>{p.price}</span>
-                      </div>
-                    </th>
-                  ))}
+                      </th>
+                    );
+                  })}
                 </tr>
               </thead>
               <tbody>
                 {[
-                  { feature: '12 Months Full Portal Access', vals: ['✓ 12 Mo', '✓ 12 Mo', '✓ 12 Mo'], highlight: true },
+                  { feature: 'Upto 12 Months Full Portal Access', vals: ['✓ Upto 12 Mo', '✓ Upto 12 Mo', '✓ Upto 12 Mo'], highlight: true },
                   { feature: 'Full Question Bank (All Subjects)', vals: ['✓', '✓', '✓'] },
                   { feature: 'Timed IMAT Mock Exams & Scoring', vals: ['✓', '✓', '✓'] },
                   { feature: 'Live AI & Performance Analytics', vals: ['✓', '✓', '✓'] },
@@ -895,7 +932,7 @@ export default function CoursesPage() {
                   { feature: 'University Application Strategy', vals: ['—', '—', '✓'] },
                   { feature: 'Universitaly Pre-Enrolment & CIMEA Support', vals: ['—', '—', '✓'] },
                   { feature: 'Italian Visa & Scholarship Orientation', vals: ['—', '—', 'VISA_ELITE_NOTE'] },
-                  { feature: 'Direct 1-on-1 Founder Advisory Access', vals: ['—', '—', '✓'] },
+                  { feature: 'Direct 1-on-1 Founder Advisory Access', vals: ['—', '✓', '✓'] },
                 ].map((row, i) => (
                   <tr key={i} style={{ backgroundColor: row.highlight ? 'var(--primary-50)' : i % 2 === 0 ? 'var(--bg-subtle)' : '#FFFFFF', transition: 'background-color 0.15s' }} onMouseEnter={e => !row.highlight && (e.currentTarget.style.backgroundColor = '#f8fafc')} onMouseLeave={e => !row.highlight && (e.currentTarget.style.backgroundColor = i % 2 === 0 ? 'var(--bg-subtle)' : '#FFFFFF')}>
                     <td style={{ padding: '7px 18px', color: 'var(--text-secondary)', fontWeight: row.highlight ? 800 : 600, fontSize: '0.85rem', borderBottom: '1px solid var(--border-light)' }}>{row.feature}</td>
@@ -930,6 +967,7 @@ export default function CoursesPage() {
       {/* ── 07-09 PROGRAMME DETAILS ─────────────────────────────────────── */}
       {programmes.map((prog, pi) => {
         const pDetail = getPriceInfo(prog.id);
+        const pkgParam = prog.id === 'ascent' ? 'ascend' : prog.id;
         return (
           <section key={prog.id} id={prog.id} style={{ padding: '60px 0', backgroundColor: pi % 2 === 0 ? 'var(--bg-subtle)' : '#FFFFFF', borderTop: '1px solid var(--border-light)' }}>
             <div className="container">
@@ -939,13 +977,15 @@ export default function CoursesPage() {
                     <div style={{ width: '52px', height: '52px', borderRadius: 'var(--radius-lg)', backgroundColor: prog.accentBg, display: 'flex', alignItems: 'center', justifyContent: 'center', border: `1px solid ${prog.accentColor}33`, boxShadow: `0 4px 12px ${prog.accentColor}20` }}>{prog.icon}</div>
                     <div>
                       {prog.badge && <span style={{ fontSize: '0.72rem', fontWeight: 800, backgroundColor: prog.accentColor, color: '#fff', borderRadius: 'var(--radius-sm)', padding: '3px 10px', marginBottom: '4px', display: 'inline-block', textTransform: 'uppercase', letterSpacing: '1px' }}>{prog.badge}</span>}
-                      <div style={{ fontWeight: 900, fontSize: '1.8rem', color: 'var(--text-primary)', letterSpacing: '-5px' }}>{prog.name}</div>
+                      <div style={{ fontWeight: 900, fontSize: '1.8rem', color: 'var(--text-primary)', letterSpacing: '-0.5px' }}>{prog.name}</div>
                     </div>
                   </div>
                   <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: 1.7, marginBottom: '24px' }}>{prog.desc}</p>
-                  {pi > 0 && <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '24px', fontStyle: 'italic', fontWeight: 600 }}>
-                    {pi === 1 ? 'Everything in Ascent, plus:' : 'Same core IMAT academic preparation as Mastery, plus:'}
-                  </p>}
+                  {pi > 0 && (
+                    <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem', marginBottom: '22px', fontStyle: 'italic', fontWeight: 700 }}>
+                      {pi === 1 ? 'Everything in Ascent, plus:' : 'Including Everything in Ascend + Mastery, plus:'}
+                    </p>
+                  )}
                   <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '32px' }}>
                     {prog.features.map((f, i) => (
                       <li key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', color: 'var(--text-primary)', fontSize: '0.95rem', fontWeight: 600 }}>
@@ -975,26 +1015,130 @@ export default function CoursesPage() {
                       </span>
                     )}
                   </div>
-                  <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '30px', fontWeight: 600 }}>12 months full portal access included</div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '20px', fontWeight: 600 }}>Upto 12 months full portal access included</div>
+
+                  {/* Enrollment note */}
+                  <div style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: '10px', border: '1px solid var(--border-light)', padding: '12px 14px', marginBottom: '18px', textAlign: 'center' }}>
+                    <div style={{ fontSize: '0.84rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.4 }}>
+                      To Enroll — Directly Sign up or contact us through Email or WhatsApp
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                     {pDetail.isAvailable !== false ? (
-                      <a href="https://wa.me/393333444479" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textAlign: 'center', backgroundColor: prog.accentColor, color: '#fff', borderRadius: 'var(--radius-full)', padding: '14px', fontWeight: 800, fontSize: '0.95rem', textDecoration: 'none', transition: 'transform 0.2s', boxShadow: `0 8px 24px -4px ${prog.accentColor}40` }} onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(-2px)')} onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}>{prog.cta}</a>
+                      <>
+                        {/* Direct Sign up / Join CTA */}
+                        <Link
+                          href={`/register?package=${pkgParam}`}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '8px',
+                            textAlign: 'center',
+                            backgroundColor: prog.accentColor,
+                            color: '#fff',
+                            borderRadius: 'var(--radius-full)',
+                            padding: '13px 20px',
+                            fontWeight: 800,
+                            fontSize: '0.95rem',
+                            textDecoration: 'none',
+                            transition: 'all 0.2s',
+                            boxShadow: `0 8px 24px -4px ${prog.accentColor}40`,
+                          }}
+                          onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-2px)')}
+                          onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
+                        >
+                          <span>Directly Sign Up / Join</span>
+                          <ArrowRight size={16} />
+                        </Link>
+
+                        {/* WhatsApp CTA */}
+                        <a
+                          href={`https://wa.me/393333444479?text=${encodeURIComponent(`Hi Ahsora Med Academy, I would like to enroll in ${prog.name}. Please guide me on registration.`)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '8px',
+                            backgroundColor: '#16A34A',
+                            color: '#FFFFFF',
+                            borderRadius: 'var(--radius-full)',
+                            padding: '11px 20px',
+                            fontWeight: 700,
+                            fontSize: '0.9rem',
+                            textDecoration: 'none',
+                            transition: 'all 0.2s',
+                            boxShadow: '0 4px 14px rgba(22, 163, 74, 0.2)',
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = 'translateY(-2px)';
+                            e.currentTarget.style.backgroundColor = '#15803D';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = 'translateY(0)';
+                            e.currentTarget.style.backgroundColor = '#16A34A';
+                          }}
+                        >
+                          <MessageCircle size={16} />
+                          <span>Enroll via WhatsApp</span>
+                        </a>
+
+                        {/* Email CTA */}
+                        <a
+                          href={`mailto:info@ahsora.com?subject=${encodeURIComponent(`Enrollment Inquiry - ${prog.name}`)}&body=${encodeURIComponent(`Hello Ahsora Med Academy,\n\nI would like to enroll in ${prog.name}. Please provide enrollment details.\n\nThank you!`)}`}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '8px',
+                            backgroundColor: '#FFFFFF',
+                            color: '#0F172A',
+                            border: '1.5px solid #CBD5E1',
+                            borderRadius: 'var(--radius-full)',
+                            padding: '10px 20px',
+                            fontWeight: 700,
+                            fontSize: '0.88rem',
+                            textDecoration: 'none',
+                            transition: 'all 0.2s',
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.borderColor = '#0F172A';
+                            e.currentTarget.style.backgroundColor = '#F8FAFC';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.borderColor = '#CBD5E1';
+                            e.currentTarget.style.backgroundColor = '#FFFFFF';
+                          }}
+                        >
+                          <Mail size={16} color="#0F172A" />
+                          <span>Enroll via Email</span>
+                        </a>
+                      </>
                     ) : (
                       <div style={{ display: 'block', textAlign: 'center', backgroundColor: '#E2E8F0', color: '#94A3B8', borderRadius: 'var(--radius-full)', padding: '14px', fontWeight: 800, fontSize: '0.95rem', cursor: 'not-allowed' }}>
                         Unavailable — Enrollment Paused
                       </div>
                     )}
-                    <Link href="/free-mock" style={{ display: 'block', textAlign: 'center', color: prog.accentColor, border: `2px solid ${prog.accentColor}`, borderRadius: 'var(--radius-full)', padding: '12px', fontWeight: 800, fontSize: '0.9rem', textDecoration: 'none', transition: 'background-color 0.2s' }} onMouseEnter={e => (e.currentTarget.style.backgroundColor = `${prog.accentColor}10`)} onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}>Try Free Diagnostic Mock</Link>
+                    <Link href="/free-mock" style={{ display: 'block', textAlign: 'center', color: prog.accentColor, border: `1.5px solid ${prog.accentColor}40`, borderRadius: 'var(--radius-full)', padding: '10px', fontWeight: 700, fontSize: '0.86rem', textDecoration: 'none', marginTop: '4px', transition: 'background-color 0.2s' }} onMouseEnter={e => (e.currentTarget.style.backgroundColor = `${prog.accentColor}10`)} onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}>Try Free Diagnostic Mock</Link>
                   </div>
                 </div>
               </div>
               {prog.id === 'elite' && (
                 <div ref={observe} className="scroll-fade-up" style={{ marginTop: '56px', backgroundColor: '#F8FAFC', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-xl)', padding: '40px', boxShadow: 'var(--shadow-sm)' }}>
+                  
+                  {/* Extra Service Notice */}
+                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: '#FEF3C7', border: '1.5px solid #F59E0B', color: '#92400E', padding: '8px 16px', borderRadius: '10px', fontSize: '0.85rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '18px' }}>
+                    <span>⚠️ Not included in MedPath Elite | Extra Service, May Cost Extra Charges</span>
+                  </div>
+
                   <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--primary-600)', textTransform: 'uppercase', letterSpacing: '1.5px', display: 'block', marginBottom: '8px' }}>Pakistani Applicants — Specialist Visa & Financial File Support</span>
                   <h3 style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '16px', letterSpacing: '-0.5px' }}>Ahsora Med Academy × LeyNexo Law Firm</h3>
                   <p style={{ color: 'var(--text-primary)', fontWeight: 700, fontSize: '1.05rem', marginBottom: '16px', fontStyle: 'italic' }}>"An additional level of specialist support for eligible Pakistani students applying to study in Italy."</p>
                   <p style={{ color: 'var(--text-secondary)', lineHeight: 1.7, fontSize: '1rem', marginBottom: '32px' }}>
-                    Through our collaboration with LeyNexo Law Firm, eligible Pakistani MedPath Elite students receive specialist assistance with the preparation, organization and review of their financial and visa documentation:
+                    Through our collaboration with LeyNexo Law Firm, eligible Pakistani MedPath Elite students may receive specialist assistance with the preparation, organization and review of their financial and visa documentation:
                   </p>
                   
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', marginBottom: '36px' }}>
@@ -1017,7 +1161,7 @@ export default function CoursesPage() {
                   </div>
                   
                   <div style={{ backgroundColor: 'var(--text-primary)', color: '#fff', borderRadius: 'var(--radius-md)', padding: '18px 24px', fontSize: '0.95rem', fontWeight: 500, fontStyle: 'italic', display: 'inline-block', lineHeight: 1.6 }}>
-                    "Ahsora guides the overall admissions journey. LeyNexo provides specialist financial-file and documentation expertise for eligible Pakistani applicants."
+                    "Ahsora guides the overall admissions journey. LeyNexo provides optional specialist financial-file and documentation expertise for eligible Pakistani applicants (Extra Service, May Cost Extra Charges)."
                   </div>
                 </div>
               )}
@@ -1076,101 +1220,126 @@ export default function CoursesPage() {
         </div>
       </section>
 
-      {/* ── 12 TESTIMONIALS ─────────────────────────────────────────────── */}
-      <section style={{ padding: '60px 0', backgroundColor: '#FFFFFF' }}>
-        <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-            <span ref={observe} className="section-tagline scroll-fade-up">Results</span>
-            <h2 ref={observe} className="scroll-fade-up" style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '6px' }}>Verified Testimonials</h2>
-          </div>
-          <div ref={observe} className="scroll-scale-in" style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', padding: '48px 32px', textAlign: 'center', boxShadow: 'var(--shadow-sm)' }}>
-            <div style={{ display: 'inline-flex', padding: '14px', background: '#fffbeb', borderRadius: '50%', marginBottom: '18px' }}>
-              <Star size={34} color="#d4af37" />
-            </div>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: 1.75, maxWidth: '640px', margin: '0 auto 12px', fontWeight: 500 }}>
-              Student outcomes — coming soon. We'll share real results in the format: <br/>
-              <em style={{ color: 'var(--primary-600)', fontWeight: 700, fontStyle: 'normal' }}>Starting point → Programme → IMAT result → University</em>.
-            </p>
-            <p style={{ color: 'var(--text-light)', fontSize: '0.85rem' }}>We'll never publish invented testimonials or inflated scores.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 13 FAQ ──────────────────────────────────────────────────────── */}
-      <section style={{ padding: '60px 0', backgroundColor: 'var(--bg-subtle)' }}>
+      {/* ── 12 FAQ ──────────────────────────────────────────────────────── */}
+      <section id="faqs" style={{ padding: '60px 0', backgroundColor: 'var(--bg-subtle)' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 24px' }}>
-          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+          <div style={{ textAlign: 'center', marginBottom: showFaqList ? '32px' : '0' }}>
             <span ref={observe} className="section-tagline scroll-fade-up">Got Questions?</span>
             <h2 ref={observe} className="scroll-fade-up" style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '6px' }}>Frequently Asked Questions</h2>
-            {/* Expand / Collapse buttons */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '16px' }}>
+            <p ref={observe} className="scroll-fade-up" style={{ color: 'var(--text-secondary)', fontSize: '1rem', marginTop: '8px', marginBottom: '20px' }}>
+              Everything you need to know about our programmes, portal access, and admissions.
+            </p>
+
+            {/* Main Show All FAQs Toggle */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '16px', flexWrap: 'wrap' }}>
               <button
                 type="button"
-                onClick={expandAllFaqs}
+                onClick={() => setShowFaqList(!showFaqList)}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '6px',
-                  backgroundColor: '#ECFDF5',
-                  color: '#047857',
-                  border: '1px solid #A7F3D0',
-                  padding: '7px 18px',
+                  gap: '8px',
+                  backgroundColor: showFaqList ? '#0F172A' : '#059669',
+                  color: '#FFFFFF',
+                  border: 'none',
+                  padding: '11px 26px',
                   borderRadius: '9999px',
-                  fontSize: '0.8125rem',
-                  fontWeight: 700,
+                  fontSize: '0.92rem',
+                  fontWeight: 800,
                   cursor: 'pointer',
-                  transition: 'all 0.2s',
+                  boxShadow: '0 4px 16px rgba(5, 150, 105, 0.25)',
+                  transition: 'all 0.2s ease',
                 }}
+                onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-2px)')}
+                onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
               >
-                <ChevronDown size={15} />
-                Expand All
+                {showFaqList ? (
+                  <>
+                    <ChevronUp size={16} />
+                    <span>Hide FAQs</span>
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown size={16} />
+                    <span>Show All FAQs ({faqs.length})</span>
+                  </>
+                )}
               </button>
-              <button
-                type="button"
-                onClick={collapseAllFaqs}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  backgroundColor: '#FFFFFF',
-                  color: '#475569',
-                  border: '1px solid var(--border-light)',
-                  padding: '7px 18px',
-                  borderRadius: '9999px',
-                  fontSize: '0.8125rem',
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  transition: 'all 0.2s',
-                }}
-              >
-                <ChevronUp size={15} />
-                Collapse All
-              </button>
+
+              {showFaqList && (
+                <>
+                  <button
+                    type="button"
+                    onClick={expandAllFaqs}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      backgroundColor: '#ECFDF5',
+                      color: '#047857',
+                      border: '1px solid #A7F3D0',
+                      padding: '8px 18px',
+                      borderRadius: '9999px',
+                      fontSize: '0.8125rem',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                    }}
+                  >
+                    <ChevronDown size={14} />
+                    Expand All
+                  </button>
+                  <button
+                    type="button"
+                    onClick={collapseAllFaqs}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      backgroundColor: '#FFFFFF',
+                      color: '#475569',
+                      border: '1px solid var(--border-light)',
+                      padding: '8px 18px',
+                      borderRadius: '9999px',
+                      fontSize: '0.8125rem',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                    }}
+                  >
+                    <ChevronUp size={14} />
+                    Collapse All
+                  </button>
+                </>
+              )}
             </div>
           </div>
-          <div ref={observe} className="scroll-stagger" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            {faqs.map((faq, i) => {
-              const isOpen = openFaqs.includes(i);
-              return (
-                <div key={i} style={{ backgroundColor: '#FFFFFF', border: isOpen ? '1px solid var(--primary-400)' : '1px solid var(--border-light)', borderRadius: 'var(--radius-lg)', overflow: 'hidden', transition: 'all 0.3s ease', boxShadow: isOpen ? 'var(--shadow-sm)' : 'none' }}>
-                  <button onClick={() => toggleFaq(i)}
-                    style={{ width: '100%', padding: '18px 22px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 800, fontSize: '0.98rem', color: isOpen ? 'var(--primary-700)' : 'var(--text-primary)', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', gap: '16px', transition: 'color 0.2s' }}>
-                    <span style={{ flex: 1, letterSpacing: '-0.3px' }}>{faq.q}</span>
-                    <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: isOpen ? 'var(--primary-50)' : 'var(--bg-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'background 0.3s' }}>
-                      {isOpen ? <ChevronUp size={18} color="var(--primary-600)" /> : <ChevronDown size={18} color="var(--text-light)" />}
-                    </div>
-                  </button>
-                  <div style={{ maxHeight: isOpen ? '500px' : '0', opacity: isOpen ? 1 : 0, overflow: 'hidden', transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)' }}>
-                    <div style={{ padding: '0 22px 20px', color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: 1.75 }}>
-                      <div style={{ paddingTop: '14px', borderTop: '1px solid var(--border-light)' }}>
-                        {faq.a}
+
+          {showFaqList && (
+            <div ref={observe} className="scroll-stagger" style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '28px' }}>
+              {faqs.map((faq, i) => {
+                const isOpen = openFaqs.includes(i);
+                return (
+                  <div key={i} style={{ backgroundColor: '#FFFFFF', border: isOpen ? '1px solid var(--primary-400)' : '1px solid var(--border-light)', borderRadius: 'var(--radius-lg)', overflow: 'hidden', transition: 'all 0.3s ease', boxShadow: isOpen ? 'var(--shadow-sm)' : 'none' }}>
+                    <button onClick={() => toggleFaq(i)}
+                      style={{ width: '100%', padding: '18px 22px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 800, fontSize: '0.98rem', color: isOpen ? 'var(--primary-700)' : 'var(--text-primary)', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', gap: '16px', transition: 'color 0.2s' }}>
+                      <span style={{ flex: 1, letterSpacing: '-0.3px' }}>{faq.q}</span>
+                      <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: isOpen ? 'var(--primary-50)' : 'var(--bg-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'background 0.3s' }}>
+                        {isOpen ? <ChevronUp size={18} color="var(--primary-600)" /> : <ChevronDown size={18} color="var(--text-light)" />}
+                      </div>
+                    </button>
+                    <div style={{ maxHeight: isOpen ? '500px' : '0', opacity: isOpen ? 1 : 0, overflow: 'hidden', transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)' }}>
+                      <div style={{ padding: '0 22px 20px', color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: 1.75 }}>
+                        <div style={{ paddingTop: '14px', borderTop: '1px solid var(--border-light)' }}>
+                          {faq.a}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </section>
 

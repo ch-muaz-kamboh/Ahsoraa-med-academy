@@ -298,6 +298,7 @@ function AnimatedLiveReportCard() {
 export default function HomePage() {
   const [leadModalOpen, setLeadModalOpen] = useState(false);
   const [cycleVisible, setCycleVisible] = useState(false);
+  const [showFaqList, setShowFaqList] = useState(false);
   const [openFaqIndices, setOpenFaqIndices] = useState<number[]>([]);
   const [tickerItems, setTickerItems] = useState<TickerItem[]>(() => {
     try {
@@ -2334,7 +2335,7 @@ export default function HomePage() {
       ══════════════════════════════════════════════════ */}
       <section style={{ padding: '90px 0', backgroundColor: '#FFFFFF' }}>
         <div className="container" style={{ maxWidth: '820px' }}>
-          <AnimatedSection style={{ textAlign: 'center', marginBottom: '52px' }}>
+          <AnimatedSection style={{ textAlign: 'center', marginBottom: showFaqList ? '44px' : '0' }}>
             <span
               style={{
                 fontSize: '0.75rem',
@@ -2360,156 +2361,197 @@ export default function HomePage() {
               Everything you need to know before you start.
             </p>
 
-            {/* Expand / Collapse Controls */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '20px' }}>
+            {/* Main Toggle Button */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '20px', flexWrap: 'wrap' }}>
               <button
                 type="button"
-                onClick={expandAllFaqs}
+                onClick={() => setShowFaqList(!showFaqList)}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '6px',
-                  backgroundColor: '#ECFDF5',
-                  color: '#047857',
-                  border: '1px solid #A7F3D0',
-                  padding: '7px 18px',
+                  gap: '8px',
+                  backgroundColor: showFaqList ? '#0F172A' : '#059669',
+                  color: '#FFFFFF',
+                  border: 'none',
+                  padding: '11px 26px',
                   borderRadius: '9999px',
-                  fontSize: '0.8125rem',
+                  fontSize: '0.92rem',
                   fontWeight: 700,
                   cursor: 'pointer',
-                  transition: 'all 0.2s',
+                  boxShadow: '0 4px 16px rgba(5, 150, 105, 0.25)',
+                  transition: 'all 0.2s ease',
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#059669';
-                  e.currentTarget.style.color = '#FFFFFF';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = '#ECFDF5';
-                  e.currentTarget.style.color = '#047857';
-                }}
+                onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-2px)')}
+                onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
               >
-                <ChevronDown size={15} />
-                Expand All
+                {showFaqList ? (
+                  <>
+                    <ChevronDown size={16} style={{ transform: 'rotate(180deg)' }} />
+                    <span>Hide FAQs</span>
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown size={16} />
+                    <span>Show All FAQs ({faqs.length})</span>
+                  </>
+                )}
               </button>
-              <button
-                type="button"
-                onClick={collapseAllFaqs}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  backgroundColor: '#F8FAFC',
-                  color: '#475569',
-                  border: '1px solid #E2E8F0',
-                  padding: '7px 18px',
-                  borderRadius: '9999px',
-                  fontSize: '0.8125rem',
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  transition: 'all 0.2s',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#E2E8F0';
-                  e.currentTarget.style.color = '#0F172A';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = '#F8FAFC';
-                  e.currentTarget.style.color = '#475569';
-                }}
-              >
-                <ChevronDown size={15} style={{ transform: 'rotate(180deg)' }} />
-                Collapse All
-              </button>
+
+              {showFaqList && (
+                <>
+                  <button
+                    type="button"
+                    onClick={expandAllFaqs}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      backgroundColor: '#ECFDF5',
+                      color: '#047857',
+                      border: '1px solid #A7F3D0',
+                      padding: '8px 18px',
+                      borderRadius: '9999px',
+                      fontSize: '0.8125rem',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = '#059669';
+                      e.currentTarget.style.color = '#FFFFFF';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = '#ECFDF5';
+                      e.currentTarget.style.color = '#047857';
+                    }}
+                  >
+                    <ChevronDown size={14} />
+                    Expand All
+                  </button>
+                  <button
+                    type="button"
+                    onClick={collapseAllFaqs}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      backgroundColor: '#F8FAFC',
+                      color: '#475569',
+                      border: '1px solid #E2E8F0',
+                      padding: '8px 18px',
+                      borderRadius: '9999px',
+                      fontSize: '0.8125rem',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = '#E2E8F0';
+                      e.currentTarget.style.color = '#0F172A';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = '#F8FAFC';
+                      e.currentTarget.style.color = '#475569';
+                    }}
+                  >
+                    <ChevronDown size={14} style={{ transform: 'rotate(180deg)' }} />
+                    Collapse All
+                  </button>
+                </>
+              )}
             </div>
           </AnimatedSection>
 
-          <div
-            className="faq-grid"
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '16px',
-            }}
-          >
-            {faqs.map((faq, idx) => {
-              const isOpen = openFaqIndices.includes(idx);
-              return (
-                <AnimatedSection
-                  key={idx}
-                  animClass="scroll-fade-up"
-                  delay={idx * 70}
-                  style={{
-                    backgroundColor: '#FFFFFF',
-                    border: isOpen ? '1px solid #A7F3D0' : '1px solid #E2E8F0',
-                    borderRadius: '14px',
-                    overflow: 'hidden',
-                    transition: 'border-color 0.25s',
-                    boxShadow: isOpen ? '0 4px 16px -4px rgba(34,197,94,0.12)' : 'none',
-                  }}
-                >
-                  <button
-                    onClick={() => toggleFaq(idx)}
+          {showFaqList && (
+            <div
+              className="faq-grid"
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                gap: '16px',
+                marginTop: '32px',
+              }}
+            >
+              {faqs.map((faq, idx) => {
+                const isOpen = openFaqIndices.includes(idx);
+                return (
+                  <AnimatedSection
+                    key={idx}
+                    animClass="scroll-fade-up"
+                    delay={idx * 70}
                     style={{
-                      width: '100%',
-                      padding: '20px 22px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      textAlign: 'left',
-                      fontWeight: 700,
-                      fontSize: '0.9375rem',
-                      color: isOpen ? '#0F172A' : '#334155',
-                      background: 'none',
-                      border: 'none',
-                      cursor: 'pointer',
-                      gap: '16px',
+                      backgroundColor: '#FFFFFF',
+                      border: isOpen ? '1px solid #A7F3D0' : '1px solid #E2E8F0',
+                      borderRadius: '14px',
+                      overflow: 'hidden',
+                      transition: 'border-color 0.25s',
+                      boxShadow: isOpen ? '0 4px 16px -4px rgba(34,197,94,0.12)' : 'none',
                     }}
                   >
-                    <span style={{ flex: 1 }}>{faq.q}</span>
-                    <span
+                    <button
+                      onClick={() => toggleFaq(idx)}
                       style={{
-                        flexShrink: 0,
-                        width: '28px',
-                        height: '28px',
-                        borderRadius: '50%',
-                        backgroundColor: isOpen ? '#ECFDF5' : '#FFFFFF',
-                        border: `1px solid ${isOpen ? '#A7F3D0' : '#E2E8F0'}`,
+                        width: '100%',
+                        padding: '20px 22px',
                         display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'center',
-                        color: isOpen ? '#047857' : '#64748B',
-                        transition: 'all 0.25s',
-                        transform: isOpen ? 'rotate(0deg)' : 'rotate(0deg)',
-                      }}
-                    >
-                      <ChevronDown
-                        size={16}
-                        style={{
-                          transition: 'transform 0.25s',
-                          transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                        }}
-                      />
-                    </span>
-                  </button>
-                  {isOpen && (
-                    <div
-                      style={{
-                        padding: '0 22px 22px 22px',
-                        color: '#475569',
+                        justifyContent: 'space-between',
+                        textAlign: 'left',
+                        fontWeight: 700,
                         fontSize: '0.9375rem',
-                        lineHeight: 1.75,
-                        borderTop: '1px solid #ECFDF5',
-                        paddingTop: '16px',
-                        animation: 'fadeInUp 0.3s ease-out forwards',
+                        color: isOpen ? '#0F172A' : '#334155',
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        gap: '16px',
                       }}
                     >
-                      {faq.a}
-                    </div>
-                  )}
-                </AnimatedSection>
-              );
-            })}
-          </div>
+                      <span style={{ flex: 1 }}>{faq.q}</span>
+                      <span
+                        style={{
+                          flexShrink: 0,
+                          width: '28px',
+                          height: '28px',
+                          borderRadius: '50%',
+                          backgroundColor: isOpen ? '#ECFDF5' : '#FFFFFF',
+                          border: `1px solid ${isOpen ? '#A7F3D0' : '#E2E8F0'}`,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: isOpen ? '#047857' : '#64748B',
+                          transition: 'all 0.25s',
+                          transform: isOpen ? 'rotate(0deg)' : 'rotate(0deg)',
+                        }}
+                      >
+                        <ChevronDown
+                          size={16}
+                          style={{
+                            transition: 'transform 0.25s',
+                            transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                          }}
+                        />
+                      </span>
+                    </button>
+                    {isOpen && (
+                      <div
+                        style={{
+                          padding: '0 22px 22px 22px',
+                          color: '#475569',
+                          fontSize: '0.9375rem',
+                          lineHeight: 1.75,
+                          borderTop: '1px solid #ECFDF5',
+                          paddingTop: '16px',
+                          animation: 'fadeInUp 0.3s ease-out forwards',
+                        }}
+                      >
+                        {faq.a}
+                      </div>
+                    )}
+                  </AnimatedSection>
+                );
+              })}
+            </div>
+          )}
 
           {/* Still have questions */}
           <AnimatedSection

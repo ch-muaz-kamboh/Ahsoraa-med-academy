@@ -1,21 +1,21 @@
 .courses-hero {
-  background: linear-gradient(135deg, var(--primary-50) 0%, #ffffff 55%, var(--bg-subtle) 100%);
-  padding: 120px 0 100px;
+  background: linear-gradient(135deg, #022c22 0%, #064e3b 45%, #0f172a 100%);
+  padding: 120px 0 80px;
   position: relative;
   overflow: hidden;
-  border-bottom: 1px solid var(--border-light);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .courses-hero::before {
   content: '';
   position: absolute;
-  top: -20%;
-  left: -10%;
-  width: 50%;
-  height: 50%;
-  background: radial-gradient(circle, var(--primary-200) 0%, transparent 70%);
-  opacity: 0.3;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at 50% 20%, rgba(16, 185, 129, 0.18) 0%, transparent 70%);
   z-index: 0;
+  pointer-events: none;
 }
 
 .courses-hero .container {
