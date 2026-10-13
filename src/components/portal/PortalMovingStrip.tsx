@@ -171,14 +171,16 @@ export default function PortalMovingStrip({ source = 'portal' }: { source?: 'por
         }}
       />
 
-      {/* Marquee Track */}
+      {/* Marquee Track Container */}
       <div
+        className="portal-marquee-wrapper"
         style={{
           flex: 1,
           overflow: 'hidden',
           whiteSpace: 'nowrap',
           display: 'flex',
-          alignItems: 'center',
+          userSelect: 'none',
+          position: 'relative',
         }}
       >
         <div
@@ -186,13 +188,46 @@ export default function PortalMovingStrip({ source = 'portal' }: { source?: 'por
           style={{
             display: 'inline-flex',
             alignItems: 'center',
-            animation: `marqueeScroll ${speed}s linear infinite`,
+            flexShrink: 0,
+            animation: `portalMarqueeScroll ${speed}s linear infinite`,
             willChange: 'transform',
           }}
         >
-          {duplicated.map((item, idx) => (
+          {config.items.map((item, idx) => (
             <div
-              key={`${item.id}-${idx}`}
+              key={`a-${item.id}-${idx}`}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '0 28px',
+                color: theme.textColor,
+                fontSize: '0.8125rem',
+                fontWeight: 600,
+                letterSpacing: '-0.1px',
+                cursor: 'default',
+              }}
+            >
+              <span style={{ fontSize: '0.95rem' }}>{item.icon || '✨'}</span>
+              <span>{item.text}</span>
+              <span style={{ color: theme.dividerColor, marginLeft: '12px' }}>•</span>
+            </div>
+          ))}
+        </div>
+        <div
+          className="portal-marquee-track"
+          aria-hidden="true"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            flexShrink: 0,
+            animation: `portalMarqueeScroll ${speed}s linear infinite`,
+            willChange: 'transform',
+          }}
+        >
+          {config.items.map((item, idx) => (
+            <div
+              key={`b-${item.id}-${idx}`}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -214,7 +249,15 @@ export default function PortalMovingStrip({ source = 'portal' }: { source?: 'por
       </div>
 
       <style jsx global>{`
-        .portal-marquee-track:hover {
+        @keyframes portalMarqueeScroll {
+          0% {
+            transform: translate3d(0, 0, 0);
+          }
+          100% {
+            transform: translate3d(-100%, 0, 0);
+          }
+        }
+        .portal-marquee-wrapper:hover .portal-marquee-track {
           animation-play-state: paused !important;
         }
       `}</style>

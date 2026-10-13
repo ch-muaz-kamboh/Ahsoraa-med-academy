@@ -92,6 +92,7 @@ function AnimatedNumber({ end, suffix = '', label }: { end: number, suffix?: str
 
 export default function IMATContent() {
   const [leadOpen, setLeadOpen] = useState(false);
+  const [showFaqList, setShowFaqList] = useState(false);
   const { getPrice } = useDynamicPackagePrices();
   const [openFaqs, setOpenFaqs] = useState<number[]>([]);
   const toggleFaq = (i: number) => {
@@ -110,7 +111,7 @@ export default function IMATContent() {
   const introRef = useScrollAnimation();
   const datesRef = useScrollAnimation();
   const calcRef = useScrollAnimation();
-  const timelineRef = useStaggeredAnimation(8);
+  const timelineRef = useStaggeredAnimation(10);
   
   const segmentRef = useStaggeredAnimation(3);
   const euRef = useStaggeredAnimation(2);
@@ -123,11 +124,11 @@ export default function IMATContent() {
   };
 
   const subjects = [
-    { title: 'Reading & Acquired Knowledge', qs: 4, topics: 'reading comprehension, general/scientific culture, critical reasoning' },
-    { title: 'Logical Reasoning & Problem Solving', qs: 5, topics: 'numerical reasoning, data interpretation, logical sequences' },
-    { title: 'Biology', qs: 23, topics: 'cell biology, genetics & heredity, human anatomy & physiology, microbiology, evolution, ecology' },
-    { title: 'Chemistry', qs: 15, topics: 'atomic structure, chemical bonding, stoichiometry, acids & bases, organic chemistry fundamentals, redox reactions' },
-    { title: 'Physics & Mathematics', qs: 13, topics: 'mechanics, thermodynamics, electromagnetism, waves & optics, algebra, probability & statistics' },
+    { title: 'Reading & Acquired Knowledge', qs: 4, icon: <BookOpen size={18} color="#EC4899" />, color: '#EC4899', bg: '#FDF2F8', border: '#FBCFE8', topics: 'reading comprehension, general/scientific culture, critical reasoning' },
+    { title: 'Logical Reasoning & Problem Solving', qs: 5, icon: <Brain size={18} color="#F59E0B" />, color: '#F59E0B', bg: '#FFFBEB', border: '#FDE68A', topics: 'numerical reasoning, data interpretation, logical sequences' },
+    { title: 'Biology', qs: 23, icon: <Activity size={18} color="#16A34A" />, color: '#16A34A', bg: '#F0FFF4', border: '#BBF7D0', topics: 'cell biology, genetics & heredity, human anatomy & physiology, microbiology, evolution, ecology' },
+    { title: 'Chemistry', qs: 15, icon: <TestTube size={18} color="#10B981" />, color: '#10B981', bg: '#ECFDF5', border: '#A7F3D0', topics: 'atomic structure, chemical bonding, stoichiometry, acids & bases, organic chemistry fundamentals, redox reactions' },
+    { title: 'Physics & Mathematics', qs: 13, icon: <Scale size={18} color="#8B5CF6" />, color: '#8B5CF6', bg: '#F5F3FF', border: '#DDD6FE', topics: 'mechanics, thermodynamics, electromagnetism, waves & optics, algebra, probability & statistics' },
   ];
 
   const faqs = [
@@ -154,8 +155,8 @@ export default function IMATContent() {
             <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#5CED73', textTransform: 'uppercase', letterSpacing: '1.5px', backgroundColor: 'rgba(92,237,115,0.15)', padding: '4px 12px', borderRadius: '20px', border: '1px solid rgba(92,237,115,0.3)' }}>
               IMAT — International Medical Admissions Test
             </span>
-            <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 3.8rem)', fontWeight: 800, color: '#FFFFFF', marginTop: '16px', marginBottom: '24px', letterSpacing: '-1px', lineHeight: 1.1 }}>
-              The IMAT Is the Test. Your Preparation Makes the Difference.
+            <h1 style={{ fontSize: 'clamp(2.4rem, 5vw, 3.8rem)', fontWeight: 800, color: '#FFFFFF', marginTop: '16px', marginBottom: '24px', letterSpacing: '-1px', lineHeight: 1.15 }}>
+              IMAT 2027 Complete Guide
             </h1>
             <p style={{ color: '#CBD5E1', fontSize: '1.15rem', lineHeight: 1.7, marginBottom: '36px' }}>
               Understand the exam, master the syllabus, practise under realistic conditions, and measure your progress — with a preparation system built for students pursuing Medicine in Italy.
@@ -164,9 +165,9 @@ export default function IMATContent() {
               <button onClick={() => setLeadOpen(true)} className="btn-primary" style={{ padding: '16px 36px', fontSize: '1.05rem' }}>
                 <span>Take the Free IMAT Mock</span>
               </button>
-              <Link href="#preparation" className="btn-outline" style={{ padding: '16px 32px', fontSize: '1.05rem' }}>
-                Explore IMAT Preparation
-              </Link>
+              <a href="#starter-kit" className="btn-outline" style={{ padding: '16px 32px', fontSize: '1.05rem', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.3)', backgroundColor: 'rgba(255,255,255,0.06)' }}>
+                Download IMAT Papers
+              </a>
             </div>
           </div>
           <div className="scroll-fade-left is-visible" style={{ position: 'relative', height: '100%', display: 'flex', justifyContent: 'center' }}>
@@ -223,7 +224,7 @@ export default function IMATContent() {
                 The exam is time-limited, so effective preparation requires both subject mastery and exam strategy — not one or the other. Not every Italian Medicine programme uses the IMAT, so confirming your target university's admission route is an important early step.
               </p>
               <div style={{ marginTop: '32px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                <Link href="#dates" className="btn-primary">See Key Dates</Link>
+                <Link href="#scoring" className="btn-primary">See Cutoff Score 2026</Link>
                 <Link href="#preparation" className="btn-outline">How to Prepare</Link>
               </div>
             </div>
@@ -314,69 +315,175 @@ export default function IMATContent() {
       <section style={{ padding: '80px 0', backgroundColor: '#F8FAFC' }}>
         <div className="container">
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '60px', alignItems: 'flex-start' }}>
-            {/* Left: intro + subject pie */}
+            {/* Left: intro + subject breakdown with interactive animations */}
             <div>
               <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#16A34A', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Verified Format</span>
               <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A', marginBottom: '16px', marginTop: '12px' }}>Exam Structure &amp; Syllabus</h2>
-              <p style={{ color: '#475569', lineHeight: 1.8, marginBottom: '32px' }}>60 questions across 5 subjects, sat in a single 100-minute session. Each subject has a fixed number of questions — knowing the breakdown helps you allocate prep time strategically.</p>
-              {/* Visual subject breakdown */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <p style={{ color: '#475569', lineHeight: 1.8, marginBottom: '28px' }}>60 questions across 5 subjects, sat in a single 100-minute session. Each subject has a fixed number of questions — click or hover any subject to view detailed core topics.</p>
+              
+              {/* Visual subject breakdown with smooth hover animation */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {[
-                  { title: 'Biology', qs: 23, color: '#16A34A', pct: 38 },
-                  { title: 'Chemistry', qs: 15, color: '#10B981', pct: 25 },
-                  { title: 'Physics & Maths', qs: 13, color: '#8B5CF6', pct: 22 },
-                  { title: 'Logical Reasoning', qs: 5, color: '#F59E0B', pct: 8 },
-                  { title: 'Reading & Knowledge', qs: 4, color: '#EC4899', pct: 7 },
-                ].map((s) => (
-                  <div key={s.title}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                      <span style={{ fontWeight: 600, color: '#334155', fontSize: '0.9rem' }}>{s.title}</span>
-                      <span style={{ fontWeight: 800, color: s.color, fontSize: '0.9rem' }}>{s.qs} Qs</span>
+                  { index: 2, title: 'Biology', qs: 23, color: '#16A34A', bg: '#F0FFF4', pct: 38 },
+                  { index: 3, title: 'Chemistry', qs: 15, color: '#10B981', bg: '#ECFDF5', pct: 25 },
+                  { index: 4, title: 'Physics & Maths', qs: 13, color: '#8B5CF6', bg: '#F5F3FF', pct: 22 },
+                  { index: 1, title: 'Logical Reasoning', qs: 5, color: '#F59E0B', bg: '#FFFBEB', pct: 8 },
+                  { index: 0, title: 'Reading & Knowledge', qs: 4, color: '#EC4899', bg: '#FDF2F8', pct: 7 },
+                ].map((s) => {
+                  const isSelected = openSubject === s.index;
+                  return (
+                    <div
+                      key={s.title}
+                      onClick={() => setOpenSubject(isSelected ? null : s.index)}
+                      style={{
+                        padding: '10px 14px',
+                        borderRadius: '12px',
+                        backgroundColor: isSelected ? s.bg : '#FFFFFF',
+                        border: `1px solid ${isSelected ? s.color : '#E2E8F0'}`,
+                        cursor: 'pointer',
+                        transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+                        transform: isSelected ? 'translateX(4px)' : 'none',
+                        boxShadow: isSelected ? `0 4px 14px -2px ${s.color}33` : '0 1px 3px rgba(0,0,0,0.03)',
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!isSelected) {
+                          e.currentTarget.style.transform = 'translateX(4px)';
+                          e.currentTarget.style.borderColor = s.color;
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isSelected) {
+                          e.currentTarget.style.transform = 'none';
+                          e.currentTarget.style.borderColor = '#E2E8F0';
+                        }
+                      }}
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                        <span style={{ fontWeight: 700, color: '#1E293B', fontSize: '0.9rem' }}>{s.title}</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: s.color, backgroundColor: `${s.color}18`, padding: '2px 8px', borderRadius: '12px' }}>{s.pct}%</span>
+                          <span style={{ fontWeight: 800, color: s.color, fontSize: '0.9rem' }}>{s.qs} Qs</span>
+                        </div>
+                      </div>
+                      <div style={{ height: '7px', backgroundColor: '#E2E8F0', borderRadius: '4px', overflow: 'hidden' }}>
+                        <div
+                          style={{
+                            height: '100%',
+                            width: `${s.pct}%`,
+                            backgroundColor: s.color,
+                            borderRadius: '4px',
+                            transition: 'width 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s ease',
+                          }}
+                        />
+                      </div>
                     </div>
-                    <div style={{ height: '8px', backgroundColor: '#E2E8F0', borderRadius: '4px', overflow: 'hidden' }}>
-                      <div style={{ height: '100%', width: `${s.pct}%`, backgroundColor: s.color, borderRadius: '4px', transition: 'width 0.6s ease' }} />
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
-            {/* Right: accordion */}
+
+            {/* Right: accordion with micro-animations */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {subjects.map((sub, i) => (
-                <div key={i} style={{ backgroundColor: '#FFFFFF', border: openSubject === i ? '1px solid #16A34A' : '1px solid #E2E8F0', borderRadius: '14px', overflow: 'hidden', transition: 'all 0.2s ease' }}>
-                  <button 
-                    onClick={() => setOpenSubject(openSubject === i ? null : i)}
-                    style={{ width: '100%', padding: '18px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'none', border: 'none', cursor: 'pointer' }}
+              {subjects.map((sub, i) => {
+                const isOpen = openSubject === i;
+                return (
+                  <div
+                    key={i}
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      border: isOpen ? `1.5px solid ${sub.color}` : '1px solid #E2E8F0',
+                      borderRadius: '14px',
+                      overflow: 'hidden',
+                      transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                      boxShadow: isOpen ? `0 8px 24px -4px ${sub.color}25` : '0 2px 6px rgba(0,0,0,0.03)',
+                      transform: isOpen ? 'translateY(-2px)' : 'none',
+                    }}
                   >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                      <div style={{ backgroundColor: '#F0FFF4', padding: '8px 12px', borderRadius: '10px', color: '#16A34A', fontWeight: 800, fontSize: '1.1rem', minWidth: '44px', textAlign: 'center', border: '1px solid #BBF7D0' }}>
-                        {sub.qs}
+                    <button 
+                      onClick={() => setOpenSubject(isOpen ? null : i)}
+                      style={{
+                        width: '100%',
+                        padding: '16px 20px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        transition: 'background-color 0.2s ease',
+                      }}
+                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = sub.bg; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                        <div
+                          style={{
+                            backgroundColor: sub.bg,
+                            padding: '8px 12px',
+                            borderRadius: '10px',
+                            color: sub.color,
+                            fontWeight: 800,
+                            fontSize: '1rem',
+                            minWidth: '44px',
+                            textAlign: 'center',
+                            border: `1px solid ${sub.border}`,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '6px',
+                            transition: 'transform 0.2s ease',
+                          }}
+                        >
+                          {sub.icon}
+                          <span>{sub.qs}</span>
+                        </div>
+                        <div style={{ fontWeight: 700, fontSize: '0.98rem', color: '#0F172A', textAlign: 'left' }}>
+                          {sub.title}
+                        </div>
                       </div>
-                      <div style={{ fontWeight: 700, fontSize: '1rem', color: '#0F172A', textAlign: 'left' }}>
-                        {sub.title}
+                      <div style={{ transition: 'transform 0.3s ease', transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                        <ChevronDown color={isOpen ? sub.color : '#64748B'} size={18} />
                       </div>
-                    </div>
-                    {openSubject === i ? <ChevronUp color="#16A34A" /> : <ChevronDown color="#64748B" />}
-                  </button>
-                  {openSubject === i && (
-                    <div style={{ padding: '0 24px 24px', borderTop: '1px solid #F1F5F9', paddingTop: '16px' }}>
-                      <p style={{ color: '#475569', marginBottom: '16px', lineHeight: 1.6, fontSize: '0.95rem' }}>
-                        <strong>Core topics:</strong> {sub.topics}
-                      </p>
-                      <Link href="/portal/courses" style={{ color: '#16A34A', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.9rem' }}>
-                        See course modules <ArrowRight size={16} />
-                      </Link>
-                    </div>
-                  )}
-                </div>
-              ))}
+                    </button>
+                    {isOpen && (
+                      <div
+                        style={{
+                          padding: '0 20px 20px',
+                          borderTop: '1px solid #F1F5F9',
+                          paddingTop: '14px',
+                          animation: 'fadeIn 0.3s ease forwards',
+                        }}
+                      >
+                        <p style={{ color: '#475569', marginBottom: '14px', lineHeight: 1.6, fontSize: '0.92rem' }}>
+                          <strong style={{ color: '#0F172A' }}>Core topics:</strong> {sub.topics}
+                        </p>
+                        <Link
+                          href="/courses#programmes"
+                          style={{
+                            color: sub.color,
+                            fontWeight: 700,
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                            fontSize: '0.88rem',
+                            padding: '4px 0',
+                            transition: 'gap 0.2s ease',
+                          }}
+                        >
+                          See prep course modules <ArrowRight size={15} />
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
       </section>
 
       {/* 06 — Scoring + Live Score Calculator */}
-      <section style={{ padding: '80px 0', backgroundColor: '#FFFFFF' }}>
+      <section id="scoring" style={{ padding: '80px 0', backgroundColor: '#FFFFFF' }}>
         <div className="container">
           <div ref={calcRef as React.RefObject<HTMLDivElement>} className="scroll-fade-up" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '56px', alignItems: 'center' }}>
             <div>
@@ -492,30 +599,32 @@ export default function IMATContent() {
       </section>
 
       {/* 07 — Is the IMAT Right for You? */}
-      <section style={{ padding: '80px 0', backgroundColor: '#F8FAFC', borderTop: '1px solid #E2E8F0' }}>
+      <section style={{ padding: '60px 0', backgroundColor: '#F8FAFC', borderTop: '1px solid #E2E8F0' }}>
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '36px' }}>
             <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#16A34A', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Find Your Path</span>
-            <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A', marginTop: '12px' }}>Is the IMAT Right for You?</h2>
+            <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A', marginTop: '10px' }}>Is the IMAT Right for You?</h2>
           </div>
-          <div ref={segmentRef as React.RefObject<HTMLDivElement>} className="scroll-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+          <div ref={segmentRef as React.RefObject<HTMLDivElement>} className="scroll-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
             {[
               { icon: '🎓', title: 'I want to study Medicine in English in Italy', desc: 'The IMAT is the gateway to English-taught Medicine & Surgery at Italian public universities. If this is your goal, this exam is your path.', link: '/universities', cta: 'See IMAT universities' },
               { icon: '🏛️', title: "I'm not sure which university fits me", desc: 'Italy has over 10 universities offering IMAT-based admission. Each has different city vibes, fees, and programme styles — explore them before deciding.', link: '/universities', cta: 'Explore Universities' },
               { icon: '🌍', title: "I'm not sure which admission category applies", desc: 'EU and Non-EU candidates follow different quotas and processes. The distinction is based on residency and citizenship — not nationality alone.', href: '#eu-noneu', cta: 'See EU / Non-EU guidance' },
             ].map((card, i) => (
-              <div key={i} className="card" style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <div style={{ fontSize: '2.2rem' }}>{card.icon}</div>
-                <div style={{ fontWeight: 800, fontSize: '1.15rem', color: '#0F172A', lineHeight: 1.3 }}>{card.title}</div>
-                <p style={{ color: '#64748B', fontSize: '0.95rem', lineHeight: 1.7, flex: 1 }}>{card.desc}</p>
+              <div key={i} className="card" style={{ padding: '22px 24px', display: 'flex', flexDirection: 'column', gap: '10px', borderRadius: '16px', transition: 'all 0.25s ease' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <span style={{ fontSize: '1.75rem', lineHeight: 1, flexShrink: 0 }}>{card.icon}</span>
+                  <h3 style={{ fontWeight: 800, fontSize: '1.05rem', color: '#0F172A', lineHeight: 1.35, margin: 0 }}>{card.title}</h3>
+                </div>
+                <p style={{ color: '#64748B', fontSize: '0.88rem', lineHeight: 1.6, margin: 0, flex: 1 }}>{card.desc}</p>
                 {'link' in card
-                  ? <Link href={card.link!} style={{ color: '#16A34A', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.9rem' }}>{card.cta} <ArrowRight size={15}/></Link>
-                  : <a href={card.href} style={{ color: '#16A34A', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.9rem' }}>{card.cta} <ArrowRight size={15}/></a>
+                  ? <Link href={card.link!} style={{ color: '#16A34A', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.88rem', marginTop: '4px' }}>{card.cta} <ArrowRight size={14}/></Link>
+                  : <a href={card.href} style={{ color: '#16A34A', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.88rem', marginTop: '4px' }}>{card.cta} <ArrowRight size={14}/></a>
                 }
               </div>
             ))}
           </div>
-          <div style={{ textAlign: 'center', marginTop: '32px', color: '#94A3B8', fontSize: '0.88rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+          <div style={{ textAlign: 'center', marginTop: '24px', color: '#94A3B8', fontSize: '0.85rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
             <AlertCircle size={14} />
             Not every Italian Medicine programme uses the IMAT — confirm your target university's route.
           </div>
@@ -580,9 +689,9 @@ export default function IMATContent() {
       </section>
 
       {/* 09 — Where Can You Study */}
-      <section style={{ padding: '0 0 80px', backgroundColor: '#0F172A' }}>
-        {/* Full-width Italy city banner */}
-        <div style={{ position: 'relative', width: '100%', height: '400px', overflow: 'hidden', marginBottom: '60px' }}>
+      <section style={{ padding: '0 0 50px', backgroundColor: '#0F172A' }}>
+        {/* Full-width Italy city banner - slim and compact */}
+        <div style={{ position: 'relative', width: '100%', height: '220px', overflow: 'hidden', marginBottom: '28px' }}>
           <Image
             src="/imat-italy-city.jpg"
             alt="Aerial view of an Italian university city at golden hour"
@@ -590,33 +699,33 @@ export default function IMATContent() {
             style={{ objectFit: 'cover', objectPosition: 'center 60%' }}
           />
           {/* Dark gradient overlay */}
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(15,23,42,0.3) 0%, rgba(15,23,42,0.7) 60%, #0F172A 100%)' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(15,23,42,0.4) 0%, rgba(15,23,42,0.8) 70%, #0F172A 100%)' }} />
           {/* Centred heading on image */}
-          <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', paddingBottom: '48px', textAlign: 'center' }}>
-            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#5CED73', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '12px' }}>Study Medicine in Italy</span>
-            <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', fontWeight: 800, color: '#FFFFFF', margin: 0, letterSpacing: '-0.5px' }}>Where Can You Study?</h2>
-            <p style={{ color: '#94A3B8', marginTop: '12px', fontSize: '1.05rem' }}>A snapshot of top universities participating in the IMAT.</p>
+          <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', paddingBottom: '20px', textAlign: 'center' }}>
+            <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#5CED73', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '6px' }}>Study Medicine in Italy</span>
+            <h2 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', fontWeight: 800, color: '#FFFFFF', margin: 0, letterSpacing: '-0.5px' }}>Where Can You Study?</h2>
+            <p style={{ color: '#94A3B8', marginTop: '6px', fontSize: '0.95rem' }}>A snapshot of top universities participating in the IMAT.</p>
           </div>
         </div>
         <div className="container">
-           <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '32px' }}>
-             <Link href="/universities" className="btn-secondary" style={{ backgroundColor: 'rgba(255,255,255,0.1)', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.2)' }}>
+           <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
+             <Link href="/universities" className="btn-secondary" style={{ backgroundColor: 'rgba(255,255,255,0.1)', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.2)', padding: '8px 18px', fontSize: '0.85rem' }}>
                View All Universities
              </Link>
            </div>
            
-           <div ref={uniRef as React.RefObject<HTMLDivElement>} className="scroll-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+           <div ref={uniRef as React.RefObject<HTMLDivElement>} className="scroll-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
              {[
                { name: 'La Sapienza', city: 'Rome', desc: 'One of Europe\'s oldest universities, offering a prestigious 6-year program.' },
                { name: 'University of Milan', city: 'Milan', desc: 'Renowned IMS program located in Italy\'s economic and fashion capital.' },
                { name: 'University of Pavia', city: 'Pavia', desc: 'The Harvey Medicine course in a historic, student-friendly university town.' }
              ].map((uni, i) => (
-               <div key={i} className="card" style={{ backgroundColor: '#1E293B', borderColor: '#334155', color: '#F8FAFC' }}>
-                 <div style={{ fontWeight: 800, fontSize: '1.25rem', marginBottom: '4px' }}>{uni.name}</div>
-                 <div style={{ color: '#5CED73', fontSize: '0.9rem', fontWeight: 600, marginBottom: '16px' }}>{uni.city}, Italy</div>
-                 <p style={{ color: '#94A3B8', fontSize: '0.95rem', marginBottom: '24px', lineHeight: 1.5 }}>{uni.desc}</p>
-                 <Link href="/universities" style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#5CED73', fontWeight: 600 }}>
-                   View Details <ArrowRight size={16} />
+               <div key={i} className="card" style={{ backgroundColor: '#1E293B', borderColor: '#334155', color: '#F8FAFC', padding: '24px' }}>
+                 <div style={{ fontWeight: 800, fontSize: '1.2rem', marginBottom: '4px' }}>{uni.name}</div>
+                 <div style={{ color: '#5CED73', fontSize: '0.88rem', fontWeight: 600, marginBottom: '12px' }}>{uni.city}, Italy</div>
+                 <p style={{ color: '#94A3B8', fontSize: '0.9rem', marginBottom: '18px', lineHeight: 1.5 }}>{uni.desc}</p>
+                 <Link href="/universities" style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#5CED73', fontWeight: 600, fontSize: '0.88rem' }}>
+                   View Details <ArrowRight size={15} />
                  </Link>
                </div>
              ))}
@@ -762,21 +871,28 @@ export default function IMATContent() {
       {/* 13 — The Full Journey */}
       <section style={{ padding: '80px 0', backgroundColor: '#0F172A' }}>
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '50px' }}>
              <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#FFFFFF' }}>The Full Journey</h2>
              <p style={{ color: '#94A3B8', marginTop: '12px' }}>From preparation to starting Medical School in Italy.</p>
           </div>
-          <div ref={timelineRef as React.RefObject<HTMLDivElement>} className="scroll-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '20px' }}>
+          <div ref={timelineRef as React.RefObject<HTMLDivElement>} className="scroll-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: '16px' }}>
             {[
-              'Understand the IMAT', 'Identify target universities', 'Build your prep plan',
-              'Learn & practise', 'Sit the IMAT', 'Review ranking & options', 
-              'Complete university procedures', 'Begin Medicine in Italy'
+              'Understand the IMAT',
+              'Identify target universities',
+              'Pre-enrol (if applicable)',
+              'Build your prep plan',
+              'Learn & practise',
+              'Register for IMAT Test',
+              'Sit the IMAT',
+              'Review ranking & options',
+              'Complete university procedures',
+              'Begin Medicine in Italy'
             ].map((step, i) => (
-              <div key={i} style={{ padding: '16px', backgroundColor: '#1E293B', borderRadius: '12px', border: '1px solid #334155' }}>
+              <div key={i} style={{ padding: '16px 18px', backgroundColor: '#1E293B', borderRadius: '12px', border: '1px solid #334155', transition: 'transform 0.2s ease, border-color 0.2s ease' }}>
                 <div style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#5CED73', color: '#14532D', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.85rem', marginBottom: '12px' }}>
                   {i+1}
                 </div>
-                <div style={{ color: '#F8FAFC', fontWeight: 600, fontSize: '0.95rem' }}>{step}</div>
+                <div style={{ color: '#F8FAFC', fontWeight: 600, fontSize: '0.92rem', lineHeight: 1.4 }}>{step}</div>
               </div>
             ))}
           </div>
@@ -784,7 +900,7 @@ export default function IMATContent() {
       </section>
 
       {/* 14 — Free IMAT Starter Kit */}
-      <section style={{ padding: '80px 0', backgroundColor: '#0F172A' }}>
+      <section id="starter-kit" style={{ padding: '80px 0', backgroundColor: '#0F172A' }}>
         <div className="container">
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '60px', alignItems: 'center' }}>
             {/* Left: what's inside */}
@@ -828,74 +944,99 @@ export default function IMATContent() {
         </div>
       </section>
 
-      {/* 15 — FAQ + Final CTA */}
-      <section style={{ padding: '80px 0', backgroundColor: '#F8FAFC' }}>
-        <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+      {/* 15 — FAQ + Advisor CTA */}
+      <section style={{ padding: '60px 0', backgroundColor: '#F8FAFC' }}>
+        <div className="container" style={{ maxWidth: '960px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
             <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#16A34A', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Got Questions?</span>
-            <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A', marginTop: '12px' }}>Frequently Asked Questions</h2>
-            {/* Expand / Collapse buttons */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '16px' }}>
+            <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A', marginTop: '10px', marginBottom: '16px' }}>Frequently Asked Questions</h2>
+            
+            {/* Show / Hide Toggle Button */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
               <button
                 type="button"
-                onClick={expandAllFaqs}
+                onClick={() => setShowFaqList(!showFaqList)}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '6px',
-                  backgroundColor: '#ECFDF5',
-                  color: '#047857',
-                  border: '1px solid #A7F3D0',
-                  padding: '7px 18px',
+                  gap: '8px',
+                  backgroundColor: showFaqList ? '#FFFFFF' : '#16A34A',
+                  color: showFaqList ? '#334155' : '#FFFFFF',
+                  border: showFaqList ? '1px solid #CBD5E1' : 'none',
+                  padding: '10px 24px',
                   borderRadius: '9999px',
-                  fontSize: '0.8125rem',
+                  fontSize: '0.9rem',
                   fontWeight: 700,
                   cursor: 'pointer',
-                  transition: 'all 0.2s',
+                  boxShadow: showFaqList ? 'none' : '0 4px 14px rgba(22, 163, 74, 0.3)',
+                  transition: 'all 0.2s ease',
                 }}
               >
-                <ChevronDown size={15} />
-                Expand All
+                {showFaqList ? 'Hide FAQs' : `Show All FAQs (${faqs.length})`}
+                {showFaqList ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
               </button>
-              <button
-                type="button"
-                onClick={collapseAllFaqs}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  backgroundColor: '#FFFFFF',
-                  color: '#475569',
-                  border: '1px solid #CBD5E1',
-                  padding: '7px 18px',
-                  borderRadius: '9999px',
-                  fontSize: '0.8125rem',
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  transition: 'all 0.2s',
-                }}
-              >
-                <ChevronUp size={15} />
-                Collapse All
-              </button>
+
+              {showFaqList && (
+                <>
+                  <button
+                    type="button"
+                    onClick={expandAllFaqs}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      backgroundColor: '#ECFDF5',
+                      color: '#047857',
+                      border: '1px solid #A7F3D0',
+                      padding: '8px 18px',
+                      borderRadius: '9999px',
+                      fontSize: '0.8125rem',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <ChevronDown size={14} /> Expand All
+                  </button>
+                  <button
+                    type="button"
+                    onClick={collapseAllFaqs}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      backgroundColor: '#FFFFFF',
+                      color: '#475569',
+                      border: '1px solid #CBD5E1',
+                      padding: '8px 18px',
+                      borderRadius: '9999px',
+                      fontSize: '0.8125rem',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <ChevronUp size={14} /> Collapse All
+                  </button>
+                </>
+              )}
             </div>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '48px', alignItems: 'flex-start', marginBottom: '80px' }}>
-            {/* FAQ accordion */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+
+          {/* Conditional FAQ accordion */}
+          {showFaqList && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '40px' }}>
               {faqs.map((faq, i) => {
                 const isOpen = openFaqs.includes(i);
                 return (
-                  <div key={i} style={{ backgroundColor: '#FFFFFF', border: isOpen ? '1px solid #16A34A' : '1px solid #E2E8F0', borderRadius: '12px', overflow: 'hidden' }}>
+                  <div key={i} style={{ backgroundColor: '#FFFFFF', border: isOpen ? '1px solid #16A34A' : '1px solid #E2E8F0', borderRadius: '12px', overflow: 'hidden', transition: 'all 0.2s' }}>
                     <button 
                       onClick={() => toggleFaq(i)}
-                      style={{ width: '100%', padding: '18px 22px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 700, fontSize: '0.95rem', color: '#0F172A', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', gap: '16px' }}
+                      style={{ width: '100%', padding: '16px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 700, fontSize: '0.95rem', color: '#0F172A', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', gap: '16px' }}
                     >
                       <span style={{ flex: 1 }}>{faq.q}</span>
                       {isOpen ? <ChevronUp size={18} color="#16A34A" /> : <ChevronDown size={18} color="#64748B" />}
                     </button>
                     {isOpen && (
-                      <div style={{ padding: '0 22px 20px', color: '#475569', fontSize: '0.92rem', lineHeight: 1.7, borderTop: '1px solid #F1F5F9', paddingTop: '14px' }}>
+                      <div style={{ padding: '0 20px 18px', color: '#475569', fontSize: '0.92rem', lineHeight: 1.7, borderTop: '1px solid #F1F5F9', paddingTop: '12px' }}>
                         {faq.a}
                       </div>
                     )}
@@ -903,45 +1044,15 @@ export default function IMATContent() {
                 );
               })}
             </div>
-            {/* Sidebar */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', position: 'sticky', top: '100px' }}>
-              {/* Quick facts */}
-              <div style={{ backgroundColor: '#0F172A', borderRadius: '20px', padding: '32px' }}>
-                <h4 style={{ color: '#FFFFFF', fontWeight: 800, fontSize: '1.1rem', marginBottom: '20px' }}>IMAT Quick Facts</h4>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                  {[
-                    { label: 'Questions', value: '60 MCQ' },
-                    { label: 'Duration', value: '100 min' },
-                    { label: 'Max Score', value: '90 pts' },
-                    { label: 'Correct', value: '+1.5 pts' },
-                    { label: 'Incorrect', value: '−0.4 pts' },
-                    { label: 'Language', value: 'English' },
-                  ].map((f, i) => (
-                    <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: i < 5 ? '14px' : 0, borderBottom: i < 5 ? '1px solid rgba(255,255,255,0.06)' : 'none' }}>
-                      <span style={{ color: '#94A3B8', fontSize: '0.88rem' }}>{f.label}</span>
-                      <span style={{ color: '#5CED73', fontWeight: 700, fontSize: '0.95rem' }}>{f.value}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              {/* CTA card */}
-              <div style={{ backgroundColor: '#FFFFFF', borderRadius: '20px', padding: '28px', border: '1px solid #E2E8F0', boxShadow: '0 4px 12px rgba(0,0,0,0.06)' }}>
-                <h4 style={{ fontWeight: 800, color: '#0F172A', marginBottom: '8px' }}>Still have questions?</h4>
-                <p style={{ color: '#64748B', fontSize: '0.88rem', marginBottom: '20px', lineHeight: 1.6 }}>Our advisors are happy to help you navigate the IMAT, programme selection, and admissions process.</p>
-                <button onClick={() => setLeadOpen(true)} className="btn-primary" style={{ width: '100%' }}>Talk to an Advisor</button>
-              </div>
-            </div>
-          </div>
+          )}
 
-          <div style={{ backgroundColor: '#FFFFFF', padding: '60px 40px', borderRadius: '24px', textAlign: 'center', border: '1px solid #E2E8F0', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.05)' }}>
-             <h2 style={{ fontSize: '2rem', fontWeight: 800, color: '#0F172A', marginBottom: '16px' }}>Ready to Start Your IMAT Preparation?</h2>
-             <p style={{ color: '#475569', fontSize: '1.1rem', marginBottom: '32px' }}>
-               Take the free diagnostic, understand your starting point, and choose the preparation path that fits you.
-             </p>
-             <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', flexWrap: 'wrap' }}>
-               <button onClick={() => setLeadOpen(true)} className="btn-primary">Take the Free IMAT Mock</button>
-               <Link href="/#packages" className="btn-outline">Explore Programmes</Link>
-             </div>
+          {/* Advisor CTA card (always standing as requested) */}
+          <div style={{ backgroundColor: '#FFFFFF', borderRadius: '20px', padding: '32px 36px', border: '1px solid #E2E8F0', boxShadow: '0 4px 16px rgba(0,0,0,0.05)', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '20px' }}>
+            <div style={{ flex: '1 1 300px' }}>
+              <h4 style={{ fontWeight: 800, color: '#0F172A', fontSize: '1.2rem', marginBottom: '8px' }}>Still have questions?</h4>
+              <p style={{ color: '#64748B', fontSize: '0.92rem', margin: 0, lineHeight: 1.6 }}>Our advisors are happy to help you navigate the IMAT, programme selection, and admissions process.</p>
+            </div>
+            <button onClick={() => setLeadOpen(true)} className="btn-primary" style={{ padding: '14px 28px', fontSize: '0.95rem', flexShrink: 0 }}>Talk to an Advisor</button>
           </div>
         </div>
       </section>

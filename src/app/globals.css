@@ -324,6 +324,15 @@ button {
   }
 }
 
+@keyframes portalMarqueeScroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
 /* ─── Trust Marquee ──────────────────────────────────────── */
 .trust-marquee {
   display: flex;
@@ -346,6 +355,10 @@ button {
 
 .trust-marquee:hover .trust-marquee-track {
   animation-play-state: paused;
+}
+
+.portal-marquee-wrapper:hover .portal-marquee-track {
+  animation-play-state: paused !important;
 }
 
 /* ─── Interactive Picture Hover Effect ───────────────────── */
