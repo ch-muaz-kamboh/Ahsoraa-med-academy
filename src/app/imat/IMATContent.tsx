@@ -149,49 +149,46 @@ export default function IMATContent() {
     <div style={{ backgroundColor: '#FFFFFF', minHeight: '100vh', paddingBottom: '60px' }}>
       
       {/* 01 — Hero */}
-      <section style={{ background: 'linear-gradient(135deg, #064E3B 0%, #065F46 50%, #0F172A 100%)', color: '#FFFFFF', padding: '116px 0 60px', borderBottom: '1px solid #1E293B' }}>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px', alignItems: 'center' }}>
+      <section style={{ background: 'linear-gradient(135deg, #064E3B 0%, #065F46 50%, #0F172A 100%)', color: '#FFFFFF', padding: '88px 0 44px', borderBottom: '1px solid #1E293B' }}>
+        <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '36px', alignItems: 'center' }}>
           <div ref={heroRef as React.RefObject<HTMLDivElement>} className="scroll-fade-up">
-            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#5CED73', textTransform: 'uppercase', letterSpacing: '1.5px', backgroundColor: 'rgba(92,237,115,0.15)', padding: '4px 12px', borderRadius: '20px', border: '1px solid rgba(92,237,115,0.3)' }}>
+            <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#5CED73', textTransform: 'uppercase', letterSpacing: '1.5px', backgroundColor: 'rgba(92,237,115,0.15)', padding: '4px 12px', borderRadius: '20px', border: '1px solid rgba(92,237,115,0.3)' }}>
               IMAT — International Medical Admissions Test
             </span>
-            <h1 style={{ fontSize: 'clamp(2.4rem, 5vw, 3.8rem)', fontWeight: 800, color: '#FFFFFF', marginTop: '16px', marginBottom: '24px', letterSpacing: '-1px', lineHeight: 1.15 }}>
+            <h1 style={{ fontSize: 'clamp(2.1rem, 3.8vw, 3rem)', fontWeight: 800, color: '#FFFFFF', marginTop: '14px', marginBottom: '14px', letterSpacing: '-0.8px', lineHeight: 1.16 }}>
               IMAT 2027 Complete Guide
             </h1>
-            <p style={{ color: '#CBD5E1', fontSize: '1.15rem', lineHeight: 1.7, marginBottom: '36px' }}>
+            <p style={{ color: '#CBD5E1', fontSize: '1.05rem', lineHeight: 1.65, marginBottom: '24px', maxWidth: '540px' }}>
               Understand the exam, master the syllabus, practise under realistic conditions, and measure your progress — with a preparation system built for students pursuing Medicine in Italy.
             </p>
-            <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
-              <button onClick={() => setLeadOpen(true)} className="btn-primary" style={{ padding: '16px 36px', fontSize: '1.05rem' }}>
+            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+              <button onClick={() => setLeadOpen(true)} className="btn-primary" style={{ padding: '13px 28px', fontSize: '0.98rem' }}>
                 <span>Take the Free IMAT Mock</span>
               </button>
-              <a href="#starter-kit" className="btn-outline" style={{ padding: '16px 32px', fontSize: '1.05rem', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.3)', backgroundColor: 'rgba(255,255,255,0.06)' }}>
+              <a href="#starter-kit" className="btn-outline" style={{ padding: '13px 24px', fontSize: '0.98rem', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.3)', backgroundColor: 'rgba(255,255,255,0.06)' }}>
                 Download IMAT Papers
               </a>
             </div>
           </div>
-          <div className="scroll-fade-left is-visible" style={{ position: 'relative', height: '100%', display: 'flex', justifyContent: 'center' }}>
-            <div style={{ backgroundColor: '#FFFFFF', borderRadius: '24px', border: '1px solid #E2E8F0', padding: '32px', boxShadow: '0 20px 25px -5px rgba(92, 237, 115, 0.15)', width: '100%', maxWidth: '400px' }}>
-               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #E2E8F0', paddingBottom: '16px', marginBottom: '20px' }}>
-                  <div style={{ fontWeight: 700, color: '#0F172A' }}>Mock Test Simulator</div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#EF4444', fontWeight: 600, fontSize: '0.9rem' }}>
-                    <Clock size={16} /> 99:59
-                  </div>
-               </div>
-               <div style={{ width: '100%', height: '8px', backgroundColor: '#F1F5F9', borderRadius: '4px', marginBottom: '24px' }}>
-                  <div style={{ width: '45%', height: '100%', backgroundColor: '#5CED73', borderRadius: '4px' }}></div>
-               </div>
-               <div style={{ fontWeight: 600, color: '#334155', marginBottom: '12px' }}>Question 27 of 60</div>
-               <div style={{ color: '#0F172A', fontWeight: 500, lineHeight: 1.5, marginBottom: '24px' }}>
-                 Which of the following cellular structures is primarily responsible for the synthesis of ribosomal RNA?
-               </div>
-               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                 {['Nucleolus', 'Golgi Apparatus', 'Smooth ER', 'Lysosome', 'Mitochondrion'].map((opt, i) => (
-                   <div key={i} style={{ border: '1px solid #E2E8F0', padding: '12px 16px', borderRadius: '8px', color: i === 0 ? '#16A34A' : '#475569', backgroundColor: i === 0 ? '#F0FFF4' : '#FFFFFF', borderColor: i === 0 ? '#16A34A' : '#E2E8F0', fontWeight: i === 0 ? 600 : 400 }}>
-                     {opt}
-                   </div>
-                 ))}
-               </div>
+          <div className="scroll-fade-left is-visible" style={{ display: 'flex', justifyContent: 'center' }}>
+            <div style={{ position: 'relative', width: '100%', maxWidth: '440px', height: '330px', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 20px 40px -10px rgba(0,0,0,0.45)', border: '1px solid rgba(255,255,255,0.12)' }}>
+              <Image
+                src="/imat-hero-student.jpg"
+                alt="Medical student preparing for the IMAT exam in Italy"
+                fill
+                style={{ objectFit: 'cover', objectPosition: 'center 20%' }}
+                priority
+              />
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.2) 45%, transparent 70%)' }} />
+              <div style={{ position: 'absolute', bottom: '16px', left: '16px', right: '16px', backgroundColor: 'rgba(15,23,42,0.88)', backdropFilter: 'blur(8px)', borderRadius: '12px', padding: '10px 16px', border: '1px solid rgba(255,255,255,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div>
+                  <div style={{ color: '#5CED73', fontWeight: 800, fontSize: '0.95rem' }}>60 Questions · 100 Mins</div>
+                  <div style={{ color: '#94A3B8', fontSize: '0.78rem', marginTop: '2px' }}>English Medicine in Italy</div>
+                </div>
+                <span style={{ backgroundColor: 'rgba(92,237,115,0.15)', color: '#5CED73', fontSize: '0.75rem', fontWeight: 700, padding: '4px 10px', borderRadius: '20px', border: '1px solid rgba(92,237,115,0.3)' }}>
+                  IMAT 2027
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -315,168 +312,62 @@ export default function IMATContent() {
       <section style={{ padding: '80px 0', backgroundColor: '#F8FAFC' }}>
         <div className="container">
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '60px', alignItems: 'flex-start' }}>
-            {/* Left: intro + subject breakdown with interactive animations */}
+            {/* Left: intro + subject pie */}
             <div>
               <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#16A34A', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Verified Format</span>
               <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A', marginBottom: '16px', marginTop: '12px' }}>Exam Structure &amp; Syllabus</h2>
-              <p style={{ color: '#475569', lineHeight: 1.8, marginBottom: '28px' }}>60 questions across 5 subjects, sat in a single 100-minute session. Each subject has a fixed number of questions — click or hover any subject to view detailed core topics.</p>
-              
-              {/* Visual subject breakdown with smooth hover animation */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <p style={{ color: '#475569', lineHeight: 1.8, marginBottom: '32px' }}>60 questions across 5 subjects, sat in a single 100-minute session. Each subject has a fixed number of questions — knowing the breakdown helps you allocate prep time strategically.</p>
+              {/* Visual subject breakdown */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {[
-                  { index: 2, title: 'Biology', qs: 23, color: '#16A34A', bg: '#F0FFF4', pct: 38 },
-                  { index: 3, title: 'Chemistry', qs: 15, color: '#10B981', bg: '#ECFDF5', pct: 25 },
-                  { index: 4, title: 'Physics & Maths', qs: 13, color: '#8B5CF6', bg: '#F5F3FF', pct: 22 },
-                  { index: 1, title: 'Logical Reasoning', qs: 5, color: '#F59E0B', bg: '#FFFBEB', pct: 8 },
-                  { index: 0, title: 'Reading & Knowledge', qs: 4, color: '#EC4899', bg: '#FDF2F8', pct: 7 },
-                ].map((s) => {
-                  const isSelected = openSubject === s.index;
-                  return (
-                    <div
-                      key={s.title}
-                      onClick={() => setOpenSubject(isSelected ? null : s.index)}
-                      style={{
-                        padding: '10px 14px',
-                        borderRadius: '12px',
-                        backgroundColor: isSelected ? s.bg : '#FFFFFF',
-                        border: `1px solid ${isSelected ? s.color : '#E2E8F0'}`,
-                        cursor: 'pointer',
-                        transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
-                        transform: isSelected ? 'translateX(4px)' : 'none',
-                        boxShadow: isSelected ? `0 4px 14px -2px ${s.color}33` : '0 1px 3px rgba(0,0,0,0.03)',
-                      }}
-                      onMouseEnter={(e) => {
-                        if (!isSelected) {
-                          e.currentTarget.style.transform = 'translateX(4px)';
-                          e.currentTarget.style.borderColor = s.color;
-                        }
-                      }}
-                      onMouseLeave={(e) => {
-                        if (!isSelected) {
-                          e.currentTarget.style.transform = 'none';
-                          e.currentTarget.style.borderColor = '#E2E8F0';
-                        }
-                      }}
-                    >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                        <span style={{ fontWeight: 700, color: '#1E293B', fontSize: '0.9rem' }}>{s.title}</span>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: s.color, backgroundColor: `${s.color}18`, padding: '2px 8px', borderRadius: '12px' }}>{s.pct}%</span>
-                          <span style={{ fontWeight: 800, color: s.color, fontSize: '0.9rem' }}>{s.qs} Qs</span>
-                        </div>
-                      </div>
-                      <div style={{ height: '7px', backgroundColor: '#E2E8F0', borderRadius: '4px', overflow: 'hidden' }}>
-                        <div
-                          style={{
-                            height: '100%',
-                            width: `${s.pct}%`,
-                            backgroundColor: s.color,
-                            borderRadius: '4px',
-                            transition: 'width 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s ease',
-                          }}
-                        />
-                      </div>
+                  { title: 'Biology', qs: 23, color: '#16A34A', pct: 38 },
+                  { title: 'Chemistry', qs: 15, color: '#10B981', pct: 25 },
+                  { title: 'Physics & Maths', qs: 13, color: '#8B5CF6', pct: 22 },
+                  { title: 'Logical Reasoning', qs: 5, color: '#F59E0B', pct: 8 },
+                  { title: 'Reading & Knowledge', qs: 4, color: '#EC4899', pct: 7 },
+                ].map((s) => (
+                  <div key={s.title}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                      <span style={{ fontWeight: 600, color: '#334155', fontSize: '0.9rem' }}>{s.title}</span>
+                      <span style={{ fontWeight: 800, color: s.color, fontSize: '0.9rem' }}>{s.qs} Qs</span>
                     </div>
-                  );
-                })}
+                    <div style={{ height: '8px', backgroundColor: '#E2E8F0', borderRadius: '4px', overflow: 'hidden' }}>
+                      <div style={{ height: '100%', width: `${s.pct}%`, backgroundColor: s.color, borderRadius: '4px', transition: 'width 0.6s ease' }} />
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-
-            {/* Right: accordion with micro-animations */}
+            {/* Right: accordion */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {subjects.map((sub, i) => {
-                const isOpen = openSubject === i;
-                return (
-                  <div
-                    key={i}
-                    style={{
-                      backgroundColor: '#FFFFFF',
-                      border: isOpen ? `1.5px solid ${sub.color}` : '1px solid #E2E8F0',
-                      borderRadius: '14px',
-                      overflow: 'hidden',
-                      transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-                      boxShadow: isOpen ? `0 8px 24px -4px ${sub.color}25` : '0 2px 6px rgba(0,0,0,0.03)',
-                      transform: isOpen ? 'translateY(-2px)' : 'none',
-                    }}
+              {subjects.map((sub, i) => (
+                <div key={i} style={{ backgroundColor: '#FFFFFF', border: openSubject === i ? '1px solid #16A34A' : '1px solid #E2E8F0', borderRadius: '14px', overflow: 'hidden', transition: 'all 0.2s ease' }}>
+                  <button 
+                    onClick={() => setOpenSubject(openSubject === i ? null : i)}
+                    style={{ width: '100%', padding: '18px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'none', border: 'none', cursor: 'pointer' }}
                   >
-                    <button 
-                      onClick={() => setOpenSubject(isOpen ? null : i)}
-                      style={{
-                        width: '100%',
-                        padding: '16px 20px',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        background: 'none',
-                        border: 'none',
-                        cursor: 'pointer',
-                        transition: 'background-color 0.2s ease',
-                      }}
-                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = sub.bg; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; }}
-                    >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                        <div
-                          style={{
-                            backgroundColor: sub.bg,
-                            padding: '8px 12px',
-                            borderRadius: '10px',
-                            color: sub.color,
-                            fontWeight: 800,
-                            fontSize: '1rem',
-                            minWidth: '44px',
-                            textAlign: 'center',
-                            border: `1px solid ${sub.border}`,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: '6px',
-                            transition: 'transform 0.2s ease',
-                          }}
-                        >
-                          {sub.icon}
-                          <span>{sub.qs}</span>
-                        </div>
-                        <div style={{ fontWeight: 700, fontSize: '0.98rem', color: '#0F172A', textAlign: 'left' }}>
-                          {sub.title}
-                        </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                      <div style={{ backgroundColor: '#F0FFF4', padding: '8px 12px', borderRadius: '10px', color: '#16A34A', fontWeight: 800, fontSize: '1.1rem', minWidth: '44px', textAlign: 'center', border: '1px solid #BBF7D0' }}>
+                        {sub.qs}
                       </div>
-                      <div style={{ transition: 'transform 0.3s ease', transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
-                        <ChevronDown color={isOpen ? sub.color : '#64748B'} size={18} />
+                      <div style={{ fontWeight: 700, fontSize: '1rem', color: '#0F172A', textAlign: 'left' }}>
+                        {sub.title}
                       </div>
-                    </button>
-                    {isOpen && (
-                      <div
-                        style={{
-                          padding: '0 20px 20px',
-                          borderTop: '1px solid #F1F5F9',
-                          paddingTop: '14px',
-                          animation: 'fadeIn 0.3s ease forwards',
-                        }}
-                      >
-                        <p style={{ color: '#475569', marginBottom: '14px', lineHeight: 1.6, fontSize: '0.92rem' }}>
-                          <strong style={{ color: '#0F172A' }}>Core topics:</strong> {sub.topics}
-                        </p>
-                        <Link
-                          href="/courses#programmes"
-                          style={{
-                            color: sub.color,
-                            fontWeight: 700,
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '6px',
-                            fontSize: '0.88rem',
-                            padding: '4px 0',
-                            transition: 'gap 0.2s ease',
-                          }}
-                        >
-                          See prep course modules <ArrowRight size={15} />
-                        </Link>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
+                    </div>
+                    {openSubject === i ? <ChevronUp color="#16A34A" /> : <ChevronDown color="#64748B" />}
+                  </button>
+                  {openSubject === i && (
+                    <div style={{ padding: '0 24px 24px', borderTop: '1px solid #F1F5F9', paddingTop: '16px' }}>
+                      <p style={{ color: '#475569', marginBottom: '16px', lineHeight: 1.6, fontSize: '0.95rem' }}>
+                        <strong>Core topics:</strong> {sub.topics}
+                      </p>
+                      <Link href="/portal/courses" style={{ color: '#16A34A', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.9rem' }}>
+                        See course modules <ArrowRight size={16} />
+                      </Link>
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         </div>
