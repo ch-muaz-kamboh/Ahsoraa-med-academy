@@ -421,7 +421,7 @@ export const mockUniversities: University[] = [
     admissionRatePercent: 11,
     overview: 'Home of the historic "Harvey Medicine and Surgery" course, Pavia was the pioneer in establishing English-taught medical education in Italy in 2009. Students train inside the prestigious Fondazione IRCCS Policlinico San Matteo, celebrated for cardiovascular and infectious diseases research.',
     eligibility: 'Minimum 12 years of education, qualifying IMAT score, certified English proficiency, and consular legalizations / CIMEA.',
-    imageUrl: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&auto=format&fit=crop&q=80',
+    imageUrl: '/pavia-university.jpg',
     officialWebsiteUrl: 'https://medicina.unipv.it/en/harvey-course/',
     lastVerifiedAt: '2026-10-10',
     isFeatured: true,

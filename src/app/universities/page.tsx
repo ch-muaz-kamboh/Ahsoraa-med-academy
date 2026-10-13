@@ -311,7 +311,13 @@ export default function UniversitiesPage() {
   const [mapRegionFilter, setMapRegionFilter] = useState<string>('All');
 
   // FAQ state
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [showFaqList, setShowFaqList] = useState(false);
+  const [openFaqs, setOpenFaqs] = useState<number[]>([]);
+  const toggleFaq = (i: number) => {
+    setOpenFaqs(prev => prev.includes(i) ? prev.filter(x => x !== i) : [...prev, i]);
+  };
+  const expandAllFaqs = () => setOpenFaqs(faqItems.map((_, i) => i));
+  const collapseAllFaqs = () => setOpenFaqs([]);
 
   const toggleShortlist = useCallback((id: string) => {
     setShortlist(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
@@ -933,7 +939,12 @@ export default function UniversitiesPage() {
                   >
                     {/* Image */}
                     <div style={{ height: '180px', overflow: 'hidden', position: 'relative' }}>
-                      <img src={uni.imageUrl} alt={uni.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      <img
+                        src={uni.imageUrl || '/pavia-university.jpg'}
+                        alt={uni.name}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/pavia-university.jpg'; }}
+                      />
                       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(15,23,42,0.6) 0%, transparent 60%)' }} />
                       <div style={{ position: 'absolute', top: '12px', left: '12px', display: 'flex', gap: '6px' }}>
                         <span style={{ background: isPublic ? 'rgba(5,150,105,0.9)' : 'rgba(124,58,237,0.9)', color: '#fff', fontSize: '0.7rem', fontWeight: 700, padding: '4px 10px', borderRadius: '999px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>{isPublic ? 'Public' : 'Private'}</span>
@@ -1322,33 +1333,123 @@ export default function UniversitiesPage() {
       </section>
 
       {/* ── 10 FAQ ────────────────────────────────────────────── */}
-      <section style={{ padding: '80px 0', background: '#fff' }}>
-        <div className="container">
+      <section style={{ padding: '70px 0', background: '#fff' }}>
+        <div className="container" style={{ maxWidth: '800px', margin: '0 auto' }}>
           <FadeUp>
-            <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 800, color: '#0f172a', textAlign: 'center', marginBottom: '40px' }}>
-              Frequently Asked Questions
-            </h2>
-          </FadeUp>
-          <div style={{ maxWidth: '720px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            {faqItems.map((item, i) => (
-              <FadeUp key={i} delay={Math.min(i * 40, 240)}>
-                <div style={{ border: '1.5px solid', borderRadius: '14px', borderColor: openFaq === i ? '#bbf7d0' : '#e2e8f0', overflow: 'hidden', transition: 'border-color 0.2s' }}>
-                  <button
-                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                    style={{ width: '100%', textAlign: 'left', padding: '18px 20px', background: openFaq === i ? '#f0fff4' : '#fff', border: 'none', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px', transition: 'background 0.2s' }}
-                  >
-                    <span style={{ fontWeight: 700, color: '#0f172a', fontSize: '0.9375rem', lineHeight: 1.4 }}>{item.q}</span>
-                    <span style={{ color: '#059669', flexShrink: 0, fontSize: '1rem' }}>{openFaq === i ? '▲' : '▼'}</span>
-                  </button>
-                  {openFaq === i && (
-                    <div style={{ padding: '4px 20px 20px', color: '#475569', fontSize: '0.9rem', lineHeight: 1.7, borderTop: '1px solid #e2e8f0', background: '#fff' }}>
-                      {item.a}
-                    </div>
+            <div style={{ textAlign: 'center', marginBottom: showFaqList ? '32px' : '0' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#059669', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Got Questions?</span>
+              <h2 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)', fontWeight: 800, color: '#0f172a', marginTop: '8px', marginBottom: '12px' }}>
+                Frequently Asked Questions
+              </h2>
+              <p style={{ color: '#64748b', fontSize: '0.95rem', marginBottom: '20px', maxWidth: '560px', margin: '0 auto 20px' }}>
+                Key questions about Italian medical school admissions, IMAT routes, tuition costs, and scholarships.
+              </p>
+
+              {/* Main Show All FAQs Toggle */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                <button
+                  type="button"
+                  onClick={() => setShowFaqList(!showFaqList)}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    backgroundColor: showFaqList ? '#0F172A' : '#059669',
+                    color: '#FFFFFF',
+                    border: 'none',
+                    padding: '11px 26px',
+                    borderRadius: '9999px',
+                    fontSize: '0.92rem',
+                    fontWeight: 800,
+                    cursor: 'pointer',
+                    boxShadow: '0 4px 16px rgba(5, 150, 105, 0.25)',
+                    transition: 'all 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-2px)')}
+                  onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
+                >
+                  {showFaqList ? (
+                    <>
+                      <ChevronUp size={16} />
+                      <span>Hide FAQs</span>
+                    </>
+                  ) : (
+                    <>
+                      <ChevronDown size={16} />
+                      <span>Show All FAQs ({faqItems.length})</span>
+                    </>
                   )}
-                </div>
-              </FadeUp>
-            ))}
-          </div>
+                </button>
+
+                {showFaqList && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={expandAllFaqs}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        backgroundColor: '#ECFDF5',
+                        color: '#047857',
+                        border: '1px solid #A7F3D0',
+                        padding: '8px 18px',
+                        borderRadius: '9999px',
+                        fontSize: '0.8125rem',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                      }}
+                    >
+                      <ChevronDown size={14} /> Expand All
+                    </button>
+                    <button
+                      type="button"
+                      onClick={collapseAllFaqs}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        backgroundColor: '#FFFFFF',
+                        color: '#475569',
+                        border: '1px solid #CBD5E1',
+                        padding: '8px 18px',
+                        borderRadius: '9999px',
+                        fontSize: '0.8125rem',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                      }}
+                    >
+                      <ChevronUp size={14} /> Collapse All
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
+          </FadeUp>
+
+          {showFaqList && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '24px' }}>
+              {faqItems.map((item, i) => {
+                const isOpen = openFaqs.includes(i);
+                return (
+                  <div key={i} style={{ border: '1.5px solid', borderRadius: '14px', borderColor: isOpen ? '#bbf7d0' : '#e2e8f0', overflow: 'hidden', transition: 'border-color 0.2s' }}>
+                    <button
+                      onClick={() => toggleFaq(i)}
+                      style={{ width: '100%', textAlign: 'left', padding: '18px 20px', background: isOpen ? '#f0fff4' : '#fff', border: 'none', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px', transition: 'background 0.2s' }}
+                    >
+                      <span style={{ fontWeight: 700, color: '#0f172a', fontSize: '0.9375rem', lineHeight: 1.4 }}>{item.q}</span>
+                      {isOpen ? <ChevronUp size={18} color="#059669" /> : <ChevronDown size={18} color="#64748B" />}
+                    </button>
+                    {isOpen && (
+                      <div style={{ padding: '4px 20px 20px', color: '#475569', fontSize: '0.9rem', lineHeight: 1.7, borderTop: '1px solid #e2e8f0', background: '#fff' }}>
+                        {item.a}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </section>
 

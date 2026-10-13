@@ -86,9 +86,10 @@ export default function UniversityDetailPage({
           {/* Hero Banner with Image & Badges */}
           <div style={{ position: 'relative', height: '260px', overflow: 'hidden' }}>
             <img
-              src={university.imageUrl}
+              src={university.imageUrl || '/pavia-university.jpg'}
               alt={university.name}
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/pavia-university.jpg'; }}
             />
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.3) 60%, transparent 100%)' }} />
 
@@ -728,7 +729,12 @@ export default function UniversityDetailPage({
                   }}
                 >
                   <div style={{ height: '140px', overflow: 'hidden', position: 'relative' }}>
-                    <img src={uni.imageUrl} alt={uni.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <img
+                      src={uni.imageUrl || '/pavia-university.jpg'}
+                      alt={uni.name}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/pavia-university.jpg'; }}
+                    />
                     <div style={{ position: 'absolute', top: '10px', left: '10px', display: 'flex', gap: '6px' }}>
                       <span style={{ background: 'rgba(5,150,105,0.95)', color: '#fff', fontSize: '0.65rem', fontWeight: 700, padding: '3px 8px', borderRadius: '999px', textTransform: 'uppercase' }}>
                         {uni.admissionRoute || 'IMAT'}
