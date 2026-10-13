@@ -461,7 +461,12 @@ function ProgrammeQuiz({ onLead }: { onLead: () => void }) {
 // ─── Main Page ──────────────────────────────────────────────────────────────
 export default function CoursesPage() {
   const [leadOpen, setLeadOpen] = useState(false);
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openFaqs, setOpenFaqs] = useState<number[]>([]);
+  const toggleFaq = (i: number) => {
+    setOpenFaqs((prev) => prev.includes(i) ? prev.filter((x) => x !== i) : [...prev, i]);
+  };
+  const expandAllFaqs = () => setOpenFaqs(faqs.map((_, i) => i));
+  const collapseAllFaqs = () => setOpenFaqs([]);
   const [dynamicPrices, setDynamicPrices] = useState<DynamicPackagePrice[]>([]);
   const [saleOffer, setSaleOffer] = useState<SaleOfferConfig>({
     isSaleActive: true,
@@ -1094,29 +1099,77 @@ export default function CoursesPage() {
       {/* ── 13 FAQ ──────────────────────────────────────────────────────── */}
       <section style={{ padding: '60px 0', backgroundColor: 'var(--bg-subtle)' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 24px' }}>
-          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
             <span ref={observe} className="section-tagline scroll-fade-up">Got Questions?</span>
             <h2 ref={observe} className="scroll-fade-up" style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '6px' }}>Frequently Asked Questions</h2>
+            {/* Expand / Collapse buttons */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '16px' }}>
+              <button
+                type="button"
+                onClick={expandAllFaqs}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  backgroundColor: '#ECFDF5',
+                  color: '#047857',
+                  border: '1px solid #A7F3D0',
+                  padding: '7px 18px',
+                  borderRadius: '9999px',
+                  fontSize: '0.8125rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                }}
+              >
+                <ChevronDown size={15} />
+                Expand All
+              </button>
+              <button
+                type="button"
+                onClick={collapseAllFaqs}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  backgroundColor: '#FFFFFF',
+                  color: '#475569',
+                  border: '1px solid var(--border-light)',
+                  padding: '7px 18px',
+                  borderRadius: '9999px',
+                  fontSize: '0.8125rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                }}
+              >
+                <ChevronUp size={15} />
+                Collapse All
+              </button>
+            </div>
           </div>
           <div ref={observe} className="scroll-stagger" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            {faqs.map((faq, i) => (
-              <div key={i} style={{ backgroundColor: '#FFFFFF', border: openFaq === i ? '1px solid var(--primary-400)' : '1px solid var(--border-light)', borderRadius: 'var(--radius-lg)', overflow: 'hidden', transition: 'all 0.3s ease', boxShadow: openFaq === i ? 'var(--shadow-sm)' : 'none' }}>
-                <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  style={{ width: '100%', padding: '18px 22px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 800, fontSize: '0.98rem', color: openFaq === i ? 'var(--primary-700)' : 'var(--text-primary)', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', gap: '16px', transition: 'color 0.2s' }}>
-                  <span style={{ flex: 1, letterSpacing: '-0.3px' }}>{faq.q}</span>
-                  <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: openFaq === i ? 'var(--primary-50)' : 'var(--bg-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'background 0.3s' }}>
-                    {openFaq === i ? <ChevronUp size={18} color="var(--primary-600)" /> : <ChevronDown size={18} color="var(--text-light)" />}
-                  </div>
-                </button>
-                <div style={{ maxHeight: openFaq === i ? '500px' : '0', opacity: openFaq === i ? 1 : 0, overflow: 'hidden', transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)' }}>
-                  <div style={{ padding: '0 22px 20px', color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: 1.75 }}>
-                    <div style={{ paddingTop: '14px', borderTop: '1px solid var(--border-light)' }}>
-                      {faq.a}
+            {faqs.map((faq, i) => {
+              const isOpen = openFaqs.includes(i);
+              return (
+                <div key={i} style={{ backgroundColor: '#FFFFFF', border: isOpen ? '1px solid var(--primary-400)' : '1px solid var(--border-light)', borderRadius: 'var(--radius-lg)', overflow: 'hidden', transition: 'all 0.3s ease', boxShadow: isOpen ? 'var(--shadow-sm)' : 'none' }}>
+                  <button onClick={() => toggleFaq(i)}
+                    style={{ width: '100%', padding: '18px 22px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 800, fontSize: '0.98rem', color: isOpen ? 'var(--primary-700)' : 'var(--text-primary)', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', gap: '16px', transition: 'color 0.2s' }}>
+                    <span style={{ flex: 1, letterSpacing: '-0.3px' }}>{faq.q}</span>
+                    <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: isOpen ? 'var(--primary-50)' : 'var(--bg-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'background 0.3s' }}>
+                      {isOpen ? <ChevronUp size={18} color="var(--primary-600)" /> : <ChevronDown size={18} color="var(--text-light)" />}
+                    </div>
+                  </button>
+                  <div style={{ maxHeight: isOpen ? '500px' : '0', opacity: isOpen ? 1 : 0, overflow: 'hidden', transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)' }}>
+                    <div style={{ padding: '0 22px 20px', color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: 1.75 }}>
+                      <div style={{ paddingTop: '14px', borderTop: '1px solid var(--border-light)' }}>
+                        {faq.a}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

@@ -93,7 +93,12 @@ function AnimatedNumber({ end, suffix = '', label }: { end: number, suffix?: str
 export default function IMATContent() {
   const [leadOpen, setLeadOpen] = useState(false);
   const { getPrice } = useDynamicPackagePrices();
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openFaqs, setOpenFaqs] = useState<number[]>([]);
+  const toggleFaq = (i: number) => {
+    setOpenFaqs((prev) => prev.includes(i) ? prev.filter((x) => x !== i) : [...prev, i]);
+  };
+  const expandAllFaqs = () => setOpenFaqs(faqs.map((_, i) => i));
+  const collapseAllFaqs = () => setOpenFaqs([]);
   const [scoreCalc, setScoreCalc] = useState({ correct: 0, incorrect: 0, blank: 0 });
   const [openSubject, setOpenSubject] = useState<number | null>(null);
 
@@ -826,29 +831,77 @@ export default function IMATContent() {
       {/* 15 — FAQ + Final CTA */}
       <section style={{ padding: '80px 0', backgroundColor: '#F8FAFC' }}>
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '56px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
             <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#16A34A', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Got Questions?</span>
             <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A', marginTop: '12px' }}>Frequently Asked Questions</h2>
+            {/* Expand / Collapse buttons */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '16px' }}>
+              <button
+                type="button"
+                onClick={expandAllFaqs}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  backgroundColor: '#ECFDF5',
+                  color: '#047857',
+                  border: '1px solid #A7F3D0',
+                  padding: '7px 18px',
+                  borderRadius: '9999px',
+                  fontSize: '0.8125rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                }}
+              >
+                <ChevronDown size={15} />
+                Expand All
+              </button>
+              <button
+                type="button"
+                onClick={collapseAllFaqs}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  backgroundColor: '#FFFFFF',
+                  color: '#475569',
+                  border: '1px solid #CBD5E1',
+                  padding: '7px 18px',
+                  borderRadius: '9999px',
+                  fontSize: '0.8125rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                }}
+              >
+                <ChevronUp size={15} />
+                Collapse All
+              </button>
+            </div>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '48px', alignItems: 'flex-start', marginBottom: '80px' }}>
             {/* FAQ accordion */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              {faqs.map((faq, i) => (
-                <div key={i} style={{ backgroundColor: '#FFFFFF', border: openFaq === i ? '1px solid #16A34A' : '1px solid #E2E8F0', borderRadius: '12px', overflow: 'hidden' }}>
-                  <button 
-                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                    style={{ width: '100%', padding: '18px 22px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 700, fontSize: '0.95rem', color: '#0F172A', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', gap: '16px' }}
-                  >
-                    <span style={{ flex: 1 }}>{faq.q}</span>
-                    {openFaq === i ? <ChevronUp size={18} color="#16A34A" /> : <ChevronDown size={18} color="#64748B" />}
-                  </button>
-                  {openFaq === i && (
-                    <div style={{ padding: '0 22px 20px', color: '#475569', fontSize: '0.92rem', lineHeight: 1.7, borderTop: '1px solid #F1F5F9', paddingTop: '14px' }}>
-                      {faq.a}
-                    </div>
-                  )}
-                </div>
-              ))}
+              {faqs.map((faq, i) => {
+                const isOpen = openFaqs.includes(i);
+                return (
+                  <div key={i} style={{ backgroundColor: '#FFFFFF', border: isOpen ? '1px solid #16A34A' : '1px solid #E2E8F0', borderRadius: '12px', overflow: 'hidden' }}>
+                    <button 
+                      onClick={() => toggleFaq(i)}
+                      style={{ width: '100%', padding: '18px 22px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 700, fontSize: '0.95rem', color: '#0F172A', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', gap: '16px' }}
+                    >
+                      <span style={{ flex: 1 }}>{faq.q}</span>
+                      {isOpen ? <ChevronUp size={18} color="#16A34A" /> : <ChevronDown size={18} color="#64748B" />}
+                    </button>
+                    {isOpen && (
+                      <div style={{ padding: '0 22px 20px', color: '#475569', fontSize: '0.92rem', lineHeight: 1.7, borderTop: '1px solid #F1F5F9', paddingTop: '14px' }}>
+                        {faq.a}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
             {/* Sidebar */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', position: 'sticky', top: '100px' }}>

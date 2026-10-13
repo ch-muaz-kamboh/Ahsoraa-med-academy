@@ -25,7 +25,12 @@ function useScrollReveal() {
 
 export default function AboutPage() {
   useScrollReveal();
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openFaqs, setOpenFaqs] = useState<number[]>([]);
+  const toggleFaq = (i: number) => {
+    setOpenFaqs((prev) => prev.includes(i) ? prev.filter((x) => x !== i) : [...prev, i]);
+  };
+  const expandAllFaqs = () => setOpenFaqs(faqs.map((_, i) => i));
+  const collapseAllFaqs = () => setOpenFaqs([]);
 
   const faqs = [
     { q: 'Who founded Ahsora?', a: 'Ahsora Med Academy was founded by a final-year Medicine and Surgery student currently studying at the University of Messina, Italy — one of the public medical universities that admits students through the IMAT.' },
@@ -655,13 +660,58 @@ export default function AboutPage() {
         {/* ── 13 FAQ (2-Column Horizontal Layout) ─────────────────────────── */}
         <section style={{ padding: '48px 0', backgroundColor: 'var(--bg-subtle)' }}>
           <div className="container">
-            <div style={{ textAlign: 'center', marginBottom: '36px' }}>
+            <div style={{ textAlign: 'center', marginBottom: '32px' }}>
               <span className="reveal section-tagline">Questions About Ahsora</span>
               <h2 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(1.8rem, 3.2vw, 2.5rem)', fontWeight: 800, color: 'var(--text-primary)', marginTop: '10px' }}>Frequently Asked Questions</h2>
+              {/* Expand / Collapse buttons */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '16px' }}>
+                <button
+                  type="button"
+                  onClick={expandAllFaqs}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    backgroundColor: '#ECFDF5',
+                    color: '#047857',
+                    border: '1px solid #A7F3D0',
+                    padding: '7px 18px',
+                    borderRadius: '9999px',
+                    fontSize: '0.8125rem',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <ChevronDown size={15} />
+                  Expand All
+                </button>
+                <button
+                  type="button"
+                  onClick={collapseAllFaqs}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    backgroundColor: '#FFFFFF',
+                    color: '#475569',
+                    border: '1px solid var(--border-light)',
+                    padding: '7px 18px',
+                    borderRadius: '9999px',
+                    fontSize: '0.8125rem',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <ChevronUp size={15} />
+                  Collapse All
+                </button>
+              </div>
             </div>
             <div className="reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 440px), 1fr))', gap: '16px' }}>
               {faqs.map((faq, i) => {
-                const isOpen = openFaq === i;
+                const isOpen = openFaqs.includes(i);
                 return (
                   <div
                     key={i}
@@ -675,7 +725,7 @@ export default function AboutPage() {
                     }}
                   >
                     <button
-                      onClick={() => setOpenFaq(isOpen ? null : i)}
+                      onClick={() => toggleFaq(i)}
                       style={{
                         width: '100%',
                         padding: '16px 20px',

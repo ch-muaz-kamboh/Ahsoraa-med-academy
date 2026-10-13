@@ -21,13 +21,11 @@ export const ACADEMY_PACKAGES: CoursePackage[] = [
     badge: 'MOST POPULAR',
     description: 'Essential prep package with video series & full-length timed mock tests',
     features: [
-      'Access to IMAT Question Bank (2,500+ Qs)',
-      'Full IMAT Core Video Lecture Series (120+ Hours)',
-      '10 Full-Length Timed CBT Mock Exams',
-      'Detailed Step-by-Step Video Explanations',
-      'Digital Study Library & PDF Notes',
-      'Personal Mistakes Notebook Tracker',
-      'Weekly Group Live Q&A Sessions',
+      'Portal access until next IMAT (upto 12 months)',
+      'Comprehensive Study Notes, Books, Solved past IMAT papers 2011-26, Formula sheets etc',
+      '2,800+ Practice MCQs in Question Bank',
+      '12 Full-Length CBT Mocks',
+      'In-depth Error analysis, subjectwise and topicwise performance analysis',
     ],
   },
   {

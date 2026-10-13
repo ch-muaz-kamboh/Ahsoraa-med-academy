@@ -99,16 +99,16 @@ function CycleNode({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: '12px',
-        flex: '1 1 120px',
-        minWidth: '100px',
-        maxWidth: '150px',
+        gap: '10px',
+        flex: '1 1 110px',
+        minWidth: '85px',
+        maxWidth: '140px',
       }}
     >
       <div
         style={{
-          width: '72px',
-          height: '72px',
+          width: '66px',
+          height: '66px',
           borderRadius: '50%',
           background: color,
           display: 'flex',
@@ -122,10 +122,10 @@ function CycleNode({
         {icon}
       </div>
       <div style={{ textAlign: 'center' }}>
-        <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '0.8rem', lineHeight: 1.3 }}>
+        <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '0.82rem', lineHeight: 1.3 }}>
           {label}
         </div>
-        <div style={{ fontSize: '0.7rem', color: '#64748B', fontWeight: 500, marginTop: '3px' }}>
+        <div style={{ fontSize: '0.69rem', color: '#64748B', fontWeight: 500, marginTop: '3px', lineHeight: 1.35 }}>
           {sublabel}
         </div>
       </div>
@@ -161,15 +161,168 @@ function CycleArrow({ delay }: { delay: number }) {
   );
 }
 
+// ─── Animated Live Report Card ────────────────────────────────
+function AnimatedLiveReportCard() {
+  const [isVisible, setIsVisible] = useState(false);
+  const [scores, setScores] = useState({
+    bio: 0,
+    chem: 0,
+    crit: 0,
+    phys: 0,
+    total: 0,
+  });
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.25 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible) return;
+    const targets = { bio: 84, chem: 71, crit: 91, phys: 63, total: 47.4 };
+    const duration = 1600;
+    const startTime = performance.now();
+
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+
+      setScores({
+        bio: Math.round(targets.bio * ease),
+        chem: Math.round(targets.chem * ease),
+        crit: Math.round(targets.crit * ease),
+        phys: Math.round(targets.phys * ease),
+        total: parseFloat((targets.total * ease).toFixed(1)),
+      });
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [isVisible]);
+
+  const bars = [
+    { label: 'Biology', targetPct: 84, currentPct: scores.bio, color: '#059669' },
+    { label: 'Chemistry', targetPct: 71, currentPct: scores.chem, color: '#D4AF37' },
+    { label: 'Critical Thinking', targetPct: 91, currentPct: scores.crit, color: '#059669' },
+    { label: 'Physics & Maths', targetPct: 63, currentPct: scores.phys, color: '#F59E0B' },
+  ];
+
+  return (
+    <div
+      ref={cardRef}
+      className="img-interactive-hover"
+      style={{
+        backgroundColor: '#FFFFFF',
+        borderRadius: '16px',
+        padding: '20px 22px',
+        boxShadow: '0 8px 24px -6px rgba(0,0,0,0.15)',
+        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
+        <strong style={{ fontSize: '0.875rem', color: '#0F172A' }}>Score Breakdown</strong>
+        <span
+          style={{
+            fontSize: '0.7rem',
+            fontWeight: 700,
+            color: '#14532D',
+            backgroundColor: '#ECFDF5',
+            border: '1px solid #A7F3D0',
+            borderRadius: '9999px',
+            padding: '3px 10px',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '5px',
+          }}
+        >
+          <span
+            style={{
+              width: '6px',
+              height: '6px',
+              borderRadius: '50%',
+              backgroundColor: '#059669',
+              display: 'inline-block',
+              animation: 'pulseGlow 1.5s ease-in-out infinite',
+            }}
+          />
+          LIVE REPORT
+        </span>
+      </div>
+      {bars.map((bar) => (
+        <div key={bar.label} style={{ marginBottom: '12px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+            <span style={{ fontSize: '0.75rem', color: '#64748B' }}>{bar.label}</span>
+            <strong style={{ fontSize: '0.75rem', color: '#0F172A', fontVariantNumeric: 'tabular-nums' }}>
+              {bar.currentPct}%
+            </strong>
+          </div>
+          <div style={{ height: '6px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden' }}>
+            <div
+              style={{
+                width: isVisible ? `${bar.targetPct}%` : '0%',
+                height: '100%',
+                backgroundColor: bar.color,
+                borderRadius: '4px',
+                transition: 'width 1.4s cubic-bezier(0.16, 1, 0.3, 1)',
+              }}
+            />
+          </div>
+        </div>
+      ))}
+      <div style={{ marginTop: '14px', paddingTop: '12px', borderTop: '1px solid #F1F5F9', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.8rem' }}>
+        <span style={{ color: '#64748B' }}>IMAT Score Estimate</span>
+        <strong style={{ color: '#059669', fontSize: '1.05rem', fontWeight: 900, fontVariantNumeric: 'tabular-nums' }}>
+          {scores.total.toFixed(1)} / 90
+        </strong>
+      </div>
+    </div>
+  );
+}
+
 export default function HomePage() {
   const [leadModalOpen, setLeadModalOpen] = useState(false);
   const [cycleVisible, setCycleVisible] = useState(false);
-  const [faqOpenIndex, setFaqOpenIndex] = useState<number | null>(0);
-  const [tickerItems, setTickerItems] = useState<TickerItem[]>([]);
+  const [openFaqIndices, setOpenFaqIndices] = useState<number[]>([]);
+  const [tickerItems, setTickerItems] = useState<TickerItem[]>(() => {
+    try {
+      return getTickerItems();
+    } catch {
+      return [];
+    }
+  });
   const { getPrice } = useDynamicPackagePrices();
 
+  const toggleFaq = (idx: number) => {
+    setOpenFaqIndices((prev) =>
+      prev.includes(idx) ? prev.filter((i) => i !== idx) : [...prev, idx]
+    );
+  };
+
+  const expandAllFaqs = () => {
+    setOpenFaqIndices(faqs.map((_, i) => i));
+  };
+
+  const collapseAllFaqs = () => {
+    setOpenFaqIndices([]);
+  };
+
   useEffect(() => {
-    setTickerItems(getTickerItems());
     syncTickerFromSupabase().then((items) => {
       if (items && items.length > 0) setTickerItems(items);
     });
@@ -219,7 +372,7 @@ export default function HomePage() {
     },
     {
       q: 'Do I get access to live classes in all plans?',
-      a: 'Live weekly classes are included in our Mastery and Path Elite plans. Ascend students get access to recorded class replays. All plans include our full video library, mock tests, and study notes. Upgrade to Mastery for real-time teacher interaction and Q&A sessions.',
+      a: 'Live weekly classes are included in our Mastery and Path Elite plans. Ascend students get portal access until next IMAT (upto 12 months) with 2,800+ practice MCQs, comprehensive study notes, solved past papers 2011-26, and 12 CBT mock exams. Upgrade to Mastery for live interactive classes and teacher Q&A sessions.',
     },
   ];
 
@@ -484,7 +637,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* ── RIGHT: Hero Graphic ── */}
+            {/* ── RIGHT: Hero Graphic (Medical Students Clinical Training) ── */}
             <div
               style={{
                 display: 'flex',
@@ -498,61 +651,123 @@ export default function HomePage() {
                 style={{
                   position: 'relative',
                   width: '100%',
-                  maxWidth: '420px', // slightly smaller to fit the floating portal correctly
+                  maxWidth: '460px',
+                  paddingBottom: '20px',
                 }}
               >
-                {/* Main graphic card (Professional Photo) */}
+                {/* Clinical Student Photo 1: Blood Pressure Examination */}
                 <div
+                  className="img-interactive-hover"
                   style={{
-                    borderRadius: '24px',
-                    overflow: 'hidden',
-                    boxShadow: '0 24px 48px -12px rgba(15,23,42,0.15)',
-                    aspectRatio: '3/4',
+                    borderRadius: '22px',
+                    boxShadow: '0 20px 45px -10px rgba(15,23,42,0.18)',
+                    aspectRatio: '16/11',
                     backgroundColor: '#F1F5F9',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    border: '1px solid #E2E8F0',
+                    border: '2px solid #E2E8F0',
                     position: 'relative',
+                    overflow: 'hidden',
                   }}
                 >
                   <Image 
-                    src="/founder-photo.jpg" 
-                    alt="Ahsora Founder in Medical Setting" 
+                    src="/student-clinical-bp.jpg" 
+                    alt="Medical student wearing white coat measuring blood pressure" 
                     fill 
                     style={{ objectFit: 'cover' }} 
                     priority 
                   />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: '12px',
+                      left: '12px',
+                      backgroundColor: 'rgba(15, 23, 42, 0.85)',
+                      backdropFilter: 'blur(8px)',
+                      color: '#FFFFFF',
+                      padding: '4px 12px',
+                      borderRadius: '9999px',
+                      fontSize: '0.72rem',
+                      fontWeight: 700,
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '5px',
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+                      pointerEvents: 'none',
+                    }}
+                  >
+                    <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10B981', display: 'inline-block' }} />
+                    🩺 Clinical Skills in Italy
+                  </div>
+                </div>
+
+                {/* Clinical Student Photo 2: Hospital Ward & Injection */}
+                <div
+                  className="img-interactive-hover"
+                  style={{
+                    position: 'absolute',
+                    top: '44%',
+                    right: '-20px',
+                    width: '60%',
+                    aspectRatio: '4/3',
+                    borderRadius: '18px',
+                    boxShadow: '0 24px 48px -10px rgba(15,23,42,0.28)',
+                    border: '3px solid #FFFFFF',
+                    backgroundColor: '#F1F5F9',
+                    zIndex: 2,
+                    overflow: 'hidden',
+                  }}
+                >
+                  <Image 
+                    src="/student-clinical-injection.jpg" 
+                    alt="Medical student in white coat preparing injection in hospital setting" 
+                    fill 
+                    style={{ objectFit: 'cover' }} 
+                  />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      bottom: '8px',
+                      left: '8px',
+                      right: '8px',
+                      backgroundColor: 'rgba(5, 150, 105, 0.92)',
+                      backdropFilter: 'blur(6px)',
+                      color: '#FFFFFF',
+                      padding: '4px 10px',
+                      borderRadius: '8px',
+                      fontSize: '0.68rem',
+                      fontWeight: 700,
+                      textAlign: 'center',
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                      pointerEvents: 'none',
+                    }}
+                  >
+                    💉 Hospital Clerkship & Practice
+                  </div>
                 </div>
 
                 {/* Floating Student Portal Visual */}
                 <div
-                  className="hero-float-portal"
+                  className="hero-float-portal img-interactive-hover"
                   style={{
                     position: 'absolute',
-                    bottom: '40px',
-                    left: '-80px', // Floating overlap
-                    width: '240px',
+                    bottom: '-28px',
+                    left: '-36px',
+                    width: '210px',
+                    zIndex: 3,
+                    borderRadius: '16px',
+                    overflow: 'hidden',
+                    boxShadow: '0 24px 50px -10px rgba(15,23,42,0.3), 0 0 0 1px rgba(5,150,105,0.2)',
+                    backgroundColor: '#0F172A',
+                    padding: '4px',
                     animation: 'fadeInUp 1s 0.6s cubic-bezier(0.16,1,0.3,1) both',
                   }}
                 >
-                  <div
-                    style={{
-                      borderRadius: '16px',
-                      overflow: 'hidden',
-                      boxShadow: '0 32px 64px -12px rgba(15,23,42,0.25), 0 0 0 1px rgba(5,150,105,0.15)',
-                      backgroundColor: '#0F172A',
-                      padding: '4px',
-                    }}
-                  >
-                     <Image
-                        src="/hero-proof-card.jpg"
-                        alt="Ahsora Student Portal Dashboard"
-                        width={300}
-                        height={225}
-                        style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }}
-                      />
-                  </div>
+                  <Image
+                    src="/hero-proof-card.jpg"
+                    alt="Ahsora Student Portal Dashboard"
+                    width={300}
+                    height={225}
+                    style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }}
+                  />
                 </div>
               </div>
             </div>
@@ -561,7 +776,7 @@ export default function HomePage() {
       </section>
 
       {/* ══════════════════════════════════════════════════
-          2. TRUST STRIP — animated marquee
+          2. TRUST STRIP — animated marquee (crash-proof)
       ══════════════════════════════════════════════════ */}
       <div
         style={{
@@ -599,31 +814,55 @@ export default function HomePage() {
           }}
         />
         <div className="trust-marquee">
-          <div className="trust-marquee-inner">
-            {(() => {
-              const itemsToDisplay = tickerItems.length > 0 ? tickerItems : trustItems;
-              const duplicated = [...itemsToDisplay, ...itemsToDisplay];
-              return duplicated.map((item, i) => (
-                <div
-                  key={i}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    padding: '0 32px',
-                    whiteSpace: 'nowrap',
-                    color: '#CBD5E1',
-                    fontSize: '0.875rem',
-                    fontWeight: 600,
-                  }}
-                >
-                  <span style={{ fontSize: '1rem' }}>{item.icon}</span>
-                  <span>{item.text}</span>
-                  <span style={{ color: '#334155', marginLeft: '16px' }}>·</span>
+          {(() => {
+            const itemsToDisplay = tickerItems.length > 0 ? tickerItems : trustItems;
+            return (
+              <>
+                <div className="trust-marquee-track">
+                  {itemsToDisplay.map((item, i) => (
+                    <div
+                      key={`strip-a-${i}`}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '0 28px',
+                        whiteSpace: 'nowrap',
+                        color: '#CBD5E1',
+                        fontSize: '0.875rem',
+                        fontWeight: 600,
+                      }}
+                    >
+                      <span style={{ fontSize: '1rem' }}>{item.icon}</span>
+                      <span>{item.text}</span>
+                      <span style={{ color: '#334155', marginLeft: '16px' }}>·</span>
+                    </div>
+                  ))}
                 </div>
-              ));
-            })()}
-          </div>
+                <div className="trust-marquee-track" aria-hidden="true">
+                  {itemsToDisplay.map((item, i) => (
+                    <div
+                      key={`strip-b-${i}`}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '0 28px',
+                        whiteSpace: 'nowrap',
+                        color: '#CBD5E1',
+                        fontSize: '0.875rem',
+                        fontWeight: 600,
+                      }}
+                    >
+                      <span style={{ fontSize: '1rem' }}>{item.icon}</span>
+                      <span>{item.text}</span>
+                      <span style={{ color: '#334155', marginLeft: '16px' }}>·</span>
+                    </div>
+                  ))}
+                </div>
+              </>
+            );
+          })()}
         </div>
       </div>
 
@@ -677,7 +916,7 @@ export default function HomePage() {
                   marginBottom: '32px',
                 }}
               >
-                Every other platform gives you pre-recorded videos and leaves you alone. 
+                Majority of platforms give you pre-recorded videos and leave you alone. 
                 Ahsora gives you live weekly classes, real teachers, a structured learning system, 
                 and complete admissions support — all the way to your Italian university seat.
               </p>
@@ -721,7 +960,7 @@ export default function HomePage() {
                   bg: '#ECFDF5',
                   border: '#A7F3D0',
                   title: 'Proven Results',
-                  desc: '96.8% pass rate across 3,500+ IMAT students from 40+ countries worldwide.',
+                  desc: 'Supported students from 15+ countries on their journey to Medical School in Italy.',
                 },
                 {
                   icon: <Globe size={22} color="#D4AF37" />,
@@ -821,7 +1060,7 @@ export default function HomePage() {
           </AnimatedSection>
 
           <div ref={cycleRef}>
-            {/* Cycle nodes row */}
+            {/* Cycle nodes row (6-stage signature loop) */}
             <div
               className="cycle-nodes-row"
               style={{
@@ -834,47 +1073,56 @@ export default function HomePage() {
               }}
             >
               <CycleNode
-                icon={<BookOpen size={28} color="#FFFFFF" />}
-                label="Study"
-                sublabel="Structured courses & notes"
+                icon={<Video size={24} color="#FFFFFF" />}
+                label="Learn"
+                sublabel="Live classes, lectures"
                 color="#059669"
                 delay={0}
                 isActive={cycleVisible}
               />
-              <CycleArrow delay={200} />
+              <CycleArrow delay={100} />
               <CycleNode
-                icon={<FileCheck size={28} color="#FFFFFF" />}
-                label="Mock Test"
-                sublabel="Real IMAT conditions"
+                icon={<BookOpen size={24} color="#FFFFFF" />}
+                label="Practice"
+                sublabel="Books, question bank"
                 color="#047857"
-                delay={300}
+                delay={200}
+                isActive={cycleVisible}
+              />
+              <CycleArrow delay={300} />
+              <CycleNode
+                icon={<FileCheck size={24} color="#FFFFFF" />}
+                label="Test"
+                sublabel="CBT mocks"
+                color="#0F172A"
+                delay={400}
                 isActive={cycleVisible}
               />
               <CycleArrow delay={500} />
               <CycleNode
-                icon={<Target size={28} color="#FFFFFF" />}
+                icon={<BarChart3 size={24} color="#FFFFFF" />}
                 label="Analyze"
-                sublabel="Identify weak topics"
+                sublabel="Subjectwise & topic-wise error analysis"
                 color="#D4AF37"
                 delay={600}
                 isActive={cycleVisible}
               />
-              <CycleArrow delay={800} />
+              <CycleArrow delay={700} />
               <CycleNode
-                icon={<Video size={28} color="#FFFFFF" />}
-                label="Live Class"
-                sublabel="Teacher-led Q&A"
-                color="#0F172A"
-                delay={900}
+                icon={<Sparkles size={24} color="#FFFFFF" />}
+                label="Improve"
+                sublabel="Q&A & doubt sessions with teachers"
+                color="#059669"
+                delay={800}
                 isActive={cycleVisible}
               />
-              <CycleArrow delay={1100} />
+              <CycleArrow delay={900} />
               <CycleNode
-                icon={<TrendingUp size={28} color="#FFFFFF" />}
-                label="Improve"
-                sublabel="Score higher each cycle"
-                color="#059669"
-                delay={1200}
+                icon={<RotateCcw size={24} color="#FFFFFF" />}
+                label="Repeat"
+                sublabel="Calibrated, sharper"
+                color="#10B981"
+                delay={1000}
                 isActive={cycleVisible}
               />
             </div>
@@ -1150,11 +1398,11 @@ export default function HomePage() {
               </div>
               <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px 0', flex: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {[
-                  'Full Video Library Access',
-                  'Comprehensive Study Notes',
-                  '1,000+ Practice Questions',
-                  '3 Full-Length Mock Exams',
-                  'Recorded Class Replays',
+                  'Portal access until next IMAT (upto 12 months)',
+                  'Comprehensive Study Notes, Books, Solved past IMAT papers 2011-26, Formula sheets etc',
+                  '2,800+ Practice MCQs in Question Bank',
+                  '12 Full-Length CBT Mocks',
+                  'In-depth Error analysis, subjectwise and topicwise performance analysis',
                 ].map((feat, i) => (
                   <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', color: '#475569', fontSize: '0.9375rem' }}>
                     <CheckCircle2 size={18} color="#059669" style={{ marginTop: '1px', flexShrink: 0 }} />
@@ -1894,42 +2142,8 @@ export default function HomePage() {
                   ))}
                 </div>
 
-                {/* Analytics mini-card */}
-                <div
-                  style={{
-                    backgroundColor: '#FFFFFF',
-                    borderRadius: '16px',
-                    padding: '20px 22px',
-                    boxShadow: '0 8px 24px -6px rgba(0,0,0,0.15)',
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
-                    <strong style={{ fontSize: '0.875rem', color: '#0F172A' }}>Score Breakdown</strong>
-                    <span style={{ fontSize: '0.7rem', fontWeight: 700, color: '#14532D', backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', borderRadius: '9999px', padding: '3px 10px' }}>
-                      LIVE REPORT
-                    </span>
-                  </div>
-                  {[
-                    { label: 'Biology', pct: 84, color: '#059669' },
-                    { label: 'Chemistry', pct: 71, color: '#D4AF37' },
-                    { label: 'Critical Thinking', pct: 91, color: '#059669' },
-                    { label: 'Physics & Maths', pct: 63, color: '#F59E0B' },
-                  ].map((bar) => (
-                    <div key={bar.label} style={{ marginBottom: '10px' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                        <span style={{ fontSize: '0.75rem', color: '#64748B' }}>{bar.label}</span>
-                        <strong style={{ fontSize: '0.75rem', color: '#0F172A' }}>{bar.pct}%</strong>
-                      </div>
-                      <div style={{ height: '6px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden' }}>
-                        <div style={{ width: `${bar.pct}%`, height: '100%', backgroundColor: bar.color, borderRadius: '4px' }} />
-                      </div>
-                    </div>
-                  ))}
-                  <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid #F1F5F9', display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem' }}>
-                    <span style={{ color: '#64748B' }}>IMAT Score Estimate</span>
-                    <strong style={{ color: '#059669', fontSize: '1rem' }}>47.4 / 90</strong>
-                  </div>
-                </div>
+                {/* Analytics mini-card (Animated Live Report with growing lines & counting score) */}
+                <AnimatedLiveReportCard />
               </div>
             </div>
           </AnimatedSection>
@@ -2145,6 +2359,68 @@ export default function HomePage() {
             <p style={{ color: '#64748B', fontSize: '1rem', marginTop: '12px', lineHeight: 1.7 }}>
               Everything you need to know before you start.
             </p>
+
+            {/* Expand / Collapse Controls */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '20px' }}>
+              <button
+                type="button"
+                onClick={expandAllFaqs}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  backgroundColor: '#ECFDF5',
+                  color: '#047857',
+                  border: '1px solid #A7F3D0',
+                  padding: '7px 18px',
+                  borderRadius: '9999px',
+                  fontSize: '0.8125rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#059669';
+                  e.currentTarget.style.color = '#FFFFFF';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#ECFDF5';
+                  e.currentTarget.style.color = '#047857';
+                }}
+              >
+                <ChevronDown size={15} />
+                Expand All
+              </button>
+              <button
+                type="button"
+                onClick={collapseAllFaqs}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  backgroundColor: '#F8FAFC',
+                  color: '#475569',
+                  border: '1px solid #E2E8F0',
+                  padding: '7px 18px',
+                  borderRadius: '9999px',
+                  fontSize: '0.8125rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#E2E8F0';
+                  e.currentTarget.style.color = '#0F172A';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#F8FAFC';
+                  e.currentTarget.style.color = '#475569';
+                }}
+              >
+                <ChevronDown size={15} style={{ transform: 'rotate(180deg)' }} />
+                Collapse All
+              </button>
+            </div>
           </AnimatedSection>
 
           <div
@@ -2156,7 +2432,7 @@ export default function HomePage() {
             }}
           >
             {faqs.map((faq, idx) => {
-              const isOpen = faqOpenIndex === idx;
+              const isOpen = openFaqIndices.includes(idx);
               return (
                 <AnimatedSection
                   key={idx}
@@ -2172,7 +2448,7 @@ export default function HomePage() {
                   }}
                 >
                   <button
-                    onClick={() => setFaqOpenIndex(isOpen ? null : idx)}
+                    onClick={() => toggleFaq(idx)}
                     style={{
                       width: '100%',
                       padding: '20px 22px',

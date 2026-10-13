@@ -378,6 +378,13 @@ export default function ScholarshipsHubPage() {
     'emilia-romagna': true,
   });
   const [leadModalOpen, setLeadModalOpen] = useState(false);
+  const [openFaqs, setOpenFaqs] = useState<number[]>([]);
+
+  const toggleFaq = (idx: number) => {
+    setOpenFaqs((prev) => prev.includes(idx) ? prev.filter((i) => i !== idx) : [...prev, idx]);
+  };
+  const expandAllFaqs = () => setOpenFaqs(FAQS.map((_, i) => i));
+  const collapseAllFaqs = () => setOpenFaqs([]);
 
   const toggleRegion = (id: string) => {
     setExpandedRegions((prev) => ({ ...prev, [id]: !prev[id] }));
@@ -924,27 +931,96 @@ export default function ScholarshipsHubPage() {
 
         {/* ── FREQUENTLY ASKED QUESTIONS ─────────────────────────── */}
         <div className="container" style={{ marginTop: '70px' }}>
-          <div style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 36px' }}>
+          <div style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 30px' }}>
             <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#059669', textTransform: 'uppercase', letterSpacing: '1.5px' }}>
               Got Questions?
             </span>
             <h2 style={{ fontSize: '2rem', fontWeight: 900, color: '#0F172A', marginTop: '6px', letterSpacing: '-0.5px' }}>
               Scholarship FAQs for International Medical Students
             </h2>
+            {/* Expand / Collapse buttons */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '16px' }}>
+              <button
+                type="button"
+                onClick={expandAllFaqs}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  backgroundColor: '#ECFDF5',
+                  color: '#047857',
+                  border: '1px solid #A7F3D0',
+                  padding: '7px 18px',
+                  borderRadius: '9999px',
+                  fontSize: '0.8125rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                }}
+              >
+                <ChevronDown size={15} />
+                Expand All
+              </button>
+              <button
+                type="button"
+                onClick={collapseAllFaqs}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  backgroundColor: '#FFFFFF',
+                  color: '#475569',
+                  border: '1px solid #E2E8F0',
+                  padding: '7px 18px',
+                  borderRadius: '9999px',
+                  fontSize: '0.8125rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                }}
+              >
+                <ChevronUp size={15} />
+                Collapse All
+              </button>
+            </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px', maxWidth: '960px', margin: '0 auto' }}>
-            {FAQS.map((faq, idx) => (
-              <div key={idx} style={{ backgroundColor: '#FFFFFF', borderRadius: '14px', padding: '22px', border: '1.5px solid #E2E8F0' }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginBottom: '8px' }}>
-                  <HelpCircle size={18} color="#059669" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <h3 style={{ fontSize: '0.95rem', fontWeight: 800, color: '#0F172A', margin: 0, lineHeight: 1.4 }}>{faq.q}</h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxWidth: '860px', margin: '0 auto' }}>
+            {FAQS.map((faq, idx) => {
+              const isOpen = openFaqs.includes(idx);
+              return (
+                <div key={idx} style={{ backgroundColor: '#FFFFFF', borderRadius: '14px', border: isOpen ? '1px solid #10B981' : '1.5px solid #E2E8F0', overflow: 'hidden', transition: 'all 0.2s ease', boxShadow: isOpen ? '0 4px 16px -4px rgba(16, 185, 129, 0.15)' : 'none' }}>
+                  <button
+                    onClick={() => toggleFaq(idx)}
+                    style={{
+                      width: '100%',
+                      padding: '18px 22px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      gap: '12px',
+                      textAlign: 'left',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flex: 1 }}>
+                      <HelpCircle size={18} color="#059669" style={{ flexShrink: 0 }} />
+                      <h3 style={{ fontSize: '0.95rem', fontWeight: 800, color: '#0F172A', margin: 0, lineHeight: 1.4 }}>{faq.q}</h3>
+                    </div>
+                    <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: isOpen ? '#ECFDF5' : '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      {isOpen ? <ChevronUp size={16} color="#059669" /> : <ChevronDown size={16} color="#64748B" />}
+                    </div>
+                  </button>
+                  {isOpen && (
+                    <p style={{ fontSize: '0.88rem', color: '#64748B', lineHeight: 1.65, margin: '0', padding: '0 22px 18px 50px', borderTop: '1px solid #F1F5F9', paddingTop: '12px' }}>
+                      {faq.a}
+                    </p>
+                  )}
                 </div>
-                <p style={{ fontSize: '0.84rem', color: '#64748B', lineHeight: 1.6, margin: '8px 0 0 28px' }}>
-                  {faq.a}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
