@@ -216,7 +216,7 @@ export default function ResourcesPage() {
               margin: '0 auto 34px',
             }}
           >
-            For registered students, the extended Ahsora vault unlocks high-yield subject notes, formula cheat sheets, 2,800+ practice MCQs, and full-length simulated mock exams.
+            For enrolled students, the extended Ahsora vault unlocks comprehensive subject notes, formula cheat sheets, 2,800+ practice MCQs, and full-length simulated mock exams.
           </p>
 
           {/* Hero Buttons */}
@@ -273,7 +273,7 @@ export default function ResourcesPage() {
                 e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
-              <span>Register for Full Library Access</span>
+              <span>Enrol for Full Library Access</span>
               <ArrowRight size={16} />
             </Link>
           </div>
@@ -298,7 +298,7 @@ export default function ResourcesPage() {
             </div>
             <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.07)', border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: '12px', padding: '12px 16px', display: 'flex', alignItems: 'center', gap: '10px', justifyContent: 'center' }}>
               <CheckCircle2 size={16} color="#5CED73" />
-              <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#F1F5F9' }}>High-Yield Demo Summaries</span>
+              <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#F1F5F9' }}>High-Yield Revision Summaries</span>
             </div>
             <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.07)', border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: '12px', padding: '12px 16px', display: 'flex', alignItems: 'center', gap: '10px', justifyContent: 'center' }}>
               <CheckCircle2 size={16} color="#5CED73" />
@@ -444,10 +444,10 @@ export default function ResourcesPage() {
                 </div>
                 <div>
                   <div style={{ fontWeight: 800, color: '#92400E', fontSize: '0.975rem' }}>
-                    Demo Documents Locked for Enrolled / Registered Students
+                    Study Materials Locked for Enrolled / Registered Students
                   </div>
                   <div style={{ fontSize: '0.85rem', color: '#B45309', marginTop: '2px' }}>
-                    These high-yield summary notes, formula sheets, and checklists are reserved for registered Ahsora students. Register for free to unlock complete access and instant downloads.
+                    These high-yield summary notes, formula sheets, and checklists are reserved for enrolled Ahsora students. Enrol in an Ahsora programme to unlock complete access and instant downloads.
                   </div>
                 </div>
               </div>
@@ -463,7 +463,7 @@ export default function ResourcesPage() {
                   gap: '6px',
                 }}
               >
-                <span>Register for Free</span>
+                <span>Enrol &amp; Register</span>
                 <ArrowRight size={14} />
               </button>
             </div>
@@ -478,7 +478,7 @@ export default function ResourcesPage() {
               <div style={{ fontSize: '0.875rem', color: '#64748B', marginTop: '2px' }}>
                 {selectedCategory === 'IMAT Past Papers & Official Keys'
                   ? 'Official exam questions & verified answer keys • 100% Free Downloads'
-                  : 'Premium subject materials • Free student registration required'}
+                  : 'Premium subject materials • Student enrolment & registration required'}
               </div>
             </div>
             <div style={{ fontSize: '0.8125rem', color: '#64748B', display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -564,7 +564,7 @@ export default function ResourcesPage() {
                       >
                         {locked ? (
                           <>
-                            <Lock size={11} /> Locked Demo
+                            <Lock size={11} /> Enrolled Students
                           </>
                         ) : (
                           'Free Download'
@@ -882,11 +882,11 @@ export default function ResourcesPage() {
               }}
             >
               <Sparkles size={12} />
-              <span>Free Student Registration Required</span>
+              <span>Student Registration &amp; Enrolment Required</span>
             </div>
 
             <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0F172A', marginBottom: '10px', lineHeight: 1.25 }}>
-              Register to Access Study Materials
+              Enrol to Access Study Materials
             </h2>
 
             {lockedTargetDoc ? (
@@ -896,7 +896,7 @@ export default function ResourcesPage() {
             ) : null}
 
             <p style={{ fontSize: '0.925rem', color: '#475569', lineHeight: 1.6, marginBottom: '22px' }}>
-              These high-yield summary notes, formula cheat sheets, and admissions checklists are reserved for registered Ahsora students. Register for free to unlock complete instant access and downloads.
+              These high-yield summary notes, formula cheat sheets, and admissions checklists are reserved for enrolled Ahsora students. Register and enrol in an Ahsora programme to unlock complete instant access and downloads.
             </p>
 
             {/* Benefits list */}
@@ -915,11 +915,11 @@ export default function ResourcesPage() {
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.85rem', color: '#1E293B', fontWeight: 600 }}>
                 <CheckCircle2 size={16} color="#059669" />
-                <span>Instant access to all demo revision notes &amp; formula sheets</span>
+                <span>Instant access to all academy revision notes &amp; formula sheets</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.85rem', color: '#1E293B', fontWeight: 600 }}>
                 <CheckCircle2 size={16} color="#059669" />
-                <span>Free diagnostic IMAT mock exam with automated scoring</span>
+                <span>Diagnostic IMAT mock exam with automated scoring &amp; error analysis</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.85rem', color: '#1E293B', fontWeight: 600 }}>
                 <CheckCircle2 size={16} color="#059669" />
@@ -944,7 +944,7 @@ export default function ResourcesPage() {
                   boxShadow: '0 6px 18px -2px rgba(5,150,105,0.4)',
                 }}
               >
-                <span>Create Free Student Account</span>
+                <span>Register &amp; Enrol Now</span>
                 <ArrowRight size={16} />
               </Link>
 

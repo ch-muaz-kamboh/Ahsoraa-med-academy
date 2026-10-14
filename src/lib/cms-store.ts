@@ -239,7 +239,7 @@ const INITIAL_DOCUMENTS: ResourceDocument[] = [
   },
   {
     id: 'doc-bio-2',
-    title: 'Human Organ Systems & Physiology High-Yield Summary (Demo)',
+    title: 'Human Organ Systems & Physiology High-Yield Comprehensive Summary',
     description: 'Cardiovascular, respiratory, renal, and nervous system essentials summarized according to the Italian IMAT syllabus.',
     category: 'Biology Notes',
     format: 'PDF',
