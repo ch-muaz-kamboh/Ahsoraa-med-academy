@@ -120,6 +120,7 @@ export default function ResourcesPage() {
 
       {/* ── FULL-WIDTH HERO SECTION: AHSORA IMAT RESOURCE LIBRARY ── */}
       <section
+        className="resources-hero-section"
         style={{
           width: '100%',
           backgroundColor: '#042F2E',
@@ -191,7 +192,7 @@ export default function ResourcesPage() {
             }}
           >
             More Than Past Papers.<br />
-            <span style={{ color: '#5CED73' }}>A Complete Medical Library for Italy.</span>
+            <span style={{ color: '#5CED73' }}>A Complete IMAT Library for Italy.</span>
           </h1>
 
           {/* Subheading text */}
@@ -1161,6 +1162,12 @@ export default function ResourcesPage() {
       <LeadCaptureModal isOpen={leadOpen} onClose={() => setLeadOpen(false)} defaultExam="IMAT" />
 
       <style jsx global>{`
+        @media (max-width: 768px) {
+          .resources-hero-section {
+            padding-top: 110px !important;
+            padding-bottom: 50px !important;
+          }
+        }
         @media (max-width: 640px) {
           .resource-modal-card {
             max-width: calc(100vw - 24px) !important;

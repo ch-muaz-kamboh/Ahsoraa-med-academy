@@ -143,6 +143,7 @@ export default function TopOfferBar() {
         >
           {offer.discountBadgeText && (
             <span
+              className="top-offer-badge"
               style={{
                 backgroundColor: '#EF4444',
                 color: '#FFFFFF',
@@ -166,6 +167,7 @@ export default function TopOfferBar() {
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
             <span
+              className="top-offer-title"
               style={{
                 fontSize: '0.875rem',
                 fontWeight: 800,
@@ -180,6 +182,7 @@ export default function TopOfferBar() {
               <button
                 type="button"
                 onClick={handleCopyCode}
+                className="top-offer-code-btn"
                 title="Click to copy promo code"
                 style={{
                   display: 'inline-flex',
@@ -215,6 +218,7 @@ export default function TopOfferBar() {
         >
           {/* Countdown Blocks */}
           <div
+            className="top-offer-countdown"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -301,25 +305,48 @@ export default function TopOfferBar() {
       <style jsx global>{`
         @media (max-width: 640px) {
           .top-offer-container {
-            justify-content: center !important;
-            text-align: center !important;
-            padding-top: 8px !important;
-            padding-bottom: 8px !important;
-            gap: 8px !important;
+            min-height: 36px !important;
+            padding-top: 4px !important;
+            padding-bottom: 4px !important;
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+            flex-wrap: nowrap !important;
+            justify-content: space-between !important;
+            gap: 6px !important;
           }
           .top-offer-left {
-            justify-content: center !important;
-            min-width: 100% !important;
-            text-align: center !important;
+            min-width: 0 !important;
+            flex: 1 1 auto !important;
+            flex-wrap: nowrap !important;
+            gap: 4px !important;
+            overflow: hidden !important;
+          }
+          .top-offer-title {
+            font-size: 0.74rem !important;
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+          }
+          .top-offer-code-btn {
+            display: none !important;
+          }
+          .top-offer-countdown {
+            display: none !important;
+          }
+          .top-offer-badge {
+            font-size: 0.625rem !important;
+            padding: 2px 5px !important;
+            white-space: nowrap !important;
           }
           .top-offer-right {
-            justify-content: center !important;
-            width: 100% !important;
-            gap: 8px !important;
+            flex-shrink: 0 !important;
+            width: auto !important;
+            gap: 6px !important;
+            flex-wrap: nowrap !important;
           }
           .top-offer-cta {
-            font-size: 0.72rem !important;
-            padding: 4px 10px !important;
+            font-size: 0.7rem !important;
+            padding: 3px 8px !important;
           }
         }
       `}</style>

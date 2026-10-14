@@ -74,7 +74,7 @@ export default function Navbar() {
         {/* Global Live Offer & Countdown Announcement Bar - disappears smoothly on scroll */}
         <div
           style={{
-            maxHeight: scrolled ? '0px' : '90px',
+            maxHeight: scrolled ? '0px' : '50px',
             opacity: scrolled ? 0 : 1,
             overflow: 'hidden',
             transition: 'max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease',
@@ -85,7 +85,7 @@ export default function Navbar() {
         </div>
 
         <div
-          className="container"
+          className="container nav-main-row"
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -311,7 +311,10 @@ export default function Navbar() {
             display: inline;
           }
         }
-        @media (max-width: 580px) {
+        @media (max-width: 640px) {
+          .nav-main-row {
+            height: 54px !important;
+          }
           .nav-free-mock-btn {
             display: none !important;
           }

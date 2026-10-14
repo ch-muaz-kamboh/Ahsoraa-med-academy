@@ -453,7 +453,7 @@ export default function UniversitiesPage() {
     <div style={{ background: '#fff', minHeight: '100vh' }}>
 
       {/* ── 01 HERO ───────────────────────────────────────────── */}
-      <section style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f2d1a 100%)', padding: '176px 0 80px', position: 'relative', overflow: 'hidden' }}>
+      <section className="universities-hero-section" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f2d1a 100%)', padding: '160px 0 80px', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
           <div style={{ position: 'absolute', top: '-80px', right: '-80px', width: '500px', height: '500px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(92,237,115,0.12) 0%, transparent 70%)' }} />
           <div style={{ position: 'absolute', bottom: '-60px', left: '-60px', width: '400px', height: '400px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(92,237,115,0.08) 0%, transparent 70%)' }} />
@@ -489,10 +489,9 @@ export default function UniversitiesPage() {
                 position: 'relative',
                 borderRadius: '24px',
                 overflow: 'hidden',
-                border: '1.5px solid rgba(255,255,255,0.18)',
+                border: '1.5px solid rgba(92,237,115,0.25)',
                 boxShadow: '0 25px 60px rgba(0,0,0,0.45)',
-                background: 'rgba(255,255,255,0.05)',
-                backdropFilter: 'blur(10px)',
+                background: 'linear-gradient(145deg, #0f1e2e 0%, #162a3d 100%)',
                 maxWidth: '460px',
                 width: '100%',
               }}>
@@ -1749,6 +1748,14 @@ export default function UniversitiesPage() {
         </div>
       </section>
 
+      <style jsx global>{`
+        @media (max-width: 768px) {
+          .universities-hero-section {
+            padding-top: 110px !important;
+            padding-bottom: 50px !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
