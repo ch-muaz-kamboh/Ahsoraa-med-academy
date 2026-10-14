@@ -33,6 +33,7 @@ export interface ResourceDocument {
   fileSize: string;
   downloadsCount: number;
   dateAdded: string;
+  isLocked?: boolean;
 }
 
 export interface TickerItem {
@@ -165,15 +166,64 @@ const INITIAL_NEWS: NewsItem[] = [
 
 const INITIAL_DOCUMENTS: ResourceDocument[] = [
   {
+    id: 'doc-imat-2025',
+    title: 'Official IMAT 2025 Past Paper & Answer Key (Complete)',
+    description: 'Official test paper from the September 2025 sitting with complete verified answer key from the Italian Ministry (MUR).',
+    category: 'IMAT Past Papers',
+    format: 'PDF',
+    fileUrl: '/docs/IMAT_2025_Past_Paper.pdf',
+    fileSize: '3.8 MB',
+    downloadsCount: 4210,
+    dateAdded: 'Sep 25, 2025',
+    isLocked: false,
+  },
+  {
+    id: 'doc-imat-2024',
+    title: 'Official IMAT 2024 Past Paper & Answer Key',
+    description: 'Complete 60-question examination paper with official scoring key for Biology, Chemistry, Physics, Math, and General Knowledge.',
+    category: 'IMAT Past Papers',
+    format: 'PDF',
+    fileUrl: '/docs/IMAT_2024_Past_Paper.pdf',
+    fileSize: '3.4 MB',
+    downloadsCount: 5120,
+    dateAdded: 'Sep 20, 2024',
+    isLocked: false,
+  },
+  {
+    id: 'doc-imat-2023',
+    title: 'Official IMAT 2023 Past Paper with Solution Key',
+    description: 'Official MUR examination paper featuring the revised format and question distribution with official answers.',
+    category: 'IMAT Past Papers',
+    format: 'PDF',
+    fileUrl: '/docs/IMAT_2023_Past_Paper.pdf',
+    fileSize: '3.1 MB',
+    downloadsCount: 3890,
+    dateAdded: 'Oct 10, 2023',
+    isLocked: false,
+  },
+  {
     id: 'doc-1',
     title: 'Official IMAT Complete Syllabus & Exam Blueprint (2026/2027)',
     description: 'Comprehensive topic-by-topic specification issued by MUR & Cambridge Assessment for Biology, Chemistry, Physics, Math, and General Knowledge.',
-    category: 'Syllabus & Blueprint',
+    category: 'IMAT Past Papers',
     format: 'PDF',
     fileUrl: '/docs/IMAT_Official_Syllabus_2026.pdf',
     fileSize: '2.4 MB',
-    downloadsCount: 1420,
+    downloadsCount: 6420,
     dateAdded: 'Aug 10, 2026',
+    isLocked: false,
+  },
+  {
+    id: 'doc-4',
+    title: 'IMAT Past Papers Mega Archive (2011 – 2025) Master Compilation',
+    description: 'All 15 years of official IMAT past exam papers bundled together with worked solutions and topic difficulty categorizations.',
+    category: 'IMAT Past Papers',
+    format: 'PDF',
+    fileUrl: '/docs/IMAT_Past_Papers_2011_2025.pdf',
+    fileSize: '14.2 MB',
+    downloadsCount: 8950,
+    dateAdded: 'Jul 15, 2026',
+    isLocked: false,
   },
   {
     id: 'doc-2',
@@ -185,6 +235,19 @@ const INITIAL_DOCUMENTS: ResourceDocument[] = [
     fileSize: '5.1 MB',
     downloadsCount: 2380,
     dateAdded: 'Aug 18, 2026',
+    isLocked: true,
+  },
+  {
+    id: 'doc-bio-2',
+    title: 'Human Organ Systems & Physiology High-Yield Summary (Demo)',
+    description: 'Cardiovascular, respiratory, renal, and nervous system essentials summarized according to the Italian IMAT syllabus.',
+    category: 'Biology Notes',
+    format: 'PDF',
+    fileUrl: '/docs/Human_Physiology_Summary.pdf',
+    fileSize: '4.2 MB',
+    downloadsCount: 1750,
+    dateAdded: 'Aug 24, 2026',
+    isLocked: true,
   },
   {
     id: 'doc-3',
@@ -196,28 +259,19 @@ const INITIAL_DOCUMENTS: ResourceDocument[] = [
     fileSize: '1.8 MB',
     downloadsCount: 1890,
     dateAdded: 'Aug 22, 2026',
+    isLocked: true,
   },
   {
-    id: 'doc-4',
-    title: 'IMAT Past Papers Compilation (2011 – 2025) with Answer Key',
-    description: 'All official IMAT past exam papers bundled together with worked solutions and topic difficulty categorizations.',
-    category: 'Past Papers',
+    id: 'doc-chem-2',
+    title: 'Equilibrium, Thermodynamics & Electrochemistry Quick Formulas',
+    description: 'Key Le Chatelier principles, Gibbs free energy calculations, and acid-base buffers for IMAT Chemistry problem solving.',
+    category: 'Chemistry Cheat Sheets',
     format: 'PDF',
-    fileUrl: '/docs/IMAT_Past_Papers_2011_2025.pdf',
-    fileSize: '14.2 MB',
-    downloadsCount: 3950,
-    dateAdded: 'Jul 15, 2026',
-  },
-  {
-    id: 'doc-5',
-    title: 'Italian University Pre-Enrollment & DOV Document Checklist',
-    description: 'Official step-by-step checklist for Universitaly portal submission, Declaration of Value (DOV), apostilles, and legalizations.',
-    category: 'Admissions Checklists',
-    format: 'PDF',
-    fileUrl: '/docs/Italian_University_DOV_Checklist.pdf',
-    fileSize: '1.2 MB',
-    downloadsCount: 1150,
-    dateAdded: 'Aug 05, 2026',
+    fileUrl: '/docs/Chemistry_Equilibrium_Formulas.pdf',
+    fileSize: '2.1 MB',
+    downloadsCount: 1420,
+    dateAdded: 'Aug 29, 2026',
+    isLocked: true,
   },
   {
     id: 'doc-6',
@@ -229,6 +283,43 @@ const INITIAL_DOCUMENTS: ResourceDocument[] = [
     fileSize: '2.0 MB',
     downloadsCount: 1670,
     dateAdded: 'Aug 25, 2026',
+    isLocked: true,
+  },
+  {
+    id: 'doc-phys-2',
+    title: 'Logarithms, Trigonometry & Mechanics Shortcuts for IMAT',
+    description: 'Speed-calculation shortcuts for non-calculator exam environments covering projectile motion and exponential decay.',
+    category: 'Physics & Math',
+    format: 'PDF',
+    fileUrl: '/docs/IMAT_Math_Shortcuts.pdf',
+    fileSize: '1.7 MB',
+    downloadsCount: 1290,
+    dateAdded: 'Sep 02, 2026',
+    isLocked: true,
+  },
+  {
+    id: 'doc-5',
+    title: 'Italian University Pre-Enrollment & DOV Document Checklist',
+    description: 'Official step-by-step checklist for Universitaly portal submission, Declaration of Value (DOV), apostilles, and legalizations.',
+    category: 'Admissions Checklists',
+    format: 'PDF',
+    fileUrl: '/docs/Italian_University_DOV_Checklist.pdf',
+    fileSize: '1.2 MB',
+    downloadsCount: 1150,
+    dateAdded: 'Aug 05, 2026',
+    isLocked: true,
+  },
+  {
+    id: 'doc-visa-guide',
+    title: 'Italy Type-D Student Visa & Financial Guarantee Embassy Kit',
+    description: 'Required bank balance proof, health insurance criteria, and embassy appointment scheduling roadmap for non-EU students.',
+    category: 'Admissions Checklists',
+    format: 'PDF',
+    fileUrl: '/docs/Italy_Student_Visa_Guide.pdf',
+    fileSize: '1.9 MB',
+    downloadsCount: 2040,
+    dateAdded: 'Aug 14, 2026',
+    isLocked: true,
   },
 ];
 
@@ -390,7 +481,19 @@ export function getResourceDocuments(): ResourceDocument[] {
   if (typeof window === 'undefined') return INITIAL_DOCUMENTS;
   try {
     const data = localStorage.getItem(DOCS_KEY);
-    return data ? JSON.parse(data) : INITIAL_DOCUMENTS;
+    if (!data) return INITIAL_DOCUMENTS;
+    const parsed: ResourceDocument[] = JSON.parse(data);
+    const existingIds = new Set(parsed.map((d) => d.id));
+    let hasNew = false;
+    const merged = [...parsed];
+    for (const initDoc of INITIAL_DOCUMENTS) {
+      if (!existingIds.has(initDoc.id)) {
+        merged.push(initDoc);
+        hasNew = true;
+      }
+    }
+    if (hasNew) saveResourceDocuments(merged);
+    return merged;
   } catch {
     return INITIAL_DOCUMENTS;
   }

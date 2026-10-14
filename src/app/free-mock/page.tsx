@@ -33,8 +33,6 @@ import {
   MessageSquare,
   HelpCircle,
 } from 'lucide-react';
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
 import { DEFAULT_FREE_MOCK_QUESTIONS, FreeMockQuestion } from '@/lib/free-mock-questions';
 
 const OPTION_LABELS = ['a', 'b', 'c', 'd', 'e'] as const;
@@ -172,10 +170,8 @@ export default function FreeMockPage() {
   ══════════════════════════════════════════════════════════ */
   if (view === 'intro') {
     return (
-      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#FAFCFA' }}>
-        <Navbar />
-
-        <main style={{ flex: 1, marginTop: '80px', paddingBottom: '80px' }}>
+      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#FAFCFA', paddingTop: '115px' }}>
+        <main style={{ flex: 1, paddingBottom: '80px' }}>
           {/* Breadcrumb Bar */}
           <div style={{ backgroundColor: '#FFFFFF', borderBottom: '1px solid #E2E8F0', padding: '14px 0' }}>
             <div className="container" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.875rem', color: '#64748B' }}>
@@ -741,8 +737,6 @@ export default function FreeMockPage() {
           </div>
         </main>
 
-        <Footer />
-
         <style jsx global>{`
           @media (max-width: 900px) {
             .free-mock-hero-grid {
@@ -763,10 +757,8 @@ export default function FreeMockPage() {
     const answeredCount = Object.keys(answers).length;
 
     return (
-      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#F8FAFC' }}>
-        <Navbar />
-
-        <div className="container" style={{ flex: 1, marginTop: '96px', marginBottom: '60px', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#F8FAFC', paddingTop: '115px' }}>
+        <div className="container" style={{ flex: 1, marginTop: '20px', marginBottom: '60px', display: 'flex', flexDirection: 'column' }}>
           {/* Header Bar with synchronized timer and submit button */}
           <header
             style={{
@@ -1226,8 +1218,6 @@ export default function FreeMockPage() {
           </div>
         )}
 
-        <Footer />
-
         <style jsx global>{`
           @media (max-width: 900px) {
             .test-interface-grid {
@@ -1243,10 +1233,8 @@ export default function FreeMockPage() {
      VIEW 3: RESULTS & ATTEMPTED MCQS REVIEW
   ══════════════════════════════════════════════════════════ */
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#FAFCFA' }}>
-      <Navbar />
-
-      <main className="container" style={{ flex: 1, marginTop: '100px', marginBottom: '60px' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#FAFCFA', paddingTop: '115px' }}>
+      <main className="container" style={{ flex: 1, marginTop: '24px', marginBottom: '60px' }}>
         <div style={{ maxWidth: '860px', margin: '0 auto' }}>
           {/* Top Result Score Card */}
           <div
@@ -1662,8 +1650,6 @@ export default function FreeMockPage() {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }
