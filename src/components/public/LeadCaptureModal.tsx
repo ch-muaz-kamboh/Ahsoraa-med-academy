@@ -100,11 +100,15 @@ export default function LeadCaptureModal({
       onClick={handleResetAndClose}
     >
       <div
+        className="lead-modal-card"
         style={{
           backgroundColor: '#FFFFFF',
           borderRadius: '16px',
           maxWidth: '560px',
           width: '100%',
+          maxHeight: '92vh',
+          display: 'flex',
+          flexDirection: 'column',
           boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
           overflow: 'hidden',
           animation: 'fadeIn 0.2s ease-out',
@@ -159,7 +163,7 @@ export default function LeadCaptureModal({
         </div>
 
         {/* Form Body */}
-        <div style={{ padding: '24px' }}>
+        <div style={{ padding: '24px', overflowY: 'auto' }}>
           {submitted ? (
             <div style={{ textAlign: 'center', padding: '24px 10px' }}>
               <div
@@ -193,7 +197,7 @@ export default function LeadCaptureModal({
             </div>
           ) : (
             <form onSubmit={handleSubmit}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+              <div className="lead-modal-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                 <div className="form-group" style={{ gridColumn: 'span 2' }}>
                   <label className="form-label">Full Name *</label>
                   <input
@@ -305,6 +309,22 @@ export default function LeadCaptureModal({
           )}
         </div>
       </div>
+
+      <style jsx global>{`
+        @media (max-width: 580px) {
+          .lead-modal-card {
+            max-width: calc(100vw - 24px) !important;
+            margin: 12px !important;
+          }
+          .lead-modal-grid {
+            grid-template-columns: 1fr !important;
+            gap: 12px !important;
+          }
+          .lead-modal-grid > .form-group {
+            grid-column: span 1 !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }

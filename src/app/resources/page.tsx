@@ -919,11 +919,14 @@ export default function ResourcesPage() {
           onClick={() => setActivePreview(null)}
         >
           <div
+            className="resource-modal-card"
             style={{
               backgroundColor: '#FFFFFF',
               borderRadius: '24px',
               maxWidth: '640px',
               width: '100%',
+              maxHeight: '90vh',
+              overflowY: 'auto',
               padding: '32px',
               boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
             }}
@@ -950,7 +953,7 @@ export default function ResourcesPage() {
               <div style={{ fontSize: '0.8125rem', color: '#64748B', marginTop: '4px' }}>Verified &amp; scanned for official IMAT candidates</div>
             </div>
 
-            <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+            <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
               <button
                 type="button"
                 onClick={() => setActivePreview(null)}
@@ -992,11 +995,14 @@ export default function ResourcesPage() {
           onClick={() => setRegisterModalOpen(false)}
         >
           <div
+            className="resource-modal-card"
             style={{
               backgroundColor: '#FFFFFF',
               borderRadius: '24px',
               maxWidth: '560px',
               width: '100%',
+              maxHeight: '90vh',
+              overflowY: 'auto',
               padding: '36px 32px',
               boxShadow: '0 25px 60px -15px rgba(0,0,0,0.3)',
               position: 'relative',
@@ -1153,6 +1159,15 @@ export default function ResourcesPage() {
       )}
 
       <LeadCaptureModal isOpen={leadOpen} onClose={() => setLeadOpen(false)} defaultExam="IMAT" />
+
+      <style jsx global>{`
+        @media (max-width: 640px) {
+          .resource-modal-card {
+            max-width: calc(100vw - 24px) !important;
+            padding: 20px 16px !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }

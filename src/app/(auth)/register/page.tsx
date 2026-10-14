@@ -293,6 +293,7 @@ export default function RegisterPage() {
 
   return (
     <div
+      className="register-page-wrapper"
       style={{
         minHeight: '100vh',
         backgroundColor: '#F8FAFC',
@@ -306,6 +307,7 @@ export default function RegisterPage() {
       }}
     >
       <div
+        className="register-card"
         style={{
           width: '100%',
           maxWidth: '920px',
@@ -317,6 +319,7 @@ export default function RegisterPage() {
       >
         {/* Top Header Bar */}
         <div
+          className="register-card-header"
           style={{
             backgroundColor: '#0F172A',
             color: '#FFFFFF',
@@ -357,7 +360,7 @@ export default function RegisterPage() {
         </div>
 
         {/* Main Content Area */}
-        <div style={{ padding: '36px 40px' }}>
+        <div className="register-card-body" style={{ padding: '36px 40px' }}>
           {error && (
             <div
               style={{
@@ -1057,6 +1060,7 @@ export default function RegisterPage() {
               </div>
             </div>
             <div
+              className="register-checkout-bar"
               style={{
                 backgroundColor: '#F8FAFC',
                 border: '1px solid #E2E8F0',
@@ -1090,7 +1094,7 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="btn-primary"
+                className="btn-primary register-submit-btn"
                 style={{
                   padding: '14px 32px',
                   fontSize: '1rem',
@@ -1122,6 +1126,29 @@ export default function RegisterPage() {
           </div>
         </div>
       </div>
+
+      <style jsx global>{`
+        @media (max-width: 640px) {
+          .register-page-wrapper {
+            padding: 100px 12px 40px !important;
+          }
+          .register-card-header {
+            padding: 18px 16px !important;
+          }
+          .register-card-body {
+            padding: 20px 16px !important;
+          }
+          .register-checkout-bar {
+            padding: 18px 16px !important;
+            flex-direction: column !important;
+            align-items: stretch !important;
+          }
+          .register-submit-btn {
+            width: 100% !important;
+            justify-content: center !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }

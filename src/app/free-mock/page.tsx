@@ -761,6 +761,7 @@ export default function FreeMockPage() {
         <div className="container" style={{ flex: 1, marginTop: '20px', marginBottom: '60px', display: 'flex', flexDirection: 'column' }}>
           {/* Header Bar with synchronized timer and submit button */}
           <header
+            className="test-interface-header"
             style={{
               backgroundColor: '#FFFFFF',
               border: '1px solid #E2E8F0',
@@ -796,7 +797,7 @@ export default function FreeMockPage() {
               </p>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+            <div className="test-header-controls" style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
               {/* Timer */}
               <div
                 style={{
@@ -849,6 +850,7 @@ export default function FreeMockPage() {
           >
             {/* Question Panel */}
             <main
+              className="test-question-panel"
               style={{
                 backgroundColor: '#FFFFFF',
                 border: '1px solid #E2E8F0',
@@ -1222,6 +1224,21 @@ export default function FreeMockPage() {
           @media (max-width: 900px) {
             .test-interface-grid {
               grid-template-columns: 1fr !important;
+            }
+          }
+          @media (max-width: 640px) {
+            .test-interface-header {
+              flex-direction: column !important;
+              align-items: stretch !important;
+              gap: 14px !important;
+              padding: 16px 14px !important;
+            }
+            .test-header-controls {
+              justify-content: space-between !important;
+              width: 100% !important;
+            }
+            .test-question-panel {
+              padding: 20px 14px !important;
             }
           }
         `}</style>

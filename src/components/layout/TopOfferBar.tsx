@@ -117,7 +117,7 @@ export default function TopOfferBar() {
       }}
     >
       <div
-        className="container"
+        className="container top-offer-container"
         style={{
           display: 'flex',
           alignItems: 'center',
@@ -131,13 +131,14 @@ export default function TopOfferBar() {
       >
         {/* Left / Center: Offer badge & Title message */}
         <div
+          className="top-offer-left"
           style={{
             display: 'flex',
             alignItems: 'center',
             gap: '10px',
             flexWrap: 'wrap',
             flex: 1,
-            minWidth: '260px',
+            minWidth: '240px',
           }}
         >
           {offer.discountBadgeText && (
@@ -204,6 +205,7 @@ export default function TopOfferBar() {
 
         {/* Right side: Countdown Timer & CTA */}
         <div
+          className="top-offer-right"
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -249,6 +251,7 @@ export default function TopOfferBar() {
           {/* CTA Link */}
           <Link
             href="/courses#programmes"
+            className="top-offer-cta"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -294,6 +297,32 @@ export default function TopOfferBar() {
           </button>
         </div>
       </div>
+
+      <style jsx global>{`
+        @media (max-width: 640px) {
+          .top-offer-container {
+            justify-content: center !important;
+            text-align: center !important;
+            padding-top: 8px !important;
+            padding-bottom: 8px !important;
+            gap: 8px !important;
+          }
+          .top-offer-left {
+            justify-content: center !important;
+            min-width: 100% !important;
+            text-align: center !important;
+          }
+          .top-offer-right {
+            justify-content: center !important;
+            width: 100% !important;
+            gap: 8px !important;
+          }
+          .top-offer-cta {
+            font-size: 0.72rem !important;
+            padding: 4px 10px !important;
+          }
+        }
+      `}</style>
     </aside>
   );
 }

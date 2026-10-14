@@ -138,9 +138,10 @@ export default function Navbar() {
           </nav>
 
           {/* Action CTAs */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Link
               href="/free-mock"
+              className="nav-free-mock-btn"
               style={{
                 padding: '6px 13px',
                 fontSize: '0.8125rem',
@@ -160,7 +161,7 @@ export default function Navbar() {
 
             <Link
               href="/portal/dashboard"
-              className="btn-primary"
+              className="btn-primary nav-portal-btn"
               style={{
                 padding: '6px 14px',
                 fontSize: '0.8125rem',
@@ -185,6 +186,7 @@ export default function Navbar() {
                 color: '#0F172A',
                 border: '1px solid #E2E8F0',
                 borderRadius: '8px',
+                backgroundColor: mobileMenuOpen ? '#F1F5F9' : 'transparent',
               }}
               aria-label="Toggle menu"
             >
@@ -199,33 +201,86 @@ export default function Navbar() {
             style={{
               backgroundColor: '#FFFFFF',
               borderTop: '1px solid #E2E8F0',
-              padding: '16px 20px',
+              padding: '16px 20px 24px',
               display: 'flex',
               flexDirection: 'column',
               gap: '12px',
+              maxHeight: 'calc(100vh - 100px)',
+              overflowY: 'auto',
+              boxShadow: '0 12px 28px rgba(0,0,0,0.12)',
             }}
           >
+            {/* Quick Actions in Mobile Drawer */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', paddingBottom: '12px', borderBottom: '1px solid #E2E8F0' }}>
+              <Link
+                href="/free-mock"
+                onClick={() => setMobileMenuOpen(false)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  padding: '12px',
+                  borderRadius: '10px',
+                  border: '1.5px solid #059669',
+                  color: '#059669',
+                  fontWeight: 700,
+                  fontSize: '0.9rem',
+                  textDecoration: 'none',
+                }}
+              >
+                <span>Take Free IMAT Mock Test</span>
+              </Link>
+              <Link
+                href="/portal/dashboard"
+                onClick={() => setMobileMenuOpen(false)}
+                className="btn-primary"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  padding: '12px',
+                  borderRadius: '10px',
+                  fontSize: '0.9rem',
+                  textDecoration: 'none',
+                }}
+              >
+                <User size={16} />
+                <span>Student Portal &amp; Dashboard</span>
+              </Link>
+            </div>
+
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
                 style={{
-                  fontSize: '1rem',
+                  fontSize: '0.975rem',
                   fontWeight: 600,
-                  color: pathname === link.href ? '#22C55E' : '#334155',
-                  padding: '8px 0',
+                  color: pathname === link.href ? '#059669' : '#334155',
+                  padding: '10px 0',
                   borderBottom: '1px solid #F1F5F9',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '10px',
+                  gap: '12px',
                 }}
               >
                 {link.icon}
-                {link.label}
+                <span>{link.label}</span>
               </Link>
             ))}
 
+            <div style={{ paddingTop: '8px', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.85rem' }}>
+              <Link
+                href="/staff/auth"
+                onClick={() => setMobileMenuOpen(false)}
+                style={{ color: '#64748B', display: 'flex', alignItems: 'center', gap: '8px', padding: '6px 0' }}
+              >
+                <span>Faculty &amp; Staff Login &rarr;</span>
+              </Link>
+            </div>
           </div>
         )}
       </header>
@@ -254,6 +309,11 @@ export default function Navbar() {
           }
           .show-mobile {
             display: inline;
+          }
+        }
+        @media (max-width: 580px) {
+          .nav-free-mock-btn {
+            display: none !important;
           }
         }
       `}</style>

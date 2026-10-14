@@ -77,6 +77,8 @@
 html {
   scroll-padding-top: 120px;
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 * {
@@ -92,6 +94,9 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -575,14 +580,46 @@ button {
 }
 
 /* ===============================================================
-   MOBILE RESPONSIVE - Full Homepage (<= 768px)
+   MOBILE RESPONSIVE - Universal Across Whole Website (<= 768px)
 =============================================================== */
 @media (max-width: 768px) {
 
-  /* Container */
+  /* Universal Container Padding */
   .container {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+
+  /* Universal Auto-Stacking for Grid Layouts on Mobile */
+  [style*="minmax(260px"],
+  [style*="minmax(280px"],
+  [style*="minmax(300px"],
+  [style*="minmax(310px"],
+  [style*="minmax(320px"],
+  [style*="minmax(340px"],
+  [style*="minmax(350px"],
+  [style*="minmax(360px"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Tables: Horizontal scroll wrapper without breaking viewport */
+  table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* Prevent automatic iOS zooming on text input focus */
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+
+  /* Media elements safety constraint */
+  img, video, iframe, embed, object {
+    max-width: 100% !important;
   }
 
   /* Hero: stack columns */
@@ -605,15 +642,19 @@ button {
     grid-template-columns: 1fr !important;
   }
 
-  /* Reduce section padding */
+  /* Section padding balance on tablets/phones */
   section {
-    padding-top: 56px !important;
-    padding-bottom: 56px !important;
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
   }
 
-  /* Typography */
+  /* Headings typography scaling */
+  h1 {
+    font-size: clamp(1.8rem, 7vw, 2.8rem) !important;
+  }
+
   h2 {
-    font-size: clamp(1.6rem, 6vw, 2.2rem) !important;
+    font-size: clamp(1.5rem, 5.5vw, 2.1rem) !important;
   }
 
   /* Fix floating portal badge overflow */
@@ -628,8 +669,18 @@ button {
 /* Small phones (<= 480px) */
 @media (max-width: 480px) {
   .container {
-    padding-left: 16px !important;
-    padding-right: 16px !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  /* Stack smaller minmax grids on narrow phone screens */
+  [style*="minmax(180px"],
+  [style*="minmax(190px"],
+  [style*="minmax(200px"],
+  [style*="minmax(220px"],
+  [style*="minmax(240px"],
+  [style*="minmax(250px"] {
+    grid-template-columns: 1fr !important;
   }
 
   /* Show photo but smaller */
@@ -645,6 +696,12 @@ button {
   /* Hide floating portal card on very small screens */
   .hero-float-portal {
     display: none !important;
+  }
+
+  /* Full-width action buttons on narrow phones */
+  .btn-primary, .btn-secondary, .btn-outline {
+    width: 100% !important;
+    justify-content: center !important;
   }
 }
 
