@@ -26,6 +26,7 @@ function useScrollReveal() {
 export default function AboutPage() {
   useScrollReveal();
   const [openFaqs, setOpenFaqs] = useState<number[]>([]);
+  const [showFaqList, setShowFaqList] = useState(false);
   const toggleFaq = (i: number) => {
     setOpenFaqs((prev) => prev.includes(i) ? prev.filter((x) => x !== i) : [...prev, i]);
   };
@@ -137,6 +138,11 @@ export default function AboutPage() {
           box-shadow: var(--shadow-lg);
         }
 
+        .about-hero {
+          padding-top: 170px;
+          padding-bottom: 72px;
+        }
+
         @media (max-width: 1024px) {
           .method-grid {
             grid-template-columns: repeat(3, 1fr) !important;
@@ -144,6 +150,10 @@ export default function AboutPage() {
         }
 
         @media (max-width: 900px) {
+          .about-hero {
+            padding-top: 130px !important;
+            padding-bottom: 56px !important;
+          }
           .about-hero-grid { grid-template-columns: 1fr !important; }
           .about-story-grid { grid-template-columns: 1fr !important; }
           .about-story-fullscreen { grid-template-columns: 1fr !important; }
@@ -165,7 +175,7 @@ export default function AboutPage() {
       <div style={{ backgroundColor: 'var(--bg-main)', minHeight: '100vh' }}>
 
         {/* ── 01 HERO ─────────────────────────────────────────────────────── */}
-        <section style={{ position: 'relative', minHeight: '75vh', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
+        <section className="about-hero" style={{ position: 'relative', minHeight: '620px', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
           {/* Full-bleed background */}
           <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
             <Image src="/messina-university.jpg" alt="University of Messina, Italy" fill style={{ objectFit: 'cover', objectPosition: 'center 30%' }} priority />
@@ -176,7 +186,7 @@ export default function AboutPage() {
           <div style={{ position: 'absolute', top: '20%', left: '10%', width: '600px', height: '600px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(92,237,115,0.15) 0%, transparent 70%)', zIndex: 2, pointerEvents: 'none' }} />
           
           {/* Content */}
-          <div className="container" style={{ position: 'relative', zIndex: 3, padding: '90px 20px 50px' }}>
+          <div className="container" style={{ position: 'relative', zIndex: 3, width: '100%' }}>
             <div className="about-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: '48px', alignItems: 'center' }}>
               {/* Left — headline */}
               <div>
@@ -217,69 +227,113 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ── 02 OUR STORY ─────────────────────────────────────────────── */}
-        <section id="story" style={{ width: '100%', padding: '50px 0', backgroundColor: 'var(--bg-main)', boxSizing: 'border-box' }}>
-          <div style={{ width: '100%', maxWidth: '1600px', margin: '0 auto', padding: '0 clamp(24px, 4vw, 64px)' }}>
-            <div className="about-story-fullscreen" style={{ display: 'grid', gridTemplateColumns: 'minmax(320px, 1fr) minmax(380px, 1.35fr)', gap: 'clamp(24px, 3.5vw, 48px)', alignItems: 'center' }}>
-              {/* Left Column: Heading & Founder Card */}
-              <div>
-                <span className="reveal section-tagline">Our Story</span>
-                <h2 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(1.8rem, 3.2vw, 2.5rem)', fontWeight: 800, color: 'var(--text-primary)', marginTop: '12px', marginBottom: '14px', lineHeight: 1.2 }}>
-                  Before Ahsora, There Was a Student Trying to Find the Way.
-                </h2>
-                <p className="reveal reveal-delay-2" style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.75, marginBottom: '20px' }}>
-                  The hardest part of preparing for medical school in Italy was never the science — it was finding reliable, structured guidance in a sea of unverified internet advice.
-                </p>
+        {/* ── 02 OUR STORY & FOUNDER LETTER (Horizontal Layout) ─────────────── */}
+        <section id="story" style={{ width: '100%', padding: '60px 0', backgroundColor: 'var(--bg-main)', boxSizing: 'border-box' }}>
+          <div className="container" style={{ maxWidth: '1200px' }}>
+            {/* Section Header */}
+            <div style={{ textAlign: 'center', maxWidth: '820px', margin: '0 auto 36px' }}>
+              <span className="reveal section-tagline">Our Story</span>
+              <h2 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(2rem, 3.8vw, 2.75rem)', fontWeight: 800, color: 'var(--text-primary)', marginTop: '10px', marginBottom: '14px', lineHeight: 1.2 }}>
+                Before Ahsora, There Was a Student Trying to Find the Way.
+              </h2>
+              <p className="reveal reveal-delay-2" style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: 1.7 }}>
+                The hardest part of preparing for medical school in Italy was never the science — it was finding reliable, structured guidance in a sea of unverified internet advice.
+              </p>
+            </div>
 
-                {/* Founder Badge / Card */}
-                <div className="reveal reveal-delay-3" style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', padding: '22px 24px', boxShadow: 'var(--shadow-sm)' }}>
-                  <div style={{ display: 'flex', gap: '16px', alignItems: 'center', marginBottom: '16px' }}>
-                    <div style={{ width: '64px', height: '64px', borderRadius: '50%', overflow: 'hidden', flexShrink: 0, border: '2px solid var(--primary-400)', position: 'relative' }}>
-                      <Image src="/founder-about.jpg" alt="Ahsan Jahangir" fill style={{ objectFit: 'cover' }} />
+            {/* Horizontal Founder Letter Card */}
+            <div
+              className="reveal reveal-delay-2"
+              style={{
+                backgroundColor: 'var(--bg-subtle)',
+                borderRadius: 'var(--radius-xl)',
+                border: '1px solid var(--border-light)',
+                padding: 'clamp(28px, 4vw, 44px)',
+                boxShadow: 'var(--shadow-sm)',
+              }}
+            >
+              {/* Horizontal 2-Column Grid: Founder Profile Card on Left, Letter Reading on Right */}
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 360px), 1fr))',
+                  gap: '36px',
+                  alignItems: 'stretch',
+                }}
+              >
+                {/* Left Side: Founder Card & Verified Credential */}
+                <div
+                  style={{
+                    backgroundColor: 'var(--bg-main)',
+                    borderRadius: 'var(--radius-lg)',
+                    border: '1px solid var(--border-light)',
+                    padding: '24px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    boxShadow: 'var(--shadow-xs)',
+                  }}
+                >
+                  <div>
+                    {/* Badge */}
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: 'var(--primary-50)', border: '1px solid var(--primary-200)', borderRadius: 'var(--radius-full)', padding: '5px 14px', marginBottom: '18px' }}>
+                      <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--primary-700)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>Letter from the Founder</span>
                     </div>
-                    <div>
-                      <div style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '1.1rem' }}>Ahsan Jahangir</div>
-                      <div style={{ color: 'var(--primary-700)', fontWeight: 700, fontSize: '0.82rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Founder &amp; Academic Director</div>
-                      <div style={{ color: 'var(--text-muted)', fontSize: '0.82rem', marginTop: '2px' }}>Final-Year Medicine &amp; Surgery · Univ. of Messina</div>
+
+                    {/* Founder Photo & Info */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
+                      <div style={{ width: '68px', height: '68px', borderRadius: '50%', overflow: 'hidden', flexShrink: 0, border: '2.5px solid var(--primary-400)', position: 'relative', boxShadow: '0 4px 14px rgba(5,150,105,0.18)' }}>
+                        <Image src="/founder-about.jpg" alt="Ahsan Jahangir" fill style={{ objectFit: 'cover' }} />
+                      </div>
+                      <div>
+                        <div style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '1.15rem', lineHeight: 1.2 }}>Ahsan Jahangir</div>
+                        <div style={{ color: 'var(--primary-700)', fontWeight: 700, fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.5px', marginTop: '3px' }}>
+                          Founder &amp; Academic Director
+                        </div>
+                        <div style={{ color: 'var(--text-muted)', fontSize: '0.82rem', marginTop: '2px' }}>
+                          University of Messina, Italy
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ padding: '14px 16px', backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-light)', fontSize: '0.86rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>
+                      Final-Year Medicine &amp; Surgery student shaping every curriculum and student roadmap from direct personal experience.
                     </div>
                   </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', paddingTop: '14px', borderTop: '1px solid var(--border-light)' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                      <CheckCircle2 size={15} color="var(--primary-600)" />
-                      <span>Direct IMAT qualifier &amp; Italian medical scholar</span>
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                      <CheckCircle2 size={15} color="var(--primary-600)" />
-                      <span>Founder-led curriculum &amp; personalized mentoring</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
-              {/* Right Column: Founder's Personal Letter */}
-              <div className="reveal reveal-delay-2" style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', padding: 'clamp(24px, 3vw, 36px)', boxShadow: 'var(--shadow-sm)' }}>
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: 'var(--primary-50)', border: '1px solid var(--primary-200)', borderRadius: 'var(--radius-full)', padding: '5px 14px', marginBottom: '16px' }}>
-                  <span style={{ fontSize: '0.78rem', fontWeight: 800, color: 'var(--primary-700)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>Letter from the Founder</span>
-                </div>
-                
-                <div style={{ color: 'var(--text-secondary)', fontSize: '0.98rem', lineHeight: 1.75 }}>
-                  <p style={{ marginBottom: '14px' }}>
-                    I decided I wanted to study Medicine in Italy. It sounded straightforward — sit the IMAT, choose a university, apply. But when I actually started preparing, I realized how little structured help existed. Information was scattered across forums, YouTube videos, and WhatsApp groups. Most of it was unverified, outdated, or impossible to act on without context.
-                  </p>
-                  <p style={{ marginBottom: '14px' }}>
-                    I didn't have a mentor who had done this before. I figured out the syllabus through trial and error. I worked through past papers alone. I made mistakes that a clearer guide would have prevented. And when I passed the IMAT and arrived in Messina, I realized that had only been the first chapter — the university, the clinical rotations, the system of studying medicine in a second language, were challenges no online resource had adequately prepared me for.
-                  </p>
-                  <p style={{ marginBottom: '18px' }}>
-                    Before Ahsora formally existed, I found myself helping other students who were at the same crossroads I had been. Explaining the exam structure, helping someone build a study plan, walking through the application process. It became clear that the need wasn't for more content. It was for a system, and a person who had actually done it.
-                  </p>
-                  
-                  <div style={{ padding: '16px 20px', backgroundColor: 'var(--bg-main)', borderLeft: '4px solid var(--primary-500)', borderRadius: '0 var(--radius-lg) var(--radius-lg) 0', marginBottom: '20px', boxShadow: 'var(--shadow-xs)' }}>
-                    <p style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '1.1rem', lineHeight: 1.4, margin: 0 }}>
+                  {/* Highlight Quote */}
+                  <div style={{ marginTop: '20px', padding: '16px', backgroundColor: 'var(--primary-50)', borderLeft: '4px solid var(--primary-500)', borderRadius: '0 var(--radius-md) var(--radius-md) 0' }}>
+                    <p style={{ fontWeight: 800, color: 'var(--primary-800)', fontSize: '0.98rem', lineHeight: 1.45, margin: 0 }}>
                       "That realization became Ahsora."
                     </p>
                   </div>
+                </div>
 
-                  <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '16px' }}>
+                {/* Right Side: The Full Horizontal Narrative */}
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    color: 'var(--text-secondary)',
+                    fontSize: '0.97rem',
+                    lineHeight: 1.8,
+                  }}
+                >
+                  <div>
+                    <p style={{ marginBottom: '16px' }}>
+                      I decided I wanted to study Medicine in Italy. It sounded straightforward — sit the IMAT, choose a university, apply. But when I actually started preparing, I realized how little structured help existed. Information was scattered across forums, YouTube videos, and WhatsApp groups. Most of it was unverified, outdated, or impossible to act on without context.
+                    </p>
+                    <p style={{ marginBottom: '16px' }}>
+                      I didn't have a mentor who had done this before. I figured out the syllabus through trial and error. I worked through past papers alone. I made mistakes that a clearer guide would have prevented. And when I passed the IMAT and arrived in Messina, I realized that had only been the first chapter — the university, the clinical rotations, the system of studying medicine in a second language, were challenges no online resource had adequately prepared me for.
+                    </p>
+                    <p style={{ margin: 0 }}>
+                      Before Ahsora formally existed, I found myself helping other students who were at the same crossroads I had been. Explaining the exam structure, helping someone build a study plan, walking through the application process. It became clear that the need wasn't for more content. It was for a system, and a person who had actually done it.
+                    </p>
+                  </div>
+
+                  {/* Sign-off */}
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginTop: '24px', paddingTop: '16px', borderTop: '1px solid var(--border-light)' }}>
                     <div style={{ textAlign: 'right' }}>
                       <div style={{ fontFamily: '"Brush Script MT", cursive', fontSize: '2.2rem', color: 'var(--text-primary)', transform: 'rotate(-2deg)', display: 'inline-block' }}>
                         Ahsan Jahangir
@@ -311,9 +365,15 @@ export default function AboutPage() {
                 { num: '02', title: 'Too Little Guidance', desc: 'A syllabus tells you what exists. It rarely tells you how to approach it, what to prioritize, or how to study effectively under exam conditions.' },
                 { num: '03', title: 'Too Many Decisions', desc: 'The IMAT is only one part — choosing a university, understanding the application, planning the wider journey: students are asked to figure it all out.' },
               ].map((item, i) => (
-                <div key={i} className="about-value-card" style={{ borderTop: `4px solid var(--primary-400)`, padding: '28px 22px', height: '100%' }}>
-                  <div style={{ fontSize: '1.8rem', fontWeight: 900, color: 'var(--primary-400)', marginBottom: '12px', lineHeight: 1 }}>{item.num}</div>
-                  <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '-0.3px' }}>{item.title}</h3>
+                <div key={i} className="about-value-card" style={{ borderTop: `4px solid var(--primary-400)`, padding: '26px 22px', height: '100%' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
+                    <span style={{ fontSize: '1.25rem', fontWeight: 900, color: '#059669', background: '#ECFDF5', border: '1px solid #A7F3D0', borderRadius: '8px', padding: '2px 8px', lineHeight: 1.2, flexShrink: 0 }}>
+                      {item.num}
+                    </span>
+                    <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--text-primary)', margin: 0, textTransform: 'uppercase', letterSpacing: '-0.3px', lineHeight: 1.25 }}>
+                      {item.title}
+                    </h3>
+                  </div>
                   <p style={{ color: 'var(--text-muted)', lineHeight: 1.6, fontSize: '0.92rem' }}>{item.desc}</p>
                 </div>
               ))}
@@ -331,7 +391,7 @@ export default function AboutPage() {
           <div className="container">
             <div className="about-story-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.15fr', gap: '48px', alignItems: 'center' }}>
               <div className="reveal" style={{ position: 'relative', height: '360px', borderRadius: 'var(--radius-xl)', overflow: 'hidden', boxShadow: 'var(--shadow-xl)' }}>
-                <Image src="/messina-university.jpg" alt="University of Messina campus" fill style={{ objectFit: 'cover' }} />
+                <Image src="/italian-med-faculty.jpg" alt="Italian University Medical Faculty Campus" fill style={{ objectFit: 'cover' }} priority />
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <span className="reveal section-tagline">Ahsora Today</span>
@@ -640,7 +700,8 @@ export default function AboutPage() {
                 {[
                   { title: 'Digital Transformation', desc: 'Continuous enhancement of our CBT simulation engine and performance analytics suite.' },
                   { title: 'Clinical Integration', desc: 'Expanding support for students through their transition into hospital rotations and clinical practice.' },
-                  { title: 'Community Growth', desc: 'Developing a peer-to-peer mentoring network that spans multiple Italian medical universities.' }
+                  { title: 'Community Growth', desc: 'Developing a peer-to-peer mentoring network that spans multiple Italian medical universities.' },
+                  { title: 'Global Reach and Licensing Pathway', desc: 'Developing international courses and resources to help medical graduates prepare for licensing examinations worldwide, with learning tailored to requirements of different healthcare systems.' }
                 ].map((item, i) => (
                     <div key={i} style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
                       <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'var(--primary-50)', border: '1px solid var(--primary-200)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
@@ -657,101 +718,133 @@ export default function AboutPage() {
             </div>
         </section>
 
-        {/* ── 13 FAQ (2-Column Horizontal Layout) ─────────────────────────── */}
+        {/* ── 13 FAQ ─────────────────────────────────────────── */}
         <section style={{ padding: '48px 0', backgroundColor: 'var(--bg-subtle)' }}>
-          <div className="container">
-            <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+          <div className="container" style={{ maxWidth: '960px' }}>
+            <div style={{ textAlign: 'center', marginBottom: showFaqList ? '32px' : '0' }}>
               <span className="reveal section-tagline">Questions About Ahsora</span>
               <h2 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(1.8rem, 3.2vw, 2.5rem)', fontWeight: 800, color: 'var(--text-primary)', marginTop: '10px' }}>Frequently Asked Questions</h2>
-              {/* Expand / Collapse buttons */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '16px' }}>
+              
+              {/* Show / Hide Toggle Button */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginTop: '16px', flexWrap: 'wrap' }}>
                 <button
                   type="button"
-                  onClick={expandAllFaqs}
+                  onClick={() => setShowFaqList(!showFaqList)}
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '6px',
-                    backgroundColor: '#ECFDF5',
-                    color: '#047857',
-                    border: '1px solid #A7F3D0',
-                    padding: '7px 18px',
+                    gap: '8px',
+                    backgroundColor: showFaqList ? '#0F172A' : '#059669',
+                    color: '#FFFFFF',
+                    border: 'none',
+                    padding: '11px 26px',
                     borderRadius: '9999px',
-                    fontSize: '0.8125rem',
-                    fontWeight: 700,
+                    fontSize: '0.92rem',
+                    fontWeight: 800,
                     cursor: 'pointer',
-                    transition: 'all 0.2s',
+                    boxShadow: '0 4px 16px rgba(5, 150, 105, 0.25)',
+                    transition: 'all 0.2s ease',
                   }}
+                  onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-2px)')}
+                  onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
                 >
-                  <ChevronDown size={15} />
-                  Expand All
+                  {showFaqList ? (
+                    <>
+                      <ChevronUp size={16} />
+                      <span>Hide FAQs</span>
+                    </>
+                  ) : (
+                    <>
+                      <ChevronDown size={16} />
+                      <span>Show All FAQs ({faqs.length})</span>
+                    </>
+                  )}
                 </button>
-                <button
-                  type="button"
-                  onClick={collapseAllFaqs}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    backgroundColor: '#FFFFFF',
-                    color: '#475569',
-                    border: '1px solid var(--border-light)',
-                    padding: '7px 18px',
-                    borderRadius: '9999px',
-                    fontSize: '0.8125rem',
-                    fontWeight: 700,
-                    cursor: 'pointer',
-                    transition: 'all 0.2s',
-                  }}
-                >
-                  <ChevronUp size={15} />
-                  Collapse All
-                </button>
-              </div>
-            </div>
-            <div className="reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 440px), 1fr))', gap: '16px' }}>
-              {faqs.map((faq, i) => {
-                const isOpen = openFaqs.includes(i);
-                return (
-                  <div
-                    key={i}
-                    style={{
-                      backgroundColor: 'var(--bg-main)',
-                      border: isOpen ? '1px solid var(--primary-400)' : '1px solid var(--border-light)',
-                      borderRadius: 'var(--radius-lg)',
-                      overflow: 'hidden',
-                      transition: 'all 0.2s ease',
-                      boxShadow: isOpen ? 'var(--shadow-sm)' : 'none',
-                    }}
-                  >
+
+                {showFaqList && (
+                  <div style={{ display: 'inline-flex', gap: '8px' }}>
                     <button
-                      onClick={() => toggleFaq(i)}
+                      type="button"
+                      onClick={expandAllFaqs}
                       style={{
-                        width: '100%',
-                        padding: '16px 20px',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        gap: '12px',
-                        textAlign: 'left',
-                        background: isOpen ? 'var(--primary-50)' : 'transparent',
+                        padding: '8px 16px',
+                        borderRadius: '9999px',
+                        backgroundColor: '#ECFDF5',
+                        color: '#047857',
+                        border: '1px solid #A7F3D0',
+                        fontSize: '0.8rem',
                         fontWeight: 700,
-                        fontSize: '0.95rem',
-                        color: isOpen ? 'var(--primary-800)' : 'var(--text-primary)',
+                        cursor: 'pointer',
                       }}
                     >
-                      <span>{faq.q}</span>
-                      {isOpen ? <ChevronUp size={18} color="var(--primary-700)" /> : <ChevronDown size={18} color="var(--text-muted)" />}
+                      Expand All
                     </button>
-                    {isOpen && (
-                      <div style={{ padding: '16px 20px', borderTop: '1px solid var(--border-light)', color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: 1.7 }}>
-                        {faq.a}
-                      </div>
-                    )}
+                    <button
+                      type="button"
+                      onClick={collapseAllFaqs}
+                      style={{
+                        padding: '8px 16px',
+                        borderRadius: '9999px',
+                        backgroundColor: '#FFFFFF',
+                        color: '#475569',
+                        border: '1px solid var(--border-light)',
+                        fontSize: '0.8rem',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                      }}
+                    >
+                      Collapse All
+                    </button>
                   </div>
-                );
-              })}
+                )}
+              </div>
             </div>
+
+            {showFaqList && (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 440px), 1fr))', gap: '16px', marginTop: '28px' }}>
+                {faqs.map((faq, i) => {
+                  const isOpen = openFaqs.includes(i);
+                  return (
+                    <div
+                      key={i}
+                      style={{
+                        backgroundColor: 'var(--bg-main)',
+                        border: isOpen ? '1px solid var(--primary-400)' : '1px solid var(--border-light)',
+                        borderRadius: 'var(--radius-lg)',
+                        overflow: 'hidden',
+                        transition: 'all 0.2s ease',
+                        boxShadow: isOpen ? 'var(--shadow-sm)' : 'none',
+                      }}
+                    >
+                      <button
+                        onClick={() => toggleFaq(i)}
+                        style={{
+                          width: '100%',
+                          padding: '16px 20px',
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          gap: '12px',
+                          textAlign: 'left',
+                          background: isOpen ? 'var(--primary-50)' : 'transparent',
+                          fontWeight: 700,
+                          fontSize: '0.95rem',
+                          color: isOpen ? 'var(--primary-800)' : 'var(--text-primary)',
+                        }}
+                      >
+                        <span>{faq.q}</span>
+                        {isOpen ? <ChevronUp size={18} color="var(--primary-700)" /> : <ChevronDown size={18} color="var(--text-muted)" />}
+                      </button>
+                      {isOpen && (
+                        <div style={{ padding: '16px 20px', borderTop: '1px solid var(--border-light)', color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: 1.7 }}>
+                          {faq.a}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </section>
 

@@ -51,54 +51,178 @@ export default function ResourcesPage() {
   return (
     <div style={{ backgroundColor: '#FFFFFF', minHeight: '100vh' }}>
 
-      {/* ── HERO BANNER ── */}
+      {/* ── HERO SECTION: AHSORA IMAT RESOURCE LIBRARY ── */}
       <section
         style={{
-          background: 'linear-gradient(135deg, #064E3B 0%, #065F46 50%, #0F172A 100%)',
-          color: '#FFFFFF',
-          padding: '116px 0 60px',
-          borderBottom: '1px solid #1E293B',
+          backgroundColor: '#FFFFFF',
+          padding: '160px 0 28px',
         }}
       >
-        <div className="container" style={{ maxWidth: '840px', textAlign: 'center' }}>
-          <span
+        <div className="container" style={{ maxWidth: '1080px' }}>
+          <div
             style={{
-              fontSize: '0.75rem',
-              fontWeight: 700,
-              color: '#5CED73',
-              textTransform: 'uppercase',
-              letterSpacing: '1.5px',
-              backgroundColor: 'rgba(92,237,115,0.15)',
-              padding: '4px 14px',
+              backgroundColor: '#F3F8F5',
+              border: '1px solid #DDE8E0',
               borderRadius: '20px',
-              border: '1px solid rgba(92,237,115,0.3)',
+              padding: 'clamp(32px, 4.2vw, 48px)',
+              boxShadow: '0 8px 30px -10px rgba(6, 78, 59, 0.05)',
             }}
           >
-            DOCUMENT VAULT &amp; DOWNLOADS
-          </span>
-          <h1
-            style={{
-              fontSize: 'clamp(2rem, 5vw, 3.2rem)',
-              fontWeight: 800,
-              color: '#FFFFFF',
-              marginTop: '16px',
-              marginBottom: '20px',
-              letterSpacing: '-1px',
-              lineHeight: 1.15,
-            }}
-          >
-            Official IMAT Documents &amp; Revision Guides
-          </h1>
-          <p style={{ color: '#CBD5E1', fontSize: '1.1rem', lineHeight: 1.7, marginBottom: '32px' }}>
-            Access and download verified PDF study guides, past paper collections, formula cheat sheets, and official Italian university admission checklists. Free &amp; instant download for everyone — no sign up or registration required.
-          </p>
+            {/* Tagline */}
+            <div
+              style={{
+                fontSize: '0.78rem',
+                fontWeight: 800,
+                color: '#166534',
+                textTransform: 'uppercase',
+                letterSpacing: '1.5px',
+                marginBottom: '16px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+              }}
+            >
+              <span>AHSORA MEDS ACADEMY · IMAT RESOURCE LIBRARY</span>
+            </div>
+
+            {/* Heading */}
+            <h1
+              style={{
+                fontSize: 'clamp(2rem, 3.8vw, 3rem)',
+                fontWeight: 900,
+                color: '#0F291E',
+                marginBottom: '20px',
+                letterSpacing: '-0.8px',
+                lineHeight: 1.18,
+              }}
+            >
+              More Than Past Papers. A Library That Grows With Your Preparation.
+            </h1>
+
+            {/* Paragraph 1 */}
+            <p
+              style={{
+                color: '#334155',
+                fontSize: '1.05rem',
+                lineHeight: 1.75,
+                marginBottom: '16px',
+                maxWidth: '960px',
+              }}
+            >
+              Download IMAT past papers from 2011–2026 with answer keys, completely free. For students enrolled through our portal, the wider Ahsora library brings together 20+ Ahsora mock tests, academy-authored books aligned with the IMAT 2026 syllabus, 20+ additional reference books, comprehensive subject-wise and topic-wise notes, formula sheets, cheat sheets, quick-revision guides, and detailed past-paper solutions.
+            </p>
+
+            {/* Paragraph 2 */}
+            <p
+              style={{
+                color: '#334155',
+                fontSize: '1.05rem',
+                lineHeight: 1.75,
+                marginBottom: '28px',
+                maxWidth: '960px',
+              }}
+            >
+              Our authoring team develops original learning materials and updates book editions each year to reflect the relevant syllabus. As Ahsora Meds Academy evolves, our library continues to expand with new resources designed to support students throughout their preparation.
+            </p>
+
+            {/* Buttons Row */}
+            <div
+              style={{
+                display: 'flex',
+                gap: '14px',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                marginBottom: '18px',
+              }}
+            >
+              <a
+                href="#document-vault"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  backgroundColor: '#14532D',
+                  color: '#FFFFFF',
+                  padding: '13px 26px',
+                  borderRadius: '12px',
+                  fontSize: '0.95rem',
+                  fontWeight: 700,
+                  textDecoration: 'none',
+                  boxShadow: '0 4px 14px rgba(20, 83, 45, 0.25)',
+                  transition: 'all 0.2s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#0F3F22';
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#14532D';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                <span>Download Free Past Papers</span>
+              </a>
+
+              <Link
+                href="/portal"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  backgroundColor: '#FFFFFF',
+                  color: '#14532D',
+                  border: '1.5px solid #14532D',
+                  padding: '13px 26px',
+                  borderRadius: '12px',
+                  fontSize: '0.95rem',
+                  fontWeight: 700,
+                  textDecoration: 'none',
+                  transition: 'all 0.2s ease',
+                  boxShadow: '0 2px 6px rgba(0,0,0,0.03)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#F0FDF4';
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#FFFFFF';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                <span>Access Student Portal</span>
+              </Link>
+            </div>
+
+            {/* Subtext under buttons */}
+            <div
+              style={{
+                fontSize: '0.85rem',
+                color: '#64748B',
+                fontWeight: 500,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                flexWrap: 'wrap',
+              }}
+            >
+              <span>Free past papers and answer keys for everyone</span>
+              <span>·</span>
+              <span>Extended study library for students through the portal</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── DOCUMENT CATEGORIES & GRID ── */}
+      <section id="document-vault" style={{ padding: '30px 0 80px', backgroundColor: '#FFFFFF' }}>
+        <div className="container" style={{ maxWidth: '1080px' }}>
 
           {/* Search Bar */}
           <div
             style={{
               position: 'relative',
-              maxWidth: '600px',
-              margin: '0 auto',
+              maxWidth: '680px',
+              margin: '0 auto 28px',
             }}
           >
             <input
@@ -108,25 +232,28 @@ export default function ResourcesPage() {
               onChange={(e) => setSearchQuery(e.target.value)}
               style={{
                 width: '100%',
-                padding: '16px 20px 16px 50px',
+                padding: '15px 20px 15px 48px',
                 borderRadius: '16px',
-                border: '1px solid #A7F3D0',
-                backgroundColor: '#FFFFFF',
+                border: '1.5px solid #D1E7DD',
+                backgroundColor: '#F8FAF9',
                 color: '#0F172A',
                 fontSize: '0.9375rem',
                 outline: 'none',
-                boxShadow: '0 10px 25px -5px rgba(0,0,0,0.2)',
+                boxShadow: '0 4px 14px rgba(0,0,0,0.04)',
                 boxSizing: 'border-box',
+                transition: 'border-color 0.2s, background-color 0.2s',
+              }}
+              onFocus={(e) => {
+                e.currentTarget.style.borderColor = '#059669';
+                e.currentTarget.style.backgroundColor = '#FFFFFF';
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.borderColor = '#D1E7DD';
+                e.currentTarget.style.backgroundColor = '#F8FAF9';
               }}
             />
-            <Search size={20} color="#059669" style={{ position: 'absolute', left: '18px', top: '16px' }} />
+            <Search size={19} color="#059669" style={{ position: 'absolute', left: '16px', top: '16px' }} />
           </div>
-        </div>
-      </section>
-
-      {/* ── DOCUMENT CATEGORIES & GRID ── */}
-      <section style={{ padding: '60px 0 80px', backgroundColor: '#F8FAFC' }}>
-        <div className="container">
 
           {/* Category Filter Pills */}
           <div

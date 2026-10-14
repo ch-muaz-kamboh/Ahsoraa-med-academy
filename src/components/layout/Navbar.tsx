@@ -29,6 +29,15 @@ export default function Navbar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [leadModalOpen, setLeadModalOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 15);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // If inside portal or admin layout, hide the public navbar
   if (pathname?.startsWith('/portal') || pathname?.startsWith('/admin')) {
@@ -62,8 +71,18 @@ export default function Navbar() {
           boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.05)',
         }}
       >
-        {/* Global Live Offer & Countdown Announcement Bar */}
-        <TopOfferBar />
+        {/* Global Live Offer & Countdown Announcement Bar - disappears smoothly on scroll */}
+        <div
+          style={{
+            maxHeight: scrolled ? '0px' : '90px',
+            opacity: scrolled ? 0 : 1,
+            overflow: 'hidden',
+            transition: 'max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease',
+            pointerEvents: scrolled ? 'none' : 'auto',
+          }}
+        >
+          <TopOfferBar />
+        </div>
 
         <div
           className="container"

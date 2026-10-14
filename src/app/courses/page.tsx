@@ -623,7 +623,7 @@ export default function CoursesPage() {
 
 
       {/* ── 01 HERO ─────────────────────────────────────────────────────── */}
-      <section className="courses-hero" style={{ position: 'relative', overflow: 'hidden', padding: '120px 0 70px', background: 'linear-gradient(135deg, #022C22 0%, #064E3B 40%, #0F172A 100%)', color: '#FFFFFF' }}>
+      <section className="courses-hero" style={{ position: 'relative', overflow: 'hidden', padding: '170px 0 70px', background: 'linear-gradient(135deg, #022C22 0%, #064E3B 40%, #0F172A 100%)', color: '#FFFFFF' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
           <Image src="/courses-hero-bg.jpg" alt="Ahsora Med Academy" fill sizes="100vw" style={{ objectFit: 'cover', opacity: 0.12 }} priority />
           <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 30%, rgba(16, 185, 129, 0.15) 0%, transparent 70%)' }} />

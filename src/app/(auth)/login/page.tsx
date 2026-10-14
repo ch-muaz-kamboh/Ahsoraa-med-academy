@@ -217,7 +217,7 @@ export default function LoginPage() {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            padding: '38px 46px',
+            padding: '172px 46px 40px',
             minHeight: '100vh',
           }}
         >
@@ -294,14 +294,14 @@ export default function LoginPage() {
                 <div
                   style={{
                     color: '#6EE7B7',
-                    fontSize: '0.67rem',
+                    fontSize: '0.68rem',
                     fontWeight: 700,
                     letterSpacing: '1.8px',
                     textTransform: 'uppercase',
                     marginTop: '2px',
                   }}
                 >
-                  Student &amp; Staff Portal
+                  Student Portal
                 </div>
               </div>
             </Link>
@@ -524,7 +524,7 @@ export default function LoginPage() {
             flexDirection: 'column',
             justifyContent: 'space-between',
             alignItems: 'center',
-            padding: '36px 44px',
+            padding: '172px 44px 40px',
             minHeight: '100vh',
             position: 'relative',
           }}
@@ -536,7 +536,7 @@ export default function LoginPage() {
               maxWidth: '420px',
               display: 'flex',
               justifyContent: 'flex-end',
-              marginBottom: '16px',
+              marginBottom: '28px',
             }}
           >
             <Link
@@ -562,7 +562,7 @@ export default function LoginPage() {
               padding: '36px 34px',
               boxShadow: '0 12px 36px rgba(6, 78, 59, 0.07), 0 1px 3px rgba(0, 0, 0, 0.04)',
               border: '1.5px solid #E6F4EA',
-              margin: 'auto 0',
+              margin: '36px 0 auto 0',
               position: 'relative',
             }}
           >
@@ -597,7 +597,7 @@ export default function LoginPage() {
                 }}
               >
                 <GraduationCap size={17} color="#059669" />
-                <span>Academy Student Portal</span>
+                <span>Student Portal</span>
                 <span
                   style={{
                     width: '6px',
