@@ -17,6 +17,7 @@ import {
   X,
   AlertCircle,
   BookOpen,
+  Library,
 } from 'lucide-react';
 import LeadCaptureModal from '@/components/public/LeadCaptureModal';
 import { getResourceDocuments, ResourceDocument } from '@/lib/cms-store';
@@ -303,6 +304,185 @@ export default function ResourcesPage() {
             <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.07)', border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: '12px', padding: '12px 16px', display: 'flex', alignItems: 'center', gap: '10px', justifyContent: 'center' }}>
               <CheckCircle2 size={16} color="#5CED73" />
               <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#F1F5F9' }}>Instant Direct Downloads</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── A LIBRARY THAT GROWS WITH YOUR PREPARATION (SHOWCASE SECTION) ── */}
+      <section
+        style={{
+          padding: '50px 20px 45px',
+          backgroundColor: '#F8FAF9',
+          borderBottom: '1px solid #E2E8F0',
+        }}
+      >
+        <div className="container" style={{ maxWidth: '1180px', margin: '0 auto' }}>
+          {/* Section Header */}
+          <div style={{ textAlign: 'center', maxWidth: '820px', margin: '0 auto 36px' }}>
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '5px 14px',
+                borderRadius: '9999px',
+                backgroundColor: '#ECFDF5',
+                border: '1px solid #A7F3D0',
+                color: '#065F46',
+                fontSize: '0.78rem',
+                fontWeight: 800,
+                letterSpacing: '1px',
+                textTransform: 'uppercase',
+                marginBottom: '12px',
+              }}
+            >
+              <BookOpen size={14} color="#059669" />
+              <span>Original Academy Authorship</span>
+            </div>
+
+            <h2
+              style={{
+                fontSize: 'clamp(1.9rem, 3.2vw, 2.5rem)',
+                fontWeight: 900,
+                color: '#0F291E',
+                letterSpacing: '-0.8px',
+                lineHeight: 1.2,
+                margin: '0 0 14px',
+              }}
+            >
+              A Library That Grows With Your Preparation
+            </h2>
+
+            <p style={{ color: '#475569', fontSize: '1rem', lineHeight: 1.7, margin: 0 }}>
+              Original curriculum materials and annual book editions designed to evolve with each year's official IMAT syllabus.
+            </p>
+          </div>
+
+          {/* Cards Grid */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+              gap: '24px',
+            }}
+          >
+            {/* Card 1: Past Papers & Enrolled Library */}
+            <div
+              style={{
+                backgroundColor: '#FFFFFF',
+                borderRadius: '20px',
+                border: '1.5px solid #E2E8F0',
+                padding: '32px 28px',
+                boxShadow: '0 8px 24px rgba(15, 23, 42, 0.04)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '18px' }}>
+                  <div
+                    style={{
+                      width: '48px',
+                      height: '48px',
+                      borderRadius: '14px',
+                      backgroundColor: '#ECFDF5',
+                      color: '#059669',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Library size={24} />
+                  </div>
+                  <div>
+                    <h3 style={{ fontSize: '1.18rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+                      Complete IMAT Resource Vault
+                    </h3>
+                    <span style={{ fontSize: '0.8rem', color: '#059669', fontWeight: 700 }}>
+                      Free Past Papers + Enrolled Library
+                    </span>
+                  </div>
+                </div>
+
+                <p style={{ color: '#334155', fontSize: '0.95rem', lineHeight: 1.75, margin: 0 }}>
+                  Download IMAT past papers from 2011–2026 with answer keys, completely free. For students enrolled through our portal, the wider Ahsora library brings together 20+ Ahsora mock tests, academy-authored books aligned with the IMAT 2026 syllabus, 20+ additional reference books, comprehensive subject-wise and topic-wise notes, formula sheets, cheat sheets, quick-revision guides, and detailed past-paper solutions.
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', paddingTop: '18px', marginTop: '20px', borderTop: '1px solid #F1F5F9' }}>
+                <span style={{ fontSize: '0.75rem', fontWeight: 700, backgroundColor: '#F0FDF4', color: '#166534', padding: '4px 10px', borderRadius: '8px' }}>
+                  ✓ 2011–2026 Past Papers Free
+                </span>
+                <span style={{ fontSize: '0.75rem', fontWeight: 700, backgroundColor: '#EFF6FF', color: '#1E40AF', padding: '4px 10px', borderRadius: '8px' }}>
+                  ✓ 20+ Ahsora Mock Tests
+                </span>
+                <span style={{ fontSize: '0.75rem', fontWeight: 700, backgroundColor: '#FEF3C7', color: '#92400E', padding: '4px 10px', borderRadius: '8px' }}>
+                  ✓ 20+ Reference Books
+                </span>
+              </div>
+            </div>
+
+            {/* Card 2: Authoring Team & Yearly Syllabus Updates */}
+            <div
+              style={{
+                backgroundColor: '#FFFFFF',
+                borderRadius: '20px',
+                border: '1.5px solid #E2E8F0',
+                padding: '32px 28px',
+                boxShadow: '0 8px 24px rgba(15, 23, 42, 0.04)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '18px' }}>
+                  <div
+                    style={{
+                      width: '48px',
+                      height: '48px',
+                      borderRadius: '14px',
+                      backgroundColor: '#FEF3C7',
+                      color: '#B45309',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Sparkles size={24} />
+                  </div>
+                  <div>
+                    <h3 style={{ fontSize: '1.18rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+                      Original Learning Materials &amp; Editions
+                    </h3>
+                    <span style={{ fontSize: '0.8rem', color: '#B45309', fontWeight: 700 }}>
+                      Updated Annually for Current Exam Cycles
+                    </span>
+                  </div>
+                </div>
+
+                <p style={{ color: '#334155', fontSize: '0.95rem', lineHeight: 1.75, margin: 0 }}>
+                  Our authoring team develops original learning materials and updates book editions each year to reflect the relevant syllabus. As Ahsora Meds Academy evolves, our library continues to expand with new resources designed to support students throughout their preparation.
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', paddingTop: '18px', marginTop: '20px', borderTop: '1px solid #F1F5F9' }}>
+                <span style={{ fontSize: '0.75rem', fontWeight: 700, backgroundColor: '#F0FDF4', color: '#166534', padding: '4px 10px', borderRadius: '8px' }}>
+                  ✓ Yearly Edition Updates
+                </span>
+                <span style={{ fontSize: '0.75rem', fontWeight: 700, backgroundColor: '#F5F3FF', color: '#5B21B6', padding: '4px 10px', borderRadius: '8px' }}>
+                  ✓ Original Curriculum Content
+                </span>
+                <span style={{ fontSize: '0.75rem', fontWeight: 700, backgroundColor: '#ECFDF5', color: '#065F46', padding: '4px 10px', borderRadius: '8px' }}>
+                  ✓ Expanding Study Vault
+                </span>
+              </div>
             </div>
           </div>
         </div>
