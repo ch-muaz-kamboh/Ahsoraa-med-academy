@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import PortalSidebar from '@/components/layout/PortalSidebar';
 import { useAppStore } from '@/lib/store';
@@ -24,8 +24,12 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
   const pathname = usePathname();
   const { t } = useLanguage();
   const { studentLoggedIn, loginStudent, logoutStudent, liveTestSession, testAttempts, currentUser, updateProfile } = useAppStore();
-  const [checkingAuth, setCheckingAuth] = useState(true);
-  
+
+  // Instant auth determination: do not show blocking loader if already verified in store or localStorage
+  const isAlreadyLoggedIn = studentLoggedIn || (typeof window !== 'undefined' && localStorage.getItem('ahsora_studentLoggedIn') === 'true');
+  const [checkingAuth, setCheckingAuth] = useState(!isAlreadyLoggedIn);
+  const hasFetchedRef = useRef(false);
+
   const isPortalLocked = liveTestSession && currentUser && testAttempts.some(attempt => attempt.testId === liveTestSession.testId && attempt.studentId === currentUser.id && attempt.status === 'in_progress');
   const hasCompletedLiveTest = liveTestSession && currentUser && testAttempts.some(attempt => attempt.testId === liveTestSession.testId && attempt.studentId === currentUser.id && attempt.status === 'completed');
 
@@ -39,7 +43,33 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
     }
   }, [isPortalLocked, liveTestSession, pathname, router]);
 
-  const [realUser, setRealUser] = useState<{ fullName: string, firstName: string, initials: string } | null>(null);
+  // Pre-seed realUser from current store or localStorage to prevent any UI flicker
+  const [realUser, setRealUser] = useState<{ fullName: string, firstName: string, initials: string } | null>(() => {
+    if (currentUser?.firstName) {
+      const fullName = `${currentUser.firstName} ${currentUser.lastName || ''}`.trim();
+      return {
+        fullName,
+        firstName: currentUser.firstName,
+        initials: `${currentUser.firstName[0]}${currentUser.lastName?.[0] || ''}`.toUpperCase(),
+      };
+    }
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('ahsora_currentUser');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          const fName = parsed.firstName || 'Student';
+          const lName = parsed.lastName || '';
+          return {
+            fullName: `${fName} ${lName}`.trim(),
+            firstName: fName,
+            initials: `${fName[0]}${lName[0] || ''}`.toUpperCase(),
+          };
+        }
+      } catch {}
+    }
+    return null;
+  });
 
   const handleLogout = async () => {
     try {
@@ -54,7 +84,14 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
   };
 
   useEffect(() => {
-    let isMounted = true;
+    if (hasFetchedRef.current) return;
+    hasFetchedRef.current = true;
+
+    // Hard fallback safety: Never leave student stuck on loader for more than 1.2s under any network condition
+    const safetyTimer = setTimeout(() => {
+      setCheckingAuth(false);
+    }, 1200);
+
     const fetchUser = async () => {
       try {
         const supabase = createClient();
@@ -65,7 +102,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
           const metaPrice = userMeta.package_price || userMeta.packagePrice;
           const userEmail = user.email || '';
 
-          // 1. Fetch profile name from profiles table (safe query without non-existent selected_package column)
+          // Fetch profile name from profiles table
           let dbFullName = '';
           try {
             const { data: profile } = await supabase
@@ -78,7 +115,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
             console.warn('Profile fetch note:', err);
           }
 
-          // 2. Resolve effective package
+          // Resolve effective package
           const resolvedPkgName =
             metaPackage ||
             getStudentPackageMapping(userEmail)?.selectedPackage ||
@@ -86,7 +123,6 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
           const matchedPkg = getPackageByIdOrName(resolvedPkgName);
           const resolvedPrice = metaPrice || getStudentPackageMapping(userEmail)?.packagePrice || matchedPkg.price;
 
-          // 3. Persist package mapping and update store profile
           saveStudentPackageMapping(userEmail, matchedPkg.name, resolvedPrice);
 
           const fullName = dbFullName || userMeta.full_name || `${userMeta.first_name || ''} ${userMeta.last_name || ''}`.trim() || userEmail.split('@')[0] || 'Student';
@@ -108,27 +144,43 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
             });
           }
 
-          if (isMounted) setRealUser({ fullName, firstName: fName, initials: inits });
-        } else if (!studentLoggedIn) {
-          if (isMounted) setRealUser(null);
+          setRealUser({ fullName, firstName: fName, initials: inits });
+        } else {
+          // No active Supabase session found: check local storage fallback
+          if (typeof window !== 'undefined') {
+            const isLocal = localStorage.getItem('ahsora_studentLoggedIn') === 'true';
+            if (!isLocal && !studentLoggedIn) {
+              setRealUser(null);
+            }
+          }
         }
       } catch (e) {
         console.error('Error fetching Supabase user in PortalLayout:', e);
       } finally {
-        if (isMounted) setCheckingAuth(false);
+        clearTimeout(safetyTimer);
+        setCheckingAuth(false);
       }
     };
+
     fetchUser();
-    return () => { isMounted = false; };
-  }, [studentLoggedIn, loginStudent, updateProfile]);
+
+    return () => {
+      clearTimeout(safetyTimer);
+    };
+  }, []);
 
   useEffect(() => {
-    if (!checkingAuth && !studentLoggedIn) {
-      router.push('/login');
+    if (!checkingAuth) {
+      const isLocal = typeof window !== 'undefined' && localStorage.getItem('ahsora_studentLoggedIn') === 'true';
+      if (!studentLoggedIn && !isLocal) {
+        router.push('/login');
+      }
     }
   }, [checkingAuth, studentLoggedIn, router]);
 
-  if (checkingAuth || !studentLoggedIn) {
+  const isAuthenticated = studentLoggedIn || (typeof window !== 'undefined' && localStorage.getItem('ahsora_studentLoggedIn') === 'true');
+
+  if (checkingAuth && !isAuthenticated) {
     return (
       <div style={{
         minHeight: '85vh',
@@ -140,6 +192,10 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
         <Loader2 size={36} style={{ animation: 'spin 1s linear infinite', color: '#059669' }} />
       </div>
     );
+  }
+
+  if (!isAuthenticated && !checkingAuth) {
+    return null;
   }
 
   return (

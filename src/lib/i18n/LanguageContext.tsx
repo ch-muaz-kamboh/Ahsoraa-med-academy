@@ -23,6 +23,29 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 const STORAGE_KEY = 'ahsora_selected_lang';
 
+function clearGoogleTranslateCookies() {
+  if (typeof window === 'undefined') return;
+
+  const hostname = window.location.hostname;
+  const hostParts = hostname.split('.');
+  const domains = [
+    '',
+    hostname,
+    `.${hostname}`,
+    hostParts.length > 1 ? `.${hostParts.slice(-2).join('.')}` : '',
+  ].filter(Boolean);
+
+  const paths = ['/', '/en', '/portal', window.location.pathname];
+
+  domains.forEach((d) => {
+    paths.forEach((p) => {
+      const domainAttr = d ? `domain=${d}; ` : '';
+      document.cookie = `googtrans=; ${domainAttr}path=${p}; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; SameSite=Lax`;
+      document.cookie = `googtrans=/en/en; ${domainAttr}path=${p}; max-age=0; SameSite=Lax`;
+    });
+  });
+}
+
 function setGoogleTranslateCookie(lang: LanguageCode) {
   if (typeof window === 'undefined') return;
 
@@ -91,6 +114,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const setLanguage = useCallback(
     (code: LanguageCode) => {
       if (!LANGUAGES[code]) return;
+      const prev = language;
 
       setLanguageState(code);
       try {
@@ -100,9 +124,33 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       }
 
       applyDocumentAttributes(code);
-      setGoogleTranslateCookie(code);
+
+      if (code === 'en') {
+        clearGoogleTranslateCookies();
+
+        // If switching back from another language to English:
+        if (prev !== 'en') {
+          // Attempt in-page restore via combo if available
+          try {
+            const select = document.querySelector('.goog-te-combo') as HTMLSelectElement | null;
+            if (select) {
+              select.value = '';
+              select.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+          } catch (e) {}
+
+          // Google Translate replaces live DOM text nodes irreversibly;
+          // reloading immediately and seamlessly restores pristine, 100% original English with zero manual refresh needed!
+          setTimeout(() => {
+            window.location.reload();
+          }, 60);
+          return;
+        }
+      } else {
+        setGoogleTranslateCookie(code);
+      }
     },
-    [applyDocumentAttributes]
+    [language, applyDocumentAttributes]
   );
 
   // React to route changes: Ensure correct attributes, reset if entering admin
