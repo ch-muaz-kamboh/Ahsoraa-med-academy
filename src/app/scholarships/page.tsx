@@ -141,7 +141,7 @@ export default function ScholarshipsPage() {
               </div>
 
               <a
-                href={`https://wa.me/393333444479?text=${encodeURIComponent(`Hi Ahsora, I would like to check my scholarship eligibility for ${sch.name}.`)}`}
+                href={`https://wa.me/393333444479?text=${encodeURIComponent(`Hi Ahsora, I would like to check my scholarship eligibility for ${sch.title}.`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary"
