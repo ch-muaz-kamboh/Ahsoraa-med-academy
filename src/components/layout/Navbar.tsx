@@ -24,9 +24,12 @@ import LeadCaptureModal from '../public/LeadCaptureModal';
 
 import Logo from '@/components/brand/Logo';
 import TopOfferBar from './TopOfferBar';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
+import LanguageSwitcher from '@/components/common/LanguageSwitcher';
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { t } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [leadModalOpen, setLeadModalOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -45,15 +48,15 @@ export default function Navbar() {
   }
 
   const navLinks = [
-    { href: '/', label: 'Home', icon: null },
-    { href: '/courses', label: 'Courses', icon: <BookOpen size={14} /> },
-    { href: '/imat', label: 'IMAT', icon: <FileCheck size={14} /> },
-    { href: '/universities', label: 'Universities', icon: <Globe size={14} /> },
-    { href: '/resources', label: 'Resources', icon: <Book size={14} /> },
-    { href: '/news', label: 'News & Blogs', icon: <Newspaper size={14} /> },
-    { href: '/licensing-exams', label: 'Licensing Exams', icon: <Scale size={14} /> },
-    { href: '/contact', label: 'Contact Us', icon: <MessageSquare size={14} /> },
-    { href: '/about', label: 'About', icon: null },
+    { href: '/', label: t('nav.home', 'Home'), icon: null },
+    { href: '/courses', label: t('nav.courses', 'Courses'), icon: <BookOpen size={14} /> },
+    { href: '/imat', label: t('nav.imat', 'IMAT'), icon: <FileCheck size={14} /> },
+    { href: '/universities', label: t('nav.universities', 'Universities'), icon: <Globe size={14} /> },
+    { href: '/resources', label: t('nav.resources', 'Resources'), icon: <Book size={14} /> },
+    { href: '/news', label: t('nav.news', 'News & Blogs'), icon: <Newspaper size={14} /> },
+    { href: '/licensing-exams', label: t('nav.licensing', 'Licensing Exams'), icon: <Scale size={14} /> },
+    { href: '/contact', label: t('nav.contact', 'Contact Us'), icon: <MessageSquare size={14} /> },
+    { href: '/about', label: t('nav.about', 'About'), icon: null },
   ];
 
   return (
@@ -139,6 +142,8 @@ export default function Navbar() {
 
           {/* Action CTAs */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <LanguageSwitcher variant="navbar" />
+
             <Link
               href="/free-mock"
               className="nav-free-mock-btn"
@@ -156,7 +161,7 @@ export default function Navbar() {
                 whiteSpace: 'nowrap',
               }}
             >
-              <span>Take Free Mock</span>
+              <span>{t('nav.free_mock', 'Take Free Mock')}</span>
             </Link>
 
             <Link
@@ -173,7 +178,7 @@ export default function Navbar() {
               }}
             >
               <User size={15} />
-              <span>Portal</span>
+              <span>{t('nav.portal', 'Portal')}</span>
             </Link>
 
             {/* Mobile Hamburger toggle */}
@@ -210,6 +215,9 @@ export default function Navbar() {
               boxShadow: '0 12px 28px rgba(0,0,0,0.12)',
             }}
           >
+            {/* Language Switcher in Mobile Drawer */}
+            <LanguageSwitcher variant="mobile" />
+
             {/* Quick Actions in Mobile Drawer */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', paddingBottom: '12px', borderBottom: '1px solid #E2E8F0' }}>
               <Link

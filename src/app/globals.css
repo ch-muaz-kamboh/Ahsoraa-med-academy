@@ -810,3 +810,67 @@ button {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   Language Switcher, Google Translate Suppression & RTL Support
+   ========================================================================== */
+.goog-te-banner-frame.skiptranslate,
+.goog-te-banner-frame,
+iframe.goog-te-banner-frame,
+.skiptranslate iframe,
+body > .skiptranslate:first-child {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+body {
+  top: 0px !important;
+  position: static !important;
+}
+
+#goog-gt-tt,
+.goog-te-balloon-frame {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+.goog-text-highlight {
+  background: none !important;
+  box-shadow: none !important;
+}
+
+#google_translate_element {
+  display: none !important;
+}
+
+/* RTL Support for Arabic and Persian */
+html[dir="rtl"],
+body.rtl-layout {
+  direction: rtl;
+  text-align: right;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans Arabic', 'Tahoma', sans-serif;
+}
+
+html[dir="rtl"] .desktop-nav {
+  flex-direction: row;
+}
+
+html[dir="rtl"] .lang-switcher-container [role="listbox"] {
+  right: auto;
+  left: 0;
+  text-align: right;
+}
+
+@keyframes fadeInMenu {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -16,10 +16,13 @@ import {
 } from '@/lib/packages';
 import Logo from '@/components/brand/Logo';
 import PortalMovingStrip from '@/components/portal/PortalMovingStrip';
+import LanguageSwitcher from '@/components/common/LanguageSwitcher';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 export default function PortalLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
+  const { t } = useLanguage();
   const { studentLoggedIn, loginStudent, logoutStudent, liveTestSession, testAttempts, currentUser, updateProfile } = useAppStore();
   const [checkingAuth, setCheckingAuth] = useState(true);
   
@@ -171,11 +174,16 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0F172A' }}>
-              Welcome back, <span style={{ color: '#059669' }}>{realUser ? realUser.firstName : 'Student'}!</span>
+              {t('portal.welcome_back', 'Welcome back')},{' '}
+              <span style={{ color: '#059669' }}>
+                {realUser ? realUser.firstName : t('portal.student', 'Student')}!
+              </span>
             </span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+            {/* Functional Language Switcher for Student Portal */}
+            <LanguageSwitcher variant="portal" />
 
             <div
               style={{
@@ -189,6 +197,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                 justifyContent: 'center',
                 cursor: 'pointer',
               }}
+              title={t('portal.notifications', 'Notifications')}
             >
               <Bell size={18} />
             </div>
@@ -227,10 +236,10 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                   cursor: 'pointer',
                   transition: 'all 0.15s ease',
                 }}
-                title="Sign out of student portal"
+                title={t('portal.logout', 'Sign out of student portal')}
               >
                 <LogOut size={15} />
-                <span>Log Out</span>
+                <span>{t('portal.logout', 'Log Out')}</span>
               </button>
             </div>
           </div>

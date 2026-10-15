@@ -1,0 +1,386 @@
+export type LanguageCode = 'en' | 'bn' | 'ar' | 'fa' | 'tr';
+
+export interface LanguageInfo {
+  code: LanguageCode;
+  name: string;
+  nativeName: string;
+  flag: string;
+  dir: 'ltr' | 'rtl';
+}
+
+export const LANGUAGES: Record<LanguageCode, LanguageInfo> = {
+  en: {
+    code: 'en',
+    name: 'English',
+    nativeName: 'English',
+    flag: '🇬🇧',
+    dir: 'ltr',
+  },
+  bn: {
+    code: 'bn',
+    name: 'Bangla',
+    nativeName: 'বাংলা',
+    flag: '🇧🇩',
+    dir: 'ltr',
+  },
+  ar: {
+    code: 'ar',
+    name: 'Arabic',
+    nativeName: 'العربية',
+    flag: '🇸🇦',
+    dir: 'rtl',
+  },
+  fa: {
+    code: 'fa',
+    name: 'Persian',
+    nativeName: 'فارسی',
+    flag: '🇮🇷',
+    dir: 'rtl',
+  },
+  tr: {
+    code: 'tr',
+    name: 'Turkish',
+    nativeName: 'Türkçe',
+    flag: '🇹🇷',
+    dir: 'ltr',
+  },
+};
+
+export const SUPPORTED_LANGUAGES = Object.values(LANGUAGES);
+
+export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
+  en: {
+    // Navigation
+    'nav.home': 'Home',
+    'nav.courses': 'Courses',
+    'nav.imat': 'IMAT',
+    'nav.universities': 'Universities',
+    'nav.resources': 'Resources',
+    'nav.news': 'News & Blogs',
+    'nav.licensing': 'Licensing Exams',
+    'nav.contact': 'Contact Us',
+    'nav.about': 'About',
+    'nav.free_mock': 'Take Free Mock',
+    'nav.portal': 'Portal',
+    'nav.student_portal': 'Student Portal & Dashboard',
+    'nav.login': 'Log In',
+
+    // Top Offer Bar
+    'offer.badge': '2026/27 Admissions Open',
+    'offer.text': 'Save up to 40% on IMAT & Medical Foundation Courses with Ahsora.',
+    'offer.cta': 'Enroll Now',
+
+    // Common CTAs & Actions
+    'btn.enroll_now': 'Enroll Now',
+    'btn.view_details': 'View Details',
+    'btn.start_free': 'Start Free Trial',
+    'btn.explore_courses': 'Explore All Courses',
+    'btn.sign_out': 'Sign Out',
+    'btn.back': 'Back',
+    'btn.close': 'Close',
+    'btn.save': 'Save Changes',
+    'btn.submit': 'Submit',
+    'btn.search': 'Search',
+    'btn.download': 'Download',
+    'btn.select_language': 'Select Language',
+
+    // Portal Header & Sidebar
+    'portal.welcome_back': 'Welcome back',
+    'portal.student': 'Student',
+    'portal.dashboard': 'Dashboard',
+    'portal.learn': 'Learn',
+    'portal.live_classes': '1. Live Classes',
+    'portal.recorded_lectures': '2. Recorded Lectures',
+    'portal.library': '3. Library',
+    'portal.practice': 'Practice',
+    'portal.practice_bank': '1. Practice Bank',
+    'portal.cbt_mock': '2. CBT Mock',
+    'portal.review_mistakes': '3. Review Mistakes',
+    'portal.progress': 'Progress & Analytics',
+    'portal.doubts': 'Doubts & Mentorship',
+    'portal.documents': 'Document Vault',
+    'portal.applications': 'Application Tracker',
+    'portal.medpath': 'MedPath Italy',
+    'portal.billing': 'Billing & Subscriptions',
+    'portal.settings': 'Account Settings',
+    'portal.logout': 'Sign Out',
+    'portal.notifications': 'Notifications',
+
+    // Footer
+    'footer.tagline': 'Complete exam preparation, admissions consultancy, and verified medical university placement support in Italy.',
+    'footer.certified': 'Certified Admissions & Exam Mentors',
+    'footer.follow': 'Follow Our Official Channels:',
+    'footer.programs': 'Academic Programs',
+    'footer.study_italy': 'Study in Italy',
+    'footer.support': 'Support & Legal',
+    'footer.rights': 'All rights reserved.',
+  },
+
+  bn: {
+    // Navigation
+    'nav.home': 'হোম',
+    'nav.courses': 'কোর্সসমূহ',
+    'nav.imat': 'আইম্যাট (IMAT)',
+    'nav.universities': 'বিশ্ববিদ্যালয়সমূহ',
+    'nav.resources': 'রিসোর্সসমূহ',
+    'nav.news': 'সংবাদ ও ব্লগ',
+    'nav.licensing': 'লাইসেন্সিং পরীক্ষা',
+    'nav.contact': 'যোগাযোগ',
+    'nav.about': 'আমাদের সম্পর্কে',
+    'nav.free_mock': 'ফ্রি মক টেস্ট নিন',
+    'nav.portal': 'পোর্টাল',
+    'nav.student_portal': 'শিক্ষার্থী পোর্টাল ও ড্যাশবোর্ড',
+    'nav.login': 'লগইন করুন',
+
+    // Top Offer Bar
+    'offer.badge': '২০২৬/২৭ ভর্তি শুরু হয়েছে',
+    'offer.text': 'আহসোরা-র সাথে আইম্যাট ও মেডিকেল ফাউন্ডেশন কোর্সে ৪০% পর্যন্ত ছাড় পান।',
+    'offer.cta': 'এখনই ভর্তি হন',
+
+    // Common CTAs & Actions
+    'btn.enroll_now': 'এখনই ভর্তি হন',
+    'btn.view_details': 'বিস্তারিত দেখুন',
+    'btn.start_free': 'বিনামূল্যে শুরু করুন',
+    'btn.explore_courses': 'সকল কোর্স দেখুন',
+    'btn.sign_out': 'লগআউট',
+    'btn.back': 'ফিরে যান',
+    'btn.close': 'বন্ধ করুন',
+    'btn.save': 'সংরক্ষণ করুন',
+    'btn.submit': 'জমা দিন',
+    'btn.search': 'অনুসন্ধান করুন',
+    'btn.download': 'ডাউনলোড',
+    'btn.select_language': 'ভাষা নির্বাচন করুন',
+
+    // Portal Header & Sidebar
+    'portal.welcome_back': 'স্বাগতম',
+    'portal.student': 'শিক্ষার্থী',
+    'portal.dashboard': 'ড্যাশবোর্ড',
+    'portal.learn': 'শিখুন',
+    'portal.live_classes': '১. লাইভ ক্লাস',
+    'portal.recorded_lectures': '২. রেকর্ড করা লেকচার',
+    'portal.library': '৩. লাইব্রেরি',
+    'portal.practice': 'অনুশীলন',
+    'portal.practice_bank': '১. প্রশ্ন ব্যাংক',
+    'portal.cbt_mock': '২. সিবিটি মক টেস্ট',
+    'portal.review_mistakes': '৩. ভুলগুলো সংশোধন',
+    'portal.progress': 'অগ্রগতি ও বিশ্লেষণ',
+    'portal.doubts': 'প্রশ্ন ও মেন্টরশিপ',
+    'portal.documents': 'ডকুমেন্ট ভল্ট',
+    'portal.applications': 'আবেদন ট্র্যাকার',
+    'portal.medpath': 'মেডপাথ ইতালি',
+    'portal.billing': 'বিলিং ও সাবস্ক্রিপশন',
+    'portal.settings': 'অ্যাকাউন্ট সেটিংস',
+    'portal.logout': 'লগআউট',
+    'portal.notifications': 'বিজ্ঞপ্তি',
+
+    // Footer
+    'footer.tagline': 'সম্পূর্ণ পরীক্ষার প্রস্তুতি, ভর্তি পরামর্শ এবং ইতালিতে যাচাইকৃত মেডিকেল বিশ্ববিদ্যালয়ে ভর্তির সহায়তা।',
+    'footer.certified': 'প্রত্যয়িত ভর্তি ও পরীক্ষা মেন্টর',
+    'footer.follow': 'আমাদের অফিশিয়াল চ্যানেলে যুক্ত থাকুন:',
+    'footer.programs': 'একাডেমিক প্রোগ্রাম',
+    'footer.study_italy': 'ইতালিতে উচ্চশিক্ষা',
+    'footer.support': 'সহায়তা ও আইনি তথ্য',
+    'footer.rights': 'সর্বস্বত্ব সংরক্ষিত।',
+  },
+
+  ar: {
+    // Navigation
+    'nav.home': 'الرئيسية',
+    'nav.courses': 'الدورات',
+    'nav.imat': 'اختبار IMAT',
+    'nav.universities': 'الجامعات',
+    'nav.resources': 'المصادر',
+    'nav.news': 'الأخبار والمقالات',
+    'nav.licensing': 'امتحانات الترخيص',
+    'nav.contact': 'اتصل بنا',
+    'nav.about': 'من نحن',
+    'nav.free_mock': 'اختبار تجريبي مجاني',
+    'nav.portal': 'بوابة الطلاب',
+    'nav.student_portal': 'بوابة الطالب ولوحة التحكم',
+    'nav.login': 'تسجيل الدخول',
+
+    // Top Offer Bar
+    'offer.badge': 'فتح باب القبول 2026/27',
+    'offer.text': 'وفر حتى 40% على دورات IMAT والتمهيدي الطبي مع أحسورا.',
+    'offer.cta': 'سجل الآن',
+
+    // Common CTAs & Actions
+    'btn.enroll_now': 'سجل الآن',
+    'btn.view_details': 'عرض التفاصيل',
+    'btn.start_free': 'ابدأ تجربة مجانية',
+    'btn.explore_courses': 'استكشف كافة الدورات',
+    'btn.sign_out': 'تسجيل الخروج',
+    'btn.back': 'رجوع',
+    'btn.close': 'إغلاق',
+    'btn.save': 'حفظ التغييرات',
+    'btn.submit': 'إرسال',
+    'btn.search': 'بحث',
+    'btn.download': 'تحميل',
+    'btn.select_language': 'اختر اللغة',
+
+    // Portal Header & Sidebar
+    'portal.welcome_back': 'مرحباً بعودتك',
+    'portal.student': 'طالب',
+    'portal.dashboard': 'لوحة التحكم',
+    'portal.learn': 'التعلم',
+    'portal.live_classes': '1. الحصص المباشرة',
+    'portal.recorded_lectures': '2. المحاضرات المسجلة',
+    'portal.library': '3. المكتبة الرقمية',
+    'portal.practice': 'التدريب',
+    'portal.practice_bank': '1. بنك الأسئلة',
+    'portal.cbt_mock': '2. اختبارات CBT التجريبية',
+    'portal.review_mistakes': '3. مراجعة الأخطاء',
+    'portal.progress': 'التقدم والتحليلات',
+    'portal.doubts': 'الاستفسارات والتوجيه',
+    'portal.documents': 'خزينة المستندات',
+    'portal.applications': 'متابعة طلبات التقديم',
+    'portal.medpath': 'مسار إيطاليا الطبي',
+    'portal.billing': 'الفواتير والاشتراكات',
+    'portal.settings': 'إعدادات الحساب',
+    'portal.logout': 'تسجيل الخروج',
+    'portal.notifications': 'الإشعارات',
+
+    // Footer
+    'footer.tagline': 'الإعداد الشامل للامتحانات والاستشارات الجامعية والقبول المضمون في كليات الطب بإيطاليا.',
+    'footer.certified': 'مرشدون معتمدون للقبول والامتحانات',
+    'footer.follow': 'تابع قنواتنا الرسمية:',
+    'footer.programs': 'البرامج الأكاديمية',
+    'footer.study_italy': 'الدراسة في إيطاليا',
+    'footer.support': 'الدعم واللوائح القانونية',
+    'footer.rights': 'جميع الحقوق محفوظة.',
+  },
+
+  fa: {
+    // Navigation
+    'nav.home': 'صفحه اصلی',
+    'nav.courses': 'دوره‌ها',
+    'nav.imat': 'آزمون IMAT',
+    'nav.universities': 'دانشگاه‌ها',
+    'nav.resources': 'منابع آموزشی',
+    'nav.news': 'اخبار و مقالات',
+    'nav.licensing': 'آزمون‌های پروانه پزشکی',
+    'nav.contact': 'تماس با ما',
+    'nav.about': 'درباره ما',
+    'nav.free_mock': 'آزمون آزمایشی رایگان',
+    'nav.portal': 'پورتال دانشجو',
+    'nav.student_portal': 'پورتال دانشجویی و داشبورد',
+    'nav.login': 'ورود به حساب',
+
+    // Top Offer Bar
+    'offer.badge': 'پذیرش تحصیلی ۲۰۲۶/۲۷ آغاز شد',
+    'offer.text': 'تا ۴۰٪ تخفیف در دوره‌های آمادگی IMAT و فاندیشن پزشکی با آسورا.',
+    'offer.cta': 'هم‌اکنون ثبت‌نام کنید',
+
+    // Common CTAs & Actions
+    'btn.enroll_now': 'ثبت‌نام کنید',
+    'btn.view_details': 'مشاهده جزئیات',
+    'btn.start_free': 'شروع دوره آزمایشی رایگان',
+    'btn.explore_courses': 'مشاهده همه دوره‌ها',
+    'btn.sign_out': 'خروج از حساب',
+    'btn.back': 'بازگشت',
+    'btn.close': 'بستن',
+    'btn.save': 'ذخیره تغییرات',
+    'btn.submit': 'ارسال',
+    'btn.search': 'جستجو',
+    'btn.download': 'دانلود',
+    'btn.select_language': 'انتخاب زبان',
+
+    // Portal Header & Sidebar
+    'portal.welcome_back': 'خوش آمدید',
+    'portal.student': 'دانشجو',
+    'portal.dashboard': 'داشبورد',
+    'portal.learn': 'آموزش',
+    'portal.live_classes': '۱. کلاس‌های آنلاین زنده',
+    'portal.recorded_lectures': '۲. ویدیوهای ضبط‌شده',
+    'portal.library': '۳. کتابخانه دیجیتال',
+    'portal.practice': 'تمرین و آزمون',
+    'portal.practice_bank': '۱. بانک جامع سوالات',
+    'portal.cbt_mock': '۲. آزمون شبیه‌ساز CBT',
+    'portal.review_mistakes': '۳. بررسی و تحلیل اشتباهات',
+    'portal.progress': 'پیشرفت و نمودارها',
+    'portal.doubts': 'پاسخ به سوالات و منتورینگ',
+    'portal.documents': 'گاوصندوق اسناد و مدارک',
+    'portal.applications': 'پیگیری درخواست‌های پذیرش',
+    'portal.medpath': 'مسیر پزشکی ایتالیا',
+    'portal.billing': 'صورت‌حساب و اشتراک‌ها',
+    'portal.settings': 'تنظیمات حساب کاربری',
+    'portal.logout': 'خروج از حساب',
+    'portal.notifications': 'اعلان‌ها',
+
+    // Footer
+    'footer.tagline': 'آمادگی کامل آزمون، مشاوره تخصصی پذیرش و اخذ پذیرش معتبر دانشگاه‌های پزشکی ایتالیا.',
+    'footer.certified': 'مشاوران رسمی و مجرب آزمون و پذیرش',
+    'footer.follow': 'کانال‌های رسمی ما را دنبال کنید:',
+    'footer.programs': 'برنامه‌های آموزشی',
+    'footer.study_italy': 'تحصیل در ایتالیا',
+    'footer.support': 'پشتیبانی و شرایط حقوقی',
+    'footer.rights': 'کلیه حقوق محفوظ است.',
+  },
+
+  tr: {
+    // Navigation
+    'nav.home': 'Ana Sayfa',
+    'nav.courses': 'Kurslar',
+    'nav.imat': 'IMAT Sınavı',
+    'nav.universities': 'Üniversiteler',
+    'nav.resources': 'Kaynaklar',
+    'nav.news': 'Haberler & Blog',
+    'nav.licensing': 'Lisans Sınavları',
+    'nav.contact': 'İletişim',
+    'nav.about': 'Hakkımızda',
+    'nav.free_mock': 'Ücretsiz Deneme Sınavı',
+    'nav.portal': 'Öğrenci Portalı',
+    'nav.student_portal': 'Öğrenci Portalı & Panel',
+    'nav.login': 'Giriş Yap',
+
+    // Top Offer Bar
+    'offer.badge': '2026/27 Başvuruları Açıldı',
+    'offer.text': "Ahsora ile IMAT ve Tıp Hazırlık Kurslarında %40'a varan indirimden yararlanın.",
+    'offer.cta': 'Şimdi Kaydol',
+
+    // Common CTAs & Actions
+    'btn.enroll_now': 'Şimdi Kaydol',
+    'btn.view_details': 'Detayları Gör',
+    'btn.start_free': 'Ücretsiz Deneyin',
+    'btn.explore_courses': 'Tüm Kursları İncele',
+    'btn.sign_out': 'Çıkış Yap',
+    'btn.back': 'Geri',
+    'btn.close': 'Kapat',
+    'btn.save': 'Değişiklikleri Kaydet',
+    'btn.submit': 'Gönder',
+    'btn.search': 'Ara',
+    'btn.download': 'İndir',
+    'btn.select_language': 'Dil Seçin',
+
+    // Portal Header & Sidebar
+    'portal.welcome_back': 'Tekrar Hoş Geldiniz',
+    'portal.student': 'Öğrenci',
+    'portal.dashboard': 'Kontrol Paneli',
+    'portal.learn': 'Öğrenme',
+    'portal.live_classes': '1. Canlı Dersler',
+    'portal.recorded_lectures': '2. Kayıtlı Dersler',
+    'portal.library': '3. Kütüphane',
+    'portal.practice': 'Pratik & Soru',
+    'portal.practice_bank': '1. Soru Bankası',
+    'portal.cbt_mock': '2. CBT Deneme Sınavı',
+    'portal.review_mistakes': '3. Hataları İncele',
+    'portal.progress': 'Gelişim & Analizler',
+    'portal.doubts': 'Sorular & Mentorluk',
+    'portal.documents': 'Belge Kasası',
+    'portal.applications': 'Başvuru Takibi',
+    'portal.medpath': 'İtalya Tıp Rotası',
+    'portal.billing': 'Ödemeler & Abonelik',
+    'portal.settings': 'Hesap Ayarları',
+    'portal.logout': 'Çıkış Yap',
+    'portal.notifications': 'Bildirimler',
+
+    // Footer
+    'footer.tagline': "Kapsamlı sınav hazırlığı, kabul danışmanlığı ve İtalya'daki tıp fakültelerine onaylı yerleştirme desteği.",
+    'footer.certified': 'Sertifikalı Kabul & Sınav Danışmanları',
+    'footer.follow': 'Resmi Kanallarımızı Takip Edin:',
+    'footer.programs': 'Akademik Programlar',
+    'footer.study_italy': "İtalya'da Eğitim",
+    'footer.support': 'Destek & Yasal',
+    'footer.rights': 'Tüm hakları saklıdır.',
+  },
+};

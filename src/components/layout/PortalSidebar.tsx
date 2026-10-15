@@ -28,6 +28,7 @@ import {
   Lock,
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 import { createClient } from '@/lib/supabase/client';
 import Logo from '@/components/brand/Logo';
 import {
@@ -42,6 +43,7 @@ import {
 } from '@/lib/packages';
 
 export default function PortalSidebar({ userFullName = 'Student', userInitials = 'ST' }: { userFullName?: string, userInitials?: string }) {
+  const { t } = useLanguage();
   const {
     currentUser,
     testAttempts,
@@ -222,7 +224,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
             }}
           >
             <LayoutDashboard size={18} color={pathname === '/portal/dashboard' ? '#059669' : '#64748B'} />
-            {sidebarExpanded && <span>Dashboard</span>}
+            {sidebarExpanded && <span>{t('portal.dashboard', 'Dashboard')}</span>}
           </Link>
         </div>
 
@@ -254,7 +256,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'center' }}>
               <GraduationCap size={18} color={isLearnActive ? '#059669' : '#64748B'} />
-              {sidebarExpanded && <span>Learn</span>}
+              {sidebarExpanded && <span>{t('portal.learn', 'Learn')}</span>}
             </div>
             {sidebarExpanded && (learnOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />)}
           </button>
@@ -338,7 +340,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                 }}
               >
                 <Video size={15} />
-                {sidebarExpanded && <span>2. Recorded Lectures</span>}
+                {sidebarExpanded && <span>{t('portal.recorded_lectures', '2. Recorded Lectures')}</span>}
               </Link>
 
               <Link
@@ -357,7 +359,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                 }}
               >
                 <Library size={15} />
-                {sidebarExpanded && <span>3. Library</span>}
+                {sidebarExpanded && <span>{t('portal.library', '3. Library')}</span>}
               </Link>
             </div>
           )}
@@ -389,7 +391,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <BookOpen size={18} color={isPracticeActive ? '#059669' : '#64748B'} />
-              {sidebarExpanded && <span>Practice</span>}
+              {sidebarExpanded && <span>{t('portal.practice', 'Practice')}</span>}
             </div>
             {sidebarExpanded && (practiceOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />)}
           </button>
@@ -412,7 +414,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                 }}
               >
                 <BookOpen size={15} />
-                {sidebarExpanded && <span>1. Practice Bank</span>}
+                {sidebarExpanded && <span>{t('portal.practice_bank', '1. Practice Bank')}</span>}
               </Link>
 
               <Link
@@ -431,7 +433,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                 }}
               >
                 <FileCheck2 size={15} />
-                {sidebarExpanded && <span>2. CBT Mock</span>}
+                {sidebarExpanded && <span>{t('portal.cbt_mock', '2. CBT Mock')}</span>}
               </Link>
 
               <Link
@@ -621,7 +623,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
               <span style={{ color: pathname === '/portal/documents' ? '#059669' : docVaultLocked ? '#94A3B8' : '#64748B' }}>
                 <FolderLock size={18} />
               </span>
-              {sidebarExpanded && <span>Document Vault</span>}
+              {sidebarExpanded && <span>{t('portal.documents', 'Document Vault')}</span>}
             </div>
             {sidebarExpanded && (
               <span
@@ -667,7 +669,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
             <span style={{ color: pathname === '/portal/doubts' ? '#059669' : '#64748B' }}>
               <HelpCircle size={18} />
             </span>
-            {sidebarExpanded && <span>Ask Doubts</span>}
+            {sidebarExpanded && <span>{t('portal.doubts', 'Ask Doubts')}</span>}
           </Link>
         </div>
 
@@ -695,7 +697,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           }}
         >
           <LogOut size={16} />
-          {sidebarExpanded && <span>Sign Out</span>}
+          {sidebarExpanded && <span>{t('portal.logout', 'Sign Out')}</span>}
         </button>
 
         <Link

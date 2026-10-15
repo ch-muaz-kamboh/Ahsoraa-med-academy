@@ -6,9 +6,11 @@ import { usePathname } from 'next/navigation';
 import { Mail, Phone, MapPin, ShieldCheck } from 'lucide-react';
 import Logo from '@/components/brand/Logo';
 import SocialLinks from '@/components/common/SocialLinks';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 export default function Footer() {
   const pathname = usePathname();
+  const { t } = useLanguage();
 
   // If inside portal, admin, or staff layout, hide public footer
   if (pathname?.startsWith('/portal') || pathname?.startsWith('/admin') || pathname?.startsWith('/staff')) {
@@ -41,11 +43,11 @@ export default function Footer() {
               <Logo height={38} variant="white" />
             </Link>
             <p style={{ color: '#94A3B8', fontSize: '0.84rem', lineHeight: 1.55, marginBottom: '12px' }}>
-              Complete exam preparation, admissions consultancy, and verified medical university placement support in Italy.
+              {t('footer.tagline', 'Complete exam preparation, admissions consultancy, and verified medical university placement support in Italy.')}
             </p>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#5CED73', fontSize: '0.8rem', fontWeight: 600, marginBottom: '14px' }}>
               <ShieldCheck size={15} />
-              <span>Certified Admissions &amp; Exam Mentors</span>
+              <span>{t('footer.certified', 'Certified Admissions & Exam Mentors')}</span>
             </div>
 
             {/* Social Media Links - Inline with heading */}
@@ -135,7 +137,7 @@ export default function Footer() {
           }}
         >
           <div style={{ color: '#64748B' }}>
-            © {new Date().getFullYear()} Ahsora Meds Academy. All rights reserved. Centralized pricing and verified admissions curriculum.
+            © {new Date().getFullYear()} Ahsora Meds Academy. {t('footer.rights', 'All rights reserved.')} Centralized pricing and verified admissions curriculum.
           </div>
           <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
             <Link href="/privacy" style={{ color: '#64748B', textDecoration: 'none' }}>Privacy Policy</Link>
