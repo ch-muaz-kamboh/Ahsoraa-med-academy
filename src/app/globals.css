@@ -620,19 +620,90 @@ button {
     max-width: 100% !important;
   }
 
-  /* Hero: stack columns */
-  .hero-grid {
-    grid-template-columns: 1fr !important;
-    gap: 36px !important;
+  /* Hero: stack columns & responsive styling */
+  .home-hero-section {
+    padding-top: calc(76px + var(--top-offer-bar-height, 0px)) !important;
+    padding-bottom: 50px !important;
   }
 
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  .hero-graphic-col,
   .hero-grid > div:last-child {
     display: flex !important;
     justify-content: center !important;
+    width: 100% !important;
+    margin-top: 10px !important;
   }
 
+  .hero-images-wrapper,
   .hero-grid > div:last-child > div {
-    max-width: 320px !important;
+    max-width: min(390px, calc(100vw - 32px)) !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding-bottom: 34px !important;
+    position: relative !important;
+  }
+
+  .hero-photo-primary {
+    border-radius: 18px !important;
+    aspect-ratio: 16/10 !important;
+    width: 100% !important;
+  }
+
+  .hero-badge-clinical {
+    top: 8px !important;
+    left: 8px !important;
+    font-size: 0.625rem !important;
+    padding: 3px 8px !important;
+    background-color: rgba(15, 23, 42, 0.75) !important;
+    backdrop-filter: blur(8px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 9999px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  .hero-photo-secondary {
+    top: auto !important;
+    bottom: -16px !important;
+    right: 0px !important;
+    width: 50% !important;
+    aspect-ratio: 4/3 !important;
+    border-radius: 14px !important;
+    border: 2px solid #FFFFFF !important;
+    box-shadow: 0 16px 36px -8px rgba(15, 23, 42, 0.35) !important;
+    z-index: 2 !important;
+  }
+
+  .hero-badge-hospital {
+    bottom: 5px !important;
+    left: 5px !important;
+    right: 5px !important;
+    font-size: 0.58rem !important;
+    padding: 2px 5px !important;
+    background-color: rgba(5, 150, 105, 0.88) !important;
+    backdrop-filter: blur(6px) !important;
+    border-radius: 6px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .hero-float-portal {
+    display: block !important;
+    position: absolute !important;
+    bottom: -24px !important;
+    left: 0px !important;
+    width: 48% !important;
+    max-width: 175px !important;
+    border-radius: 12px !important;
+    padding: 3px !important;
+    border: 1.5px solid rgba(92, 237, 115, 0.35) !important;
+    box-shadow: 0 18px 40px -8px rgba(0, 0, 0, 0.38) !important;
+    z-index: 3 !important;
   }
 
   /* Why Ahsora: stack 2-col grid */
@@ -641,7 +712,7 @@ button {
   }
 
   /* Section padding balance on tablets/phones */
-  section {
+  section:not(.home-hero-section) {
     padding-top: 48px !important;
     padding-bottom: 48px !important;
   }
@@ -681,19 +752,24 @@ button {
     grid-template-columns: 1fr !important;
   }
 
-  /* Show photo but smaller */
-  .hero-grid > div:last-child {
-    display: flex !important;
-    justify-content: center !important;
-  }
-
+  /* Keep hero images prominent and beautifully arranged on small phones */
+  .hero-images-wrapper,
   .hero-grid > div:last-child > div {
-    max-width: 240px !important;
+    max-width: min(340px, calc(100vw - 28px)) !important;
+    padding-bottom: 30px !important;
   }
 
-  /* Hide floating portal card on very small screens */
+  .hero-photo-secondary {
+    width: 49% !important;
+    bottom: -14px !important;
+    right: 0px !important;
+  }
+
   .hero-float-portal {
-    display: none !important;
+    width: 47% !important;
+    bottom: -20px !important;
+    left: 0px !important;
+    display: block !important;
   }
 
   /* Full-width action buttons in hero/content sections on narrow phones */

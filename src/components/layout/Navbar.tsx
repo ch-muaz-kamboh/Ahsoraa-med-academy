@@ -74,7 +74,7 @@ export default function Navbar() {
         {/* Global Live Offer & Countdown Announcement Bar - disappears smoothly on scroll */}
         <div
           style={{
-            maxHeight: scrolled ? '0px' : '50px',
+            maxHeight: scrolled ? '0px' : '85px',
             opacity: scrolled ? 0 : 1,
             overflow: 'hidden',
             transition: 'max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease',

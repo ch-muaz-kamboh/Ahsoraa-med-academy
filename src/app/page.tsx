@@ -467,6 +467,7 @@ export default function HomePage() {
           1. HERO SECTION — split layout
       ══════════════════════════════════════════════════ */}
       <section
+        className="home-hero-section"
         style={{
           backgroundColor: '#FFFFFF',
           padding: 'calc(88px + var(--top-offer-bar-height, 0px)) 0 100px 0',
@@ -640,6 +641,7 @@ export default function HomePage() {
 
             {/* ── RIGHT: Hero Graphic (Medical Students Clinical Training) ── */}
             <div
+              className="hero-graphic-col"
               style={{
                 display: 'flex',
                 justifyContent: 'flex-end',
@@ -649,6 +651,7 @@ export default function HomePage() {
               }}
             >
               <div
+                className="hero-images-wrapper"
                 style={{
                   position: 'relative',
                   width: '100%',
@@ -658,7 +661,7 @@ export default function HomePage() {
               >
                 {/* Clinical Student Photo 1: Blood Pressure Examination */}
                 <div
-                  className="img-interactive-hover"
+                  className="hero-photo-primary img-interactive-hover"
                   style={{
                     borderRadius: '22px',
                     boxShadow: '0 20px 45px -10px rgba(15,23,42,0.18)',
@@ -677,6 +680,7 @@ export default function HomePage() {
                     priority 
                   />
                   <div
+                    className="hero-badge-clinical"
                     style={{
                       position: 'absolute',
                       top: '12px',
@@ -702,7 +706,7 @@ export default function HomePage() {
 
                 {/* Clinical Student Photo 2: Hospital Ward & Injection */}
                 <div
-                  className="img-interactive-hover"
+                  className="hero-photo-secondary img-interactive-hover"
                   style={{
                     position: 'absolute',
                     top: '44%',
@@ -724,6 +728,7 @@ export default function HomePage() {
                     style={{ objectFit: 'cover' }} 
                   />
                   <div
+                    className="hero-badge-hospital"
                     style={{
                       position: 'absolute',
                       bottom: '8px',
