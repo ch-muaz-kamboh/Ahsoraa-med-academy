@@ -174,14 +174,16 @@ export default function UniversityDetailPage({
             </p>
 
             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center' }}>
-              <button
-                onClick={() => setLeadModalOpen(true)}
+              <a
+                href={`https://wa.me/393333444479?text=${encodeURIComponent(`Hi Ahsora, I would like university guidance for ${university.name}.`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-primary"
-                style={{ padding: '14px 28px', fontSize: '0.95rem' }}
+                style={{ padding: '14px 28px', fontSize: '0.95rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
               >
                 <span>Request University Guidance</span>
                 <ArrowRight size={18} />
-              </button>
+              </a>
 
               <a
                 href={university.officialWebsiteUrl}
@@ -674,14 +676,16 @@ export default function UniversityDetailPage({
           </div>
 
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-            <button
-              onClick={() => setLeadModalOpen(true)}
+            <a
+              href={`https://wa.me/393333444479?text=${encodeURIComponent(`Hi Ahsora, I would like application support for ${university.name}.`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-primary"
-              style={{ padding: '14px 28px', fontSize: '0.95rem' }}
+              style={{ padding: '14px 28px', fontSize: '0.95rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
             >
               <span>Get Application Support</span>
               <ArrowRight size={18} />
-            </button>
+            </a>
             <Link
               href="/free-mock"
               style={{

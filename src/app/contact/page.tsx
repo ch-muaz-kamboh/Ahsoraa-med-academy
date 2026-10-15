@@ -175,9 +175,15 @@ export default function ContactPage() {
           <p style={{ color: '#94A3B8', marginBottom: '32px', lineHeight: 1.7 }}>
             Skip the form and talk directly with one of our expert counsellors. We'll assess your profile and recommend the best pathway for your medical career.
           </p>
-          <button onClick={() => setLeadOpen(true)} className="btn-primary" style={{ padding: '14px 36px', fontSize: '1rem' }}>
+          <a
+            href="https://wa.me/393333444479?text=Hi%20Ahsora,%20I%20would%20like%20to%20book%20free%20counselling"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary"
+            style={{ padding: '14px 36px', fontSize: '1rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+          >
             Book Free Counselling
-          </button>
+          </a>
         </div>
       </section>
 

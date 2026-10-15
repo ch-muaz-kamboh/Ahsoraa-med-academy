@@ -86,6 +86,9 @@ export default function LanguageSwitcher({
             display: 'grid',
             gridTemplateColumns: 'repeat(2, 1fr)',
             gap: '8px',
+            maxHeight: '360px',
+            overflowY: 'auto',
+            paddingRight: '4px',
           }}
         >
           {languages.map((item) => {
@@ -202,7 +205,9 @@ export default function LanguageSwitcher({
             position: 'absolute',
             top: 'calc(100% + 6px)',
             right: 0,
-            minWidth: '220px',
+            minWidth: '230px',
+            maxHeight: '380px',
+            overflowY: 'auto',
             backgroundColor: '#FFFFFF',
             border: '1px solid #E2E8F0',
             borderRadius: '12px',

@@ -52,7 +52,7 @@ export const AHSO_PACKAGES: PackageDetail[] = [
   },
   {
     id: 'elite',
-    name: 'Ahsora Path Elite',
+    name: 'Ahsora MedPath Elite',
     price: '€799',
     numericPrice: 799,
     period: 'one-time payment',
@@ -157,7 +157,7 @@ GROUND TRUTH PACKAGES & PRICING (SOURCE OF TRUTH):
    - Personalized weak-area study strategy
    - Full Past Paper Breakdown (2011 to 2025)
 
-3. **Ahsora Path Elite** (€799, one-time payment):
+3. **Ahsora MedPath Elite** (€799, one-time payment):
    - Everything in IMAT Mastery
    - Dedicated Senior Medical Student Mentor in Italy
    - Italian University Pre-Enrollment & Declaration of Value (DOV) guidance
@@ -200,7 +200,7 @@ FOUNDER & ACADEMY BACKGROUND:
 - Founder & Academic Director: **Ahsan Jahangir**.
 - Background: Final-year Medicine and Surgery student at the **University of Messina, Italy**.
 - Why Ahsora was created: Having navigated the IMAT exam and Italian university admissions firsthand without clear mentorship, Ahsan created Ahsora to give future doctors a transparent, structured system.
-- Founder access: Ahsora is founder-led. Ahsora IMAT Mastery includes scheduled group guidance sessions with the founder, and Ahsora Path Elite includes defined direct 1-on-1 advisory access.
+- Founder access: Ahsora is founder-led. Ahsora IMAT Mastery includes scheduled group guidance sessions with the founder, and Ahsora MedPath Elite includes defined direct 1-on-1 advisory access.
 
 STYLE & TONE:
 - Professional, supportive, empathetic, and succinct.
@@ -238,7 +238,7 @@ export function getInstantKnowledgeReply(userQuery: string): string {
 
 * **Founder Involvement by Programme:**
   * **Ahsora IMAT Mastery:** Includes scheduled founder group guidance and strategy sessions.
-  * **Ahsora Path Elite:** Includes defined direct 1-on-1 advisory access with the founder alongside senior student mentorship, pre-enrollment, and visa support.
+  * **Ahsora MedPath Elite:** Includes defined direct 1-on-1 advisory access with the founder alongside senior student mentorship, pre-enrollment, and visa support.
 
 Read more about our mission on the [About Page](/about) or connect with our admissions team on WhatsApp at **+39 333 3444 479**!`;
   }
@@ -282,7 +282,7 @@ Read more about our mission on the [About Page](/about) or connect with our admi
 
 ---
 
-### 3. **Ahsora Path Elite** – €799 *(One-Time Payment)*
+### 3. **Ahsora MedPath Elite** – €799 *(One-Time Payment)*
 *All-inclusive: IMAT mastery + end-to-end relocation, visa & university support.*
 * **Everything in IMAT Mastery**
 * **Dedicated Senior Medical Student Mentor** studying in Italy
@@ -339,7 +339,7 @@ The IMAT (International Medical Admissions Test) is officially organized once pe
 Enrolling is simple, secure, and takes less than 2 minutes:
 
 1. **Submit Registration:** Visit [Register Now](/register).
-2. **Fill in Details:** Enter your name, email, WhatsApp phone number, and select your target package (**Ascend €299**, **Mastery €499**, or **Path Elite €799**).
+2. **Fill in Details:** Enter your name, email, WhatsApp phone number, and select your target package (**Ascend €299**, **Mastery €499**, or **MedPath Elite €799**).
 3. **Complete Payment:** Our admissions desk accepts secure bank transfers and card payments. You will receive immediate payment confirmation and account activation.
 4. **Access the Portal:** Log in at [Login](/login) to access your video lectures, question bank, live class schedules, and CBT mock exam simulator!
 
@@ -455,7 +455,7 @@ To be eligible for admission to public medical schools in Italy through the IMAT
    * **You do NOT need Italian language proficiency** to sit the exam or gain admission! (Universities provide Italian classes in years 1–2 so students can communicate with patients during hospital clinical rotations starting in year 3).
    * Most universities accept proof of secondary schooling in English or standard English tests (IELTS 6.0–6.5 / TOEFL).
 4. **Legal Document Verification:**
-   * Non-EU candidates require a **Declaration of Value (DOV)** from the Italian Embassy or a **CIMEA Statement of Comparability**. Our **Ahsora Path Elite** package guides you through this step-by-step!
+   * Non-EU candidates require a **Declaration of Value (DOV)** from the Italian Embassy or a **CIMEA Statement of Comparability**. Our **Ahsora MedPath Elite** package guides you through this step-by-step!
 
 Explore more details on our [Admissions Hub](/universities) or [Register with Ahsora](/register).`;
   }
@@ -586,7 +586,7 @@ Studying medicine in Italy is one of the most affordable pathways worldwide:
   * **Benefits:** 100% tuition waiver + free university canteen meals + cash living stipend of up to **€7,200 to €8,500/year**!
   * **Application Windows:** Open between June and July with deadlines in August/September.
 
-Read our complete breakdown on the [Scholarships Hub](/universities/scholarships). Our **Ahsora Path Elite** package also includes full mentor guidance for scholarship paperwork!`;
+Read our complete breakdown on the [Scholarships Hub](/universities/scholarships). Our **Ahsora MedPath Elite** package also includes full mentor guidance for scholarship paperwork!`;
   }
 
   // 7. Contact & Support Channels
@@ -622,7 +622,7 @@ We are the premier preparation and guidance platform for students aspiring to st
 * **Our Preparation Packages:**
   * **Ahsora IMAT Ascend (€299):** 2,500+ Q-bank, 120+ hrs video lectures, 10 CBT mock exams.
   * **Ahsora IMAT Mastery (€499):** Live masterclasses 3x weekly, WhatsApp doubt clearing, past papers (2011–2025).
-  * **Ahsora Path Elite (€799):** Complete mentorship, pre-enrollment, DOV & Italian student visa guidance.
+  * **Ahsora MedPath Elite (€799):** Complete mentorship, pre-enrollment, DOV & Italian student visa guidance.
 * **How to Enrol:** Register in 2 minutes at [Register Now](/register).
 * **Official IMAT Schedule:** The exam is held annually in mid-September by MUR, with registration on [Universitaly](https://www.universitaly.it/) in July.
 * **Directory & Guides:** Browse the [Universities Directory](/universities) and [Scholarships Hub](/universities/scholarships).

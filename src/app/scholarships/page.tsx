@@ -140,14 +140,16 @@ export default function ScholarshipsPage() {
                 <span>Application Deadline: <strong>{sch.deadline}</strong></span>
               </div>
 
-              <button
-                onClick={() => setLeadModalOpen(true)}
+              <a
+                href={`https://wa.me/393333444479?text=${encodeURIComponent(`Hi Ahsora, I would like to check my scholarship eligibility for ${sch.name}.`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-primary"
-                style={{ width: '100%', padding: '12px', justifyContent: 'center' }}
+                style={{ width: '100%', padding: '12px', justifyContent: 'center', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}
               >
                 <span>Check Scholarship Eligibility</span>
                 <ArrowRight size={16} />
-              </button>
+              </a>
             </div>
           ))}
         </div>

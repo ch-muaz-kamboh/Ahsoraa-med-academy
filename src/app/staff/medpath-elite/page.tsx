@@ -262,7 +262,7 @@ export default function StaffMedpathElitePage() {
           Medpath Elite Students
         </h1>
         <p style={{ color: '#64748B', fontSize: '0.9375rem' }}>
-          Manage university admission journey stages for students enrolled in the Ahsora Path Elite package.
+          Manage university admission journey stages for students enrolled in the Ahsora MedPath Elite package.
         </p>
       </div>
 
@@ -303,7 +303,7 @@ export default function StaffMedpathElitePage() {
           <Users size={44} color="#CBD5E1" style={{ margin: '0 auto 16px', display: 'block' }} />
           <div style={{ color: '#64748B', fontWeight: 600, fontSize: '1rem', marginBottom: '6px' }}>No Elite students yet</div>
           <p style={{ color: '#94A3B8', fontSize: '0.875rem' }}>
-            Students who register with the Ahsora Path Elite package will appear here when they log into the student portal.
+            Students who register with the Ahsora MedPath Elite package will appear here when they log into the student portal.
           </p>
         </div>
       ) : (

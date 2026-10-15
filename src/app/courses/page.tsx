@@ -390,9 +390,9 @@ function ProgrammeQuiz({ onLead }: { onLead: () => void }) {
   ];
 
   const getResult = (ans: number[]) => {
-    if (ans[2] === 1 || ans[3] === 1) return 'MedPath Elite';
+    if (ans[2] === 1 || ans[3] === 1) return 'Ahsora MedPath Elite';
     if (ans[1] === 1) return 'Mastery';
-    return 'Ascent';
+    return 'Ascend';
   };
 
   const handleAnswer = (idx: number) => {
@@ -406,8 +406,9 @@ function ProgrammeQuiz({ onLead }: { onLead: () => void }) {
   };
 
   const resultMeta: Record<string, { icon: React.ReactNode; color: string; desc: string }> = {
-    'Ascent': { icon: <Compass size={32} color="#10B981" />, color: '#10B981', desc: 'Self-paced, structured preparation with full portal access.' },
+    'Ascend': { icon: <Compass size={32} color="#10B981" />, color: '#10B981', desc: 'Self-paced, structured preparation with full portal access.' },
     'Mastery': { icon: <GraduationCap size={32} color="#d4af37" />, color: '#d4af37', desc: 'Live classes, structured prep, and continuous support.' },
+    'Ahsora MedPath Elite': { icon: <Globe2 size={32} color="#14532D" />, color: '#14532D', desc: 'Full IMAT prep plus admissions and university guidance.' },
     'MedPath Elite': { icon: <Globe2 size={32} color="#14532D" />, color: '#14532D', desc: 'Full IMAT prep plus admissions and university guidance.' },
   };
 
@@ -509,15 +510,15 @@ export default function CoursesPage() {
   }, []);
 
   const getPriceInfo = (id: string) => {
-    const targetId = id === 'ascent' ? 'ascend' : id;
+    const targetId = (id === 'ascent' || id === 'ascend') ? 'ascend' : id;
     const found = dynamicPrices.find((p) => p.id === targetId || p.id === id);
     const isAvail = found ? found.isAvailable !== false : true;
     const disabledNotice = found?.disabledNotice || 'Currently Unavailable';
 
     if (!found) {
-      const orig = id === 'ascent' ? '€399' : id === 'mastery' ? '€649' : '€999';
-      const sale = id === 'ascent' ? '€299' : id === 'mastery' ? '€499' : '€799';
-      const badge = id === 'ascent' ? '25% OFF' : id === 'mastery' ? '23% OFF' : '20% OFF';
+      const orig = (id === 'ascent' || id === 'ascend') ? '€399' : id === 'mastery' ? '€649' : '€999';
+      const sale = (id === 'ascent' || id === 'ascend') ? '€299' : id === 'mastery' ? '€499' : '€799';
+      const badge = (id === 'ascent' || id === 'ascend') ? '25% OFF' : id === 'mastery' ? '23% OFF' : '20% OFF';
       return { price: sale, originalPrice: orig, badge, isAvailable: true, disabledNotice };
     }
     return {
@@ -531,8 +532,8 @@ export default function CoursesPage() {
 
   const programmes = [
     {
-      id: 'ascent',
-      name: 'IMAT Ascent',
+      id: 'ascend',
+      name: 'IMAT Ascend',
       icon: <Compass size={24} color="#10B981" />,
       accentColor: '#10B981',
       accentBg: '#F0FFF4',
@@ -548,7 +549,7 @@ export default function CoursesPage() {
         'Topic-wise practice sets & in-depth error analysis',
         'Performance analytics dashboard & Study plan guide',
       ],
-      cta: 'Start Your Ascent',
+      cta: 'Start with Ascend',
       founderAccess: 'No direct access — programme built on the founder\'s method',
     },
     {
@@ -575,7 +576,7 @@ export default function CoursesPage() {
     },
     {
       id: 'elite',
-      name: 'MedPath Elite',
+      name: 'Ahsora MedPath Elite',
       icon: <Globe2 size={24} color="#14532D" />,
       accentColor: '#14532D',
       accentBg: '#F0FFF4',
@@ -597,17 +598,17 @@ export default function CoursesPage() {
   ];
 
   const faqs = [
-    { q: 'Which programme is best for me?', a: 'Use the quiz above — it takes under 30 seconds. Broadly: independent learners → Ascent; those wanting live classes → Mastery; those needing admissions support → MedPath Elite.' },
+    { q: 'Which programme is best for me?', a: 'Use the quiz above — it takes under 30 seconds. Broadly: independent learners → Ascend; those wanting live classes → Mastery; those needing admissions support → Ahsora MedPath Elite.' },
     { q: 'Are Mastery classes live?', a: 'Yes. Mastery includes scheduled live, teacher-led sessions for all IMAT subjects. All sessions are also recorded and added to your library.' },
     { q: 'Can I ask questions during live classes?', a: 'Yes. Live sessions include real-time Q&A with the subject instructor.' },
     { q: 'Are classes recorded?', a: 'Yes — every live session becomes a permanent part of your resource library immediately after the class ends.' },
     { q: 'How long do I have access to the portal after enrolling?', a: 'Every Ahsora programme includes upto 12 months of full portal access from the date you enroll — mocks, question banks, and resources for every subject, at your own pace.' },
     { q: 'Is the recorded lecture library complete, or still growing?', a: 'Our recorded lecture library is growing continuously — every live class we run becomes part of it. Biology and Chemistry are available now; Physics is being added this month; Logical Reasoning is in production.' },
-    { q: 'What is the difference between Ascent and Mastery?', a: 'Ascent is self-paced — you get the full portal, question bank, mocks and analytics, but no live classes. Mastery adds live instructor-led teaching, session recordings, and founder group guidance sessions.' },
-    { q: 'What is the difference between Mastery and MedPath Elite?', a: 'The core IMAT academic preparation is the same. Elite adds university application guidance, pre-enrolment support, visa process orientation, and defined direct advisory access with the founder.' },
-    { q: 'Does MedPath Elite include university application support?', a: 'Yes. Elite includes university application guidance, Universitaly pre-enrolment support, scholarship guidance, and visa process orientation.' },
+    { q: 'What is the difference between Ascend and Mastery?', a: 'Ascend is self-paced — you get the full portal, question bank, mocks and analytics, but no live classes. Mastery adds live instructor-led teaching, session recordings, and founder group guidance sessions.' },
+    { q: 'What is the difference between Mastery and MedPath Elite?', a: 'The core IMAT academic preparation is the same. Ahsora MedPath Elite adds university application guidance, pre-enrolment support, visa process orientation, and defined direct advisory access with the founder.' },
+    { q: 'Does MedPath Elite include university application support?', a: 'Yes. Ahsora MedPath Elite includes university application guidance, Universitaly pre-enrolment support, scholarship guidance, and visa process orientation.' },
     { q: 'Does Ahsora guarantee admission or a visa?', a: 'No. Ahsora provides preparation, guidance and application support, but admission, scholarship and visa decisions are made by universities and relevant authorities.' },
-    { q: 'Will I have direct access to the founder?', a: 'It depends on your programme. Ascent: no direct access — the programme is built on the founder\'s method. Mastery: scheduled group guidance and motivation sessions with the founder. MedPath Elite: defined direct advisory access as part of the admissions support package.' },
+    { q: 'Will I have direct access to the founder?', a: 'It depends on your programme. Ascend: no direct access — the programme is built on the founder\'s method. Mastery: scheduled group guidance and motivation sessions with the founder. Ahsora MedPath Elite: defined direct advisory access as part of the admissions support package.' },
   ];
 
   const contentLibrary = [
@@ -844,9 +845,9 @@ export default function CoursesPage() {
               <div style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-light)', padding: '18px 20px', marginBottom: '24px' }}>
                 <div style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '0.9rem', marginBottom: '12px' }}>Founder access — by programme:</div>
                 {[
-                  { prog: 'Ascent', access: 'No direct access — programme built on the founder\'s method' },
+                  { prog: 'Ascend', access: 'No direct access — programme built on the founder\'s method' },
                   { prog: 'Mastery', access: 'Scheduled group guidance and motivation sessions' },
-                  { prog: 'MedPath Elite', access: 'Defined direct advisory access as part of admissions support' },
+                  { prog: 'Ahsora MedPath Elite', access: 'Defined direct advisory access as part of admissions support' },
                 ].map((row, i) => (
                   <div key={i} style={{ display: 'flex', gap: '10px', marginBottom: '8px', fontSize: '0.88rem', alignItems: 'flex-start' }}>
                     <span style={{ fontWeight: 800, color: 'var(--text-secondary)', minWidth: '95px' }}>{row.prog}</span>
@@ -967,9 +968,9 @@ export default function CoursesPage() {
       {/* ── 07-09 PROGRAMME DETAILS ─────────────────────────────────────── */}
       {programmes.map((prog, pi) => {
         const pDetail = getPriceInfo(prog.id);
-        const pkgParam = prog.id === 'ascent' ? 'ascend' : prog.id;
+        const pkgParam = (prog.id === 'ascent' || prog.id === 'ascend') ? 'ascend' : prog.id;
         return (
-          <section key={prog.id} id={prog.id} style={{ padding: '60px 0', backgroundColor: pi % 2 === 0 ? 'var(--bg-subtle)' : '#FFFFFF', borderTop: '1px solid var(--border-light)' }}>
+          <section key={prog.id} id={prog.id === 'ascend' ? 'ascend' : prog.id} style={{ padding: '60px 0', backgroundColor: pi % 2 === 0 ? 'var(--bg-subtle)' : '#FFFFFF', borderTop: '1px solid var(--border-light)' }}>
             <div className="container">
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '56px', alignItems: 'flex-start' }}>
                 <div ref={observe} className="scroll-fade-right">
@@ -983,7 +984,7 @@ export default function CoursesPage() {
                   <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: 1.7, marginBottom: '24px' }}>{prog.desc}</p>
                   {pi > 0 && (
                     <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem', marginBottom: '22px', fontStyle: 'italic', fontWeight: 700 }}>
-                      {pi === 1 ? 'Everything in Ascent, plus:' : 'Including Everything in Ascend + Mastery, plus:'}
+                      {pi === 1 ? 'Everything in Ascend, plus:' : 'Including Everything in Ascend + Mastery, plus:'}
                     </p>
                   )}
                   <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '32px' }}>
@@ -1181,9 +1182,9 @@ export default function CoursesPage() {
               <p style={{ color: 'var(--text-light)', lineHeight: 1.7, fontSize: '1.05rem' }}>Four quick questions. Immediate result. No sign-up required to see your recommendation.</p>
               <div style={{ marginTop: '32px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 {[
-                  { icon: <Compass size={18} color="#10B981" />, label: 'Ascent', desc: 'Self-paced prep' },
+                  { icon: <Compass size={18} color="#10B981" />, label: 'Ascend', desc: 'Self-paced prep' },
                   { icon: <GraduationCap size={18} color="#d4af37" />, label: 'Mastery', desc: 'Live classes' },
-                  { icon: <Globe2 size={18} color="var(--text-light)" />, label: 'MedPath Elite', desc: 'Full journey support' },
+                  { icon: <Globe2 size={18} color="var(--text-light)" />, label: 'Ahsora MedPath Elite', desc: 'Full journey support' },
                 ].map((t, i) => (
                   <div key={i} style={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
                     <div style={{ padding: '8px', background: 'rgba(255,255,255,0.05)', borderRadius: 'var(--radius-md)' }}>{t.icon}</div>
@@ -1352,9 +1353,9 @@ export default function CoursesPage() {
           </h2>
           <p ref={observe} className="scroll-fade-up" style={{ color: 'var(--text-light)', fontSize: '1.1rem', marginBottom: '36px', transitionDelay: '100ms' }}>Choose the level of preparation and support that fits your journey.</p>
           <div ref={observe} className="scroll-fade-up" style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '32px', transitionDelay: '200ms' }}>
-            <a href="#ascent" className="btn-outline" style={{ color: '#fff', borderColor: 'rgba(255,255,255,0.2)', padding: '14px 28px' }} onMouseEnter={e => {e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'}} onMouseLeave={e => {e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'}}>Ascent</a>
+            <a href="#ascend" className="btn-outline" style={{ color: '#fff', borderColor: 'rgba(255,255,255,0.2)', padding: '14px 28px' }} onMouseEnter={e => {e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'}} onMouseLeave={e => {e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'}}>Ascend</a>
             <a href="#mastery" className="btn-primary" style={{ padding: '14px 36px' }}>Mastery</a>
-            <a href="#elite" className="btn-outline" style={{ color: '#fff', borderColor: 'rgba(255,255,255,0.2)', padding: '14px 28px' }} onMouseEnter={e => {e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'}} onMouseLeave={e => {e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'}}>MedPath Elite</a>
+            <a href="#elite" className="btn-outline" style={{ color: '#fff', borderColor: 'rgba(255,255,255,0.2)', padding: '14px 28px' }} onMouseEnter={e => {e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'}} onMouseLeave={e => {e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'}}>Ahsora MedPath Elite</a>
           </div>
           <div ref={observe} className="scroll-fade-up" style={{ transitionDelay: '300ms' }}>
             <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Not sure which programme is right for you? </span>

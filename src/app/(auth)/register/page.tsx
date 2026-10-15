@@ -243,7 +243,7 @@ export default function RegisterPage() {
       filteredList.unshift(pendingStudent);
       localStorage.setItem('adminStudentList', JSON.stringify(filteredList));
 
-      // If Ahsora Path Elite package selected, auto-add to MedPath Elite list
+      // If Ahsora MedPath Elite package selected, auto-add to MedPath Elite list
       if (pkgObj.id === 'elite') {
         const eliteItem = {
           id: pendingStudent.id,

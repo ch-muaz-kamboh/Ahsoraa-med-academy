@@ -109,7 +109,7 @@ export default function PrivacyPolicyPage() {
               <p>We collect information directly relevant to the educational services you use:</p>
               <ul style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <li><strong>Enquiries and contact details:</strong> Full name, email address, WhatsApp/phone number, target country, target university/exam, and messages.</li>
-                <li><strong>Account and enrolment information:</strong> Student credentials, chosen package (Ascend, Mastery, or Path Elite), enrolment date, and verified student ID.</li>
+                <li><strong>Account and enrolment information:</strong> Student credentials, chosen package (Ascend, Mastery, or Ahsora MedPath Elite), enrolment date, and verified student ID.</li>
                 <li><strong>Purchase and payment records:</strong> Purchaser details, course fee, payment verification references, and receipt proofs. We do not store card security PINs or full bank credentials.</li>
                 <li><strong>Learning performance:</strong> CBT mock test responses, score breakdowns, subject accuracy, question bank progress, mistake notebook entries, and attendance logs.</li>
                 <li><strong>Live session data:</strong> Display name, chat messages, and microphone/video contributions where actively enabled in interactive masterclasses.</li>

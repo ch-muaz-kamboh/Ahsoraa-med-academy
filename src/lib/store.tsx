@@ -1160,7 +1160,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
                 return sEmail === rawEmail;
               });
               if (isElite) {
-                userPkg = 'Ahsora Path Elite';
+                userPkg = 'Ahsora MedPath Elite';
                 userPrice = '€799';
               }
             }

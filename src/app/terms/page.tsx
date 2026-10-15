@@ -214,7 +214,7 @@ export default function TermsAndConditionsPage() {
                   Our courses may include live teaching, recorded lessons, teacher support, question banks, mock examinations, progress analytics, and digital learning resources. Only the features expressly included in the package purchased form part of that purchase.
                 </p>
                 <p>
-                  Question counts, mock-test numbers, teaching hours, and portal periods are those stated for your package when purchased (e.g., <strong>Ahsora IMAT Ascend</strong> €299, <strong>Ahsora IMAT Mastery</strong> €499, or <strong>Ahsora Path Elite</strong> €799). General descriptions of our wider services do not include every service in every course.
+                  Question counts, mock-test numbers, teaching hours, and portal periods are those stated for your package when purchased (e.g., <strong>Ahsora IMAT Ascend</strong> €299, <strong>Ahsora IMAT Mastery</strong> €499, or <strong>Ahsora MedPath Elite</strong> €799). General descriptions of our wider services do not include every service in every course.
                 </p>
                 <p>
                   Free public mock examinations and freely accessible materials are separate from paid courses. A free mock is not a trial purchase or a promise of access to all paid features.
@@ -262,7 +262,7 @@ export default function TermsAndConditionsPage() {
                   Live teaching and student responsibilities
                 </h2>
                 <p>
-                  Where included (such as in the <strong>Mastery</strong> and <strong>Path Elite</strong> tracks), live teaching is delivered through Microsoft Teams or another designated platform. Students must maintain a suitable device and internet connection.
+                  Where included (such as in the <strong>Mastery</strong> and <strong>Ahsora MedPath Elite</strong> tracks), live teaching is delivered through Microsoft Teams or another designated platform. Students must maintain a suitable device and internet connection.
                 </p>
                 <p>
                   A student’s absence does not automatically entitle them to a replacement individual class or refund. Recordings are included where expressly stated for your package. Students must not record sessions or distribute class links without prior written authorization.

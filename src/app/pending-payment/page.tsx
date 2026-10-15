@@ -248,18 +248,53 @@ function PendingPaymentContent() {
             </div>
 
             <p style={{ color: '#92400E', fontSize: '0.8125rem', marginTop: '16px', lineHeight: 1.6 }}>
-              📨 After completing payment, send your transaction screenshot/receipt to <strong>admissions@ahsorameds.com</strong> or via WhatsApp to <strong>+92 300 1234567</strong> with your email (<strong>{studentDetails?.email}</strong>). Our admissions team will verify and activate your portal access within 12-24 hours.
+              📨 After completing payment, send your transaction screenshot/receipt to <strong>admissions@ahsorameds.com</strong> or via WhatsApp to <a href="https://wa.me/393333444479" target="_blank" rel="noopener noreferrer" style={{ color: '#059669', fontWeight: 800 }}>+39 333 3444 479</a> with your email (<strong>{studentDetails?.email}</strong>). Our admissions team will verify and activate your portal access within 12-24 hours.
             </p>
           </div>
 
           {/* Action Buttons */}
           <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+            <a
+              href={`https://wa.me/393333444479?text=${encodeURIComponent(`Hi Ahsora Admissions, I have submitted payment for ${studentDetails?.packageName || 'course'} under email ${studentDetails?.email}. Here is my payment receipt:`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                backgroundColor: '#16A34A',
+                borderColor: '#16A34A',
+                padding: '14px 24px',
+                borderRadius: '10px',
+                color: '#FFFFFF',
+                fontWeight: 700,
+                fontSize: '0.9375rem',
+                textDecoration: 'none',
+                flex: 1,
+                minWidth: '220px',
+              }}
+            >
+              Send Receipt via WhatsApp
+            </a>
             <button
               onClick={() => window.location.reload()}
-              className="btn-primary"
-              style={{ flex: 1, minWidth: '220px', padding: '14px', fontSize: '0.9375rem', fontWeight: 700, justifyContent: 'center' }}
+              style={{
+                flex: 1,
+                minWidth: '180px',
+                padding: '14px',
+                fontSize: '0.9375rem',
+                fontWeight: 700,
+                justifyContent: 'center',
+                borderRadius: '10px',
+                border: '1px solid #CBD5E1',
+                backgroundColor: '#FFFFFF',
+                color: '#0F172A',
+                cursor: 'pointer',
+              }}
             >
-              Check Verification Status
+              Check Status
             </button>
             <button
               onClick={handleLogout}

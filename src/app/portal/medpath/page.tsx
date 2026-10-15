@@ -251,7 +251,7 @@ export default function MedpathPage() {
           <span style={{ backgroundColor: '#EA580C', color: '#FFFFFF', fontSize: '0.6875rem', fontWeight: 800, padding: '3px 10px', borderRadius: '12px', letterSpacing: '0.5px' }}>
             MEDPATH ELITE
           </span>
-          <span style={{ fontSize: '0.8125rem', color: '#64748B' }}>Ahsora Path Elite Package</span>
+          <span style={{ fontSize: '0.8125rem', color: '#64748B' }}>Ahsora MedPath Elite Package</span>
         </div>
         <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#0F172A', marginBottom: '6px' }}>
           Your University Journey
@@ -387,7 +387,7 @@ function LockedEliteScreen({ currentPackage }: { currentPackage: string | null }
 
         <h1 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#0F172A', marginBottom: '12px', lineHeight: 1.2 }}>
           This section is reserved for<br />
-          <span style={{ color: '#EA580C' }}>Ahsora Path Elite</span> students
+          <span style={{ color: '#EA580C' }}>Ahsora MedPath Elite</span> students
         </h1>
         <p style={{ color: '#64748B', fontSize: '0.9375rem', lineHeight: 1.6, marginBottom: '28px' }}>
           Medpath Elite includes full university admission tracking, DOV guidance, personalized visa support, and guaranteed housing — everything managed by your dedicated senior advisor.
@@ -419,7 +419,7 @@ function LockedEliteScreen({ currentPackage }: { currentPackage: string | null }
 
         <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
           <a
-            href="https://wa.me/message/AHSORAELITE"
+            href="https://wa.me/393333444479?text=Hi%20Ahsora,%20I%20would%20like%20to%20upgrade%20to%20Ahsora%20MedPath%20Elite"
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -437,7 +437,7 @@ function LockedEliteScreen({ currentPackage }: { currentPackage: string | null }
             }}
           >
             <Sparkles size={18} />
-            Upgrade to Path Elite — €799
+            Upgrade to MedPath Elite — €799
             <ArrowRight size={18} />
           </a>
           <Link

@@ -151,14 +151,16 @@ export default function VisaPage() {
                 </ul>
               </div>
 
-              <button
-                onClick={() => setLeadModalOpen(true)}
+              <a
+                href={`https://wa.me/393333444479?text=${encodeURIComponent(`Hi Ahsora, I would like to book a Visa File Review for ${item.country}.`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-primary"
-                style={{ width: '100%', padding: '12px', justifyContent: 'center' }}
+                style={{ width: '100%', padding: '12px', justifyContent: 'center', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}
               >
                 <span>Book Visa File Review</span>
                 <ArrowRight size={16} />
-              </button>
+              </a>
             </div>
           ))}
         </div>

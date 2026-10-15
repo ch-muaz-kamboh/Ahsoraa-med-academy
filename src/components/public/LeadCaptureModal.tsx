@@ -184,9 +184,31 @@ export default function LeadCaptureModal({
               <h4 style={{ fontSize: '1.25rem', color: '#0F172A', marginBottom: '8px' }}>
                 Counselling Request Confirmed!
               </h4>
-              <p style={{ color: '#64748B', fontSize: '0.9375rem', marginBottom: '24px' }}>
+              <p style={{ color: '#64748B', fontSize: '0.9375rem', marginBottom: '20px' }}>
                 Your case profile has been created and assigned to our Senior Admissions Team. A counsellor will reach out via WhatsApp and Email within 24 hours.
               </p>
+              <a
+                href="https://wa.me/393333444479?text=Hi%20Ahsora,%20I%20just%20submitted%20a%20counselling%20request%20on%20your%20website"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  backgroundColor: '#16A34A',
+                  color: '#FFFFFF',
+                  padding: '12px 20px',
+                  borderRadius: '10px',
+                  fontWeight: 700,
+                  fontSize: '0.9rem',
+                  textDecoration: 'none',
+                  width: '100%',
+                  marginBottom: '10px',
+                }}
+              >
+                Chat Directly on WhatsApp (+39 333 3444 479)
+              </a>
               <button
                 onClick={handleResetAndClose}
                 className="btn-primary"
@@ -289,6 +311,25 @@ export default function LeadCaptureModal({
                   <Send size={16} />
                   Submit & Connect with Admissions Counsellor
                 </button>
+              </div>
+
+              <div style={{ textAlign: 'center', marginTop: '12px' }}>
+                <a
+                  href="https://wa.me/393333444479?text=Hi%20Ahsora,%20I%20have%20an%20inquiry%20about%20courses%20and%20admissions"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    fontSize: '0.82rem',
+                    fontWeight: 700,
+                    color: '#16A34A',
+                    textDecoration: 'none',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                  }}
+                >
+                  <span>Or Chat Directly on WhatsApp (+39 333 3444 479) &rarr;</span>
+                </a>
               </div>
 
               <p

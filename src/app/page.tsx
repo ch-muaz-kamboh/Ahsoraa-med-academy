@@ -373,7 +373,7 @@ export default function HomePage() {
     },
     {
       q: 'Do I get access to live classes in all plans?',
-      a: 'Live weekly classes are included in our Mastery and Path Elite plans. Ascend students get portal access until next IMAT (upto 12 months) with 2,800+ practice MCQs, comprehensive study notes, solved past papers 2011-26, and 12 CBT mock exams. Upgrade to Mastery for live interactive classes and teacher Q&A sessions.',
+      a: 'Live weekly classes are included in our Mastery and Ahsora MedPath Elite plans. Ascend students get portal access until next IMAT (upto 12 months) with 2,800+ practice MCQs, comprehensive study notes, solved past papers 2011-26, and 12 CBT mock exams. Upgrade to Mastery for live interactive classes and teacher Q&A sessions.',
     },
   ];
 
@@ -926,14 +926,16 @@ export default function HomePage() {
                 Ahsora gives you live weekly classes, real teachers, a structured learning system, 
                 and complete admissions support — all the way to your Italian university seat.
               </p>
-              <button
-                onClick={() => setLeadModalOpen(true)}
+              <a
+                href="https://wa.me/393333444479?text=Hi%20Ahsora,%20I%20would%20like%20to%20book%20a%20free%20session"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-primary"
-                style={{ padding: '14px 30px', fontSize: '0.9375rem' }}
+                style={{ padding: '14px 30px', fontSize: '0.9375rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
               >
                 <span>Book Free Session</span>
                 <ArrowRight size={16} />
-              </button>
+              </a>
             </AnimatedSection>
 
             {/* Right: 2×2 feature grid */}
@@ -1512,7 +1514,7 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* Package 3: Path Elite */}
+            {/* Package 3: Ahsora MedPath Elite */}
             <div
               style={{
                 border: '1px solid rgba(212,175,55,0.3)',
@@ -1547,7 +1549,7 @@ export default function HomePage() {
                 </span>
               </div>
               <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                Ahsora MedPath elite <Sparkles size={18} color="#D4AF37" />
+                Ahsora MedPath Elite <Sparkles size={18} color="#D4AF37" />
               </h3>
               <p style={{ color: '#94A3B8', fontSize: '0.9375rem', marginBottom: '16px', lineHeight: 1.6 }}>
                 The ultimate 1-on-1 personalized mentorship from IMAT prep to admission.
@@ -1581,8 +1583,10 @@ export default function HomePage() {
                   </li>
                 ))}
               </ul>
-              <button
-                onClick={() => setLeadModalOpen(true)}
+              <a
+                href="https://wa.me/393333444479?text=Hi%20Ahsora,%20I%20would%20like%20to%20inquire%20about%20Ahsora%20MedPath%20Elite"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-primary"
                 style={{
                   width: '100%',
@@ -1592,10 +1596,17 @@ export default function HomePage() {
                   color: '#0F172A',
                   border: 'none',
                   boxShadow: '0 8px 20px rgba(212,175,55,0.3)',
+                  textDecoration: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  fontWeight: 700,
                 }}
               >
-                Contact Us
-              </button>
+                <span>Inquire on WhatsApp</span>
+                <ArrowRight size={16} />
+              </a>
             </div>
           </div>
         </div>
@@ -1747,19 +1758,25 @@ export default function HomePage() {
                 ))}
               </div>
 
-              <button
-                onClick={() => setLeadModalOpen(true)}
+              <a
+                href="https://wa.me/393333444479?text=Hi%20Ahsora,%20I%20would%20like%20to%20book%20a%20free%20session"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-primary"
                 style={{
                   padding: '14px 30px',
                   fontSize: '0.9375rem',
                   backgroundColor: '#059669',
                   boxShadow: '0 8px 28px -4px rgba(92,237,115,0.4)',
+                  textDecoration: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
                 }}
               >
                 <Calendar size={16} />
                 <span>Book a Free Session</span>
-              </button>
+              </a>
             </AnimatedSection>
 
             {/* Right: Live schedule card */}
@@ -1885,8 +1902,10 @@ export default function HomePage() {
                       </div>
 
                       {/* Join button */}
-                      <button
-                        onClick={() => setLeadModalOpen(true)}
+                      <a
+                        href="https://wa.me/393333444479?text=Hi%20Ahsora,%20I%20would%20like%20to%20join%20the%20live%20masterclass%20session"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         style={{
                           flexShrink: 0,
                           backgroundColor: session.live ? '#059669' : 'rgba(255,255,255,0.08)',
@@ -1898,10 +1917,11 @@ export default function HomePage() {
                           fontWeight: 700,
                           cursor: 'pointer',
                           transition: 'all 0.2s',
+                          textDecoration: 'none',
                         }}
                       >
                         {session.live ? 'Join' : 'RSVP'}
-                      </button>
+                      </a>
                     </div>
                   ))}
                 </div>
@@ -1920,8 +1940,8 @@ export default function HomePage() {
                   <span style={{ fontSize: '0.8rem', color: '#64748B' }}>
                     All sessions include replay access
                   </span>
-                  <button
-                    onClick={() => setLeadModalOpen(true)}
+                  <Link
+                    href="/courses"
                     style={{
                       fontSize: '0.8rem',
                       fontWeight: 700,
@@ -1932,10 +1952,11 @@ export default function HomePage() {
                       display: 'flex',
                       alignItems: 'center',
                       gap: '4px',
+                      textDecoration: 'none',
                     }}
                   >
                     Full Schedule <ChevronRight size={13} />
-                  </button>
+                  </Link>
                 </div>
               </div>
             </AnimatedSection>
@@ -2217,7 +2238,7 @@ export default function HomePage() {
                 borderColor: '#059669',
                 date: 'Sep 2026',
                 title: 'New Weekly Live Class Schedule Released',
-                desc: 'Biology, Chemistry, and Critical Thinking live sessions have been scheduled. Enroll in Mastery or Path Elite to join.',
+                desc: 'Biology, Chemistry, and Critical Thinking live sessions have been scheduled. Enroll in Mastery or Ahsora MedPath Elite to join.',
                 icon: <Video size={18} color="#047857" />,
                 link: '/courses',
                 cta: 'Enroll Now',
@@ -2680,19 +2701,25 @@ export default function HomePage() {
                 marginBottom: '32px',
               }}
             >
-              <button
-                onClick={() => setLeadModalOpen(true)}
+              <a
+                href="https://wa.me/393333444479?text=Hi%20Ahsora,%20I%20would%20like%20to%20book%20a%20free%201-on-1%20counselling%20session"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-primary"
                 style={{
                   padding: '16px 36px',
                   fontSize: '1rem',
                   backgroundColor: '#059669',
                   boxShadow: '0 8px 28px -4px rgba(5,150,105,0.5)',
+                  textDecoration: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
                 }}
               >
                 <span>Book Free 1-on-1 Counselling</span>
                 <ArrowRight size={18} />
-              </button>
+              </a>
               <Link
                 href="/free-mock"
                 style={{

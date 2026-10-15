@@ -511,8 +511,10 @@ export default function ScholarshipsHubPage() {
               </div>
             </div>
 
-            <button
-              onClick={() => setLeadModalOpen(true)}
+            <a
+              href="https://wa.me/393333444479?text=Hi%20Ahsora,%20I%20would%20like%20to%20verify%20my%20documents%20for%20Italian%20scholarships"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
                 background: '#059669',
                 color: '#FFFFFF',
@@ -527,10 +529,11 @@ export default function ScholarshipsHubPage() {
                 gap: '8px',
                 boxShadow: '0 4px 12px rgba(5,150,105,0.25)',
                 whiteSpace: 'nowrap',
+                textDecoration: 'none',
               }}
             >
               Verify My Documents <ArrowRight size={15} />
-            </button>
+            </a>
           </div>
         </div>
 
@@ -1050,8 +1053,10 @@ export default function ScholarshipsHubPage() {
             </p>
 
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', flexWrap: 'wrap' }}>
-              <button
-                onClick={() => setLeadModalOpen(true)}
+              <a
+                href="https://wa.me/393333444479?text=Hi%20Ahsora,%20I%20would%20like%20to%20book%201-on-1%20scholarship%20guidance"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
                   background: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
                   color: '#FFFFFF',
@@ -1065,10 +1070,11 @@ export default function ScholarshipsHubPage() {
                   alignItems: 'center',
                   gap: '8px',
                   boxShadow: '0 4px 18px rgba(5,150,105,0.4)',
+                  textDecoration: 'none',
                 }}
               >
                 Book 1-on-1 Scholarship Guidance <ArrowRight size={15} />
-              </button>
+              </a>
 
               <Link
                 href="/universities"

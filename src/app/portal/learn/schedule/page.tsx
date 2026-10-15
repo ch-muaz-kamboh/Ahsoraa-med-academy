@@ -73,7 +73,7 @@ export default function StudentSchedulePage() {
             <span style={{ color: '#059669' }}>Mastery & Elite</span> students
           </h1>
           <p style={{ color: '#64748B', fontSize: '0.9375rem', lineHeight: 1.6, marginBottom: '24px' }}>
-            The interactive live schedule and real-time classes are exclusively available for students enrolled in our Mastery and Path Elite packages. Ascend students have full access to recorded lectures, library, and practice banks.
+            The interactive live schedule and real-time classes are exclusively available for students enrolled in our Mastery and Ahsora MedPath Elite packages. Ascend students have full access to recorded lectures, library, and practice banks.
           </p>
 
           {/* Current Package Info */}
@@ -99,7 +99,7 @@ export default function StudentSchedulePage() {
 
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <a
-              href="https://wa.me/message/AHSORAELITE"
+              href="https://wa.me/393333444479?text=Hi%20Ahsora,%20I%20would%20like%20to%20upgrade%20to%20Mastery%20or%20MedPath%20Elite"
               target="_blank"
               rel="noopener noreferrer"
               style={{

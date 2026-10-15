@@ -47,7 +47,7 @@ export const ACADEMY_PACKAGES: CoursePackage[] = [
   },
   {
     id: 'elite',
-    name: 'Ahsora Path Elite',
+    name: 'Ahsora MedPath Elite',
     price: '€799',
     numericPrice: 799,
     period: 'one-time',
@@ -307,7 +307,7 @@ export function resolveEffectivePackage(currentUser?: { email?: string; selected
               const sEmail = (s?.email || '').toLowerCase().trim();
               return sEmail === email;
             });
-            if (isElite) return 'Ahsora Path Elite';
+            if (isElite) return 'Ahsora MedPath Elite';
           }
         }
       } catch {}

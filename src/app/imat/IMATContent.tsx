@@ -141,8 +141,8 @@ export default function IMATContent() {
     { q: 'What score do I need?', a: 'Cutoff scores vary each year and by university. Typically, top choices require higher scores (e.g., 50+), while others may have lower cutoffs. Treat mock scores as a guide, not a guarantee.' },
     { q: 'Can I retake the IMAT?', a: 'Yes, you can retake it in subsequent years if you do not secure a place. There is no limit on retakes.' },
     { q: 'How should I prepare?', a: 'Master the core syllabus, practice with IMAT-style questions, take full-length timed mocks, and analyze your weak points. Consistent, targeted practice is key.' },
-    { q: 'Does Ahsora offer live classes?', a: 'Yes. The Ahsora IMAT Mastery and MedPath Elite programmes include live, teacher-led classes along with full access to our mock tests and question bank.' },
-    { q: 'Which Ahsora programme is right for me?', a: 'If you prefer self-paced study, choose Ascent. For live teaching, choose Mastery. For end-to-end exam prep and admission guidance, choose MedPath Elite.' },
+    { q: 'Does Ahsora offer live classes?', a: 'Yes. The Ahsora IMAT Mastery and Ahsora MedPath Elite programmes include live, teacher-led classes along with full access to our mock tests and question bank.' },
+    { q: 'Which Ahsora programme is right for me?', a: 'If you prefer self-paced study, choose Ascend. For live teaching, choose Mastery. For end-to-end exam prep and admission guidance, choose Ahsora MedPath Elite.' },
   ];
 
   return (
@@ -568,7 +568,7 @@ export default function IMATContent() {
               <p style={{ color: '#64748B', fontSize: '0.92rem', margin: 0 }}>Your status depends on citizenship and residency — not just where you're from.</p>
             </div>
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-              <button onClick={() => setLeadOpen(true)} className="btn-primary">Ask us directly</button>
+              <a href="https://wa.me/393333444479?text=Hi%20Ahsora,%20I%20have%20a%20question%20about%20IMAT%20eligibility" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ textDecoration: 'none' }}>Ask us directly</a>
               <a href="https://www.universitaly.it" target="_blank" rel="noopener noreferrer" className="btn-outline">Check Universitaly.it</a>
             </div>
           </div>
@@ -731,9 +731,9 @@ export default function IMATContent() {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '30px' }}>
              {[
-               { id: 'ascend', name: 'IMAT Ascent', desc: 'Independent, structured self-paced preparation.' },
+               { id: 'ascend', name: 'IMAT Ascend', desc: 'Independent, structured self-paced preparation.' },
                { id: 'mastery', name: 'IMAT Mastery', desc: 'Structured preparation + live teacher-led classes.', highlight: true },
-               { id: 'elite', name: 'MedPath Elite', desc: 'Full IMAT preparation + university & admissions support.' }
+               { id: 'elite', name: 'Ahsora MedPath Elite', desc: 'Full IMAT preparation + university & admissions support.' }
              ].map((path, i) => {
                const p = getPrice(path.id);
                return (
@@ -943,7 +943,7 @@ export default function IMATContent() {
               <h4 style={{ fontWeight: 800, color: '#0F172A', fontSize: '1.2rem', marginBottom: '8px' }}>Still have questions?</h4>
               <p style={{ color: '#64748B', fontSize: '0.92rem', margin: 0, lineHeight: 1.6 }}>Our advisors are happy to help you navigate the IMAT, programme selection, and admissions process.</p>
             </div>
-            <button onClick={() => setLeadOpen(true)} className="btn-primary" style={{ padding: '14px 28px', fontSize: '0.95rem', flexShrink: 0 }}>Talk to an Advisor</button>
+            <a href="https://wa.me/393333444479?text=Hi%20Ahsora,%20I%20would%20like%20to%20talk%20to%20an%20admissions%20advisor" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: '14px 28px', fontSize: '0.95rem', flexShrink: 0, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>Talk to an Advisor</a>
           </div>
         </div>
       </section>

@@ -86,12 +86,12 @@ export default function PortalDocumentsPage() {
           </div>
 
           <div style={{ display: 'inline-block', backgroundColor: '#FFF7ED', border: '1px solid #FED7AA', color: '#C2410C', fontSize: '0.75rem', fontWeight: 800, padding: '4px 12px', borderRadius: '20px', letterSpacing: '0.5px', marginBottom: '16px' }}>
-            DOCUMENT VAULT — EXCLUSIVE TO PATH ELITE
+            DOCUMENT VAULT — EXCLUSIVE TO MEDPATH ELITE
           </div>
 
           <h1 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#0F172A', marginBottom: '12px', lineHeight: 1.2 }}>
             This section is reserved for<br />
-            <span style={{ color: '#EA580C' }}>Ahsora Path Elite</span> students
+            <span style={{ color: '#EA580C' }}>Ahsora MedPath Elite</span> students
           </h1>
           <p style={{ color: '#64748B', fontSize: '0.9375rem', lineHeight: 1.6, marginBottom: '24px' }}>
             The Document Vault is a secure space where Elite students can safely upload and manage all their official university admission and visa application documents, directly reviewed by their senior advisor.
@@ -120,7 +120,7 @@ export default function PortalDocumentsPage() {
 
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <a
-              href="https://wa.me/message/AHSORAELITE"
+              href="https://wa.me/393333444479?text=Hi%20Ahsora,%20I%20would%20like%20to%20upgrade%20to%20Ahsora%20MedPath%20Elite"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -138,7 +138,7 @@ export default function PortalDocumentsPage() {
               }}
             >
               <Sparkles size={18} />
-              Upgrade to Path Elite — €799
+              Upgrade to MedPath Elite — €799
               <ArrowRight size={18} />
             </a>
             <Link

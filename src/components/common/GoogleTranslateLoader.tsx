@@ -38,7 +38,7 @@ export default function GoogleTranslateLoader() {
             new window.google.translate.TranslateElement(
               {
                 pageLanguage: 'en',
-                includedLanguages: 'en,bn,ar,fa,tr',
+                includedLanguages: 'en,bn,ar,fa,tr,fr,it,es,ru,zh-CN,hi,si,ne,ta',
                 autoDisplay: false,
               },
               'google_translate_element'
