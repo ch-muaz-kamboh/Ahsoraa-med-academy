@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
+import { enforceEnglishGoogleCookies } from '@/lib/i18n/LanguageContext';
 
 declare global {
   interface Window {
@@ -43,8 +44,7 @@ export default function GoogleTranslateLoader() {
               'google_translate_element'
             );
 
-            // Once initialized, if user previously chose another language, trigger it
-            const savedLang = localStorage.getItem('ahsora_selected_lang');
+            const savedLang = localStorage.getItem('ahsora_selected_lang') || 'en';
             if (savedLang && savedLang !== 'en') {
               setTimeout(() => {
                 const select = document.querySelector('.goog-te-combo') as HTMLSelectElement | null;
@@ -53,6 +53,16 @@ export default function GoogleTranslateLoader() {
                   select.dispatchEvent(new Event('change', { bubbles: true }));
                 }
               }, 400);
+            } else {
+              // Ensure English cookies and combo are strictly enforced so Google Translate never reverts to another language!
+              enforceEnglishGoogleCookies();
+              setTimeout(() => {
+                const select = document.querySelector('.goog-te-combo') as HTMLSelectElement | null;
+                if (select && select.value !== '') {
+                  select.value = '';
+                  select.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+              }, 200);
             }
           }
         } catch (e) {

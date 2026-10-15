@@ -23,27 +23,36 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 const STORAGE_KEY = 'ahsora_selected_lang';
 
-function clearGoogleTranslateCookies() {
+export function enforceEnglishGoogleCookies() {
   if (typeof window === 'undefined') return;
 
   const hostname = window.location.hostname;
-  const hostParts = hostname.split('.');
-  const domains = [
-    '',
-    hostname,
-    `.${hostname}`,
-    hostParts.length > 1 ? `.${hostParts.slice(-2).join('.')}` : '',
-  ].filter(Boolean);
+  const isIp = /^(\d{1,3}\.){3}\d{1,3}$/.test(hostname);
+  const isLocal = hostname === 'localhost' || isIp;
+
+  const domainsToDelete = ['', hostname, `.${hostname}`];
+  if (!isLocal && hostname.includes('.')) {
+    const rootDomain = hostname.split('.').slice(-2).join('.');
+    domainsToDelete.push(`.${rootDomain}`);
+    domainsToDelete.push(rootDomain);
+  }
 
   const paths = ['/', '/en', '/portal', window.location.pathname];
 
-  domains.forEach((d) => {
+  // 1. Expire all existing non-English cookies
+  domainsToDelete.forEach((d) => {
     paths.forEach((p) => {
       const domainAttr = d ? `domain=${d}; ` : '';
       document.cookie = `googtrans=; ${domainAttr}path=${p}; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; SameSite=Lax`;
-      document.cookie = `googtrans=/en/en; ${domainAttr}path=${p}; max-age=0; SameSite=Lax`;
     });
   });
+
+  // 2. Explicitly set googtrans to /en/en with 1 year validity so Google Translate knows page is in English
+  document.cookie = `googtrans=/en/en; path=/; max-age=31536000; SameSite=Lax`;
+  if (!isLocal) {
+    document.cookie = `googtrans=/en/en; path=/; domain=.${hostname.replace(/^www\./, '')}; max-age=31536000; SameSite=Lax`;
+    document.cookie = `googtrans=/en/en; path=/; domain=${hostname}; max-age=31536000; SameSite=Lax`;
+  }
 }
 
 function setGoogleTranslateCookie(lang: LanguageCode) {
@@ -126,7 +135,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       applyDocumentAttributes(code);
 
       if (code === 'en') {
-        clearGoogleTranslateCookies();
+        enforceEnglishGoogleCookies();
 
         // If switching back from another language to English:
         if (prev !== 'en') {

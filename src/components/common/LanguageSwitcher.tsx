@@ -52,7 +52,8 @@ export default function LanguageSwitcher({
   if (variant === 'mobile') {
     return (
       <div
-        className={`mobile-lang-switcher ${className}`}
+        className={`mobile-lang-switcher notranslate ${className}`}
+        translate="no"
         style={{
           padding: '12px 0',
           borderTop: '1px solid #E2E8F0',
@@ -60,6 +61,8 @@ export default function LanguageSwitcher({
         }}
       >
         <div
+          className="notranslate"
+          translate="no"
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -73,10 +76,12 @@ export default function LanguageSwitcher({
           }}
         >
           <Globe size={15} color="#059669" />
-          <span>Language / ভাষা / اللغة / زبان / Dil</span>
+          <span className="notranslate" translate="no">Language / ভাষা / اللغة / زبان / Dil</span>
         </div>
 
         <div
+          className="notranslate"
+          translate="no"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(2, 1fr)',
@@ -89,6 +94,8 @@ export default function LanguageSwitcher({
               <button
                 key={item.code}
                 type="button"
+                className="notranslate"
+                translate="no"
                 onClick={() => handleSelectLanguage(item.code)}
                 style={{
                   display: 'flex',
@@ -107,11 +114,11 @@ export default function LanguageSwitcher({
                   transition: 'all 0.15s ease',
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ fontSize: '1.05rem', lineHeight: 1 }}>{item.flag}</span>
-                  <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.2 }}>
-                    <span>{item.nativeName}</span>
-                    <span style={{ fontSize: '0.68rem', color: '#64748B' }}>{item.name}</span>
+                <div className="notranslate" translate="no" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span className="notranslate" translate="no" style={{ fontSize: '1.05rem', lineHeight: 1 }}>{item.flag}</span>
+                  <div className="notranslate" translate="no" style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.2 }}>
+                    <span className="notranslate" translate="no">{item.nativeName}</span>
+                    <span className="notranslate" translate="no" style={{ fontSize: '0.68rem', color: '#64748B' }}>{item.name}</span>
                   </div>
                 </div>
                 {isSelected && <Check size={14} color="#059669" strokeWidth={3} />}
@@ -129,15 +136,18 @@ export default function LanguageSwitcher({
   return (
     <div
       ref={containerRef}
-      className={`lang-switcher-container ${className}`}
+      className={`lang-switcher-container notranslate ${className}`}
+      translate="no"
       style={{
         position: 'relative',
         display: 'inline-block',
       }}
     >
-      {/* Trigger Button */}
+      {/* Trigger Button - Protected from Google Translate */}
       <button
         type="button"
+        className="notranslate"
+        translate="no"
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
@@ -160,8 +170,10 @@ export default function LanguageSwitcher({
         }}
       >
         <Globe size={isPortal ? 16 : 14} color={isOpen ? '#059669' : '#64748B'} />
-        <span style={{ fontSize: '0.95rem', lineHeight: 1 }}>{currentLangInfo.flag}</span>
+        <span className="notranslate" translate="no" style={{ fontSize: '0.95rem', lineHeight: 1 }}>{currentLangInfo.flag}</span>
         <span
+          className="notranslate"
+          translate="no"
           style={{
             fontWeight: 600,
             fontSize: '0.8125rem',
@@ -180,10 +192,12 @@ export default function LanguageSwitcher({
         />
       </button>
 
-      {/* Dropdown Menu */}
+      {/* Dropdown Menu - Protected from Google Translate */}
       {isOpen && (
         <div
           role="listbox"
+          className="notranslate"
+          translate="no"
           style={{
             position: 'absolute',
             top: 'calc(100% + 6px)',
@@ -200,6 +214,8 @@ export default function LanguageSwitcher({
         >
           {/* Header indicator */}
           <div
+            className="notranslate"
+            translate="no"
             style={{
               padding: '6px 10px 8px',
               borderBottom: '1px solid #F1F5F9',
@@ -207,6 +223,8 @@ export default function LanguageSwitcher({
             }}
           >
             <span
+              className="notranslate"
+              translate="no"
               style={{
                 fontSize: '0.7rem',
                 fontWeight: 700,
@@ -219,7 +237,7 @@ export default function LanguageSwitcher({
             </span>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+          <div className="notranslate" translate="no" style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
             {languages.map((item) => {
               const isSelected = language === item.code;
               return (
@@ -227,6 +245,8 @@ export default function LanguageSwitcher({
                   key={item.code}
                   type="button"
                   role="option"
+                  className="notranslate"
+                  translate="no"
                   aria-selected={isSelected}
                   onClick={() => handleSelectLanguage(item.code)}
                   style={{
@@ -250,10 +270,12 @@ export default function LanguageSwitcher({
                     if (!isSelected) e.currentTarget.style.backgroundColor = 'transparent';
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <span style={{ fontSize: '1.2rem', lineHeight: 1 }}>{item.flag}</span>
-                    <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.25 }}>
+                  <div className="notranslate" translate="no" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <span className="notranslate" translate="no" style={{ fontSize: '1.2rem', lineHeight: 1 }}>{item.flag}</span>
+                    <div className="notranslate" translate="no" style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.25 }}>
                       <span
+                        className="notranslate"
+                        translate="no"
                         style={{
                           fontWeight: isSelected ? 700 : 500,
                           fontSize: '0.85rem',
@@ -261,7 +283,7 @@ export default function LanguageSwitcher({
                       >
                         {item.nativeName}
                       </span>
-                      <span style={{ fontSize: '0.72rem', color: '#64748B' }}>
+                      <span className="notranslate" translate="no" style={{ fontSize: '0.72rem', color: '#64748B' }}>
                         {item.name} {item.dir === 'rtl' ? '(RTL)' : ''}
                       </span>
                     </div>
@@ -269,6 +291,8 @@ export default function LanguageSwitcher({
 
                   {isSelected && (
                     <div
+                      className="notranslate"
+                      translate="no"
                       style={{
                         width: '20px',
                         height: '20px',

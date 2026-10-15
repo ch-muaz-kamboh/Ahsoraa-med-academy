@@ -874,3 +874,11 @@ html[dir="rtl"] .lang-switcher-container [role="listbox"] {
     transform: translateY(0);
   }
 }
+
+/* Guarantee that language switcher menu and labels are never translated */
+.notranslate,
+[translate="no"],
+.lang-switcher-container,
+.mobile-lang-switcher {
+  translate: no !important;
+}
