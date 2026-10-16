@@ -106,6 +106,30 @@ export default function IMATContent() {
   const totalScore = (scoreCalc.correct * 1.5) - (scoreCalc.incorrect * 0.4);
   const inputsTotal = scoreCalc.correct + scoreCalc.incorrect + scoreCalc.blank;
 
+  // Starter Kit Subscribe State
+  const [subName, setSubName] = useState('');
+  const [subEmail, setSubEmail] = useState('');
+  const [subStatus, setSubStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleStarterKitSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!subEmail.trim() || !subEmail.includes('@')) {
+      setSubStatus('error');
+      return;
+    }
+    try {
+      const existing = JSON.parse(localStorage.getItem('ahsora_starter_kit_leads') || '[]');
+      existing.unshift({
+        name: subName.trim() || 'Candidate',
+        email: subEmail.trim(),
+        createdAt: new Date().toISOString(),
+        source: 'IMAT Page Starter Kit',
+      });
+      localStorage.setItem('ahsora_starter_kit_leads', JSON.stringify(existing));
+    } catch {}
+    setSubStatus('success');
+  };
+
   // Hooks for scroll animations
   const heroRef = useScrollAnimation();
   const introRef = useScrollAnimation();
@@ -165,9 +189,9 @@ export default function IMATContent() {
               <button onClick={() => setLeadOpen(true)} className="btn-primary" style={{ padding: '13px 28px', fontSize: '0.98rem' }}>
                 <span>Take the Free IMAT Mock</span>
               </button>
-              <a href="#starter-kit" className="btn-outline" style={{ padding: '13px 24px', fontSize: '0.98rem', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.3)', backgroundColor: 'rgba(255,255,255,0.06)' }}>
+              <Link href="/resources" className="btn-outline" style={{ padding: '13px 24px', fontSize: '0.98rem', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.3)', backgroundColor: 'rgba(255,255,255,0.06)', textDecoration: 'none' }}>
                 Download IMAT Papers
-              </a>
+              </Link>
             </div>
           </div>
           <div className="scroll-fade-left is-visible" style={{ display: 'flex', justifyContent: 'center' }}>
@@ -221,7 +245,7 @@ export default function IMATContent() {
                 The exam is time-limited, so effective preparation requires both subject mastery and exam strategy — not one or the other. Not every Italian Medicine programme uses the IMAT, so confirming your target university's admission route is an important early step.
               </p>
               <div style={{ marginTop: '32px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                <Link href="#scoring" className="btn-primary">See Cutoff Score 2026</Link>
+                <Link href="/universities#cutoff-history" className="btn-primary">See Cutoff Score 2026</Link>
                 <Link href="#preparation" className="btn-outline">How to Prepare</Link>
               </div>
             </div>
@@ -499,7 +523,7 @@ export default function IMATContent() {
           <div ref={segmentRef as React.RefObject<HTMLDivElement>} className="scroll-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
             {[
               { icon: '🎓', title: 'I want to study Medicine in English in Italy', desc: 'The IMAT is the gateway to English-taught Medicine & Surgery at Italian public universities. If this is your goal, this exam is your path.', link: '/universities', cta: 'See IMAT universities' },
-              { icon: '🏛️', title: "I'm not sure which university fits me", desc: 'Italy has over 10 universities offering IMAT-based admission. Each has different city vibes, fees, and programme styles — explore them before deciding.', link: '/universities', cta: 'Explore Universities' },
+              { icon: '🏛️', title: "I'm not sure which university fits me", desc: 'Italy has over 20 universities offering IMAT-based admission. Each has different city vibes, fees, and programme styles — explore them before deciding.', link: '/universities', cta: 'Explore Universities' },
               { icon: '🌍', title: "I'm not sure which admission category applies", desc: 'EU and Non-EU candidates follow different quotas and processes. The distinction is based on residency and citizenship — not nationality alone.', href: '#eu-noneu', cta: 'See EU / Non-EU guidance' },
             ].map((card, i) => (
               <div key={i} className="card" style={{ padding: '22px 24px', display: 'flex', flexDirection: 'column', gap: '10px', borderRadius: '16px', transition: 'all 0.25s ease' }}>
@@ -637,7 +661,7 @@ export default function IMATContent() {
               <p style={{ color: '#475569', fontSize: '1.05rem', lineHeight: 1.85, marginBottom: '32px' }}>
                 Regional scholarships (DSU) can reduce or cover tuition entirely and include a living stipend for eligible students, including international applicants.
               </p>
-              <Link href="/scholarships" className="btn-primary">Explore Costs &amp; Scholarships <ArrowRight size={18}/></Link>
+              <Link href="/universities/scholarships" className="btn-primary">Explore Costs &amp; Scholarships <ArrowRight size={18}/></Link>
             </div>
             {/* Fact cards */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -822,14 +846,46 @@ export default function IMATContent() {
             <div style={{ backgroundColor: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(8px)', borderRadius: '24px', padding: '40px', border: '1px solid rgba(255,255,255,0.1)' }}>
               <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '8px' }}>Send it to my inbox</h3>
               <p style={{ color: '#64748B', fontSize: '0.9rem', marginBottom: '28px' }}>Join 2,000+ students who've already downloaded it.</p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                <input type="text" placeholder="Your Name" className="form-input" style={{ backgroundColor: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', color: '#FFFFFF' }} />
-                <input type="email" placeholder="Your Email" className="form-input" style={{ backgroundColor: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', color: '#FFFFFF' }} />
-                <button className="btn-primary" style={{ width: '100%', marginTop: '4px', padding: '16px', fontSize: '1rem' }}>
-                  Get the Free Starter Kit <ArrowRight size={18}/>
-                </button>
-              </div>
-              <p style={{ color: '#475569', fontSize: '0.78rem', marginTop: '16px', textAlign: 'center' }}>No spam. Unsubscribe anytime.</p>
+              
+              {subStatus === 'success' ? (
+                <div style={{ backgroundColor: 'rgba(16, 185, 129, 0.15)', border: '1.5px solid #10B981', borderRadius: '16px', padding: '24px', textAlign: 'center' }}>
+                  <div style={{ width: '48px', height: '48px', borderRadius: '50%', backgroundColor: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px' }}>
+                    <CheckCircle2 size={26} color="#FFFFFF" />
+                  </div>
+                  <h4 style={{ color: '#FFFFFF', fontSize: '1.1rem', fontWeight: 800, margin: '0 0 6px' }}>Starter Kit Sent!</h4>
+                  <p style={{ color: '#A7F3D0', fontSize: '0.875rem', lineHeight: 1.5, margin: 0 }}>
+                    We&apos;ve sent the complete IMAT Syllabus Checklist and Study Guide to <strong>{subEmail}</strong>. Please check your inbox and promotions tab.
+                  </p>
+                </div>
+              ) : (
+                <form onSubmit={handleStarterKitSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Your Name"
+                    value={subName}
+                    onChange={(e) => setSubName(e.target.value)}
+                    className="form-input"
+                    style={{ backgroundColor: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', color: '#FFFFFF' }}
+                  />
+                  <input
+                    type="email"
+                    required
+                    placeholder="Your Email Address"
+                    value={subEmail}
+                    onChange={(e) => setSubEmail(e.target.value)}
+                    className="form-input"
+                    style={{ backgroundColor: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', color: '#FFFFFF' }}
+                  />
+                  {subStatus === 'error' && (
+                    <div style={{ color: '#EF4444', fontSize: '0.8rem', fontWeight: 600 }}>Please enter a valid email address.</div>
+                  )}
+                  <button type="submit" className="btn-primary" style={{ width: '100%', marginTop: '4px', padding: '16px', fontSize: '1rem', cursor: 'pointer' }}>
+                    Get the Free Starter Kit <ArrowRight size={18}/>
+                  </button>
+                  <p style={{ color: '#94A3B8', fontSize: '0.78rem', marginTop: '6px', textAlign: 'center' }}>No spam. Instant free download.</p>
+                </form>
+              )}
             </div>
           </div>
         </div>

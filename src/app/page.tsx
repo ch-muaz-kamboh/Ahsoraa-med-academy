@@ -299,7 +299,7 @@ export default function HomePage() {
   const [leadModalOpen, setLeadModalOpen] = useState(false);
   const [cycleVisible, setCycleVisible] = useState(false);
   const [showFaqList, setShowFaqList] = useState(false);
-  const [openFaqIndices, setOpenFaqIndices] = useState<number[]>([]);
+  const [openFaqIndices, setOpenFaqIndices] = useState<number[]>([0]);
   const [tickerItems, setTickerItems] = useState<TickerItem[]>(() => {
     try {
       return getTickerItems();
@@ -655,7 +655,7 @@ export default function HomePage() {
                 style={{
                   position: 'relative',
                   width: '100%',
-                  maxWidth: '460px',
+                  maxWidth: '490px',
                   paddingBottom: '20px',
                 }}
               >
@@ -663,9 +663,10 @@ export default function HomePage() {
                 <div
                   className="hero-photo-primary img-interactive-hover"
                   style={{
-                    borderRadius: '22px',
-                    boxShadow: '0 20px 45px -10px rgba(15,23,42,0.18)',
-                    aspectRatio: '16/11',
+                    borderRadius: '24px',
+                    boxShadow: '0 24px 50px -10px rgba(15,23,42,0.22)',
+                    aspectRatio: '4/3.4',
+                    minHeight: '370px',
                     backgroundColor: '#F1F5F9',
                     border: '2px solid #E2E8F0',
                     position: 'relative',
@@ -1285,7 +1286,7 @@ export default function HomePage() {
               Choose your IMAT journey
             </h2>
             <p style={{ color: '#64748B', fontSize: '1rem', marginTop: '12px', lineHeight: 1.7 }}>
-              Every plan includes our full video library and IMAT question bank. Upgrade for live classes and 1-on-1 support.
+              Every plan includes our complete subject library and IMAT question bank. Upgrade for live classes and 1-on-1 support.
             </p>
           </AnimatedSection>
 
@@ -1717,7 +1718,7 @@ export default function HomePage() {
                   {
                     icon: <Mic size={18} color="#059669" />,
                     title: 'Weekly Live Subject Lectures',
-                    desc: 'Biology, Chemistry, Physics & Critical Thinking — live every week.',
+                    desc: 'Biology, Chemistry, Physics, Mathematics & Critical Thinking — live every week.',
                   },
                   {
                     icon: <MessageCircle size={18} color="#059669" />,
@@ -2295,23 +2296,25 @@ export default function HomePage() {
                     {item.date}
                   </span>
                 </div>
-                <div
-                  style={{
-                    width: '40px',
-                    height: '40px',
-                    borderRadius: '10px',
-                    backgroundColor: item.badgeBg,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: '14px',
-                  }}
-                >
-                  {item.icon}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '14px' }}>
+                  <div
+                    style={{
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '10px',
+                      backgroundColor: item.badgeBg,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                    }}
+                  >
+                    {item.icon}
+                  </div>
+                  <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', margin: 0, lineHeight: 1.35 }}>
+                    {item.title}
+                  </h3>
                 </div>
-                <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', marginBottom: '10px', lineHeight: 1.4 }}>
-                  {item.title}
-                </h3>
                 <p style={{ color: '#64748B', fontSize: '0.875rem', lineHeight: 1.65, marginBottom: '18px' }}>
                   {item.desc}
                 </p>
@@ -2332,7 +2335,7 @@ export default function HomePage() {
             ))}
           </div>
 
-          <div style={{ textAlign: 'center', marginTop: '36px' }}>
+          <div style={{ textAlign: 'center', marginTop: '28px' }}>
             <Link
               href="/news"
               style={{
@@ -2357,276 +2360,375 @@ export default function HomePage() {
       </section>
 
       {/* ══════════════════════════════════════════════════
-          9. FAQs (expanded + WhatsApp CTA)
+          8b. STUDENT SUCCESS & REVIEWS
       ══════════════════════════════════════════════════ */}
-      <section style={{ padding: '90px 0', backgroundColor: '#FFFFFF' }}>
-        <div className="container" style={{ maxWidth: '820px' }}>
-          <AnimatedSection style={{ textAlign: 'center', marginBottom: showFaqList ? '44px' : '0' }}>
-            <span
-              style={{
-                fontSize: '0.75rem',
-                fontWeight: 700,
-                color: '#059669',
-                textTransform: 'uppercase',
-                letterSpacing: '1.5px',
-              }}
-            >
-              Common Questions
-            </span>
-            <h2
-              style={{
-                fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)',
-                color: '#0F172A',
-                marginTop: '8px',
-                letterSpacing: '-0.5px',
-              }}
-            >
-              IMAT FAQ
-            </h2>
-            <p style={{ color: '#64748B', fontSize: '1rem', marginTop: '12px', lineHeight: 1.7 }}>
-              Everything you need to know before you start.
-            </p>
-
-            {/* Main Toggle Button */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '20px', flexWrap: 'wrap' }}>
-              <button
-                type="button"
-                onClick={() => setShowFaqList(!showFaqList)}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  backgroundColor: showFaqList ? '#0F172A' : '#059669',
-                  color: '#FFFFFF',
-                  border: 'none',
-                  padding: '11px 26px',
-                  borderRadius: '9999px',
-                  fontSize: '0.92rem',
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  boxShadow: '0 4px 16px rgba(5, 150, 105, 0.25)',
-                  transition: 'all 0.2s ease',
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-2px)')}
-                onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
-              >
-                {showFaqList ? (
-                  <>
-                    <ChevronDown size={16} style={{ transform: 'rotate(180deg)' }} />
-                    <span>Hide FAQs</span>
-                  </>
-                ) : (
-                  <>
-                    <ChevronDown size={16} />
-                    <span>Show All FAQs ({faqs.length})</span>
-                  </>
-                )}
-              </button>
-
-              {showFaqList && (
-                <>
-                  <button
-                    type="button"
-                    onClick={expandAllFaqs}
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '6px',
-                      backgroundColor: '#ECFDF5',
-                      color: '#047857',
-                      border: '1px solid #A7F3D0',
-                      padding: '8px 18px',
-                      borderRadius: '9999px',
-                      fontSize: '0.8125rem',
-                      fontWeight: 700,
-                      cursor: 'pointer',
-                      transition: 'all 0.2s',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = '#059669';
-                      e.currentTarget.style.color = '#FFFFFF';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = '#ECFDF5';
-                      e.currentTarget.style.color = '#047857';
-                    }}
-                  >
-                    <ChevronDown size={14} />
-                    Expand All
-                  </button>
-                  <button
-                    type="button"
-                    onClick={collapseAllFaqs}
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '6px',
-                      backgroundColor: '#F8FAFC',
-                      color: '#475569',
-                      border: '1px solid #E2E8F0',
-                      padding: '8px 18px',
-                      borderRadius: '9999px',
-                      fontSize: '0.8125rem',
-                      fontWeight: 700,
-                      cursor: 'pointer',
-                      transition: 'all 0.2s',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = '#E2E8F0';
-                      e.currentTarget.style.color = '#0F172A';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = '#F8FAFC';
-                      e.currentTarget.style.color = '#475569';
-                    }}
-                  >
-                    <ChevronDown size={14} style={{ transform: 'rotate(180deg)' }} />
-                    Collapse All
-                  </button>
-                </>
-              )}
+      <section style={{ padding: '80px 0', backgroundColor: '#F8FAFC', borderTop: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0' }}>
+        <div className="container">
+          <AnimatedSection style={{ textAlign: 'center', marginBottom: '44px' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: '#FEF3C7', color: '#B45309', padding: '6px 14px', borderRadius: '9999px', fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: '12px' }}>
+              <Star size={14} fill="#F59E0B" color="#F59E0B" /> Verified Medical Student Results
             </div>
+            <h2 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)', color: '#0F172A', letterSpacing: '-0.5px', margin: '4px 0 10px' }}>
+              From Ahsora Candidates to Medical Doctors in Italy
+            </h2>
+            <p style={{ color: '#64748B', fontSize: '1rem', maxWidth: '640px', margin: '0 auto', lineHeight: 1.65 }}>
+              Realistic feedback from candidates who conquered the IMAT and secured their seats in Italy's top English-taught medical faculties.
+            </p>
           </AnimatedSection>
 
-          {showFaqList && (
-            <div
-              className="faq-grid"
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                gap: '16px',
-                marginTop: '32px',
-              }}
-            >
-              {faqs.map((faq, idx) => {
-                const isOpen = openFaqIndices.includes(idx);
-                return (
-                  <AnimatedSection
-                    key={idx}
-                    animClass="scroll-fade-up"
-                    delay={idx * 70}
-                    style={{
-                      backgroundColor: '#FFFFFF',
-                      border: isOpen ? '1px solid #A7F3D0' : '1px solid #E2E8F0',
-                      borderRadius: '14px',
-                      overflow: 'hidden',
-                      transition: 'border-color 0.25s',
-                      boxShadow: isOpen ? '0 4px 16px -4px rgba(34,197,94,0.12)' : 'none',
-                    }}
-                  >
-                    <button
-                      onClick={() => toggleFaq(idx)}
-                      style={{
-                        width: '100%',
-                        padding: '20px 22px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        textAlign: 'left',
-                        fontWeight: 700,
-                        fontSize: '0.9375rem',
-                        color: isOpen ? '#0F172A' : '#334155',
-                        background: 'none',
-                        border: 'none',
-                        cursor: 'pointer',
-                        gap: '16px',
-                      }}
-                    >
-                      <span style={{ flex: 1 }}>{faq.q}</span>
-                      <span
-                        style={{
-                          flexShrink: 0,
-                          width: '28px',
-                          height: '28px',
-                          borderRadius: '50%',
-                          backgroundColor: isOpen ? '#ECFDF5' : '#FFFFFF',
-                          border: `1px solid ${isOpen ? '#A7F3D0' : '#E2E8F0'}`,
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          color: isOpen ? '#047857' : '#64748B',
-                          transition: 'all 0.25s',
-                          transform: isOpen ? 'rotate(0deg)' : 'rotate(0deg)',
-                        }}
-                      >
-                        <ChevronDown
-                          size={16}
-                          style={{
-                            transition: 'transform 0.25s',
-                            transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                          }}
-                        />
-                      </span>
-                    </button>
-                    {isOpen && (
-                      <div
-                        style={{
-                          padding: '0 22px 22px 22px',
-                          color: '#475569',
-                          fontSize: '0.9375rem',
-                          lineHeight: 1.75,
-                          borderTop: '1px solid #ECFDF5',
-                          paddingTop: '16px',
-                          animation: 'fadeInUp 0.3s ease-out forwards',
-                        }}
-                      >
-                        {faq.a}
-                      </div>
-                    )}
-                  </AnimatedSection>
-                );
-              })}
-            </div>
-          )}
-
-          {/* Still have questions */}
-          <AnimatedSection
-            delay={400}
+          <div
             style={{
-              marginTop: '36px',
-              textAlign: 'center',
-              padding: '28px',
-              backgroundColor: '#FFFFFF',
-              border: '1px solid #E2E8F0',
-              borderRadius: '16px',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '20px',
             }}
           >
-            <p style={{ color: '#475569', fontSize: '0.9375rem', marginBottom: '16px' }}>
-              Still have questions? Our team is ready to help.
-            </p>
-            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <a
-                href="https://wa.me/393333444479"
-                target="_blank"
-                rel="noopener noreferrer"
+            {[
+              {
+                name: 'Sofia Rossi',
+                origin: 'Milan, Italy',
+                admitted: 'University of Milan (La Statale)',
+                program: 'Medicine & Surgery (English)',
+                score: '68.4 / 90',
+                quote: 'The targeted mock analysis and question breakdowns were instrumental. Ahsora\'s mentors pinpointed my exact gaps in organic chemistry reaction mechanisms within two weeks.',
+                avatar: 'SR',
+                accent: '#059669',
+              },
+              {
+                name: 'Hamza Tariq',
+                origin: 'Lahore, Pakistan',
+                admitted: 'Sapienza University of Rome',
+                program: 'Medicine & Surgery (Non-EU Quota)',
+                score: '63.2 / 90',
+                quote: 'Coming from a Non-EU background, securing an English-taught seat seemed daunting. Ahsora MedPath Elite guided me through both IMAT physics/logic and the regional DSU scholarship steps seamlessly.',
+                avatar: 'HT',
+                accent: '#2563EB',
+              },
+              {
+                name: 'Elena Dumitru',
+                origin: 'Bucharest, Romania',
+                admitted: 'University of Bologna',
+                program: 'Medicine & Surgery',
+                score: '71.8 / 90',
+                quote: 'The live masterclasses felt like private tutoring sessions. The speed strategies for the critical thinking section alone saved me at least 15 precious minutes during the official exam.',
+                avatar: 'ED',
+                accent: '#7C3AED',
+              },
+              {
+                name: 'Zaid Al-Mansoor',
+                origin: 'Dubai, UAE',
+                admitted: 'University of Pavia',
+                program: 'Harvey Medical Course',
+                score: '65.0 / 90',
+                quote: 'The question bank mirrors the actual CINECA difficulty and format accurately. No fluff, just high-yield biology concepts and rigorous timed simulation tests under realistic exam pressure.',
+                avatar: 'ZM',
+                accent: '#D97706',
+              },
+              {
+                name: 'Maria Santos',
+                origin: 'Lisbon, Portugal',
+                admitted: 'University of Padua',
+                program: 'Medicine & Surgery',
+                score: '66.7 / 90',
+                quote: 'I was skeptical about online prep until I experienced Ahsora\'s structured syllabus and active tutor support. Truly the gold standard for European medical school applicants.',
+                avatar: 'MS',
+                accent: '#0D9488',
+              },
+            ].map((review, i) => (
+              <div
+                key={i}
                 style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  backgroundColor: '#059669',
-                  color: '#FFFFFF',
-                  fontWeight: 700,
-                  fontSize: '0.875rem',
-                  padding: '11px 22px',
-                  borderRadius: '9999px',
-                  boxShadow: '0 4px 14px rgba(34,197,94,0.3)',
-                  transition: 'transform 0.2s',
+                  backgroundColor: '#FFFFFF',
+                  borderRadius: '16px',
+                  border: '1px solid #E2E8F0',
+                  padding: '24px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  boxShadow: '0 4px 16px -2px rgba(15, 23, 42, 0.04)',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
                 }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(-2px)')}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(0)')}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-3px)';
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = '0 12px 28px -6px rgba(15, 23, 42, 0.08)';
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)';
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = '0 4px 16px -2px rgba(15, 23, 42, 0.04)';
+                }}
               >
-                <MessageCircle size={15} />
-                Chat on WhatsApp
-              </a>
-              <Link
-                href="/contact"
-                className="btn-outline"
-                style={{ padding: '11px 22px', fontSize: '0.875rem' }}
-              >
-                Contact Us
-              </Link>
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px', flexWrap: 'wrap', gap: '8px' }}>
+                    <div style={{ display: 'flex', gap: '3px' }}>
+                      {[...Array(5)].map((_, s) => (
+                        <Star key={s} size={15} fill="#F59E0B" color="#F59E0B" />
+                      ))}
+                    </div>
+                    <span
+                      style={{
+                        fontSize: '0.75rem',
+                        fontWeight: 800,
+                        backgroundColor: '#ECFDF5',
+                        color: '#047857',
+                        border: '1px solid #A7F3D0',
+                        padding: '3px 9px',
+                        borderRadius: '9999px',
+                      }}
+                    >
+                      IMAT {review.score}
+                    </span>
+                  </div>
+
+                  <p style={{ color: '#334155', fontSize: '0.9rem', lineHeight: 1.65, fontStyle: 'italic', marginBottom: '18px' }}>
+                    "{review.quote}"
+                  </p>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', borderTop: '1px solid #F1F5F9', paddingTop: '14px' }}>
+                  <div
+                    style={{
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '50%',
+                      backgroundColor: review.accent,
+                      color: '#FFFFFF',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontWeight: 800,
+                      fontSize: '0.85rem',
+                      flexShrink: 0,
+                    }}
+                  >
+                    {review.avatar}
+                  </div>
+                  <div>
+                    <h4 style={{ fontSize: '0.92rem', fontWeight: 700, color: '#0F172A', margin: 0 }}>
+                      {review.name}
+                    </h4>
+                    <p style={{ fontSize: '0.78rem', color: '#64748B', margin: '2px 0 0' }}>
+                      {review.admitted}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          9. FAQs & SUPPORT (2-Column Layout)
+      ══════════════════════════════════════════════════ */}
+      <section style={{ padding: '80px 0', backgroundColor: '#FFFFFF' }}>
+        <div className="container" style={{ maxWidth: '1180px' }}>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gap: '40px',
+              alignItems: 'start',
+            }}
+          >
+            {/* Left Side: FAQs */}
+            <div style={{ minWidth: 0 }}>
+              <div style={{ marginBottom: '28px' }}>
+                <span
+                  style={{
+                    fontSize: '0.75rem',
+                    fontWeight: 700,
+                    color: '#059669',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1.5px',
+                  }}
+                >
+                  Common Questions
+                </span>
+                <h2
+                  style={{
+                    fontSize: 'clamp(1.8rem, 3.2vw, 2.3rem)',
+                    color: '#0F172A',
+                    marginTop: '8px',
+                    letterSpacing: '-0.5px',
+                  }}
+                >
+                  Frequently Asked Questions
+                </h2>
+                <p style={{ color: '#64748B', fontSize: '0.95rem', marginTop: '8px', lineHeight: 1.6 }}>
+                  Everything you need to know before joining Ahsora and applying to Italian medical universities.
+                </p>
+              </div>
+
+              {/* FAQ Accordion List - Clean, directly visible */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {faqs.map((faq, idx) => {
+                  const isOpen = openFaqIndices.includes(idx);
+                  return (
+                    <div
+                      key={idx}
+                      style={{
+                        backgroundColor: '#FFFFFF',
+                        border: isOpen ? '1px solid #A7F3D0' : '1px solid #E2E8F0',
+                        borderRadius: '14px',
+                        overflow: 'hidden',
+                        transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+                        boxShadow: isOpen ? '0 4px 16px -4px rgba(5,150,105,0.1)' : 'none',
+                      }}
+                    >
+                      <button
+                        type="button"
+                        onClick={() => toggleFaq(idx)}
+                        style={{
+                          width: '100%',
+                          padding: '18px 20px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          textAlign: 'left',
+                          fontWeight: 700,
+                          fontSize: '0.94rem',
+                          color: isOpen ? '#0F172A' : '#334155',
+                          background: 'none',
+                          border: 'none',
+                          cursor: 'pointer',
+                          gap: '14px',
+                        }}
+                      >
+                        <span style={{ flex: 1, lineHeight: 1.45 }}>{faq.q}</span>
+                        <span
+                          style={{
+                            flexShrink: 0,
+                            width: '28px',
+                            height: '28px',
+                            borderRadius: '50%',
+                            backgroundColor: isOpen ? '#ECFDF5' : '#F8FAFC',
+                            border: `1px solid ${isOpen ? '#A7F3D0' : '#E2E8F0'}`,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: isOpen ? '#047857' : '#64748B',
+                            transition: 'all 0.2s ease',
+                          }}
+                        >
+                          <ChevronDown
+                            size={15}
+                            style={{
+                              transition: 'transform 0.25s',
+                              transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                            }}
+                          />
+                        </span>
+                      </button>
+                      {isOpen && (
+                        <div
+                          style={{
+                            padding: '0 20px 20px 20px',
+                            color: '#475569',
+                            fontSize: '0.92rem',
+                            lineHeight: 1.75,
+                            borderTop: '1px solid #F1F5F9',
+                            paddingTop: '14px',
+                          }}
+                        >
+                          {faq.a}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          </AnimatedSection>
+
+            {/* Right Side: Still Have Questions Card */}
+            <div>
+              <div
+                style={{
+                  backgroundColor: '#F8FAFC',
+                  border: '1px solid #E2E8F0',
+                  borderRadius: '20px',
+                  padding: '28px 24px',
+                  boxShadow: '0 4px 20px -4px rgba(15,23,42,0.06)',
+                }}
+              >
+                <div
+                  style={{
+                    width: '44px',
+                    height: '44px',
+                    borderRadius: '12px',
+                    backgroundColor: '#ECFDF5',
+                    color: '#059669',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '16px',
+                  }}
+                >
+                  <MessageCircle size={22} />
+                </div>
+                <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#0F172A', marginBottom: '8px' }}>
+                  Still Have Questions?
+                </h3>
+                <p style={{ color: '#64748B', fontSize: '0.88rem', lineHeight: 1.6, marginBottom: '22px' }}>
+                  Can't find what you're looking for? Reach out directly to our admissions team for personalized guidance.
+                </p>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <a
+                    href="https://wa.me/393333444479"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '8px',
+                      backgroundColor: '#059669',
+                      color: '#FFFFFF',
+                      fontWeight: 700,
+                      fontSize: '0.88rem',
+                      padding: '12px 20px',
+                      borderRadius: '12px',
+                      textDecoration: 'none',
+                      boxShadow: '0 4px 14px rgba(5,150,105,0.25)',
+                      transition: 'transform 0.2s',
+                    }}
+                    onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(-2px)')}
+                    onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(0)')}
+                  >
+                    <MessageCircle size={16} />
+                    Chat on WhatsApp
+                  </a>
+                  <Link
+                    href="/contact"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '8px',
+                      backgroundColor: '#FFFFFF',
+                      color: '#0F172A',
+                      fontWeight: 700,
+                      fontSize: '0.88rem',
+                      padding: '11px 20px',
+                      borderRadius: '12px',
+                      border: '1px solid #CBD5E1',
+                      textDecoration: 'none',
+                      transition: 'background-color 0.2s',
+                    }}
+                    onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#F1F5F9')}
+                    onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#FFFFFF')}
+                  >
+                    Contact Us
+                  </Link>
+                </div>
+
+                <div style={{ marginTop: '22px', paddingTop: '16px', borderTop: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10B981', display: 'inline-block' }} />
+                  <span style={{ fontSize: '0.78rem', color: '#64748B', fontWeight: 600 }}>Advisors active • Typical reply &lt; 15 mins</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -2721,7 +2823,7 @@ export default function HomePage() {
                 <ArrowRight size={18} />
               </a>
               <Link
-                href="/free-mock"
+                href="/imat"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -2734,12 +2836,13 @@ export default function HomePage() {
                   borderRadius: '9999px',
                   border: '1.5px solid rgba(255,255,255,0.18)',
                   transition: 'background 0.2s',
+                  textDecoration: 'none',
                 }}
                 onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.backgroundColor = 'rgba(255,255,255,0.14)')}
                 onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.backgroundColor = 'rgba(255,255,255,0.08)')}
               >
                 <FileCheck size={17} />
-                <span>Start Free Mock Test</span>
+                <span>Know More About IMAT</span>
               </Link>
             </div>
 

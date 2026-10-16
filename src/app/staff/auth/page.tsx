@@ -44,14 +44,13 @@ export default function StaffAuthPage() {
 
   // Predefined options
   const PRESET_SUBJECTS = [
-    'Biology & Human Anatomy',
-    'General Chemistry',
-    'Organic Chemistry & Biochemistry',
-    'Physics & Mathematics',
-    'Logical Reasoning & Critical Thinking',
-    'IMAT Exam Preparation',
-    'MedPath Elite Mentorship',
-    'University Admissions & DOV',
+    'Motivational Speaker',
+    'Biology',
+    'General & Organic Chemistry',
+    'Physics',
+    'Mathematics',
+    'Logical Reasoning & Reading Skills',
+    'MedPath Elite Applications',
   ];
 
   const PRESET_COHORTS = [
@@ -65,9 +64,11 @@ export default function StaffAuthPage() {
   const [regName, setRegName] = useState('');
   const [regEmail, setRegEmail] = useState('');
   const [regPassword, setRegPassword] = useState('');
+  const [regConfirmPassword, setRegConfirmPassword] = useState('');
   const [showRegPassword, setShowRegPassword] = useState(false);
+  const [showRegConfirmPassword, setShowRegConfirmPassword] = useState(false);
   const [regRole, setRegRole] = useState<StaffRole>('teacher');
-  const [selectedSubjects, setSelectedSubjects] = useState<string[]>(['Biology & Human Anatomy']);
+  const [selectedSubjects, setSelectedSubjects] = useState<string[]>(['Biology']);
   const [selectedCohorts, setSelectedCohorts] = useState<string[]>(['IMAT 2026 Alpha Cohort']);
   const [customSubjectInput, setCustomSubjectInput] = useState('');
   const [regSuccessMessage, setRegSuccessMessage] = useState('');
@@ -121,12 +122,17 @@ export default function StaffAuthPage() {
     setRegSuccessMessage('');
     setRegErrorMessage('');
 
+    if (regPassword !== regConfirmPassword) {
+      setRegErrorMessage('Passwords do not match');
+      return;
+    }
+
     const result = registerStaffAccount({
       email: regEmail,
       displayName: regName,
       accountType: 'staff',
       role: regRole,
-      assignedSubjects: selectedSubjects.length > 0 ? selectedSubjects : ['Biology & Human Anatomy'],
+      assignedSubjects: selectedSubjects.length > 0 ? selectedSubjects : ['Biology'],
       assignedCohorts: selectedCohorts.length > 0 ? selectedCohorts : ['IMAT 2026 Alpha Cohort'],
       password: regPassword,
     });
@@ -136,6 +142,7 @@ export default function StaffAuthPage() {
       setRegName('');
       setRegEmail('');
       setRegPassword('');
+      setRegConfirmPassword('');
     } else {
       setRegErrorMessage(result.message);
     }
@@ -920,7 +927,7 @@ export default function StaffAuthPage() {
 
                 <div>
                   <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#334155', marginBottom: '6px', textTransform: 'uppercase' }}>
-                    Create Password
+                    Password
                   </label>
                   <div className="login-input-group">
                     <Lock size={18} color="#059669" style={{ position: 'absolute', left: '16px', pointerEvents: 'none' }} />
@@ -951,9 +958,43 @@ export default function StaffAuthPage() {
                   </div>
                 </div>
 
+                {/* Confirm Password (Required immediately below Password) */}
                 <div>
                   <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#334155', marginBottom: '6px', textTransform: 'uppercase' }}>
-                    Primary Faculty Role
+                    Confirm Password
+                  </label>
+                  <div className="login-input-group">
+                    <Lock size={18} color="#059669" style={{ position: 'absolute', left: '16px', pointerEvents: 'none' }} />
+                    <input
+                      type={showRegConfirmPassword ? 'text' : 'password'}
+                      required
+                      value={regConfirmPassword}
+                      onChange={(e) => setRegConfirmPassword(e.target.value)}
+                      placeholder="Re-enter password"
+                      className="login-input"
+                      style={{ paddingRight: '46px' }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowRegConfirmPassword(!showRegConfirmPassword)}
+                      style={{
+                        position: 'absolute',
+                        right: '16px',
+                        background: 'none',
+                        border: 'none',
+                        color: '#94A3B8',
+                        cursor: 'pointer',
+                        padding: 0,
+                      }}
+                    >
+                      {showRegConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#334155', marginBottom: '6px', textTransform: 'uppercase' }}>
+                    Staff Role(s)
                   </label>
                   <select
                     value={regRole}
@@ -968,12 +1009,15 @@ export default function StaffAuthPage() {
                   </select>
                 </div>
 
-                {/* Subject Selector */}
+                {/* Assigned Subjects & Programs Selector */}
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#334155', marginBottom: '6px', textTransform: 'uppercase' }}>
-                    Assigned Teaching Subjects
+                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#334155', marginBottom: '4px', textTransform: 'uppercase' }}>
+                    Assigned Subjects &amp; Programs
                   </label>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', maxHeight: '110px', overflowY: 'auto', padding: '6px', backgroundColor: '#F8FAFC', borderRadius: '10px', border: '1px solid #E2E8F0' }}>
+                  <p style={{ fontSize: '0.76rem', color: '#64748B', margin: '0 0 8px 0', lineHeight: 1.4 }}>
+                    Select the subjects or programs you will teach, manage, or contribute to.
+                  </p>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', maxHeight: '130px', overflowY: 'auto', padding: '6px', backgroundColor: '#F8FAFC', borderRadius: '10px', border: '1px solid #E2E8F0' }}>
                     {PRESET_SUBJECTS.map((subj) => {
                       const selected = selectedSubjects.includes(subj);
                       return (
@@ -982,17 +1026,21 @@ export default function StaffAuthPage() {
                           type="button"
                           onClick={() => handleToggleSubject(subj)}
                           style={{
-                            padding: '4px 10px',
+                            padding: '5px 12px',
                             borderRadius: '8px',
                             border: `1px solid ${selected ? '#059669' : '#CBD5E1'}`,
                             backgroundColor: selected ? '#ECFDF5' : '#FFFFFF',
                             color: selected ? '#065F46' : '#475569',
-                            fontSize: '0.75rem',
+                            fontSize: '0.78rem',
                             fontWeight: selected ? 700 : 500,
                             cursor: 'pointer',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '4px',
+                            transition: 'all 0.15s ease',
                           }}
                         >
-                          {subj}
+                          {selected ? '✓ ' : ''}{subj}
                         </button>
                       );
                     })}

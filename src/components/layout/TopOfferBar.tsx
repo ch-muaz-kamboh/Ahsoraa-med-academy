@@ -143,19 +143,6 @@ export default function TopOfferBar() {
             <span className="top-offer-title">
               {offer.offerTitle}
             </span>
-
-            {/* Desktop Promo Code Button */}
-            {offer.promoCode && (
-              <button
-                type="button"
-                onClick={handleCopyCode}
-                className="top-offer-code-btn top-offer-code-desktop"
-                title="Click to copy promo code"
-              >
-                <span>Code: <strong>{offer.promoCode}</strong></span>
-                {copied ? <Check size={12} color="#5CED73" /> : <Copy size={11} />}
-              </button>
-            )}
           </div>
 
           {/* Mobile-only Top Right Dismiss Button */}
@@ -172,18 +159,6 @@ export default function TopOfferBar() {
 
         {/* Row 2 on mobile / Right group on desktop */}
         <div className="top-offer-row-actions">
-          {/* Mobile-only Promo Code Button */}
-          {offer.promoCode && (
-            <button
-              type="button"
-              onClick={handleCopyCode}
-              className="top-offer-code-btn top-offer-code-mobile"
-              title="Click to copy promo code"
-            >
-              <span>Code: <strong>{offer.promoCode}</strong></span>
-              {copied ? <Check size={11} color="#5CED73" /> : <Copy size={10} />}
-            </button>
-          )}
 
           {/* Countdown Blocks */}
           <div className="top-offer-countdown">

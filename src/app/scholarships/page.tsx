@@ -1,13 +1,20 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Award, Calendar, ShieldCheck, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { mockScholarships } from '@/lib/mock-data';
 import LeadCaptureModal from '@/components/public/LeadCaptureModal';
 
 export default function ScholarshipsPage() {
+  const router = useRouter();
   const [leadModalOpen, setLeadModalOpen] = useState(false);
+
+  useEffect(() => {
+    // Seamlessly forward to the primary 20-Region Italian Scholarships Hub
+    router.replace('/universities/scholarships');
+  }, [router]);
 
   return (
     <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', paddingBottom: '80px' }}>

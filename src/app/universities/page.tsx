@@ -464,22 +464,28 @@ export default function UniversitiesPage() {
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(92,237,115,0.15)', border: '1px solid rgba(92,237,115,0.3)', borderRadius: '999px', padding: '6px 14px', marginBottom: '24px' }}>
                 <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#5CED73', letterSpacing: '0.05em', textTransform: 'uppercase' }}>🧭 Medicine in Italy · 2026/27 Verified Directory</span>
               </div>
-              <h1 style={{ fontSize: 'clamp(2.2rem, 5vw, 3.4rem)', fontWeight: 800, color: '#ffffff', lineHeight: 1.15, marginBottom: '20px', fontFamily: 'var(--font-heading)' }}>
+              <h1 style={{ fontSize: 'clamp(2.2rem, 5vw, 3.4rem)', fontWeight: 800, color: '#ffffff', lineHeight: 1.15, marginBottom: '14px', fontFamily: 'var(--font-heading)' }}>
                 Find the Medical University<br />
                 <span style={{ color: '#5CED73' }}>That Fits Your Journey.</span>
               </h1>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', backgroundColor: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.22)', padding: '6px 14px', borderRadius: '20px', fontSize: '0.86rem', fontWeight: 700, color: '#A7F3D0', marginBottom: '22px' }}>
+                🩺 English-taught Medicine &amp; Surgery (Single-Cycle Degree LM-41)
+              </div>
               <p style={{ fontSize: '1.125rem', color: 'rgba(255,255,255,0.78)', lineHeight: 1.7, marginBottom: '36px', maxWidth: '600px' }}>
                 Explore English-taught Medicine programmes across Italy — public and private, admission routes, tuition, seats and historical cutoffs. Filter by what matters to you, then build your shortlist.
               </p>
-              <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                 <a href="#find-university" className="btn-primary" style={{ fontSize: '0.9375rem' }}>
                   🔍 Find Your University
                 </a>
-                <a href="#official-seats-distribution" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(92,237,115,0.18)', border: '1px solid rgba(92,237,115,0.4)', color: '#5CED73', borderRadius: '999px', padding: '12px 24px', fontWeight: 700, fontSize: '0.9375rem', textDecoration: 'none', transition: 'all 0.2s ease' }}>
-                  📊 EU & Non-EU Seats (28 Unis)
-                </a>
-                <a href="#map-section" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', border: '1px solid rgba(255,255,255,0.25)', color: '#fff', borderRadius: '999px', padding: '12px 24px', fontWeight: 600, fontSize: '0.9375rem', transition: 'all 0.2s ease' }}>
-                  📍 Browse the Map
+                <Link href="/universities/scholarships" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'linear-gradient(135deg, #059669, #047857)', color: '#FFFFFF', borderRadius: '999px', padding: '12px 24px', fontWeight: 700, fontSize: '0.9375rem', textDecoration: 'none', transition: 'all 0.2s ease', boxShadow: '0 4px 14px rgba(5,150,105,0.35)' }}>
+                  🎓 Regional Scholarships
+                </Link>
+                <Link href="/courses" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', border: '1.5px solid rgba(92,237,115,0.6)', background: 'rgba(92,237,115,0.12)', color: '#5CED73', borderRadius: '999px', padding: '12px 24px', fontWeight: 700, fontSize: '0.9375rem', textDecoration: 'none', transition: 'all 0.2s ease' }}>
+                  📖 IMAT Course
+                </Link>
+                <a href="#official-seats-distribution" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', border: '1px solid rgba(255,255,255,0.22)', color: '#FFFFFF', borderRadius: '999px', padding: '12px 22px', fontWeight: 600, fontSize: '0.9375rem', textDecoration: 'none', transition: 'all 0.2s ease' }}>
+                  📊 EU &amp; Non-EU Seats
                 </a>
               </div>
             </div>
@@ -992,12 +998,12 @@ export default function UniversitiesPage() {
                 ? `Students targeting a public English-taught programme via IMAT in ${uni.city}.`
                 : 'Students looking for a structured private admissions route with fixed, published tuition.';
               return (
-                <FadeUp key={uni.id} delay={Math.min(i * 60, 360)}>
-                  <div
-                    style={{ background: '#fff', border: inCompare ? '2px solid #059669' : '1.5px solid #e2e8f0', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 2px 12px rgba(0,0,0,0.04)', transition: 'all 0.25s cubic-bezier(0.16,1,0.3,1)', display: 'flex', flexDirection: 'column' }}
-                    onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-4px)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 12px 32px rgba(0,0,0,0.1)'; }}
-                    onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 2px 12px rgba(0,0,0,0.04)'; }}
-                  >
+                <div
+                  key={uni.id}
+                  style={{ background: '#fff', border: inCompare ? '2px solid #059669' : '1.5px solid #e2e8f0', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 2px 12px rgba(0,0,0,0.04)', transition: 'all 0.25s cubic-bezier(0.16,1,0.3,1)', display: 'flex', flexDirection: 'column' }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-4px)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 12px 32px rgba(0,0,0,0.1)'; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 2px 12px rgba(0,0,0,0.04)'; }}
+                >
                     {/* Image */}
                     <div style={{ height: '180px', overflow: 'hidden', position: 'relative' }}>
                       <img
@@ -1069,9 +1075,8 @@ export default function UniversitiesPage() {
                       </div>
                     </div>
                   </div>
-                </FadeUp>
-              );
-            })}
+                );
+              })}
           </div>
 
           {filteredUnis.length === 0 && (
@@ -1158,34 +1163,34 @@ export default function UniversitiesPage() {
       <section id="official-seats-distribution" style={{ padding: '80px 0', background: '#ffffff', borderTop: '1px solid #e2e8f0' }}>
         <div className="container">
           <FadeUp>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '32px' }}>
-              <div style={{ maxWidth: '680px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '28px', alignItems: 'center', marginBottom: '32px' }}>
+              <div>
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(5,150,105,0.1)', border: '1px solid rgba(5,150,105,0.25)', borderRadius: '999px', padding: '5px 14px', marginBottom: '12px' }}>
                   <span style={{ fontSize: '0.78125rem', fontWeight: 700, color: '#059669', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-                    🏛️ Verified Italian Ministerial & Institutional Quotas
+                    🏛️ Verified Italian Ministerial &amp; Institutional Quotas
                   </span>
                 </div>
                 <h2 style={{ fontSize: 'clamp(1.5rem, 2.8vw, 2.1rem)', fontWeight: 800, color: '#0f172a', marginBottom: '10px' }}>
-                  Official EU & Non-EU Seats Distribution
+                  Official EU &amp; Non-EU Seats Distribution
                 </h2>
-                <p style={{ color: '#64748b', fontSize: '0.9375rem', lineHeight: 1.6, margin: 0 }}>
+                <p style={{ color: '#64748b', fontSize: '0.9375rem', lineHeight: 1.6, margin: 0, maxWidth: '640px' }}>
                   Complete verified quota breakdown for all 28 accredited English-taught Medicine and Surgery programmes across Italy (and the Tirana joint faculty). Filter by public/private route or search by university and campus.
                 </p>
               </div>
 
-              {/* Total overview badges */}
-              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                <div style={{ background: '#f8fafc', border: '1.5px solid #bbf7d0', borderRadius: '14px', padding: '12px 20px', textAlign: 'center' }}>
-                  <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#15803d', textTransform: 'uppercase', letterSpacing: '0.04em' }}>EU & Equiv Seats</div>
-                  <div style={{ fontSize: '1.45rem', fontWeight: 800, color: '#059669' }}>2,450</div>
+              {/* Total overview badges placed gracefully to the right */}
+              <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
+                <div style={{ background: '#f8fafc', border: '1.5px solid #bbf7d0', borderRadius: '14px', padding: '14px 22px', textAlign: 'center', minWidth: '130px' }}>
+                  <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#15803d', textTransform: 'uppercase', letterSpacing: '0.04em' }}>EU &amp; Equiv Seats</div>
+                  <div style={{ fontSize: '1.55rem', fontWeight: 800, color: '#059669', marginTop: '4px' }}>2,450</div>
                 </div>
-                <div style={{ background: '#f8fafc', border: '1.5px solid #bae6fd', borderRadius: '14px', padding: '12px 20px', textAlign: 'center' }}>
-                  <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#0369a1', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Non-EU Abroad Quota</div>
-                  <div style={{ fontSize: '1.45rem', fontWeight: 800, color: '#0284c7' }}>1,384</div>
+                <div style={{ background: '#f8fafc', border: '1.5px solid #bae6fd', borderRadius: '14px', padding: '14px 22px', textAlign: 'center', minWidth: '130px' }}>
+                  <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#0369a1', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Non-EU Abroad Quota</div>
+                  <div style={{ fontSize: '1.55rem', fontWeight: 800, color: '#0284c7', marginTop: '4px' }}>1,384</div>
                 </div>
-                <div style={{ background: '#0f172a', borderRadius: '14px', padding: '12px 20px', textAlign: 'center', color: '#fff', border: '1.5px solid rgba(92,237,115,0.3)' }}>
-                  <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Total Places</div>
-                  <div style={{ fontSize: '1.45rem', fontWeight: 800, color: '#5CED73' }}>3,834</div>
+                <div style={{ background: '#0f172a', borderRadius: '14px', padding: '14px 22px', textAlign: 'center', color: '#fff', border: '1.5px solid rgba(92,237,115,0.3)', minWidth: '130px' }}>
+                  <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Total Places</div>
+                  <div style={{ fontSize: '1.55rem', fontWeight: 800, color: '#5CED73', marginTop: '4px' }}>3,834</div>
                 </div>
               </div>
             </div>

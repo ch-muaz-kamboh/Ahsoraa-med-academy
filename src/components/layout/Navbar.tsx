@@ -19,6 +19,8 @@ import {
   Newspaper,
   Book,
   Scale,
+  ChevronDown,
+  BarChart3,
 } from 'lucide-react';
 import LeadCaptureModal from '../public/LeadCaptureModal';
 
@@ -42,16 +44,24 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // If inside portal or admin layout, hide the public navbar
-  if (pathname?.startsWith('/portal') || pathname?.startsWith('/admin')) {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  // If inside portal, admin layout, or student portal login page, hide the public navbar & offer bar
+  if (pathname?.startsWith('/portal') || pathname?.startsWith('/admin') || pathname === '/login') {
     return null;
   }
+
+  const universitySubLinks = [
+    { href: '/universities', label: '1. Universities', desc: 'Browse all 28 Italian medical faculties' },
+    { href: '/universities/scholarships', label: '2. Scholarships', desc: '20 Italian regions DSU & financial aid directory' },
+    { href: '/universities#cutoff-history', label: '3. IMAT Cutoff Scores', desc: 'EU & Non-EU historical score rankings' },
+  ];
 
   const navLinks = [
     { href: '/', label: t('nav.home', 'Home'), icon: null },
     { href: '/courses', label: t('nav.courses', 'Courses'), icon: <BookOpen size={14} /> },
     { href: '/imat', label: t('nav.imat', 'IMAT'), icon: <FileCheck size={14} /> },
-    { href: '/universities', label: t('nav.universities', 'Universities'), icon: <Globe size={14} /> },
+    { href: '/universities', label: t('nav.universities', 'Universities'), icon: <Globe size={14} />, isDropdown: true },
     { href: '/resources', label: t('nav.resources', 'Resources'), icon: <Book size={14} /> },
     { href: '/news', label: t('nav.news', 'News & Blogs'), icon: <Newspaper size={14} /> },
     { href: '/licensing-exams', label: t('nav.licensing', 'Licensing Exams'), icon: <Scale size={14} /> },
@@ -118,7 +128,100 @@ export default function Navbar() {
             className="desktop-nav"
           >
             {navLinks.map((link) => {
-              const isActive = pathname === link.href;
+              const isActive = pathname === link.href || (link.isDropdown && pathname?.startsWith('/universities'));
+
+              if (link.isDropdown) {
+                return (
+                  <div
+                    key={link.href}
+                    style={{ position: 'relative' }}
+                    onMouseEnter={() => setDropdownOpen(true)}
+                    onMouseLeave={() => setDropdownOpen(false)}
+                  >
+                    <Link
+                      href={link.href}
+                      style={{
+                        fontSize: '0.84rem',
+                        fontWeight: 600,
+                        color: isActive ? '#16A34A' : '#334155',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        whiteSpace: 'nowrap',
+                        transition: 'color 0.15s ease',
+                        padding: '6px 0',
+                      }}
+                    >
+                      {link.icon}
+                      {link.label}
+                      <ChevronDown
+                        size={13}
+                        style={{
+                          transform: dropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                          transition: 'transform 0.2s ease',
+                          color: isActive ? '#16A34A' : '#64748B',
+                        }}
+                      />
+                    </Link>
+
+                    {/* Universities Dropdown Menu */}
+                    {dropdownOpen && (
+                      <div
+                        style={{
+                          position: 'absolute',
+                          top: '100%',
+                          left: '-10px',
+                          width: '270px',
+                          backgroundColor: '#FFFFFF',
+                          borderRadius: '14px',
+                          border: '1.5px solid #E2E8F0',
+                          boxShadow: '0 12px 32px rgba(15, 23, 42, 0.12), 0 2px 6px rgba(0,0,0,0.04)',
+                          padding: '8px',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '4px',
+                          zIndex: 60,
+                          animation: 'fadeIn 0.18s ease-out',
+                        }}
+                      >
+                        {universitySubLinks.map((sub) => {
+                          const isSubActive = pathname === sub.href;
+                          return (
+                            <Link
+                              key={sub.href}
+                              href={sub.href}
+                              onClick={() => setDropdownOpen(false)}
+                              style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                padding: '8px 12px',
+                                borderRadius: '9px',
+                                textDecoration: 'none',
+                                backgroundColor: isSubActive ? '#F0FDF4' : 'transparent',
+                                transition: 'background 0.15s ease',
+                              }}
+                              onMouseEnter={(e) => {
+                                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#F8FAFC';
+                              }}
+                              onMouseLeave={(e) => {
+                                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = isSubActive ? '#F0FDF4' : 'transparent';
+                              }}
+                            >
+                              <span style={{ fontSize: '0.84rem', fontWeight: 700, color: isSubActive ? '#059669' : '#0F172A' }}>
+                                {sub.label}
+                              </span>
+                              <span style={{ fontSize: '0.72rem', color: '#64748B', marginTop: '2px' }}>
+                                {sub.desc}
+                              </span>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
               return (
                 <Link
                   key={link.href}
@@ -259,26 +362,71 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                style={{
-                  fontSize: '0.975rem',
-                  fontWeight: 600,
-                  color: pathname === link.href ? '#059669' : '#334155',
-                  padding: '10px 0',
-                  borderBottom: '1px solid #F1F5F9',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                }}
-              >
-                {link.icon}
-                <span>{link.label}</span>
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              if (link.isDropdown) {
+                return (
+                  <div key={link.href} style={{ borderBottom: '1px solid #F1F5F9', paddingBottom: '8px' }}>
+                    <Link
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      style={{
+                        fontSize: '0.975rem',
+                        fontWeight: 700,
+                        color: pathname === link.href ? '#059669' : '#0F172A',
+                        padding: '10px 0',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px',
+                      }}
+                    >
+                      {link.icon}
+                      <span>{link.label}</span>
+                    </Link>
+                    <div style={{ paddingLeft: '28px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                      {universitySubLinks.map((sub) => (
+                        <Link
+                          key={sub.href}
+                          href={sub.href}
+                          onClick={() => setMobileMenuOpen(false)}
+                          style={{
+                            fontSize: '0.85rem',
+                            fontWeight: 600,
+                            color: pathname === sub.href ? '#059669' : '#64748B',
+                            padding: '6px 0',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                          }}
+                        >
+                          <span>{sub.label}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  style={{
+                    fontSize: '0.975rem',
+                    fontWeight: 600,
+                    color: pathname === link.href ? '#059669' : '#334155',
+                    padding: '10px 0',
+                    borderBottom: '1px solid #F1F5F9',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                  }}
+                >
+                  {link.icon}
+                  <span>{link.label}</span>
+                </Link>
+              );
+            })}
 
             <div style={{ paddingTop: '8px', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.85rem' }}>
               <Link

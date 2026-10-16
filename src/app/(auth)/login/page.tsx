@@ -217,7 +217,7 @@ export default function LoginPage() {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            padding: '172px 46px 40px',
+            padding: '48px 46px 40px',
             minHeight: '100vh',
           }}
         >
@@ -524,7 +524,7 @@ export default function LoginPage() {
             flexDirection: 'column',
             justifyContent: 'space-between',
             alignItems: 'center',
-            padding: '172px 44px 40px',
+            padding: '48px 44px 40px',
             minHeight: '100vh',
             position: 'relative',
           }}
