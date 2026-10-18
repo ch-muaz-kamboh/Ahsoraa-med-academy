@@ -36,7 +36,7 @@ import {
 } from 'lucide-react';
 import LeadCaptureModal from '@/components/public/LeadCaptureModal';
 import { useScrollAnimation, useStaggeredAnimation } from '@/hooks/useScrollAnimation';
-import { getTickerItems, syncTickerFromSupabase, TickerItem, getDynamicPackagePrices, syncPricesFromSupabase, DynamicPackagePrice } from '@/lib/cms-store';
+import { getTickerItems, syncTickerFromSupabase, TickerItem, getDynamicPackagePrices, syncPricesFromSupabase, DynamicPackagePrice, getNewsPosts, syncNewsFromSupabase, NewsItem } from '@/lib/cms-store';
 import { useDynamicPackagePrices } from '@/hooks/useDynamicPackagePrices';
 
 // ─── Reusable section observer wrapper ───────────────────────
@@ -323,10 +323,41 @@ export default function HomePage() {
     setOpenFaqIndices([]);
   };
 
+  const [latestNews, setLatestNews] = useState<NewsItem[]>(() => {
+    try {
+      const posts = getNewsPosts();
+      return posts && posts.length > 0 ? posts.slice(0, 3) : [];
+    } catch {
+      return [];
+    }
+  });
+
   useEffect(() => {
     syncTickerFromSupabase().then((items) => {
       if (items && items.length > 0) setTickerItems(items);
     });
+
+    const refreshNews = () => {
+      try {
+        const posts = getNewsPosts();
+        if (posts && posts.length > 0) {
+          setLatestNews(posts.slice(0, 3));
+        }
+      } catch {}
+    };
+    refreshNews();
+    syncNewsFromSupabase().then((posts) => {
+      if (posts && posts.length > 0) {
+        setLatestNews(posts.slice(0, 3));
+      }
+    });
+
+    window.addEventListener('ahsora_cms_news_updated', refreshNews);
+    window.addEventListener('storage', refreshNews);
+    return () => {
+      window.removeEventListener('ahsora_cms_news_updated', refreshNews);
+      window.removeEventListener('storage', refreshNews);
+    };
   }, []);
 
   const cycleRef = useRef<HTMLDivElement>(null);
@@ -2219,120 +2250,138 @@ export default function HomePage() {
               gap: '20px',
             }}
           >
-            {[
-              {
-                badge: 'Announcement',
-                badgeColor: '#D97706',
-                badgeBg: '#FEF3C7',
-                borderColor: '#F59E0B',
-                date: 'Sep 2026',
-                title: 'Admissions Open — Italy 2027/2028',
-                desc: 'Applications are now open for the upcoming academic year. Start your IMAT preparation early to secure your seat at a top Italian university.',
-                icon: <GraduationCap size={18} color="#D97706" />,
-                link: '/universities',
-                cta: 'View Universities',
-              },
-              {
-                badge: 'Live Classes',
-                badgeColor: '#047857',
-                badgeBg: '#ECFDF5',
-                borderColor: '#059669',
-                date: 'Sep 2026',
-                title: 'New Weekly Live Class Schedule Released',
-                desc: 'Biology, Chemistry, and Critical Thinking live sessions have been scheduled. Enroll in Mastery or Ahsora MedPath Elite to join.',
-                icon: <Video size={18} color="#047857" />,
-                link: '/courses',
-                cta: 'Enroll Now',
-              },
-              {
-                badge: 'Mock Tests',
-                badgeColor: '#7C3AED',
-                badgeBg: '#F5F3FF',
-                borderColor: '#8B5CF6',
-                date: 'Aug 2026',
-                title: 'IMAT 2026 Mock Test Series — Now Available',
-                desc: '12 full-length IMAT mock tests updated with 2026-pattern questions and analytics. Practice under real exam conditions.',
-                icon: <FileCheck size={18} color="#7C3AED" />,
-                link: '/mock-tests',
-                cta: 'Start a Mock Test',
-              },
-            ].map((item, i) => (
-              <div
-                key={i}
-                style={{
-                  backgroundColor: '#FFFFFF',
-                  border: '1px solid #E2E8F0',
-                  borderRadius: '18px',
-                  padding: '24px',
-                  borderLeft: `4px solid ${item.borderColor}`,
-                  transition: 'transform 0.25s ease, box-shadow 0.25s ease',
-                  cursor: 'default',
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-4px)';
-                  (e.currentTarget as HTMLDivElement).style.boxShadow = '0 12px 28px -6px rgba(0,0,0,0.09)';
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)';
-                  (e.currentTarget as HTMLDivElement).style.boxShadow = 'none';
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
-                  <span
-                    style={{
-                      backgroundColor: item.badgeBg,
-                      color: item.badgeColor,
-                      padding: '4px 10px',
-                      borderRadius: '9999px',
-                      fontSize: '0.72rem',
-                      fontWeight: 700,
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.5px',
-                    }}
-                  >
-                    {item.badge}
-                  </span>
-                  <span style={{ color: '#94A3B8', fontSize: '0.8rem', fontWeight: 500 }}>
-                    {item.date}
-                  </span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '14px' }}>
-                  <div
-                    style={{
-                      width: '40px',
-                      height: '40px',
-                      borderRadius: '10px',
-                      backgroundColor: item.badgeBg,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      flexShrink: 0,
-                    }}
-                  >
-                    {item.icon}
-                  </div>
-                  <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', margin: 0, lineHeight: 1.35 }}>
-                    {item.title}
-                  </h3>
-                </div>
-                <p style={{ color: '#64748B', fontSize: '0.875rem', lineHeight: 1.65, marginBottom: '18px' }}>
-                  {item.desc}
-                </p>
-                <Link
-                  href={item.link}
+            {(latestNews.length > 0
+              ? latestNews.slice(0, 3)
+              : [
+                  {
+                    id: 'fb-1',
+                    category: 'Announcement',
+                    date: 'Sep 2026',
+                    title: 'Admissions Open — Italy 2027/2028',
+                    excerpt: 'Applications are now open for the upcoming academic year. Start your IMAT preparation early to secure your seat at a top Italian university.',
+                    readTime: '3 min read',
+                  },
+                  {
+                    id: 'fb-2',
+                    category: 'Live Classes',
+                    date: 'Sep 2026',
+                    title: 'New Weekly Live Class Schedule Released',
+                    excerpt: 'Biology, Chemistry, and Critical Thinking live sessions have been scheduled. Enroll in Mastery or Ahsora MedPath Elite to join.',
+                    readTime: '4 min read',
+                  },
+                  {
+                    id: 'fb-3',
+                    category: 'Mock Tests',
+                    date: 'Aug 2026',
+                    title: 'IMAT 2026 Mock Test Series — Now Available',
+                    excerpt: '12 full-length IMAT mock tests updated with 2026-pattern questions and analytics. Practice under real exam conditions.',
+                    readTime: '5 min read',
+                  },
+                ]
+            ).map((item, i) => {
+              const cat = (item.category || '').toLowerCase();
+              const isAdmissions = cat.includes('admissions') || cat.includes('announcement');
+              const isLive = cat.includes('live') || cat.includes('class');
+              const isMock = cat.includes('mock') || cat.includes('test');
+
+              const badgeColor = isAdmissions ? '#D97706' : isLive ? '#047857' : isMock ? '#7C3AED' : '#059669';
+              const badgeBg = isAdmissions ? '#FEF3C7' : isLive ? '#ECFDF5' : isMock ? '#F5F3FF' : '#F0FDF4';
+              const borderColor = isAdmissions ? '#F59E0B' : isLive ? '#059669' : isMock ? '#8B5CF6' : '#10B981';
+
+              const cleanExcerpt = (item.excerpt || '').replace(/<[^>]*>/g, '');
+
+              return (
+                <div
+                  key={item.id || i}
                   style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '4px',
-                    fontSize: '0.84rem',
-                    fontWeight: 700,
-                    color: item.badgeColor,
+                    backgroundColor: '#FFFFFF',
+                    border: '1px solid #E2E8F0',
+                    borderRadius: '18px',
+                    padding: '24px',
+                    borderLeft: `4px solid ${borderColor}`,
+                    transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-4px)';
+                    (e.currentTarget as HTMLDivElement).style.boxShadow = '0 12px 28px -6px rgba(0,0,0,0.09)';
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)';
+                    (e.currentTarget as HTMLDivElement).style.boxShadow = 'none';
                   }}
                 >
-                  {item.cta} <ChevronRight size={14} />
-                </Link>
-              </div>
-            ))}
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
+                      <span
+                        style={{
+                          backgroundColor: badgeBg,
+                          color: badgeColor,
+                          padding: '4px 10px',
+                          borderRadius: '9999px',
+                          fontSize: '0.72rem',
+                          fontWeight: 700,
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.5px',
+                        }}
+                      >
+                        {item.category || 'Update'}
+                      </span>
+                      <span style={{ color: '#94A3B8', fontSize: '0.8rem', fontWeight: 500 }}>
+                        {item.date}
+                      </span>
+                    </div>
+
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '14px' }}>
+                      <div
+                        style={{
+                          width: '40px',
+                          height: '40px',
+                          borderRadius: '10px',
+                          backgroundColor: badgeBg,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flexShrink: 0,
+                        }}
+                      >
+                        {isLive ? (
+                          <Video size={18} color={badgeColor} />
+                        ) : isMock ? (
+                          <FileCheck size={18} color={badgeColor} />
+                        ) : (
+                          <GraduationCap size={18} color={badgeColor} />
+                        )}
+                      </div>
+                      <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', margin: 0, lineHeight: 1.35 }}>
+                        {item.title}
+                      </h3>
+                    </div>
+
+                    <p style={{ color: '#64748B', fontSize: '0.875rem', lineHeight: 1.65, marginBottom: '18px' }}>
+                      {cleanExcerpt}
+                    </p>
+                  </div>
+
+                  <Link
+                    href="/news"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      fontSize: '0.84rem',
+                      fontWeight: 700,
+                      color: badgeColor,
+                      textDecoration: 'none',
+                    }}
+                  >
+                    Read Article <ChevronRight size={14} />
+                  </Link>
+                </div>
+              );
+            })}
           </div>
 
           <div style={{ textAlign: 'center', marginTop: '28px' }}>
@@ -2388,6 +2437,7 @@ export default function HomePage() {
                 name: 'Sofia Rossi',
                 admitted: 'University of Milan (La Statale)',
                 score: '71.8/90',
+                rating: 5,
                 quote: 'Organic chemistry, especially reaction mechanisms, was where I struggled the most. The classes and mock tests helped me understand what I was getting wrong, and the mentors helped me work on those weak areas. After a couple of weeks, I started feeling more confident.',
                 avatar: 'SR',
                 accent: '#059669',
@@ -2396,6 +2446,7 @@ export default function HomePage() {
                 name: 'Hamza Tariq',
                 admitted: 'Sapienza University of Rome · Non-EU Quota',
                 score: '63.2/90',
+                rating: 5,
                 quote: 'As a non-EU student, I found the whole process of applying to medical universities in Italy a bit overwhelming. Ahsora’s MedPath Elite mentorship helped me with my IMAT preparation and made the admission and scholarship procedures much easier to understand.',
                 avatar: 'HT',
                 accent: '#2563EB',
@@ -2404,25 +2455,10 @@ export default function HomePage() {
                 name: 'Elena Dumitru',
                 admitted: 'University of Bologna',
                 score: '65.0/90',
+                rating: 4,
                 quote: 'I really liked the live classes because I could ask questions whenever something wasn’t clear. The tips for managing time in logical reasoning were particularly helpful. They gave me a better idea of how to approach questions without spending too long on them.',
                 avatar: 'ED',
                 accent: '#7C3AED',
-              },
-              {
-                name: 'Zaid Al-Mansoor',
-                admitted: 'University of Pavia',
-                score: '66.7/90',
-                quote: 'Hi, I’m Zaid. When I started preparing for the IMAT, I wasn’t sure if an online course would work well for me. Having a clear study plan and support when I needed help made a difference. The question bank and timed mock tests also helped me understand how to prepare more effectively.',
-                avatar: 'ZM',
-                accent: '#D97706',
-              },
-              {
-                name: 'Maria Santos',
-                admitted: 'Medicine & Surgery Applicant · Verified Student',
-                score: 'Not provided',
-                quote: 'The live classes helped me understand topics that I used to find confusing in different subjects. I also found the mentors’ motivational sessions helpful, especially when I was feeling stressed about preparation. Overall, I had a good experience with Ahsora, and I’d recommend it to other students.',
-                avatar: 'MS',
-                accent: '#0D9488',
               },
             ].map((review, i) => (
               <div
@@ -2449,10 +2485,20 @@ export default function HomePage() {
               >
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px', flexWrap: 'wrap', gap: '8px' }}>
-                    <div style={{ display: 'flex', gap: '3px' }}>
-                      {[...Array(5)].map((_, s) => (
-                        <Star key={s} size={15} fill="#F59E0B" color="#F59E0B" />
-                      ))}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                      <div style={{ display: 'flex', gap: '3px' }}>
+                        {[...Array(5)].map((_, s) => (
+                          <Star
+                            key={s}
+                            size={15}
+                            fill={s < review.rating ? '#F59E0B' : '#E2E8F0'}
+                            color={s < review.rating ? '#F59E0B' : '#CBD5E1'}
+                          />
+                        ))}
+                      </div>
+                      <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#92400E' }}>
+                        {review.rating}.0
+                      </span>
                     </div>
                     <span
                       style={{

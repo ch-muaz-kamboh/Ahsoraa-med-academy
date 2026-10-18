@@ -408,8 +408,10 @@ export function addNewsPost(post: Omit<NewsItem, 'id'>): NewsItem {
   const updated = [newPost, ...posts];
   saveNewsPosts(updated);
 
-  // Async Supabase Sync
+  // Async Supabase Sync & Live Broadcast
   if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('ahsora_cms_news_updated', { detail: newPost }));
+    window.dispatchEvent(new Event('storage'));
     const supabase = createClient();
     supabase.from('news_posts').insert({
       id: newPost.id,

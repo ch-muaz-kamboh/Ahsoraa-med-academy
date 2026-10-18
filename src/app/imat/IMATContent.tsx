@@ -816,7 +816,7 @@ export default function IMATContent() {
                 ))}
               </ul>
               <div style={{ marginTop: '24px' }}>
-                <Link href="/signup" style={{ color: '#16A34A', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>View the IMAT Course <ArrowRight size={16}/></Link>
+                <Link href="/register" style={{ color: '#16A34A', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>View the IMAT Course <ArrowRight size={16}/></Link>
               </div>
             </div>
           </div>

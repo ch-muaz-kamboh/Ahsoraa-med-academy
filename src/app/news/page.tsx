@@ -2,12 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Calendar, ArrowRight, Tag, Clock, User, Sparkles, BookOpen, X } from 'lucide-react';
-import LeadCaptureModal from '@/components/public/LeadCaptureModal';
-import { getNewsPosts, NewsItem } from '@/lib/cms-store';
+import { getNewsPosts, syncNewsFromSupabase, NewsItem } from '@/lib/cms-store';
 import { useAppStore } from '@/lib/store';
+import { Calendar, ArrowRight, Tag, Clock, User, Sparkles, BookOpen, X, CheckCircle2, Mail } from 'lucide-react';
+import LeadCaptureModal from '@/components/public/LeadCaptureModal';
 import { NewsletterSubscriber } from '@/types';
-import { CheckCircle2, Mail } from 'lucide-react';
 
 export default function NewsPage() {
   const { addLead } = useAppStore();
@@ -99,7 +98,18 @@ export default function NewsPage() {
   };
 
   useEffect(() => {
-    setPosts(getNewsPosts());
+    const refresh = () => setPosts(getNewsPosts());
+    refresh();
+    syncNewsFromSupabase().then((p) => {
+      if (p && p.length > 0) setPosts(p);
+    });
+
+    window.addEventListener('ahsora_cms_news_updated', refresh);
+    window.addEventListener('storage', refresh);
+    return () => {
+      window.removeEventListener('ahsora_cms_news_updated', refresh);
+      window.removeEventListener('storage', refresh);
+    };
   }, []);
 
   const featured = posts.find((p) => p.featured) || posts[0];
