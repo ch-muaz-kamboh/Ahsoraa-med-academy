@@ -31,8 +31,29 @@ export default function AdminSidebar() {
   const pendingCount = staffAccounts ? staffAccounts.filter((a) => a.status === 'pending').length : 0;
   const pendingMcqCount = staffQuestions ? staffQuestions.filter((q) => q.status === 'in_review').length : 0;
 
+  const [unreadInquiries, setUnreadInquiries] = React.useState<number>(0);
+  React.useEffect(() => {
+    const checkCount = () => {
+      try {
+        const saved = localStorage.getItem('ahsora_contact_inquiries');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          setUnreadInquiries(parsed.filter((p: any) => p.status === 'new').length);
+        }
+      } catch {}
+    };
+    checkCount();
+    window.addEventListener('ahsora_contact_updated', checkCount);
+    window.addEventListener('storage', checkCount);
+    return () => {
+      window.removeEventListener('ahsora_contact_updated', checkCount);
+      window.removeEventListener('storage', checkCount);
+    };
+  }, []);
+
   const links = [
     { href: '/admin/dashboard', label: 'Dashboard', icon: <LayoutDashboard size={18} /> },
+    { href: '/admin/leads', label: `Leads & Inquiries ${unreadInquiries > 0 ? `(${unreadInquiries})` : ''}`, icon: <KanbanSquare size={18} /> },
     { href: '/admin/students', label: 'Student Management', icon: <GraduationCap size={18} /> },
     { href: '/admin/staff-requests', label: `Faculty Requests ${pendingCount > 0 ? `(${pendingCount})` : ''}`, icon: <ShieldCheck size={18} />, badge: pendingCount },
     { href: '/admin/question-bank/review', label: `MCQ Approvals ${pendingMcqCount > 0 ? `(${pendingMcqCount})` : ''}`, icon: <FolderCheck size={18} />, badge: pendingMcqCount },

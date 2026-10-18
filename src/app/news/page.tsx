@@ -5,11 +5,98 @@ import Link from 'next/link';
 import { Calendar, ArrowRight, Tag, Clock, User, Sparkles, BookOpen, X } from 'lucide-react';
 import LeadCaptureModal from '@/components/public/LeadCaptureModal';
 import { getNewsPosts, NewsItem } from '@/lib/cms-store';
+import { useAppStore } from '@/lib/store';
+import { NewsletterSubscriber } from '@/types';
+import { CheckCircle2, Mail } from 'lucide-react';
 
 export default function NewsPage() {
+  const { addLead } = useAppStore();
   const [posts, setPosts] = useState<NewsItem[]>([]);
   const [selectedPost, setSelectedPost] = useState<NewsItem | null>(null);
   const [leadOpen, setLeadOpen] = useState(false);
+
+  // Newsletter State
+  const [newsName, setNewsName] = useState('');
+  const [newsEmail, setNewsEmail] = useState('');
+  const [newsStatus, setNewsStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+
+  const handleNewsSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newsEmail.trim() || !newsEmail.includes('@')) return;
+
+    setNewsStatus('submitting');
+    const subscriberName = newsName.trim() || 'Newsletter Reader';
+    const email = newsEmail.trim();
+
+    const sub: NewsletterSubscriber = {
+      id: `sub-${Date.now()}`,
+      name: subscriberName,
+      email,
+      source: 'News & Updates Newsletter',
+      status: 'subscribed',
+      subscribedAt: new Date().toISOString(),
+    };
+
+    // 1. LocalStorage
+    try {
+      const existing: NewsletterSubscriber[] = JSON.parse(
+        localStorage.getItem('ahsora_subscribers') || '[]'
+      );
+      const filtered = existing.filter((s) => s.email.toLowerCase() !== email.toLowerCase());
+      filtered.unshift(sub);
+      localStorage.setItem('ahsora_subscribers', JSON.stringify(filtered));
+    } catch (err) {
+      console.warn('Newsletter storage write notice:', err);
+    }
+
+    // 2. CRM lead
+    try {
+      addLead({
+        name: subscriberName,
+        email,
+        phone: 'Not provided',
+        country: 'Global / Online',
+        city: '',
+        academicBackground: 'Newsletter Reader',
+        targetExam: 'IMAT 2027',
+        targetCountry: 'Italy',
+        budgetRange: 'Standard',
+        source: 'News & Updates Newsletter',
+        priority: 'warm',
+        stage: 'new',
+        notes: 'Subscribed to Medical Admissions & IMAT Newsletter updates',
+      });
+    } catch {}
+
+    // 3. Supabase Cloud Sync
+    try {
+      const { createClient } = await import('@/lib/supabase/client');
+      const supabase = createClient();
+      await supabase.from('leads').insert([
+        {
+          name: subscriberName,
+          email,
+          phone: null,
+          target_exam: 'IMAT 2027',
+          target_country: 'Italy',
+          academic_background: 'Newsletter Subscriber',
+          status: 'new',
+          notes: 'Subscribed via /news page email updates',
+        },
+      ]);
+    } catch (err) {
+      console.warn('Supabase news newsletter sync error:', err);
+    }
+
+    // 4. Dispatch browser events for instant Admin portal sync
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('ahsora_subscribers_updated', { detail: sub }));
+      window.dispatchEvent(new CustomEvent('ahsora_leads_updated', { detail: sub }));
+      window.dispatchEvent(new Event('storage'));
+    }
+
+    setNewsStatus('success');
+  };
 
   useEffect(() => {
     setPosts(getNewsPosts());
@@ -317,14 +404,94 @@ export default function NewsPage() {
 
       {/* ── NEWSLETTER ── */}
       <section style={{ padding: '70px 0', backgroundColor: '#0F172A', textAlign: 'center' }}>
-        <div className="container" style={{ maxWidth: '580px' }}>
-          <h2 style={{ fontSize: '2rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '12px' }}>Stay Updated</h2>
-          <p style={{ color: '#94A3B8', marginBottom: '32px', lineHeight: 1.7 }}>
-            Get the latest IMAT news, admission deadlines, and study tips delivered straight to your inbox.
+        <div className="container" style={{ maxWidth: '640px' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: 'rgba(5, 150, 105, 0.2)', border: '1px solid rgba(5, 150, 105, 0.4)', borderRadius: '20px', padding: '4px 14px', marginBottom: '14px' }}>
+            <Mail size={14} color="#34D399" />
+            <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#34D399', textTransform: 'uppercase', letterSpacing: '0.6px' }}>Weekly Admissions Digest</span>
+          </div>
+          <h2 style={{ fontSize: '2rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '12px' }}>Stay Updated with Ahsora</h2>
+          <p style={{ color: '#94A3B8', marginBottom: '28px', lineHeight: 1.7, fontSize: '0.98rem' }}>
+            Get the latest IMAT test announcements, ministerial decree breakdowns, and verified Italian medical school admissions news straight to your inbox.
           </p>
-          <button onClick={() => setLeadOpen(true)} className="btn-primary" style={{ padding: '14px 36px', fontSize: '1rem', backgroundColor: '#059669' }}>
-            Subscribe to Updates
-          </button>
+
+          {newsStatus === 'success' ? (
+            <div style={{ backgroundColor: 'rgba(5, 150, 105, 0.15)', border: '1px solid #059669', borderRadius: '14px', padding: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+              <CheckCircle2 size={36} color="#34D399" />
+              <div style={{ fontSize: '1.15rem', fontWeight: 700, color: '#FFFFFF' }}>You're Subscribed!</div>
+              <p style={{ color: '#A7F3D0', fontSize: '0.875rem', margin: 0, maxWidth: '420px', lineHeight: 1.5 }}>
+                Your email has been registered and synced with our admissions dispatch team. You'll receive all upcoming IMAT updates and score reports.
+              </p>
+              <button
+                onClick={() => {
+                  setNewsStatus('idle');
+                  setNewsEmail('');
+                  setNewsName('');
+                }}
+                style={{ marginTop: '8px', background: 'none', border: 'none', color: '#34D399', fontSize: '0.8125rem', textDecoration: 'underline', cursor: 'pointer' }}
+              >
+                Subscribe another address
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={handleNewsSubscribe} style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxWidth: '520px', margin: '0 auto' }}>
+              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                <input
+                  type="text"
+                  placeholder="Your Name (optional)"
+                  value={newsName}
+                  onChange={(e) => setNewsName(e.target.value)}
+                  style={{
+                    flex: '1 1 180px',
+                    padding: '12px 16px',
+                    borderRadius: '10px',
+                    border: '1px solid #334155',
+                    backgroundColor: '#1E293B',
+                    color: '#FFFFFF',
+                    outline: 'none',
+                    fontSize: '0.9375rem',
+                  }}
+                />
+                <input
+                  required
+                  type="email"
+                  placeholder="Your Email Address"
+                  value={newsEmail}
+                  onChange={(e) => setNewsEmail(e.target.value)}
+                  style={{
+                    flex: '1 1 240px',
+                    padding: '12px 16px',
+                    borderRadius: '10px',
+                    border: '1px solid #334155',
+                    backgroundColor: '#1E293B',
+                    color: '#FFFFFF',
+                    outline: 'none',
+                    fontSize: '0.9375rem',
+                  }}
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={newsStatus === 'submitting'}
+                className="btn-primary"
+                style={{
+                  padding: '13px 28px',
+                  fontSize: '0.95rem',
+                  backgroundColor: '#059669',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  borderRadius: '10px',
+                }}
+              >
+                {newsStatus === 'submitting' ? 'Subscribing...' : 'Subscribe to Updates'}
+                <ArrowRight size={16} />
+              </button>
+              <span style={{ fontSize: '0.75rem', color: '#64748B' }}>
+                🔒 Zero spam. Unsubscribe at any time. Fully synced with admissions portal.
+              </span>
+            </form>
+          )}
         </div>
       </section>
 

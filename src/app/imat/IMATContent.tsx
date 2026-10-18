@@ -11,6 +11,8 @@ import LeadCaptureModal from '@/components/public/LeadCaptureModal';
 import { useScrollAnimation, useStaggeredAnimation } from '@/hooks/useScrollAnimation';
 import { useDynamicPackagePrices } from '@/hooks/useDynamicPackagePrices';
 import PortalMovingStrip from '@/components/portal/PortalMovingStrip';
+import { useAppStore } from '@/lib/store';
+import { NewsletterSubscriber } from '@/types';
 
 // Section components to keep the main file readable
 
@@ -91,6 +93,7 @@ function AnimatedNumber({ end, suffix = '', label }: { end: number, suffix?: str
 }
 
 export default function IMATContent() {
+  const { addLead } = useAppStore();
   const [leadOpen, setLeadOpen] = useState(false);
   const [showFaqList, setShowFaqList] = useState(false);
   const { getPrice } = useDynamicPackagePrices();
@@ -111,22 +114,95 @@ export default function IMATContent() {
   const [subEmail, setSubEmail] = useState('');
   const [subStatus, setSubStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const handleStarterKitSubmit = (e: React.FormEvent) => {
+  const handleStarterKitSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!subEmail.trim() || !subEmail.includes('@')) {
       setSubStatus('error');
       return;
     }
+    const candidateName = subName.trim() || 'IMAT Candidate';
+    const email = subEmail.trim();
+    const subscriberId = `sub-${Date.now()}`;
+
+    const subscriber: NewsletterSubscriber = {
+      id: subscriberId,
+      name: candidateName,
+      email,
+      source: 'IMAT Starter Kit Download',
+      status: 'subscribed',
+      subscribedAt: new Date().toISOString(),
+    };
+
+    // 1. Save in local storage (both general subscribers and starter kit leads)
     try {
-      const existing = JSON.parse(localStorage.getItem('ahsora_starter_kit_leads') || '[]');
-      existing.unshift({
-        name: subName.trim() || 'Candidate',
-        email: subEmail.trim(),
+      const existingSubs: NewsletterSubscriber[] = JSON.parse(
+        localStorage.getItem('ahsora_subscribers') || '[]'
+      );
+      // Remove duplicate if same email exists
+      const filtered = existingSubs.filter((s) => s.email.toLowerCase() !== email.toLowerCase());
+      filtered.unshift(subscriber);
+      localStorage.setItem('ahsora_subscribers', JSON.stringify(filtered));
+
+      const existingLeads = JSON.parse(localStorage.getItem('ahsora_starter_kit_leads') || '[]');
+      existingLeads.unshift({
+        name: candidateName,
+        email,
         createdAt: new Date().toISOString(),
         source: 'IMAT Page Starter Kit',
       });
-      localStorage.setItem('ahsora_starter_kit_leads', JSON.stringify(existing));
-    } catch {}
+      localStorage.setItem('ahsora_starter_kit_leads', JSON.stringify(existingLeads));
+    } catch (err) {
+      console.warn('Local storage write notice:', err);
+    }
+
+    // 2. Add lead to CRM pipeline
+    try {
+      addLead({
+        name: candidateName,
+        email,
+        phone: 'Not provided',
+        country: 'Global / Online',
+        city: '',
+        academicBackground: 'IMAT Kit Subscriber',
+        targetExam: 'IMAT 2027',
+        targetCountry: 'Italy',
+        budgetRange: 'Standard',
+        source: 'IMAT Starter Kit',
+        priority: 'warm',
+        stage: 'new',
+        notes: 'Downloaded Free IMAT Starter Kit & Formula Book',
+      });
+    } catch (err) {
+      console.warn('CRM addLead notice:', err);
+    }
+
+    // 3. Supabase cloud sync
+    try {
+      const { createClient } = await import('@/lib/supabase/client');
+      const supabase = createClient();
+      await supabase.from('leads').insert([
+        {
+          name: candidateName,
+          email,
+          phone: null,
+          target_exam: 'IMAT 2027',
+          target_country: 'Italy',
+          academic_background: 'Starter Kit Download',
+          status: 'new',
+          notes: 'Subscribed for Free IMAT Starter Kit & Formula Book',
+        },
+      ]);
+    } catch (err) {
+      console.warn('Supabase kit sync notice:', err);
+    }
+
+    // 4. Dispatch browser events for instant Admin Portal sync
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('ahsora_subscribers_updated', { detail: subscriber }));
+      window.dispatchEvent(new CustomEvent('ahsora_leads_updated', { detail: subscriber }));
+      window.dispatchEvent(new Event('storage'));
+    }
+
     setSubStatus('success');
   };
 

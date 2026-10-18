@@ -507,5 +507,30 @@ export interface StaffQuestion {
   createdAt: string;
 }
 
+export interface ContactInquiry {
+  id: string;
+  name: string;
+  firstName?: string;
+  lastName?: string;
+  email: string;
+  phone?: string;
+  topic: string;
+  message: string;
+  source?: string;
+  status: 'new' | 'in_review' | 'replied' | 'resolved';
+  createdAt: string;
+  repliedAt?: string;
+  replyNotes?: string;
+}
+
+export interface NewsletterSubscriber {
+  id: string;
+  name: string;
+  email: string;
+  source: string;
+  status: 'subscribed' | 'active' | 'unsubscribed';
+  subscribedAt: string;
+}
+
 
 
