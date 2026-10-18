@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useAppStore } from '@/lib/store';
 import {
   Calendar as CalendarIcon,
@@ -14,13 +14,16 @@ import {
   CheckCircle2,
   X,
   Sparkles,
+  ArrowUpDown,
 } from 'lucide-react';
 import { ScheduleItem } from '@/types';
+import { sortSchedulesByDate } from '@/lib/schedule-utils';
 
 export default function AdminScheduleManagerPage() {
   const { schedules, addSchedule, updateSchedule, deleteSchedule } = useAppStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
   // Form State
   const [title, setTitle] = useState('');
@@ -96,6 +99,11 @@ export default function AdminScheduleManagerPage() {
     setIsModalOpen(false);
   };
 
+  const sortedSchedules = useMemo(
+    () => sortSchedulesByDate(schedules, sortOrder),
+    [schedules, sortOrder]
+  );
+
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
       {/* Header Banner */}
@@ -154,14 +162,26 @@ export default function AdminScheduleManagerPage() {
             <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '1px solid #E2E8F0', color: '#475569', fontWeight: 700 }}>
               <th style={{ padding: '16px 20px' }}>Subject & Title</th>
               <th style={{ padding: '16px 20px' }}>Instructor</th>
-              <th style={{ padding: '16px 20px' }}>Date & Time</th>
+              <th
+                style={{ padding: '16px 20px', cursor: 'pointer', userSelect: 'none' }}
+                onClick={() => setSortOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'))}
+                title="Click to toggle Earliest / Latest date sorting"
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <span>Date & Time</span>
+                  <ArrowUpDown size={14} color="#059669" />
+                  <span style={{ fontSize: '0.6875rem', color: '#64748B', fontWeight: 600 }}>
+                    ({sortOrder === 'asc' ? 'Earliest First' : 'Latest First'})
+                  </span>
+                </div>
+              </th>
               <th style={{ padding: '16px 20px' }}>Status</th>
               <th style={{ padding: '16px 20px' }}>Zoom Link</th>
               <th style={{ padding: '16px 20px', textAlign: 'right' }}>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {schedules.map((item) => (
+            {sortedSchedules.map((item) => (
               <tr key={item.id} style={{ borderBottom: '1px solid #F1F5F9' }}>
                 <td style={{ padding: '16px 20px' }}>
                   <span

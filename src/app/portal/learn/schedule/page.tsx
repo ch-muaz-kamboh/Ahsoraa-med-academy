@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { useAppStore } from '@/lib/store';
 import {
@@ -23,6 +23,7 @@ import {
   isScheduleLocked,
   resolveEffectivePackage,
 } from '@/lib/packages';
+import { sortSchedulesByDate } from '@/lib/schedule-utils';
 
 export default function StudentSchedulePage() {
   const { schedules, currentUser } = useAppStore();
@@ -30,15 +31,18 @@ export default function StudentSchedulePage() {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedSubject, setSelectedSubject] = useState<string>('all');
 
-  const filteredSchedules = schedules.filter((item) => {
-    const matchesStatus = filterStatus === 'all' || item.status === filterStatus;
-    const matchesSubject = selectedSubject === 'all' || item.subject === selectedSubject;
-    const matchesSearch =
-      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.instructor.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.subject.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesStatus && matchesSubject && matchesSearch;
-  });
+  const filteredSchedules = useMemo(() => {
+    const list = schedules.filter((item) => {
+      const matchesStatus = filterStatus === 'all' || item.status === filterStatus;
+      const matchesSubject = selectedSubject === 'all' || item.subject === selectedSubject;
+      const matchesSearch =
+        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.instructor.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.subject.toLowerCase().includes(searchQuery.toLowerCase());
+      return matchesStatus && matchesSubject && matchesSearch;
+    });
+    return sortSchedulesByDate(list, 'asc');
+  }, [schedules, filterStatus, selectedSubject, searchQuery]);
 
   const subjects = Array.from(new Set(schedules.map((s) => s.subject)));
 

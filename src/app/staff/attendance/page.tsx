@@ -1,14 +1,20 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useAppStore } from '@/lib/store';
 import { CheckSquare, Check, X, Clock, Calendar, UserCheck } from 'lucide-react';
+import { sortSchedulesByDate } from '@/lib/schedule-utils';
 
 export default function StaffAttendancePage() {
   const { schedules, attendances, markAttendance, staffProfile } = useAppStore();
-  const [selectedScheduleId, setSelectedScheduleId] = useState<string>(schedules[0]?.id || '');
 
-  const activeSchedule = schedules.find((s) => s.id === selectedScheduleId) || schedules[0];
+  const sortedSchedules = useMemo(() => {
+    return sortSchedulesByDate(schedules, 'desc');
+  }, [schedules]);
+
+  const [selectedScheduleId, setSelectedScheduleId] = useState<string>(sortedSchedules[0]?.id || '');
+
+  const activeSchedule = sortedSchedules.find((s) => s.id === selectedScheduleId) || sortedSchedules[0];
 
   const studentsList = [
     { id: 'stu-101', name: 'Marco Rossi' },
@@ -41,7 +47,7 @@ export default function StaffAttendancePage() {
           value={selectedScheduleId}
           onChange={(e) => setSelectedScheduleId(e.target.value)}
         >
-          {schedules.map((s) => (
+          {sortedSchedules.map((s) => (
             <option key={s.id} value={s.id}>
               {s.title} ({s.subject} • {s.date} at {s.time})
             </option>

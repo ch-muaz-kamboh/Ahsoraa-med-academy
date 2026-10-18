@@ -17,12 +17,17 @@ import {
   FileText,
   AlertTriangle,
 } from 'lucide-react';
+import { sortSchedulesByDate } from '@/lib/schedule-utils';
 
 export default function StaffDashboardPage() {
   const { staffProfile, schedules, doubts, recordedLectures, mockSnapshots } = useAppStore();
 
+  const sortedUpcomingSchedules = React.useMemo(() => {
+    return sortSchedulesByDate(schedules, 'asc');
+  }, [schedules]);
+
   const pendingDoubts = doubts.filter((d) => d.status !== 'resolved');
-  const todayClasses = schedules.filter((s) => s.status === 'upcoming' || s.status === 'live');
+  const todayClasses = sortedUpcomingSchedules.filter((s) => s.status === 'upcoming' || s.status === 'live');
 
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -133,7 +138,7 @@ export default function StaffDashboardPage() {
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              {schedules.slice(0, 3).map((item) => (
+              {sortedUpcomingSchedules.slice(0, 3).map((item) => (
                 <div
                   key={item.id}
                   style={{
