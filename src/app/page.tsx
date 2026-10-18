@@ -2386,51 +2386,41 @@ export default function HomePage() {
             {[
               {
                 name: 'Sofia Rossi',
-                origin: 'Milan, Italy',
                 admitted: 'University of Milan (La Statale)',
-                program: 'Medicine & Surgery (English)',
-                score: '68.4 / 90',
-                quote: 'The targeted mock analysis and question breakdowns were instrumental. Ahsora\'s mentors pinpointed my exact gaps in organic chemistry reaction mechanisms within two weeks.',
+                score: '71.8/90',
+                quote: 'Organic chemistry, especially reaction mechanisms, was where I struggled the most. The classes and mock tests helped me understand what I was getting wrong, and the mentors helped me work on those weak areas. After a couple of weeks, I started feeling more confident.',
                 avatar: 'SR',
                 accent: '#059669',
               },
               {
                 name: 'Hamza Tariq',
-                origin: 'Lahore, Pakistan',
-                admitted: 'Sapienza University of Rome',
-                program: 'Medicine & Surgery (Non-EU Quota)',
-                score: '63.2 / 90',
-                quote: 'Coming from a Non-EU background, securing an English-taught seat seemed daunting. Ahsora MedPath Elite guided me through both IMAT physics/logic and the regional DSU scholarship steps seamlessly.',
+                admitted: 'Sapienza University of Rome · Non-EU Quota',
+                score: '63.2/90',
+                quote: 'As a non-EU student, I found the whole process of applying to medical universities in Italy a bit overwhelming. Ahsora’s MedPath Elite mentorship helped me with my IMAT preparation and made the admission and scholarship procedures much easier to understand.',
                 avatar: 'HT',
                 accent: '#2563EB',
               },
               {
                 name: 'Elena Dumitru',
-                origin: 'Bucharest, Romania',
                 admitted: 'University of Bologna',
-                program: 'Medicine & Surgery',
-                score: '71.8 / 90',
-                quote: 'The live masterclasses felt like private tutoring sessions. The speed strategies for the critical thinking section alone saved me at least 15 precious minutes during the official exam.',
+                score: '65.0/90',
+                quote: 'I really liked the live classes because I could ask questions whenever something wasn’t clear. The tips for managing time in logical reasoning were particularly helpful. They gave me a better idea of how to approach questions without spending too long on them.',
                 avatar: 'ED',
                 accent: '#7C3AED',
               },
               {
                 name: 'Zaid Al-Mansoor',
-                origin: 'Dubai, UAE',
                 admitted: 'University of Pavia',
-                program: 'Harvey Medical Course',
-                score: '65.0 / 90',
-                quote: 'The question bank mirrors the actual CINECA difficulty and format accurately. No fluff, just high-yield biology concepts and rigorous timed simulation tests under realistic exam pressure.',
+                score: '66.7/90',
+                quote: 'Hi, I’m Zaid. When I started preparing for the IMAT, I wasn’t sure if an online course would work well for me. Having a clear study plan and support when I needed help made a difference. The question bank and timed mock tests also helped me understand how to prepare more effectively.',
                 avatar: 'ZM',
                 accent: '#D97706',
               },
               {
                 name: 'Maria Santos',
-                origin: 'Lisbon, Portugal',
-                admitted: 'University of Padua',
-                program: 'Medicine & Surgery',
-                score: '66.7 / 90',
-                quote: 'I was skeptical about online prep until I experienced Ahsora\'s structured syllabus and active tutor support. Truly the gold standard for European medical school applicants.',
+                admitted: 'Medicine & Surgery Applicant · Verified Student',
+                score: 'Not provided',
+                quote: 'The live classes helped me understand topics that I used to find confusing in different subjects. I also found the mentors’ motivational sessions helpful, especially when I was feeling stressed about preparation. Overall, I had a good experience with Ahsora, and I’d recommend it to other students.',
                 avatar: 'MS',
                 accent: '#0D9488',
               },
@@ -2468,14 +2458,14 @@ export default function HomePage() {
                       style={{
                         fontSize: '0.75rem',
                         fontWeight: 800,
-                        backgroundColor: '#ECFDF5',
-                        color: '#047857',
-                        border: '1px solid #A7F3D0',
+                        backgroundColor: review.score === 'Not provided' ? '#F8FAFC' : '#ECFDF5',
+                        color: review.score === 'Not provided' ? '#475569' : '#047857',
+                        border: `1px solid ${review.score === 'Not provided' ? '#E2E8F0' : '#A7F3D0'}`,
                         padding: '3px 9px',
                         borderRadius: '9999px',
                       }}
                     >
-                      IMAT {review.score}
+                      {review.score === 'Not provided' ? 'Score: Not provided' : `IMAT Score: ${review.score}`}
                     </span>
                   </div>
 

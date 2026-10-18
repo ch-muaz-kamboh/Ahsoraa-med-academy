@@ -186,9 +186,9 @@ export default function IMATContent() {
               Understand the exam, master the syllabus, practise under realistic conditions, and measure your progress — with a preparation system built for students pursuing Medicine in Italy.
             </p>
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-              <button onClick={() => setLeadOpen(true)} className="btn-primary" style={{ padding: '13px 28px', fontSize: '0.98rem' }}>
+              <Link href="/free-mock" className="btn-primary" style={{ padding: '13px 28px', fontSize: '0.98rem', textDecoration: 'none' }}>
                 <span>Take the Free IMAT Mock</span>
-              </button>
+              </Link>
               <Link href="/resources" className="btn-outline" style={{ padding: '13px 24px', fontSize: '0.98rem', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.3)', backgroundColor: 'rgba(255,255,255,0.06)', textDecoration: 'none' }}>
                 Download IMAT Papers
               </Link>
@@ -385,7 +385,7 @@ export default function IMATContent() {
                       <p style={{ color: '#475569', marginBottom: '16px', lineHeight: 1.6, fontSize: '0.95rem' }}>
                         <strong>Core topics:</strong> {sub.topics}
                       </p>
-                      <Link href="/portal/courses" style={{ color: '#16A34A', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.9rem' }}>
+                      <Link href="/courses#programmes" style={{ color: '#16A34A', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.9rem' }}>
                         See course modules <ArrowRight size={16} />
                       </Link>
                     </div>
@@ -421,8 +421,8 @@ export default function IMATContent() {
                 ))}
               </div>
               <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                 <Link href="/portal/tests" className="btn-primary">Take the Full Free IMAT Mock</Link>
-                 <button onClick={() => setLeadOpen(true)} className="btn-outline">Get a Personalised Prep Plan</button>
+                 <Link href="/free-mock" className="btn-primary">Take the Full Free IMAT Mock</Link>
+                 <a href="https://wa.me/393333444479?text=Hi%20Ahsora%2C%20I%20would%20like%20to%20get%20a%20personalized%20IMAT%20prep%20plan." target="_blank" rel="noopener noreferrer" className="btn-outline" style={{ textDecoration: 'none' }}>Get a Personalised Prep Plan</a>
               </div>
             </div>
             
@@ -740,7 +740,7 @@ export default function IMATContent() {
                 ))}
               </ul>
               <div style={{ marginTop: '24px' }}>
-                <Link href="/portal/courses" style={{ color: '#16A34A', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>View the IMAT Course <ArrowRight size={16}/></Link>
+                <Link href="/signup" style={{ color: '#16A34A', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>View the IMAT Course <ArrowRight size={16}/></Link>
               </div>
             </div>
           </div>
@@ -775,7 +775,7 @@ export default function IMATContent() {
                         <span style={{ fontSize: '1rem', color: '#94A3B8', textDecoration: 'line-through', fontWeight: 600 }}>{p.originalPrice}</span>
                       )}
                     </div>
-                    <Link href="/courses#programmes" className={path.highlight ? "btn-primary" : "btn-outline"} style={{ width: '100%', textAlign: 'center' }}>View Programme</Link>
+                    <Link href={`/courses#${path.id}`} className={path.highlight ? "btn-primary" : "btn-outline"} style={{ width: '100%', textAlign: 'center' }}>View Programme</Link>
                  </div>
                );
              })}
