@@ -284,7 +284,7 @@ export default function SupportChatWidget() {
           onMouseEnter={e => (e.currentTarget.style.transform = isOpen ? 'rotate(90deg) scale(1.05)' : 'scale(1.08)')}
           onMouseLeave={e => (e.currentTarget.style.transform = isOpen ? 'rotate(90deg)' : 'scale(1)')}
         >
-          {isOpen ? <X size={26} /> : <MessageSquare size={26} />}
+          {isOpen ? <X size={26} /> : <Bot size={28} strokeWidth={2.2} />}
         </button>
       </div>
 

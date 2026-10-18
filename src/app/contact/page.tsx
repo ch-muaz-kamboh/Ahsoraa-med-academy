@@ -208,9 +208,9 @@ export default function ContactPage() {
                   <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#15803D', backgroundColor: '#DCFCE7', padding: '3px 10px', borderRadius: '20px', letterSpacing: '0.5px' }}>
                     Reference: {referenceId || 'RECEIVED'}
                   </span>
-                  <h4 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#166534', marginTop: '10px', marginBottom: '8px' }}>Inquiry Logged &amp; Synchronized!</h4>
+                  <h4 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#166534', marginTop: '10px', marginBottom: '8px' }}>Message Sent</h4>
                   <p style={{ color: '#14532D', fontSize: '0.9375rem', lineHeight: 1.6, maxWidth: '440px', margin: '0 auto 20px' }}>
-                    Your message has been safely received by our admissions team and registered in our central portal. An advisor will review your query and reply within 24 hours.
+                    Thank you for reaching out. We have received your message and registered it with our admissions team. An advisor will get back to you shortly.
                   </p>
                   
                   <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -330,10 +330,15 @@ export default function ContactPage() {
                     className="btn-primary"
                     style={{ width: '100%', padding: '14px', fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
                   >
-                    {formStatus === 'submitting' ? 'Submitting & Syncing...' : (
+                    {formStatus === 'submitting' ? (
+                      <>
+                        <CheckCircle size={18} />
+                        Message Sent
+                      </>
+                    ) : (
                       <>
                         <Send size={18} />
-                        Send Message &amp; Sync with Admissions
+                        Send Message
                       </>
                     )}
                   </button>
