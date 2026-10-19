@@ -123,6 +123,12 @@ export default function AdminLeadsPage() {
   const [subscriberSearch, setSubscriberSearch] = useState('');
   const [subscriberSourceFilter, setSubscriberSourceFilter] = useState<string>('all');
   const [copyToast, setCopyToast] = useState(false);
+  const [inquiryCopyToast, setInquiryCopyToast] = useState(false);
+
+  // Pipeline Filter States
+  const [pipelineSearch, setPipelineSearch] = useState('');
+  const [pipelineExamFilter, setPipelineExamFilter] = useState<string>('all');
+  const [pipelinePriorityFilter, setPipelinePriorityFilter] = useState<string>('all');
 
   // Cloud Sync State
   const [syncing, setSyncing] = useState(false);
@@ -377,6 +383,41 @@ export default function AdminLeadsPage() {
     document.body.removeChild(link);
   };
 
+  // Copy all contact inquiry emails
+  const handleCopyInquiryEmails = () => {
+    const emailList = filteredInquiries.map((i) => i.email).filter(Boolean).join(', ');
+    if (!emailList) {
+      alert('No email addresses found to copy.');
+      return;
+    }
+    navigator.clipboard.writeText(emailList);
+    setInquiryCopyToast(true);
+    setTimeout(() => setInquiryCopyToast(false), 2500);
+  };
+
+  // Export contact inquiries to CSV
+  const handleExportInquiryCSV = () => {
+    if (filteredInquiries.length === 0) {
+      alert('No contact inquiries match the current filter to export.');
+      return;
+    }
+    const headers = 'Inquiry ID,Full Name,Email,Phone,Topic,Status,Created At,Message\n';
+    const rows = filteredInquiries
+      .map(
+        (i) =>
+          `"${i.id}","${(i.name || '').replace(/"/g, '""')}","${(i.email || '').replace(/"/g, '""')}","${(i.phone || '').replace(/"/g, '""')}","${(i.topic || '').replace(/"/g, '""')}","${i.status}","${i.createdAt}","${(i.message || '').replace(/"/g, '""').replace(/\r?\n/g, ' ')}"`
+      )
+      .join('\n');
+    const blob = new Blob([headers + rows], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `ahsora_contact_inquiries_${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   // Filtered Inquiries
   const filteredInquiries = useMemo(() => {
     return inquiries.filter((inq) => {
@@ -420,6 +461,29 @@ export default function AdminLeadsPage() {
   const uniqueSources = useMemo(() => {
     return Array.from(new Set(subscribers.map((s) => s.source).filter(Boolean)));
   }, [subscribers]);
+
+  // Filtered Leads for CRM Pipeline
+  const filteredLeads = useMemo(() => {
+    return leads.filter((ld) => {
+      const matchSearch =
+        !pipelineSearch ||
+        ld.name.toLowerCase().includes(pipelineSearch.toLowerCase()) ||
+        ld.email.toLowerCase().includes(pipelineSearch.toLowerCase()) ||
+        (ld.phone && ld.phone.includes(pipelineSearch)) ||
+        ld.leadCode.toLowerCase().includes(pipelineSearch.toLowerCase()) ||
+        ld.targetExam.toLowerCase().includes(pipelineSearch.toLowerCase()) ||
+        ld.country.toLowerCase().includes(pipelineSearch.toLowerCase());
+
+      const matchExam =
+        pipelineExamFilter === 'all' ||
+        ld.targetExam.toLowerCase().includes(pipelineExamFilter.toLowerCase());
+
+      const matchPriority =
+        pipelinePriorityFilter === 'all' || ld.priority === pipelinePriorityFilter;
+
+      return matchSearch && matchExam && matchPriority;
+    });
+  }, [leads, pipelineSearch, pipelineExamFilter, pipelinePriorityFilter]);
 
   // Counts
   const unreadInquiriesCount = inquiries.filter((i) => i.status === 'new').length;
@@ -776,7 +840,7 @@ export default function AdminLeadsPage() {
             </div>
 
             {/* Status Tabs Filter */}
-            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', alignItems: 'center' }}>
               {[
                 { key: 'all', label: 'All Inquiries' },
                 { key: 'new', label: 'New / Unread' },
@@ -802,6 +866,49 @@ export default function AdminLeadsPage() {
                   {st.label}
                 </button>
               ))}
+            </div>
+
+            {/* Action Buttons: Copy All Emails & Export CSV */}
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+              <button
+                onClick={handleCopyInquiryEmails}
+                style={{
+                  padding: '8px 14px',
+                  borderRadius: '8px',
+                  backgroundColor: '#F8FAFC',
+                  color: '#0F172A',
+                  fontSize: '0.8125rem',
+                  fontWeight: 600,
+                  border: '1px solid #CBD5E1',
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                }}
+              >
+                {inquiryCopyToast ? <Check size={14} color="#16A34A" /> : <Copy size={14} />}
+                <span>{inquiryCopyToast ? 'Copied Emails!' : 'Copy All Emails'}</span>
+              </button>
+
+              <button
+                onClick={handleExportInquiryCSV}
+                style={{
+                  padding: '8px 16px',
+                  borderRadius: '8px',
+                  backgroundColor: '#0F172A',
+                  color: '#FFFFFF',
+                  fontSize: '0.8125rem',
+                  fontWeight: 700,
+                  border: 'none',
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                }}
+              >
+                <Download size={14} />
+                <span>Export CSV</span>
+              </button>
             </div>
           </div>
 
@@ -838,11 +945,12 @@ export default function AdminLeadsPage() {
                   <div
                     key={inq.id}
                     style={{
-                      backgroundColor: '#FFFFFF',
+                      backgroundColor: isNew ? '#F0FDF4' : '#FFFFFF',
                       borderRadius: '14px',
-                      border: `1.5px solid ${isNew ? '#22C55E' : '#E2E8F0'}`,
+                      border: isNew ? '2px solid #16A34A' : '1px solid #E2E8F0',
+                      borderLeft: isNew ? '6px solid #16A34A' : '4px solid #CBD5E1',
                       padding: '20px 24px',
-                      boxShadow: isNew ? '0 4px 14px rgba(34, 197, 94, 0.08)' : '0 1px 3px rgba(0,0,0,0.03)',
+                      boxShadow: isNew ? '0 4px 18px rgba(22, 163, 74, 0.12)' : '0 1px 3px rgba(0,0,0,0.03)',
                       transition: 'all 0.15s ease',
                     }}
                   >
@@ -870,28 +978,34 @@ export default function AdminLeadsPage() {
                             justifyContent: 'center',
                             fontWeight: 800,
                             fontSize: '1rem',
+                            border: isNew ? '1px solid #86EFAC' : 'none',
                           }}
                         >
                           {inq.name.charAt(0).toUpperCase()}
                         </div>
                         <div>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                             <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>
                               {inq.name}
                             </h3>
                             {isNew && (
                               <span
                                 style={{
-                                  backgroundColor: '#DC2626',
+                                  backgroundColor: '#16A34A',
                                   color: '#FFFFFF',
                                   fontSize: '0.6875rem',
-                                  fontWeight: 700,
-                                  padding: '1px 7px',
-                                  borderRadius: '10px',
-                                  textTransform: 'uppercase',
+                                  fontWeight: 800,
+                                  padding: '2px 9px',
+                                  borderRadius: '12px',
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  gap: '5px',
+                                  letterSpacing: '0.5px',
+                                  boxShadow: '0 2px 6px rgba(22, 163, 74, 0.35)',
                                 }}
                               >
-                                New
+                                <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#FFFFFF', display: 'inline-block' }} />
+                                NEW / UNREAD
                               </span>
                             )}
                           </div>
@@ -912,7 +1026,25 @@ export default function AdminLeadsPage() {
                       </div>
 
                       {/* Status Selector & Badges */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                        {isNew && (
+                          <button
+                            onClick={() => handleUpdateInquiryStatus(inq.id, 'in_review')}
+                            style={{
+                              padding: '5px 12px',
+                              borderRadius: '6px',
+                              backgroundColor: '#DCFCE7',
+                              border: '1px solid #86EFAC',
+                              color: '#166534',
+                              fontSize: '0.75rem',
+                              fontWeight: 700,
+                              cursor: 'pointer',
+                            }}
+                          >
+                            Mark Reviewed
+                          </button>
+                        )}
+
                         <span
                           style={{
                             fontSize: '0.75rem',
@@ -1303,48 +1435,133 @@ export default function AdminLeadsPage() {
       {/* ═════════════════════════════════════════════════════════════════ */}
       {activeTab === 'pipeline' && (
         <div>
-          {/* Sub-toggle View Mode */}
-          <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '16px' }}>
-            <div
-              style={{
-                backgroundColor: '#FFFFFF',
-                border: '1px solid #E2E8F0',
-                borderRadius: '8px',
-                padding: '4px',
-                display: 'flex',
-                gap: '4px',
-              }}
-            >
-              <button
-                onClick={() => setViewMode('kanban')}
+          {/* CRM Controls & Search Bar */}
+          <div
+            style={{
+              backgroundColor: '#FFFFFF',
+              borderRadius: '12px',
+              border: '1px solid #E2E8F0',
+              padding: '14px 18px',
+              marginBottom: '20px',
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '12px',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
+            <div style={{ display: 'flex', gap: '10px', flex: '1 1 340px', alignItems: 'center', flexWrap: 'wrap' }}>
+              <div style={{ position: 'relative', flex: '1 1 240px', maxWidth: '360px' }}>
+                <Search size={16} color="#94A3B8" style={{ position: 'absolute', left: '12px', top: '10px' }} />
+                <input
+                  type="text"
+                  placeholder="Search leads by name, code, email, exam..."
+                  value={pipelineSearch}
+                  onChange={(e) => setPipelineSearch(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '8px 12px 8px 36px',
+                    borderRadius: '8px',
+                    border: '1px solid #CBD5E1',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                  }}
+                />
+              </div>
+
+              {/* Exam Filter */}
+              <select
+                value={pipelineExamFilter}
+                onChange={(e) => setPipelineExamFilter(e.target.value)}
                 style={{
-                  padding: '6px 14px',
-                  borderRadius: '6px',
-                  fontSize: '0.8125rem',
-                  fontWeight: 600,
-                  backgroundColor: viewMode === 'kanban' ? '#22C55E' : 'transparent',
-                  color: viewMode === 'kanban' ? '#FFFFFF' : '#64748B',
-                  border: 'none',
-                  cursor: 'pointer',
+                  padding: '8px 12px',
+                  borderRadius: '8px',
+                  border: '1px solid #CBD5E1',
+                  fontSize: '0.84rem',
+                  outline: 'none',
+                  backgroundColor: '#FFFFFF',
+                  color: '#334155',
                 }}
               >
-                Kanban Pipeline
-              </button>
-              <button
-                onClick={() => setViewMode('table')}
+                <option value="all">All Exams</option>
+                <option value="IMAT">IMAT</option>
+                <option value="USMLE">USMLE</option>
+                <option value="TOLC-MED">TOLC-MED</option>
+                <option value="NEET">NEET</option>
+              </select>
+
+              {/* Priority Filter */}
+              <select
+                value={pipelinePriorityFilter}
+                onChange={(e) => setPipelinePriorityFilter(e.target.value)}
                 style={{
-                  padding: '6px 14px',
-                  borderRadius: '6px',
-                  fontSize: '0.8125rem',
-                  fontWeight: 600,
-                  backgroundColor: viewMode === 'table' ? '#22C55E' : 'transparent',
-                  color: viewMode === 'table' ? '#FFFFFF' : '#64748B',
-                  border: 'none',
-                  cursor: 'pointer',
+                  padding: '8px 12px',
+                  borderRadius: '8px',
+                  border: '1px solid #CBD5E1',
+                  fontSize: '0.84rem',
+                  outline: 'none',
+                  backgroundColor: '#FFFFFF',
+                  color: '#334155',
                 }}
               >
-                Table View
+                <option value="all">All Priorities</option>
+                <option value="hot">🔥 Hot Priority</option>
+                <option value="warm">⚡ Warm</option>
+                <option value="cold">❄️ Cold</option>
+              </select>
+            </div>
+
+            <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
+              <button
+                onClick={() => setCreateModalOpen(true)}
+                className="btn-primary"
+                style={{ padding: '8px 16px', fontSize: '0.8125rem' }}
+              >
+                <Plus size={15} />
+                <span>Add CRM Lead</span>
               </button>
+
+              <div
+                style={{
+                  backgroundColor: '#F8FAFC',
+                  border: '1px solid #E2E8F0',
+                  borderRadius: '8px',
+                  padding: '3px',
+                  display: 'flex',
+                  gap: '2px',
+                }}
+              >
+                <button
+                  onClick={() => setViewMode('kanban')}
+                  style={{
+                    padding: '6px 12px',
+                    borderRadius: '6px',
+                    fontSize: '0.8125rem',
+                    fontWeight: 600,
+                    backgroundColor: viewMode === 'kanban' ? '#16A34A' : 'transparent',
+                    color: viewMode === 'kanban' ? '#FFFFFF' : '#64748B',
+                    border: 'none',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Kanban
+                </button>
+                <button
+                  onClick={() => setViewMode('table')}
+                  style={{
+                    padding: '6px 12px',
+                    borderRadius: '6px',
+                    fontSize: '0.8125rem',
+                    fontWeight: 600,
+                    backgroundColor: viewMode === 'table' ? '#16A34A' : 'transparent',
+                    color: viewMode === 'table' ? '#FFFFFF' : '#64748B',
+                    border: 'none',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Table
+                </button>
+              </div>
             </div>
           </div>
 
@@ -1361,7 +1578,7 @@ export default function AdminLeadsPage() {
               }}
             >
               {stages.map((col) => {
-                const colLeads = leads.filter((l) => l.stage === col.stage);
+                const colLeads = filteredLeads.filter((l) => l.stage === col.stage);
                 return (
                   <div
                     key={col.stage}
@@ -1406,63 +1623,112 @@ export default function AdminLeadsPage() {
 
                     {/* Lead Cards */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                      {colLeads.map((ld) => (
-                        <div
-                          key={ld.id}
-                          style={{
-                            backgroundColor: '#F8FAFC',
-                            border: '1px solid #E2E8F0',
-                            borderRadius: '8px',
-                            padding: '12px',
-                            cursor: 'pointer',
-                            transition: 'all 0.15s ease',
-                          }}
-                          onClick={() => setSelectedLead(ld)}
-                        >
-                          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                            <span style={{ fontSize: '0.6875rem', fontWeight: 700, color: '#22C55E' }}>
-                              {ld.leadCode}
-                            </span>
-                            <span className={ld.priority === 'hot' ? 'badge badge-red' : 'badge badge-amber'} style={{ padding: '1px 6px', fontSize: '0.6875rem' }}>
-                              {ld.priority.toUpperCase()}
-                            </span>
-                          </div>
-
-                          <div style={{ fontWeight: 700, color: '#0F172A', fontSize: '0.9375rem', marginBottom: '4px' }}>
-                            {ld.name}
-                          </div>
-
-                          <div style={{ fontSize: '0.75rem', color: '#64748B', marginBottom: '8px' }}>
-                            {ld.targetExam} • {ld.country}
-                          </div>
-
-                          {/* Move Stage Selector */}
-                          <div
-                            style={{
-                              marginTop: '8px',
-                              borderTop: '1px solid #E2E8F0',
-                              paddingTop: '8px',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'space-between',
-                            }}
-                          >
-                            <select
-                              className="form-select"
-                              style={{ fontSize: '0.75rem', padding: '2px 6px', width: 'auto' }}
-                              value={ld.stage}
-                              onClick={(e) => e.stopPropagation()}
-                              onChange={(e) => updateLeadStage(ld.id, e.target.value as LeadStage)}
-                            >
-                              {stages.map((s) => (
-                                <option key={s.stage} value={s.stage}>
-                                  Move to {s.title}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
+                      {colLeads.length === 0 ? (
+                        <div style={{ padding: '24px 10px', textAlign: 'center', color: '#94A3B8', fontSize: '0.8rem', border: '1px dashed #E2E8F0', borderRadius: '8px' }}>
+                          No leads in this stage
                         </div>
-                      ))}
+                      ) : (
+                        colLeads.map((ld) => (
+                          <div
+                            key={ld.id}
+                            style={{
+                              backgroundColor: '#F8FAFC',
+                              border: '1px solid #E2E8F0',
+                              borderRadius: '8px',
+                              padding: '12px',
+                              cursor: 'pointer',
+                              transition: 'all 0.15s ease',
+                            }}
+                            onClick={() => setSelectedLead(ld)}
+                          >
+                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                              <span style={{ fontSize: '0.6875rem', fontWeight: 700, color: '#16A34A' }}>
+                                {ld.leadCode}
+                              </span>
+                              <span className={ld.priority === 'hot' ? 'badge badge-red' : 'badge badge-amber'} style={{ padding: '1px 6px', fontSize: '0.6875rem' }}>
+                                {ld.priority.toUpperCase()}
+                              </span>
+                            </div>
+
+                            <div style={{ fontWeight: 700, color: '#0F172A', fontSize: '0.9375rem', marginBottom: '4px' }}>
+                              {ld.name}
+                            </div>
+
+                            <div style={{ fontSize: '0.75rem', color: '#64748B', marginBottom: '8px' }}>
+                              {ld.targetExam} • {ld.country}
+                            </div>
+
+                            {/* Direct Communication Quick Links */}
+                            <div style={{ display: 'flex', gap: '6px', marginBottom: '8px' }} onClick={(e) => e.stopPropagation()}>
+                              <a
+                                href={`mailto:${ld.email}?subject=Ahsora%20Meds%20Admissions%20Follow-up`}
+                                style={{
+                                  padding: '3px 8px',
+                                  borderRadius: '5px',
+                                  backgroundColor: '#FFFFFF',
+                                  border: '1px solid #CBD5E1',
+                                  color: '#0F172A',
+                                  fontSize: '0.72rem',
+                                  textDecoration: 'none',
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  gap: '4px',
+                                  fontWeight: 600,
+                                }}
+                              >
+                                <Mail size={11} color="#64748B" /> Email
+                              </a>
+                              {ld.phone && (
+                                <a
+                                  href={`https://wa.me/${ld.phone.replace(/[^0-9]/g, '')}?text=Hi%20${encodeURIComponent(ld.name)},%20this%20is%20Ahsora%20Meds%20Admissions.`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  style={{
+                                    padding: '3px 8px',
+                                    borderRadius: '5px',
+                                    backgroundColor: '#DCFCE7',
+                                    border: '1px solid #86EFAC',
+                                    color: '#166534',
+                                    fontSize: '0.72rem',
+                                    textDecoration: 'none',
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '4px',
+                                    fontWeight: 700,
+                                  }}
+                                >
+                                  <Phone size={11} color="#16A34A" /> WhatsApp
+                                </a>
+                              )}
+                            </div>
+
+                            {/* Move Stage Selector */}
+                            <div
+                              style={{
+                                borderTop: '1px solid #E2E8F0',
+                                paddingTop: '8px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                              }}
+                            >
+                              <select
+                                className="form-select"
+                                style={{ fontSize: '0.75rem', padding: '3px 6px', width: '100%', borderRadius: '6px' }}
+                                value={ld.stage}
+                                onClick={(e) => e.stopPropagation()}
+                                onChange={(e) => updateLeadStage(ld.id, e.target.value as LeadStage)}
+                              >
+                                {stages.map((s) => (
+                                  <option key={s.stage} value={s.stage}>
+                                    Move to: {s.title}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                          </div>
+                        ))
+                      )}
                     </div>
                   </div>
                 );
@@ -1480,31 +1746,103 @@ export default function AdminLeadsPage() {
                     <th style={{ padding: '14px 16px' }}>Contact</th>
                     <th style={{ padding: '14px 16px' }}>Stage</th>
                     <th style={{ padding: '14px 16px' }}>Counsellor</th>
+                    <th style={{ padding: '14px 16px', textAlign: 'right' }}>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {leads.map((ld) => (
-                    <tr key={ld.id} style={{ borderBottom: '1px solid #F1F5F9' }}>
-                      <td style={{ padding: '14px 16px', fontWeight: 600, color: '#22C55E' }}>
-                        {ld.leadCode}
-                      </td>
-                      <td style={{ padding: '14px 16px', fontWeight: 600, color: '#0F172A' }}>
-                        {ld.name}
-                      </td>
-                      <td style={{ padding: '14px 16px', color: '#334155' }}>
-                        {ld.targetExam} ({ld.targetCountry})
-                      </td>
-                      <td style={{ padding: '14px 16px', color: '#64748B', fontSize: '0.8125rem' }}>
-                        {ld.email}<br />{ld.phone}
-                      </td>
-                      <td style={{ padding: '14px 16px' }}>
-                        <span className="badge badge-blue">{ld.stage.replace('_', ' ')}</span>
-                      </td>
-                      <td style={{ padding: '14px 16px', color: '#334155' }}>
-                        {ld.assignedCounsellor || 'Unassigned'}
+                  {filteredLeads.length === 0 ? (
+                    <tr>
+                      <td colSpan={7} style={{ padding: '40px', textAlign: 'center', color: '#64748B' }}>
+                        No leads match the current filters.
                       </td>
                     </tr>
-                  ))}
+                  ) : (
+                    filteredLeads.map((ld) => (
+                      <tr key={ld.id} style={{ borderBottom: '1px solid #F1F5F9' }}>
+                        <td style={{ padding: '14px 16px', fontWeight: 600, color: '#16A34A' }}>
+                          {ld.leadCode}
+                        </td>
+                        <td style={{ padding: '14px 16px', fontWeight: 700, color: '#0F172A' }}>
+                          <div style={{ cursor: 'pointer' }} onClick={() => setSelectedLead(ld)}>
+                            {ld.name}
+                          </div>
+                        </td>
+                        <td style={{ padding: '14px 16px', color: '#334155' }}>
+                          {ld.targetExam} ({ld.targetCountry})
+                        </td>
+                        <td style={{ padding: '14px 16px', color: '#64748B', fontSize: '0.8125rem' }}>
+                          <div>{ld.email}</div>
+                          <div style={{ color: '#16A34A', fontWeight: 600 }}>{ld.phone}</div>
+                        </td>
+                        <td style={{ padding: '14px 16px' }}>
+                          <select
+                            value={ld.stage}
+                            onChange={(e) => updateLeadStage(ld.id, e.target.value as LeadStage)}
+                            style={{
+                              padding: '3px 8px',
+                              borderRadius: '6px',
+                              fontSize: '0.78rem',
+                              fontWeight: 600,
+                              border: '1px solid #CBD5E1',
+                              backgroundColor: '#FFFFFF',
+                              outline: 'none',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            {stages.map((s) => (
+                              <option key={s.stage} value={s.stage}>
+                                {s.title}
+                              </option>
+                            ))}
+                          </select>
+                        </td>
+                        <td style={{ padding: '14px 16px', color: '#334155' }}>
+                          {ld.assignedCounsellor || 'Unassigned'}
+                        </td>
+                        <td style={{ padding: '14px 16px', textAlign: 'right' }}>
+                          <div style={{ display: 'inline-flex', gap: '6px' }}>
+                            <a
+                              href={`mailto:${ld.email}`}
+                              style={{
+                                padding: '4px 8px',
+                                borderRadius: '5px',
+                                backgroundColor: '#F1F5F9',
+                                color: '#475569',
+                                fontSize: '0.75rem',
+                                textDecoration: 'none',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '3px',
+                              }}
+                            >
+                              <Mail size={12} /> Email
+                            </a>
+                            {ld.phone && (
+                              <a
+                                href={`https://wa.me/${ld.phone.replace(/[^0-9]/g, '')}?text=Hi%20${encodeURIComponent(ld.name)},%20this%20is%20Ahsora%20Meds.`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{
+                                  padding: '4px 8px',
+                                  borderRadius: '5px',
+                                  backgroundColor: '#DCFCE7',
+                                  color: '#166534',
+                                  fontSize: '0.75rem',
+                                  textDecoration: 'none',
+                                  fontWeight: 600,
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  gap: '3px',
+                                }}
+                              >
+                                <Phone size={12} /> WA
+                              </a>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>
@@ -1532,18 +1870,19 @@ export default function AdminLeadsPage() {
             style={{
               backgroundColor: '#FFFFFF',
               borderRadius: '16px',
-              maxWidth: '540px',
+              maxWidth: '560px',
               width: '100%',
               padding: '28px',
+              boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px', alignItems: 'flex-start' }}>
               <div>
                 <span className="badge badge-blue" style={{ marginBottom: '4px' }}>
                   {selectedLead.leadCode}
                 </span>
-                <h3 style={{ fontSize: '1.25rem', color: '#0F172A', margin: 0 }}>
+                <h3 style={{ fontSize: '1.25rem', color: '#0F172A', margin: '4px 0 0 0', fontWeight: 800 }}>
                   {selectedLead.name}
                 </h3>
               </div>
@@ -1560,7 +1899,88 @@ export default function AdminLeadsPage() {
               <div>Target Country: <strong>{selectedLead.targetCountry}</strong></div>
               <div>Academic Background: <strong>{selectedLead.academicBackground}</strong></div>
               <div>Budget: <strong>{selectedLead.budgetRange}</strong></div>
-              {selectedLead.notes && <div>Staff Notes: <p style={{ color: '#64748B', marginTop: '4px' }}>{selectedLead.notes}</p></div>}
+              {selectedLead.notes && (
+                <div style={{ backgroundColor: '#F8FAFC', padding: '10px 12px', borderRadius: '8px', borderLeft: '3px solid #16A34A' }}>
+                  <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase' }}>Staff Notes</div>
+                  <p style={{ color: '#334155', margin: '4px 0 0 0' }}>{selectedLead.notes}</p>
+                </div>
+              )}
+
+              {/* Stage selector inside modal */}
+              <div style={{ marginTop: '6px' }}>
+                <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', display: 'block', marginBottom: '4px' }}>
+                  Current Pipeline Stage
+                </label>
+                <select
+                  value={selectedLead.stage}
+                  onChange={(e) => {
+                    const newStage = e.target.value as LeadStage;
+                    updateLeadStage(selectedLead.id, newStage);
+                    setSelectedLead({ ...selectedLead, stage: newStage });
+                  }}
+                  style={{
+                    width: '100%',
+                    padding: '8px 12px',
+                    borderRadius: '8px',
+                    border: '1px solid #CBD5E1',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    backgroundColor: '#FFFFFF',
+                  }}
+                >
+                  {stages.map((s) => (
+                    <option key={s.stage} value={s.stage}>
+                      {s.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Direct Communication Buttons */}
+              <div style={{ display: 'flex', gap: '8px', marginTop: '4px' }}>
+                <a
+                  href={`mailto:${selectedLead.email}?subject=Ahsora%20Meds%20Academy%20Admissions`}
+                  style={{
+                    flex: 1,
+                    padding: '8px',
+                    borderRadius: '8px',
+                    backgroundColor: '#F1F5F9',
+                    color: '#0F172A',
+                    fontSize: '0.8125rem',
+                    fontWeight: 700,
+                    textDecoration: 'none',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '6px',
+                  }}
+                >
+                  <Mail size={14} /> Send Email
+                </a>
+                {selectedLead.phone && (
+                  <a
+                    href={`https://wa.me/${selectedLead.phone.replace(/[^0-9]/g, '')}?text=Hi%20${encodeURIComponent(selectedLead.name)},%20this%20is%20Ahsora%20Meds.`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      flex: 1,
+                      padding: '8px',
+                      borderRadius: '8px',
+                      backgroundColor: '#DCFCE7',
+                      color: '#166534',
+                      fontSize: '0.8125rem',
+                      fontWeight: 700,
+                      textDecoration: 'none',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '6px',
+                    }}
+                  >
+                    <Phone size={14} color="#16A34A" /> WhatsApp Chat
+                  </a>
+                )}
+              </div>
             </div>
 
             <div style={{ borderTop: '1px solid #E2E8F0', paddingTop: '16px', display: 'flex', gap: '12px' }}>
@@ -1572,7 +1992,7 @@ export default function AdminLeadsPage() {
                 className="btn-primary"
                 style={{ flex: 1, justifyContent: 'center', backgroundColor: '#10B981' }}
               >
-                Convert to Student Account
+                Convert to Enrolled Student Account
               </button>
             </div>
           </div>

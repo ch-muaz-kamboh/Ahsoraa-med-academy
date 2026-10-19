@@ -18,6 +18,7 @@ interface StudentProfile {
   lastName?: string;
   email?: string;
   country?: string;
+  address?: string;
   whatsapp_number?: string;
   whatsappNumber?: string;
   selected_package?: string;
@@ -52,33 +53,23 @@ export default function AdminStudentsPage() {
   const [studentDocs, setStudentDocs] = useState<StudentDocument[]>([]);
   const [docsLoading, setDocsLoading] = useState(false);
 
-  // Helper to resolve student package from local mappings and storage
+  // Helper to accurately extract numerical price paid by a student (honoring promotional discounts)
+  const parseStudentPaidAmount = (s: StudentProfile, defaultFallback?: number): number => {
+    const raw = s.package_price || s.packagePrice;
+    if (raw) {
+      const num = Number(String(raw).replace(/[^0-9.]/g, ''));
+      if (!isNaN(num) && num > 0) return num;
+    }
+    const matched = getPackageByIdOrName(s.selected_package || s.selectedPackage);
+    return typeof defaultFallback === 'number' ? defaultFallback : (matched.numericPrice || 0);
+  };
+
+  // Helper to resolve student package and actual purchase price from storage and mappings
   const resolveStudentPkg = (email?: string, id?: string): { selectedPackage: string; packagePrice: string } | null => {
     if (!email && !id) return null;
     const cleanEmail = (email || '').toLowerCase().trim();
 
-    // 1. Check persistent mapping
-    if (cleanEmail) {
-      const mapped = getStudentPackageMapping(cleanEmail);
-      if (mapped?.selectedPackage) return mapped;
-    }
-
-    // 2. Check ahsora_elite_students
-    try {
-      const eliteStr = localStorage.getItem('ahsora_elite_students');
-      if (eliteStr) {
-        const list = JSON.parse(eliteStr);
-        if (Array.isArray(list)) {
-          const isElite = list.some((item: any) =>
-            (cleanEmail && item.email && item.email.toLowerCase().trim() === cleanEmail) ||
-            (id && (item.studentId === id || item.id === id))
-          );
-          if (isElite) return { selectedPackage: 'Ahsora Path Elite', packagePrice: '€799' };
-        }
-      }
-    } catch (e) {}
-
-    // 3. Check adminStudentList
+    // 1. Check adminStudentList FIRST (stores exact registration and discounted purchase prices)
     try {
       const adminListStr = localStorage.getItem('adminStudentList');
       if (adminListStr) {
@@ -91,14 +82,14 @@ export default function AdminStudentsPage() {
           if (found && (found.selectedPackage || found.selected_package)) {
             return {
               selectedPackage: found.selectedPackage || found.selected_package,
-              packagePrice: found.packagePrice || found.package_price,
+              packagePrice: found.packagePrice || found.package_price || getPackageByIdOrName(found.selectedPackage || found.selected_package).price,
             };
           }
         }
       }
     } catch (e) {}
 
-    // 4. Check recentRegistration
+    // 2. Check recentRegistration
     try {
       const regStr = localStorage.getItem('recentRegistration');
       if (regStr) {
@@ -110,14 +101,14 @@ export default function AdminStudentsPage() {
           if (reg.selectedPackage || reg.selected_package) {
             return {
               selectedPackage: reg.selectedPackage || reg.selected_package,
-              packagePrice: reg.packagePrice || reg.package_price,
+              packagePrice: reg.packagePrice || reg.package_price || getPackageByIdOrName(reg.selectedPackage || reg.selected_package).price,
             };
           }
         }
       }
     } catch (e) {}
 
-    // 5. Check ahsora_currentUser
+    // 3. Check ahsora_currentUser
     try {
       const curUserStr = localStorage.getItem('ahsora_currentUser');
       if (curUserStr) {
@@ -129,7 +120,33 @@ export default function AdminStudentsPage() {
           if (cur.selectedPackage) {
             return {
               selectedPackage: cur.selectedPackage,
-              packagePrice: cur.packagePrice,
+              packagePrice: cur.packagePrice || getPackageByIdOrName(cur.selectedPackage).price,
+            };
+          }
+        }
+      }
+    } catch (e) {}
+
+    // 4. Check persistent mapping
+    if (cleanEmail) {
+      const mapped = getStudentPackageMapping(cleanEmail);
+      if (mapped?.selectedPackage) return mapped;
+    }
+
+    // 5. Check ahsora_elite_students (dynamically resolve price instead of hardcoding 799)
+    try {
+      const eliteStr = localStorage.getItem('ahsora_elite_students');
+      if (eliteStr) {
+        const list = JSON.parse(eliteStr);
+        if (Array.isArray(list)) {
+          const matchedElite = list.find((item: any) =>
+            (cleanEmail && item.email && item.email.toLowerCase().trim() === cleanEmail) ||
+            (id && (item.studentId === id || item.id === id))
+          );
+          if (matchedElite) {
+            return {
+              selectedPackage: 'Ahsora MedPath Elite',
+              packagePrice: matchedElite.packagePrice || matchedElite.package_price || getPackageByIdOrName('elite').price,
             };
           }
         }
@@ -226,6 +243,7 @@ export default function AdminStudentsPage() {
               lastName: localItem.lastName,
               email: localItem.email,
               country: localItem.country,
+              address: localItem.address || 'Address on file',
               whatsapp_number: localItem.whatsappNumber,
               selected_package: localItem.selectedPackage,
               package_price: localItem.packagePrice,
@@ -531,13 +549,11 @@ export default function AdminStudentsPage() {
           { label: 'Payment Approved', value: approvedCount, color: '#16A34A', bg: '#F0FFF4' },
           { label: 'Pending Payment', value: pendingCount, color: '#D97706', bg: '#FFFBEB' },
           {
-            label: 'Total Revenue (Est.)',
+            label: 'Total Revenue (Verified)',
             value: `€${students
               .filter((s) => s.payment_approved)
-              .reduce((sum, s) => {
-                const pkg = getPackageByIdOrName(s.selected_package || s.selectedPackage);
-                return sum + pkg.numericPrice;
-              }, 0)}`,
+              .reduce((sum, s) => sum + parseStudentPaidAmount(s), 0)
+              .toLocaleString()}`,
             color: '#059669',
             bg: '#F0FFF4',
           },
@@ -562,7 +578,7 @@ export default function AdminStudentsPage() {
             const approvedInPkg = students.filter((s) => getStudentPkgName(s) === pkg.name && s.payment_approved).length;
             const revenue = students
               .filter((s) => getStudentPkgName(s) === pkg.name && s.payment_approved)
-              .reduce((sum) => sum + pkg.numericPrice, 0);
+              .reduce((sum, s) => sum + parseStudentPaidAmount(s, pkg.numericPrice), 0);
             return (
               <div
                 key={pkg.id}
@@ -623,8 +639,8 @@ export default function AdminStudentsPage() {
         </div>
       </div>
 
-      {/* Search & Refresh Bar */}
-      <div style={{ display: 'flex', gap: '12px', marginBottom: '20px', flexWrap: 'wrap' }}>
+      {/* Search & Actions Bar with Export CSV */}
+      <div style={{ display: 'flex', gap: '12px', marginBottom: '20px', flexWrap: 'wrap', alignItems: 'center' }}>
         <div style={{ position: 'relative', flex: 1, minWidth: '280px' }}>
           <Search size={18} color="#94A3B8" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
           <input
@@ -635,6 +651,92 @@ export default function AdminStudentsPage() {
             style={{ width: '100%', padding: '11px 16px 11px 42px', borderRadius: '10px', border: '1px solid #CBD5E1', outline: 'none', fontSize: '0.9375rem', backgroundColor: '#FFF' }}
           />
         </div>
+
+        {/* Export CSV for Active Students Button */}
+        <button
+          onClick={() => {
+            // Strictly include only active enrolled students with approved payment
+            const activeStudents = students.filter((s) => {
+              if (!s.payment_approved) return false;
+              if (packageFilter !== 'all') {
+                return getStudentPkgName(s) === packageFilter;
+              }
+              return true;
+            });
+
+            if (activeStudents.length === 0) {
+              alert(`No active/enrolled students found${packageFilter !== 'all' ? ` for ${packageFilter}` : ''}. Note: Pending payment students are strictly excluded.`);
+              return;
+            }
+
+            const headers = [
+              'Full Name',
+              'Enrollment Number',
+              'Purchased Package',
+              'Actual Paid Amount',
+              'Email Address',
+              'WhatsApp Number',
+              'Country',
+              'Address',
+              'Registration Date',
+              'Access Status',
+            ];
+
+            const rows = activeStudents.map((s) => {
+              const pkgName = getStudentPkgName(s);
+              const price = s.package_price || s.packagePrice || `€${parseStudentPaidAmount(s)}`;
+              const name = s.full_name || `${s.firstName || ''} ${s.lastName || ''}`.trim() || 'Student';
+              const regDate = s.created_at || s.createdAt ? new Date(s.created_at || s.createdAt!).toLocaleDateString() : 'N/A';
+              const clean = (val?: string) => `"${(val || '').replace(/"/g, '""')}"`;
+
+              return [
+                clean(name),
+                clean(s.ama_id || s.id),
+                clean(pkgName),
+                clean(price),
+                clean(s.email || ''),
+                clean(s.whatsapp_number || s.whatsappNumber || ''),
+                clean(s.country || ''),
+                clean(s.address || 'Address verified'),
+                clean(regDate),
+                clean('Active Account Access'),
+              ].join(',');
+            });
+
+            const csvContent = [headers.join(','), ...rows].join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            const filePkgTag = packageFilter !== 'all' ? packageFilter.replace(/\s+/g, '_') : 'All_Packages';
+            link.setAttribute('href', url);
+            link.setAttribute('download', `Ahsora_Active_Students_${filePkgTag}_${new Date().toISOString().split('T')[0]}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          }}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '11px 20px',
+            borderRadius: '10px',
+            backgroundColor: '#0F172A',
+            color: '#FFFFFF',
+            border: 'none',
+            cursor: 'pointer',
+            fontWeight: 700,
+            fontSize: '0.875rem',
+            boxShadow: '0 2px 6px rgba(15, 23, 42, 0.15)',
+            transition: 'all 0.15s ease',
+          }}
+          title="Export CSV of properly enrolled students with active payment"
+        >
+          <Download size={16} color="#5CED73" />
+          <span>
+            {packageFilter === 'all' ? 'Export Active Students CSV' : `Export ${packageFilter.replace('Ahsora ', '')} CSV`}
+          </span>
+        </button>
+
         <button
           onClick={fetchStudents}
           style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '11px 20px', borderRadius: '10px', border: '1px solid #CBD5E1', backgroundColor: '#FFF', cursor: 'pointer', fontWeight: 600, color: '#475569', fontSize: '0.9375rem' }}

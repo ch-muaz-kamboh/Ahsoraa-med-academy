@@ -128,11 +128,22 @@ export default function PortalTestsPage() {
               flexDirection: 'column',
             }}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-              <span className="badge badge-blue">{test.category}</span>
-              <span className="badge badge-amber" style={{ textTransform: 'uppercase' }}>
-                {test.difficulty}
-              </span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', alignItems: 'center', flexWrap: 'wrap', gap: '6px' }}>
+              <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                <span className="badge badge-blue">{test.category}</span>
+                <span className="badge badge-amber" style={{ textTransform: 'uppercase' }}>
+                  {test.difficulty}
+                </span>
+              </div>
+              {test.unlockDate && new Date(test.unlockDate).getTime() > Date.now() ? (
+                <span style={{ backgroundColor: '#FEF3C7', color: '#B45309', padding: '3px 8px', borderRadius: '12px', fontSize: '0.72rem', fontWeight: 700, border: '1px solid #FDE68A' }}>
+                  🔒 Unlocks {new Date(test.unlockDate).toLocaleDateString([], { month: 'short', day: 'numeric' })}
+                </span>
+              ) : (
+                <span style={{ backgroundColor: '#DCFCE7', color: '#166534', padding: '3px 8px', borderRadius: '12px', fontSize: '0.72rem', fontWeight: 700, border: '1px solid #86EFAC' }}>
+                  ✓ Available
+                </span>
+              )}
             </div>
 
             <h3 style={{ fontSize: '1.2rem', color: '#0F172A', marginBottom: '8px', lineHeight: 1.3 }}>
@@ -167,18 +178,41 @@ export default function PortalTestsPage() {
                 <strong style={{ color: '#EF4444' }}>-{test.negativeMark}</strong>
               </div>
               <div>
-                Passing: <strong style={{ color: '#059669' }}>{test.passingPercentage}%</strong>
+                Passing: <strong style={{ color: '#059669' }}>{test.passingMarks ? `${test.passingMarks} Marks (${test.passingPercentage}%)` : `${test.passingPercentage}%`}</strong>
               </div>
             </div>
 
-            <Link
-              href={`/portal/tests/${test.id}/take`}
-              className="btn-primary"
-              style={{ width: '100%', padding: '12px', justifyContent: 'center', fontSize: '0.875rem' }}
-            >
-              <PlayCircle size={16} />
-              <span>Launch Timed Mock Exam</span>
-            </Link>
+            {test.unlockDate && new Date(test.unlockDate).getTime() > Date.now() ? (
+              <div
+                style={{
+                  width: '100%',
+                  padding: '12px',
+                  backgroundColor: '#F1F5F9',
+                  color: '#64748B',
+                  borderRadius: '8px',
+                  textAlign: 'center',
+                  fontWeight: 700,
+                  fontSize: '0.875rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  border: '1px solid #CBD5E1',
+                  cursor: 'not-allowed',
+                }}
+              >
+                <span>🔒 Scheduled: Unlocks on {new Date(test.unlockDate).toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+              </div>
+            ) : (
+              <Link
+                href={`/portal/tests/${test.id}/take`}
+                className="btn-primary"
+                style={{ width: '100%', padding: '12px', justifyContent: 'center', fontSize: '0.875rem' }}
+              >
+                <PlayCircle size={16} />
+                <span>Launch Timed Mock Exam</span>
+              </Link>
+            )}
           </div>
         ))}
       </div>

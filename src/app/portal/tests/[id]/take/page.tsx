@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, use } from 'react';
+import Link from 'next/link';
 import { useRouter, notFound } from 'next/navigation';
 import {
   Clock,
@@ -41,6 +42,35 @@ export default function TakeTestPage({
 
   if (!test) {
     notFound();
+  }
+
+  // If mock test is scheduled for a future unlock date, prevent taking it
+  const isScheduledLocked = Boolean(test.unlockDate && new Date(test.unlockDate).getTime() > Date.now());
+  if (isScheduledLocked) {
+    const formattedUnlock = new Date(test.unlockDate!).toLocaleDateString([], {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    });
+    return (
+      <div style={{ padding: '80px 24px', maxWidth: '640px', margin: '0 auto', textAlign: 'center' }}>
+        <div style={{ fontSize: '3.5rem', marginBottom: '16px' }}>🔒</div>
+        <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', marginBottom: '10px' }}>
+          Mock Exam Scheduled
+        </h2>
+        <p style={{ color: '#64748B', fontSize: '1rem', lineHeight: 1.6, marginBottom: '28px' }}>
+          &quot;{test.title}&quot; is currently locked and will automatically unlock for all enrolled students on{' '}
+          <strong style={{ color: '#0F172A' }}>{formattedUnlock}</strong>.
+        </p>
+        <Link
+          href="/portal/tests"
+          className="btn-primary"
+          style={{ padding: '12px 28px', display: 'inline-flex', fontSize: '0.9375rem', textDecoration: 'none' }}
+        >
+          Return to Mock Test Center
+        </Link>
+      </div>
+    );
   }
 
   // Register an in_progress attempt when they join, to lock the portal.
@@ -166,11 +196,19 @@ export default function TakeTestPage({
     const attemptId = `att-${Date.now()}`;
     const timeSpent = activeTest.durationMinutes * 60 - (timeLeftRef.current || 0);
 
+    const studentName =
+      (currentUser?.firstName ? `${currentUser.firstName} ${currentUser.lastName || ''}`.trim() : '') ||
+      currentUser?.email ||
+      'Active Student';
+    const studentEmail = currentUser?.email || 'student@ahsora.com';
+
     const newAttempt: TestAttempt = {
       id: attemptId,
       testId: activeTest.id,
       testTitle: activeTest.title,
       studentId: currentUser?.id || 'usr-student',
+      studentName,
+      studentEmail,
       status: 'completed',
       startedAt: new Date().toISOString(),
       submittedAt: new Date().toISOString(),
@@ -192,6 +230,12 @@ export default function TakeTestPage({
       try {
         localStorage.setItem('cbt_attempt_' + attemptId, JSON.stringify(newAttempt));
         localStorage.setItem('cbt_latest_attempt_' + activeTest.id, JSON.stringify(newAttempt));
+
+        // Append to global attempts registry for Admin Results & Score Publishing
+        const allAttemptsRaw = localStorage.getItem('ahsora_all_mock_attempts');
+        const allAttempts = allAttemptsRaw ? JSON.parse(allAttemptsRaw) : [];
+        allAttempts.unshift(newAttempt);
+        localStorage.setItem('ahsora_all_mock_attempts', JSON.stringify(allAttempts.slice(0, 500)));
       } catch (e) {}
     }
 

@@ -188,6 +188,8 @@ export interface Test {
   positiveMark: number;
   negativeMark: number;
   passingPercentage: number;
+  passingMarks?: number;
+  unlockDate?: string;
   instructions: string;
   isPublicSample?: boolean;
   questions: TestQuestion[];
@@ -198,6 +200,8 @@ export interface TestAttempt {
   testId: string;
   testTitle: string;
   studentId: string;
+  studentName?: string;
+  studentEmail?: string;
   status: AttemptStatus;
   startedAt: string;
   submittedAt?: string;

@@ -16,6 +16,7 @@ import {
   LibraryResource,
   StudentMistake,
 } from '@/types';
+import { buildExpandedMockTests } from '@/lib/mock-tests-expanded';
 
 export const mockCurrentUser: Profile = {
   id: 'usr-student-01',
@@ -202,7 +203,7 @@ export const mockCourses: Course[] = [
   },
 ];
 
-export const mockTests: Test[] = [
+const baseMockTests: Test[] = [
   {
     id: 'tst-01',
     slug: 'usmle-step-1-diagnostic-mock-01',
@@ -212,11 +213,12 @@ export const mockTests: Test[] = [
     difficulty: 'hard',
     durationMinutes: 45,
     totalQuestions: 6,
-    totalMarks: 24,
-    positiveMark: 4,
-    negativeMark: 1,
-    passingPercentage: 60,
-    instructions: 'This block contains 6 high-yield vignette questions. Timed at 45 minutes with standard 1-minute/question pacing. Negative marking is applied (-1 for incorrect, +4 for correct).',
+    totalMarks: 9,
+    positiveMark: 1.5,
+    negativeMark: 0.4,
+    passingPercentage: 50,
+    passingMarks: 4.5,
+    instructions: 'This diagnostic block contains high-yield clinical questions scored on the official IMAT standard: +1.5 for correct answers, -0.4 deduction for incorrect answers, 0 for unanswered.',
     isPublicSample: true,
     questions: [
       {
@@ -330,6 +332,7 @@ export const mockTests: Test[] = [
     positiveMark: 1.5,
     negativeMark: 0.4,
     passingPercentage: 50,
+    passingMarks: 3.0,
     instructions: 'Simulates Italian Ministry of Education IMAT scoring (+1.5 per correct answer, -0.4 deduction for incorrect answers, 0 for unanswered).',
     isPublicSample: false,
     questions: [
@@ -367,6 +370,11 @@ export const mockTests: Test[] = [
       },
     ],
   },
+];
+
+export const mockTests: Test[] = [
+  ...baseMockTests,
+  ...buildExpandedMockTests(),
 ];
 
 export const mockUniversities: University[] = [

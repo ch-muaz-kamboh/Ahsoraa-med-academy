@@ -70,7 +70,10 @@ import {
   getSaleOfferConfig,
   syncSaleOfferFromSupabase,
   updateSaleOfferConfig,
-  SaleOfferConfig
+  SaleOfferConfig,
+  getHomeTickerSpeed,
+  updateHomeTickerSpeed,
+  DEFAULT_HOME_TICKER_SPEED
 } from '@/lib/cms-store';
 
 import { createClient } from '@/lib/supabase/client';
@@ -152,6 +155,7 @@ export default function AdminContentPage() {
   const [tickerItems, setTickerItems] = useState<TickerItem[]>([]);
   const [newTickerText, setNewTickerText] = useState('');
   const [newTickerIcon, setNewTickerIcon] = useState('🎓');
+  const [homeTickerSpeed, setHomeTickerSpeed] = useState<number>(() => getHomeTickerSpeed());
 
   // ── 4. Package Pricing State ─────────────────────────────────────────────
   const [prices, setPrices] = useState<DynamicPackagePrice[]>([]);
@@ -1166,7 +1170,66 @@ export default function AdminContentPage() {
 
           {/* ── HOME STRIP PANEL ── */}
           {tickerSubTab === 'home' && (
-            <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 380px', gap: '32px', alignItems: 'start' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              {/* Homepage strip speed settings row */}
+              <div style={{ backgroundColor: '#FFFFFF', padding: '20px 24px', borderRadius: '16px', border: '1px solid #E2E8F0', display: 'flex', gap: '24px', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <Zap size={18} color="#059669" />
+                    <label style={{ fontWeight: 800, fontSize: '0.9rem', color: '#0F172A' }}>Homepage Strip Scroll Speed:</label>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <input
+                        type="number"
+                        min={10} max={120}
+                        value={homeTickerSpeed}
+                        onChange={(e) => {
+                          const val = Number(e.target.value);
+                          setHomeTickerSpeed(val);
+                          updateHomeTickerSpeed(val);
+                        }}
+                        style={{ width: '75px', padding: '6px 10px', borderRadius: '8px', border: '1px solid #CBD5E1', fontWeight: 800, fontSize: '0.9rem', outline: 'none' }}
+                      />
+                      <span style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>seconds per cycle</span>
+                    </div>
+                  </div>
+                  {/* Quick speed presets */}
+                  <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                    <span style={{ fontSize: '0.75rem', color: '#94A3B8', fontWeight: 600 }}>Presets:</span>
+                    {[
+                      { label: '⚡ Fast (18s)', val: 18 },
+                      { label: '🏃 Normal (34s)', val: 34 },
+                      { label: '🚶 Relaxed (55s)', val: 55 },
+                    ].map((p) => (
+                      <button
+                        key={p.val}
+                        type="button"
+                        onClick={() => {
+                          setHomeTickerSpeed(p.val);
+                          updateHomeTickerSpeed(p.val);
+                          showToast('success', `✅ Speed set to ${p.val}s!`);
+                        }}
+                        style={{
+                          padding: '4px 10px',
+                          borderRadius: '6px',
+                          fontSize: '0.75rem',
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                          border: homeTickerSpeed === p.val ? '1px solid #059669' : '1px solid #E2E8F0',
+                          backgroundColor: homeTickerSpeed === p.val ? '#ECFDF5' : '#F8FAFC',
+                          color: homeTickerSpeed === p.val ? '#059669' : '#475569',
+                        }}
+                      >
+                        {p.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div style={{ fontSize: '0.8125rem', color: '#16A34A', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <CheckCircle2 size={15} /> Instant Real-time Live Update
+                </div>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 380px', gap: '32px', alignItems: 'start' }}>
               {/* Left: Home Ticker Items List */}
               <div style={{ backgroundColor: '#FFFFFF', padding: '24px', borderRadius: '16px', border: '1px solid #E2E8F0' }}>
                 <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0F172A', marginBottom: '16px' }}>
@@ -1242,6 +1305,7 @@ export default function AdminContentPage() {
                 </form>
               </div>
             </div>
+            </div>
           )}
 
           {/* ── IMAT STRIP PANEL ── */}
@@ -1263,16 +1327,51 @@ export default function AdminContentPage() {
                     />
                     IMAT Strip Active
                   </label>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                     <label style={{ fontWeight: 700, fontSize: '0.875rem' }}>Speed (seconds):</label>
                     <input
                       type="number"
                       min={10} max={120}
                       value={imatTickerConfig.speedSeconds}
-                      onChange={(e) => setImatTickerConfig({ ...imatTickerConfig, speedSeconds: Number(e.target.value) })}
+                      onChange={(e) => {
+                        const val = Number(e.target.value);
+                        const updated = { ...imatTickerConfig, speedSeconds: val };
+                        setImatTickerConfig(updated);
+                        updateImatTickerConfig(updated);
+                      }}
                       onBlur={() => { updateImatTickerConfig(imatTickerConfig!); showToast('success', '✅ IMAT strip speed updated!'); }}
                       style={{ width: '70px', padding: '6px 8px', borderRadius: '8px', border: '1px solid #CBD5E1', fontWeight: 700 }}
                     />
+                    <div style={{ display: 'flex', gap: '4px' }}>
+                      {[
+                        { label: '⚡ Fast (20s)', val: 20 },
+                        { label: '🏃 Normal (40s)', val: 40 },
+                        { label: '🚶 Relaxed (65s)', val: 65 },
+                      ].map((p) => (
+                        <button
+                          key={p.val}
+                          type="button"
+                          onClick={() => {
+                            const updated = { ...imatTickerConfig, speedSeconds: p.val };
+                            setImatTickerConfig(updated);
+                            updateImatTickerConfig(updated);
+                            showToast('success', `✅ IMAT strip speed set to ${p.val}s!`);
+                          }}
+                          style={{
+                            padding: '3px 8px',
+                            borderRadius: '6px',
+                            fontSize: '0.72rem',
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                            border: imatTickerConfig.speedSeconds === p.val ? '1px solid #059669' : '1px solid #E2E8F0',
+                            backgroundColor: imatTickerConfig.speedSeconds === p.val ? '#ECFDF5' : '#F8FAFC',
+                            color: imatTickerConfig.speedSeconds === p.val ? '#059669' : '#475569',
+                          }}
+                        >
+                          {p.label}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <label style={{ fontWeight: 700, fontSize: '0.875rem' }}>Theme:</label>
@@ -1400,16 +1499,51 @@ export default function AdminContentPage() {
                     />
                     Strip Active
                   </label>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                     <label style={{ fontWeight: 700, fontSize: '0.875rem' }}>Speed (seconds):</label>
                     <input
                       type="number"
-                      min={10} max={60}
+                      min={10} max={120}
                       value={portalTickerConfig.speedSeconds}
-                      onChange={(e) => setPortalTickerConfig({ ...portalTickerConfig, speedSeconds: Number(e.target.value) })}
+                      onChange={(e) => {
+                        const val = Number(e.target.value);
+                        const updated = { ...portalTickerConfig, speedSeconds: val };
+                        setPortalTickerConfig(updated);
+                        updatePortalTickerConfig(updated);
+                      }}
                       onBlur={() => { updatePortalTickerConfig(portalTickerConfig!); showToast('success', '✅ Portal strip speed updated!'); }}
                       style={{ width: '70px', padding: '6px 8px', borderRadius: '8px', border: '1px solid #CBD5E1', fontWeight: 700 }}
                     />
+                    <div style={{ display: 'flex', gap: '4px' }}>
+                      {[
+                        { label: '⚡ Fast (20s)', val: 20 },
+                        { label: '🏃 Normal (40s)', val: 40 },
+                        { label: '🚶 Relaxed (65s)', val: 65 },
+                      ].map((p) => (
+                        <button
+                          key={p.val}
+                          type="button"
+                          onClick={() => {
+                            const updated = { ...portalTickerConfig, speedSeconds: p.val };
+                            setPortalTickerConfig(updated);
+                            updatePortalTickerConfig(updated);
+                            showToast('success', `✅ Portal strip speed set to ${p.val}s!`);
+                          }}
+                          style={{
+                            padding: '3px 8px',
+                            borderRadius: '6px',
+                            fontSize: '0.72rem',
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                            border: portalTickerConfig.speedSeconds === p.val ? '1px solid #059669' : '1px solid #E2E8F0',
+                            backgroundColor: portalTickerConfig.speedSeconds === p.val ? '#ECFDF5' : '#F8FAFC',
+                            color: portalTickerConfig.speedSeconds === p.val ? '#059669' : '#475569',
+                          }}
+                        >
+                          {p.label}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <label style={{ fontWeight: 700, fontSize: '0.875rem' }}>Theme:</label>

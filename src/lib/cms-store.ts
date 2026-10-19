@@ -650,6 +650,37 @@ export function deleteTickerItem(id: string) {
   }
 }
 
+const HOME_TICKER_SPEED_KEY = 'ahsora_cms_home_ticker_speed';
+export const DEFAULT_HOME_TICKER_SPEED = 34;
+
+export function getHomeTickerSpeed(): number {
+  if (typeof window === 'undefined') return DEFAULT_HOME_TICKER_SPEED;
+  try {
+    const val = localStorage.getItem(HOME_TICKER_SPEED_KEY);
+    if (!val) return DEFAULT_HOME_TICKER_SPEED;
+    const num = Number(val);
+    return !isNaN(num) && num > 0 ? num : DEFAULT_HOME_TICKER_SPEED;
+  } catch {
+    return DEFAULT_HOME_TICKER_SPEED;
+  }
+}
+
+export function saveHomeTickerSpeed(speed: number) {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem(HOME_TICKER_SPEED_KEY, String(speed));
+  } catch (e) {
+    console.error('Failed to save home ticker speed locally:', e);
+  }
+}
+
+export function updateHomeTickerSpeed(speed: number) {
+  saveHomeTickerSpeed(speed);
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('ahsora_cms_home_ticker_speed_updated', { detail: speed }));
+  }
+}
+
 // ── 3B. STUDENT PORTAL MOVING STRIP (ADMIN CONTROLLED) ─────────────────────────
 
 export interface PortalTickerConfig {
@@ -663,7 +694,7 @@ const PORTAL_TICKER_KEY = 'ahsora_cms_portal_ticker';
 
 const INITIAL_PORTAL_TICKER: PortalTickerConfig = {
   isActive: true,
-  speedSeconds: 65,
+  speedSeconds: 45,
   bgStyle: 'emerald',
   items: [
     { id: 'pt-1', text: '🎓 Full-Length IMAT 2027 CBT Mock Test #12 is now live in Mock Exams!', icon: '🎯' },
@@ -681,10 +712,6 @@ export function getPortalTickerConfig(): PortalTickerConfig {
     const data = localStorage.getItem(PORTAL_TICKER_KEY);
     if (!data) return INITIAL_PORTAL_TICKER;
     const parsed = JSON.parse(data);
-    // If previously saved with fast speed (e.g. 26s), automatically smooth to readable 65s
-    if (parsed && typeof parsed.speedSeconds === 'number' && parsed.speedSeconds < 45) {
-      parsed.speedSeconds = 65;
-    }
     return parsed;
   } catch {
     return INITIAL_PORTAL_TICKER;
@@ -756,7 +783,7 @@ const IMAT_TICKER_KEY = 'ahsora_cms_imat_ticker';
 
 const INITIAL_IMAT_TICKER: PortalTickerConfig = {
   isActive: true,
-  speedSeconds: 65,
+  speedSeconds: 45,
   bgStyle: 'emerald',
   items: [
     { id: 'it-1', text: '🚨 Official IMAT 2027 Registration opens on Universitaly.it in July 2027.', icon: '🚨' },
@@ -774,9 +801,6 @@ export function getImatTickerConfig(): PortalTickerConfig {
     const data = localStorage.getItem(IMAT_TICKER_KEY);
     if (!data) return INITIAL_IMAT_TICKER;
     const parsed = JSON.parse(data);
-    if (parsed && typeof parsed.speedSeconds === 'number' && parsed.speedSeconds < 45) {
-      parsed.speedSeconds = 65;
-    }
     return parsed;
   } catch {
     return INITIAL_IMAT_TICKER;

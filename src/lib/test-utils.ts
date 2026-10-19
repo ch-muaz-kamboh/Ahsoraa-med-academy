@@ -1,4 +1,4 @@
-import { Test, TestQuestion } from '@/types';
+import { Test, TestQuestion, TestDifficulty } from '@/types';
 import { mockTests } from '@/lib/mock-data';
 import { createClient } from '@/lib/supabase/client';
 
@@ -13,6 +13,10 @@ export function getMockTestWithCustom(testId: string): Test {
         const settings = JSON.parse(customSettings);
         if (settings.title) updated.title = settings.title;
         if (settings.durationMinutes) updated.durationMinutes = settings.durationMinutes;
+        if (settings.passingPercentage !== undefined) updated.passingPercentage = settings.passingPercentage;
+        if (settings.passingMarks !== undefined) updated.passingMarks = settings.passingMarks;
+        if (settings.difficulty) updated.difficulty = settings.difficulty;
+        if (settings.unlockDate !== undefined) updated.unlockDate = settings.unlockDate;
       }
 
       const customQuestions = localStorage.getItem('cbt_mock_test_questions_' + base.id);
@@ -197,10 +201,26 @@ export async function getAllMockTestsWithCustomAsync(): Promise<Test[]> {
   }
 }
 
-export async function saveTestSettingsAsync(testId: string, title: string, durationMinutes: number): Promise<void> {
+export async function saveTestSettingsAsync(
+  testId: string,
+  title: string,
+  durationMinutes: number,
+  extraSettings?: {
+    passingPercentage?: number;
+    passingMarks?: number;
+    difficulty?: TestDifficulty;
+    unlockDate?: string;
+  }
+): Promise<void> {
+  const payload = {
+    title,
+    durationMinutes,
+    ...(extraSettings || {}),
+  };
+
   if (typeof window !== 'undefined') {
     try {
-      localStorage.setItem('cbt_mock_test_settings_' + testId, JSON.stringify({ title, durationMinutes }));
+      localStorage.setItem('cbt_mock_test_settings_' + testId, JSON.stringify(payload));
     } catch (e) {}
   }
 
@@ -221,11 +241,11 @@ export async function saveTestSettingsAsync(testId: string, title: string, durat
       order_index: -1,
       subject: '__META__',
       topic: 'test_settings',
-      difficulty: 'easy',
+      difficulty: extraSettings?.difficulty || 'medium',
       question_text: title,
       options: [],
       correct_option: 'A',
-      explanation: String(durationMinutes),
+      explanation: JSON.stringify(payload),
       updated_at: new Date().toISOString(),
     });
 
@@ -236,8 +256,18 @@ export async function saveTestSettingsAsync(testId: string, title: string, durat
   }
 }
 
-export function saveTestSettings(testId: string, title: string, durationMinutes: number): void {
-  saveTestSettingsAsync(testId, title, durationMinutes);
+export function saveTestSettings(
+  testId: string,
+  title: string,
+  durationMinutes: number,
+  extraSettings?: {
+    passingPercentage?: number;
+    passingMarks?: number;
+    difficulty?: TestDifficulty;
+    unlockDate?: string;
+  }
+): void {
+  saveTestSettingsAsync(testId, title, durationMinutes, extraSettings);
 }
 
 export async function saveCustomTestQuestionsAsync(testId: string, questions: TestQuestion[]): Promise<void> {

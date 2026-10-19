@@ -83,7 +83,8 @@ export default function TestResultsPage({
     };
 
   const totalMaxMarks = test.questions.length > 0 ? Number((test.questions.length * 1.5).toFixed(1)) : (test.totalMarks || 90);
-  const isPassed = attempt.percentage >= (test.passingPercentage || 50);
+  const passingScoreRequired = test.passingMarks !== undefined ? test.passingMarks : Number(((test.passingPercentage || 50) / 100 * totalMaxMarks).toFixed(1));
+  const isPassed = test.passingMarks !== undefined ? attempt.totalScore >= test.passingMarks : attempt.percentage >= (test.passingPercentage || 50);
 
   return (
     <div style={{ maxWidth: '1100px', margin: '0 auto', paddingBottom: '60px' }}>

@@ -1148,27 +1148,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         }
       }
 
-      // Check if student email is in ahsora_elite_students
-      if (!userPkg) {
-        try {
-          const eliteStr = localStorage.getItem('ahsora_elite_students');
-          if (eliteStr) {
-            const eliteList = JSON.parse(eliteStr);
-            if (Array.isArray(eliteList)) {
-              const isElite = eliteList.some((s: any) => {
-                const sEmail = (s?.email || '').toLowerCase().trim();
-                return sEmail === rawEmail;
-              });
-              if (isElite) {
-                userPkg = 'Ahsora MedPath Elite';
-                userPrice = '€799';
-              }
-            }
-          }
-        } catch {}
-      }
-
-      // Check admin student list
+      // 1. Check admin student list (contains exact registration price)
       if (!userPkg) {
         try {
           const adminListStr = localStorage.getItem('adminStudentList');
@@ -1184,6 +1164,26 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
                   firstName = parts[0] || firstName;
                   lastName = parts.slice(1).join(' ') || lastName;
                 }
+              }
+            }
+          }
+        } catch {}
+      }
+
+      // 2. Check if student email is in ahsora_elite_students
+      if (!userPkg) {
+        try {
+          const eliteStr = localStorage.getItem('ahsora_elite_students');
+          if (eliteStr) {
+            const eliteList = JSON.parse(eliteStr);
+            if (Array.isArray(eliteList)) {
+              const matchedElite = eliteList.find((s: any) => {
+                const sEmail = (s?.email || '').toLowerCase().trim();
+                return sEmail === rawEmail;
+              });
+              if (matchedElite) {
+                userPkg = 'Ahsora MedPath Elite';
+                userPrice = matchedElite.packagePrice || matchedElite.package_price || getPackageByIdOrName('elite').price;
               }
             }
           }

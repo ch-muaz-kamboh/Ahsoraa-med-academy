@@ -36,7 +36,7 @@ import {
 } from 'lucide-react';
 import LeadCaptureModal from '@/components/public/LeadCaptureModal';
 import { useScrollAnimation, useStaggeredAnimation } from '@/hooks/useScrollAnimation';
-import { getTickerItems, syncTickerFromSupabase, TickerItem, getDynamicPackagePrices, syncPricesFromSupabase, DynamicPackagePrice, getNewsPosts, syncNewsFromSupabase, NewsItem } from '@/lib/cms-store';
+import { getTickerItems, syncTickerFromSupabase, TickerItem, getDynamicPackagePrices, syncPricesFromSupabase, DynamicPackagePrice, getNewsPosts, syncNewsFromSupabase, NewsItem, getHomeTickerSpeed, DEFAULT_HOME_TICKER_SPEED } from '@/lib/cms-store';
 import { useDynamicPackagePrices } from '@/hooks/useDynamicPackagePrices';
 
 // ─── Reusable section observer wrapper ───────────────────────
@@ -307,6 +307,13 @@ export default function HomePage() {
       return [];
     }
   });
+  const [tickerSpeed, setTickerSpeed] = useState<number>(() => {
+    try {
+      return getHomeTickerSpeed();
+    } catch {
+      return DEFAULT_HOME_TICKER_SPEED;
+    }
+  });
   const { getPrice } = useDynamicPackagePrices();
 
   const toggleFaq = (idx: number) => {
@@ -337,6 +344,13 @@ export default function HomePage() {
       if (items && items.length > 0) setTickerItems(items);
     });
 
+    const refreshSpeed = () => {
+      try {
+        setTickerSpeed(getHomeTickerSpeed());
+      } catch {}
+    };
+    window.addEventListener('ahsora_cms_home_ticker_speed_updated', refreshSpeed);
+
     const refreshNews = () => {
       try {
         const posts = getNewsPosts();
@@ -354,9 +368,12 @@ export default function HomePage() {
 
     window.addEventListener('ahsora_cms_news_updated', refreshNews);
     window.addEventListener('storage', refreshNews);
+    window.addEventListener('storage', refreshSpeed);
     return () => {
       window.removeEventListener('ahsora_cms_news_updated', refreshNews);
+      window.removeEventListener('ahsora_cms_home_ticker_speed_updated', refreshSpeed);
       window.removeEventListener('storage', refreshNews);
+      window.removeEventListener('storage', refreshSpeed);
     };
   }, []);
 
@@ -856,7 +873,7 @@ export default function HomePage() {
             const itemsToDisplay = tickerItems.length > 0 ? tickerItems : trustItems;
             return (
               <>
-                <div className="trust-marquee-track">
+                <div className="trust-marquee-track" style={{ animationDuration: `${tickerSpeed}s` }}>
                   {itemsToDisplay.map((item, i) => (
                     <div
                       key={`strip-a-${i}`}
@@ -877,7 +894,7 @@ export default function HomePage() {
                     </div>
                   ))}
                 </div>
-                <div className="trust-marquee-track" aria-hidden="true">
+                <div className="trust-marquee-track" aria-hidden="true" style={{ animationDuration: `${tickerSpeed}s` }}>
                   {itemsToDisplay.map((item, i) => (
                     <div
                       key={`strip-b-${i}`}
