@@ -27,7 +27,7 @@ export default function StaffVisaPage() {
           const updatedChecklists = [...c.checklists];
           updatedChecklists[itemIdx] = {
             ...updatedChecklists[itemIdx],
-            completed: !updatedChecklists[itemIdx].completed,
+            isCompleted: !updatedChecklists[itemIdx].isCompleted,
           };
           return { ...c, checklists: updatedChecklists };
         }
@@ -68,7 +68,7 @@ export default function StaffVisaPage() {
         <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '20px', borderLeft: '4px solid #3B82F6' }}>
           <div style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>CIMEA / DOV READY</div>
           <div style={{ fontSize: '1.875rem', fontWeight: 800, color: '#0F172A', marginTop: '4px' }}>
-            {cases.filter((c) => c.checklists.some((ch) => ch.item.includes('CIMEA') && ch.completed)).length || 2}
+            {cases.filter((c) => c.checklists.some((ch) => ch.item.includes('CIMEA') && ch.isCompleted)).length || 2}
           </div>
           <div style={{ fontSize: '0.75rem', color: '#3B82F6', marginTop: '4px' }}>Apostilled documents verified</div>
         </div>
@@ -112,7 +112,7 @@ export default function StaffVisaPage() {
       {/* Visa Cards */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
         {filtered.map((vc) => {
-          const completedCount = vc.checklists.filter((ch) => ch.completed).length;
+          const completedCount = vc.checklists.filter((ch) => ch.isCompleted).length;
           const totalCount = vc.checklists.length;
           const percent = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
@@ -162,17 +162,17 @@ export default function StaffVisaPage() {
                       alignItems: 'center',
                       gap: '10px',
                       fontSize: '0.8125rem',
-                      color: chk.completed ? '#047857' : '#475569',
+                      color: chk.isCompleted ? '#047857' : '#475569',
                       padding: '10px 14px',
                       borderRadius: '8px',
-                      backgroundColor: chk.completed ? '#F0FDF4' : '#F8FAFC',
-                      border: `1px solid ${chk.completed ? '#BBF7D0' : '#E2E8F0'}`,
+                      backgroundColor: chk.isCompleted ? '#F0FDF4' : '#F8FAFC',
+                      border: `1px solid ${chk.isCompleted ? '#BBF7D0' : '#E2E8F0'}`,
                       cursor: 'pointer',
                       transition: 'all 0.15s ease',
                     }}
                   >
-                    <CheckCircle2 size={16} color={chk.completed ? '#10B981' : '#94A3B8'} />
-                    <span style={{ fontWeight: chk.completed ? 600 : 500 }}>{chk.item}</span>
+                    <CheckCircle2 size={16} color={chk.isCompleted ? '#10B981' : '#94A3B8'} />
+                    <span style={{ fontWeight: chk.isCompleted ? 600 : 500 }}>{chk.item}</span>
                   </div>
                 ))}
               </div>

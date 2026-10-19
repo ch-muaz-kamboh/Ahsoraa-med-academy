@@ -18,13 +18,13 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import { mockApplicationCases } from '@/lib/mock-data';
-import { ApplicationStatus } from '@/types';
+import { ApplicationStatus, ApplicationCase } from '@/types';
 
 export default function StaffApplicationsPage() {
   const [activeTab, setActiveTab] = useState<'cases' | 'enrollments'>('cases');
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
-  const [cases, setCases] = useState(mockApplicationCases);
+  const [cases, setCases] = useState<ApplicationCase[]>(mockApplicationCases);
 
   const [enrolledStudents] = useState([
     {
@@ -73,26 +73,39 @@ export default function StaffApplicationsPage() {
     const q = searchTerm.toLowerCase();
     const matchesSearch =
       c.studentName.toLowerCase().includes(q) ||
-      c.universityName.toLowerCase().includes(q) ||
-      c.program.toLowerCase().includes(q);
+      c.targetCountry.toLowerCase().includes(q) ||
+      c.caseNumber.toLowerCase().includes(q) ||
+      c.applications.some((app) =>
+        app.universityName.toLowerCase().includes(q) || app.program.toLowerCase().includes(q)
+      );
 
-    const matchesStatus = statusFilter === 'all' || c.status === statusFilter;
+    const matchesStatus = statusFilter === 'all' || c.currentStage === statusFilter;
     return matchesSearch && matchesStatus;
   });
 
   const getStatusBadge = (status: ApplicationStatus) => {
     switch (status) {
-      case 'accepted':
-        return { label: 'Admitted / Accepted', bg: '#DCFCE7', color: '#16A34A' };
-      case 'in_review':
-        return { label: 'Under Review', bg: '#EFF6FF', color: '#2563EB' };
+      case 'unconditional_offer':
+      case 'conditional_offer':
+      case 'enrolled':
+        return { label: status.replace('_', ' ').toUpperCase(), bg: '#DCFCE7', color: '#16A34A' };
       case 'submitted':
-        return { label: 'Submitted', bg: '#FFFBEB', color: '#D97706' };
+      case 'under_university_review':
+        return { label: status.replace('_', ' ').toUpperCase(), bg: '#EFF6FF', color: '#2563EB' };
+      case 'documents_pending':
+      case 'shortlisting':
+        return { label: status.replace('_', ' ').toUpperCase(), bg: '#FFFBEB', color: '#D97706' };
       case 'rejected':
-        return { label: 'Unsuccessful', bg: '#FEE2E2', color: '#DC2626' };
+        return { label: 'UNSUCCESSFUL', bg: '#FEE2E2', color: '#DC2626' };
       default:
-        return { label: 'Drafting', bg: '#F1F5F9', color: '#64748B' };
+        return { label: status.replace('_', ' ').toUpperCase(), bg: '#F1F5F9', color: '#64748B' };
     }
+  };
+
+  const handleStageChange = (caseId: string, newStage: ApplicationStatus) => {
+    setCases((prev) =>
+      prev.map((c) => (c.id === caseId ? { ...c, currentStage: newStage } : c))
+    );
   };
 
   return (
@@ -116,17 +129,17 @@ export default function StaffApplicationsPage() {
         </div>
 
         <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '20px', borderLeft: '4px solid #10B981' }}>
-          <div style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>ADMISSIONS WON</div>
+          <div style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>OFFERS ISSUED</div>
           <div style={{ fontSize: '1.875rem', fontWeight: 800, color: '#0F172A', marginTop: '4px' }}>
-            {cases.filter((c) => c.status === 'accepted').length}
+            {cases.filter((c) => c.currentStage === 'conditional_offer' || c.currentStage === 'unconditional_offer' || c.currentStage === 'enrolled').length}
           </div>
           <div style={{ fontSize: '0.75rem', color: '#10B981', marginTop: '4px' }}>Official Italian offers</div>
         </div>
 
         <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '20px', borderLeft: '4px solid #F59E0B' }}>
-          <div style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>IN EMBASSY / PRE-ENROLMENT</div>
+          <div style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>SUBMITTED / IN REVIEW</div>
           <div style={{ fontSize: '1.875rem', fontWeight: 800, color: '#0F172A', marginTop: '4px' }}>
-            {cases.filter((c) => c.status === 'submitted' || c.status === 'in_review').length}
+            {cases.filter((c) => c.currentStage === 'submitted' || c.currentStage === 'under_university_review').length}
           </div>
           <div style={{ fontSize: '0.75rem', color: '#F59E0B', marginTop: '4px' }}>Universitaly & DOV stage</div>
         </div>
@@ -186,7 +199,7 @@ export default function StaffApplicationsPage() {
               <Search size={16} color="#94A3B8" style={{ position: 'absolute', left: '12px', top: '12px' }} />
               <input
                 type="text"
-                placeholder="Search by student name, university (Milan, Pavia, Rome...)"
+                placeholder="Search by student name, university, country, case number..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 style={{
@@ -210,18 +223,21 @@ export default function StaffApplicationsPage() {
                 backgroundColor: '#FFFFFF',
               }}
             >
-              <option value="all">All Admission Statuses</option>
+              <option value="all">All Admission Stages</option>
+              <option value="shortlisting">Shortlisting</option>
+              <option value="documents_pending">Documents Pending</option>
               <option value="submitted">Submitted</option>
-              <option value="in_review">In Review</option>
-              <option value="accepted">Accepted / Admitted</option>
-              <option value="rejected">Unsuccessful</option>
+              <option value="under_university_review">Under Review</option>
+              <option value="conditional_offer">Offer Issued</option>
+              <option value="enrolled">Enrolled</option>
+              <option value="visa_stage">Visa Stage</option>
             </select>
           </div>
 
           {/* Cases List */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             {filteredCases.map((c) => {
-              const badge = getStatusBadge(c.status);
+              const badge = getStatusBadge(c.currentStage);
               return (
                 <div
                   key={c.id}
@@ -231,58 +247,92 @@ export default function StaffApplicationsPage() {
                     padding: '22px',
                     border: '1px solid #E2E8F0',
                     display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    flexWrap: 'wrap',
-                    gap: '16px',
+                    flexDirection: 'column',
+                    gap: '14px',
                   }}
                 >
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
-                      <span style={{ fontWeight: 700, fontSize: '1rem', color: '#0F172A' }}>{c.studentName}</span>
-                      <span
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px' }}>
+                    <div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#3B82F6', backgroundColor: '#EFF6FF', padding: '2px 8px', borderRadius: '6px' }}>
+                          {c.caseNumber}
+                        </span>
+                        <span style={{ fontWeight: 700, fontSize: '1.05rem', color: '#0F172A' }}>{c.studentName}</span>
+                        <span
+                          style={{
+                            fontSize: '0.72rem',
+                            fontWeight: 700,
+                            padding: '3px 8px',
+                            borderRadius: '12px',
+                            backgroundColor: badge.bg,
+                            color: badge.color,
+                          }}
+                        >
+                          {badge.label}
+                        </span>
+                      </div>
+
+                      <div style={{ display: 'flex', gap: '16px', fontSize: '0.8125rem', color: '#64748B', flexWrap: 'wrap' }}>
+                        <span>Target: <strong>{c.targetCountry} ({c.targetIntake})</strong></span>
+                        <span>Counsellor: {c.assignedCounsellor}</span>
+                        <span>Admissions Officer: {c.assignedAdmissionsOfficer}</span>
+                        <span>Progress: <strong>{c.progressPercent}%</strong></span>
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <select
+                        value={c.currentStage}
+                        onChange={(e) => handleStageChange(c.id, e.target.value as ApplicationStatus)}
                         style={{
-                          fontSize: '0.72rem',
-                          fontWeight: 700,
-                          padding: '3px 8px',
-                          borderRadius: '12px',
-                          backgroundColor: badge.bg,
-                          color: badge.color,
+                          fontSize: '0.8125rem',
+                          padding: '6px 12px',
+                          borderRadius: '8px',
+                          border: '1px solid #CBD5E1',
+                          backgroundColor: '#F8FAFC',
+                          fontWeight: 600,
                         }}
                       >
-                        {badge.label}
-                      </span>
-                    </div>
-
-                    <div style={{ display: 'flex', gap: '16px', fontSize: '0.8125rem', color: '#64748B', flexWrap: 'wrap' }}>
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
-                        <Building size={14} color="#059669" /> <strong>{c.universityName}</strong>
-                      </span>
-                      <span>Program: {c.program}</span>
-                      <span>Target: {c.intakeYear}</span>
-                    </div>
-
-                    <div style={{ marginTop: '8px', fontSize: '0.78rem', color: '#475569' }}>
-                      Documentation Verified: <strong>{c.documentsVerified ? 'Yes ✓' : 'In Progress'}</strong> • Last Updated: {c.lastUpdated}
+                        <option value="shortlisting">Shortlisting</option>
+                        <option value="documents_pending">Documents Pending</option>
+                        <option value="application_prepared">Application Prepared</option>
+                        <option value="submitted">Submitted</option>
+                        <option value="under_university_review">Under University Review</option>
+                        <option value="conditional_offer">Offer Letter Issued</option>
+                        <option value="enrolled">Enrolled</option>
+                        <option value="visa_stage">Visa Processing</option>
+                      </select>
                     </div>
                   </div>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <button
-                      onClick={() => {
-                        setCases((prev) =>
-                          prev.map((item) =>
-                            item.id === c.id
-                              ? { ...item, status: item.status === 'in_review' ? 'accepted' : 'in_review' }
-                              : item
-                          )
-                        );
-                      }}
-                      className="btn-outline"
-                      style={{ fontSize: '0.8125rem', padding: '6px 14px' }}
-                    >
-                      Toggle Status
-                    </button>
+                  {/* University Applications sublist */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    {c.applications.map((app) => (
+                      <div
+                        key={app.id}
+                        style={{
+                          backgroundColor: '#F8FAFC',
+                          border: '1px solid #E2E8F0',
+                          borderRadius: '8px',
+                          padding: '10px 14px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          flexWrap: 'wrap',
+                          gap: '8px',
+                        }}
+                      >
+                        <div>
+                          <strong style={{ color: '#0F172A', fontSize: '0.875rem' }}>{app.universityName}</strong>
+                          <div style={{ fontSize: '0.75rem', color: '#64748B' }}>
+                            {app.program} • Deadline: {app.deadline}
+                          </div>
+                        </div>
+                        <span style={{ fontSize: '0.72rem', fontWeight: 700, padding: '2px 8px', borderRadius: '8px', backgroundColor: '#FEF3C7', color: '#B45309', textTransform: 'capitalize' }}>
+                          {app.status.replace('_', ' ')}
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               );
