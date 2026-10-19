@@ -24,11 +24,11 @@ import { useAppStore } from '@/lib/store';
 import { Lead, LeadStage, ContactInquiry } from '@/types';
 
 const STAGES: { key: LeadStage; label: string; color: string; bg: string }[] = [
-  { key: 'new_inquiry', label: 'New Inquiry', color: '#3B82F6', bg: '#EFF6FF' },
+  { key: 'new', label: 'New Inquiry', color: '#3B82F6', bg: '#EFF6FF' },
   { key: 'contacted', label: 'Contacted', color: '#F59E0B', bg: '#FFFBEB' },
-  { key: 'counselling', label: 'Counselling Call', color: '#8B5CF6', bg: '#F5F3FF' },
-  { key: 'document_prep', label: 'Document Prep', color: '#EC4899', bg: '#FDF2F8' },
-  { key: 'enrolled', label: 'Enrolled / Closed', color: '#10B981', bg: '#ECFDF5' },
+  { key: 'counselling_booked', label: 'Counselling Call', color: '#8B5CF6', bg: '#F5F3FF' },
+  { key: 'proposal_sent', label: 'Proposal & Prep', color: '#EC4899', bg: '#FDF2F8' },
+  { key: 'converted', label: 'Enrolled / Closed', color: '#10B981', bg: '#ECFDF5' },
 ];
 
 export default function StaffLeadsPage() {
@@ -91,7 +91,7 @@ export default function StaffLeadsPage() {
       country: newLeadCountry,
       targetExam: newLeadExam,
       notes: newLeadNotes.trim() ? [newLeadNotes.trim()] : [],
-      stage: 'new_inquiry',
+      stage: 'new',
       leadScore: 75,
       assignedCounselor: 'Staff Academic Team',
       tags: ['Staff Direct Entry'],
@@ -165,7 +165,7 @@ export default function StaffLeadsPage() {
         <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '20px', borderLeft: '4px solid #3B82F6' }}>
           <div style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>NEW INQUIRIES</div>
           <div style={{ fontSize: '1.875rem', fontWeight: 800, color: '#0F172A', marginTop: '4px' }}>
-            {leads.filter((l) => l.stage === 'new_inquiry').length}
+            {leads.filter((l) => l.stage === 'new').length}
           </div>
           <div style={{ fontSize: '0.75rem', color: '#3B82F6', marginTop: '4px' }}>Pending initial contact</div>
         </div>
@@ -173,7 +173,7 @@ export default function StaffLeadsPage() {
         <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '20px', borderLeft: '4px solid #F59E0B' }}>
           <div style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>IN COUNSELLING</div>
           <div style={{ fontSize: '1.875rem', fontWeight: 800, color: '#0F172A', marginTop: '4px' }}>
-            {leads.filter((l) => l.stage === 'counselling' || l.stage === 'contacted').length}
+            {leads.filter((l) => l.stage === 'counselling_booked' || l.stage === 'contacted').length}
           </div>
           <div style={{ fontSize: '0.75rem', color: '#F59E0B', marginTop: '4px' }}>Consultations underway</div>
         </div>
@@ -181,7 +181,7 @@ export default function StaffLeadsPage() {
         <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '20px', borderLeft: '4px solid #10B981' }}>
           <div style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>ENROLLED SUCCESS</div>
           <div style={{ fontSize: '1.875rem', fontWeight: 800, color: '#0F172A', marginTop: '4px' }}>
-            {leads.filter((l) => l.stage === 'enrolled').length}
+            {leads.filter((l) => l.stage === 'converted').length}
           </div>
           <div style={{ fontSize: '0.75rem', color: '#10B981', marginTop: '4px' }}>Converted to academy courses</div>
         </div>
