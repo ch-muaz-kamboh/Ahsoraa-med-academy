@@ -328,6 +328,9 @@ export interface StudentDocument {
   version: number;
   uploadedAt: string;
   reviewedBy?: string;
+  fileDataUrl?: string;
+  studentEmail?: string;
+  studentId?: string;
 }
 
 export interface VisaCase {

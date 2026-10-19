@@ -7,60 +7,95 @@ import { getPackageByIdOrName, canAccessMedpath, resolveEffectivePackage, getStu
 import {
   Lock, Star, CheckCircle2, Clock, ArrowRight, Sparkles,
   FileCheck, Building2, GraduationCap, Globe, Home, Loader2,
-  ChevronRight,
+  ChevronRight, AlertCircle, MessageCircle,
 } from 'lucide-react';
 import Link from 'next/link';
 
-const STAGES: { key: keyof MedpathEliteStudent['stages']; label: string; description: string; icon: React.ReactNode; color: string }[] = [
+interface MedpathPortalStage {
+  key: string;
+  number: number;
+  label: string;
+  description: string;
+  notice?: string;
+  icon: React.ReactNode;
+  color: string;
+}
+
+const STAGES: MedpathPortalStage[] = [
   {
-    key: 'pre_enrollment',
-    label: 'Pre-Enrollment Documentation',
-    description: 'Gather and verify all required academic and identity documents for pre-enrollment.',
+    key: 'documents_evaluation',
+    number: 1,
+    label: 'Required Documents and Profile Evaluation',
+    description: 'Gather and verify all required academic diplomas, transcripts, apostilles, and eligibility documents.',
     icon: <FileCheck size={22} />,
     color: '#059669',
   },
   {
-    key: 'dov_submission',
-    label: 'DOV Submission',
-    description: 'Submit Dichiarazione di Valore (DOV) through the Italian Consulate.',
-    icon: <Globe size={22} />,
-    color: '#7C3AED',
-  },
-  {
     key: 'university_application',
+    number: 2,
     label: 'University Application',
-    description: 'Complete and submit applications to target Italian medical universities.',
+    description: 'Complete and submit official applications to your target Italian medical faculties.',
     icon: <Building2 size={22} />,
     color: '#0E7490',
   },
   {
-    key: 'admission_decision',
-    label: 'Admission Decision',
-    description: 'Await and review the admission outcome from the university.',
+    key: 'pre_enrollment',
+    number: 3,
+    label: 'Pre-Enrollment',
+    description: 'Universitaly pre-enrollment application submission and Italian consulate forwarding.',
+    icon: <Globe size={22} />,
+    color: '#4F46E5',
+  },
+  {
+    key: 'cimea_dov',
+    number: 4,
+    label: 'CIMEA / DOV',
+    description: 'Statement of Comparability and Declaration of Value (DOV) verification dossier.',
+    notice: 'Student will have to provide us CIMEA/DOV',
+    icon: <Globe size={22} />,
+    color: '#7C3AED',
+  },
+  {
+    key: 'regional_scholarship',
+    number: 5,
+    label: 'Regional Scholarship',
+    description: 'Zero-tuition regional scholarship (DSU/EDISU) & living allowance grant application.',
+    icon: <Sparkles size={22} />,
+    color: '#D97706',
+  },
+  {
+    key: 'imat_registration',
+    number: 6,
+    label: 'IMAT Registration',
+    description: 'Universitaly official IMAT candidate seat registration and test venue booking.',
+    icon: <Star size={22} />,
+    color: '#2563EB',
+  },
+  {
+    key: 'imat_result',
+    number: 7,
+    label: 'IMAT Result',
+    description: 'Official test score ranking release and medical school seat allocation.',
     icon: <GraduationCap size={22} />,
     color: '#059669',
   },
   {
     key: 'visa_process',
+    number: 8,
     label: 'Student Visa Process',
-    description: 'Prepare and submit the Italian student visa application at the consulate.',
+    description: 'Type-D Italian student visa dossier preparation, bank guarantee, and embassy interview.',
     icon: <Star size={22} />,
-    color: '#D97706',
+    color: '#EA580C',
   },
   {
-    key: 'housing_arrival',
-    label: 'Housing & Arrival Support',
-    description: 'Secure accommodation and complete final pre-arrival checklist.',
+    key: 'arrival_support',
+    number: 9,
+    label: 'Arrival Support / Guidance',
+    description: 'Airport reception guidance, Italian tax code (Codice Fiscale), housing, and Permesso di Soggiorno.',
     icon: <Home size={22} />,
     color: '#DC2626',
   },
 ];
-
-const STATUS_STYLES: Record<MedpathStageStatus, { bg: string; color: string; border: string; label: string; icon: React.ReactNode }> = {
-  pending: { bg: '#F8FAFC', color: '#64748B', border: '#CBD5E1', label: 'Pending', icon: <Clock size={16} /> },
-  in_progress: { bg: '#F0FFF4', color: '#059669', border: '#86EFAC', label: 'In Progress', icon: <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> },
-  completed: { bg: '#F0FFF4', color: '#16A34A', border: '#86EFAC', label: 'Completed', icon: <CheckCircle2 size={16} /> },
-};
 
 export default function MedpathPage() {
   const { currentUser, eliteStudents, addEliteStudent } = useAppStore();
@@ -238,10 +273,48 @@ export default function MedpathPage() {
   }
 
   const completedCount = eliteRecord
-    ? Object.values(eliteRecord.stages).filter((s) => s === 'completed').length
+    ? STAGES.filter((st) => {
+        const val = eliteRecord.stages?.[st.key];
+        const status = typeof val === 'object' ? val?.status : val;
+        const decision = typeof val === 'object' ? val?.decision : undefined;
+        return (
+          status === 'completed' ||
+          status === 'approved' ||
+          status === 'received' ||
+          status === 'secured_medical_seat' ||
+          decision === 'accepted' ||
+          decision === 'approved' ||
+          decision === 'forwarded_to_embassy'
+        );
+      }).length
     : 0;
   const totalStages = STAGES.length;
   const progressPercent = Math.round((completedCount / totalStages) * 100);
+
+  const getStatusDisplay = (status: string, decision?: string) => {
+    if (status === 'secured_medical_seat') {
+      return { bg: '#F0FDF4', color: '#16A34A', border: '#86EFAC', label: '🎉 Seat Secured!' };
+    }
+    if (decision === 'accepted' || status === 'approved' || status === 'completed' || status === 'received') {
+      return { bg: '#F0FFF4', color: '#16A34A', border: '#86EFAC', label: decision === 'accepted' ? 'Accepted' : status === 'received' ? 'Received' : 'Completed' };
+    }
+    if (decision === 'forwarded_to_embassy') {
+      return { bg: '#EEF2FF', color: '#4F46E5', border: '#C7D2FE', label: 'Forwarded to Embassy' };
+    }
+    if (status === 'applied') {
+      return { bg: '#EFF6FF', color: '#2563EB', border: '#BFDBFE', label: 'Applied' };
+    }
+    if (status === 'file_being_prepared' || status === 'in_progress' || status === 'reviewed') {
+      return { bg: '#F0F9FF', color: '#0284C7', border: '#BAE6FD', label: status === 'file_being_prepared' ? 'File Being Prepared' : status === 'reviewed' ? 'Reviewed' : 'In Progress' };
+    }
+    if (status === 'missing_documents') {
+      return { bg: '#FFFBEB', color: '#D97706', border: '#FDE68A', label: 'Missing Documents' };
+    }
+    if (status === 'rejected' || decision === 'rejected') {
+      return { bg: '#FEF2F2', color: '#DC2626', border: '#FECACA', label: 'Rejected' };
+    }
+    return { bg: '#F8FAFC', color: '#64748B', border: '#CBD5E1', label: 'Pending' };
+  };
 
   return (
     <div>
@@ -254,10 +327,10 @@ export default function MedpathPage() {
           <span style={{ fontSize: '0.8125rem', color: '#64748B' }}>Ahsora MedPath Elite Package</span>
         </div>
         <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#0F172A', marginBottom: '6px' }}>
-          Your University Journey
+          Your University Admission Milestones
         </h1>
         <p style={{ color: '#64748B', fontSize: '0.9375rem' }}>
-          Track your complete university admission process — from pre-enrollment to arrival in Italy.
+          Real-time tracking of all 9 stages in your Italian medical school admission dossier.
         </p>
       </div>
 
@@ -269,7 +342,7 @@ export default function MedpathPage() {
             <div style={{ color: '#FFFFFF', fontSize: '2.2rem', fontWeight: 900 }}>{progressPercent}%</div>
           </div>
           <div style={{ textAlign: 'right' }}>
-            <div style={{ color: '#94A3B8', fontSize: '0.8125rem' }}>{completedCount} of {totalStages} stages complete</div>
+            <div style={{ color: '#94A3B8', fontSize: '0.8125rem' }}>{completedCount} of {totalStages} stages completed</div>
             <div style={{ color: '#5CED73', fontSize: '0.875rem', fontWeight: 700, marginTop: '2px' }}>
               {progressPercent === 100 ? '🎉 Journey Complete!' : progressPercent > 50 ? '⚡ Great progress!' : '🚀 Journey Started'}
             </div>
@@ -281,69 +354,129 @@ export default function MedpathPage() {
       </div>
 
       {/* Stages Grid */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         {STAGES.map((stage, idx) => {
-          const stageStatus: MedpathStageStatus = eliteRecord?.stages[stage.key] || 'pending';
-          const style = STATUS_STYLES[stageStatus];
+          const rawStage = eliteRecord?.stages?.[stage.key];
+          const stageStatus = typeof rawStage === 'object' ? (rawStage?.status || 'pending') : (rawStage || 'pending');
+          const stageDecision = typeof rawStage === 'object' ? rawStage?.decision : undefined;
+          const stageComments = typeof rawStage === 'object' ? rawStage?.comments : undefined;
+          const stageDate = typeof rawStage === 'object' ? (rawStage?.actionDate || rawStage?.appliedDate) : undefined;
+          const stageReviewer = typeof rawStage === 'object' ? (rawStage?.reviewerName || rawStage?.responsiblePerson) : undefined;
+
+          const isCompleted =
+            stageStatus === 'completed' ||
+            stageStatus === 'approved' ||
+            stageStatus === 'received' ||
+            stageStatus === 'secured_medical_seat' ||
+            stageDecision === 'accepted' ||
+            stageDecision === 'forwarded_to_embassy';
+
+          const badge = getStatusDisplay(stageStatus, stageDecision);
+
           return (
             <div
               key={stage.key}
               style={{
                 backgroundColor: '#FFFFFF',
-                border: `1px solid ${stageStatus === 'in_progress' ? stage.color + '60' : '#E2E8F0'}`,
-                borderRadius: '16px',
-                padding: '20px 24px',
+                border: `1.5px solid ${isCompleted ? '#86EFAC' : '#E2E8F0'}`,
+                borderRadius: '18px',
+                padding: '22px 26px',
                 display: 'flex',
-                alignItems: 'center',
-                gap: '18px',
-                boxShadow: stageStatus === 'in_progress' ? `0 4px 20px -4px ${stage.color}25` : 'none',
+                flexDirection: 'column',
+                gap: '14px',
+                boxShadow: isCompleted ? '0 4px 14px rgba(22, 163, 74, 0.06)' : '0 2px 6px rgba(0,0,0,0.02)',
                 transition: 'all 0.2s ease',
               }}
             >
-              {/* Step number & icon */}
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
-                <div style={{
-                  width: '52px',
-                  height: '52px',
-                  borderRadius: '14px',
-                  backgroundColor: stageStatus === 'completed' ? '#F0FFF4' : stageStatus === 'in_progress' ? stage.color + '15' : '#F8FAFC',
-                  color: stageStatus === 'completed' ? '#16A34A' : stageStatus === 'in_progress' ? stage.color : '#94A3B8',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  border: `2px solid ${stageStatus === 'completed' ? '#86EFAC' : stageStatus === 'in_progress' ? stage.color + '50' : '#E2E8F0'}`,
-                }}>
-                  {stageStatus === 'completed' ? <CheckCircle2 size={24} color="#16A34A" /> : stage.icon}
+              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                  <div style={{
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '14px',
+                    backgroundColor: isCompleted ? '#F0FDF4' : stage.color + '15',
+                    color: isCompleted ? '#16A34A' : stage.color,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    border: `1.5px solid ${isCompleted ? '#86EFAC' : stage.color + '40'}`,
+                    flexShrink: 0,
+                  }}>
+                    {isCompleted ? <CheckCircle2 size={24} color="#16A34A" /> : stage.icon}
+                  </div>
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                      <span style={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 800 }}>STEP {idx + 1}</span>
+                      <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>{stage.label}</h3>
+                    </div>
+                    <p style={{ color: '#64748B', fontSize: '0.85rem', margin: '3px 0 0' }}>{stage.description}</p>
+                  </div>
                 </div>
-                <span style={{ fontSize: '0.6875rem', color: '#94A3B8', fontWeight: 700 }}>STEP {idx + 1}</span>
-              </div>
 
-              {/* Content */}
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px', flexWrap: 'wrap' }}>
-                  <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', margin: 0 }}>{stage.label}</h3>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
                   <span style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '4px',
-                    backgroundColor: style.bg,
-                    color: style.color,
-                    border: `1px solid ${style.border}`,
-                    fontSize: '0.75rem',
-                    fontWeight: 700,
-                    padding: '3px 10px',
+                    gap: '5px',
+                    backgroundColor: badge.bg,
+                    color: badge.color,
+                    border: `1px solid ${badge.border}`,
+                    fontSize: '0.78rem',
+                    fontWeight: 800,
+                    padding: '4px 12px',
                     borderRadius: '20px',
                   }}>
-                    {style.icon}
-                    {style.label}
+                    {isCompleted && '✓ '}
+                    {badge.label}
                   </span>
                 </div>
-                <p style={{ color: '#64748B', fontSize: '0.875rem', margin: 0 }}>{stage.description}</p>
               </div>
 
-              {/* Connector line for completed */}
-              {stageStatus === 'completed' && (
-                <CheckCircle2 size={28} color="#16A34A" style={{ flexShrink: 0 }} />
+              {/* Notice for CIMEA / DOV */}
+              {stage.notice && (
+                <div style={{
+                  backgroundColor: '#FEF3C7',
+                  border: '1px solid #FDE68A',
+                  borderRadius: '10px',
+                  padding: '8px 14px',
+                  color: '#92400E',
+                  fontSize: '0.82rem',
+                  fontWeight: 700,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                }}>
+                  <AlertCircle size={15} color="#B45309" />
+                  <span>Notice: {stage.notice}</span>
+                </div>
+              )}
+
+              {/* Reviewer / Advisor Comments Card */}
+              {(stageComments || stageDate || stageReviewer) && (
+                <div style={{
+                  backgroundColor: '#F8FAFC',
+                  border: '1px solid #E2E8F0',
+                  borderRadius: '12px',
+                  padding: '12px 16px',
+                  fontSize: '0.85rem',
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: stageComments ? '6px' : 0, flexWrap: 'wrap', gap: '6px' }}>
+                    <span style={{ fontWeight: 700, color: '#334155', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <MessageCircle size={14} color="#EA580C" />
+                      Advisor Notes {stageReviewer ? `(${stageReviewer})` : ''}
+                    </span>
+                    {stageDate && (
+                      <span style={{ fontSize: '0.75rem', color: '#64748B' }}>
+                        Date: {stageDate}
+                      </span>
+                    )}
+                  </div>
+                  {stageComments && (
+                    <p style={{ color: '#475569', margin: 0, lineHeight: 1.5 }}>
+                      {stageComments}
+                    </p>
+                  )}
+                </div>
               )}
             </div>
           );

@@ -1201,20 +1201,201 @@ export default function CoursesPage() {
       </section>
 
       {/* ── 11 FACULTY ──────────────────────────────────────────────────── */}
-      <section style={{ padding: '60px 0', backgroundColor: 'var(--bg-subtle)' }}>
+      <section id="faculty" style={{ padding: '80px 0', backgroundColor: 'var(--bg-subtle)' }}>
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-            <span ref={observe} className="section-tagline scroll-fade-up">The Team</span>
-            <h2 ref={observe} className="scroll-fade-up" style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '6px' }}>Meet Your Ahsora Faculty</h2>
+          <div style={{ textAlign: 'center', marginBottom: '50px' }}>
+            <span ref={observe} className="section-tagline scroll-fade-up">Elite Academic Team</span>
+            <h2 ref={observe} className="scroll-fade-up" style={{ fontSize: '2.4rem', fontWeight: 900, color: 'var(--text-primary)', marginTop: '8px', letterSpacing: '-0.5px' }}>
+              Meet Your Ahsora Faculty & Mentors
+            </h2>
+            <p ref={observe} className="scroll-fade-up" style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', maxWidth: '640px', margin: '12px auto 0' }}>
+              Learn from top-tier academic educators, gold medalist specialists, legal counsel, and admissions advisors dedicated to your Italian medical school success.
+            </p>
           </div>
-          <div ref={observe} className="scroll-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '24px' }}>
-            {['Leadership Team', 'Academic Faculty', 'Student Success & Admissions'].map((group, i) => (
-              <div key={i} style={{ backgroundColor: '#FFFFFF', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', padding: '32px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px', transition: 'transform 0.3s, box-shadow 0.3s' }} onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = 'var(--shadow-md)'; }} onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}>
-                <div style={{ width: '70px', height: '70px', borderRadius: '50%', backgroundColor: 'var(--bg-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--border-light)' }}>
-                  <Users size={28} color="var(--text-light)" />
+
+          <div
+            ref={observe}
+            className="scroll-stagger"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+              gap: '28px',
+            }}
+          >
+            {[
+              {
+                name: 'Adv Ahmad Jahangir',
+                role: 'Chairman of the Law Firm & Legal Counsel',
+                tag: 'Legal & Admissions Counsel',
+                tagBg: '#EFF6FF',
+                tagColor: '#1D4ED8',
+                tagBorder: '#BFDBFE',
+                description: 'Directs full legal compliance for Italian student visas, CIMEA comparability verification, Declaration of Value (DOV), and international embassy appeal dossiers.',
+                image: '/team/ahmad-jahangir.png',
+                highlight: 'Legal Partner Firm Chairman',
+              },
+              {
+                name: 'Tehreem Tahir',
+                role: 'Gold Medalist Biotechnologist, IMAT Biology Tutor & Advisor',
+                tag: 'IMAT Biology & Biotech',
+                tagBg: '#ECFDF5',
+                tagColor: '#047857',
+                tagBorder: '#A7F3D0',
+                description: 'Gold Medalist Biotechnologist leading comprehensive IMAT Biology mastery, covering molecular genetics, bioenergetics, cytology, and physiology question walkthroughs.',
+                image: '/team/tehreem-tahir.jpg',
+                highlight: 'Gold Medalist Biotechnologist',
+              },
+              {
+                name: 'Dr. Thomas Wright',
+                role: 'IMAT Chemistry Tutor & Advisor',
+                tag: 'General & Organic Chemistry',
+                tagBg: '#FEF3C7',
+                tagColor: '#B45309',
+                tagBorder: '#FDE68A',
+                description: 'Specializes in high-yield medical entrance chemistry, reaction mechanisms, stoichiometry, thermodynamic equilibria, and tricky Cambridge-style problem banks.',
+                image: '/team/chemistry-tutor.jpg',
+                highlight: 'PhD Chemical Sciences',
+              },
+              {
+                name: 'Prof. Claire Harrison',
+                role: 'IMAT Logical Reasoning & Reading Skills Tutor',
+                tag: 'Logic & Critical Thinking',
+                tagBg: '#F3E8FF',
+                tagColor: '#7E22CE',
+                tagBorder: '#E9D5FF',
+                description: 'Expert tutor in deductive reasoning, argument weakness identification, spatial logic puzzles, and rapid reading comprehension tactics for maximum IMAT section score.',
+                image: '/team/reasoning-tutor.jpg',
+                highlight: 'Cambridge Logic Specialist',
+              },
+              {
+                name: 'Dr. Julian Brooks',
+                role: 'IMAT Maths Tutor & Advisor',
+                tag: 'Mathematical Modeling',
+                tagBg: '#E0F2FE',
+                tagColor: '#0369A1',
+                tagBorder: '#BAE6FD',
+                description: 'Delivers rapid mathematical computation frameworks, combinatorics, functions, statistics, and high-speed problem-solving strategies tailored to Italian entrance norms.',
+                image: '/team/maths-tutor.jpg',
+                highlight: 'Applied Mathematics Faculty',
+              },
+              {
+                name: 'Prof. David Sterling',
+                role: 'IMAT Physics Tutor & Advisor',
+                tag: 'Medical Biophysics',
+                tagBg: '#FDF2F8',
+                tagColor: '#BE185D',
+                tagBorder: '#FBCFE8',
+                description: 'Breaks down complex mechanics, fluid dynamics, electromagnetism, and wave optics into intuitive medical analogies with targeted step-by-step past paper dissections.',
+                image: '/team/physics-tutor.jpg',
+                highlight: 'Senior Physics Advisor',
+              },
+              {
+                name: 'Muaaz Aslam',
+                role: 'Director of IT Department & Digital Infrastructure',
+                tag: 'IT Director & Systems',
+                tagBg: '#F1F5F9',
+                tagColor: '#334155',
+                tagBorder: '#CBD5E1',
+                description: 'Architects Ahsora\'s high-concurrency CBT exam simulation platform, real-time analytics engine, automated document vaults, and secure student learning portal systems.',
+                image: '/team/muaaz-aslam.jpg',
+                highlight: 'Director of IT Department',
+              },
+            ].map((member, i) => (
+              <div
+                key={i}
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  borderRadius: '20px',
+                  border: '1px solid #E2E8F0',
+                  overflow: 'hidden',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  boxShadow: '0 4px 14px rgba(0,0,0,0.04)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-6px)';
+                  e.currentTarget.style.boxShadow = '0 18px 36px -10px rgba(0,0,0,0.12)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 4px 14px rgba(0,0,0,0.04)';
+                }}
+              >
+                {/* Photo container */}
+                <div style={{ position: 'relative', width: '100%', height: '280px', backgroundColor: '#F8FAFC', overflow: 'hidden' }}>
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      objectPosition: 'top center',
+                      transition: 'transform 0.5s ease',
+                    }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.05)';
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)';
+                    }}
+                  />
+                  {/* Highlight pill */}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: '14px',
+                      left: '14px',
+                      backgroundColor: 'rgba(15, 23, 42, 0.85)',
+                      color: '#FFFFFF',
+                      fontSize: '0.72rem',
+                      fontWeight: 700,
+                      padding: '4px 12px',
+                      borderRadius: '20px',
+                      backdropFilter: 'blur(6px)',
+                      letterSpacing: '0.3px',
+                    }}
+                  >
+                    {member.highlight}
+                  </div>
                 </div>
-                <div style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '1.05rem' }}>{group}</div>
-                <div style={{ color: 'var(--text-light)', fontSize: '0.85rem', fontStyle: 'italic' }}>Faculty profiles — coming soon</div>
+
+                {/* Card Content */}
+                <div style={{ padding: '22px 24px', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                  {/* Category badge */}
+                  <div style={{ marginBottom: '10px' }}>
+                    <span
+                      style={{
+                        backgroundColor: member.tagBg,
+                        color: member.tagColor,
+                        border: `1px solid ${member.tagBorder}`,
+                        fontSize: '0.75rem',
+                        fontWeight: 700,
+                        padding: '3px 10px',
+                        borderRadius: '12px',
+                        display: 'inline-block',
+                      }}
+                    >
+                      {member.tag}
+                    </span>
+                  </div>
+
+                  {/* Name */}
+                  <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', marginBottom: '4px', lineHeight: 1.3 }}>
+                    {member.name}
+                  </h3>
+
+                  {/* Role */}
+                  <div style={{ color: 'var(--primary-color, #059669)', fontSize: '0.875rem', fontWeight: 700, marginBottom: '12px', lineHeight: 1.4 }}>
+                    {member.role}
+                  </div>
+
+                  {/* Bio */}
+                  <p style={{ color: '#64748B', fontSize: '0.85rem', lineHeight: 1.55, margin: 0, flex: 1 }}>
+                    {member.description}
+                  </p>
+                </div>
               </div>
             ))}
           </div>

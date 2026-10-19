@@ -16,6 +16,9 @@ import {
   Sparkles,
   ArrowRight,
   CheckCircle2,
+  Trash2,
+  Eye,
+  FileUp,
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { DocumentCategory } from '@/types';
@@ -26,13 +29,33 @@ import {
 } from '@/lib/packages';
 
 export default function PortalDocumentsPage() {
-  const { documents, addDocument, currentUser } = useAppStore();
+  const { documents, addDocument, deleteDocument, currentUser } = useAppStore();
   const [showUploadModal, setShowUploadModal] = useState(false);
+  const [fileObj, setFileObj] = useState<File | null>(null);
+  const [fileDataUrl, setFileDataUrl] = useState<string>('');
+  const [previewDoc, setPreviewDoc] = useState<any | null>(null);
   const [uploadData, setUploadData] = useState({
     title: '',
     category: 'academic_certificate' as DocumentCategory,
     fileName: '',
   });
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setFileObj(file);
+      setUploadData((prev) => ({
+        ...prev,
+        fileName: file.name,
+        title: prev.title || file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' '),
+      }));
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        setFileDataUrl((ev.target?.result as string) || '');
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleUploadSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,13 +64,40 @@ export default function PortalDocumentsPage() {
     addDocument({
       title: uploadData.title,
       category: uploadData.category,
-      fileName: uploadData.fileName || `${uploadData.title.replace(/\s+/g, '_')}.pdf`,
-      fileSizeBytes: 2400000,
+      fileName: uploadData.fileName || fileObj?.name || `${uploadData.title.replace(/\s+/g, '_')}.pdf`,
+      fileSizeBytes: fileObj?.size || 1800000,
       status: 'under_review',
+      fileDataUrl: fileDataUrl || undefined,
+      studentEmail: currentUser.email,
+      studentId: currentUser.id,
     });
 
     setUploadData({ title: '', category: 'academic_certificate', fileName: '' });
+    setFileObj(null);
+    setFileDataUrl('');
     setShowUploadModal(false);
+  };
+
+  const handleDownload = (doc: any) => {
+    if (doc.fileDataUrl) {
+      const a = document.createElement('a');
+      a.href = doc.fileDataUrl;
+      a.download = doc.fileName || 'document.pdf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    } else {
+      // Create a friendly text blob download
+      const blob = new Blob([`Ahsora MedPath Elite - Official Document\nTitle: ${doc.title}\nCategory: ${doc.category}\nStatus: ${doc.status}\nUploaded: ${doc.uploadedAt}`], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = doc.fileName || `${doc.title}.txt`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
   };
 
   const getStatusBadge = (status: string) => {
@@ -262,13 +312,16 @@ export default function PortalDocumentsPage() {
                 <label className="form-label">Select File (PDF, JPG, PNG)</label>
                 <input
                   type="file"
+                  required
+                  accept=".pdf,.png,.jpg,.jpeg,.doc,.docx"
                   className="form-input"
-                  onChange={(e) => {
-                    if (e.target.files?.[0]) {
-                      setUploadData({ ...uploadData, fileName: e.target.files[0].name });
-                    }
-                  }}
+                  onChange={handleFileChange}
                 />
+                {fileObj && (
+                  <div style={{ fontSize: '0.8125rem', color: '#059669', marginTop: '6px', fontWeight: 600 }}>
+                    ✓ Selected: {fileObj.name} ({(fileObj.size / 1024).toFixed(0)} KB)
+                  </div>
+                )}
               </div>
 
               <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end', marginTop: '20px' }}>
@@ -289,89 +342,230 @@ export default function PortalDocumentsPage() {
         </div>
       )}
 
-      {/* Documents List */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-        {documents.map((doc) => (
+      {/* Preview Modal */}
+      {previewDoc && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(15, 23, 42, 0.75)',
+            backdropFilter: 'blur(4px)',
+            zIndex: 1100,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '24px',
+          }}
+          onClick={() => setPreviewDoc(null)}
+        >
           <div
-            key={doc.id}
-            className="card"
             style={{
               backgroundColor: '#FFFFFF',
-              padding: '20px 24px',
+              borderRadius: '16px',
+              maxWidth: '750px',
+              width: '100%',
+              maxHeight: '85vh',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              boxShadow: '0 25px 50px rgba(0,0,0,0.3)',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div style={{ padding: '16px 20px', borderBottom: '1px solid #E2E8F0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>{previewDoc.title}</h3>
+                <span style={{ fontSize: '0.8rem', color: '#64748B' }}>{previewDoc.fileName}</span>
+              </div>
+              <button onClick={() => setPreviewDoc(null)} style={{ background: 'none', border: 'none', fontSize: '1.2rem', cursor: 'pointer', color: '#64748B' }}>✕</button>
+            </div>
+            <div style={{ padding: '24px', overflowY: 'auto', textAlign: 'center', flex: 1, backgroundColor: '#F8FAFC' }}>
+              {previewDoc.fileDataUrl?.startsWith('data:image/') ? (
+                <img src={previewDoc.fileDataUrl} alt={previewDoc.title} style={{ maxWidth: '100%', maxHeight: '55vh', objectFit: 'contain', borderRadius: '8px' }} />
+              ) : previewDoc.fileDataUrl?.startsWith('data:application/pdf') ? (
+                <iframe src={previewDoc.fileDataUrl} style={{ width: '100%', height: '55vh', border: 'none', borderRadius: '8px' }} />
+              ) : (
+                <div style={{ padding: '40px 20px', color: '#64748B' }}>
+                  <FileText size={48} color="#EA580C" style={{ margin: '0 auto 16px', display: 'block' }} />
+                  <p style={{ fontWeight: 600, fontSize: '1rem', color: '#0F172A', marginBottom: '6px' }}>{previewDoc.fileName}</p>
+                  <p style={{ fontSize: '0.85rem' }}>Encrypted document verified in MedPath Elite Vault.</p>
+                </div>
+              )}
+            </div>
+            <div style={{ padding: '14px 20px', borderTop: '1px solid #E2E8F0', display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
+              <button onClick={() => handleDownload(previewDoc)} className="btn-primary" style={{ fontSize: '0.875rem' }}>
+                <Download size={15} /> Download Document
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Documents List */}
+      {documents.length === 0 ? (
+        <div
+          style={{
+            backgroundColor: '#FFFFFF',
+            border: '2px dashed #E2E8F0',
+            borderRadius: '20px',
+            padding: '60px 24px',
+            textAlign: 'center',
+          }}
+        >
+          <div
+            style={{
+              width: '64px',
+              height: '64px',
+              borderRadius: '20px',
+              backgroundColor: '#FFF7ED',
+              color: '#EA580C',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 16px',
             }}
           >
+            <FolderLock size={32} />
+          </div>
+          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', marginBottom: '8px' }}>
+            Your Document Vault is Empty
+          </h3>
+          <p style={{ color: '#64748B', fontSize: '0.92rem', maxWidth: '480px', margin: '0 auto 20px', lineHeight: 1.5 }}>
+            No documents have been uploaded yet. Upload your passport, high school transcripts, or language certificates for your MedPath Elite advisor review.
+          </p>
+          <button
+            onClick={() => setShowUploadModal(true)}
+            className="btn-primary"
+            style={{ padding: '10px 22px', fontSize: '0.875rem' }}
+          >
+            <Upload size={16} />
+            <span>Upload Your First Document</span>
+          </button>
+        </div>
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          {documents.map((doc) => (
             <div
+              key={doc.id}
+              className="card"
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: '12px',
-                marginBottom: doc.rejectionReason ? '12px' : 0,
+                backgroundColor: '#FFFFFF',
+                padding: '20px 24px',
+                borderRadius: '16px',
+                border: '1px solid #E2E8F0',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                <div
-                  style={{
-                    width: '42px',
-                    height: '42px',
-                    borderRadius: '10px',
-                    backgroundColor: '#F0FFF4',
-                    color: '#059669',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <FileText size={22} />
-                </div>
-                <div>
-                  <h4 style={{ fontSize: '1rem', color: '#0F172A', marginBottom: '2px' }}>
-                    {doc.title}
-                  </h4>
-                  <div style={{ fontSize: '0.75rem', color: '#64748B' }}>
-                    {doc.fileName} • {(doc.fileSizeBytes / 1000000).toFixed(1)} MB • Version {doc.version}
-                  </div>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                {getStatusBadge(doc.status)}
-                <button
-                  onClick={() => alert(`Downloading verified copy of ${doc.fileName}`)}
-                  className="btn-outline"
-                  style={{ padding: '6px 12px', fontSize: '0.75rem' }}
-                >
-                  <Download size={14} /> Download
-                </button>
-              </div>
-            </div>
-
-            {/* Rejection / Revision Note */}
-            {doc.status === 'revision_requested' && doc.rejectionReason && (
               <div
                 style={{
-                  backgroundColor: '#FFFBEB',
-                  border: '1px solid #FDE68A',
-                  borderRadius: '8px',
-                  padding: '12px 16px',
-                  color: '#92400E',
-                  fontSize: '0.8125rem',
                   display: 'flex',
-                  alignItems: 'flex-start',
-                  gap: '8px',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  flexWrap: 'wrap',
+                  gap: '12px',
+                  marginBottom: doc.rejectionReason ? '12px' : 0,
                 }}
               >
-                <AlertTriangle size={16} color="#D97706" style={{ marginTop: '2px', flexShrink: 0 }} />
-                <div>
-                  <strong>Reviewer Feedback ({doc.reviewedBy || 'Admissions Officer'}):</strong>{' '}
-                  {doc.rejectionReason}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                  <div
+                    style={{
+                      width: '44px',
+                      height: '44px',
+                      borderRadius: '12px',
+                      backgroundColor: '#FFF7ED',
+                      color: '#EA580C',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <FileText size={24} />
+                  </div>
+                  <div>
+                    <h4 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#0F172A', marginBottom: '2px' }}>
+                      {doc.title}
+                    </h4>
+                    <div style={{ fontSize: '0.78rem', color: '#64748B', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                      <span>{doc.fileName}</span>
+                      <span>•</span>
+                      <span>{(doc.fileSizeBytes / 1000000).toFixed(1)} MB</span>
+                      <span>•</span>
+                      <span>Uploaded {new Date(doc.uploadedAt).toLocaleDateString()}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                  {getStatusBadge(doc.status)}
+                  {doc.fileDataUrl && (
+                    <button
+                      onClick={() => setPreviewDoc(doc)}
+                      className="btn-outline"
+                      style={{ padding: '6px 12px', fontSize: '0.75rem', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                    >
+                      <Eye size={13} /> View
+                    </button>
+                  )}
+                  <button
+                    onClick={() => handleDownload(doc)}
+                    className="btn-outline"
+                    style={{ padding: '6px 12px', fontSize: '0.75rem', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                  >
+                    <Download size={13} /> Download
+                  </button>
+                  {deleteDocument && (
+                    <button
+                      onClick={() => {
+                        if (confirm(`Are you sure you want to delete ${doc.fileName}?`)) {
+                          deleteDocument(doc.id);
+                        }
+                      }}
+                      style={{
+                        padding: '6px 10px',
+                        fontSize: '0.75rem',
+                        backgroundColor: '#FEF2F2',
+                        color: '#DC2626',
+                        border: '1px solid #FECACA',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                      }}
+                    >
+                      <Trash2 size={13} /> Delete
+                    </button>
+                  )}
                 </div>
               </div>
-            )}
-          </div>
-        ))}
-      </div>
+
+              {/* Rejection / Revision Note */}
+              {doc.status === 'revision_requested' && doc.rejectionReason && (
+                <div
+                  style={{
+                    backgroundColor: '#FFFBEB',
+                    border: '1px solid #FDE68A',
+                    borderRadius: '8px',
+                    padding: '12px 16px',
+                    color: '#92400E',
+                    fontSize: '0.8125rem',
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: '8px',
+                    marginTop: '12px',
+                  }}
+                >
+                  <AlertTriangle size={16} color="#D97706" style={{ marginTop: '2px', flexShrink: 0 }} />
+                  <div>
+                    <strong>Reviewer Feedback ({doc.reviewedBy || 'Admissions Officer'}):</strong>{' '}
+                    {doc.rejectionReason}
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

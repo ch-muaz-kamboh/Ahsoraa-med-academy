@@ -50,20 +50,29 @@ export interface LiveTestSession {
 
 export type MedpathStageStatus = 'pending' | 'in_progress' | 'completed';
 
+export interface MedpathStageDetail {
+  status: string;
+  decision?: string;
+  appliedDate?: string;
+  actionDate?: string;
+  reviewerName?: string;
+  responsiblePerson?: string;
+  comments?: string;
+  updatedAt?: string;
+}
+
 export interface MedpathEliteStudent {
   id: string;
   studentId: string;
   studentName: string;
   email: string;
+  phone?: string;
+  enrollmentNumber?: string;
+  targetUniversity?: string;
+  country?: string;
   registeredAt: string;
-  stages: {
-    pre_enrollment: MedpathStageStatus;
-    dov_submission: MedpathStageStatus;
-    university_application: MedpathStageStatus;
-    admission_decision: MedpathStageStatus;
-    visa_process: MedpathStageStatus;
-    housing_arrival: MedpathStageStatus;
-  };
+  stages: Record<string, any>;
+  documents?: StudentDocument[];
 }
 
 interface AppContextType {
@@ -74,9 +83,11 @@ interface AppContextType {
   leads: Lead[];
   addLead: (lead: Omit<Lead, 'id' | 'leadCode' | 'createdAt' | 'leadScore'>) => void;
   updateLeadStage: (id: string, stage: Lead['stage']) => void;
+  // Documents
   documents: StudentDocument[];
   addDocument: (doc: Omit<StudentDocument, 'id' | 'uploadedAt' | 'version'>) => void;
   updateDocStatus: (id: string, status: StudentDocument['status'], note?: string) => void;
+  deleteDocument: (id: string) => void;
   doubts: DoubtItem[];
   addDoubt: (doubt: Omit<DoubtItem, 'id' | 'createdAt' | 'status' | 'studentName'>) => void;
   answerDoubt: (doubtId: string, answerText: string) => void;
@@ -146,7 +157,7 @@ interface AppContextType {
   // Medpath Elite
   eliteStudents: MedpathEliteStudent[];
   addEliteStudent: (student: Omit<MedpathEliteStudent, 'id'>) => void;
-  updateEliteStage: (studentId: string, stage: keyof MedpathEliteStudent['stages'], status: MedpathStageStatus) => void;
+  updateEliteStage: (studentId: string, stage: string, statusOrData: any) => void;
 
   // Profile update
   updateProfile: (data: Partial<Profile>) => void;
@@ -169,7 +180,21 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   });
   const [courses, setCourses] = useState<Course[]>(mockCourses);
   const [leads, setLeads] = useState<Lead[]>(mockLeads);
-  const [documents, setDocuments] = useState<StudentDocument[]>(mockStudentDocuments);
+  const [documents, setDocuments] = useState<StudentDocument[]>(() => {
+    if (typeof window === 'undefined') return [];
+    try {
+      const saved = localStorage.getItem('ahsora_student_documents');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('ahsora_student_documents', JSON.stringify(documents));
+    }
+  }, [documents]);
   const [doubts, setDoubts] = useState<DoubtItem[]>(() => {
     if (typeof window === 'undefined') return mockDoubts;
     try {
@@ -992,8 +1017,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   const updateEliteStage = (
     studentIdOrEmail: string,
-    stage: keyof MedpathEliteStudent['stages'],
-    status: MedpathStageStatus
+    stage: string,
+    statusOrData: any
   ) => {
     setEliteStudents((prev) => {
       let currentList: MedpathEliteStudent[] = [...prev];
@@ -1014,7 +1039,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
               if (idx === -1) {
                 currentList.push(saved);
               } else {
-                currentList[idx] = { ...currentList[idx], stages: { ...currentList[idx].stages, ...saved.stages } };
+                currentList[idx] = { ...currentList[idx], ...saved, stages: { ...currentList[idx].stages, ...saved.stages } };
               }
             });
           }
@@ -1036,7 +1061,20 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           (q.length > 3 && sEmail.includes(q.split('@')[0]))
         ) {
           found = true;
-          return { ...s, stages: { ...s.stages, [stage]: status } };
+          const prevVal = s.stages?.[stage];
+          let newVal: any;
+          if (typeof statusOrData === 'object' && statusOrData !== null) {
+            newVal = {
+              ...(typeof prevVal === 'object' && prevVal !== null ? prevVal : { status: prevVal || 'pending' }),
+              ...statusOrData,
+              updatedAt: new Date().toISOString(),
+            };
+          } else {
+            newVal = typeof prevVal === 'object' && prevVal !== null
+              ? { ...prevVal, status: statusOrData, updatedAt: new Date().toISOString() }
+              : statusOrData;
+          }
+          return { ...s, stages: { ...s.stages, [stage]: newVal } };
         }
         return s;
       });
@@ -1054,20 +1092,20 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
                 (q.length > 3 && item.email?.toLowerCase().trim().includes(q.split('@')[0]))
             );
             if (match) {
+              let newVal: any = statusOrData;
+              if (typeof statusOrData === 'object' && statusOrData !== null) {
+                newVal = { status: 'pending', ...statusOrData, updatedAt: new Date().toISOString() };
+              }
               const newElite: MedpathEliteStudent = {
                 id: match.id || `elite-${Date.now()}`,
                 studentId: match.id || `stu-${Date.now()}`,
                 studentName: match.fullName || `${match.firstName || ''} ${match.lastName || ''}`.trim() || 'Elite Student',
                 email: match.email,
+                phone: match.whatsappNumber || match.phone || '',
+                enrollmentNumber: match.ama_id || `AMA-2026-${Math.floor(1000 + Math.random() * 9000)}`,
                 registeredAt: match.createdAt || new Date().toISOString(),
                 stages: {
-                  pre_enrollment: 'pending',
-                  dov_submission: 'pending',
-                  university_application: 'pending',
-                  admission_decision: 'pending',
-                  visa_process: 'pending',
-                  housing_arrival: 'pending',
-                  [stage]: status,
+                  [stage]: newVal,
                 },
               };
               updated.unshift(newElite);
@@ -1343,6 +1381,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           : d
       )
     );
+  };
+
+  const deleteDocument = (id: string) => {
+    setDocuments((prev) => prev.filter((d) => d.id !== id));
   };
 
   const addDoubt = (doubtData: Omit<DoubtItem, 'id' | 'createdAt' | 'status' | 'studentName'>) => {
@@ -1650,6 +1692,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         documents,
         addDocument,
         updateDocStatus,
+        deleteDocument,
         doubts,
         addDoubt,
         answerDoubt,
