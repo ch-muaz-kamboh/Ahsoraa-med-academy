@@ -82,8 +82,8 @@ const MOCK_SPECS: MockSpec[] = [
     difficulty: 'medium',
     durationMinutes: 60,
     passingPercentage: 50,
-    unlockDate: '2026-11-01', // Scheduled mock
-    instructions: 'Scheduled Mock: Unlocks on November 1, 2026. Tests stoichiometry, IUPAC nomenclature, reaction mechanisms, and redox balancing. Scoring: +1.5 / -0.4 / 0.',
+    unlockDate: '', // Unlocked for all students
+    instructions: 'Comprehensive exam testing stoichiometry, IUPAC nomenclature, reaction mechanisms, and redox balancing. Scoring: +1.5 / -0.4 / 0.',
     startIndex: 60,
     count: 15,
   },
@@ -96,8 +96,8 @@ const MOCK_SPECS: MockSpec[] = [
     difficulty: 'hard',
     durationMinutes: 45,
     passingPercentage: 50,
-    unlockDate: '2026-11-15', // Scheduled mock
-    instructions: 'Scheduled Mock: Unlocks on November 15, 2026. Tests syllogisms, argument weaknesses, scientific history, and modern institutions. Scoring: +1.5 / -0.4 / 0.',
+    unlockDate: '', // Unlocked for all students
+    instructions: 'High-yield exam testing syllogisms, argument weaknesses, scientific history, and modern institutions. Scoring: +1.5 / -0.4 / 0.',
     startIndex: 75,
     count: 15,
   },
@@ -110,8 +110,8 @@ const MOCK_SPECS: MockSpec[] = [
     difficulty: 'hard',
     durationMinutes: 60,
     passingPercentage: 50,
-    unlockDate: '2026-12-01', // Scheduled mock
-    instructions: 'Scheduled Mock: Unlocks on December 1, 2026. Classical mechanics, electrostatics, optics, algebraic equations, and trigonometry. Scoring: +1.5 / -0.4 / 0.',
+    unlockDate: '', // Unlocked for all students
+    instructions: 'Full problem-solving block: Classical mechanics, electrostatics, optics, algebraic equations, and trigonometry. Scoring: +1.5 / -0.4 / 0.',
     startIndex: 90,
     count: 15,
   },
@@ -124,8 +124,8 @@ const MOCK_SPECS: MockSpec[] = [
     difficulty: 'hard',
     durationMinutes: 100,
     passingPercentage: 60,
-    unlockDate: '2026-12-15', // Scheduled mock
-    instructions: 'Scheduled Mock: Unlocks on December 15, 2026. Official 100-minute all-section examination modeled on Università degli Studi di Milano & Bologna standards. Scoring: +1.5 / -0.4 / 0.',
+    unlockDate: '', // Unlocked for all students
+    instructions: 'Official 100-minute all-section examination modeled on Università degli Studi di Milano & Bologna standards. Scoring: +1.5 / -0.4 / 0.',
     startIndex: 105,
     count: 20,
   },
@@ -138,8 +138,8 @@ const MOCK_SPECS: MockSpec[] = [
     difficulty: 'hard',
     durationMinutes: 100,
     passingPercentage: 60,
-    unlockDate: '2027-01-05', // Scheduled mock
-    instructions: 'Scheduled Mock: Unlocks on January 5, 2027. Full-length benchmark test targeting top percentile cutoffs for Rome La Sapienza and Pavia. Scoring: +1.5 / -0.4 / 0.',
+    unlockDate: '', // Unlocked for all students
+    instructions: 'Full-length benchmark test targeting top percentile cutoffs for Rome La Sapienza and Pavia. Scoring: +1.5 / -0.4 / 0.',
     startIndex: 125,
     count: 20,
   },
@@ -152,8 +152,8 @@ const MOCK_SPECS: MockSpec[] = [
     difficulty: 'hard',
     durationMinutes: 100,
     passingPercentage: 60,
-    unlockDate: '2027-01-20', // Scheduled mock
-    instructions: 'Scheduled Mock: Unlocks on January 20, 2027. Final dress rehearsal mock before the official admission test. Strict IMAT scoring: +1.5 correct, -0.4 penalty, 0 unanswered.',
+    unlockDate: '', // Unlocked for all students
+    instructions: 'Final dress rehearsal mock before the official admission test. Strict IMAT scoring: +1.5 correct, -0.4 penalty, 0 unanswered.',
     startIndex: 145,
     count: 20,
   },
