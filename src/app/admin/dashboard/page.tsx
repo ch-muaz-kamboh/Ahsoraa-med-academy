@@ -57,18 +57,51 @@ export default function AdminDashboardPage() {
     setLoadingStudents(true);
     let list: StudentRecord[] = [];
 
-    // 1. Fetch from Server API Route
+    // 1. Prioritize verified single source of truth from Student Management cache
+    if (typeof window !== 'undefined') {
+      try {
+        const cachedAdminStr = localStorage.getItem('ahsora_cached_admin_students');
+        if (cachedAdminStr) {
+          const parsed = JSON.parse(cachedAdminStr);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            list = parsed.map((s: any) => ({
+              ...s,
+              payment_approved: Boolean(s.payment_approved || s.paymentApproved),
+            }));
+          }
+        }
+      } catch (e) {}
+    }
+
+    // 2. Fetch from Server API Route to capture any new remote registrations
     try {
       const res = await fetch('/api/admin/students');
       if (res.ok) {
         const json = await res.json();
         if (json.success && Array.isArray(json.students) && json.students.length > 0) {
-          list = json.students;
+          json.students.forEach((apiStudent: any) => {
+            const cleanEmail = (apiStudent.email || '').toLowerCase().trim();
+            const existingIdx = list.findIndex(
+              (s) =>
+                (apiStudent.id && s.id === apiStudent.id) ||
+                (s.email && cleanEmail && s.email.toLowerCase().trim() === cleanEmail)
+            );
+            if (existingIdx !== -1) {
+              list[existingIdx] = {
+                ...apiStudent,
+                ...list[existingIdx],
+                full_name: apiStudent.full_name || list[existingIdx].full_name,
+                payment_approved: list[existingIdx].payment_approved || Boolean(apiStudent.payment_approved),
+              };
+            } else {
+              list.push(apiStudent);
+            }
+          });
         }
       }
     } catch {}
 
-    // 2. Fallback to Supabase client
+    // 3. Fallback to Supabase client if still completely empty
     if (list.length === 0) {
       try {
         const supabase = createClient();
@@ -82,7 +115,7 @@ export default function AdminDashboardPage() {
       } catch {}
     }
 
-    // 3. Merge cached adminStudentList & recentRegistration
+    // 4. Merge cached adminStudentList & recentRegistration
     if (typeof window !== 'undefined') {
       try {
         const localListStr = localStorage.getItem('adminStudentList');
@@ -91,13 +124,12 @@ export default function AdminDashboardPage() {
           localList.forEach((localItem) => {
             const isApproved =
               localItem.paymentApproved === true ||
-              localItem.payment_approved === true ||
-              (localItem.paymentApproved !== false && localItem.payment_approved !== false);
+              localItem.payment_approved === true;
 
             const existingIdx = list.findIndex(
               (s) =>
                 (localItem.id && s.id === localItem.id) ||
-                (s.email && localItem.email && s.email.toLowerCase() === localItem.email.toLowerCase())
+                (s.email && localItem.email && s.email.toLowerCase().trim() === localItem.email.toLowerCase().trim())
             );
             if (existingIdx !== -1) {
               list[existingIdx] = {
@@ -106,7 +138,7 @@ export default function AdminDashboardPage() {
                 country: localItem.country || list[existingIdx].country,
                 selected_package: localItem.selectedPackage || list[existingIdx].selected_package,
                 package_price: localItem.packagePrice || list[existingIdx].package_price,
-                payment_approved: isApproved,
+                payment_approved: isApproved || list[existingIdx].payment_approved,
               };
             } else {
               list.unshift({
@@ -129,13 +161,12 @@ export default function AdminDashboardPage() {
           const recentReg: any = JSON.parse(recentRegStr);
           const isApproved =
             recentReg.paymentApproved === true ||
-            recentReg.payment_approved === true ||
-            (recentReg.paymentApproved !== false && recentReg.payment_approved !== false);
+            recentReg.payment_approved === true;
 
           const existingIdx = list.findIndex(
             (s) =>
               (recentReg.id && s.id === recentReg.id) ||
-              (s.email && recentReg.email && s.email.toLowerCase() === recentReg.email.toLowerCase())
+              (s.email && recentReg.email && s.email.toLowerCase().trim() === recentReg.email.toLowerCase().trim())
           );
           if (existingIdx !== -1) {
             list[existingIdx] = {
@@ -144,7 +175,7 @@ export default function AdminDashboardPage() {
               country: recentReg.country || list[existingIdx].country,
               selected_package: recentReg.selectedPackage || list[existingIdx].selected_package,
               package_price: recentReg.packagePrice || list[existingIdx].package_price,
-              payment_approved: isApproved,
+              payment_approved: isApproved || list[existingIdx].payment_approved,
             };
           } else {
             list.unshift({
@@ -158,6 +189,19 @@ export default function AdminDashboardPage() {
               created_at: recentReg.createdAt || new Date().toISOString(),
             });
           }
+        }
+
+        // 5. Enforce persistent approved emails registry
+        const approvedEmailsRaw = localStorage.getItem('ahsora_approved_emails');
+        const approvedEmails: string[] = approvedEmailsRaw ? JSON.parse(approvedEmailsRaw) : [];
+        if (approvedEmails.length > 0) {
+          list = list.map((s) => {
+            const emailLower = (s.email || '').toLowerCase().trim();
+            if (emailLower && approvedEmails.includes(emailLower)) {
+              return { ...s, payment_approved: true };
+            }
+            return s;
+          });
         }
       } catch {}
 

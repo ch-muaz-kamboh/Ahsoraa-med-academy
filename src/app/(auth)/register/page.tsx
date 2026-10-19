@@ -244,6 +244,40 @@ export default function RegisterPage() {
       filteredList.unshift(pendingStudent);
       localStorage.setItem('adminStudentList', JSON.stringify(filteredList));
 
+      // Also ensure student is in approved emails and cached admin students
+      try {
+        const approvedEmailsRaw = localStorage.getItem('ahsora_approved_emails');
+        const approvedEmails: string[] = approvedEmailsRaw ? JSON.parse(approvedEmailsRaw) : [];
+        const cleanEmail = formData.email.toLowerCase().trim();
+        if (cleanEmail && !approvedEmails.includes(cleanEmail)) {
+          approvedEmails.push(cleanEmail);
+          localStorage.setItem('ahsora_approved_emails', JSON.stringify(approvedEmails));
+        }
+
+        const cachedAdminStr = localStorage.getItem('ahsora_cached_admin_students');
+        const cachedAdmin: any[] = cachedAdminStr ? JSON.parse(cachedAdminStr) : [];
+        const filteredCached = cachedAdmin.filter(
+          (item: any) => !item.email || item.email.toLowerCase().trim() !== cleanEmail
+        );
+        filteredCached.unshift({
+          id: pendingStudent.id,
+          ama_id: pendingStudent.ama_id,
+          full_name: pendingStudent.fullName,
+          firstName: pendingStudent.firstName,
+          lastName: pendingStudent.lastName,
+          email: pendingStudent.email,
+          country: pendingStudent.country,
+          whatsapp_number: pendingStudent.whatsappNumber,
+          selected_package: pendingStudent.selectedPackage,
+          selectedPackage: pendingStudent.selectedPackage,
+          package_price: pendingStudent.packagePrice,
+          packagePrice: pendingStudent.packagePrice,
+          payment_approved: true,
+          created_at: pendingStudent.createdAt,
+        });
+        localStorage.setItem('ahsora_cached_admin_students', JSON.stringify(filteredCached));
+      } catch (e) {}
+
       // Trigger instant real-time sync across open admin tabs and dashboard
       window.dispatchEvent(new Event('ahsora_student_updated'));
       window.dispatchEvent(new Event('storage'));

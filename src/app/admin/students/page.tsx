@@ -220,6 +220,10 @@ export default function AdminStudentsPage() {
       if (localListStr) {
         const localList: any[] = JSON.parse(localListStr);
         localList.forEach((localItem) => {
+          const isItemApproved =
+            localItem.paymentApproved === true ||
+            localItem.payment_approved === true;
+
           const existingIdx = combinedList.findIndex(
             (s) =>
               (localItem.id && s.id === localItem.id) ||
@@ -233,6 +237,7 @@ export default function AdminStudentsPage() {
               whatsapp_number: localItem.whatsappNumber || localItem.whatsapp_number || combinedList[existingIdx].whatsapp_number,
               selected_package: localItem.selectedPackage || localItem.selected_package || combinedList[existingIdx].selected_package,
               package_price: localItem.packagePrice || localItem.package_price || combinedList[existingIdx].package_price,
+              payment_approved: isItemApproved || combinedList[existingIdx].payment_approved,
             };
           } else {
             combinedList.unshift({
@@ -247,7 +252,7 @@ export default function AdminStudentsPage() {
               whatsapp_number: localItem.whatsappNumber,
               selected_package: localItem.selectedPackage,
               package_price: localItem.packagePrice,
-              payment_approved: localItem.paymentApproved || false,
+              payment_approved: isItemApproved,
               created_at: localItem.createdAt || new Date().toISOString(),
             });
           }
@@ -256,6 +261,21 @@ export default function AdminStudentsPage() {
     } catch (e) {
       console.error(e);
     }
+
+    // Ensure all registered approved emails are marked payment_approved: true
+    try {
+      const approvedEmailsRaw = localStorage.getItem('ahsora_approved_emails');
+      const approvedEmails: string[] = approvedEmailsRaw ? JSON.parse(approvedEmailsRaw) : [];
+      if (approvedEmails.length > 0) {
+        combinedList = combinedList.map((s) => {
+          const emailLower = (s.email || '').toLowerCase().trim();
+          if (emailLower && approvedEmails.includes(emailLower)) {
+            return { ...s, payment_approved: true };
+          }
+          return s;
+        });
+      }
+    } catch (e) {}
 
     // Fallback sample data if empty
     if (combinedList.length === 0) {
@@ -300,6 +320,9 @@ export default function AdminStudentsPage() {
     }
 
     setStudents(combinedList);
+    try {
+      localStorage.setItem('ahsora_cached_admin_students', JSON.stringify(combinedList));
+    } catch (e) {}
     setLoading(false);
   }, []);
 
@@ -311,9 +334,9 @@ export default function AdminStudentsPage() {
     const matched = getPackageByIdOrName(newPkgName);
     const newPrice = matched.price;
 
-    // Update in students state
-    setStudents((prev) =>
-      prev.map((s) => {
+    // Update in students state and cache
+    setStudents((prev) => {
+      const updated = prev.map((s) => {
         if (s.id === studentId || (studentEmail && s.email && s.email.toLowerCase() === studentEmail.toLowerCase())) {
           return {
             ...s,
@@ -324,8 +347,12 @@ export default function AdminStudentsPage() {
           };
         }
         return s;
-      })
-    );
+      });
+      try {
+        localStorage.setItem('ahsora_cached_admin_students', JSON.stringify(updated));
+      } catch (e) {}
+      return updated;
+    });
 
     // If viewing this student in modal, update modal view as well
     setViewingStudent((prev) => {
@@ -431,38 +458,94 @@ export default function AdminStudentsPage() {
         }),
       }).catch((e) => console.warn('API update package error:', e));
     } catch (e) {}
+
+    window.dispatchEvent(new Event('ahsora_student_updated'));
+    window.dispatchEvent(new Event('storage'));
   };
 
-  const toggleApproval = async (studentId: string, currentStatus: boolean) => {
+  const toggleApproval = async (studentId: string, currentStatus: boolean, studentEmail?: string) => {
     setUpdating(studentId);
+    const newStatus = !currentStatus;
     
-    // Update local state
-    setStudents((prev) =>
-      prev.map((s) => (s.id === studentId ? { ...s, payment_approved: !currentStatus } : s))
-    );
+    // Update local state and cached students
+    setStudents((prev) => {
+      const updated = prev.map((s) =>
+        (s.id === studentId || (studentEmail && s.email && s.email.toLowerCase() === studentEmail.toLowerCase()))
+          ? { ...s, payment_approved: newStatus }
+          : s
+      );
+      try {
+        localStorage.setItem('ahsora_cached_admin_students', JSON.stringify(updated));
+      } catch (e) {}
+      return updated;
+    });
 
-    // Update LocalStorage demo list
+    // Update LocalStorage demo list and persistent approved emails list
     try {
       const localListStr = localStorage.getItem('adminStudentList');
-      if (localListStr) {
-        const localList: any[] = JSON.parse(localListStr);
-        const updated = localList.map((item) =>
-          item.id === studentId ? { ...item, paymentApproved: !currentStatus } : item
-        );
-        localStorage.setItem('adminStudentList', JSON.stringify(updated));
-        window.dispatchEvent(new Event('ahsora_student_updated'));
-        window.dispatchEvent(new Event('storage'));
+      const localList: any[] = localListStr ? JSON.parse(localListStr) : [];
+      let foundInLocal = false;
+      const updated = localList.map((item) => {
+        if (
+          item.id === studentId ||
+          (studentEmail && item.email && item.email.toLowerCase() === studentEmail.toLowerCase())
+        ) {
+          foundInLocal = true;
+          return { ...item, paymentApproved: newStatus, payment_approved: newStatus };
+        }
+        return item;
+      });
+      if (!foundInLocal) {
+        updated.unshift({
+          id: studentId,
+          email: studentEmail,
+          paymentApproved: newStatus,
+          payment_approved: newStatus,
+        });
       }
+      localStorage.setItem('adminStudentList', JSON.stringify(updated));
+
+      // Update approved emails registry
+      const approvedEmailsRaw = localStorage.getItem('ahsora_approved_emails');
+      const approvedEmails: string[] = approvedEmailsRaw ? JSON.parse(approvedEmailsRaw) : [];
+      const cleanEmail = (studentEmail || '').toLowerCase().trim();
+      if (cleanEmail) {
+        if (newStatus && !approvedEmails.includes(cleanEmail)) {
+          approvedEmails.push(cleanEmail);
+        } else if (!newStatus) {
+          const idx = approvedEmails.indexOf(cleanEmail);
+          if (idx !== -1) approvedEmails.splice(idx, 1);
+        }
+        localStorage.setItem('ahsora_approved_emails', JSON.stringify(approvedEmails));
+      }
+
+      // Also update recentRegistration if it matches
+      const recentRegStr = localStorage.getItem('recentRegistration');
+      if (recentRegStr) {
+        const recentReg = JSON.parse(recentRegStr);
+        if (
+          recentReg.id === studentId ||
+          (studentEmail && recentReg.email && recentReg.email.toLowerCase() === studentEmail.toLowerCase())
+        ) {
+          recentReg.paymentApproved = newStatus;
+          recentReg.payment_approved = newStatus;
+          localStorage.setItem('recentRegistration', JSON.stringify(recentReg));
+        }
+      }
+
+      window.dispatchEvent(new Event('ahsora_student_updated'));
+      window.dispatchEvent(new Event('storage'));
     } catch (e) {}
 
-    // Update Server API Route
+    // Update Server API Route with both studentId and studentEmail
     try {
       fetch('/api/admin/students', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           studentId,
-          paymentApproved: !currentStatus,
+          studentEmail,
+          paymentApproved: newStatus,
         }),
       }).catch((e) => console.warn('API update approval error:', e));
     } catch (e) {}
@@ -472,7 +555,7 @@ export default function AdminStudentsPage() {
       const supabase = createClient();
       await supabase
         .from('profiles')
-        .update({ payment_approved: !currentStatus })
+        .update({ payment_approved: newStatus })
         .eq('id', studentId);
     } catch (e) {}
 
@@ -851,7 +934,7 @@ export default function AdminStudentsPage() {
                         <div style={{ display: 'flex', gap: '8px' }}>
                           <button
                             disabled={updating === student.id || student.payment_approved}
-                            onClick={() => toggleApproval(student.id, false)}
+                            onClick={() => toggleApproval(student.id, false, student.email)}
                             style={{
                               padding: '7px 12px',
                               borderRadius: '8px',
@@ -870,7 +953,7 @@ export default function AdminStudentsPage() {
                           </button>
                           <button
                             disabled={updating === student.id || !student.payment_approved}
-                            onClick={() => toggleApproval(student.id, true)}
+                            onClick={() => toggleApproval(student.id, true, student.email)}
                             style={{
                               padding: '7px 12px',
                               borderRadius: '8px',
@@ -1024,7 +1107,7 @@ export default function AdminStudentsPage() {
             <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
               <button
                 onClick={() => {
-                  toggleApproval(viewingStudent.id, viewingStudent.payment_approved);
+                  toggleApproval(viewingStudent.id, viewingStudent.payment_approved, viewingStudent.email);
                   setViewingStudent(null);
                 }}
                 className="btn-primary"
