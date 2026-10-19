@@ -868,12 +868,12 @@ export default function HomePage() {
             pointerEvents: 'none',
           }}
         />
-        <div className="trust-marquee">
+        <div className="trust-marquee" dir="ltr" style={{ direction: 'ltr' }}>
           {(() => {
             const itemsToDisplay = tickerItems.length > 0 ? tickerItems : trustItems;
             return (
               <>
-                <div className="trust-marquee-track" style={{ animationDuration: `${tickerSpeed}s` }}>
+                <div className="trust-marquee-track" dir="ltr" style={{ animationDuration: `${tickerSpeed}s`, direction: 'ltr' }}>
                   {itemsToDisplay.map((item, i) => (
                     <div
                       key={`strip-a-${i}`}
@@ -894,7 +894,7 @@ export default function HomePage() {
                     </div>
                   ))}
                 </div>
-                <div className="trust-marquee-track" aria-hidden="true" style={{ animationDuration: `${tickerSpeed}s` }}>
+                <div className="trust-marquee-track" dir="ltr" aria-hidden="true" style={{ animationDuration: `${tickerSpeed}s`, direction: 'ltr' }}>
                   {itemsToDisplay.map((item, i) => (
                     <div
                       key={`strip-b-${i}`}

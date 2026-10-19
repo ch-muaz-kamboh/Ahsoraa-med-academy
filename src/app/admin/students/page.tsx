@@ -450,6 +450,8 @@ export default function AdminStudentsPage() {
           item.id === studentId ? { ...item, paymentApproved: !currentStatus } : item
         );
         localStorage.setItem('adminStudentList', JSON.stringify(updated));
+        window.dispatchEvent(new Event('ahsora_student_updated'));
+        window.dispatchEvent(new Event('storage'));
       }
     } catch (e) {}
 

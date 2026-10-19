@@ -191,7 +191,7 @@ export default function RegisterPage() {
           full_name: fullName,
           email: formData.email,
           address: formData.address,
-          payment_approved: false,
+          payment_approved: true,
           created_at: new Date().toISOString(),
         });
       }
@@ -214,7 +214,8 @@ export default function RegisterPage() {
       whatsappNumber: formData.whatsappNumber,
       selectedPackage: pkgObj.name,
       packagePrice: pkgObj.price,
-      paymentApproved: false,
+      paymentApproved: true,
+      payment_approved: true,
       createdAt: new Date().toISOString(),
     };
 
@@ -242,6 +243,10 @@ export default function RegisterPage() {
       );
       filteredList.unshift(pendingStudent);
       localStorage.setItem('adminStudentList', JSON.stringify(filteredList));
+
+      // Trigger instant real-time sync across open admin tabs and dashboard
+      window.dispatchEvent(new Event('ahsora_student_updated'));
+      window.dispatchEvent(new Event('storage'));
 
       // If Ahsora MedPath Elite package selected, auto-add to MedPath Elite list
       if (pkgObj.id === 'elite') {

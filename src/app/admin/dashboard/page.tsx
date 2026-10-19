@@ -89,6 +89,11 @@ export default function AdminDashboardPage() {
         if (localListStr) {
           const localList: any[] = JSON.parse(localListStr);
           localList.forEach((localItem) => {
+            const isApproved =
+              localItem.paymentApproved === true ||
+              localItem.payment_approved === true ||
+              (localItem.paymentApproved !== false && localItem.payment_approved !== false);
+
             const existingIdx = list.findIndex(
               (s) =>
                 (localItem.id && s.id === localItem.id) ||
@@ -101,7 +106,7 @@ export default function AdminDashboardPage() {
                 country: localItem.country || list[existingIdx].country,
                 selected_package: localItem.selectedPackage || list[existingIdx].selected_package,
                 package_price: localItem.packagePrice || list[existingIdx].package_price,
-                payment_approved: typeof localItem.paymentApproved === 'boolean' ? localItem.paymentApproved : list[existingIdx].payment_approved,
+                payment_approved: isApproved,
               };
             } else {
               list.unshift({
@@ -111,11 +116,48 @@ export default function AdminDashboardPage() {
                 country: localItem.country,
                 selected_package: localItem.selectedPackage,
                 package_price: localItem.packagePrice,
-                payment_approved: localItem.paymentApproved === true,
+                payment_approved: isApproved,
                 created_at: localItem.createdAt || new Date().toISOString(),
               });
             }
           });
+        }
+
+        // Also merge recentRegistration fallback
+        const recentRegStr = localStorage.getItem('recentRegistration');
+        if (recentRegStr) {
+          const recentReg: any = JSON.parse(recentRegStr);
+          const isApproved =
+            recentReg.paymentApproved === true ||
+            recentReg.payment_approved === true ||
+            (recentReg.paymentApproved !== false && recentReg.payment_approved !== false);
+
+          const existingIdx = list.findIndex(
+            (s) =>
+              (recentReg.id && s.id === recentReg.id) ||
+              (s.email && recentReg.email && s.email.toLowerCase() === recentReg.email.toLowerCase())
+          );
+          if (existingIdx !== -1) {
+            list[existingIdx] = {
+              ...list[existingIdx],
+              full_name: recentReg.fullName || list[existingIdx].full_name,
+              country: recentReg.country || list[existingIdx].country,
+              selected_package: recentReg.selectedPackage || list[existingIdx].selected_package,
+              package_price: recentReg.packagePrice || list[existingIdx].package_price,
+              payment_approved: isApproved,
+            };
+          } else {
+            list.unshift({
+              id: recentReg.id || `loc-reg-${Date.now()}`,
+              full_name: recentReg.fullName || `${recentReg.firstName || ''} ${recentReg.lastName || ''}`.trim(),
+              email: recentReg.email,
+              country: recentReg.country,
+              selected_package: recentReg.selectedPackage,
+              package_price: recentReg.packagePrice,
+              payment_approved: isApproved,
+              created_at: recentReg.createdAt || new Date().toISOString(),
+            });
+          }
         }
       } catch {}
 
@@ -163,7 +205,13 @@ export default function AdminDashboardPage() {
   useEffect(() => {
     fetchStudentsData();
     window.addEventListener('storage', fetchStudentsData);
-    return () => window.removeEventListener('storage', fetchStudentsData);
+    window.addEventListener('ahsora_student_updated', fetchStudentsData);
+    window.addEventListener('focus', fetchStudentsData);
+    return () => {
+      window.removeEventListener('storage', fetchStudentsData);
+      window.removeEventListener('ahsora_student_updated', fetchStudentsData);
+      window.removeEventListener('focus', fetchStudentsData);
+    };
   }, [fetchStudentsData]);
 
   // Derived metrics

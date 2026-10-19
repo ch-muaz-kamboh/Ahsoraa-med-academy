@@ -349,6 +349,7 @@ button {
   white-space: nowrap;
   position: relative;
   width: 100%;
+  direction: ltr !important;
 }
 
 .trust-marquee-track {
@@ -359,14 +360,34 @@ button {
   will-change: transform;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
+  direction: ltr !important;
 }
 
 .trust-marquee:hover .trust-marquee-track {
   animation-play-state: paused;
 }
 
+.portal-marquee-wrapper {
+  direction: ltr !important;
+}
+
+.portal-marquee-track {
+  direction: ltr !important;
+}
+
 .portal-marquee-wrapper:hover .portal-marquee-track {
   animation-play-state: paused !important;
+}
+
+/* Force LTR conveyor belt movement regardless of document RTL direction (Urdu, Arabic, Hebrew) */
+[dir="rtl"] .trust-marquee,
+[dir="rtl"] .trust-marquee-track,
+[dir="rtl"] .portal-marquee-wrapper,
+[dir="rtl"] .portal-marquee-track,
+html[dir="rtl"] .trust-marquee,
+html[dir="rtl"] .portal-marquee-wrapper {
+  direction: ltr !important;
+  text-align: left !important;
 }
 
 /* ─── Interactive Picture Hover Effect ───────────────────── */

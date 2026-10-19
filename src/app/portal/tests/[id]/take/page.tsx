@@ -222,6 +222,7 @@ export default function TakeTestPage({
       accuracyRate: accuracyRate,
       percentile: percentile,
       subjectBreakdown: subjectBreakdown,
+      userAnswers: activeAnswers,
     };
 
     recordTestAttempt(newAttempt);

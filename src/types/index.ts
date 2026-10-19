@@ -215,6 +215,7 @@ export interface TestAttempt {
   accuracyRate: number;
   percentile: number;
   subjectBreakdown: Record<string, { total: number; correct: number; score: number }>;
+  userAnswers?: Record<string, string>;
   createdAt?: string;
 }
 

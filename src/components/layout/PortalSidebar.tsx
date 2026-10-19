@@ -77,6 +77,26 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
   const [progressOpen, setProgressOpen] = useState<boolean>(false);
   const [sidebarExpanded, setSidebarExpanded] = useState<boolean>(true);
 
+  // Initialize and persist sidebar collapse preference
+  React.useEffect(() => {
+    try {
+      const saved = localStorage.getItem('ahsora_portal_sidebar_collapsed');
+      if (saved === 'true') {
+        setSidebarExpanded(false);
+      }
+    } catch {}
+  }, []);
+
+  const toggleSidebar = () => {
+    setSidebarExpanded((prev) => {
+      const next = !prev;
+      try {
+        localStorage.setItem('ahsora_portal_sidebar_collapsed', next ? 'false' : 'true');
+      } catch {}
+      return next;
+    });
+  };
+
   const handleLogout = async () => {
     try {
       const supabase = createClient();
@@ -95,7 +115,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
   return (
     <aside
       style={{
-        width: sidebarExpanded ? '260px' : '80px',
+        width: sidebarExpanded ? '260px' : '72px',
         backgroundColor: '#FFFFFF',
         borderRight: '1px solid #E2E8F0',
         minHeight: '100vh',
@@ -103,7 +123,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         flexDirection: 'column',
         flexShrink: 0,
         position: 'relative',
-        transition: 'width 0.2s ease',
+        transition: 'width 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
         overflow: 'visible',
         zIndex: 50,
         pointerEvents: isPortalLocked ? 'none' : 'auto',
@@ -111,9 +131,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
       }}
       onWheel={(e) => e.stopPropagation()}
     >
-      {/* Removed floating toggle button, now placed in header */}
-
-      {/* Header with logo and sidebar toggle */}
+      {/* Header with logo and smooth sidebar toggle */}
       <div
         style={{
           padding: sidebarExpanded ? '18px 20px' : '18px 0',
@@ -123,14 +141,27 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           justifyContent: 'center',
           position: 'relative',
           minHeight: '84px',
+          width: '100%',
         }}
       >
-        <Link href="/portal/dashboard" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-          <Logo height={sidebarExpanded ? 40 : 32} iconOnly={!sidebarExpanded} />
+        <Link
+          href="/portal/dashboard"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textDecoration: 'none',
+            overflow: 'hidden',
+          }}
+          title={sidebarExpanded ? undefined : 'Ahsora Meds Academy'}
+        >
+          <Logo height={sidebarExpanded ? 40 : 30} iconOnly={!sidebarExpanded} />
         </Link>
-        {/* Toggle button placed to the right */}
+
+        {/* Toggle button placed precisely on the border */}
         <button
-          onClick={() => setSidebarExpanded((prev) => !prev)}
+          type="button"
+          onClick={toggleSidebar}
           style={{
             position: 'absolute',
             right: '-14px',
@@ -139,40 +170,88 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
             height: '28px',
             borderRadius: '50%',
             backgroundColor: '#FFFFFF',
-            border: '1px solid #CBD5E1',
-            boxShadow: '0 2px 6px rgba(0,0,0,0.12)',
+            border: '1.5px solid #CBD5E1',
+            boxShadow: '0 3px 8px rgba(0,0,0,0.12)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             cursor: 'pointer',
-            color: '#475569',
-            transition: 'all 0.15s ease',
-            zIndex: 10,
+            color: '#1E293B',
+            transition: 'all 0.18s ease',
+            zIndex: 60,
           }}
-          aria-label="Toggle sidebar"
+          title={sidebarExpanded ? 'Collapse sidebar' : 'Expand sidebar'}
+          aria-label={sidebarExpanded ? 'Collapse sidebar' : 'Expand sidebar'}
         >
           {sidebarExpanded ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
         </button>
       </div>
 
       {/* Student Profile & Settings */}
-      <div style={{ 
-        padding: sidebarExpanded ? '20px' : '20px 0', 
-        borderBottom: '1px solid #E2E8F0', 
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: sidebarExpanded ? 'space-between' : 'center',
-        flexDirection: sidebarExpanded ? 'row' : 'column',
-        gap: '12px'
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', overflow: 'hidden' }}>
-          <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#DCFCE7', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#059669', fontWeight: 'bold', flexShrink: 0 }}>
+      <div
+        style={{
+          padding: sidebarExpanded ? '18px 20px' : '16px 0',
+          borderBottom: '1px solid #E2E8F0',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: sidebarExpanded ? 'space-between' : 'center',
+          flexDirection: sidebarExpanded ? 'row' : 'column',
+          gap: sidebarExpanded ? '12px' : '8px',
+          width: '100%',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            justifyContent: sidebarExpanded ? 'flex-start' : 'center',
+            width: sidebarExpanded ? 'auto' : '100%',
+            overflow: 'hidden',
+          }}
+          title={!sidebarExpanded ? `${currentUser.firstName || 'Student'} (${currentPkgObj.name})` : undefined}
+        >
+          <div
+            style={{
+              width: '40px',
+              height: '40px',
+              borderRadius: '50%',
+              backgroundColor: '#DCFCE7',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#059669',
+              fontWeight: 'bold',
+              flexShrink: 0,
+            }}
+          >
             {computedInitials}
           </div>
           {sidebarExpanded && (
             <div style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-              <span style={{ fontWeight: 600, fontSize: '0.9rem', color: '#1E293B', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>{currentUser.firstName} {currentUser.lastName}</span>
-              <span style={{ fontSize: '0.75rem', color: '#64748B', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>{currentUser.email}</span>
+              <span
+                style={{
+                  fontWeight: 600,
+                  fontSize: '0.9rem',
+                  color: '#1E293B',
+                  whiteSpace: 'nowrap',
+                  textOverflow: 'ellipsis',
+                  overflow: 'hidden',
+                }}
+              >
+                {currentUser.firstName} {currentUser.lastName}
+              </span>
+              <span
+                style={{
+                  fontSize: '0.75rem',
+                  color: '#64748B',
+                  whiteSpace: 'nowrap',
+                  textOverflow: 'ellipsis',
+                  overflow: 'hidden',
+                }}
+              >
+                {currentUser.email}
+              </span>
               <div style={{ marginTop: '4px' }}>
                 <span
                   style={{
@@ -180,9 +259,9 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
                     fontWeight: 700,
                     padding: '2px 8px',
                     borderRadius: '6px',
-                    backgroundColor: studentTier === 'elite' ? '#FFEDD5' : studentTier === 'mastery' ? '#DCFCE7' : '#DCFCE7',
+                    backgroundColor: studentTier === 'elite' ? '#FFEDD5' : '#DCFCE7',
                     color: studentTier === 'elite' ? '#C2410C' : studentTier === 'mastery' ? '#047857' : '#15803D',
-                    border: `1px solid ${studentTier === 'elite' ? '#FED7AA' : studentTier === 'mastery' ? '#BBF7D0' : '#BBF7D0'}`,
+                    border: `1px solid ${studentTier === 'elite' ? '#FED7AA' : '#BBF7D0'}`,
                     display: 'inline-block',
                     lineHeight: 1.3,
                   }}
@@ -193,27 +272,39 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
             </div>
           )}
         </div>
-        <button 
+        <button
+          type="button"
           onClick={() => setShowSettings(true)}
-          style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#64748B', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '4px' }}
-          title="Settings"
+          style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            color: '#64748B',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '6px',
+            borderRadius: '6px',
+          }}
+          title="Account Settings"
         >
-          <Settings size={20} />
+          <Settings size={sidebarExpanded ? 19 : 17} />
         </button>
       </div>
 
       {/* Scrollable Navigation Area */}
-      <div style={{ flex: 1, overflowY: 'auto', padding: '12px 0' }}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: '12px 0', width: '100%' }}>
 
         {/* Dashboard Link */}
-        <div style={{ padding: '0 12px', marginBottom: '6px' }}>
+        <div style={{ padding: sidebarExpanded ? '0 12px' : '0 8px', marginBottom: '6px' }}>
           <Link
             href="/portal/dashboard"
             style={{
               display: 'flex',
               alignItems: 'center',
+              justifyContent: sidebarExpanded ? 'flex-start' : 'center',
               gap: '12px',
-              padding: '10px 14px',
+              padding: sidebarExpanded ? '10px 14px' : '10px 0',
               borderRadius: '8px',
               fontSize: '0.875rem',
               fontWeight: 600,
@@ -221,7 +312,9 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
               backgroundColor: pathname === '/portal/dashboard' ? '#F0FFF4' : 'transparent',
               textDecoration: 'none',
               transition: 'all 0.15s ease',
+              width: '100%',
             }}
+            title={!sidebarExpanded ? t('portal.dashboard', 'Dashboard') : undefined}
           >
             <LayoutDashboard size={18} color={pathname === '/portal/dashboard' ? '#059669' : '#64748B'} />
             {sidebarExpanded && <span>{t('portal.dashboard', 'Dashboard')}</span>}
@@ -229,19 +322,23 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         </div>
 
         {/* Learn Section Dropdown */}
-        <div style={{ padding: '0 12px' }}>
+        <div style={{ padding: sidebarExpanded ? '0 12px' : '0 8px' }}>
           <button
             type="button"
             onClick={() => {
-              setLearnOpen(!learnOpen);
-              if (!sidebarExpanded) setSidebarExpanded(true);
+              if (!sidebarExpanded) {
+                setSidebarExpanded(true);
+                setLearnOpen(true);
+              } else {
+                setLearnOpen(!learnOpen);
+              }
             }}
             style={{
               width: '100%',
               display: 'flex',
               alignItems: 'center',
               justifyContent: sidebarExpanded ? 'space-between' : 'center',
-              padding: '10px 14px',
+              padding: sidebarExpanded ? '10px 14px' : '10px 0',
               borderRadius: '8px',
               fontSize: '0.875rem',
               fontWeight: 600,
@@ -253,6 +350,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
               opacity: isPortalLocked ? 0.5 : 1,
               pointerEvents: isPortalLocked ? 'none' : 'auto',
             }}
+            title={!sidebarExpanded ? t('portal.learn', 'Learn') : undefined}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'center' }}>
               <GraduationCap size={18} color={isLearnActive ? '#059669' : '#64748B'} />
@@ -261,7 +359,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
             {sidebarExpanded && (learnOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />)}
           </button>
 
-          {learnOpen && (
+          {sidebarExpanded && learnOpen && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', paddingLeft: '28px', marginTop: '4px' }}>
               <Link
                 href="/portal/learn/schedule"
@@ -366,19 +464,23 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         </div>
 
         {/* Practice Section Dropdown */}
-        <div style={{ padding: '0 12px', marginTop: '4px' }}>
+        <div style={{ padding: sidebarExpanded ? '0 12px' : '0 8px', marginTop: '4px' }}>
           <button
             type="button"
             onClick={() => {
-              setPracticeOpen(!practiceOpen);
-              if (!sidebarExpanded) setSidebarExpanded(true);
+              if (!sidebarExpanded) {
+                setSidebarExpanded(true);
+                setPracticeOpen(true);
+              } else {
+                setPracticeOpen(!practiceOpen);
+              }
             }}
             style={{
               width: '100%',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '10px 14px',
+              justifyContent: sidebarExpanded ? 'space-between' : 'center',
+              padding: sidebarExpanded ? '10px 14px' : '10px 0',
               borderRadius: '8px',
               fontSize: '0.875rem',
               fontWeight: 600,
@@ -388,15 +490,16 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
               cursor: 'pointer',
               transition: 'all 0.15s ease',
             }}
+            title={!sidebarExpanded ? t('portal.practice', 'Practice') : undefined}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'center' }}>
               <BookOpen size={18} color={isPracticeActive ? '#059669' : '#64748B'} />
               {sidebarExpanded && <span>{t('portal.practice', 'Practice')}</span>}
             </div>
             {sidebarExpanded && (practiceOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />)}
           </button>
 
-          {practiceOpen && (
+          {sidebarExpanded && practiceOpen && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', paddingLeft: '28px', marginTop: '4px' }}>
               <Link
                 href="/portal/practice"
@@ -478,19 +581,23 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         </div>
 
         {/* Progress Section Dropdown */}
-        <div style={{ padding: '0 12px', marginTop: '4px' }}>
+        <div style={{ padding: sidebarExpanded ? '0 12px' : '0 8px', marginTop: '4px' }}>
           <button
             type="button"
             onClick={() => {
-              setProgressOpen(!progressOpen);
-              if (!sidebarExpanded) setSidebarExpanded(true);
+              if (!sidebarExpanded) {
+                setSidebarExpanded(true);
+                setProgressOpen(true);
+              } else {
+                setProgressOpen(!progressOpen);
+              }
             }}
             style={{
               width: '100%',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '10px 14px',
+              justifyContent: sidebarExpanded ? 'space-between' : 'center',
+              padding: sidebarExpanded ? '10px 14px' : '10px 0',
               borderRadius: '8px',
               fontSize: '0.875rem',
               fontWeight: 600,
@@ -500,15 +607,16 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
               cursor: 'pointer',
               transition: 'all 0.15s ease',
             }}
+            title={!sidebarExpanded ? 'Progress' : undefined}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'center' }}>
               <TrendingUp size={18} color={isProgressActive ? '#059669' : '#64748B'} />
               {sidebarExpanded && <span>Progress</span>}
             </div>
             {sidebarExpanded && (progressOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />)}
           </button>
 
-          {progressOpen && (
+          {sidebarExpanded && progressOpen && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', paddingLeft: '28px', marginTop: '4px' }}>
               <Link
                 href="/portal/progress/analysis"
@@ -552,14 +660,14 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         </div>
 
         {/* MedPath Elite — Direct Link (locked for Ascend and Mastery) */}
-        <div style={{ padding: '0 12px', marginTop: '4px' }}>
+        <div style={{ padding: sidebarExpanded ? '0 12px' : '0 8px', marginTop: '4px' }}>
           <Link
             href="/portal/medpath"
             style={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: sidebarExpanded ? 'space-between' : 'center',
-              padding: '10px 14px',
+              padding: sidebarExpanded ? '10px 14px' : '10px 0',
               borderRadius: '8px',
               fontSize: '0.875rem',
               fontWeight: 600,
@@ -569,6 +677,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
               transition: 'all 0.15s ease',
               border: isMedpathActive ? '1px solid #FED7AA' : '1px solid transparent',
               opacity: medpathLocked && !isMedpathActive ? 0.8 : 1,
+              width: '100%',
             }}
             title={medpathLocked ? 'Locked for Ascend & Mastery students (Elite only)' : 'MedPath Elite'}
           >
@@ -600,7 +709,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
         </div>
 
         {/* Document Vault — Direct Link (locked for Ascend and Mastery) */}
-        <div style={{ padding: '0 12px', marginTop: '4px' }}>
+        <div style={{ padding: sidebarExpanded ? '0 12px' : '0 8px', marginTop: '4px' }}>
           <Link
             href="/portal/documents"
             style={{
@@ -608,7 +717,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
               alignItems: 'center',
               justifyContent: sidebarExpanded ? 'space-between' : 'center',
               gap: '12px',
-              padding: '10px 14px',
+              padding: sidebarExpanded ? '10px 14px' : '10px 0',
               borderRadius: '8px',
               fontSize: '0.875rem',
               fontWeight: pathname === '/portal/documents' ? 600 : 500,
@@ -616,10 +725,11 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
               backgroundColor: pathname === '/portal/documents' ? '#F0FFF4' : 'transparent',
               transition: 'all 0.15s ease',
               opacity: docVaultLocked && pathname !== '/portal/documents' ? 0.8 : 1,
+              width: '100%',
             }}
             title={docVaultLocked ? 'Locked for Ascend & Mastery students (Elite only)' : 'Document Vault'}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'center' }}>
               <span style={{ color: pathname === '/portal/documents' ? '#059669' : docVaultLocked ? '#94A3B8' : '#64748B' }}>
                 <FolderLock size={18} />
               </span>
@@ -648,25 +758,27 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           </Link>
         </div>
 
-        <div style={{ padding: '0 12px', marginTop: '4px' }}>
+        <div style={{ padding: sidebarExpanded ? '0 12px' : '0 8px', marginTop: '4px' }}>
           {/* Ask Doubts / Mentorship link */}
           <Link
             href="/portal/doubts"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: sidebarExpanded ? 'flex-start' : 'center',
-            gap: '12px',
-            padding: '10px 14px',
-            borderRadius: '8px',
-            fontSize: '0.875rem',
-            fontWeight: pathname === '/portal/doubts' ? 600 : 500,
-            color: pathname === '/portal/doubts' ? '#059669' : '#475569',
-            backgroundColor: pathname === '/portal/doubts' ? '#F0FFF4' : 'transparent',
-            transition: 'all 0.15s ease',
-          }}
-        >
-            <span style={{ color: pathname === '/portal/doubts' ? '#059669' : '#64748B' }}>
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: sidebarExpanded ? 'flex-start' : 'center',
+              gap: '12px',
+              padding: sidebarExpanded ? '10px 14px' : '10px 0',
+              borderRadius: '8px',
+              fontSize: '0.875rem',
+              fontWeight: pathname === '/portal/doubts' ? 600 : 500,
+              color: pathname === '/portal/doubts' ? '#059669' : '#475569',
+              backgroundColor: pathname === '/portal/doubts' ? '#F0FFF4' : 'transparent',
+              transition: 'all 0.15s ease',
+              width: '100%',
+            }}
+            title={!sidebarExpanded ? t('portal.doubts', 'Ask Doubts') : undefined}
+          >
+            <span style={{ color: pathname === '/portal/doubts' ? '#059669' : '#64748B', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <HelpCircle size={18} />
             </span>
             {sidebarExpanded && <span>{t('portal.doubts', 'Ask Doubts')}</span>}
@@ -676,15 +788,25 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
       </div>{/* END Scrollable Navigation Area */}
 
       {/* Footer / Logout & Back to Public */}
-      <div style={{ padding: '16px', borderTop: '1px solid #F1F5F9', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <div
+        style={{
+          padding: sidebarExpanded ? '16px' : '12px 6px',
+          borderTop: '1px solid #F1F5F9',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '8px',
+          width: '100%',
+        }}
+      >
         <button
+          type="button"
           onClick={handleLogout}
           style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: sidebarExpanded ? 'flex-start' : 'center',
             gap: '10px',
-            padding: '10px 14px',
+            padding: sidebarExpanded ? '10px 14px' : '10px 0',
             borderRadius: '8px',
             fontSize: '0.875rem',
             color: '#DC2626',
@@ -695,6 +817,7 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
             width: '100%',
             transition: 'all 0.15s ease',
           }}
+          title={!sidebarExpanded ? t('portal.logout', 'Sign Out') : undefined}
         >
           <LogOut size={16} />
           {sidebarExpanded && <span>{t('portal.logout', 'Sign Out')}</span>}
@@ -707,13 +830,15 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
             alignItems: 'center',
             justifyContent: sidebarExpanded ? 'flex-start' : 'center',
             gap: '10px',
-            padding: '8px 14px',
+            padding: sidebarExpanded ? '8px 14px' : '8px 0',
             borderRadius: '8px',
             fontSize: '0.8125rem',
             color: '#64748B',
             fontWeight: 500,
             textDecoration: 'none',
+            width: '100%',
           }}
+          title={!sidebarExpanded ? 'Exit to Public Site' : undefined}
         >
           <Globe size={15} />
           {sidebarExpanded && <span>Exit to Public Site</span>}

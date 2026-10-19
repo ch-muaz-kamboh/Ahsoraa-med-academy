@@ -171,9 +171,10 @@ export default function PortalMovingStrip({ source = 'portal' }: { source?: 'por
         }}
       />
 
-      {/* Marquee Track Container */}
+      {/* Marquee Track Container — Force LTR so animation never stalls in Arabic/Urdu */}
       <div
         className="portal-marquee-wrapper"
+        dir="ltr"
         style={{
           flex: 1,
           overflow: 'hidden',
@@ -181,16 +182,19 @@ export default function PortalMovingStrip({ source = 'portal' }: { source?: 'por
           display: 'flex',
           userSelect: 'none',
           position: 'relative',
+          direction: 'ltr',
         }}
       >
         <div
           className="portal-marquee-track"
+          dir="ltr"
           style={{
             display: 'inline-flex',
             alignItems: 'center',
             flexShrink: 0,
             animation: `portalMarqueeScroll ${speed}s linear infinite`,
             willChange: 'transform',
+            direction: 'ltr',
           }}
         >
           {config.items.map((item, idx) => (
@@ -216,6 +220,7 @@ export default function PortalMovingStrip({ source = 'portal' }: { source?: 'por
         </div>
         <div
           className="portal-marquee-track"
+          dir="ltr"
           aria-hidden="true"
           style={{
             display: 'inline-flex',
@@ -223,6 +228,7 @@ export default function PortalMovingStrip({ source = 'portal' }: { source?: 'por
             flexShrink: 0,
             animation: `portalMarqueeScroll ${speed}s linear infinite`,
             willChange: 'transform',
+            direction: 'ltr',
           }}
         >
           {config.items.map((item, idx) => (
@@ -256,6 +262,17 @@ export default function PortalMovingStrip({ source = 'portal' }: { source?: 'por
           100% {
             transform: translate3d(-100%, 0, 0);
           }
+        }
+        .portal-marquee-wrapper {
+          direction: ltr !important;
+        }
+        .portal-marquee-track {
+          direction: ltr !important;
+        }
+        [dir="rtl"] .portal-marquee-wrapper,
+        [dir="rtl"] .portal-marquee-track {
+          direction: ltr !important;
+          text-align: left !important;
         }
         .portal-marquee-wrapper:hover .portal-marquee-track {
           animation-play-state: paused !important;
