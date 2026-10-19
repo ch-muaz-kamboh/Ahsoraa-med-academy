@@ -46,8 +46,13 @@ export default function Navbar() {
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  // If inside portal, admin layout, or student portal login page, hide the public navbar & offer bar
-  if (pathname?.startsWith('/portal') || pathname?.startsWith('/admin') || pathname === '/login') {
+  // If inside portal, admin layout, staff portal, or student portal login page, hide the public navbar & offer bar
+  if (
+    pathname?.startsWith('/portal') ||
+    pathname?.startsWith('/admin') ||
+    pathname?.startsWith('/staff') ||
+    pathname === '/login'
+  ) {
     return null;
   }
 

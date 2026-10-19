@@ -89,19 +89,19 @@ export default function StaffSidebar() {
     },
     {
       label: 'Student Applications',
-      href: '/admin/applications',
+      href: '/staff/applications',
       icon: <FileCheck2 size={18} />,
       permission: 'applications',
     },
     {
       label: 'Lead CRM Management',
-      href: '/admin/leads',
+      href: '/staff/leads',
       icon: <Users size={18} />,
       permission: 'leads',
     },
     {
       label: 'Visa & Enrolment',
-      href: '/admin/visa',
+      href: '/staff/visa',
       icon: <UserCheck size={18} />,
       permission: 'visa',
     },
