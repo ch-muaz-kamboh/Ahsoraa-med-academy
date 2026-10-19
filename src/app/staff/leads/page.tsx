@@ -89,12 +89,15 @@ export default function StaffLeadsPage() {
       email: newLeadEmail.trim(),
       phone: newLeadPhone.trim() || 'N/A',
       country: newLeadCountry,
+      academicBackground: 'Candidate Inquiry',
       targetExam: newLeadExam,
-      notes: newLeadNotes.trim() ? [newLeadNotes.trim()] : [],
+      targetCountry: 'Italy',
+      budgetRange: 'Standard',
+      source: 'Staff Portal Direct Entry',
+      notes: newLeadNotes.trim() || 'Staff direct registration',
       stage: 'new',
-      leadScore: 75,
-      assignedCounselor: 'Staff Academic Team',
-      tags: ['Staff Direct Entry'],
+      priority: 'warm',
+      assignedCounsellor: 'Staff Academic Team',
     });
 
     setShowAddModal(false);
