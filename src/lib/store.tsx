@@ -40,6 +40,11 @@ import {
   saveStudentPackageMapping,
   getPackageByIdOrName,
 } from './packages';
+import {
+  safeSaveDocumentsToLocalStorage,
+  saveDocumentFile,
+  deleteDocumentFile,
+} from './document-storage';
 
 export interface LiveTestSession {
   testId: string;
@@ -101,6 +106,7 @@ interface AppContextType {
   staffLoggedIn: boolean;
   setStaffLoggedIn: (val: boolean) => void;
   staffProfile: StaffProfile;
+  setStaffProfile: (profile: StaffProfile) => void;
   setStaffRole: (role: StaffRole) => void;
   staffAccounts: StaffAccountRequest[];
   registerStaffAccount: (data: Omit<StaffAccountRequest, 'id' | 'createdAt' | 'status' | 'isActive'>) => { success: boolean; message: string };
@@ -192,7 +198,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem('ahsora_student_documents', JSON.stringify(documents));
+      safeSaveDocumentsToLocalStorage(documents);
     }
   }, [documents]);
   const [doubts, setDoubts] = useState<DoubtItem[]>(() => {
@@ -483,19 +489,25 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         // 3. Library Resources
         const { data: dbLibrary } = await supabase.from('portal_library').select('*').order('uploaded_at', { ascending: false });
         if (dbLibrary && dbLibrary.length > 0) {
-          const formatted: LibraryResource[] = dbLibrary.map((r: any) => ({
-            id: r.id,
-            title: r.title,
-            category: r.category,
-            subject: r.subject,
-            fileUrl: r.file_url,
-            fileSizeBytes: r.file_size_bytes || 0,
-            pagesCount: r.pages_count || 0,
-            authorOrSource: r.author_or_source || '',
-            description: r.description || '',
-            downloadCount: r.download_count || 0,
-            uploadedAt: r.uploaded_at,
-          }));
+          const formatted: LibraryResource[] = dbLibrary.map((r: any) => {
+            const isReadOnly = (r.description && r.description.includes('__READ_ONLY__')) || r.allow_download === false || r.access_mode === 'read_only';
+            const cleanDescription = r.description ? r.description.replace('__READ_ONLY__', '').trim() : '';
+            return {
+              id: r.id,
+              title: r.title,
+              category: r.category,
+              subject: r.subject,
+              fileUrl: r.file_url,
+              fileSizeBytes: r.file_size_bytes || 0,
+              pagesCount: r.pages_count || 0,
+              authorOrSource: r.author_or_source || '',
+              description: cleanDescription,
+              downloadCount: r.download_count || 0,
+              allowDownload: !isReadOnly,
+              accessMode: isReadOnly ? 'read_only' : 'download_and_read',
+              uploadedAt: r.uploaded_at,
+            };
+          });
           setLibraryResources(formatted);
           localStorage.setItem('ahsora_library', JSON.stringify(formatted));
         }
@@ -524,38 +536,26 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
         // 5. Staff Accounts (Cross-Device Cloud Sync)
         try {
-          const { data: dbStaff } = await supabase.from('portal_staff_accounts').select('*').order('created_at', { ascending: false });
-          if (dbStaff && dbStaff.length > 0) {
-            const formatted: StaffAccountRequest[] = dbStaff.map((s: any) => ({
-              id: s.id,
-              email: s.email,
-              displayName: s.display_name || s.email,
-              accountType: 'staff',
-              role: s.role || 'teacher',
-              assignedSubjects: Array.isArray(s.assigned_subjects) ? s.assigned_subjects : (typeof s.assigned_subjects === 'string' ? JSON.parse(s.assigned_subjects) : ['Biology & Human Anatomy']),
-              assignedCohorts: Array.isArray(s.assigned_cohorts) ? s.assigned_cohorts : (typeof s.assigned_cohorts === 'string' ? JSON.parse(s.assigned_cohorts) : ['IMAT 2026 Alpha Cohort']),
-              password: s.password || '',
-              status: s.status || 'pending',
-              isActive: s.is_active ?? (s.status === 'approved'),
-              permissions: Array.isArray(s.permissions) ? s.permissions : (typeof s.permissions === 'string' ? JSON.parse(s.permissions) : ['schedule', 'question_bank', 'doubts', 'assessments', 'students', 'attendance', 'medpath_elite']),
-              createdAt: s.created_at || new Date().toISOString(),
-            }));
-
-            setStaffAccounts((prev) => {
-              const merged = [...formatted];
-              prev.forEach((localItem) => {
-                if (!merged.some((m) => m.email.toLowerCase() === localItem.email.toLowerCase())) {
-                  merged.push(localItem);
+          const staffRes = await fetch('/api/staff/auth');
+          if (staffRes.ok) {
+            const json = await staffRes.json();
+            if (json.success && Array.isArray(json.staff) && json.staff.length > 0) {
+              setStaffAccounts((prev) => {
+                const merged = [...json.staff];
+                prev.forEach((localItem) => {
+                  if (!merged.some((m) => m.email.toLowerCase() === localItem.email.toLowerCase())) {
+                    merged.push(localItem);
+                  }
+                });
+                if (typeof window !== 'undefined') {
+                  localStorage.setItem('ahsora_staffAccounts', JSON.stringify(merged));
                 }
+                return merged;
               });
-              if (typeof window !== 'undefined') {
-                localStorage.setItem('ahsora_staffAccounts', JSON.stringify(merged));
-              }
-              return merged;
-            });
+            }
           }
         } catch (sErr) {
-          console.warn('Supabase staff sync notice:', sErr);
+          console.warn('Staff auth sync notice:', sErr);
         }
       } catch (err) {
         console.warn('Supabase sync info:', err);
@@ -877,14 +877,18 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   };
 
   const addLibraryResource = async (item: Omit<LibraryResource, 'id' | 'uploadedAt'>) => {
+    const isReadOnly = item.allowDownload === false || item.accessMode === 'read_only';
     const newItem: LibraryResource = {
       ...item,
       id: `lib-${Date.now()}`,
+      allowDownload: !isReadOnly,
+      accessMode: isReadOnly ? 'read_only' : 'download_and_read',
       uploadedAt: new Date().toISOString(),
     };
     setLibraryResources((prev) => [newItem, ...prev]);
     try {
       const supabase = createClient();
+      const descToStore = (isReadOnly ? '__READ_ONLY__ ' : '') + (newItem.description || '').replace('__READ_ONLY__', '').trim();
       await supabase.from('portal_library').insert({
         id: newItem.id,
         title: newItem.title,
@@ -894,7 +898,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         file_size_bytes: newItem.fileSizeBytes || 0,
         pages_count: newItem.pagesCount || 0,
         author_or_source: newItem.authorOrSource,
-        description: newItem.description,
+        description: descToStore,
         download_count: newItem.downloadCount || 0,
         uploaded_at: newItem.uploadedAt,
       });
@@ -902,7 +906,15 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   };
 
   const updateLibraryResource = async (id: string, item: Partial<LibraryResource>) => {
-    setLibraryResources((prev) => prev.map((r) => (r.id === id ? { ...r, ...item } : r)));
+    setLibraryResources((prev) => prev.map((r) => {
+      if (r.id !== id) return r;
+      const updated = { ...r, ...item };
+      if (item.allowDownload !== undefined) {
+        updated.allowDownload = item.allowDownload;
+        updated.accessMode = item.allowDownload ? 'download_and_read' : 'read_only';
+      }
+      return updated;
+    }));
     try {
       const supabase = createClient();
       const payload: any = {};
@@ -912,7 +924,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       if (item.fileUrl) payload.file_url = item.fileUrl;
       if (item.pagesCount !== undefined) payload.pages_count = item.pagesCount;
       if (item.authorOrSource !== undefined) payload.author_or_source = item.authorOrSource;
-      if (item.description !== undefined) payload.description = item.description;
+      if (item.description !== undefined || item.allowDownload !== undefined) {
+        const isRO = item.allowDownload !== undefined ? !item.allowDownload : (item.accessMode === 'read_only');
+        const rawDesc = (item.description !== undefined ? item.description : '').replace('__READ_ONLY__', '').trim();
+        payload.description = (isRO ? '__READ_ONLY__ ' : '') + rawDesc;
+      }
 
       await supabase.from('portal_library').update(payload).eq('id', id);
     } catch (e) { console.error('Supabase library update error:', e); }
@@ -1121,6 +1137,19 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       }
       return updated;
     });
+
+    // Cloud sync to /api/medpath/stages for real-time multi-device sync
+    try {
+      fetch('/api/medpath/stages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: studentIdOrEmail,
+          stageKey: stage,
+          stageData: statusOrData,
+        }),
+      }).catch(() => {});
+    } catch {}
   };
 
   const startLiveTest = (testId: string, testTitle: string) => {
@@ -1359,9 +1388,13 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   };
 
   const addDocument = (docData: Omit<StudentDocument, 'id' | 'uploadedAt' | 'version'>) => {
+    const docId = `doc-${Date.now()}`;
+    if (docData.fileDataUrl) {
+      saveDocumentFile(docId, docData.fileDataUrl).catch(() => {});
+    }
     const newDoc: StudentDocument = {
       ...docData,
-      id: `doc-${Date.now()}`,
+      id: docId,
       version: 1,
       uploadedAt: new Date().toISOString(),
     };
@@ -1384,6 +1417,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   };
 
   const deleteDocument = (id: string) => {
+    deleteDocumentFile(id).catch(() => {});
     setDocuments((prev) => prev.filter((d) => d.id !== id));
   };
 
@@ -1706,6 +1740,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         staffLoggedIn,
         setStaffLoggedIn,
         staffProfile,
+        setStaffProfile,
         setStaffRole,
         staffAccounts,
         registerStaffAccount,

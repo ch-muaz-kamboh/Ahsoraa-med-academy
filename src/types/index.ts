@@ -397,6 +397,8 @@ export interface LibraryResource {
   authorOrSource?: string;
   description?: string;
   downloadCount?: number;
+  allowDownload?: boolean; // If false, students can only read/view online, not download
+  accessMode?: 'download_and_read' | 'read_only';
   uploadedAt: string;
 }
 

@@ -31,7 +31,7 @@ import { StaffRole } from '@/types';
 
 export default function StaffAuthPage() {
   const router = useRouter();
-  const { loginStaffAccount, registerStaffAccount, staffLoggedIn } = useAppStore();
+  const { loginStaffAccount, registerStaffAccount, staffLoggedIn, setStaffProfile, setStaffLoggedIn } = useAppStore();
 
   const [activeTab, setActiveTab] = useState<'signin' | 'signup'>('signin');
 
@@ -98,26 +98,61 @@ export default function StaffAuthPage() {
     );
   };
 
-  const handleSignIn = (e: React.FormEvent) => {
+  const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginError('');
     setLoginStatusNotice(null);
 
-    const result = loginStaffAccount(loginEmail, loginPassword);
-    if (result.success) {
+    // 1. First check local in-memory/localStorage credentials
+    const localResult = loginStaffAccount(loginEmail, loginPassword);
+    if (localResult.success) {
       router.push('/staff/dashboard');
-    } else {
-      if (result.status === 'pending') {
+      return;
+    }
+
+    // 2. Multi-Device Fallback: Authenticate via /api/staff/auth
+    try {
+      const res = await fetch('/api/staff/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'login',
+          email: loginEmail,
+          password: loginPassword,
+        }),
+      });
+
+      const json = await res.json();
+      if (json.success && json.staff) {
+        setStaffProfile(json.staff);
+        setStaffLoggedIn(true);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('ahsora_staffLoggedIn', 'true');
+          localStorage.setItem('ahsora_staffProfile', JSON.stringify(json.staff));
+        }
+        router.push('/staff/dashboard');
+        return;
+      } else {
+        if (json.status === 'pending') {
+          setLoginStatusNotice('pending');
+        } else if (json.status === 'rejected') {
+          setLoginStatusNotice('rejected');
+        } else {
+          setLoginError(json.message || localResult.message);
+        }
+      }
+    } catch (err) {
+      if (localResult.status === 'pending') {
         setLoginStatusNotice('pending');
-      } else if (result.status === 'rejected') {
+      } else if (localResult.status === 'rejected') {
         setLoginStatusNotice('rejected');
       } else {
-        setLoginError(result.message);
+        setLoginError(localResult.message);
       }
     }
   };
 
-  const handleSignUp = (e: React.FormEvent) => {
+  const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setRegSuccessMessage('');
     setRegErrorMessage('');
@@ -127,15 +162,30 @@ export default function StaffAuthPage() {
       return;
     }
 
-    const result = registerStaffAccount({
+    const payload = {
       email: regEmail,
       displayName: regName,
-      accountType: 'staff',
+      accountType: 'staff' as const,
       role: regRole,
       assignedSubjects: selectedSubjects.length > 0 ? selectedSubjects : ['Biology'],
       assignedCohorts: selectedCohorts.length > 0 ? selectedCohorts : ['IMAT 2026 Alpha Cohort'],
       password: regPassword,
-    });
+    };
+
+    // Save locally
+    const result = registerStaffAccount(payload);
+
+    // Cloud sync for cross-device visibility
+    try {
+      await fetch('/api/staff/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'register',
+          accountData: payload,
+        }),
+      });
+    } catch {}
 
     if (result.success) {
       setRegSuccessMessage(result.message);

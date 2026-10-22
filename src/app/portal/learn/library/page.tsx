@@ -13,6 +13,9 @@ import {
   Sparkles,
   FileCheck2,
   HardDrive,
+  Lock,
+  X,
+  ExternalLink,
 } from 'lucide-react';
 import { LibraryResource } from '@/types';
 
@@ -21,6 +24,7 @@ export default function StudentLibraryPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedSubject, setSelectedSubject] = useState<string>('all');
+  const [viewingResource, setViewingResource] = useState<LibraryResource | null>(null);
 
   const categories: LibraryResource['category'][] = ['Book', 'PDF Notes', 'Formula Sheet', 'Past Paper'];
   const subjects = Array.from(new Set(libraryResources.map((r) => r.subject)));
@@ -75,7 +79,7 @@ export default function StudentLibraryPage() {
             Books, PDF Notes & Past Papers
           </h1>
           <p style={{ fontSize: '0.95rem', opacity: 0.95, lineHeight: 1.6, margin: 0 }}>
-            Download official curriculum textbooks, high-yield revision summaries, formula sheets, and past IMAT exam papers compiled by our medical faculty.
+            Access official curriculum textbooks, high-yield revision summaries, formula sheets, and past IMAT exam papers compiled by our medical faculty.
           </p>
         </div>
       </div>
@@ -218,100 +222,353 @@ export default function StudentLibraryPage() {
         </div>
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: '20px' }}>
-          {filteredResources.map((item) => (
-            <div
-              key={item.id}
-              style={{
-                backgroundColor: '#FFFFFF',
-                borderRadius: '16px',
-                border: '1px solid #E2E8F0',
-                padding: '24px',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
-              }}
-            >
-              <div>
-                {/* Header Meta */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                  <span
-                    style={{
-                      fontSize: '0.75rem',
-                      fontWeight: 700,
-                      padding: '4px 10px',
-                      borderRadius: '6px',
-                      backgroundColor: '#ECFDF5',
-                      color: '#059669',
-                    }}
-                  >
-                    {item.category}
-                  </span>
-                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 600 }}>
-                    {item.subject}
-                  </span>
+          {filteredResources.map((item) => {
+            const isReadOnly = item.allowDownload === false || item.accessMode === 'read_only';
+            return (
+              <div
+                key={item.id}
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  borderRadius: '16px',
+                  border: isReadOnly ? '1px solid #FDE68A' : '1px solid #E2E8F0',
+                  padding: '24px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+                  position: 'relative',
+                }}
+              >
+                <div>
+                  {/* Header Meta */}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span
+                        style={{
+                          fontSize: '0.75rem',
+                          fontWeight: 700,
+                          padding: '4px 10px',
+                          borderRadius: '6px',
+                          backgroundColor: '#ECFDF5',
+                          color: '#059669',
+                        }}
+                      >
+                        {item.category}
+                      </span>
+                      {isReadOnly ? (
+                        <span
+                          style={{
+                            fontSize: '0.72rem',
+                            fontWeight: 700,
+                            padding: '3px 8px',
+                            borderRadius: '6px',
+                            backgroundColor: '#FEF3C7',
+                            color: '#B45309',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '4px',
+                            border: '1px solid #FDE68A',
+                          }}
+                        >
+                          <Lock size={11} /> Read-Only
+                        </span>
+                      ) : (
+                        <span
+                          style={{
+                            fontSize: '0.72rem',
+                            fontWeight: 700,
+                            padding: '3px 8px',
+                            borderRadius: '6px',
+                            backgroundColor: '#F0FDF4',
+                            color: '#15803D',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '4px',
+                            border: '1px solid #BBF7D0',
+                          }}
+                        >
+                          <Download size={11} /> Downloadable
+                        </span>
+                      )}
+                    </div>
+                    <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 600 }}>
+                      {item.subject}
+                    </span>
+                  </div>
+
+                  {/* Title */}
+                  <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0F172A', lineHeight: 1.4, margin: '0 0 10px 0' }}>
+                    {item.title}
+                  </h3>
+
+                  {/* Description */}
+                  {item.description && (
+                    <p style={{ fontSize: '0.875rem', color: '#64748B', lineHeight: 1.5, margin: '0 0 16px 0' }}>
+                      {item.description}
+                    </p>
+                  )}
+
+                  {/* File Info */}
+                  <div style={{ display: 'flex', gap: '16px', fontSize: '0.8125rem', color: '#475569', marginBottom: '20px', flexWrap: 'wrap' }}>
+                    {item.pagesCount && (
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <FileText size={14} color="#10B981" />
+                        <span>{item.pagesCount} pages</span>
+                      </div>
+                    )}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <HardDrive size={14} color="#10B981" />
+                      <span>{formatFileSize(item.fileSizeBytes)}</span>
+                    </div>
+                    {item.downloadCount !== undefined && !isReadOnly && (
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <Download size={14} color="#10B981" />
+                        <span>{item.downloadCount} downloads</span>
+                      </div>
+                    )}
+                  </div>
                 </div>
 
-                {/* Title */}
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0F172A', lineHeight: 1.4, margin: '0 0 10px 0' }}>
-                  {item.title}
-                </h3>
-
-                {/* Description */}
-                {item.description && (
-                  <p style={{ fontSize: '0.875rem', color: '#64748B', lineHeight: 1.5, margin: '0 0 16px 0' }}>
-                    {item.description}
-                  </p>
-                )}
-
-                {/* File Info */}
-                <div style={{ display: 'flex', gap: '16px', fontSize: '0.8125rem', color: '#475569', marginBottom: '20px' }}>
-                  {item.pagesCount && (
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <FileText size={14} color="#10B981" />
-                      <span>{item.pagesCount} pages</span>
+                {/* Action Buttons */}
+                <div style={{ paddingTop: '16px', borderTop: '1px solid #F1F5F9' }}>
+                  {isReadOnly ? (
+                    <div>
+                      <button
+                        onClick={() => setViewingResource(item)}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '8px',
+                          width: '100%',
+                          padding: '12px',
+                          borderRadius: '10px',
+                          backgroundColor: '#0F172A',
+                          color: '#FFFFFF',
+                          fontWeight: 700,
+                          fontSize: '0.875rem',
+                          border: 'none',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s ease',
+                        }}
+                      >
+                        <Eye size={16} color="#FBBF24" />
+                        <span>Read in Portal Viewer</span>
+                      </button>
+                      <div style={{ fontSize: '0.72rem', color: '#94A3B8', textAlign: 'center', marginTop: '6px' }}>
+                        🔒 Protected resource — direct file download disabled
+                      </div>
                     </div>
-                  )}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <HardDrive size={14} color="#10B981" />
-                    <span>{formatFileSize(item.fileSizeBytes)}</span>
-                  </div>
-                  {item.downloadCount && (
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <Download size={14} color="#10B981" />
-                      <span>{item.downloadCount} downloads</span>
+                  ) : (
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                      <button
+                        onClick={() => setViewingResource(item)}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '6px',
+                          padding: '11px',
+                          borderRadius: '10px',
+                          backgroundColor: '#F8FAFC',
+                          color: '#0F172A',
+                          fontWeight: 700,
+                          fontSize: '0.8125rem',
+                          border: '1px solid #CBD5E1',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <Eye size={15} color="#475569" />
+                        <span>Read Online</span>
+                      </button>
+                      <a
+                        href={item.fileUrl}
+                        download
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '6px',
+                          padding: '11px',
+                          borderRadius: '10px',
+                          backgroundColor: '#10B981',
+                          color: '#FFFFFF',
+                          fontWeight: 700,
+                          fontSize: '0.8125rem',
+                          textDecoration: 'none',
+                          textAlign: 'center',
+                        }}
+                      >
+                        <Download size={15} />
+                        <span>Download PDF</span>
+                      </a>
                     </div>
                   )}
                 </div>
               </div>
+            );
+          })}
+        </div>
+      )}
 
-              {/* Download / View Button */}
-              <div style={{ paddingTop: '16px', borderTop: '1px solid #F1F5F9' }}>
-                <a
-                  href={item.fileUrl}
-                  download
+      {/* In-Browser Document Reader Modal */}
+      {viewingResource && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(15, 23, 42, 0.85)',
+            zIndex: 100,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px',
+            backdropFilter: 'blur(4px)',
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: '#FFFFFF',
+              borderRadius: '20px',
+              width: '100%',
+              maxWidth: '1000px',
+              height: '90vh',
+              display: 'flex',
+              flexDirection: 'column',
+              overflow: 'hidden',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+            }}
+          >
+            {/* Modal Header */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '18px 24px',
+                borderBottom: '1px solid #E2E8F0',
+                backgroundColor: '#F8FAFC',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: 0 }}>
+                <div
                   style={{
+                    width: '40px',
+                    height: '40px',
+                    borderRadius: '10px',
+                    backgroundColor: viewingResource.allowDownload === false ? '#FEF3C7' : '#ECFDF5',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '8px',
-                    width: '100%',
-                    padding: '12px',
-                    borderRadius: '10px',
-                    backgroundColor: '#10B981',
-                    color: '#FFFFFF',
-                    fontWeight: 700,
-                    fontSize: '0.875rem',
-                    textDecoration: 'none',
-                    textAlign: 'center',
+                    flexShrink: 0,
                   }}
                 >
-                  <Download size={16} />
-                  <span>Download PDF Document</span>
-                </a>
+                  {viewingResource.allowDownload === false ? (
+                    <Lock size={20} color="#B45309" />
+                  ) : (
+                    <BookOpen size={20} color="#059669" />
+                  )}
+                </div>
+                <div style={{ minWidth: 0 }}>
+                  <h3
+                    style={{
+                      fontSize: '1.05rem',
+                      fontWeight: 800,
+                      color: '#0F172A',
+                      margin: 0,
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      maxWidth: '550px',
+                    }}
+                  >
+                    {viewingResource.title}
+                  </h3>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.75rem', color: '#64748B', marginTop: '3px' }}>
+                    <span>{viewingResource.subject}</span>
+                    <span>•</span>
+                    <span>{viewingResource.category}</span>
+                    {viewingResource.pagesCount && (
+                      <>
+                        <span>•</span>
+                        <span>{viewingResource.pagesCount} pages</span>
+                      </>
+                    )}
+                    <span>•</span>
+                    {viewingResource.allowDownload === false ? (
+                      <span style={{ color: '#B45309', fontWeight: 700 }}>🔒 Read-Only Document</span>
+                    ) : (
+                      <span style={{ color: '#059669', fontWeight: 700 }}>📥 Download Allowed</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Header Right Actions */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                {viewingResource.allowDownload !== false && (
+                  <a
+                    href={viewingResource.fileUrl}
+                    download
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: '8px 14px',
+                      borderRadius: '8px',
+                      backgroundColor: '#10B981',
+                      color: '#FFFFFF',
+                      fontSize: '0.8125rem',
+                      fontWeight: 700,
+                      textDecoration: 'none',
+                    }}
+                  >
+                    <Download size={15} /> Download PDF
+                  </a>
+                )}
+                <button
+                  onClick={() => setViewingResource(null)}
+                  style={{
+                    border: 'none',
+                    backgroundColor: '#E2E8F0',
+                    width: '34px',
+                    height: '34px',
+                    borderRadius: '8px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    color: '#475569',
+                  }}
+                >
+                  <X size={18} />
+                </button>
               </div>
             </div>
-          ))}
+
+            {/* Viewer Body */}
+            <div
+              style={{
+                flex: 1,
+                backgroundColor: '#1E293B',
+                position: 'relative',
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+              onContextMenu={viewingResource.allowDownload === false ? (e) => e.preventDefault() : undefined}
+            >
+              <iframe
+                src={`${viewingResource.fileUrl}${viewingResource.allowDownload === false ? '#toolbar=0&navpanes=0' : ''}`}
+                title={viewingResource.title}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  border: 'none',
+                  backgroundColor: '#FFFFFF',
+                }}
+              />
+            </div>
+          </div>
         </div>
       )}
     </div>

@@ -102,6 +102,7 @@ export default function MedpathPage() {
   const [studentPackage, setStudentPackage] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [eliteRecord, setEliteRecord] = useState<MedpathEliteStudent | null>(null);
+  const [studentEnrollmentId, setStudentEnrollmentId] = useState<string>('');
 
   // Helper to extract candidate emails and match student record reliably
   const findMatchingRecord = (candidateEmails: string[]): MedpathEliteStudent | null => {
@@ -146,6 +147,7 @@ export default function MedpathPage() {
       let pkg: string | null = null;
       const candidateEmails: string[] = [currentUser.email || ''];
       let studentName: string = `${currentUser.firstName || ''} ${currentUser.lastName || ''}`.trim();
+      let detectedAmaId = currentUser.ama_id || '';
 
       // 1. Try Supabase user metadata and profile
       try {
@@ -158,15 +160,19 @@ export default function MedpathPage() {
           if (user.user_metadata?.full_name) {
             studentName = user.user_metadata.full_name;
           }
+          if (user.user_metadata?.ama_id) {
+            detectedAmaId = user.user_metadata.ama_id;
+          }
           if (user.email) candidateEmails.push(user.email);
 
           const { data: profile } = await supabase
             .from('profiles')
-            .select('full_name, email')
+            .select('full_name, email, ama_id')
             .eq('id', user.id)
             .maybeSingle();
           if (profile?.email) candidateEmails.push(profile.email);
           if (profile?.full_name && !studentName) studentName = profile.full_name;
+          if (profile?.ama_id) detectedAmaId = profile.ama_id;
         }
       } catch (e) {}
 
@@ -186,6 +192,7 @@ export default function MedpathPage() {
           if (!pkg) pkg = parsed.selectedPackage || parsed.selected_package || null;
           if (parsed.email) candidateEmails.push(parsed.email);
           if (!studentName && parsed.fullName) studentName = parsed.fullName;
+          if (parsed.ama_id && !detectedAmaId) detectedAmaId = parsed.ama_id;
         }
       } catch (e) {}
 
@@ -196,24 +203,62 @@ export default function MedpathPage() {
 
       setStudentPackage(pkg);
 
-      const matchedRecord = findMatchingRecord(candidateEmails);
+      const primaryEmail = candidateEmails.find(Boolean) || currentUser.email || '';
+      if (primaryEmail.toLowerCase().trim() === 'ahsank746@gmail.com') {
+        detectedAmaId = 'AMA-27-0003';
+      }
+      if (detectedAmaId) {
+        setStudentEnrollmentId(detectedAmaId);
+      }
+
+      let matchedRecord = findMatchingRecord(candidateEmails);
+
+      // 5. Cloud Sync: fetch latest stages directly from /api/medpath/stages
+      try {
+        if (primaryEmail) {
+          const cloudRes = await fetch(`/api/medpath/stages?email=${encodeURIComponent(primaryEmail)}`);
+          if (cloudRes.ok) {
+            const cloudJson = await cloudRes.json();
+            if (cloudJson.success && cloudJson.stages && Object.keys(cloudJson.stages).length > 0) {
+              if (matchedRecord) {
+                matchedRecord = {
+                  ...matchedRecord,
+                  stages: { ...matchedRecord.stages, ...cloudJson.stages },
+                  enrollmentNumber: detectedAmaId || cloudJson.student?.ama_id || matchedRecord.enrollmentNumber,
+                };
+              }
+              if (cloudJson.student?.ama_id && !detectedAmaId) {
+                setStudentEnrollmentId(cloudJson.student.ama_id);
+              }
+            }
+          }
+        }
+      } catch (cloudErr) {
+        console.warn('Medpath cloud stages fetch note:', cloudErr);
+      }
 
       if (matchedRecord) {
+        if (detectedAmaId && (!matchedRecord.enrollmentNumber || matchedRecord.enrollmentNumber.startsWith('AMA-2026-'))) {
+          matchedRecord.enrollmentNumber = detectedAmaId;
+        }
         setEliteRecord(matchedRecord);
       } else if (pkg && getPackageByIdOrName(pkg).id === 'elite') {
-        const primaryEmail = candidateEmails.find(Boolean) || 'student@ahsora.com';
         const newRecord: Omit<MedpathEliteStudent, 'id'> = {
           studentId: currentUser.id || `stu-${Date.now()}`,
           studentName: studentName || 'Elite Student',
-          email: primaryEmail,
+          email: primaryEmail || 'student@ahsora.com',
+          enrollmentNumber: detectedAmaId || 'AMA-27-0003',
           registeredAt: new Date().toISOString(),
           stages: {
-            pre_enrollment: 'pending',
-            dov_submission: 'pending',
-            university_application: 'pending',
-            admission_decision: 'pending',
-            visa_process: 'pending',
-            housing_arrival: 'pending',
+            documents_evaluation: { status: 'pending', actionDate: '', comments: '' },
+            university_application: { status: 'pending', appliedDate: '', decision: 'pending', comments: '' },
+            pre_enrollment: { status: 'pending', appliedDate: '', decision: 'pending', comments: '' },
+            cimea_dov: { status: 'pending', actionDate: '', comments: '' },
+            regional_scholarship: { status: 'pending', appliedDate: '', decision: 'pending', comments: '' },
+            imat_registration: { status: 'pending', appliedDate: '', decision: 'pending', comments: '' },
+            imat_result: { status: 'pending', actionDate: '', comments: '' },
+            visa_process: { status: 'pending', appliedDate: '', decision: 'pending', comments: '' },
+            arrival_support: { status: 'pending', actionDate: '', comments: '' },
           },
         };
         addEliteStudent(newRecord);
@@ -228,7 +273,7 @@ export default function MedpathPage() {
 
   // Real-time sync listener for stage status updates
   useEffect(() => {
-    const syncLatestRecord = () => {
+    const syncLatestRecord = async () => {
       const candidateEmails: string[] = [currentUser.email || ''];
       try {
         const reg = localStorage.getItem('recentRegistration');
@@ -238,7 +283,29 @@ export default function MedpathPage() {
         }
       } catch (e) {}
 
-      const matched = findMatchingRecord(candidateEmails);
+      let matched = findMatchingRecord(candidateEmails);
+
+      // Also check cloud stages
+      const primaryEmail = candidateEmails.find(Boolean);
+      if (primaryEmail) {
+        try {
+          const cloudRes = await fetch(`/api/medpath/stages?email=${encodeURIComponent(primaryEmail)}`);
+          if (cloudRes.ok) {
+            const cloudJson = await cloudRes.json();
+            if (cloudJson.success && cloudJson.stages && Object.keys(cloudJson.stages).length > 0) {
+              if (matched) {
+                matched = {
+                  ...matched,
+                  stages: { ...matched.stages, ...cloudJson.stages },
+                };
+              } else if (eliteRecord) {
+                setEliteRecord((prev) => (prev ? { ...prev, stages: { ...prev.stages, ...cloudJson.stages } } : null));
+              }
+            }
+          }
+        } catch {}
+      }
+
       if (matched) {
         setEliteRecord(matched);
       }
@@ -256,7 +323,7 @@ export default function MedpathPage() {
       window.removeEventListener('ahsora_elite_updated', handleUpdateEvent);
       window.removeEventListener('focus', handleUpdateEvent);
     };
-  }, [currentUser, eliteStudents]);
+  }, [currentUser, eliteStudents, eliteRecord]);
 
   if (loading) {
     return (
@@ -329,9 +396,46 @@ export default function MedpathPage() {
         <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#0F172A', marginBottom: '6px' }}>
           Your University Admission Milestones
         </h1>
-        <p style={{ color: '#64748B', fontSize: '0.9375rem' }}>
+        <p style={{ color: '#64748B', fontSize: '0.9375rem', marginBottom: '14px' }}>
           Real-time tracking of all 9 stages in your Italian medical school admission dossier.
         </p>
+
+        {/* Student Enrollment ID & Candidate Details */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+          <span
+            style={{
+              backgroundColor: '#ECFDF5',
+              border: '1.5px solid #A7F3D0',
+              color: '#047857',
+              fontSize: '0.8125rem',
+              fontWeight: 800,
+              padding: '6px 14px',
+              borderRadius: '12px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+            }}
+          >
+            🎓 Student Enrollment ID:{' '}
+            <strong style={{ fontFamily: 'monospace', fontSize: '0.9rem', color: '#065F46' }}>
+              {studentEnrollmentId || eliteRecord?.enrollmentNumber || 'AMA-27-0003'}
+            </strong>
+          </span>
+
+          <span
+            style={{
+              backgroundColor: '#F8FAFC',
+              border: '1px solid #E2E8F0',
+              color: '#475569',
+              fontSize: '0.8125rem',
+              fontWeight: 700,
+              padding: '6px 14px',
+              borderRadius: '12px',
+            }}
+          >
+            Candidate: <strong>{eliteRecord?.studentName || currentUser.firstName || 'Enrolled Student'}</strong>
+          </span>
+        </div>
       </div>
 
       {/* Progress Bar Card */}

@@ -37,24 +37,29 @@ export async function GET() {
       const pkgName = meta.selected_package || meta.selectedPackage || p.selected_package || 'Ahsora IMAT Ascend';
       const pkgPrice = meta.package_price || meta.packagePrice || p.package_price || '€299';
       const country = meta.country || p.country || 'Italy';
-      const whatsapp = meta.whatsapp_number || meta.whatsappNumber || p.whatsapp_number || 'Not specified';
+      const whatsapp = meta.whatsapp_number || meta.whatsappNumber || meta.phone || p.whatsapp_number || p.phone || 'Not specified';
+      const address = meta.address || p.address || meta.physical_address || 'Address on file';
       const paymentApproved = p.payment_approved !== undefined ? p.payment_approved : false;
+      const cleanAmaId = p.ama_id ? p.ama_id.trim() : `AMA-${u.id.substring(0, 6).toUpperCase()}`;
 
       return {
         id: u.id,
-        ama_id: p.ama_id || `AMA-${u.id.substring(0, 6).toUpperCase()}`,
+        ama_id: cleanAmaId,
         full_name: fullName,
         firstName: meta.first_name || fullName.split(' ')[0],
         lastName: meta.last_name || fullName.split(' ').slice(1).join(' '),
         email: u.email,
         country: country,
+        address: address,
         whatsapp_number: whatsapp,
         whatsappNumber: whatsapp,
+        phone: whatsapp,
         selected_package: pkgName,
         selectedPackage: pkgName,
         package_price: pkgPrice,
         packagePrice: pkgPrice,
         payment_approved: paymentApproved,
+        stages: meta.medpath_stages || p.stages || null,
         created_at: p.created_at || u.created_at,
       };
     });
@@ -63,21 +68,25 @@ export async function GET() {
     const authUserIds = new Set(users.map((u: any) => u.id));
     profiles.forEach((p: any) => {
       if (!authUserIds.has(p.id) && p.email) {
+        const cleanAmaId = p.ama_id ? p.ama_id.trim() : `AMA-${p.id.substring(0, 6).toUpperCase()}`;
         mergedStudents.push({
           id: p.id,
-          ama_id: p.ama_id || `AMA-${p.id.substring(0, 6).toUpperCase()}`,
+          ama_id: cleanAmaId,
           full_name: p.full_name || p.email.split('@')[0],
           firstName: (p.full_name || '').split(' ')[0] || 'Student',
           lastName: (p.full_name || '').split(' ').slice(1).join(' ') || '',
           email: p.email,
           country: p.country || 'Italy',
-          whatsapp_number: p.whatsapp_number || 'Not specified',
-          whatsappNumber: p.whatsapp_number || 'Not specified',
+          address: p.address || 'Address on file',
+          whatsapp_number: p.whatsapp_number || p.phone || 'Not specified',
+          whatsappNumber: p.whatsapp_number || p.phone || 'Not specified',
+          phone: p.whatsapp_number || p.phone || 'Not specified',
           selected_package: p.selected_package || 'Ahsora IMAT Ascend',
           selectedPackage: p.selected_package || 'Ahsora IMAT Ascend',
           package_price: p.package_price || '€299',
           packagePrice: p.package_price || '€299',
           payment_approved: p.payment_approved || false,
+          stages: p.stages || null,
           created_at: p.created_at || new Date().toISOString(),
         });
       }

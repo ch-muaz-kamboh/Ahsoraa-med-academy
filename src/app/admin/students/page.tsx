@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import { CheckCircle2, XCircle, Clock, Search, RefreshCw, User, FileText, Download, X, Globe, Phone, Package, Mail } from 'lucide-react';
+import { CheckCircle2, XCircle, Clock, Search, RefreshCw, User, FileText, Download, X, Globe, Phone, Package, Mail, MapPin, ExternalLink } from 'lucide-react';
 import {
   ACADEMY_PACKAGES,
   getPackageByIdOrName,
@@ -846,7 +846,7 @@ export default function AdminStudentsPage() {
                 <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '1px solid #E2E8F0' }}>
                   <th style={{ padding: '14px 18px', fontSize: '0.75rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Student Info</th>
                   <th style={{ padding: '14px 18px', fontSize: '0.75rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Purchased Package</th>
-                  <th style={{ padding: '14px 18px', fontSize: '0.75rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Contact & Location</th>
+                  <th style={{ padding: '14px 18px', fontSize: '0.75rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Address & Contact Details</th>
                   <th style={{ padding: '14px 18px', fontSize: '0.75rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Status</th>
                   <th style={{ padding: '14px 18px', fontSize: '0.75rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Access Control</th>
                   <th style={{ padding: '14px 18px', fontSize: '0.75rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Actions</th>
@@ -906,13 +906,30 @@ export default function AdminStudentsPage() {
                         </div>
                       </td>
 
-                      {/* Contact & Location */}
-                      <td style={{ padding: '16px 18px' }}>
-                        <div style={{ fontSize: '0.8125rem', color: '#334155', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                          <Globe size={14} color="#64748B" /> {country}
+                      {/* Address & Contact Details */}
+                      <td style={{ padding: '16px 18px', maxWidth: '300px' }}>
+                        {/* Physical Address */}
+                        <div style={{ fontSize: '0.8125rem', color: '#0F172A', fontWeight: 600, display: 'flex', alignItems: 'flex-start', gap: '6px', marginBottom: '4px' }}>
+                          <MapPin size={14} color="#EA580C" style={{ flexShrink: 0, marginTop: '2px' }} />
+                          <span style={{ wordBreak: 'break-word', lineHeight: 1.4 }}>{student.address || 'Address on file'}</span>
                         </div>
-                        <div style={{ fontSize: '0.8125rem', color: '#059669', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px', marginTop: '4px' }}>
-                          <Phone size={14} /> {whatsapp}
+                        {/* Country */}
+                        <div style={{ fontSize: '0.78rem', color: '#64748B', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          <Globe size={13} color="#94A3B8" /> {country}
+                        </div>
+                        {/* WhatsApp with click to chat */}
+                        <div style={{ fontSize: '0.8125rem', color: '#059669', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px', marginTop: '4px' }}>
+                          <Phone size={13} />
+                          <a
+                            href={`https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ color: '#059669', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                            title="Open WhatsApp chat"
+                          >
+                            <span>{whatsapp}</span>
+                            <ExternalLink size={11} color="#059669" />
+                          </a>
                         </div>
                       </td>
 
@@ -1082,6 +1099,13 @@ export default function AdminStudentsPage() {
               <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed #E2E8F0', paddingBottom: '10px' }}>
                 <span style={{ color: '#64748B', fontSize: '0.875rem' }}>Country of Residence</span>
                 <span style={{ color: '#0F172A', fontWeight: 600, fontSize: '0.875rem' }}>{viewingStudent.country || 'Italy'}</span>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed #E2E8F0', paddingBottom: '10px' }}>
+                <span style={{ color: '#64748B', fontSize: '0.875rem' }}>Physical Address</span>
+                <span style={{ color: '#0F172A', fontWeight: 600, fontSize: '0.875rem', textAlign: 'right', maxWidth: '60%' }}>
+                  {viewingStudent.address || 'Address on file'}
+                </span>
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed #E2E8F0', paddingBottom: '10px' }}>

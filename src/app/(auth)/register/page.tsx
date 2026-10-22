@@ -9,21 +9,40 @@ import { getDynamicPackagePrices, syncPricesFromSupabase, DynamicPackagePrice } 
 import { ArrowRight, Check, CheckCircle2, Globe, Lock, Mail, Phone, Sparkles, User, ShieldCheck, Eye, EyeOff, MapPin } from 'lucide-react';
 import Logo from '@/components/brand/Logo';
 
-const COUNTRIES = [
-  'Italy',
-  'Pakistan',
-  'India',
-  'United Kingdom',
-  'United Arab Emirates',
-  'United States',
-  'Saudi Arabia',
-  'Germany',
-  'Turkey',
-  'Egypt',
-  'Nigeria',
-  'Canada',
-  'Other',
+export interface CountryDialCode {
+  name: string;
+  code: string;
+  dial: string;
+  flag: string;
+}
+
+export const COUNTRY_DIAL_CODES: CountryDialCode[] = [
+  { name: 'Italy', code: 'IT', dial: '+39', flag: '🇮🇹' },
+  { name: 'Pakistan', code: 'PK', dial: '+92', flag: '🇵🇰' },
+  { name: 'United Arab Emirates', code: 'AE', dial: '+971', flag: '🇦🇪' },
+  { name: 'Saudi Arabia', code: 'SA', dial: '+966', flag: '🇸🇦' },
+  { name: 'United Kingdom', code: 'GB', dial: '+44', flag: '🇬🇧' },
+  { name: 'United States', code: 'US', dial: '+1', flag: '🇺🇸' },
+  { name: 'Canada', code: 'CA', dial: '+1', flag: '🇨🇦' },
+  { name: 'India', code: 'IN', dial: '+91', flag: '🇮🇳' },
+  { name: 'Germany', code: 'DE', dial: '+49', flag: '🇩🇪' },
+  { name: 'Turkey', code: 'TR', dial: '+90', flag: '🇹🇷' },
+  { name: 'Egypt', code: 'EG', dial: '+20', flag: '🇪🇬' },
+  { name: 'Nigeria', code: 'NG', dial: '+234', flag: '🇳🇬' },
+  { name: 'Oman', code: 'OM', dial: '+968', flag: '🇴🇲' },
+  { name: 'Qatar', code: 'QA', dial: '+974', flag: '🇶🇦' },
+  { name: 'Kuwait', code: 'KW', dial: '+965', flag: '🇰🇼' },
+  { name: 'Bahrain', code: 'BH', dial: '+973', flag: '🇧🇭' },
+  { name: 'Jordan', code: 'JO', dial: '+962', flag: '🇯🇴' },
+  { name: 'Bangladesh', code: 'BD', dial: '+880', flag: '🇧🇩' },
+  { name: 'France', code: 'FR', dial: '+33', flag: '🇫🇷' },
+  { name: 'Spain', code: 'ES', dial: '+34', flag: '🇪🇸' },
+  { name: 'Switzerland', code: 'CH', dial: '+41', flag: '🇨🇭' },
+  { name: 'Australia', code: 'AU', dial: '+61', flag: '🇦🇺' },
+  { name: 'Other', code: 'OT', dial: '+1', flag: '🌐' },
 ];
+
+const COUNTRIES = COUNTRY_DIAL_CODES.map((c) => c.name);
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -36,7 +55,9 @@ export default function RegisterPage() {
     confirmPassword: '',
     address: '',
     country: 'Italy',
-    whatsappNumber: '',
+    countryCode: '+39',
+    localPhone: '',
+    whatsappNumber: '+39',
     selectedPackage: 'ascend', // default: Ahsora IMAT Ascend (€299)
   });
 
@@ -132,11 +153,21 @@ export default function RegisterPage() {
       !formData.password.trim() ||
       !formData.confirmPassword.trim() ||
       !formData.address.trim() ||
-      !formData.whatsappNumber.trim()
+      (!formData.whatsappNumber.trim() && !formData.localPhone.trim())
     ) {
-      setError('Please fill in all mandatory fields (*), including address and password confirmation.');
+      setError('Please fill in all mandatory fields (*), including address, WhatsApp number, and password confirmation.');
       return;
     }
+
+    const finalWhatsApp = (formData.whatsappNumber.trim() && formData.whatsappNumber.trim() !== formData.countryCode)
+      ? formData.whatsappNumber.trim()
+      : (formData.localPhone.trim() ? `${formData.countryCode} ${formData.localPhone.trim()}` : '');
+
+    if (!finalWhatsApp || finalWhatsApp === formData.countryCode) {
+      setError('Please enter a valid WhatsApp phone number with your country code.');
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match. Please ensure Password and Confirm Password match.');
       return;
@@ -172,7 +203,8 @@ export default function RegisterPage() {
             full_name: fullName,
             address: formData.address,
             country: formData.country,
-            whatsapp_number: formData.whatsappNumber,
+            whatsapp_number: finalWhatsApp,
+            phone: finalWhatsApp,
             selected_package: pkgObj.name,
             package_price: pkgObj.price,
           },
@@ -191,6 +223,7 @@ export default function RegisterPage() {
           full_name: fullName,
           email: formData.email,
           address: formData.address,
+          country: formData.country,
           payment_approved: true,
           created_at: new Date().toISOString(),
         });
@@ -210,8 +243,10 @@ export default function RegisterPage() {
       lastName: formData.lastName,
       fullName: fullName,
       email: formData.email,
+      address: formData.address,
       country: formData.country,
-      whatsappNumber: formData.whatsappNumber,
+      whatsappNumber: finalWhatsApp,
+      phone: finalWhatsApp,
       selectedPackage: pkgObj.name,
       packagePrice: pkgObj.price,
       paymentApproved: true,
@@ -227,7 +262,9 @@ export default function RegisterPage() {
         firstName: formData.firstName,
         lastName: formData.lastName,
         email: formData.email,
-        phone: formData.whatsappNumber,
+        address: formData.address,
+        phone: finalWhatsApp,
+        whatsappNumber: finalWhatsApp,
         country: formData.country,
         isVerified: true,
         selectedPackage: pkgObj.name,
@@ -652,7 +689,17 @@ export default function RegisterPage() {
                     <Globe size={18} color="#94A3B8" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
                     <select
                       value={formData.country}
-                      onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                      onChange={(e) => {
+                        const newCountry = e.target.value;
+                        const match = COUNTRY_DIAL_CODES.find((c) => c.name === newCountry);
+                        const newDial = match ? match.dial : formData.countryCode;
+                        setFormData((prev) => ({
+                          ...prev,
+                          country: newCountry,
+                          countryCode: newDial,
+                          whatsappNumber: `${newDial} ${prev.localPhone}`.trim(),
+                        }));
+                      }}
                       style={{
                         width: '100%',
                         padding: '12px 16px 12px 42px',
@@ -664,37 +711,86 @@ export default function RegisterPage() {
                         cursor: 'pointer',
                       }}
                     >
-                      {COUNTRIES.map((c) => (
-                        <option key={c} value={c}>
-                          {c}
+                      {COUNTRY_DIAL_CODES.map((c) => (
+                        <option key={c.name} value={c.name}>
+                          {c.flag} {c.name} ({c.dial})
                         </option>
                       ))}
                     </select>
                   </div>
                 </div>
 
-                {/* WhatsApp Number */}
+                {/* WhatsApp Number with Dedicated Country Code Selector */}
                 <div>
                   <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
-                    WhatsApp Number <span style={{ color: '#DC2626' }}>*</span>
+                    WhatsApp Phone Number <span style={{ color: '#DC2626' }}>*</span>
                   </label>
-                  <div style={{ position: 'relative' }}>
-                    <Phone size={18} color="#94A3B8" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
-                    <input
-                      type="tel"
-                      required
-                      placeholder="+92 300 1234567"
-                      value={formData.whatsappNumber}
-                      onChange={(e) => setFormData({ ...formData, whatsappNumber: e.target.value })}
-                      style={{
-                        width: '100%',
-                        padding: '12px 16px 12px 42px',
-                        borderRadius: '10px',
-                        border: '1px solid #CBD5E1',
-                        fontSize: '0.9375rem',
-                        outline: 'none',
-                      }}
-                    />
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    {/* Country Dial Code Dropdown */}
+                    <div style={{ width: '135px', flexShrink: 0 }}>
+                      <select
+                        value={formData.countryCode}
+                        onChange={(e) => {
+                          const newDial = e.target.value;
+                          setFormData((prev) => ({
+                            ...prev,
+                            countryCode: newDial,
+                            whatsappNumber: `${newDial} ${prev.localPhone}`.trim(),
+                          }));
+                        }}
+                        style={{
+                          width: '100%',
+                          padding: '12px 8px',
+                          borderRadius: '10px',
+                          border: '1px solid #CBD5E1',
+                          fontSize: '0.9rem',
+                          fontWeight: 700,
+                          backgroundColor: '#F8FAFC',
+                          color: '#0F172A',
+                          outline: 'none',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        {COUNTRY_DIAL_CODES.map((c) => (
+                          <option key={`${c.code}-${c.dial}`} value={c.dial}>
+                            {c.flag} {c.dial} ({c.code})
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {/* Local Phone Number Input */}
+                    <div style={{ position: 'relative', flex: 1 }}>
+                      <Phone size={17} color="#94A3B8" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
+                      <input
+                        type="tel"
+                        required
+                        placeholder="300 1234567"
+                        value={formData.localPhone}
+                        onChange={(e) => {
+                          const clean = e.target.value.replace(/[^\d\s-]/g, '');
+                          setFormData((prev) => ({
+                            ...prev,
+                            localPhone: clean,
+                            whatsappNumber: `${prev.countryCode} ${clean}`.trim(),
+                          }));
+                        }}
+                        style={{
+                          width: '100%',
+                          padding: '12px 14px 12px 40px',
+                          borderRadius: '10px',
+                          border: '1px solid #CBD5E1',
+                          fontSize: '0.9375rem',
+                          outline: 'none',
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div style={{ fontSize: '0.75rem', color: '#64748B', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <span>Standardized WhatsApp format:</span>
+                    <strong style={{ color: '#059669', fontFamily: 'monospace' }}>
+                      {formData.countryCode} {formData.localPhone || '300 1234567'}
+                    </strong>
                   </div>
                 </div>
               </div>

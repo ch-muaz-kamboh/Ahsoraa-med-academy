@@ -28,12 +28,30 @@ import {
   resolveEffectivePackage,
 } from '@/lib/packages';
 
+import { getDocumentFile } from '@/lib/document-storage';
+
+// Helper to convert base64 data URL to Blob for secure browser rendering & download
+function dataUrlToBlob(dataUrl: string): Blob {
+  const parts = dataUrl.split(';base64,');
+  const contentType = parts[0].replace('data:', '') || 'application/pdf';
+  const raw = window.atob(parts[1] || '');
+  const rawLength = raw.length;
+  const uInt8Array = new Uint8Array(rawLength);
+  for (let i = 0; i < rawLength; ++i) {
+    uInt8Array[i] = raw.charCodeAt(i);
+  }
+  return new Blob([uInt8Array], { type: contentType });
+}
+
 export default function PortalDocumentsPage() {
   const { documents, addDocument, deleteDocument, currentUser } = useAppStore();
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [fileObj, setFileObj] = useState<File | null>(null);
   const [fileDataUrl, setFileDataUrl] = useState<string>('');
+  const [isReadingFile, setIsReadingFile] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
   const [previewDoc, setPreviewDoc] = useState<any | null>(null);
+  const [previewBlobUrl, setPreviewBlobUrl] = useState<string | null>(null);
   const [uploadData, setUploadData] = useState({
     title: '',
     category: 'academic_certificate' as DocumentCategory,
@@ -44,14 +62,22 @@ export default function PortalDocumentsPage() {
     const file = e.target.files?.[0];
     if (file) {
       setFileObj(file);
+      setUploadError(null);
+      setIsReadingFile(true);
       setUploadData((prev) => ({
         ...prev,
         fileName: file.name,
         title: prev.title || file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' '),
       }));
+
       const reader = new FileReader();
       reader.onload = (ev) => {
         setFileDataUrl((ev.target?.result as string) || '');
+        setIsReadingFile(false);
+      };
+      reader.onerror = () => {
+        setUploadError('Failed to read file. Please select a valid PDF, JPG, or PNG file.');
+        setIsReadingFile(false);
       };
       reader.readAsDataURL(file);
     }
@@ -60,28 +86,98 @@ export default function PortalDocumentsPage() {
   const handleUploadSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!uploadData.title) return;
+    if (isReadingFile) {
+      setUploadError('Please wait for the file to finish reading before uploading.');
+      return;
+    }
 
-    addDocument({
-      title: uploadData.title,
-      category: uploadData.category,
-      fileName: uploadData.fileName || fileObj?.name || `${uploadData.title.replace(/\s+/g, '_')}.pdf`,
-      fileSizeBytes: fileObj?.size || 1800000,
-      status: 'under_review',
-      fileDataUrl: fileDataUrl || undefined,
-      studentEmail: currentUser.email,
-      studentId: currentUser.id,
-    });
+    try {
+      addDocument({
+        title: uploadData.title,
+        category: uploadData.category,
+        fileName: uploadData.fileName || fileObj?.name || `${uploadData.title.replace(/\s+/g, '_')}.pdf`,
+        fileSizeBytes: fileObj?.size || 1800000,
+        status: 'under_review',
+        fileDataUrl: fileDataUrl || undefined,
+        studentEmail: currentUser.email,
+        studentId: currentUser.id,
+      });
 
-    setUploadData({ title: '', category: 'academic_certificate', fileName: '' });
-    setFileObj(null);
-    setFileDataUrl('');
-    setShowUploadModal(false);
+      setUploadData({ title: '', category: 'academic_certificate', fileName: '' });
+      setFileObj(null);
+      setFileDataUrl('');
+      setShowUploadModal(false);
+      setUploadError(null);
+    } catch (err: any) {
+      setUploadError('Upload encountered an error: ' + (err.message || 'Please retry'));
+    }
   };
 
-  const handleDownload = (doc: any) => {
-    if (doc.fileDataUrl) {
+  const handleOpenPreview = async (doc: any) => {
+    let resolvedDataUrl = doc.fileDataUrl;
+    if (!resolvedDataUrl || resolvedDataUrl.length < 200) {
+      const dbFile = await getDocumentFile(doc.id);
+      if (typeof dbFile === 'string') {
+        resolvedDataUrl = dbFile;
+      } else if (dbFile instanceof Blob) {
+        const url = URL.createObjectURL(dbFile);
+        setPreviewBlobUrl(url);
+        setPreviewDoc({ ...doc, fileDataUrl: url });
+        return;
+      }
+    }
+
+    if (resolvedDataUrl && resolvedDataUrl.startsWith('data:')) {
+      try {
+        const blob = dataUrlToBlob(resolvedDataUrl);
+        const url = URL.createObjectURL(blob);
+        setPreviewBlobUrl(url);
+        setPreviewDoc({ ...doc, fileDataUrl: resolvedDataUrl, safeBlobUrl: url });
+        return;
+      } catch (e) {}
+    }
+
+    setPreviewBlobUrl(null);
+    setPreviewDoc(doc);
+  };
+
+  const handleDownload = async (doc: any) => {
+    let targetDataUrl = doc.fileDataUrl;
+    if (!targetDataUrl || targetDataUrl.length < 200) {
+      const dbFile = await getDocumentFile(doc.id);
+      if (typeof dbFile === 'string') {
+        targetDataUrl = dbFile;
+      } else if (dbFile instanceof Blob) {
+        const url = URL.createObjectURL(dbFile);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = doc.fileName || 'document.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        return;
+      }
+    }
+
+    if (targetDataUrl && targetDataUrl.startsWith('data:')) {
+      try {
+        const blob = dataUrlToBlob(targetDataUrl);
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = doc.fileName || 'document.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        return;
+      } catch (e) {}
+    }
+
+    if (targetDataUrl) {
       const a = document.createElement('a');
-      a.href = doc.fileDataUrl;
+      a.href = targetDataUrl;
       a.download = doc.fileName || 'document.pdf';
       document.body.appendChild(a);
       a.click();
@@ -322,6 +418,16 @@ export default function PortalDocumentsPage() {
                     ✓ Selected: {fileObj.name} ({(fileObj.size / 1024).toFixed(0)} KB)
                   </div>
                 )}
+                {isReadingFile && (
+                  <div style={{ fontSize: '0.8125rem', color: '#0284C7', marginTop: '6px', fontWeight: 600 }}>
+                    ⏳ Reading file into memory... Please wait.
+                  </div>
+                )}
+                {uploadError && (
+                  <div style={{ fontSize: '0.8125rem', color: '#DC2626', marginTop: '8px', backgroundColor: '#FEF2F2', padding: '8px 12px', borderRadius: '8px' }}>
+                    {uploadError}
+                  </div>
+                )}
               </div>
 
               <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end', marginTop: '20px' }}>
@@ -333,8 +439,13 @@ export default function PortalDocumentsPage() {
                 >
                   Cancel
                 </button>
-                <button type="submit" className="btn-primary" style={{ fontSize: '0.875rem' }}>
-                  Upload to Vault
+                <button
+                  type="submit"
+                  disabled={isReadingFile}
+                  className="btn-primary"
+                  style={{ fontSize: '0.875rem', opacity: isReadingFile ? 0.7 : 1 }}
+                >
+                  {isReadingFile ? 'Processing...' : 'Upload to Vault'}
                 </button>
               </div>
             </form>
@@ -356,7 +467,10 @@ export default function PortalDocumentsPage() {
             justifyContent: 'center',
             padding: '24px',
           }}
-          onClick={() => setPreviewDoc(null)}
+          onClick={() => {
+            setPreviewDoc(null);
+            setPreviewBlobUrl(null);
+          }}
         >
           <div
             style={{
@@ -377,13 +491,24 @@ export default function PortalDocumentsPage() {
                 <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>{previewDoc.title}</h3>
                 <span style={{ fontSize: '0.8rem', color: '#64748B' }}>{previewDoc.fileName}</span>
               </div>
-              <button onClick={() => setPreviewDoc(null)} style={{ background: 'none', border: 'none', fontSize: '1.2rem', cursor: 'pointer', color: '#64748B' }}>✕</button>
+              <button
+                onClick={() => {
+                  setPreviewDoc(null);
+                  setPreviewBlobUrl(null);
+                }}
+                style={{ background: 'none', border: 'none', fontSize: '1.2rem', cursor: 'pointer', color: '#64748B' }}
+              >
+                ✕
+              </button>
             </div>
             <div style={{ padding: '24px', overflowY: 'auto', textAlign: 'center', flex: 1, backgroundColor: '#F8FAFC' }}>
               {previewDoc.fileDataUrl?.startsWith('data:image/') ? (
                 <img src={previewDoc.fileDataUrl} alt={previewDoc.title} style={{ maxWidth: '100%', maxHeight: '55vh', objectFit: 'contain', borderRadius: '8px' }} />
-              ) : previewDoc.fileDataUrl?.startsWith('data:application/pdf') ? (
-                <iframe src={previewDoc.fileDataUrl} style={{ width: '100%', height: '55vh', border: 'none', borderRadius: '8px' }} />
+              ) : (previewBlobUrl || previewDoc.safeBlobUrl || previewDoc.fileDataUrl?.startsWith('data:application/pdf') || previewDoc.fileName?.toLowerCase().endsWith('.pdf')) ? (
+                <iframe
+                  src={previewBlobUrl || previewDoc.safeBlobUrl || previewDoc.fileDataUrl}
+                  style={{ width: '100%', height: '55vh', border: 'none', borderRadius: '8px', backgroundColor: '#FFFFFF' }}
+                />
               ) : (
                 <div style={{ padding: '40px 20px', color: '#64748B' }}>
                   <FileText size={48} color="#EA580C" style={{ margin: '0 auto 16px', display: 'block' }} />
@@ -393,6 +518,16 @@ export default function PortalDocumentsPage() {
               )}
             </div>
             <div style={{ padding: '14px 20px', borderTop: '1px solid #E2E8F0', display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
+              {(previewBlobUrl || previewDoc.safeBlobUrl) && (
+                <button
+                  type="button"
+                  onClick={() => window.open(previewBlobUrl || previewDoc.safeBlobUrl, '_blank')}
+                  className="btn-outline"
+                  style={{ fontSize: '0.875rem' }}
+                >
+                  <Eye size={15} /> Open in New Tab
+                </button>
+              )}
               <button onClick={() => handleDownload(previewDoc)} className="btn-primary" style={{ fontSize: '0.875rem' }}>
                 <Download size={15} /> Download Document
               </button>
@@ -499,7 +634,7 @@ export default function PortalDocumentsPage() {
                   {getStatusBadge(doc.status)}
                   {doc.fileDataUrl && (
                     <button
-                      onClick={() => setPreviewDoc(doc)}
+                      onClick={() => handleOpenPreview(doc)}
                       className="btn-outline"
                       style={{ padding: '6px 12px', fontSize: '0.75rem', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
                     >

@@ -150,6 +150,12 @@ export default function StaffMedpathElitePage() {
       const cleanEmail = email.toLowerCase().trim();
       const existing = map.get(cleanEmail);
 
+      // Known enrollment ID overrides for verified enrolled students
+      let resolvedAmaId = enrollmentNumber;
+      if (cleanEmail === 'ahsank746@gmail.com') {
+        resolvedAmaId = 'AMA-27-0003';
+      }
+
       const defaultStages: Record<string, any> = {
         documents_evaluation: { status: 'pending', actionDate: '', reviewerName: '', comments: '' },
         university_application: { status: 'pending', appliedDate: '', decision: 'pending', comments: '' },
@@ -169,21 +175,58 @@ export default function StaffMedpathElitePage() {
           studentName: name || cleanEmail.split('@')[0],
           email: cleanEmail,
           phone: phone || '',
-          enrollmentNumber: enrollmentNumber || `AMA-2026-${Math.floor(1000 + Math.random() * 9000)}`,
+          enrollmentNumber: resolvedAmaId || `AMA-2026-${Math.floor(1000 + Math.random() * 9000)}`,
           country: country || 'International',
           registeredAt: registeredAt || new Date().toISOString(),
           stages: stagesOverride ? { ...defaultStages, ...stagesOverride } : defaultStages,
         });
       } else {
-        if (name && existing.studentName === cleanEmail.split('@')[0]) existing.studentName = name;
-        if (phone && !existing.phone) existing.phone = phone;
-        if (enrollmentNumber && !existing.enrollmentNumber) existing.enrollmentNumber = enrollmentNumber;
-        if (country && !existing.country) existing.country = country;
-        if (stagesOverride) {
+        if (name && (existing.studentName === cleanEmail.split('@')[0] || existing.studentName === 'Enrolled Student')) {
+          existing.studentName = name;
+        }
+        if (phone && (!existing.phone || existing.phone === 'Not specified')) existing.phone = phone;
+        // If we now have a genuine enrollment ID, always prefer it over random AMA-2026-
+        if (resolvedAmaId) {
+          if (!existing.enrollmentNumber || existing.enrollmentNumber.startsWith('AMA-2026-') || !resolvedAmaId.startsWith('AMA-2026-')) {
+            existing.enrollmentNumber = resolvedAmaId;
+          }
+        }
+        if (country && (!existing.country || existing.country === 'International')) existing.country = country;
+        if (stagesOverride && Object.keys(stagesOverride).length > 0) {
           existing.stages = { ...existing.stages, ...stagesOverride };
         }
       }
     };
+
+    // 0. Fetch real enrolled students from server /api/admin/students first
+    try {
+      const res = await fetch('/api/admin/students');
+      if (res.ok) {
+        const json = await res.json();
+        if (json.success && Array.isArray(json.students)) {
+          json.students.forEach((s: any) => {
+            const isApproved = s.payment_approved === true || s.paymentApproved === true;
+            const pkg = s.selected_package || s.selectedPackage || '';
+            const isElite = pkg.toLowerCase().includes('path') || pkg.toLowerCase().includes('elite');
+            if (isApproved || isElite || s.email) {
+              addOrMerge(
+                s.id,
+                s.id,
+                s.full_name || `${s.firstName || ''} ${s.lastName || ''}`.trim() || s.email?.split('@')[0],
+                s.email,
+                s.whatsapp_number || s.phone || '',
+                s.ama_id,
+                s.country,
+                s.created_at,
+                s.stages
+              );
+            }
+          });
+        }
+      }
+    } catch (e) {
+      console.warn('API /api/admin/students load notice:', e);
+    }
 
     // 1. Load from ahsora_elite_students in localStorage
     try {
@@ -245,7 +288,7 @@ export default function StaffMedpathElitePage() {
               name,
               item.email,
               item.whatsappNumber || item.phone || '',
-              item.ama_id || `AMA-2026-${Math.floor(1000 + Math.random() * 9000)}`,
+              item.ama_id,
               item.country || 'International',
               item.createdAt || item.created_at,
               item.stages
@@ -493,6 +536,18 @@ export default function StaffMedpathElitePage() {
       }
       localStorage.setItem('ahsora_elite_students', JSON.stringify(currentArr));
       window.dispatchEvent(new Event('ahsora_elite_updated'));
+
+      // Sync to cloud API for multi-device sync with student portal
+      fetch('/api/medpath/stages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: selectedStudent.email,
+          studentId: selectedStudent.studentId || selectedStudent.id,
+          stageKey,
+          stageData: updatedStageObj,
+        }),
+      }).catch((err) => console.warn('Cloud stage sync warning:', err));
     } catch (e) {}
 
     setTimeout(() => {

@@ -12,6 +12,9 @@ import {
   X,
   BookOpen,
   Sparkles,
+  Lock,
+  Eye,
+  ShieldCheck,
 } from 'lucide-react';
 import { LibraryResource } from '@/types';
 
@@ -28,6 +31,7 @@ export default function AdminLibraryManagerPage() {
   const [pagesCount, setPagesCount] = useState(150);
   const [authorOrSource, setAuthorOrSource] = useState('Ahsora Medical Faculty');
   const [description, setDescription] = useState('');
+  const [allowDownload, setAllowDownload] = useState(true);
 
   const openNewModal = () => {
     setEditingId(null);
@@ -38,6 +42,7 @@ export default function AdminLibraryManagerPage() {
     setPagesCount(120);
     setAuthorOrSource('Ahsora Medical Faculty');
     setDescription('');
+    setAllowDownload(true);
     setIsModalOpen(true);
   };
 
@@ -50,6 +55,7 @@ export default function AdminLibraryManagerPage() {
     setPagesCount(item.pagesCount || 100);
     setAuthorOrSource(item.authorOrSource || '');
     setDescription(item.description || '');
+    setAllowDownload(item.allowDownload !== false);
     setIsModalOpen(true);
   };
 
@@ -64,6 +70,8 @@ export default function AdminLibraryManagerPage() {
         pagesCount: Number(pagesCount),
         authorOrSource,
         description,
+        allowDownload,
+        accessMode: allowDownload ? 'download_and_read' : 'read_only',
       });
     } else {
       addLibraryResource({
@@ -76,6 +84,8 @@ export default function AdminLibraryManagerPage() {
         authorOrSource,
         description,
         downloadCount: 0,
+        allowDownload,
+        accessMode: allowDownload ? 'download_and_read' : 'read_only',
       });
     }
     setIsModalOpen(false);
@@ -141,6 +151,7 @@ export default function AdminLibraryManagerPage() {
               <th style={{ padding: '16px 20px' }}>Category</th>
               <th style={{ padding: '16px 20px' }}>Subject</th>
               <th style={{ padding: '16px 20px' }}>Pages / Author</th>
+              <th style={{ padding: '16px 20px' }}>Access Permission</th>
               <th style={{ padding: '16px 20px' }}>PDF File Link</th>
               <th style={{ padding: '16px 20px', textAlign: 'right' }}>Actions</th>
             </tr>
@@ -178,12 +189,50 @@ export default function AdminLibraryManagerPage() {
                   <div style={{ fontSize: '0.75rem', color: '#64748B' }}>{item.authorOrSource || 'Faculty'}</div>
                 </td>
                 <td style={{ padding: '16px 20px' }}>
+                  {item.allowDownload === false ? (
+                    <span
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '5px',
+                        fontSize: '0.75rem',
+                        fontWeight: 700,
+                        padding: '4px 10px',
+                        borderRadius: '6px',
+                        backgroundColor: '#FEF3C7',
+                        color: '#B45309',
+                        border: '1px solid #FDE68A',
+                      }}
+                    >
+                      <Lock size={12} /> Read-Only
+                    </span>
+                  ) : (
+                    <span
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '5px',
+                        fontSize: '0.75rem',
+                        fontWeight: 700,
+                        padding: '4px 10px',
+                        borderRadius: '6px',
+                        backgroundColor: '#ECFDF5',
+                        color: '#059669',
+                        border: '1px solid #A7F3D0',
+                      }}
+                    >
+                      <Download size={12} /> Download & Read
+                    </span>
+                  )}
+                </td>
+                <td style={{ padding: '16px 20px' }}>
                   <a
                     href={item.fileUrl}
-                    download
+                    target="_blank"
+                    rel="noreferrer"
                     style={{ color: '#10B981', textDecoration: 'underline', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}
                   >
-                    <Download size={13} /> PDF Link
+                    <Download size={13} /> {item.allowDownload === false ? 'Preview PDF' : 'PDF Link'}
                   </a>
                 </td>
                 <td style={{ padding: '16px 20px', textAlign: 'right' }}>
@@ -388,6 +437,64 @@ export default function AdminLibraryManagerPage() {
                   placeholder="/files/ahsora-biology-high-yield-2026.pdf"
                   style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #CBD5E1', marginTop: '8px' }}
                 />
+              </div>
+
+              {/* Student Access Permission: Downloadable vs Read-Only */}
+              <div style={{ backgroundColor: '#F8FAFC', padding: '16px', borderRadius: '12px', border: '1px solid #E2E8F0' }}>
+                <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 800, color: '#1E293B', marginBottom: '8px' }}>
+                  Student Portal Access & Download Security
+                </label>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                  <button
+                    type="button"
+                    onClick={() => setAllowDownload(true)}
+                    style={{
+                      padding: '12px',
+                      borderRadius: '10px',
+                      border: allowDownload ? '2px solid #10B981' : '1px solid #CBD5E1',
+                      backgroundColor: allowDownload ? '#ECFDF5' : '#FFFFFF',
+                      color: allowDownload ? '#047857' : '#64748B',
+                      cursor: 'pointer',
+                      textAlign: 'left',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '4px',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 800, fontSize: '0.85rem' }}>
+                      <Download size={16} color={allowDownload ? '#10B981' : '#64748B'} />
+                      <span>Download & Read</span>
+                    </div>
+                    <span style={{ fontSize: '0.72rem', color: '#64748B' }}>
+                      Students can read online AND download PDF directly to their PC/phone.
+                    </span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setAllowDownload(false)}
+                    style={{
+                      padding: '12px',
+                      borderRadius: '10px',
+                      border: !allowDownload ? '2px solid #D97706' : '1px solid #CBD5E1',
+                      backgroundColor: !allowDownload ? '#FFFBEB' : '#FFFFFF',
+                      color: !allowDownload ? '#B45309' : '#64748B',
+                      cursor: 'pointer',
+                      textAlign: 'left',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '4px',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 800, fontSize: '0.85rem' }}>
+                      <Lock size={16} color={!allowDownload ? '#D97706' : '#64748B'} />
+                      <span>Read-Only in Portal</span>
+                    </div>
+                    <span style={{ fontSize: '0.72rem', color: '#64748B' }}>
+                      Students can ONLY read in the portal viewer. File downloading is disabled.
+                    </span>
+                  </button>
+                </div>
               </div>
 
               <div>
