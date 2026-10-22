@@ -10,64 +10,79 @@ export async function GET() {
   });
 
   try {
-    // Fetch all users from Supabase Auth (contains real user_metadata with selected_package)
-    const [usersRes, profilesRes] = await Promise.all([
-      supabase.auth.admin.listUsers({ page: 1, perPage: 1000 }),
-      supabase.from('profiles').select('*'),
-    ]);
+    let users: any[] = [];
+    let profiles: any[] = [];
 
-    const profiles = profilesRes.data || [];
+    // Safely fetch auth users and profiles without failing if admin auth is restricted
+    try {
+      const { data: usersData } = await supabase.auth.admin.listUsers({ page: 1, perPage: 1000 });
+      users = usersData?.users || [];
+    } catch (authErr) {
+      console.warn('Supabase auth.admin.listUsers note:', authErr);
+    }
+
+    try {
+      const { data: profilesData } = await supabase.from('profiles').select('*');
+      profiles = profilesData || [];
+    } catch (profErr) {
+      console.warn('Supabase profiles fetch note:', profErr);
+    }
+
     const profMap = new Map(profiles.map((p: any) => [p.id, p]));
     const profEmailMap = new Map(profiles.map((p: any) => [(p.email || '').toLowerCase().trim(), p]));
 
-    const users = usersRes.data?.users || [];
+    // Filter out staff accounts and map student users
+    const mergedStudents = users
+      .filter((u: any) => {
+        const meta = u.user_metadata || {};
+        return meta.accountType !== 'staff' && meta.role !== 'staff' && !meta.staff_data;
+      })
+      .map((u: any) => {
+        const emailLower = (u.email || '').toLowerCase().trim();
+        const p = profMap.get(u.id) || profEmailMap.get(emailLower) || {};
+        const meta = u.user_metadata || {};
 
-    const mergedStudents = users.map((u: any) => {
-      const emailLower = (u.email || '').toLowerCase().trim();
-      const p = profMap.get(u.id) || profEmailMap.get(emailLower) || {};
-      const meta = u.user_metadata || {};
+        const fullName =
+          meta.full_name ||
+          p.full_name ||
+          `${meta.first_name || ''} ${meta.last_name || ''}`.trim() ||
+          u.email?.split('@')[0] ||
+          'Student';
 
-      const fullName =
-        meta.full_name ||
-        p.full_name ||
-        `${meta.first_name || ''} ${meta.last_name || ''}`.trim() ||
-        u.email?.split('@')[0] ||
-        'Student';
+        const pkgName = meta.selected_package || meta.selectedPackage || p.selected_package || p.selectedPackage || 'Ahsora IMAT Ascend';
+        const pkgPrice = meta.package_price || meta.packagePrice || p.package_price || p.packagePrice || '€299';
+        const country = meta.country || p.country || 'Italy';
+        const whatsapp = meta.whatsapp_number || meta.whatsappNumber || meta.phone || p.whatsapp_number || p.phone || 'Not specified';
+        const address = meta.address || p.address || meta.physical_address || 'Address on file';
+        const paymentApproved = p.payment_approved !== undefined ? p.payment_approved : false;
+        const cleanAmaId = p.ama_id ? p.ama_id.trim() : (meta.ama_id || `AMA-${u.id.substring(0, 6).toUpperCase()}`);
 
-      const pkgName = meta.selected_package || meta.selectedPackage || p.selected_package || 'Ahsora IMAT Ascend';
-      const pkgPrice = meta.package_price || meta.packagePrice || p.package_price || '€299';
-      const country = meta.country || p.country || 'Italy';
-      const whatsapp = meta.whatsapp_number || meta.whatsappNumber || meta.phone || p.whatsapp_number || p.phone || 'Not specified';
-      const address = meta.address || p.address || meta.physical_address || 'Address on file';
-      const paymentApproved = p.payment_approved !== undefined ? p.payment_approved : false;
-      const cleanAmaId = p.ama_id ? p.ama_id.trim() : `AMA-${u.id.substring(0, 6).toUpperCase()}`;
-
-      return {
-        id: u.id,
-        ama_id: cleanAmaId,
-        full_name: fullName,
-        firstName: meta.first_name || fullName.split(' ')[0],
-        lastName: meta.last_name || fullName.split(' ').slice(1).join(' '),
-        email: u.email,
-        country: country,
-        address: address,
-        whatsapp_number: whatsapp,
-        whatsappNumber: whatsapp,
-        phone: whatsapp,
-        selected_package: pkgName,
-        selectedPackage: pkgName,
-        package_price: pkgPrice,
-        packagePrice: pkgPrice,
-        payment_approved: paymentApproved,
-        stages: meta.medpath_stages || p.stages || null,
-        created_at: p.created_at || u.created_at,
-      };
-    });
+        return {
+          id: u.id,
+          ama_id: cleanAmaId,
+          full_name: fullName,
+          firstName: meta.first_name || fullName.split(' ')[0],
+          lastName: meta.last_name || fullName.split(' ').slice(1).join(' '),
+          email: u.email,
+          country: country,
+          address: address,
+          whatsapp_number: whatsapp,
+          whatsappNumber: whatsapp,
+          phone: whatsapp,
+          selected_package: pkgName,
+          selectedPackage: pkgName,
+          package_price: pkgPrice,
+          packagePrice: pkgPrice,
+          payment_approved: paymentApproved,
+          stages: meta.medpath_stages || p.stages || null,
+          created_at: p.created_at || u.created_at,
+        };
+      });
 
     // Also include any profiles that might not have been matched in auth.users
     const authUserIds = new Set(users.map((u: any) => u.id));
     profiles.forEach((p: any) => {
-      if (!authUserIds.has(p.id) && p.email) {
+      if (!authUserIds.has(p.id) && p.email && p.role !== 'staff' && p.accountType !== 'staff') {
         const cleanAmaId = p.ama_id ? p.ama_id.trim() : `AMA-${p.id.substring(0, 6).toUpperCase()}`;
         mergedStudents.push({
           id: p.id,
@@ -81,10 +96,10 @@ export async function GET() {
           whatsapp_number: p.whatsapp_number || p.phone || 'Not specified',
           whatsappNumber: p.whatsapp_number || p.phone || 'Not specified',
           phone: p.whatsapp_number || p.phone || 'Not specified',
-          selected_package: p.selected_package || 'Ahsora IMAT Ascend',
-          selectedPackage: p.selected_package || 'Ahsora IMAT Ascend',
-          package_price: p.package_price || '€299',
-          packagePrice: p.package_price || '€299',
+          selected_package: p.selected_package || p.selectedPackage || 'Ahsora IMAT Ascend',
+          selectedPackage: p.selected_package || p.selectedPackage || 'Ahsora IMAT Ascend',
+          package_price: p.package_price || p.packagePrice || '€299',
+          packagePrice: p.package_price || p.packagePrice || '€299',
           payment_approved: p.payment_approved || false,
           stages: p.stages || null,
           created_at: p.created_at || new Date().toISOString(),
@@ -135,15 +150,19 @@ export async function PATCH(request: Request) {
 
     // 1. Update Auth metadata if we have a valid UUID
     if (targetUserId) {
-      const updateData: any = { user_metadata: {} };
-      if (selectedPackage) {
-        updateData.user_metadata.selected_package = selectedPackage;
-      }
-      if (packagePrice) {
-        updateData.user_metadata.package_price = packagePrice;
-      }
-      if (Object.keys(updateData.user_metadata).length > 0) {
-        await supabase.auth.admin.updateUserById(targetUserId, updateData);
+      try {
+        const updateData: any = { user_metadata: {} };
+        if (selectedPackage) {
+          updateData.user_metadata.selected_package = selectedPackage;
+        }
+        if (packagePrice) {
+          updateData.user_metadata.package_price = packagePrice;
+        }
+        if (Object.keys(updateData.user_metadata).length > 0) {
+          await supabase.auth.admin.updateUserById(targetUserId, updateData);
+        }
+      } catch (uErr) {
+        console.warn('Update user metadata warning:', uErr);
       }
     }
 
@@ -152,11 +171,21 @@ export async function PATCH(request: Request) {
     if (paymentApproved !== undefined) {
       profileUpdate.payment_approved = paymentApproved;
     }
+    if (selectedPackage) {
+      profileUpdate.selected_package = selectedPackage;
+    }
+    if (packagePrice) {
+      profileUpdate.package_price = packagePrice;
+    }
     if (Object.keys(profileUpdate).length > 0) {
-      if (targetUserId) {
-        await supabase.from('profiles').update(profileUpdate).eq('id', targetUserId);
-      } else if (rawEmail) {
-        await supabase.from('profiles').update(profileUpdate).eq('email', rawEmail);
+      try {
+        if (targetUserId) {
+          await supabase.from('profiles').update(profileUpdate).eq('id', targetUserId);
+        } else if (rawEmail) {
+          await supabase.from('profiles').update(profileUpdate).eq('email', rawEmail);
+        }
+      } catch (pErr) {
+        console.warn('Update profiles table warning:', pErr);
       }
     }
 

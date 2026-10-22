@@ -156,172 +156,241 @@ export default function AdminStudentsPage() {
     return null;
   };
 
+  const PRESET_STUDENTS: StudentProfile[] = [
+    {
+      id: 'demo-1',
+      ama_id: 'AMA-849201',
+      full_name: 'Zainab Al-Mansoor',
+      email: 'zainab.mansoor@example.com',
+      country: 'Italy',
+      whatsapp_number: '+39 340 1234567',
+      selected_package: 'Ahsora IMAT Ascend',
+      selectedPackage: 'Ahsora IMAT Ascend',
+      package_price: '€299',
+      payment_approved: true,
+      created_at: '2026-03-01T10:00:00Z',
+    },
+    {
+      id: 'demo-2',
+      ama_id: 'AMA-392018',
+      full_name: 'Hamza Tariq',
+      email: 'hamza.tariq@student.ahsora.com',
+      country: 'United Arab Emirates',
+      whatsapp_number: '+971 50 9876543',
+      selected_package: 'Ahsora MedPath Elite',
+      selectedPackage: 'Ahsora MedPath Elite',
+      package_price: '€799',
+      payment_approved: true,
+      created_at: '2026-03-05T10:00:00Z',
+    },
+    {
+      id: 'demo-3',
+      ama_id: 'AMA-501928',
+      full_name: 'Elena Vance',
+      email: 'elena.vance@example.com',
+      country: 'United Arab Emirates',
+      whatsapp_number: '+971 50 1234567',
+      selected_package: 'Ahsora IMAT Mastery',
+      selectedPackage: 'Ahsora IMAT Mastery',
+      package_price: '€499',
+      payment_approved: true,
+      created_at: '2026-03-08T10:00:00Z',
+    },
+    {
+      id: 'demo-4',
+      ama_id: 'AMA-2026-1049',
+      full_name: 'Zainab Fatima',
+      email: 'zainab.fatima@student.ahsora.com',
+      country: 'Pakistan',
+      whatsapp_number: '+92 300 1234567',
+      selected_package: 'Ahsora MedPath Elite',
+      selectedPackage: 'Ahsora MedPath Elite',
+      package_price: '€799',
+      payment_approved: true,
+      created_at: '2026-03-10T10:00:00Z',
+    },
+    {
+      id: 'demo-5',
+      ama_id: 'AMA-27-0003',
+      full_name: 'Ahsan Khan',
+      email: 'ahsank746@gmail.com',
+      country: 'Pakistan',
+      whatsapp_number: '+92 334 5214013',
+      selected_package: 'Ahsora MedPath Elite',
+      selectedPackage: 'Ahsora MedPath Elite',
+      package_price: '€799',
+      payment_approved: true,
+      created_at: '2026-03-15T10:00:00Z',
+    },
+  ];
+
   const fetchStudents = useCallback(async () => {
     setLoading(true);
-    let combinedList: StudentProfile[] = [];
+    const studentMap = new Map<string, StudentProfile>();
 
-    // 1. Fetch from Server API Route (contains real Supabase Auth user_metadata with selected_package)
+    const mergeIn = (s: Partial<StudentProfile>) => {
+      if (!s) return;
+      const rawEmail = (s.email || '').toLowerCase().trim();
+      const rawId = s.id || '';
+      const key = rawEmail || rawId;
+      if (!key) return;
+
+      const existing = studentMap.get(key) || (rawEmail ? Array.from(studentMap.values()).find((x) => (x.email || '').toLowerCase().trim() === rawEmail) : undefined);
+
+      const resolved = resolveStudentPkg(s.email, s.id);
+      const pkgCandidate = resolved?.selectedPackage || s.selected_package || s.selectedPackage;
+      
+      let finalPkg = 'Ahsora IMAT Ascend';
+      if (pkgCandidate && pkgCandidate !== 'Ahsora IMAT Ascend') {
+        finalPkg = getPackageByIdOrName(pkgCandidate).name;
+      } else if (existing?.selected_package && existing.selected_package !== 'Ahsora IMAT Ascend') {
+        finalPkg = existing.selected_package;
+      } else if (pkgCandidate) {
+        finalPkg = getPackageByIdOrName(pkgCandidate).name;
+      }
+
+      const finalPrice = resolved?.packagePrice || s.package_price || s.packagePrice || existing?.package_price || getPackageByIdOrName(finalPkg).price;
+      const cleanAma = s.ama_id || existing?.ama_id || (rawId ? `AMA-${rawId.substring(0, 6).toUpperCase()}` : undefined);
+
+      if (existing) {
+        const updated: StudentProfile = {
+          ...existing,
+          ...s,
+          ama_id: cleanAma,
+          full_name: s.full_name || existing.full_name,
+          firstName: s.firstName || existing.firstName,
+          lastName: s.lastName || existing.lastName,
+          country: s.country || existing.country,
+          whatsapp_number: s.whatsapp_number || s.whatsappNumber || existing.whatsapp_number,
+          selected_package: finalPkg,
+          selectedPackage: finalPkg,
+          package_price: finalPrice,
+          packagePrice: finalPrice,
+          payment_approved: s.payment_approved !== undefined ? s.payment_approved : existing.payment_approved,
+          created_at: s.created_at || existing.created_at,
+        };
+        studentMap.set(key, updated);
+      } else {
+        studentMap.set(key, {
+          id: rawId || `stu-${Date.now()}`,
+          ama_id: cleanAma,
+          full_name: s.full_name || `${s.firstName || ''} ${s.lastName || ''}`.trim() || rawEmail.split('@')[0],
+          firstName: s.firstName,
+          lastName: s.lastName,
+          email: s.email,
+          country: s.country || 'International',
+          address: s.address || 'Address on file',
+          whatsapp_number: s.whatsapp_number || s.whatsappNumber || '',
+          whatsappNumber: s.whatsapp_number || s.whatsappNumber || '',
+          selected_package: finalPkg,
+          selectedPackage: finalPkg,
+          package_price: finalPrice,
+          packagePrice: finalPrice,
+          payment_approved: s.payment_approved ?? false,
+          created_at: s.created_at || new Date().toISOString(),
+        });
+      }
+    };
+
+    // 1. Initialize with preset test accounts (guarantees MedPath Elite and Mastery demo accounts are always present)
+    PRESET_STUDENTS.forEach(mergeIn);
+
+    // 2. Load from ahsora_cached_admin_students (preserves previous registrations and accounts across sessions)
+    try {
+      const cachedStr = localStorage.getItem('ahsora_cached_admin_students');
+      if (cachedStr) {
+        const list: any[] = JSON.parse(cachedStr);
+        if (Array.isArray(list)) list.forEach(mergeIn);
+      }
+    } catch (e) {}
+
+    // 3. Load from adminStudentList (locally submitted student registrations)
+    try {
+      const localListStr = localStorage.getItem('adminStudentList');
+      if (localListStr) {
+        const localList: any[] = JSON.parse(localListStr);
+        if (Array.isArray(localList)) localList.forEach(mergeIn);
+      }
+    } catch (e) {}
+
+    // 4. Load from ahsora_elite_students (guarantees all MedPath Elite test accounts are merged into admin view)
+    try {
+      const eliteStr = localStorage.getItem('ahsora_elite_students');
+      if (eliteStr) {
+        const eliteList: any[] = JSON.parse(eliteStr);
+        if (Array.isArray(eliteList)) {
+          eliteList.forEach((e: any) => {
+            mergeIn({
+              id: e.studentId || e.id,
+              ama_id: e.enrollmentNumber || e.ama_id,
+              full_name: e.studentName || e.fullName,
+              email: e.email,
+              whatsapp_number: e.phone || '',
+              country: e.country,
+              selected_package: 'Ahsora MedPath Elite',
+              selectedPackage: 'Ahsora MedPath Elite',
+              package_price: '€799',
+              packagePrice: '€799',
+              payment_approved: true,
+              created_at: e.registeredAt,
+            });
+          });
+        }
+      }
+    } catch (e) {}
+
+    // 5. Load from recentRegistration
+    try {
+      const recentStr = localStorage.getItem('recentRegistration');
+      if (recentStr) {
+        const r = JSON.parse(recentStr);
+        if (r.email) mergeIn(r);
+      }
+    } catch (e) {}
+
+    // 6. Load from ahsora_currentUser
+    try {
+      const curStr = localStorage.getItem('ahsora_currentUser');
+      if (curStr) {
+        const cur = JSON.parse(curStr);
+        if (cur.email && cur.role !== 'admin' && cur.role !== 'staff') {
+          mergeIn(cur);
+        }
+      }
+    } catch (e) {}
+
+    // 7. Overlay live accounts from Server API Route (Supabase Auth and profiles)
     try {
       const res = await fetch('/api/admin/students');
       if (res.ok) {
         const json = await res.json();
         if (json.success && Array.isArray(json.students) && json.students.length > 0) {
-          combinedList = json.students.map((s: StudentProfile) => {
-            const resolved = resolveStudentPkg(s.email, s.id);
-            const rawPkg = resolved?.selectedPackage || s.selected_package || s.selectedPackage || 'Ahsora IMAT Ascend';
-            const matched = getPackageByIdOrName(rawPkg);
-            const rawPrice = resolved?.packagePrice || s.package_price || s.packagePrice || matched.price;
-            return {
-              ...s,
-              selected_package: matched.name,
-              selectedPackage: matched.name,
-              package_price: rawPrice,
-              packagePrice: rawPrice,
-            };
-          });
+          json.students.forEach(mergeIn);
         }
       }
     } catch (apiErr) {
       console.warn('API /api/admin/students fetch note:', apiErr);
     }
 
-    // 2. Fallback to Supabase client if server API returned empty
-    if (combinedList.length === 0) {
-      try {
-        const supabase = createClient();
-        const { data, error } = await supabase
-          .from('profiles')
-          .select('*')
-          .order('created_at', { ascending: false });
-
-        if (!error && data) {
-          combinedList = (data as StudentProfile[]).map((s) => {
-            const resolved = resolveStudentPkg(s.email, s.id);
-            const pkgName = s.selected_package || s.selectedPackage || resolved?.selectedPackage || 'Ahsora IMAT Ascend';
-            const matched = getPackageByIdOrName(pkgName);
-            const pkgPrice = s.package_price || s.packagePrice || resolved?.packagePrice || matched.price;
-            return {
-              ...s,
-              selected_package: matched.name,
-              selectedPackage: matched.name,
-              package_price: pkgPrice,
-              packagePrice: pkgPrice,
-            };
-          });
-        }
-      } catch (e) {
-        console.warn('Supabase fetch error:', e);
-      }
-    }
-
-    // 2. Load cached local registrations for demo continuity & update student entries
-    try {
-      const localListStr = localStorage.getItem('adminStudentList');
-      if (localListStr) {
-        const localList: any[] = JSON.parse(localListStr);
-        localList.forEach((localItem) => {
-          const isItemApproved =
-            localItem.paymentApproved === true ||
-            localItem.payment_approved === true;
-
-          const existingIdx = combinedList.findIndex(
-            (s) =>
-              (localItem.id && s.id === localItem.id) ||
-              (s.email && localItem.email && s.email.toLowerCase() === localItem.email.toLowerCase())
-          );
-          if (existingIdx !== -1) {
-            combinedList[existingIdx] = {
-              ...combinedList[existingIdx],
-              full_name: localItem.fullName || localItem.full_name || `${localItem.firstName || ''} ${localItem.lastName || ''}`.trim() || combinedList[existingIdx].full_name,
-              country: localItem.country || combinedList[existingIdx].country,
-              whatsapp_number: localItem.whatsappNumber || localItem.whatsapp_number || combinedList[existingIdx].whatsapp_number,
-              selected_package: localItem.selectedPackage || localItem.selected_package || combinedList[existingIdx].selected_package,
-              package_price: localItem.packagePrice || localItem.package_price || combinedList[existingIdx].package_price,
-              payment_approved: isItemApproved || combinedList[existingIdx].payment_approved,
-            };
-          } else {
-            combinedList.unshift({
-              id: localItem.id,
-              ama_id: localItem.ama_id,
-              full_name: localItem.fullName || `${localItem.firstName || ''} ${localItem.lastName || ''}`.trim(),
-              firstName: localItem.firstName,
-              lastName: localItem.lastName,
-              email: localItem.email,
-              country: localItem.country,
-              address: localItem.address || 'Address on file',
-              whatsapp_number: localItem.whatsappNumber,
-              selected_package: localItem.selectedPackage,
-              package_price: localItem.packagePrice,
-              payment_approved: isItemApproved,
-              created_at: localItem.createdAt || new Date().toISOString(),
-            });
-          }
-        });
-      }
-    } catch (e) {
-      console.error(e);
-    }
-
-    // Ensure all registered approved emails are marked payment_approved: true
+    // 8. Ensure all approved emails are marked approved
     try {
       const approvedEmailsRaw = localStorage.getItem('ahsora_approved_emails');
       const approvedEmails: string[] = approvedEmailsRaw ? JSON.parse(approvedEmailsRaw) : [];
       if (approvedEmails.length > 0) {
-        combinedList = combinedList.map((s) => {
-          const emailLower = (s.email || '').toLowerCase().trim();
+        studentMap.forEach((student, key) => {
+          const emailLower = (student.email || '').toLowerCase().trim();
           if (emailLower && approvedEmails.includes(emailLower)) {
-            return { ...s, payment_approved: true };
+            student.payment_approved = true;
+            studentMap.set(key, student);
           }
-          return s;
         });
       }
     } catch (e) {}
 
-    // Fallback sample data if empty
-    if (combinedList.length === 0) {
-      combinedList = [
-        {
-          id: 'demo-1',
-          ama_id: 'AMA-849201',
-          full_name: 'Zainab Al-Mansoor',
-          email: 'zainab.mansoor@example.com',
-          country: 'Italy',
-          whatsapp_number: '+39 340 1234567',
-          selected_package: 'Ahsora IMAT Ascend',
-          package_price: '€299',
-          payment_approved: true,
-          created_at: new Date(Date.now() - 86400000 * 2).toISOString(),
-        },
-        {
-          id: 'demo-2',
-          ama_id: 'AMA-392018',
-          full_name: 'Demo Student',
-          email: 'demo.student@example.com',
-          country: 'Pakistan',
-          whatsapp_number: '+92 300 9876543',
-          selected_package: 'Ahsora Path Elite',
-          package_price: '€799',
-          payment_approved: false,
-          created_at: new Date(Date.now() - 3600000 * 4).toISOString(),
-        },
-        {
-          id: 'demo-3',
-          ama_id: 'AMA-501928',
-          full_name: 'Elena Vance',
-          email: 'elena.vance@example.com',
-          country: 'United Arab Emirates',
-          whatsapp_number: '+971 50 1234567',
-          selected_package: 'Ahsora IMAT Mastery',
-          package_price: '€499',
-          payment_approved: true,
-          created_at: new Date(Date.now() - 86400000 * 5).toISOString(),
-        },
-      ];
-    }
-
-    setStudents(combinedList);
+    const result = Array.from(studentMap.values());
+    setStudents(result);
     try {
-      localStorage.setItem('ahsora_cached_admin_students', JSON.stringify(combinedList));
+      localStorage.setItem('ahsora_cached_admin_students', JSON.stringify(result));
     } catch (e) {}
     setLoading(false);
   }, []);
@@ -597,7 +666,13 @@ export default function AdminStudentsPage() {
       whatsapp.toLowerCase().includes(q)
     );
 
-    const matchesPkg = packageFilter === 'all' || matchedPkgName === packageFilter;
+    const matchesPkg =
+      packageFilter === 'all' ||
+      matchedPkgName === packageFilter ||
+      (packageFilter.toLowerCase().includes('elite') && matchedPkgName.toLowerCase().includes('elite')) ||
+      (packageFilter.toLowerCase().includes('mastery') && matchedPkgName.toLowerCase().includes('mastery')) ||
+      (packageFilter.toLowerCase().includes('ascend') && matchedPkgName.toLowerCase().includes('ascend'));
+
     return matchesSearch && matchesPkg;
   });
 
@@ -605,9 +680,10 @@ export default function AdminStudentsPage() {
   const pendingCount = students.filter((s) => !s.payment_approved).length;
 
   const packageColors: Record<string, { bg: string; border: string; badge: string; text: string; accent: string }> = {
-    'Ahsora IMAT Ascend':  { bg: '#F0FFF4', border: '#BBF7D0', badge: '#059669', text: '#14532D', accent: '#10B981' },
-    'Ahsora IMAT Mastery': { bg: '#F5F3FF', border: '#DDD6FE', badge: '#7C3AED', text: '#3B0764', accent: '#8B5CF6' },
-    'Ahsora Path Elite':   { bg: '#FFF7ED', border: '#FED7AA', badge: '#EA580C', text: '#7C2D12', accent: '#F97316' },
+    'Ahsora IMAT Ascend':   { bg: '#F0FFF4', border: '#BBF7D0', badge: '#059669', text: '#14532D', accent: '#10B981' },
+    'Ahsora IMAT Mastery':  { bg: '#F5F3FF', border: '#DDD6FE', badge: '#7C3AED', text: '#3B0764', accent: '#8B5CF6' },
+    'Ahsora MedPath Elite': { bg: '#FFF7ED', border: '#FED7AA', badge: '#EA580C', text: '#7C2D12', accent: '#F97316' },
+    'Ahsora Path Elite':    { bg: '#FFF7ED', border: '#FED7AA', badge: '#EA580C', text: '#7C2D12', accent: '#F97316' },
   };
 
   const getStudentPkgName = (s: StudentProfile) => {

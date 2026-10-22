@@ -241,6 +241,8 @@ export default function AdminDocumentsPage() {
               maxWidth: '480px',
               width: '100%',
               padding: '28px',
+              maxHeight: '90vh',
+              overflowY: 'auto',
             }}
             onClick={(e) => e.stopPropagation()}
           >

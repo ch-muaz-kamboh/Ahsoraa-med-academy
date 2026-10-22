@@ -224,6 +224,10 @@ export default function RegisterPage() {
           email: formData.email,
           address: formData.address,
           country: formData.country,
+          whatsapp_number: finalWhatsApp,
+          phone: finalWhatsApp,
+          selected_package: pkgObj.name,
+          package_price: pkgObj.price,
           payment_approved: true,
           created_at: new Date().toISOString(),
         });

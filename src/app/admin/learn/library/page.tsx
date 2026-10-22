@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useAppStore } from '@/lib/store';
 import {
   Library,
@@ -15,6 +15,10 @@ import {
   Lock,
   Eye,
   ShieldCheck,
+  ChevronDown,
+  ChevronUp,
+  ArrowDown,
+  ArrowUp,
 } from 'lucide-react';
 import { LibraryResource } from '@/types';
 
@@ -22,6 +26,52 @@ export default function AdminLibraryManagerPage() {
   const { libraryResources, addLibraryResource, updateLibraryResource, deleteLibraryResource } = useAppStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+
+  // Scroll state & ref for the document modal
+  const modalContentRef = useRef<HTMLDivElement>(null);
+  const [isScrolledToBottom, setIsScrolledToBottom] = useState(false);
+  const [showScrollButton, setShowScrollButton] = useState(true);
+
+  const checkScroll = () => {
+    if (!modalContentRef.current) return;
+    const { scrollTop, scrollHeight, clientHeight } = modalContentRef.current;
+    setShowScrollButton(scrollHeight > clientHeight + 15);
+    setIsScrolledToBottom(scrollTop + clientHeight >= scrollHeight - 35);
+  };
+
+  useEffect(() => {
+    if (isModalOpen) {
+      setIsScrolledToBottom(false);
+      const timer = setTimeout(checkScroll, 120);
+      return () => clearTimeout(timer);
+    }
+  }, [isModalOpen]);
+
+  const scrollToBottom = () => {
+    if (modalContentRef.current) {
+      modalContentRef.current.scrollTo({
+        top: modalContentRef.current.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  const scrollToTop = () => {
+    if (modalContentRef.current) {
+      modalContentRef.current.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  const toggleScroll = () => {
+    if (isScrolledToBottom) {
+      scrollToTop();
+    } else {
+      scrollToBottom();
+    }
+  };
 
   // Form State
   const [title, setTitle] = useState('');
@@ -288,11 +338,15 @@ export default function AdminLibraryManagerPage() {
             position: 'fixed',
             inset: 0,
             backgroundColor: 'rgba(15, 23, 42, 0.75)',
+            backdropFilter: 'blur(4px)',
             zIndex: 100,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '20px',
+            padding: '16px',
+          }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setIsModalOpen(false);
           }}
         >
           <div
@@ -300,21 +354,145 @@ export default function AdminLibraryManagerPage() {
               backgroundColor: '#FFFFFF',
               borderRadius: '20px',
               width: '100%',
-              maxWidth: '600px',
-              padding: '32px',
-              boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
+              maxWidth: '640px',
+              maxHeight: '90vh',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+              display: 'flex',
+              flexDirection: 'column',
+              position: 'relative',
+              overflow: 'hidden',
             }}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>
-                {editingId ? 'Edit Library Resource' : 'Upload New Library Resource'}
-              </h3>
-              <button onClick={() => setIsModalOpen(false)} style={{ border: 'none', background: 'none', cursor: 'pointer' }}>
-                <X size={20} color="#64748B" />
-              </button>
+            {/* Modal Header with Quick Scroll Button */}
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: '20px 28px',
+                borderBottom: '1px solid #E2E8F0',
+                backgroundColor: '#FFFFFF',
+                zIndex: 10,
+                flexShrink: 0,
+              }}
+            >
+              <div>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+                  {editingId ? 'Edit Library Resource' : 'Upload New Library Resource'}
+                </h3>
+                <p style={{ fontSize: '0.8125rem', color: '#64748B', margin: '2px 0 0 0' }}>
+                  Document metadata & student portal access settings
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                {/* Scroll Button */}
+                <button
+                  type="button"
+                  id="btn-scroll-library-modal"
+                  onClick={toggleScroll}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '8px 14px',
+                    borderRadius: '8px',
+                    backgroundColor: isScrolledToBottom ? '#EFF6FF' : '#F8FAFC',
+                    border: isScrolledToBottom ? '1px solid #93C5FD' : '1px solid #CBD5E1',
+                    color: isScrolledToBottom ? '#1D4ED8' : '#334155',
+                    fontSize: '0.8125rem',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease',
+                  }}
+                  title={isScrolledToBottom ? 'Scroll back to top' : 'Scroll down to bottom / submit'}
+                >
+                  {isScrolledToBottom ? (
+                    <>
+                      <ChevronUp size={15} /> Scroll to Top
+                    </>
+                  ) : (
+                    <>
+                      <ChevronDown size={15} /> Scroll to Bottom
+                    </>
+                  )}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  style={{
+                    border: 'none',
+                    background: '#F1F5F9',
+                    borderRadius: '8px',
+                    padding: '8px',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  title="Close"
+                >
+                  <X size={18} color="#64748B" />
+                </button>
+              </div>
             </div>
 
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {/* Scrollable Form Body */}
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', flex: 1, overflow: 'hidden' }}>
+              <div
+                ref={modalContentRef}
+                onScroll={checkScroll}
+                style={{
+                  padding: '24px 28px',
+                  overflowY: 'auto',
+                  flex: 1,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '16px',
+                  scrollBehavior: 'smooth',
+                  position: 'relative',
+                }}
+              >
+                {/* Floating Scroll Action Button */}
+                {showScrollButton && (
+                  <button
+                    type="button"
+                    onClick={toggleScroll}
+                    style={{
+                      position: 'sticky',
+                      top: '0px',
+                      alignSelf: 'flex-end',
+                      zIndex: 15,
+                      marginBottom: '-32px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: '6px 12px',
+                      borderRadius: '9999px',
+                      backgroundColor: '#0F172A',
+                      color: '#FFFFFF',
+                      fontSize: '0.75rem',
+                      fontWeight: 700,
+                      boxShadow: '0 4px 10px rgba(15, 23, 42, 0.25)',
+                      border: 'none',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                      opacity: 0.92,
+                    }}
+                    title={isScrolledToBottom ? 'Jump back to top' : 'Jump down to bottom'}
+                  >
+                    {isScrolledToBottom ? (
+                      <>
+                        <ArrowUp size={13} /> Back to Top
+                      </>
+                    ) : (
+                      <>
+                        <ArrowDown size={13} /> Scroll Down
+                      </>
+                    )}
+                  </button>
+                )}
               <div>
                 <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
                   Document / Book Title
@@ -510,20 +688,72 @@ export default function AdminLibraryManagerPage() {
                 />
               </div>
 
-              <div style={{ display: 'flex', justifySelf: 'flex-end', gap: '12px', marginTop: '12px' }}>
+              </div>
+
+              {/* Sticky Modal Footer */}
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: '16px 28px',
+                  borderTop: '1px solid #E2E8F0',
+                  backgroundColor: '#F8FAFC',
+                  flexShrink: 0,
+                }}
+              >
                 <button
                   type="button"
-                  onClick={() => setIsModalOpen(false)}
-                  style={{ padding: '12px 20px', borderRadius: '8px', border: '1px solid #CBD5E1', background: '#FFFFFF', fontWeight: 700, cursor: 'pointer' }}
+                  onClick={scrollToTop}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    fontSize: '0.8125rem',
+                    color: '#64748B',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    fontWeight: 600,
+                  }}
                 >
-                  Cancel
+                  <ChevronUp size={16} /> Scroll to top
                 </button>
-                <button
-                  type="submit"
-                  style={{ padding: '12px 24px', borderRadius: '8px', border: 'none', background: '#10B981', color: '#FFFFFF', fontWeight: 800, cursor: 'pointer' }}
-                >
-                  {editingId ? 'Save Changes' : 'Upload Resource'}
-                </button>
+
+                <div style={{ display: 'flex', gap: '12px' }}>
+                  <button
+                    type="button"
+                    onClick={() => setIsModalOpen(false)}
+                    style={{
+                      padding: '10px 18px',
+                      borderRadius: '8px',
+                      border: '1px solid #CBD5E1',
+                      background: '#FFFFFF',
+                      color: '#334155',
+                      fontWeight: 700,
+                      fontSize: '0.875rem',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    style={{
+                      padding: '10px 22px',
+                      borderRadius: '8px',
+                      border: 'none',
+                      background: '#10B981',
+                      color: '#FFFFFF',
+                      fontWeight: 800,
+                      fontSize: '0.875rem',
+                      cursor: 'pointer',
+                      boxShadow: '0 2px 4px rgba(16, 185, 129, 0.2)',
+                    }}
+                  >
+                    {editingId ? 'Save Changes' : 'Upload Resource'}
+                  </button>
+                </div>
               </div>
             </form>
           </div>

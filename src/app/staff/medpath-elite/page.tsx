@@ -198,17 +198,24 @@ export default function StaffMedpathElitePage() {
       }
     };
 
-    // 0. Fetch real enrolled students from server /api/admin/students first
+    const isElitePackage = (pkg?: string) => {
+      if (!pkg) return false;
+      const lower = pkg.toLowerCase().trim();
+      return lower.includes('elite') || lower.includes('medpath') || (lower.includes('path') && !lower.includes('empathy')) || getPackageByIdOrName(pkg).id === 'elite';
+    };
+
+    // 0. Fetch real enrolled students from server /api/admin/students (strictly MedPath Elite only)
     try {
       const res = await fetch('/api/admin/students');
       if (res.ok) {
         const json = await res.json();
         if (json.success && Array.isArray(json.students)) {
           json.students.forEach((s: any) => {
-            const isApproved = s.payment_approved === true || s.paymentApproved === true;
             const pkg = s.selected_package || s.selectedPackage || '';
-            const isElite = pkg.toLowerCase().includes('path') || pkg.toLowerCase().includes('elite');
-            if (isApproved || isElite || s.email) {
+            const isElite = isElitePackage(pkg);
+            const hasMedpathStages = s.stages && Object.keys(s.stages).length > 0;
+            // Strictly only MedPath Elite enrolled students
+            if (isElite || hasMedpathStages) {
               addOrMerge(
                 s.id,
                 s.id,
@@ -264,23 +271,18 @@ export default function StaffMedpathElitePage() {
       );
     });
 
-    // 3. Load from adminStudentList in localStorage (contains all actively enrolled students with access)
+    // 3. Load from adminStudentList in localStorage (strictly MedPath Elite only)
     try {
       const adminListStr = localStorage.getItem('adminStudentList');
       if (adminListStr) {
         const adminList: any[] = JSON.parse(adminListStr);
         adminList.forEach((item) => {
-          const isAccessGranted =
-            item.paymentApproved === true ||
-            item.payment_approved === true ||
-            item.status === 'active' ||
-            item.accessGranted === true;
-
           const pkg = item.selectedPackage || item.selected_package || '';
-          const isElitePkg = getPackageByIdOrName(pkg).id === 'elite' || pkg.toLowerCase().includes('path');
+          const isElitePkg = isElitePackage(pkg);
+          const hasMedpathStages = item.stages && Object.keys(item.stages).length > 0;
 
-          // Include if payment approved / active or explicitly elite
-          if (isAccessGranted || isElitePkg || item.email) {
+          // Strictly only include if MedPath Elite
+          if (isElitePkg || hasMedpathStages) {
             const name = item.fullName || `${item.firstName || ''} ${item.lastName || ''}`.trim() || 'Enrolled Student';
             addOrMerge(
               item.id,
@@ -298,32 +300,36 @@ export default function StaffMedpathElitePage() {
       }
     } catch (e) {}
 
-    // 4. Load from recentRegistration
+    // 4. Load from recentRegistration (strictly MedPath Elite only)
     try {
       const recentStr = localStorage.getItem('recentRegistration');
       if (recentStr) {
         const recent = JSON.parse(recentStr);
-        const name = recent.fullName || `${recent.firstName || ''} ${recent.lastName || ''}`.trim() || 'Enrolled Student';
-        addOrMerge(
-          recent.id,
-          recent.id,
-          name,
-          recent.email,
-          recent.whatsappNumber || recent.phone || '',
-          recent.ama_id || `AMA-2026-${Math.floor(1000 + Math.random() * 9000)}`,
-          recent.country || 'International',
-          recent.createdAt,
-          recent.stages
-        );
+        const pkg = recent.selectedPackage || recent.selected_package || '';
+        if (isElitePackage(pkg) || recent.stages) {
+          const name = recent.fullName || `${recent.firstName || ''} ${recent.lastName || ''}`.trim() || 'Enrolled Student';
+          addOrMerge(
+            recent.id,
+            recent.id,
+            name,
+            recent.email,
+            recent.whatsappNumber || recent.phone || '',
+            recent.ama_id || `AMA-2026-${Math.floor(1000 + Math.random() * 9000)}`,
+            recent.country || 'International',
+            recent.createdAt,
+            recent.stages
+          );
+        }
       }
     } catch (e) {}
 
-    // 5. Load from ahsora_currentUser
+    // 5. Load from ahsora_currentUser (strictly MedPath Elite only)
     try {
       const curStr = localStorage.getItem('ahsora_currentUser');
       if (curStr) {
         const cur = JSON.parse(curStr);
-        if (cur.email) {
+        const pkg = cur.selectedPackage || cur.selected_package || '';
+        if (cur.email && (isElitePackage(pkg) || cur.stages)) {
           const name = `${cur.firstName || ''} ${cur.lastName || ''}`.trim() || 'Active Student';
           addOrMerge(
             cur.id,
