@@ -94,6 +94,8 @@ export interface Profile {
   targetCountry?: string;
   selectedPackage?: string;
   packagePrice?: string;
+  ama_id?: string;
+  amaId?: string;
   isVerified: boolean;
   createdAt: string;
 }

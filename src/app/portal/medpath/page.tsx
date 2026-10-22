@@ -147,7 +147,7 @@ export default function MedpathPage() {
       let pkg: string | null = null;
       const candidateEmails: string[] = [currentUser.email || ''];
       let studentName: string = `${currentUser.firstName || ''} ${currentUser.lastName || ''}`.trim();
-      let detectedAmaId = currentUser.ama_id || '';
+      let detectedAmaId = currentUser.ama_id || (currentUser as any).amaId || '';
 
       // 1. Try Supabase user metadata and profile
       try {
