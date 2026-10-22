@@ -9,14 +9,14 @@ import { getDynamicPackagePrices, syncPricesFromSupabase, DynamicPackagePrice } 
 import { ArrowRight, Check, CheckCircle2, Globe, Lock, Mail, Phone, Sparkles, User, ShieldCheck, Eye, EyeOff, MapPin } from 'lucide-react';
 import Logo from '@/components/brand/Logo';
 
-export interface CountryDialCode {
+interface CountryDialCode {
   name: string;
   code: string;
   dial: string;
   flag: string;
 }
 
-export const COUNTRY_DIAL_CODES: CountryDialCode[] = [
+const COUNTRY_DIAL_CODES: CountryDialCode[] = [
   { name: 'Italy', code: 'IT', dial: '+39', flag: '🇮🇹' },
   { name: 'Pakistan', code: 'PK', dial: '+92', flag: '🇵🇰' },
   { name: 'United Arab Emirates', code: 'AE', dial: '+971', flag: '🇦🇪' },
