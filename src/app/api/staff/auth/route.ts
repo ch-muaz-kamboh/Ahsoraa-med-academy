@@ -50,8 +50,8 @@ export async function GET() {
         const meta = u.user_metadata?.staff_data || u.user_metadata || {};
         return {
           id: u.id,
-          email: u.email,
-          displayName: meta.displayName || meta.display_name || meta.full_name || u.email?.split('@')[0],
+          email: u.email || '',
+          displayName: meta.displayName || meta.display_name || meta.full_name || u.email?.split('@')[0] || '',
           accountType: 'staff',
           role: meta.role || 'teacher',
           assignedSubjects: meta.assignedSubjects || meta.assigned_subjects || ['Biology'],
@@ -66,7 +66,7 @@ export async function GET() {
     // Merge default staff if not present
     const combined = [...staffFromAuth];
     DEFAULT_STAFF.forEach((def) => {
-      if (!combined.some((s) => s.email.toLowerCase() === def.email.toLowerCase())) {
+      if (!combined.some((s) => (s.email || '').toLowerCase() === def.email.toLowerCase())) {
         combined.unshift(def);
       }
     });
@@ -126,8 +126,8 @@ export async function POST(request: Request) {
 
       const staffProfile = {
         id: foundUser.id,
-        email: foundUser.email,
-        displayName: meta.displayName || meta.display_name || meta.full_name || foundUser.email?.split('@')[0],
+        email: foundUser.email || '',
+        displayName: meta.displayName || meta.display_name || meta.full_name || foundUser.email?.split('@')[0] || '',
         accountType: 'staff',
         role: meta.role || 'teacher',
         assignedSubjects: meta.assignedSubjects || meta.assigned_subjects || ['Biology'],
