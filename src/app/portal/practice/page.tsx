@@ -121,29 +121,81 @@ export default function PracticePage() {
 
   useEffect(() => {
     const fetchCounts = async () => {
+      let allQuestions: { id?: string; subject: string; question_text?: string }[] = [];
       try {
         const { data } = await supabase
           .from('qb_questions')
-          .select('subject')
+          .select('id, subject, question_text')
           .eq('is_active', true);
         if (data && data.length > 0) {
-          const counts: Record<string,number> = {};
-          data.forEach(r => { counts[r.subject] = (counts[r.subject]||0)+1; });
-          setSubjectCounts(Object.entries(counts).map(([subject,count]) => ({ subject, count })));
-          setLoadingCounts(false);
-          return;
+          allQuestions.push(...data);
         }
       } catch (e) {}
 
-      // Fallback to local imported questions bank (820 MCQs)
+      // Merge local storage approved questions (for instant availability before DB roundtrip)
+      try {
+        const local = localStorage.getItem('ahsora_local_qb_questions');
+        if (local) {
+          const parsed = JSON.parse(local);
+          if (Array.isArray(parsed)) {
+            parsed.forEach((q: any) => {
+              if (q.subject && !allQuestions.some((existing: any) => existing.id === q.id || (existing.question_text && existing.question_text.trim() === (q.question_text || '').trim()))) {
+                allQuestions.push(q);
+              }
+            });
+          }
+        }
+      } catch (e) {}
+
+      // Merge published staff questions
+      try {
+        const staff = localStorage.getItem('ahsora_staffQuestions');
+        if (staff) {
+          const parsed = JSON.parse(staff);
+          if (Array.isArray(parsed)) {
+            parsed.filter((q: any) => q.status === 'published').forEach((q: any) => {
+              if (q.subject && !allQuestions.some((existing: any) => existing.id === q.id || (existing.question_text && existing.question_text.trim() === (q.question_text || '').trim()))) {
+                allQuestions.push(q);
+              }
+            });
+          }
+        }
+      } catch (e) {}
+
+      // If docx bank was explicitly synced by admin, include pool
+      const isDocxSynced = typeof window !== 'undefined' && localStorage.getItem('ahsora_qb_docx_synced') === 'true';
+      if (allQuestions.length === 0 && isDocxSynced) {
+        allQuestions = getPool();
+      }
+
       const counts: Record<string, number> = {};
-      getPool().forEach(q => {
-        counts[q.subject] = (counts[q.subject] || 0) + 1;
+      allQuestions.forEach(q => {
+        if (q.subject) {
+          const match = SUBJECTS.find(s => s.name.toLowerCase() === q.subject.trim().toLowerCase());
+          const sName = match ? match.name : q.subject;
+          counts[sName] = (counts[sName] || 0) + 1;
+        }
       });
-      setSubjectCounts(Object.entries(counts).map(([subject, count]) => ({ subject, count })));
+
+      // Ensure every subject has an entry (even if 0)
+      SUBJECTS.forEach(s => {
+        if (typeof counts[s.name] === 'undefined') {
+          counts[s.name] = 0;
+        }
+      });
+
+      setSubjectCounts(SUBJECTS.map(s => ({ subject: s.name, count: counts[s.name] || 0 })));
       setLoadingCounts(false);
     };
     fetchCounts();
+
+    const handleUpdate = () => { fetchCounts(); };
+    window.addEventListener('ahsora_qb_updated', handleUpdate);
+    window.addEventListener('storage', handleUpdate);
+    return () => {
+      window.removeEventListener('ahsora_qb_updated', handleUpdate);
+      window.removeEventListener('storage', handleUpdate);
+    };
   }, [supabase]);
 
   useEffect(() => {
@@ -300,26 +352,58 @@ export default function PracticePage() {
       <div style={{ display:'grid', gridTemplateColumns:'1fr 360px', gap:'28px', alignItems:'start' }}>
         {/* Subject cards */}
         <div>
-          <h2 style={{ fontSize:'1rem', fontWeight:700, color:'#334155', marginBottom:'14px' }}>Browse by Subject</h2>
+          <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'14px' }}>
+            <h2 style={{ fontSize:'1rem', fontWeight:700, color:'#334155', margin:0 }}>Browse by Subject</h2>
+            <span style={{ fontSize:'0.8125rem', fontWeight:700, color:'#059669', backgroundColor:'#ECFDF5', padding:'4px 10px', borderRadius:'20px' }}>
+              {SUBJECTS.length} Subjects · {totalAvailable.toLocaleString()} Total Questions
+            </span>
+          </div>
           {loadingCounts ? (
-            <div style={{ display:'flex', gap:'10px', color:'#64748B', alignItems:'center' }}>
-              <Loader2 size={18} style={{ animation:'spin 1s linear infinite' }} /> Loading…
+            <div style={{ display:'flex', gap:'10px', color:'#64748B', alignItems:'center', padding:'24px' }}>
+              <Loader2 size={18} style={{ animation:'spin 1s linear infinite' }} /> Loading subjects…
             </div>
           ) : (
             <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(200px,1fr))', gap:'12px' }}>
-              {SUBJECTS.map(s => {
-                const cnt = subjectCounts.find(c => c.subject===s.name)?.count || 0;
+              {SUBJECTS.map((s, index) => {
+                const cnt = subjectCounts.find(c => c.subject.toLowerCase() === s.name.toLowerCase())?.count || 0;
                 const active = subject === s.name;
+                const num = index + 1;
                 return (
                   <button key={s.name}
                     onClick={() => { setSubject(active ? '' : s.name); setChapter(''); setTopic(''); }}
-                    style={{ textAlign:'left', padding:'16px', borderRadius:'12px',
+                    style={{ textAlign:'left', padding:'16px', borderRadius:'14px',
                       border: `2px solid ${active ? s.color : '#E2E8F0'}`,
                       backgroundColor: active ? s.bg : '#fff',
-                      cursor:'pointer', transition:'all 0.15s ease' }}>
-                    <div style={{ color:s.color, marginBottom:'8px' }}>{s.icon}</div>
-                    <div style={{ fontSize:'0.875rem', fontWeight:700, color:'#0F172A' }}>{s.name}</div>
-                    <div style={{ fontSize:'0.75rem', color:'#94A3B8', marginTop:'3px' }}>{cnt.toLocaleString()} questions</div>
+                      cursor:'pointer', transition:'all 0.15s ease',
+                      position:'relative',
+                      boxShadow: active ? '0 4px 14px rgba(0,0,0,0.06)' : 'none' }}>
+                    <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'10px' }}>
+                      <div style={{ color:s.color }}>{s.icon}</div>
+                      <span style={{
+                        fontSize:'0.75rem',
+                        fontWeight:800,
+                        padding:'3px 9px',
+                        borderRadius:'20px',
+                        backgroundColor: active ? '#fff' : '#F1F5F9',
+                        color: active ? s.color : '#475569',
+                        border: '1px solid ' + (active ? s.color : '#E2E8F0')
+                      }}>
+                        #{num}
+                      </span>
+                    </div>
+                    <div style={{ fontSize:'0.9rem', fontWeight:700, color:'#0F172A', marginBottom:'4px' }}>
+                      {num}. {s.name}
+                    </div>
+                    <div style={{ display:'flex', alignItems:'center', gap:'6px', fontSize:'0.75rem', fontWeight:600, color: cnt > 0 ? s.color : '#64748B' }}>
+                      <span style={{
+                        display:'inline-block',
+                        width:'7px',
+                        height:'7px',
+                        borderRadius:'50%',
+                        backgroundColor: cnt > 0 ? s.color : '#CBD5E1'
+                      }} />
+                      <span>{cnt.toLocaleString()} {cnt === 1 ? 'Question' : 'Questions'}</span>
+                    </div>
                   </button>
                 );
               })}
@@ -338,8 +422,15 @@ export default function PracticePage() {
           <div style={{ marginBottom:'14px' }}>
             <label style={LS}>Subject</label>
             <select value={subject} onChange={e => { setSubject(e.target.value); setChapter(''); setTopic(''); }} style={SS}>
-              <option value="">All Subjects (Mixed)</option>
-              {SUBJECTS.map(s => <option key={s.name} value={s.name}>{s.name}</option>)}
+              <option value="">All Subjects (Mixed — {totalAvailable.toLocaleString()} Total Questions)</option>
+              {SUBJECTS.map((s, index) => {
+                const cnt = subjectCounts.find(c => c.subject.toLowerCase() === s.name.toLowerCase())?.count || 0;
+                return (
+                  <option key={s.name} value={s.name}>
+                    #{index + 1} — {s.name} ({cnt.toLocaleString()} {cnt === 1 ? 'Question' : 'Questions'})
+                  </option>
+                );
+              })}
             </select>
           </div>
 
