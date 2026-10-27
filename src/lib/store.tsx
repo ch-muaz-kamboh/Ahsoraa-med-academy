@@ -1752,7 +1752,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           let poolArray = cachedPool ? JSON.parse(cachedPool) : [];
           const isDocxSynced = typeof window !== 'undefined' && localStorage.getItem('ahsora_qb_docx_synced') === 'true';
           if (!isDocxSynced) {
-            poolArray = poolArray.filter((item: any) => item.source_reference && item.source_reference.startsWith('Staff:'));
+            poolArray = poolArray.filter((item: any) => {
+              if (item.source_reference && item.source_reference.startsWith('Staff:')) return true;
+              if (item.id && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(item.id)) return true;
+              if (item.id && !item.id.startsWith('qb-BIO-') && !item.id.startsWith('qb-CHEM-')) return true;
+              return false;
+            });
           }
           poolArray = poolArray.filter((item: any) => item.id !== (qbFormat.id || approvedQ.id) && item.question_text !== qbFormat.question_text);
           poolArray.unshift(qbFormat);

@@ -58,6 +58,18 @@ const SUBJECTS = [
   { name:'Reading & Acquired Knowledge',icon:<Globe size={20}/>,       color:'#F97316', bg:'#FFF7ED' },
 ];
 
+function normalizeSubject(raw: string = ''): string {
+  const s = raw.toLowerCase().trim();
+  if (s.includes('chem')) return 'Chemistry';
+  if (s.includes('bio') || s.includes('anat') || s.includes('physio') || s.includes('cell') || s.includes('gene')) return 'Biology';
+  if (s.includes('physic')) return 'Physics';
+  if (s.includes('math')) return 'Mathematics';
+  if (s.includes('logic') || s.includes('reason') || s.includes('critical')) return 'Logical Reasoning';
+  if (s.includes('read') || s.includes('knowledge') || s.includes('general') || s.includes('culture')) return 'Reading & Acquired Knowledge';
+  const match = SUBJECTS.find(sub => sub.name.toLowerCase() === s);
+  return match ? match.name : (raw.charAt(0).toUpperCase() + raw.slice(1));
+}
+
 const BIOLOGY_STRUCTURE: Record<string, string[]> = {
   'Genetics, Heredity & Molecular Biology': [
     'DNA, Chromosomes & Genome Organisation',
@@ -171,8 +183,7 @@ export default function PracticePage() {
       const counts: Record<string, number> = {};
       allQuestions.forEach(q => {
         if (q.subject) {
-          const match = SUBJECTS.find(s => s.name.toLowerCase() === q.subject.trim().toLowerCase());
-          const sName = match ? match.name : q.subject;
+          const sName = normalizeSubject(q.subject);
           counts[sName] = (counts[sName] || 0) + 1;
         }
       });
@@ -204,22 +215,24 @@ export default function PracticePage() {
       try {
         const { data } = await supabase
           .from('qb_questions')
-          .select('chapter, topic')
-          .eq('subject', subject)
+          .select('subject, chapter, topic')
           .eq('is_active', true);
         if (data && data.length > 0) {
-          const uniqueChapters = [...new Set(data.map(r => r.chapter).filter(Boolean))].sort();
-          setAvailableChapters(uniqueChapters as string[]);
-          
-          let topicsData = data;
-          if (chapter) topicsData = topicsData.filter(r => r.chapter === chapter);
-          const uniqueTopics = [...new Set(topicsData.map(r => r.topic).filter(Boolean))].sort();
-          setAvailableTopics(uniqueTopics as string[]);
-          return;
+          const matching = data.filter(r => normalizeSubject(r.subject).toLowerCase() === subject.toLowerCase());
+          if (matching.length > 0) {
+            const uniqueChapters = [...new Set(matching.map(r => r.chapter).filter(Boolean))].sort();
+            setAvailableChapters(uniqueChapters as string[]);
+            
+            let topicsData = matching;
+            if (chapter) topicsData = topicsData.filter(r => r.chapter === chapter);
+            const uniqueTopics = [...new Set(topicsData.map(r => r.topic).filter(Boolean))].sort();
+            setAvailableTopics(uniqueTopics as string[]);
+            return;
+          }
         }
       } catch (e) {}
 
-      const filtered = getPool().filter(q => q.subject === subject);
+      const filtered = getPool().filter(q => normalizeSubject(q.subject).toLowerCase() === subject.toLowerCase());
       const uniqueChapters = [...new Set(filtered.map(q => q.chapter).filter(Boolean))].sort();
       setAvailableChapters(uniqueChapters as string[]);
       
@@ -299,7 +312,7 @@ export default function PracticePage() {
       } catch (e) {}
 
       let filtered = pool;
-      if (subject) filtered = filtered.filter(q => q.subject && q.subject.toLowerCase() === subject.toLowerCase());
+      if (subject) filtered = filtered.filter(q => q.subject && (q.subject.toLowerCase() === subject.toLowerCase() || normalizeSubject(q.subject).toLowerCase() === subject.toLowerCase()));
       if (topic) filtered = filtered.filter(q => q.topic && q.topic.toLowerCase() === topic.toLowerCase());
       if (chapter) filtered = filtered.filter(q => q.chapter && q.chapter.toLowerCase() === chapter.toLowerCase());
       if (difficulty) filtered = filtered.filter(q => q.difficulty && q.difficulty.toLowerCase() === difficulty.toLowerCase());

@@ -93,7 +93,12 @@ export default function PracticeTakePage() {
       if (loadedQuestions.length === 0) {
         let pool = getPool();
         if (session.subject_filter) {
-          const sFiltered = pool.filter((q: any) => q.subject && q.subject.toLowerCase() === session.subject_filter.toLowerCase());
+          const sf = session.subject_filter.toLowerCase();
+          const sFiltered = pool.filter((q: any) => {
+            if (!q.subject) return false;
+            const qs = q.subject.toLowerCase();
+            return qs === sf || (qs.includes('chem') && sf.includes('chem')) || (qs.includes('bio') && sf.includes('bio'));
+          });
           if (sFiltered.length > 0) pool = sFiltered;
         }
         if (session.topic_filter) {

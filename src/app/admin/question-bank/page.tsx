@@ -33,6 +33,18 @@ interface QBQuestion {
 const SUBJECTS = ['Biology','Chemistry','Physics','Mathematics','Logical Reasoning','Reading & Acquired Knowledge'];
 const DIFFICULTIES: ('easy' | 'medium' | 'hard')[] = ['easy', 'medium', 'hard'];
 
+function normalizeSubject(raw: string = ''): string {
+  const s = raw.toLowerCase().trim();
+  if (s.includes('chem')) return 'Chemistry';
+  if (s.includes('bio') || s.includes('anat') || s.includes('physio') || s.includes('cell') || s.includes('gene')) return 'Biology';
+  if (s.includes('physic')) return 'Physics';
+  if (s.includes('math')) return 'Mathematics';
+  if (s.includes('logic') || s.includes('reason') || s.includes('critical')) return 'Logical Reasoning';
+  if (s.includes('read') || s.includes('knowledge') || s.includes('general') || s.includes('culture')) return 'Reading & Acquired Knowledge';
+  const match = SUBJECTS.find(sub => sub.toLowerCase() === s);
+  return match || raw;
+}
+
 // 5 Biology topics and their chapters (used for dropdown filtering)
 const BIOLOGY_STRUCTURE: Record<string, string[]> = {
   'Genetics, Heredity & Molecular Biology': [
@@ -173,10 +185,18 @@ export default function AdminQuestionBankPage() {
       } catch (e) {}
     }
 
-    // Filter out un-synced syllabus questions if docx sync was not performed by admin
+    // Filter out un-synced pre-bundled syllabus questions if docx sync was not performed by admin
     const isDocxSynced = typeof window !== 'undefined' && localStorage.getItem('ahsora_qb_docx_synced') === 'true';
     if (!isDocxSynced) {
-      allPool = allPool.filter((q) => q.source_reference && q.source_reference.startsWith('Staff:'));
+      allPool = allPool.filter((q) => {
+        // Keep all staff questions
+        if (q.source_reference && q.source_reference.startsWith('Staff:')) return true;
+        // Keep all questions with valid UUIDs (created in database by admin or staff)
+        if (q.id && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(q.id)) return true;
+        // Keep any questions that don't match the legacy pre-bundled docx IDs
+        if (q.id && !q.id.startsWith('qb-BIO-') && !q.id.startsWith('qb-CHEM-')) return true;
+        return false;
+      });
       try {
         localStorage.setItem('ahsora_local_qb_questions', JSON.stringify(allPool));
       } catch (e) {}
@@ -219,7 +239,7 @@ export default function AdminQuestionBankPage() {
     }
 
     if (filterSubject) {
-      filtered = filtered.filter(q => q.subject && q.subject.toLowerCase() === filterSubject.toLowerCase());
+      filtered = filtered.filter(q => q.subject && (q.subject.toLowerCase() === filterSubject.toLowerCase() || normalizeSubject(q.subject).toLowerCase() === filterSubject.toLowerCase()));
     }
     if (filterTopic) {
       filtered = filtered.filter(q => q.topic && q.topic.toLowerCase() === filterTopic.toLowerCase());
