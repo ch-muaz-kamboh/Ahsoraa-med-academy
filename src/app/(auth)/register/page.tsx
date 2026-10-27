@@ -188,6 +188,7 @@ export default function RegisterPage() {
 
     const fullName = `${formData.firstName} ${formData.lastName}`.trim();
     const pkgObj = getPackageByIdOrName(formData.selectedPackage);
+    const generatedAmaId = `AMA-${Math.floor(100000 + Math.random() * 900000)}`;
 
     try {
       const supabase = createClient();
@@ -207,6 +208,7 @@ export default function RegisterPage() {
             phone: finalWhatsApp,
             selected_package: pkgObj.name,
             package_price: pkgObj.price,
+            ama_id: generatedAmaId,
           },
         },
       });
@@ -229,6 +231,7 @@ export default function RegisterPage() {
           selected_package: pkgObj.name,
           package_price: pkgObj.price,
           payment_approved: true,
+          ama_id: generatedAmaId,
           created_at: new Date().toISOString(),
         });
       }
@@ -242,7 +245,7 @@ export default function RegisterPage() {
     // Store in localStorage for demo fallback persistence
     const pendingStudent = {
       id: `usr-reg-${Date.now()}`,
-      ama_id: `AMA-${Math.floor(100000 + Math.random() * 900000)}`,
+      ama_id: generatedAmaId,
       firstName: formData.firstName,
       lastName: formData.lastName,
       fullName: fullName,
@@ -259,9 +262,15 @@ export default function RegisterPage() {
     };
 
     try {
+      // Clear previous student test data and mistakes so new student starts fresh
+      localStorage.removeItem('ahsora_mistakes');
+      localStorage.removeItem('ahsora_testAttempts');
+      localStorage.removeItem('ahsora_practice_sessions');
+
       localStorage.setItem('recentRegistration', JSON.stringify(pendingStudent));
       localStorage.setItem('ahsora_currentUser', JSON.stringify({
         id: pendingStudent.id,
+        ama_id: generatedAmaId,
         role: 'student',
         firstName: formData.firstName,
         lastName: formData.lastName,

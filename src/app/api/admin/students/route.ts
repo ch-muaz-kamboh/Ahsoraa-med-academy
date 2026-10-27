@@ -126,7 +126,8 @@ export async function PATCH(request: Request) {
     const body = await request.json();
     const rawStudentId = body.studentId || body.id;
     const rawEmail = (body.studentEmail || body.email || '').toLowerCase().trim();
-    const { selectedPackage, packagePrice, paymentApproved } = body;
+    const { selectedPackage, packagePrice, paymentApproved, ama_id, enrollmentNumber } = body;
+    const resolvedAmaId = ama_id || enrollmentNumber;
 
     if (!rawStudentId && !rawEmail) {
       return NextResponse.json({ success: false, error: 'studentId or studentEmail required' }, { status: 400 });
@@ -158,6 +159,9 @@ export async function PATCH(request: Request) {
         if (packagePrice) {
           updateData.user_metadata.package_price = packagePrice;
         }
+        if (resolvedAmaId) {
+          updateData.user_metadata.ama_id = resolvedAmaId;
+        }
         if (Object.keys(updateData.user_metadata).length > 0) {
           await supabase.auth.admin.updateUserById(targetUserId, updateData);
         }
@@ -176,6 +180,9 @@ export async function PATCH(request: Request) {
     }
     if (packagePrice) {
       profileUpdate.package_price = packagePrice;
+    }
+    if (resolvedAmaId) {
+      profileUpdate.ama_id = resolvedAmaId;
     }
     if (Object.keys(profileUpdate).length > 0) {
       try {

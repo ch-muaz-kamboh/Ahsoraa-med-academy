@@ -118,6 +118,150 @@ const STAGES_CONFIG: StageConfig[] = [
   },
 ];
 
+function StageCommentEditor({
+  stageKey,
+  initialComment,
+  placeholder,
+  label,
+  onSaveComment,
+  isSaving,
+}: {
+  stageKey: string;
+  initialComment: string;
+  placeholder: string;
+  label: string;
+  onSaveComment: (comment: string) => void;
+  isSaving: boolean;
+}) {
+  const [comment, setComment] = React.useState(initialComment || '');
+  const [saveStatus, setSaveStatus] = React.useState<'idle' | 'saving' | 'saved'>('idle');
+  const prevStageKeyRef = React.useRef(stageKey);
+  const lastSavedRef = React.useRef(initialComment || '');
+  const timerRef = React.useRef<NodeJS.Timeout | null>(null);
+
+  // When stageKey changes (user switched stage or student), sync to initialComment
+  React.useEffect(() => {
+    if (prevStageKeyRef.current !== stageKey) {
+      prevStageKeyRef.current = stageKey;
+      setComment(initialComment || '');
+      lastSavedRef.current = initialComment || '';
+      setSaveStatus('idle');
+    }
+  }, [stageKey, initialComment]);
+
+  // Clean up timer on unmount
+  React.useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
+
+  const saveComment = React.useCallback(
+    (valToSave: string) => {
+      if (valToSave === lastSavedRef.current) return;
+      lastSavedRef.current = valToSave;
+      setSaveStatus('saving');
+      onSaveComment(valToSave);
+      setTimeout(() => {
+        setSaveStatus('saved');
+        setTimeout(() => setSaveStatus('idle'), 2500);
+      }, 300);
+    },
+    [onSaveComment]
+  );
+
+  const handleChange = (val: string) => {
+    setComment(val);
+    setSaveStatus('idle');
+    // Debounced auto-save (750ms) so typing is 100% smooth without keystroke drops
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      saveComment(val);
+    }, 750);
+  };
+
+  const handleBlur = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    saveComment(comment);
+  };
+
+  const handleManualSave = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    saveComment(comment);
+  };
+
+  const hasUnsaved = comment !== lastSavedRef.current;
+
+  return (
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+        <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#475569' }}>
+          {label}
+        </label>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          {saveStatus === 'saved' && (
+            <span style={{ fontSize: '0.72rem', color: '#059669', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
+              ✓ Saved &amp; synced
+            </span>
+          )}
+          {saveStatus === 'saving' && (
+            <span style={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 600 }}>
+              Saving...
+            </span>
+          )}
+          {hasUnsaved && saveStatus === 'idle' && (
+            <span style={{ fontSize: '0.72rem', color: '#D97706', fontWeight: 700 }}>
+              ● Typing draft...
+            </span>
+          )}
+        </div>
+      </div>
+      <textarea
+        rows={2}
+        placeholder={placeholder}
+        value={comment}
+        onChange={(e) => handleChange(e.target.value)}
+        onBlur={handleBlur}
+        style={{
+          width: '100%',
+          padding: '10px 12px',
+          borderRadius: '8px',
+          border: hasUnsaved ? '1.5px solid #F59E0B' : '1px solid #CBD5E1',
+          fontSize: '0.85rem',
+          resize: 'vertical',
+          backgroundColor: '#FFFFFF',
+          outline: 'none',
+          boxSizing: 'border-box',
+          transition: 'border 0.2s ease',
+        }}
+      />
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '6px' }}>
+        <button
+          type="button"
+          onClick={handleManualSave}
+          disabled={isSaving || (!hasUnsaved && saveStatus !== 'idle')}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '6px',
+            padding: '6px 14px',
+            borderRadius: '6px',
+            backgroundColor: hasUnsaved ? '#059669' : '#F1F5F9',
+            color: hasUnsaved ? '#FFFFFF' : '#64748B',
+            fontSize: '0.78rem',
+            fontWeight: 700,
+            border: hasUnsaved ? 'none' : '1px solid #CBD5E1',
+            cursor: hasUnsaved && !isSaving ? 'pointer' : 'default',
+            transition: 'all 0.2s ease',
+          }}
+        >
+          {isSaving || saveStatus === 'saving' ? 'Saving...' : saveStatus === 'saved' ? '✓ Saved' : '💾 Save / Send Note to Student'}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function StaffMedpathElitePage() {
   const { eliteStudents, updateEliteStage, staffProfile, documents, updateDocStatus } = useAppStore();
   const [allStudents, setAllStudents] = useState<MedpathEliteStudent[]>([]);
@@ -128,6 +272,107 @@ export default function StaffMedpathElitePage() {
   const [savingKey, setSavingKey] = useState<string | null>(null);
   const [toast, setToast] = useState<string | null>(null);
   const [previewDoc, setPreviewDoc] = useState<StudentDocument | null>(null);
+  const [isEditingAmaId, setIsEditingAmaId] = useState(false);
+  const [editedAmaId, setEditedAmaId] = useState('');
+
+  useEffect(() => {
+    if (selectedStudent) {
+      setEditedAmaId(selectedStudent.enrollmentNumber || '');
+      setIsEditingAmaId(false);
+    }
+  }, [selectedStudent?.id, selectedStudent?.email]);
+
+  const handleSaveEnrollmentNumber = async (newAmaId: string) => {
+    if (!selectedStudent || !newAmaId.trim()) return;
+    const cleanId = newAmaId.trim();
+
+    setSelectedStudent((prev) => (prev ? { ...prev, enrollmentNumber: cleanId } : null));
+    setAllStudents((prev) =>
+      prev.map((s) => {
+        if (s.id === selectedStudent.id || s.email.toLowerCase() === selectedStudent.email.toLowerCase()) {
+          return { ...s, enrollmentNumber: cleanId };
+        }
+        return s;
+      })
+    );
+
+    try {
+      const savedStr = localStorage.getItem('ahsora_elite_students');
+      let currentArr: MedpathEliteStudent[] = savedStr ? JSON.parse(savedStr) : [];
+      const idx = currentArr.findIndex(
+        (c) => c.email.toLowerCase() === selectedStudent.email.toLowerCase() || c.id === selectedStudent.id
+      );
+      if (idx !== -1) {
+        currentArr[idx].enrollmentNumber = cleanId;
+      }
+      localStorage.setItem('ahsora_elite_students', JSON.stringify(currentArr));
+    } catch {}
+
+    try {
+      const adminListStr = localStorage.getItem('adminStudentList');
+      if (adminListStr) {
+        const adminList: any[] = JSON.parse(adminListStr);
+        const match = adminList.find(
+          (item) => item.email?.toLowerCase().trim() === selectedStudent.email.toLowerCase().trim()
+        );
+        if (match) {
+          match.ama_id = cleanId;
+          match.enrollmentNumber = cleanId;
+          localStorage.setItem('adminStudentList', JSON.stringify(adminList));
+        }
+      }
+
+      const recentStr = localStorage.getItem('recentRegistration');
+      if (recentStr) {
+        const recent = JSON.parse(recentStr);
+        if (recent.email?.toLowerCase().trim() === selectedStudent.email.toLowerCase().trim()) {
+          recent.ama_id = cleanId;
+          localStorage.setItem('recentRegistration', JSON.stringify(recent));
+        }
+      }
+
+      const curStr = localStorage.getItem('ahsora_currentUser');
+      if (curStr) {
+        const cur = JSON.parse(curStr);
+        if (cur.email?.toLowerCase().trim() === selectedStudent.email.toLowerCase().trim()) {
+          cur.ama_id = cleanId;
+          localStorage.setItem('ahsora_currentUser', JSON.stringify(cur));
+        }
+      }
+    } catch {}
+
+    try {
+      await fetch('/api/medpath/stages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: selectedStudent.email,
+          studentId: selectedStudent.studentId || selectedStudent.id,
+          enrollmentNumber: cleanId,
+        }),
+      });
+
+      await fetch('/api/admin/students', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          studentEmail: selectedStudent.email,
+          studentId: selectedStudent.studentId || selectedStudent.id,
+          ama_id: cleanId,
+        }),
+      });
+    } catch (e) {
+      console.warn('Enrollment number sync warning:', e);
+    }
+
+    setIsEditingAmaId(false);
+    window.dispatchEvent(new Event('ahsora_elite_updated'));
+    window.dispatchEvent(new Event('ahsora_student_updated'));
+    window.dispatchEvent(new Event('storage'));
+
+    setToast('Student Enrollment ID updated & synchronized!');
+    setTimeout(() => setToast(null), 3000);
+  };
 
   // Helper to sync and aggregate all enrolled active students
   const loadAggregatedStudents = async () => {
@@ -175,7 +420,7 @@ export default function StaffMedpathElitePage() {
           studentName: name || cleanEmail.split('@')[0],
           email: cleanEmail,
           phone: phone || '',
-          enrollmentNumber: resolvedAmaId || `AMA-2026-${Math.floor(1000 + Math.random() * 9000)}`,
+          enrollmentNumber: resolvedAmaId || 'AMA-2026-PENDING',
           country: country || 'International',
           registeredAt: registeredAt || new Date().toISOString(),
           stages: stagesOverride ? { ...defaultStages, ...stagesOverride } : defaultStages,
@@ -185,9 +430,9 @@ export default function StaffMedpathElitePage() {
           existing.studentName = name;
         }
         if (phone && (!existing.phone || existing.phone === 'Not specified')) existing.phone = phone;
-        // If we now have a genuine enrollment ID, always prefer it over random AMA-2026-
-        if (resolvedAmaId) {
-          if (!existing.enrollmentNumber || existing.enrollmentNumber.startsWith('AMA-2026-') || !resolvedAmaId.startsWith('AMA-2026-')) {
+        // If we have a genuine enrollment ID, always prioritize it
+        if (resolvedAmaId && resolvedAmaId !== 'AMA-2026-0482' && resolvedAmaId !== 'AMA-2026-PENDING') {
+          if (!existing.enrollmentNumber || existing.enrollmentNumber === 'AMA-2026-PENDING' || existing.enrollmentNumber.startsWith('AMA-2026-') || !resolvedAmaId.startsWith('AMA-2026-')) {
             existing.enrollmentNumber = resolvedAmaId;
           }
         }
@@ -314,7 +559,7 @@ export default function StaffMedpathElitePage() {
             name,
             recent.email,
             recent.whatsappNumber || recent.phone || '',
-            recent.ama_id || `AMA-2026-${Math.floor(1000 + Math.random() * 9000)}`,
+            recent.ama_id,
             recent.country || 'International',
             recent.createdAt,
             recent.stages
@@ -337,7 +582,7 @@ export default function StaffMedpathElitePage() {
             name,
             cur.email,
             cur.phone,
-            cur.ama_id || 'AMA-2026-0482',
+            cur.ama_id || undefined,
             cur.country,
             cur.createdAt,
             cur.stages
@@ -407,11 +652,10 @@ export default function StaffMedpathElitePage() {
       loadAggregatedStudents();
     };
 
+    // Only listen to cross-tab storage changes (not local window events to prevent typing interruption)
     window.addEventListener('storage', handleStorageUpdate);
-    window.addEventListener('ahsora_elite_updated', handleStorageUpdate);
     return () => {
       window.removeEventListener('storage', handleStorageUpdate);
-      window.removeEventListener('ahsora_elite_updated', handleStorageUpdate);
     };
   }, [eliteStudents]);
 
@@ -967,8 +1211,81 @@ export default function StaffMedpathElitePage() {
                   <div style={{ fontSize: '0.9375rem', color: '#0F172A', fontWeight: 800, marginTop: '2px' }}>{selectedStudent.studentName}</div>
                 </div>
                 <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '12px 16px' }}>
-                  <div style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 600 }}>Enrollment Number</div>
-                  <div style={{ fontSize: '0.9375rem', color: '#EA580C', fontWeight: 800, marginTop: '2px' }}>{selectedStudent.enrollmentNumber || 'AMA-2026-0482'}</div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 600 }}>Enrollment Number</span>
+                    {!isEditingAmaId && (
+                      <button
+                        onClick={() => {
+                          setEditedAmaId(selectedStudent.enrollmentNumber || '');
+                          setIsEditingAmaId(true);
+                        }}
+                        style={{
+                          backgroundColor: '#F1F5F9',
+                          border: '1px solid #CBD5E1',
+                          borderRadius: '6px',
+                          padding: '2px 8px',
+                          fontSize: '0.7rem',
+                          color: '#475569',
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                        }}
+                      >
+                        ✏️ Edit / Sync
+                      </button>
+                    )}
+                  </div>
+                  {!isEditingAmaId ? (
+                    <div style={{ fontSize: '0.9375rem', color: '#EA580C', fontWeight: 800, marginTop: '2px' }}>
+                      {selectedStudent.enrollmentNumber || 'AMA-2026-PENDING'}
+                    </div>
+                  ) : (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '6px' }}>
+                      <input
+                        type="text"
+                        value={editedAmaId}
+                        onChange={(e) => setEditedAmaId(e.target.value)}
+                        placeholder="e.g. AMA-27-0003"
+                        style={{
+                          padding: '4px 8px',
+                          borderRadius: '6px',
+                          border: '1.5px solid #EA580C',
+                          fontSize: '0.85rem',
+                          fontWeight: 700,
+                          width: '135px',
+                          color: '#0F172A',
+                        }}
+                      />
+                      <button
+                        onClick={() => handleSaveEnrollmentNumber(editedAmaId)}
+                        style={{
+                          backgroundColor: '#059669',
+                          color: '#FFFFFF',
+                          border: 'none',
+                          borderRadius: '6px',
+                          padding: '4px 10px',
+                          fontSize: '0.75rem',
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                        }}
+                      >
+                        Save
+                      </button>
+                      <button
+                        onClick={() => setIsEditingAmaId(false)}
+                        style={{
+                          backgroundColor: '#F1F5F9',
+                          color: '#64748B',
+                          border: '1px solid #CBD5E1',
+                          borderRadius: '6px',
+                          padding: '4px 8px',
+                          fontSize: '0.75rem',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  )}
                 </div>
                 <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '12px 16px' }}>
                   <div style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 600 }}>Email Address</div>
@@ -1271,18 +1588,14 @@ export default function StaffMedpathElitePage() {
                               </div>
                             </div>
 
-                            <div>
-                              <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#475569', marginBottom: '4px' }}>
-                                Reviewer Comment (Konsay documents missing hain ya kiyun reject kiya)
-                              </label>
-                              <textarea
-                                rows={3}
-                                placeholder="Write custom reviewer notes regarding document evaluation, missing apostilles, or approval remarks..."
-                                value={stageData.comments || ''}
-                                onChange={(e) => handleStageFieldChange(cfg.key, 'comments', e.target.value)}
-                                style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem', resize: 'vertical' }}
-                              />
-                            </div>
+                            <StageCommentEditor
+                              stageKey={cfg.key}
+                              initialComment={stageData.comments || ''}
+                              label="Reviewer Comment (Konsay documents missing hain ya kiyun reject kiya)"
+                              placeholder="Write custom reviewer notes regarding document evaluation, missing apostilles, or approval remarks..."
+                              onSaveComment={(val) => handleStageFieldChange(cfg.key, 'comments', val)}
+                              isSaving={savingKey === cfg.key}
+                            />
                           </>
                         )}
 
@@ -1359,18 +1672,14 @@ export default function StaffMedpathElitePage() {
                               </div>
                             </div>
 
-                            <div>
-                              <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#475569', marginBottom: '4px' }}>
-                                Reviewer Decision Date & Reason / Comment
-                              </label>
-                              <textarea
-                                rows={2}
-                                placeholder="Kis date ko accept ya reject hua and kis vajah se hua..."
-                                value={stageData.comments || ''}
-                                onChange={(e) => handleStageFieldChange(cfg.key, 'comments', e.target.value)}
-                                style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem', resize: 'vertical' }}
-                              />
-                            </div>
+                            <StageCommentEditor
+                              stageKey={cfg.key}
+                              initialComment={stageData.comments || ''}
+                              label="Reviewer Decision Date & Reason / Comment"
+                              placeholder="Kis date ko accept ya reject hua and kis vajah se hua..."
+                              onSaveComment={(val) => handleStageFieldChange(cfg.key, 'comments', val)}
+                              isSaving={savingKey === cfg.key}
+                            />
                           </>
                         )}
 
@@ -1473,18 +1782,14 @@ export default function StaffMedpathElitePage() {
                               </div>
                             </div>
 
-                            <div>
-                              <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#475569', marginBottom: '4px' }}>
-                                Comment (Kis vajah se accept/reject/forward hua)
-                              </label>
-                              <textarea
-                                rows={2}
-                                placeholder="Admission responsible person comment on pre-enrollment status and embassy instructions..."
-                                value={stageData.comments || ''}
-                                onChange={(e) => handleStageFieldChange(cfg.key, 'comments', e.target.value)}
-                                style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem', resize: 'vertical' }}
-                              />
-                            </div>
+                            <StageCommentEditor
+                              stageKey={cfg.key}
+                              initialComment={stageData.comments || ''}
+                              label="Comment (Kis vajah se accept/reject/forward hua)"
+                              placeholder="Admission responsible person comment on pre-enrollment status and embassy instructions..."
+                              onSaveComment={(val) => handleStageFieldChange(cfg.key, 'comments', val)}
+                              isSaving={savingKey === cfg.key}
+                            />
                           </>
                         )}
 
@@ -1534,18 +1839,14 @@ export default function StaffMedpathElitePage() {
                               />
                             </div>
 
-                            <div>
-                              <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#475569', marginBottom: '4px' }}>
-                                CIMEA / DOV Custom Note
-                              </label>
-                              <textarea
-                                rows={2}
-                                placeholder="Add custom status updates or instructions regarding CIMEA Statement of Comparability / DOV..."
-                                value={stageData.comments || ''}
-                                onChange={(e) => handleStageFieldChange(cfg.key, 'comments', e.target.value)}
-                                style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem', resize: 'vertical' }}
-                              />
-                            </div>
+                            <StageCommentEditor
+                              stageKey={cfg.key}
+                              initialComment={stageData.comments || ''}
+                              label="CIMEA / DOV Custom Note"
+                              placeholder="Add custom status updates or instructions regarding CIMEA Statement of Comparability / DOV..."
+                              onSaveComment={(val) => handleStageFieldChange(cfg.key, 'comments', val)}
+                              isSaving={savingKey === cfg.key}
+                            />
                           </>
                         )}
 
@@ -1624,18 +1925,14 @@ export default function StaffMedpathElitePage() {
                               </div>
                             </div>
 
-                            <div>
-                              <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#475569', marginBottom: '4px' }}>
-                                Scholarship Comment (Apni marzi ka comment)
-                              </label>
-                              <textarea
-                                rows={2}
-                                placeholder="Add notes on DSU ranking, stipend disbursement, ISEE parity, or appeal status..."
-                                value={stageData.comments || ''}
-                                onChange={(e) => handleStageFieldChange(cfg.key, 'comments', e.target.value)}
-                                style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem', resize: 'vertical' }}
-                              />
-                            </div>
+                            <StageCommentEditor
+                              stageKey={cfg.key}
+                              initialComment={stageData.comments || ''}
+                              label="Scholarship Comment (Apni marzi ka comment)"
+                              placeholder="Add notes on DSU ranking, stipend disbursement, ISEE parity, or appeal status..."
+                              onSaveComment={(val) => handleStageFieldChange(cfg.key, 'comments', val)}
+                              isSaving={savingKey === cfg.key}
+                            />
                           </>
                         )}
 
@@ -1712,18 +2009,14 @@ export default function StaffMedpathElitePage() {
                               </div>
                             </div>
 
-                            <div>
-                              <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#475569', marginBottom: '4px' }}>
-                                IMAT Registration Comment
-                              </label>
-                              <textarea
-                                rows={2}
-                                placeholder="Add test centre location, candidate payment receipt #, or registration confirmation notes..."
-                                value={stageData.comments || ''}
-                                onChange={(e) => handleStageFieldChange(cfg.key, 'comments', e.target.value)}
-                                style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem', resize: 'vertical' }}
-                              />
-                            </div>
+                            <StageCommentEditor
+                              stageKey={cfg.key}
+                              initialComment={stageData.comments || ''}
+                              label="IMAT Registration Comment"
+                              placeholder="Add test centre location, candidate payment receipt #, or registration confirmation notes..."
+                              onSaveComment={(val) => handleStageFieldChange(cfg.key, 'comments', val)}
+                              isSaving={savingKey === cfg.key}
+                            />
                           </>
                         )}
 
@@ -1772,18 +2065,14 @@ export default function StaffMedpathElitePage() {
                               />
                             </div>
 
-                            <div>
-                              <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#475569', marginBottom: '4px' }}>
-                                Score & University Allocation Notes
-                              </label>
-                              <textarea
-                                rows={2}
-                                placeholder="Record official test score (e.g. 64.2 / 90) and allocated university..."
-                                value={stageData.comments || ''}
-                                onChange={(e) => handleStageFieldChange(cfg.key, 'comments', e.target.value)}
-                                style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem', resize: 'vertical' }}
-                              />
-                            </div>
+                            <StageCommentEditor
+                              stageKey={cfg.key}
+                              initialComment={stageData.comments || ''}
+                              label="Score & University Allocation Notes"
+                              placeholder="Record official test score (e.g. 64.2 / 90) and allocated university..."
+                              onSaveComment={(val) => handleStageFieldChange(cfg.key, 'comments', val)}
+                              isSaving={savingKey === cfg.key}
+                            />
                           </>
                         )}
 
@@ -1863,18 +2152,14 @@ export default function StaffMedpathElitePage() {
                               </div>
                             </div>
 
-                            <div>
-                              <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#475569', marginBottom: '4px' }}>
-                                Visa Dossier & Consulate Remarks
-                              </label>
-                              <textarea
-                                rows={2}
-                                placeholder="Add consulate tracking number, insurance, financial statement verification, or rejection reasons..."
-                                value={stageData.comments || ''}
-                                onChange={(e) => handleStageFieldChange(cfg.key, 'comments', e.target.value)}
-                                style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem', resize: 'vertical' }}
-                              />
-                            </div>
+                            <StageCommentEditor
+                              stageKey={cfg.key}
+                              initialComment={stageData.comments || ''}
+                              label="Visa Dossier & Consulate Remarks"
+                              placeholder="Add consulate tracking number, insurance, financial statement verification, or rejection reasons..."
+                              onSaveComment={(val) => handleStageFieldChange(cfg.key, 'comments', val)}
+                              isSaving={savingKey === cfg.key}
+                            />
                           </>
                         )}
 
@@ -1911,18 +2196,14 @@ export default function StaffMedpathElitePage() {
                               </div>
                             </div>
 
-                            <div>
-                              <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#475569', marginBottom: '4px' }}>
-                                Arrival Support Comments
-                              </label>
-                              <textarea
-                                rows={2}
-                                placeholder="Accommodation booking, Codice Fiscale, Italian SIM card, and university matriculation notes..."
-                                value={stageData.comments || ''}
-                                onChange={(e) => handleStageFieldChange(cfg.key, 'comments', e.target.value)}
-                                style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem', resize: 'vertical' }}
-                              />
-                            </div>
+                            <StageCommentEditor
+                              stageKey={cfg.key}
+                              initialComment={stageData.comments || ''}
+                              label="Arrival Support Comments"
+                              placeholder="Accommodation booking, Codice Fiscale, Italian SIM card, and university matriculation notes..."
+                              onSaveComment={(val) => handleStageFieldChange(cfg.key, 'comments', val)}
+                              isSaving={savingKey === cfg.key}
+                            />
                           </>
                         )}
                       </div>

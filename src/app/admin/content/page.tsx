@@ -88,25 +88,46 @@ export default function AdminContentPage() {
   const [newsPosts, setNewsPosts] = useState<NewsItem[]>([]);
   const [newsSearch, setNewsSearch] = useState('');
   const [editingNewsId, setEditingNewsId] = useState<string | null>(null);
+  const slugify = (text: string) =>
+    text
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, '')
+      .replace(/[\s_-]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+
   const [newNews, setNewNews] = useState<{
     title: string;
+    slug: string;
     category: string;
     excerpt: string;
     content: string;
     author: string;
     readTime: string;
     featured: boolean;
+    metaTitle: string;
+    metaDescription: string;
+    faqItems: { question: string; answer: string }[];
     indexes: ArticleIndexItem[];
   }>({
     title: '',
+    slug: '',
     category: 'Admissions',
     excerpt: '',
     content: '',
     author: 'Ahsora Team',
     readTime: '5 min read',
     featured: false,
+    metaTitle: '',
+    metaDescription: '',
+    faqItems: [],
     indexes: [],
   });
+  const [isSlugCustom, setIsSlugCustom] = useState(false);
+  const [isMetaTitleCustom, setIsMetaTitleCustom] = useState(false);
+  const [isMetaDescCustom, setIsMetaDescCustom] = useState(false);
+  const [newFaqQ, setNewFaqQ] = useState('');
+  const [newFaqA, setNewFaqA] = useState('');
   const [customIndexTitle, setCustomIndexTitle] = useState('');
   const [customIndexId, setCustomIndexId] = useState('');
 
@@ -239,14 +260,21 @@ export default function AdminContentPage() {
   // ── News Handlers ────────────────────────────────────────────────────────
   const handleStartEditNews = (post: NewsItem) => {
     setEditingNewsId(post.id);
+    setIsSlugCustom(true);
+    setIsMetaTitleCustom(true);
+    setIsMetaDescCustom(true);
     setNewNews({
       title: post.title,
+      slug: post.slug || slugify(post.title),
       category: post.category,
       excerpt: post.excerpt,
       content: post.content || post.excerpt,
       author: post.author,
       readTime: post.readTime,
       featured: post.featured || false,
+      metaTitle: post.metaTitle || post.title.slice(0, 60),
+      metaDescription: post.metaDescription || post.excerpt.replace(/<[^>]*>/g, '').slice(0, 160),
+      faqItems: post.faqItems || [],
       indexes: (post as any).indexes || [],
     });
     showToast('success', `✏️ Editing "${post.title}". Update the fields and click "Save & Update Article".`);
@@ -254,14 +282,21 @@ export default function AdminContentPage() {
 
   const handleCancelEditNews = () => {
     setEditingNewsId(null);
+    setIsSlugCustom(false);
+    setIsMetaTitleCustom(false);
+    setIsMetaDescCustom(false);
     setNewNews({
       title: '',
+      slug: '',
       category: 'Admissions',
       excerpt: '',
       content: '',
       author: 'Ahsora Team',
       readTime: '5 min read',
       featured: false,
+      metaTitle: '',
+      metaDescription: '',
+      faqItems: [],
       indexes: [],
     });
   };
@@ -273,12 +308,16 @@ export default function AdminContentPage() {
       return;
     }
 
+    const finalSlug = (newNews.slug.trim() || slugify(newNews.title)).toLowerCase();
+    const finalMetaTitle = (newNews.metaTitle.trim() || newNews.title).slice(0, 60);
+    const finalMetaDesc = (newNews.metaDescription.trim() || newNews.excerpt.replace(/<[^>]*>/g, '')).slice(0, 160);
+
     if (editingNewsId) {
       const existing = newsPosts.find((p) => p.id === editingNewsId);
       const updatedPost: NewsItem = {
         id: editingNewsId,
         title: newNews.title,
-        slug: existing?.slug || newNews.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+        slug: finalSlug,
         category: newNews.category,
         excerpt: newNews.excerpt,
         content: newNews.content || newNews.excerpt,
@@ -287,28 +326,38 @@ export default function AdminContentPage() {
         readTime: newNews.readTime,
         featured: newNews.featured,
         imageUrl: existing?.imageUrl,
+        metaTitle: finalMetaTitle,
+        metaDescription: finalMetaDesc,
+        faqItems: newNews.faqItems,
       };
 
       updateNewsPost(updatedPost);
       setNewsPosts(newsPosts.map((p) => (p.id === editingNewsId ? updatedPost : p)));
       setEditingNewsId(null);
+      setIsSlugCustom(false);
+      setIsMetaTitleCustom(false);
+      setIsMetaDescCustom(false);
       setNewNews({
         title: '',
+        slug: '',
         category: 'Admissions',
         excerpt: '',
         content: '',
         author: 'Ahsora Team',
         readTime: '5 min read',
         featured: false,
+        metaTitle: '',
+        metaDescription: '',
+        faqItems: [],
         indexes: [],
       });
-      showToast('success', '✅ Article & description updated and synced live!');
+      showToast('success', '✅ Article, URL slug & SEO metadata updated and synced live!');
       return;
     }
 
     const created = addNewsPost({
       title: newNews.title,
-      slug: newNews.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      slug: finalSlug,
       category: newNews.category,
       excerpt: newNews.excerpt,
       content: newNews.content || newNews.excerpt,
@@ -316,19 +365,29 @@ export default function AdminContentPage() {
       date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
       readTime: newNews.readTime,
       featured: newNews.featured,
+      metaTitle: finalMetaTitle,
+      metaDescription: finalMetaDesc,
+      faqItems: newNews.faqItems,
     });
     setNewsPosts([created, ...newsPosts]);
+    setIsSlugCustom(false);
+    setIsMetaTitleCustom(false);
+    setIsMetaDescCustom(false);
     setNewNews({
       title: '',
+      slug: '',
       category: 'Admissions',
       excerpt: '',
       content: '',
       author: 'Ahsora Team',
       readTime: '5 min read',
       featured: false,
+      metaTitle: '',
+      metaDescription: '',
+      faqItems: [],
       indexes: [],
     });
-    showToast('success', '✅ News & Update published & synced with Database!');
+    showToast('success', '✅ News & Update published with SEO metadata & URL Slug!');
   };
 
   const handleDeleteNews = (id: string) => {
@@ -628,6 +687,43 @@ export default function AdminContentPage() {
                         <p style={{ fontSize: '0.84rem', color: '#64748B', margin: 0, lineHeight: 1.5 }}>
                           {post.excerpt}
                         </p>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px', flexWrap: 'wrap' }}>
+                          <span style={{ fontSize: '0.72rem', color: '#0E7490', fontFamily: 'monospace', backgroundColor: '#ECFEFF', padding: '2px 8px', borderRadius: '4px', border: '1px solid #CFFAFE' }}>
+                            🔗 /news/{post.slug}
+                          </span>
+                          {post.metaTitle && (
+                            <span style={{ fontSize: '0.68rem', color: '#047857', backgroundColor: '#DCFCE7', padding: '1px 6px', borderRadius: '4px', fontWeight: 700 }}>
+                              SEO Title ✓
+                            </span>
+                          )}
+                          {post.metaDescription && (
+                            <span style={{ fontSize: '0.68rem', color: '#047857', backgroundColor: '#DCFCE7', padding: '1px 6px', borderRadius: '4px', fontWeight: 700 }}>
+                              SEO Desc ✓
+                            </span>
+                          )}
+                          {post.faqItems && post.faqItems.length > 0 && (
+                            <span style={{ fontSize: '0.68rem', color: '#6B21A8', backgroundColor: '#F3E8FF', padding: '1px 6px', borderRadius: '4px', fontWeight: 700 }}>
+                              {post.faqItems.length} FAQs ✓
+                            </span>
+                          )}
+                          <a
+                            href={`/news/${post.slug}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              fontSize: '0.72rem',
+                              color: '#059669',
+                              fontWeight: 700,
+                              textDecoration: 'none',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '3px',
+                              marginLeft: 'auto',
+                            }}
+                          >
+                            Live SSR Page <ExternalLink size={12} />
+                          </a>
+                        </div>
                       </div>
 
                       <div style={{ display: 'flex', gap: '6px', flexShrink: 0 }}>
@@ -710,15 +806,245 @@ export default function AdminContentPage() {
 
             <form onSubmit={handleAddNews} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>Title</label>
+                <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>
+                  Title <span style={{ color: '#EF4444' }}>*</span>
+                </label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. IMAT 2027 Registration Guidelines Released"
                   value={newNews.title}
-                  onChange={(e) => setNewNews({ ...newNews, title: e.target.value })}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    setNewNews((prev) => ({
+                      ...prev,
+                      title: val,
+                      slug: isSlugCustom ? prev.slug : slugify(val),
+                      metaTitle: isMetaTitleCustom ? prev.metaTitle : val.slice(0, 60),
+                    }));
+                  }}
                   style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.875rem', outline: 'none', boxSizing: 'border-box' }}
                 />
+              </div>
+
+              {/* URL Slug Field (Auto-generates with manual override) */}
+              <div style={{ backgroundColor: '#F8FAFC', padding: '12px 14px', borderRadius: '10px', border: '1px solid #E2E8F0' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                  <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#0F291E', margin: 0 }}>
+                    🔗 URL Slug (Permlink)
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const generated = slugify(newNews.title);
+                      setNewNews((prev) => ({ ...prev, slug: generated }));
+                      setIsSlugCustom(false);
+                      showToast('success', '🔄 Slug re-generated from article title');
+                    }}
+                    style={{
+                      fontSize: '0.72rem',
+                      fontWeight: 700,
+                      color: '#059669',
+                      backgroundColor: 'transparent',
+                      border: 'none',
+                      cursor: 'pointer',
+                      padding: 0,
+                    }}
+                  >
+                    🔄 Reset from Title
+                  </button>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', backgroundColor: '#FFFFFF', borderRadius: '8px', border: '1px solid #CBD5E1', overflow: 'hidden' }}>
+                  <span style={{ padding: '0 10px', fontSize: '0.8125rem', color: '#64748B', backgroundColor: '#F1F5F9', borderRight: '1px solid #CBD5E1', fontWeight: 600, userSelect: 'none', lineHeight: '38px' }}>
+                    /news/
+                  </span>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. imat-2027-guide"
+                    value={newNews.slug}
+                    onChange={(e) => {
+                      setIsSlugCustom(true);
+                      setNewNews({ ...newNews, slug: e.target.value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') });
+                    }}
+                    style={{ flex: 1, padding: '10px 12px', border: 'none', fontSize: '0.875rem', outline: 'none', boxSizing: 'border-box' }}
+                  />
+                </div>
+                <div style={{ fontSize: '0.73rem', color: '#059669', marginTop: '6px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  🌐 Public URL: https://ahsorameds.com/news/{newNews.slug || slugify(newNews.title) || 'your-slug'}
+                </div>
+              </div>
+
+              {/* SEO Meta Title (Limit 60 chars) */}
+              <div style={{ backgroundColor: '#F0FDF4', padding: '12px 14px', borderRadius: '10px', border: '1px solid #BBF7D0' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                  <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#065F46', margin: 0 }}>
+                    🔍 SEO Meta Title (Google Search &amp; AI Crawlers)
+                  </label>
+                  <span
+                    style={{
+                      fontSize: '0.75rem',
+                      fontWeight: 800,
+                      color: newNews.metaTitle.length >= 58 ? '#DC2626' : newNews.metaTitle.length >= 50 ? '#D97706' : '#059669',
+                    }}
+                  >
+                    {newNews.metaTitle.length} / 60 max characters
+                  </span>
+                </div>
+                <input
+                  type="text"
+                  maxLength={60}
+                  placeholder="e.g. IMAT 2027 Registration &amp; Prep Strategy Guide | Ahsora"
+                  value={newNews.metaTitle}
+                  onChange={(e) => {
+                    setIsMetaTitleCustom(true);
+                    setNewNews({ ...newNews, metaTitle: e.target.value });
+                  }}
+                  style={{
+                    width: '100%',
+                    padding: '10px',
+                    borderRadius: '8px',
+                    border: '1px solid #86EFAC',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box',
+                    backgroundColor: '#FFFFFF',
+                  }}
+                />
+                <div style={{ fontSize: '0.72rem', color: '#475569', marginTop: '4px' }}>
+                  Optimal length: 50–60 characters. Appears as the clickable headline on Google Search and AI answer cards.
+                </div>
+              </div>
+
+              {/* SEO Meta Description (Limit 160 chars) */}
+              <div style={{ backgroundColor: '#F0FDF4', padding: '12px 14px', borderRadius: '10px', border: '1px solid #BBF7D0' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                  <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#065F46', margin: 0 }}>
+                    📝 SEO Meta Description (Search Snippet &amp; GPTBot)
+                  </label>
+                  <span
+                    style={{
+                      fontSize: '0.75rem',
+                      fontWeight: 800,
+                      color: newNews.metaDescription.length >= 155 ? '#DC2626' : newNews.metaDescription.length >= 140 ? '#D97706' : '#059669',
+                    }}
+                  >
+                    {newNews.metaDescription.length} / 160 max characters
+                  </span>
+                </div>
+                <textarea
+                  rows={2}
+                  maxLength={160}
+                  placeholder="e.g. Official Italian MUR announcement for IMAT 2027 admissions. Complete guide to deadlines, syllabus changes, and university application steps..."
+                  value={newNews.metaDescription}
+                  onChange={(e) => {
+                    setIsMetaDescCustom(true);
+                    setNewNews({ ...newNews, metaDescription: e.target.value });
+                  }}
+                  style={{
+                    width: '100%',
+                    padding: '10px',
+                    borderRadius: '8px',
+                    border: '1px solid #86EFAC',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box',
+                    resize: 'none',
+                    backgroundColor: '#FFFFFF',
+                  }}
+                />
+                <div style={{ fontSize: '0.72rem', color: '#475569', marginTop: '4px' }}>
+                  Optimal length: 130–160 characters. Read by search crawlers and AI bots to summarize page context.
+                </div>
+              </div>
+
+              {/* Dynamic FAQ / Q&A Schema Builder (for Google FAQPage & GPTBot Schema) */}
+              <div style={{ backgroundColor: '#FAF5FF', padding: '14px', borderRadius: '10px', border: '1px solid #E9D5FF' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                  <div>
+                    <span style={{ fontSize: '0.8125rem', fontWeight: 800, color: '#6B21A8', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      ❓ Q&amp;A Section (FAQPage Schema Markup)
+                    </span>
+                    <span style={{ fontSize: '0.72rem', color: '#7E22CE' }}>
+                      Adds rich JSON-LD FAQ schema for search engines &amp; AI answers
+                    </span>
+                  </div>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 700, backgroundColor: '#F3E8FF', color: '#6B21A8', padding: '2px 8px', borderRadius: '12px' }}>
+                    {newNews.faqItems?.length || 0} FAQs
+                  </span>
+                </div>
+
+                {newNews.faqItems && newNews.faqItems.length > 0 && (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '10px' }}>
+                    {newNews.faqItems.map((faq, fIdx) => (
+                      <div key={fIdx} style={{ backgroundColor: '#FFFFFF', padding: '8px 10px', borderRadius: '6px', border: '1px solid #DDD6FE', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#1E1B4B' }}>Q: {faq.question}</div>
+                          <div style={{ fontSize: '0.74rem', color: '#475569', marginTop: '2px' }}>A: {faq.answer}</div>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setNewNews((prev) => ({
+                              ...prev,
+                              faqItems: prev.faqItems.filter((_, idx) => idx !== fIdx),
+                            }));
+                          }}
+                          style={{ color: '#EF4444', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 700, padding: '2px 4px' }}
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', backgroundColor: '#FFFFFF', padding: '10px', borderRadius: '8px', border: '1px solid #DDD6FE' }}>
+                  <input
+                    type="text"
+                    placeholder="Question: e.g. When do IMAT 2027 applications open?"
+                    value={newFaqQ}
+                    onChange={(e) => setNewFaqQ(e.target.value)}
+                    style={{ width: '100%', padding: '6px 8px', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.78rem', outline: 'none', boxSizing: 'border-box' }}
+                  />
+                  <textarea
+                    rows={2}
+                    placeholder="Answer: e.g. Pre-enrollment opens in summer with exam scheduled for September."
+                    value={newFaqA}
+                    onChange={(e) => setNewFaqA(e.target.value)}
+                    style={{ width: '100%', padding: '6px 8px', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.78rem', outline: 'none', boxSizing: 'border-box', resize: 'none' }}
+                  />
+                  <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (!newFaqQ.trim() || !newFaqA.trim()) {
+                          showToast('error', 'Please enter both question and answer for FAQ.');
+                          return;
+                        }
+                        setNewNews((prev) => ({
+                          ...prev,
+                          faqItems: [...(prev.faqItems || []), { question: newFaqQ.trim(), answer: newFaqA.trim() }],
+                        }));
+                        setNewFaqQ('');
+                        setNewFaqA('');
+                        showToast('success', 'FAQ item added to schema markup');
+                      }}
+                      style={{
+                        padding: '4px 10px',
+                        backgroundColor: '#7C3AED',
+                        color: '#FFFFFF',
+                        border: 'none',
+                        borderRadius: '6px',
+                        fontSize: '0.74rem',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                      }}
+                    >
+                      + Add FAQ to Schema
+                    </button>
+                  </div>
+                </div>
               </div>
 
               <div>

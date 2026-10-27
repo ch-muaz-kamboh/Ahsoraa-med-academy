@@ -134,9 +134,9 @@ export default function StudentDashboardPage() {
             <span style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 600 }}>Avg Accuracy</span>
             <div style={{ width: '34px', height: '34px', borderRadius: '8px', backgroundColor: '#ECFDF5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Target size={18} /></div>
           </div>
-          <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A' }}>{totalAttempted > 0 ? `${avgAccuracy}%` : '--'}</div>
+          <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A' }}>{totalAttempted > 0 ? `${avgAccuracy}%` : '0%'}</div>
           <div style={{ fontSize: '0.75rem', color: totalAttempted > 0 ? '#10B981' : '#94A3B8', fontWeight: 600, marginTop: '4px' }}>
-            {totalAttempted > 0 ? `${totalCorrect} / ${totalAttempted} correct` : 'No attempts yet'}
+            {totalAttempted > 0 ? `${totalCorrect} / ${totalAttempted} correct` : '0 questions answered'}
           </div>
         </div>
 
@@ -147,7 +147,7 @@ export default function StudentDashboardPage() {
           </div>
           <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A' }}>{unresolvedMistakes}</div>
           <div style={{ fontSize: '0.75rem', color: unresolvedMistakes > 0 ? '#DC2626' : '#10B981', fontWeight: 600, marginTop: '4px' }}>
-            {unresolvedMistakes > 0 ? 'Pending review' : 'All resolved!'}
+            {studentMistakes.length === 0 ? '0 mistakes • Fresh account' : unresolvedMistakes > 0 ? `${unresolvedMistakes} pending review` : 'All resolved!'}
           </div>
         </div>
       </div>
@@ -264,11 +264,13 @@ export default function StudentDashboardPage() {
               </div>
               <div>
                 <div style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0F172A' }}>{unresolvedMistakes}</div>
-                <div style={{ fontSize: '0.8125rem', color: '#64748B' }}>{unresolvedMistakes > 0 ? 'Questions need review' : 'All cleared!'}</div>
+                <div style={{ fontSize: '0.8125rem', color: '#64748B' }}>
+                  {studentMistakes.length === 0 ? '0 mistakes recorded' : unresolvedMistakes > 0 ? 'Questions need review' : 'All cleared!'}
+                </div>
               </div>
             </div>
             <Link href="/portal/practice/mistakes" className="btn-outline" style={{ width: '100%', justifyContent: 'center', fontSize: '0.8125rem' }}>
-              {unresolvedMistakes > 0 ? 'Review Mistakes Now' : 'View Mistakes Log'}
+              {unresolvedMistakes > 0 ? 'Review Mistakes Now' : 'View Mistakes Notebook (0)'}
             </Link>
           </div>
 

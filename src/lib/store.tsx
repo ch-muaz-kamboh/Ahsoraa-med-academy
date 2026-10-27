@@ -430,12 +430,20 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   const [studentMistakes, setStudentMistakes] = useState<StudentMistake[]>(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('ahsora_mistakes');
-      if (saved) {
-        try { return JSON.parse(saved); } catch (e) {}
-      }
+      try {
+        const cur = localStorage.getItem('ahsora_currentUser');
+        if (cur) {
+          const parsed = JSON.parse(cur);
+          const emailLower = (parsed.email || '').toLowerCase().trim();
+          if (emailLower && emailLower !== 'student@ahsora.com') {
+            const userMistakes = localStorage.getItem(`ahsora_mistakes_${emailLower}`);
+            if (userMistakes) return JSON.parse(userMistakes);
+            return [];
+          }
+        }
+      } catch (e) {}
     }
-    return mockStudentMistakes;
+    return [];
   });
 
   // Initial Supabase Sync on Mount
@@ -512,26 +520,44 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           localStorage.setItem('ahsora_library', JSON.stringify(formatted));
         }
 
-        // 4. Student Mistakes
+        // 4. Student Mistakes (scoped to the logged-in student)
         const { data: dbMistakes } = await supabase.from('portal_mistakes').select('*').order('failed_at', { ascending: false });
         if (dbMistakes && dbMistakes.length > 0) {
-          const formatted: StudentMistake[] = dbMistakes.map((m: any) => ({
-            id: m.id,
-            questionId: m.question_id,
-            questionText: m.question_text,
-            options: typeof m.options === 'string' ? JSON.parse(m.options) : m.options,
-            correctOption: m.correct_option,
-            selectedOption: m.selected_option,
-            explanation: m.explanation || '',
-            source: m.source,
-            testTitle: m.test_title || '',
-            subject: m.subject,
-            topic: m.topic || '',
-            failedAt: m.failed_at,
-            isResolved: m.is_resolved,
-          }));
+          const studentEmailLower = (currentUser.email || '').toLowerCase().trim();
+          const studentId = currentUser.id || '';
+          const isRealStudent = studentEmailLower && studentEmailLower !== 'student@ahsora.com';
+
+          const formatted: StudentMistake[] = dbMistakes
+            .filter((m: any) => {
+              if (!isRealStudent) return false;
+              const mEmail = (m.student_email || '').toLowerCase().trim();
+              const mId = m.student_id || '';
+              if (mEmail && studentEmailLower) return mEmail === studentEmailLower;
+              if (mId && studentId) return mId === studentId;
+              return false;
+            })
+            .map((m: any) => ({
+              id: m.id,
+              questionId: m.question_id,
+              questionText: m.question_text,
+              options: typeof m.options === 'string' ? JSON.parse(m.options) : m.options,
+              correctOption: m.correct_option,
+              selectedOption: m.selected_option,
+              explanation: m.explanation || '',
+              source: m.source,
+              testTitle: m.test_title || '',
+              subject: m.subject,
+              topic: m.topic || '',
+              failedAt: m.failed_at,
+              isResolved: m.is_resolved,
+              studentId: m.student_id,
+              studentEmail: m.student_email,
+            }));
+
           setStudentMistakes(formatted);
-          localStorage.setItem('ahsora_mistakes', JSON.stringify(formatted));
+          if (typeof window !== 'undefined' && isRealStudent) {
+            localStorage.setItem(`ahsora_mistakes_${studentEmailLower}`, JSON.stringify(formatted));
+          }
         }
 
         // 5. Staff Accounts (Cross-Device Cloud Sync)
@@ -681,7 +707,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       })
       .subscribe();
 
-    // Mistakes channel
+    // Mistakes channel (strictly scoped to logged-in student)
     const mistakesChannel = supabase
       .channel('public:portal_mistakes')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'portal_mistakes' }, (payload) => {
@@ -691,10 +717,29 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           }
         } else if (payload.new && payload.new.id) {
           const newItem = formatMistake(payload.new);
-          setStudentMistakes((prev) => {
-            const filtered = prev.filter((m) => m.id !== newItem.id);
-            return [newItem, ...filtered];
-          });
+          // Strictly only add if this mistake belongs to the currently logged in student
+          let currentEmail = '';
+          let currentId = '';
+          if (typeof window !== 'undefined') {
+            try {
+              const cur = localStorage.getItem('ahsora_currentUser');
+              if (cur) {
+                const p = JSON.parse(cur);
+                currentEmail = (p.email || '').toLowerCase().trim();
+                currentId = p.id || '';
+              }
+            } catch {}
+          }
+          const mEmail = (payload.new.student_email || '').toLowerCase().trim();
+          const mId = payload.new.student_id || '';
+          const isOwnMistake = currentEmail && currentEmail !== 'student@ahsora.com' && (mEmail === currentEmail || mId === currentId);
+
+          if (isOwnMistake) {
+            setStudentMistakes((prev) => {
+              const filtered = prev.filter((m) => m.id !== newItem.id);
+              return [newItem, ...filtered];
+            });
+          }
         }
       })
       .subscribe();
@@ -764,9 +809,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem('ahsora_mistakes', JSON.stringify(studentMistakes));
+      const emailLower = (currentUser?.email || '').toLowerCase().trim();
+      if (emailLower && emailLower !== 'student@ahsora.com') {
+        localStorage.setItem(`ahsora_mistakes_${emailLower}`, JSON.stringify(studentMistakes));
+      }
     }
-  }, [studentMistakes]);
+  }, [studentMistakes, currentUser?.email]);
 
   const addSchedule = async (item: Omit<ScheduleItem, 'id' | 'createdAt'>) => {
     const newItem: ScheduleItem = {
@@ -948,6 +996,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       id: `mst-${Date.now()}`,
       failedAt: new Date().toISOString(),
       isResolved: false,
+      studentId: currentUser.id,
+      studentEmail: currentUser.email,
     };
     setStudentMistakes((prev) => [newItem, ...prev]);
     try {
@@ -966,6 +1016,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         topic: newItem.topic,
         failed_at: newItem.failedAt,
         is_resolved: newItem.isResolved,
+        student_id: currentUser.id,
+        student_email: currentUser.email,
       });
     } catch (e) { console.error('Supabase mistake insert error:', e); }
   };
@@ -1356,6 +1408,13 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     setCurrentUser(newProfile);
     if (typeof window !== 'undefined') {
       localStorage.setItem('ahsora_currentUser', JSON.stringify(newProfile));
+      const emailLower = (newProfile.email || '').toLowerCase().trim();
+      const userMistakes = localStorage.getItem(`ahsora_mistakes_${emailLower}`);
+      if (userMistakes) {
+        try { setStudentMistakes(JSON.parse(userMistakes)); } catch { setStudentMistakes([]); }
+      } else {
+        setStudentMistakes([]);
+      }
     }
     setStudentLoggedIn(true);
     setRole('student');
@@ -1364,9 +1423,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const logoutStudent = () => {
     setStudentLoggedIn(false);
     setCurrentUser(mockCurrentUser);
+    setStudentMistakes([]);
+    setTestAttempts([]);
     if (typeof window !== 'undefined') {
       localStorage.removeItem('ahsora_currentUser');
       localStorage.removeItem('ahsora_studentLoggedIn');
+      localStorage.removeItem('ahsora_mistakes');
     }
   };
 

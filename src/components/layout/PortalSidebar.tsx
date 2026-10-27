@@ -580,83 +580,29 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           )}
         </div>
 
-        {/* Progress Section Dropdown */}
+        {/* Progress / Analysis Section Link */}
         <div style={{ padding: sidebarExpanded ? '0 12px' : '0 8px', marginTop: '4px' }}>
-          <button
-            type="button"
-            onClick={() => {
-              if (!sidebarExpanded) {
-                setSidebarExpanded(true);
-                setProgressOpen(true);
-              } else {
-                setProgressOpen(!progressOpen);
-              }
-            }}
+          <Link
+            href="/portal/progress/analysis"
             style={{
-              width: '100%',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: sidebarExpanded ? 'space-between' : 'center',
+              gap: '12px',
+              justifyContent: sidebarExpanded ? 'flex-start' : 'center',
               padding: sidebarExpanded ? '10px 14px' : '10px 0',
               borderRadius: '8px',
               fontSize: '0.875rem',
               fontWeight: 600,
               color: isProgressActive ? '#059669' : '#334155',
               backgroundColor: isProgressActive ? '#F0FFF4' : 'transparent',
-              border: 'none',
-              cursor: 'pointer',
+              textDecoration: 'none',
               transition: 'all 0.15s ease',
             }}
-            title={!sidebarExpanded ? 'Progress' : undefined}
+            title={!sidebarExpanded ? 'Progress Analysis' : undefined}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'center' }}>
-              <TrendingUp size={18} color={isProgressActive ? '#059669' : '#64748B'} />
-              {sidebarExpanded && <span>Progress</span>}
-            </div>
-            {sidebarExpanded && (progressOpen ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />)}
-          </button>
-
-          {sidebarExpanded && progressOpen && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', paddingLeft: '28px', marginTop: '4px' }}>
-              <Link
-                href="/portal/progress/analysis"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  padding: '8px 12px',
-                  borderRadius: '6px',
-                  fontSize: '0.8125rem',
-                  fontWeight: pathname === '/portal/progress/analysis' ? 600 : 500,
-                  color: pathname === '/portal/progress/analysis' ? '#059669' : '#64748B',
-                  backgroundColor: pathname === '/portal/progress/analysis' ? '#DCFCE7' : 'transparent',
-                  transition: 'all 0.15s ease',
-                }}
-              >
-                <BarChart2 size={15} />
-                {sidebarExpanded && <span>1. Analysis</span>}
-              </Link>
-
-              <Link
-                href="/portal/progress/streak"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  padding: '8px 12px',
-                  borderRadius: '6px',
-                  fontSize: '0.8125rem',
-                  fontWeight: pathname === '/portal/progress/streak' ? 600 : 500,
-                  color: pathname === '/portal/progress/streak' ? '#059669' : '#64748B',
-                  backgroundColor: pathname === '/portal/progress/streak' ? '#DCFCE7' : 'transparent',
-                  transition: 'all 0.15s ease',
-                }}
-              >
-                <Flame size={15} color={pathname === '/portal/progress/streak' ? '#059669' : '#F59E0B'} />
-                {sidebarExpanded && <span>2. Streak History</span>}
-              </Link>
-            </div>
-          )}
+            <TrendingUp size={18} color={isProgressActive ? '#059669' : '#64748B'} />
+            {sidebarExpanded && <span>Progress Analysis</span>}
+          </Link>
         </div>
 
         {/* MedPath Elite — Direct Link (locked for Ascend and Mastery) */}

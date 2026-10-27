@@ -116,7 +116,26 @@ export default function NewsPage() {
   const rest = posts.filter((p) => p.id !== featured?.id);
 
   return (
-    <div style={{ backgroundColor: '#FFFFFF', minHeight: '100vh' }}>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'CollectionPage',
+            name: 'Ahsora Meds Academy News, Guides & Official IMAT Updates',
+            description: 'Stay updated with official Italian medical university admission cycles, IMAT syllabus announcements, and preparation guides.',
+            url: 'https://ahsorameds.com/news',
+            publisher: {
+              '@type': 'EducationalOrganization',
+              name: 'Ahsora Meds Academy',
+              url: 'https://ahsorameds.com',
+              logo: 'https://ahsorameds.com/icon.png',
+            },
+          }),
+        }}
+      />
+      <div style={{ backgroundColor: '#FFFFFF', minHeight: '100vh' }}>
 
       {/* ── HERO ── */}
       <section
@@ -214,8 +233,8 @@ export default function NewsPage() {
                 <span style={{ fontSize: '0.875rem', color: '#64748B', display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <User size={14} color="#059669" /> {featured.author}
                 </span>
-                <button
-                  onClick={() => setSelectedPost(featured)}
+                <Link
+                  href={`/news/${featured.slug}`}
                   style={{
                     backgroundColor: '#059669',
                     color: '#FFF',
@@ -224,15 +243,15 @@ export default function NewsPage() {
                     padding: '10px 24px',
                     fontWeight: 700,
                     fontSize: '0.9375rem',
-                    cursor: 'pointer',
-                    display: 'flex',
+                    textDecoration: 'none',
+                    display: 'inline-flex',
                     alignItems: 'center',
                     gap: '8px',
                     boxShadow: '0 4px 12px rgba(5,150,105,0.25)',
                   }}
                 >
                   Read Full Article <ArrowRight size={16} />
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -248,8 +267,9 @@ export default function NewsPage() {
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '24px' }}>
             {rest.map((post) => (
-              <div
+              <Link
                 key={post.id}
+                href={`/news/${post.slug}`}
                 style={{
                   backgroundColor: '#F8FAFC',
                   border: '1px solid #E2E8F0',
@@ -258,19 +278,8 @@ export default function NewsPage() {
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '14px',
-                  cursor: 'pointer',
+                  textDecoration: 'none',
                   transition: 'all 0.2s ease',
-                }}
-                onClick={() => setSelectedPost(post)}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.boxShadow = '0 12px 30px -10px rgba(15,23,42,0.1)';
-                  (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-3px)';
-                  (e.currentTarget as HTMLDivElement).style.borderColor = '#6EE7B7';
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.boxShadow = 'none';
-                  (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)';
-                  (e.currentTarget as HTMLDivElement).style.borderColor = '#E2E8F0';
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
@@ -309,7 +318,7 @@ export default function NewsPage() {
                     Read Article <ArrowRight size={14} />
                   </span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -559,5 +568,6 @@ export default function NewsPage() {
         }
       `}</style>
     </div>
+    </>
   );
 }

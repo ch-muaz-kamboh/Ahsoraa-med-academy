@@ -27,7 +27,17 @@ export async function GET(request: Request) {
 
     if (user) {
       const stages = user.user_metadata?.medpath_stages || {};
-      return NextResponse.json({ success: true, stages, student: { id: user.id, email: user.email } });
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('ama_id')
+        .eq('id', user.id)
+        .maybeSingle();
+      const amaId = profile?.ama_id || user.user_metadata?.ama_id || '';
+      return NextResponse.json({
+        success: true,
+        stages,
+        student: { id: user.id, email: user.email, ama_id: amaId },
+      });
     }
 
     // Try profiles table fallback
@@ -64,7 +74,8 @@ export async function POST(request: Request) {
     const body = await request.json();
     const rawEmail = (body.email || body.studentEmail || '').toLowerCase().trim();
     const rawStudentId = body.studentId || body.id || '';
-    const { stageKey, stageData, allStages } = body;
+    const { stageKey, stageData, allStages, enrollmentNumber, ama_id } = body;
+    const resolvedAmaId = enrollmentNumber || ama_id;
 
     if (!rawEmail && !rawStudentId) {
       return NextResponse.json({ success: false, error: 'email or studentId required' }, { status: 400 });
@@ -95,23 +106,34 @@ export async function POST(request: Request) {
         };
       }
 
+      const updatedMeta: any = {
+        ...targetUser.user_metadata,
+        medpath_stages: Object.keys(updatedStages).length > 0 ? updatedStages : targetUser.user_metadata?.medpath_stages,
+      };
+      if (resolvedAmaId) {
+        updatedMeta.ama_id = resolvedAmaId;
+      }
+
       await supabase.auth.admin.updateUserById(targetUser.id, {
-        user_metadata: {
-          ...targetUser.user_metadata,
-          medpath_stages: updatedStages,
-        },
+        user_metadata: updatedMeta,
       });
     }
 
     // Also attempt updating profiles table if it exists
     try {
-      const query = rawStudentId
-        ? supabase.from('profiles').update({ stages: updatedStages }).eq('id', rawStudentId)
-        : supabase.from('profiles').update({ stages: updatedStages }).ilike('email', rawEmail);
-      await query;
+      const profileUpdates: any = {};
+      if (Object.keys(updatedStages).length > 0) profileUpdates.stages = updatedStages;
+      if (resolvedAmaId) profileUpdates.ama_id = resolvedAmaId;
+
+      if (Object.keys(profileUpdates).length > 0) {
+        const query = rawStudentId
+          ? supabase.from('profiles').update(profileUpdates).eq('id', rawStudentId)
+          : supabase.from('profiles').update(profileUpdates).ilike('email', rawEmail);
+        await query;
+      }
     } catch {}
 
-    return NextResponse.json({ success: true, stages: updatedStages });
+    return NextResponse.json({ success: true, stages: updatedStages, enrollmentNumber: resolvedAmaId });
   } catch (error: any) {
     console.error('API /api/medpath/stages POST error:', error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });

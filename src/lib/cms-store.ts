@@ -21,6 +21,9 @@ export interface NewsItem {
   imageUrl?: string;
   featured?: boolean;
   indexes?: ArticleIndexItem[];
+  metaTitle?: string;
+  metaDescription?: string;
+  faqItems?: { question: string; answer: string }[];
 }
 
 export interface ResourceDocument {
@@ -79,6 +82,13 @@ const INITIAL_NEWS: NewsItem[] = [
 <p>Over 16 public universities across Italy offer fully English-medium Medicine and Surgery (MD, LM-41) degrees, including University of Milan, Bologna, Rome La Sapienza, Pavia, and Naples Vanvitelli.</p>`,
     author: 'Ahsora Admissions Team',
     featured: true,
+    metaTitle: 'Italy IMAT Admissions Open 2027/28 | Ahsora Academy',
+    metaDescription: 'Official Italian MUR announcement for IMAT 2027/2028 medical admissions. Timeline, Universitaly pre-enrollment steps, and eligible English medical schools.',
+    faqItems: [
+      { question: 'When do IMAT 2027 applications open?', answer: 'Universitaly pre-enrollment opens in summer with official test dates scheduled by MUR in September.' },
+      { question: 'Can non-EU international students apply for Italian medicine?', answer: 'Yes, non-EU students apply via Universitaly with a Declaration of Value (DOV) or CIMEA certificate.' },
+      { question: 'Which Italian universities teach medicine in English?', answer: 'Over 16 public universities including Milan, Bologna, Rome La Sapienza, Pavia, and Naples offer English MD programs.' }
+    ],
     indexes: [
       { id: 'mur-announcement', title: '1. Official MUR Announcement & Timeline' },
       { id: 'universitaly-pre-enrollment', title: '2. Universitaly Pre-Enrollment & Steps' },
@@ -107,6 +117,13 @@ const INITIAL_NEWS: NewsItem[] = [
 <p>Complete at least 10 to 12 timed CBT mocks under strict 90-minute examination conditions. Log every missed question in an active mistakes notebook to target recurring conceptual errors before exam day.</p>`,
     author: 'Dr. Sofia Renna',
     featured: false,
+    metaTitle: 'How to Score 60+ on IMAT: High-Yield Strategy Guide',
+    metaDescription: 'Master high-yield Biology and Chemistry, avoid negative marking penalties, and implement CBT mock routines to achieve a top 60+ IMAT score in Italy.',
+    faqItems: [
+      { question: 'What is considered a competitive IMAT score?', answer: 'A score of 60+ out of 90 puts applicants in the top percentile, sufficient for top universities like Milan, Bologna, and Pavia.' },
+      { question: 'How does IMAT negative marking work?', answer: 'Each correct answer earns +1.5 points, incorrect answers penalize -0.4 points, and blank answers receive 0 points.' },
+      { question: 'How many practice mocks should I take?', answer: 'We recommend taking at least 10 to 12 full-length timed CBT mocks and reviewing every mistake thoroughly.' }
+    ],
     indexes: [
       { id: 'anatomy-60-score', title: '1. Anatomy of a 60+ Score' },
       { id: 'negative-marking-management', title: '2. Negative Marking Strategy (-0.4)' },
@@ -125,6 +142,12 @@ const INITIAL_NEWS: NewsItem[] = [
     content: 'In-depth comparison of cutoffs, hospital training facilities, student housing costs, and EU license validity across Rome La Sapienza, University of Milan, Bologna, Pavia, and University of Campania Luigi Vanvitelli.',
     author: 'Ahsora Research Team',
     featured: false,
+    metaTitle: 'Top 5 Italian Medical Schools for International Students',
+    metaDescription: 'Compare Milan, Bologna, Rome La Sapienza, Pavia, and Naples cutoffs, tuition fees, hospital clinical rotations, and English medical degrees.',
+    faqItems: [
+      { question: 'Are Italian medical degrees recognized globally?', answer: 'Yes, English-taught Italian MD degrees (LM-41) are fully recognized across the EU, UK GMC, and US ECFMG.' },
+      { question: 'What is the tuition fee for public medical schools in Italy?', answer: 'Tuition ranges from €156 to €4,000 per year based on family income (ISEE), with regional scholarships available.' }
+    ],
   },
   {
     id: 'news-4',
@@ -137,6 +160,11 @@ const INITIAL_NEWS: NewsItem[] = [
     content: 'Week-by-week calendar breakdown covering initial baseline mock, active recall methods for biological molecules, organic chemistry mechanisms, and timed CBT practice exams.',
     author: 'Ahsora Academic Team',
     featured: false,
+    metaTitle: '12-Week High-Yield IMAT Study Schedule | Ahsora Meds',
+    metaDescription: 'Evidence-based 12-week IMAT preparation schedule covering active recall, topic-wise MCQ banks, formula sheets, and full-length CBT simulation mocks.',
+    faqItems: [
+      { question: 'Is 12 weeks enough to prepare for the IMAT?', answer: 'Yes, with a focused daily routine of 4 to 6 hours focusing on high-yield Biology, Chemistry, and regular CBT mocks.' }
+    ],
   },
   {
     id: 'news-5',
@@ -149,6 +177,11 @@ const INITIAL_NEWS: NewsItem[] = [
     content: 'Detailed roadmap for international recognition of Italian MD degrees (LM-41 code), ECFMG certification eligibility, UK GMC registration via PLAB/UKMLA, and direct practicing rights in the European Union.',
     author: 'Dr. Tariq Al-Hassan',
     featured: false,
+    metaTitle: 'Global Licensing After IMAT: USMLE, PLAB & EU Guide',
+    metaDescription: 'Complete roadmap for practicing medicine globally after graduating from Italian medical schools, including USMLE Step 1 & 2, PLAB/UKMLA, and EU mobility.',
+    faqItems: [
+      { question: 'Can Italian medical graduates take the USMLE?', answer: 'Yes, Italian medical schools are listed in the World Directory of Medical Schools (WDOMS) and are ECFMG eligible.' }
+    ],
   },
   {
     id: 'news-6',
@@ -161,6 +194,11 @@ const INITIAL_NEWS: NewsItem[] = [
     content: 'Step-by-step guidance on embassy appointments, minimum bank statement balance (€6,000+ per year of study), codice fiscale, and health insurance requirements for non-EU students.',
     author: 'Ahsora Visa Team',
     featured: false,
+    metaTitle: 'Italy Student Visa 2027: Type-D Application Guide',
+    metaDescription: 'Step-by-step Type-D study visa guide for Italy. Bank statement minimums, accommodation proof, codice fiscale, and embassy interview preparation.',
+    faqItems: [
+      { question: 'What is the minimum bank balance required for an Italian student visa?', answer: 'The Italian Ministry requires proof of at least €6,000 per academic year, though showing €8,000 to €10,000 is strongly recommended.' }
+    ],
   },
 ];
 
@@ -389,6 +427,9 @@ export async function syncNewsFromSupabase(): Promise<NewsItem[]> {
         readTime: item.read_time,
         imageUrl: item.image_url,
         featured: item.featured,
+        metaTitle: item.meta_title || undefined,
+        metaDescription: item.meta_description || undefined,
+        faqItems: Array.isArray(item.faq_items) ? item.faq_items : undefined,
       }));
       saveNewsPosts(formatted);
       return formatted;
@@ -425,6 +466,9 @@ export function addNewsPost(post: Omit<NewsItem, 'id'>): NewsItem {
       read_time: newPost.readTime,
       image_url: newPost.imageUrl || null,
       featured: newPost.featured || false,
+      meta_title: newPost.metaTitle || null,
+      meta_description: newPost.metaDescription || null,
+      faq_items: newPost.faqItems || [],
     }).then(({ error }) => {
       if (error) console.warn('Supabase news insert warning:', error.message);
     });
@@ -456,6 +500,9 @@ export function updateNewsPost(updatedPost: NewsItem): NewsItem {
       read_time: updatedPost.readTime,
       image_url: updatedPost.imageUrl || null,
       featured: updatedPost.featured || false,
+      meta_title: updatedPost.metaTitle || null,
+      meta_description: updatedPost.metaDescription || null,
+      faq_items: updatedPost.faqItems || [],
     }).then(({ error }) => {
       if (error) console.warn('Supabase news update warning:', error.message);
     });

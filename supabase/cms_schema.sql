@@ -7,7 +7,7 @@
 CREATE TABLE IF NOT EXISTS public.news_posts (
   id TEXT PRIMARY KEY,
   title TEXT NOT NULL,
-  slug TEXT NOT NULL,
+  slug TEXT NOT NULL UNIQUE,
   excerpt TEXT NOT NULL,
   content TEXT NOT NULL,
   category TEXT NOT NULL DEFAULT 'General',
@@ -16,6 +16,9 @@ CREATE TABLE IF NOT EXISTS public.news_posts (
   read_time TEXT NOT NULL DEFAULT '5 min read',
   image_url TEXT,
   featured BOOLEAN DEFAULT false,
+  meta_title VARCHAR(60),
+  meta_description VARCHAR(160),
+  faq_items JSONB DEFAULT '[]'::jsonb,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 

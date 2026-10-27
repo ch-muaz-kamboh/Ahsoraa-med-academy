@@ -74,9 +74,9 @@ export default function StudentProgressAnalysisPage() {
             <span style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 700 }}>OVERALL ACCURACY</span>
             <div style={{ width: '36px', height: '36px', borderRadius: '10px', backgroundColor: '#F0FFF4', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Target size={20} /></div>
           </div>
-          <div style={{ fontSize: '2.25rem', fontWeight: 900, color: '#0F172A' }}>{totalAttempted > 0 ? `${overallAccuracy}%` : '--'}</div>
+          <div style={{ fontSize: '2.25rem', fontWeight: 900, color: '#0F172A' }}>{totalAttempted > 0 ? `${overallAccuracy}%` : '0%'}</div>
           <div style={{ fontSize: '0.8125rem', color: totalAttempted > 0 ? '#10B981' : '#94A3B8', fontWeight: 600, marginTop: '4px' }}>
-            {totalAttempted > 0 ? `${totalCorrect} correct of ${totalAttempted}` : 'No attempts yet'}
+            {totalAttempted > 0 ? `${totalCorrect} correct of ${totalAttempted}` : '0 questions answered'}
           </div>
         </div>
 
@@ -95,7 +95,9 @@ export default function StudentProgressAnalysisPage() {
             <div style={{ width: '36px', height: '36px', borderRadius: '10px', backgroundColor: '#FEF2F2', color: '#DC2626', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><AlertTriangle size={20} /></div>
           </div>
           <div style={{ fontSize: '2.25rem', fontWeight: 900, color: '#0F172A' }}>{unresolvedCount}</div>
-          <div style={{ fontSize: '0.8125rem', color: '#DC2626', fontWeight: 600, marginTop: '4px' }}>Pending in review notebook</div>
+          <div style={{ fontSize: '0.8125rem', color: unresolvedCount > 0 ? '#DC2626' : '#10B981', fontWeight: 600, marginTop: '4px' }}>
+            {unresolvedCount > 0 ? 'Pending in review notebook' : '0 pending mistakes'}
+          </div>
         </div>
 
         <div style={{ backgroundColor: '#FFFFFF', padding: '24px', borderRadius: '16px', border: '1px solid #E2E8F0', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
@@ -104,7 +106,9 @@ export default function StudentProgressAnalysisPage() {
             <div style={{ width: '36px', height: '36px', borderRadius: '10px', backgroundColor: '#ECFDF5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><CheckCircle2 size={20} /></div>
           </div>
           <div style={{ fontSize: '2.25rem', fontWeight: 900, color: '#0F172A' }}>{resolvedCount}</div>
-          <div style={{ fontSize: '0.8125rem', color: '#059669', fontWeight: 600, marginTop: '4px' }}>Mastered concepts</div>
+          <div style={{ fontSize: '0.8125rem', color: '#059669', fontWeight: 600, marginTop: '4px' }}>
+            {resolvedCount > 0 ? 'Mastered concepts' : '0 resolved concepts'}
+          </div>
         </div>
       </div>
 

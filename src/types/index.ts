@@ -418,6 +418,8 @@ export interface StudentMistake {
   topic?: string;
   failedAt: string;
   isResolved: boolean;
+  studentId?: string;
+  studentEmail?: string;
 }
 
 // ── Staff Portal & RBAC Architecture Types ────────────────────────────────────
