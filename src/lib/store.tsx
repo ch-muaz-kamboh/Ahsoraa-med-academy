@@ -1693,9 +1693,13 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   // ── Staff MCQ Review Workflow Actions ────────────────────────────────────────
   const addStaffQuestion = (q: Omit<StaffQuestion, 'id' | 'createdAt' | 'status'>) => {
+    // Generate valid UUID for Supabase and Postgres compatibility
+    const uuid = typeof crypto !== 'undefined' && crypto.randomUUID
+      ? crypto.randomUUID()
+      : 'sq-' + Date.now() + Math.random().toString(36).substr(2, 4);
     const newQ: StaffQuestion = {
       ...q,
-      id: 'sq-' + Date.now() + Math.random().toString(36).substr(2, 4),
+      id: uuid,
       status: 'draft',
       createdAt: new Date().toISOString(),
     };
@@ -1714,8 +1718,13 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
       const approvedQ = updated.find((q) => q.id === id);
       if (approvedQ) {
-        const qbFormat = {
-          id: approvedQ.id,
+        // Ensure valid UUID for Postgres qb_questions table
+        const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(approvedQ.id);
+        const validId = isUuid
+          ? approvedQ.id
+          : (typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : undefined);
+
+        const qbFormat: any = {
           subject: approvedQ.subject,
           chapter: approvedQ.chapter || '',
           topic: approvedQ.topic || '',
@@ -1733,20 +1742,36 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           created_at: approvedQ.createdAt || new Date().toISOString(),
         };
 
-        // Merge into local question bank pool for instant student access
+        if (validId) {
+          qbFormat.id = validId;
+        }
+
+        // Merge into local question bank pool for instant student access (at top of pool)
         try {
           const cachedPool = localStorage.getItem('ahsora_local_qb_questions');
           let poolArray = cachedPool ? JSON.parse(cachedPool) : [];
-          if (!poolArray.some((item: any) => item.id === qbFormat.id)) {
-            poolArray.unshift(qbFormat);
-            localStorage.setItem('ahsora_local_qb_questions', JSON.stringify(poolArray));
+          const isDocxSynced = typeof window !== 'undefined' && localStorage.getItem('ahsora_qb_docx_synced') === 'true';
+          if (!isDocxSynced) {
+            poolArray = poolArray.filter((item: any) => item.source_reference && item.source_reference.startsWith('Staff:'));
+          }
+          poolArray = poolArray.filter((item: any) => item.id !== (qbFormat.id || approvedQ.id) && item.question_text !== qbFormat.question_text);
+          poolArray.unshift(qbFormat);
+          localStorage.setItem('ahsora_local_qb_questions', JSON.stringify(poolArray));
+          if (typeof window !== 'undefined') {
+            window.dispatchEvent(new Event('ahsora_qb_updated'));
           }
         } catch (e) {}
 
         // Async write to Supabase if connected
         try {
           const supabase = createClient();
-          supabase.from('qb_questions').upsert([qbFormat]).then(() => {});
+          supabase.from('qb_questions').insert([qbFormat]).then(({ error }) => {
+            if (error) {
+              console.error('Supabase qb_questions insert error:', error);
+            } else {
+              console.log('Successfully saved approved staff question to Supabase!');
+            }
+          });
         } catch (e) {}
       }
 

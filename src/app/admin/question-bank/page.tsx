@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import importedQuestions, { getImportedQuestions } from '@/lib/imported_questions';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useAppStore } from '@/lib/store';
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface QBQuestion {
   id: string;
@@ -142,14 +143,17 @@ export default function AdminQuestionBankPage() {
 
   const supabase = createClient();
 
+  const { staffQuestions } = useAppStore();
+  const [filterSource, setFilterSource] = useState<'all' | 'staff' | 'syllabus'>('all');
+
   // ── Fetch ──────────────────────────────────────────────────────────────────
   const fetchQuestions = useCallback(async () => {
     setLoading(true);
     let allPool: QBQuestion[] = [];
 
-    // 1. Try Supabase
+    // 1. Try Supabase ordered by newest created first
     try {
-      let q = supabase.from('qb_questions').select('*');
+      let q = supabase.from('qb_questions').select('*').order('created_at', { ascending: false });
       const { data, error } = await q;
       if (!error && data && data.length > 0) {
         allPool = data as QBQuestion[];
@@ -169,14 +173,51 @@ export default function AdminQuestionBankPage() {
       } catch (e) {}
     }
 
-    // 3. Fallback to bundled 820 imported questions
-    if (allPool.length === 0) {
-      const q = getImportedQuestions();
-      allPool = ((q && q.length > 0 ? q : importedQuestions) as unknown as QBQuestion[]);
+    // Filter out un-synced syllabus questions if docx sync was not performed by admin
+    const isDocxSynced = typeof window !== 'undefined' && localStorage.getItem('ahsora_qb_docx_synced') === 'true';
+    if (!isDocxSynced) {
+      allPool = allPool.filter((q) => q.source_reference && q.source_reference.startsWith('Staff:'));
+      try {
+        localStorage.setItem('ahsora_local_qb_questions', JSON.stringify(allPool));
+      } catch (e) {}
     }
 
-    // Apply Filters (Subject, Chapter, Difficulty, Search)
+    // 4. Always prepend newly approved staff questions so they are instantly visible at the very top of page 1
+    const publishedStaff = (staffQuestions || []).filter((sq) => sq.status === 'published');
+    publishedStaff.forEach((sq) => {
+      const alreadyPresent = allPool.some(
+        (p) => p.id === sq.id || (p.question_text && p.question_text.trim() === sq.question_text.trim())
+      );
+      if (!alreadyPresent) {
+        allPool.unshift({
+          id: sq.id,
+          subject: sq.subject,
+          chapter: sq.chapter || '',
+          topic: sq.topic || '',
+          difficulty: sq.difficulty,
+          question_text: sq.question_text,
+          option_a: sq.option_a || '',
+          option_b: sq.option_b || '',
+          option_c: sq.option_c || '',
+          option_d: sq.option_d || '',
+          option_e: sq.option_e || '',
+          correct_option: sq.correct_option,
+          explanation: sq.explanation || '',
+          source_reference: `Staff: ${sq.author || 'Faculty'}`,
+          is_active: true,
+          created_at: sq.createdAt || new Date().toISOString(),
+        });
+      }
+    });
+
+    // Apply Filters (Source, Subject, Chapter, Difficulty, Search)
     let filtered = allPool;
+    if (filterSource === 'staff') {
+      filtered = filtered.filter((q) => q.source_reference && q.source_reference.startsWith('Staff:'));
+    } else if (filterSource === 'syllabus') {
+      filtered = filtered.filter((q) => !q.source_reference || !q.source_reference.startsWith('Staff:'));
+    }
+
     if (filterSubject) {
       filtered = filtered.filter(q => q.subject && q.subject.toLowerCase() === filterSubject.toLowerCase());
     }
@@ -200,10 +241,13 @@ export default function AdminQuestionBankPage() {
     setQuestions(filtered.slice(start, start + PAGE_SIZE));
     setTotal(filtered.length);
     setLoading(false);
-  }, [filterSubject, filterTopic, filterDiff, searchQ, page, supabase]);
+  }, [filterSource, filterSubject, filterTopic, filterDiff, searchQ, page, supabase, staffQuestions]);
 
   const handleSyncDocxBank = async () => {
     setSyncing(true);
+    try {
+      localStorage.setItem('ahsora_qb_docx_synced', 'true');
+    } catch (e) {}
     const all820 = (importedQuestions as unknown as QBQuestion[]);
 
     // 1. Save all 820 questions to LocalStorage
@@ -224,7 +268,6 @@ export default function AdminQuestionBankPage() {
       const BATCH_SIZE = 50;
       for (let i = 0; i < all820.length; i += BATCH_SIZE) {
         const batch = all820.slice(i, i + BATCH_SIZE).map(q => ({
-          // OMIT id field so Supabase auto-generates valid UUIDs
           subject: q.subject,
           chapter: q.chapter || '',
           topic: q.topic,
@@ -267,7 +310,36 @@ export default function AdminQuestionBankPage() {
     fetchQuestions();
   };
 
-  useEffect(() => { fetchQuestions(); }, [fetchQuestions]);
+  const handleClearSyllabusBank = async () => {
+    if (!confirm('Are you sure you want to remove the 820 pre-loaded syllabus questions from the active database? Any staff-submitted and approved questions will NOT be deleted.')) return;
+    setLoading(true);
+    try {
+      localStorage.removeItem('ahsora_qb_docx_synced');
+    } catch (e) {}
+    try {
+      // 1. Delete rows in Supabase that are not staff questions
+      await supabase.from('qb_questions').delete().not('source_reference', 'like', 'Staff:%');
+
+      // 2. Remove syllabus questions from local storage
+      const cached = localStorage.getItem('ahsora_local_qb_questions');
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        const onlyStaff = parsed.filter((q: any) => q.source_reference && q.source_reference.startsWith('Staff:'));
+        localStorage.setItem('ahsora_local_qb_questions', JSON.stringify(onlyStaff));
+      }
+      showToast('Syllabus questions removed. Only staff questions remain.');
+    } catch (e: any) {
+      showToast('Error: ' + e.message);
+    }
+    fetchQuestions();
+  };
+
+  useEffect(() => {
+    fetchQuestions();
+    const handleUpdate = () => { fetchQuestions(); };
+    window.addEventListener('ahsora_qb_updated', handleUpdate);
+    return () => { window.removeEventListener('ahsora_qb_updated', handleUpdate); };
+  }, [fetchQuestions]);
 
   const showToast = (msg: string) => { setToast(msg); setTimeout(() => setToast(''), 3000); };
 
@@ -302,12 +374,7 @@ export default function AdminQuestionBankPage() {
     // 2. Remove from localStorage cache so it stays deleted across refreshes
     try {
       const cached = localStorage.getItem('ahsora_local_qb_questions');
-      let localQs: QBQuestion[] = [];
-      if (cached) {
-        localQs = JSON.parse(cached);
-      } else {
-        localQs = (importedQuestions as unknown as QBQuestion[]);
-      }
+      let localQs: QBQuestion[] = cached ? JSON.parse(cached) : [];
       const updated = localQs.filter((q) => q.id !== targetId);
       localStorage.setItem('ahsora_local_qb_questions', JSON.stringify(updated));
     } catch (e) {
@@ -458,6 +525,26 @@ export default function AdminQuestionBankPage() {
             {syncing ? <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> : <BookOpen size={16} />}
             <span>Sync 820+ Docx Questions</span>
           </button>
+          <button
+            onClick={handleClearSyllabusBank}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '10px 14px',
+              borderRadius: '8px',
+              border: '1px solid #FECACA',
+              backgroundColor: '#FEF2F2',
+              color: '#DC2626',
+              fontWeight: 600,
+              fontSize: '0.875rem',
+              cursor: 'pointer',
+            }}
+            title="Remove 820 legacy syllabus questions to keep only staff & custom MCQs"
+          >
+            <Trash2 size={15} />
+            <span>Clear 820 Syllabus Bank</span>
+          </button>
           <label style={{ display:'flex', alignItems:'center', gap:'8px', padding:'10px 16px',
             borderRadius:'8px', border:'1px solid #E2E8F0', backgroundColor:'#F8FAFC',
             cursor:'pointer', fontSize:'0.875rem', fontWeight:600, color:'#475569' }}>
@@ -493,6 +580,17 @@ export default function AdminQuestionBankPage() {
             style={{ width:'100%', padding:'9px 12px 9px 34px', borderRadius:'8px',
               border:'1px solid #E2E8F0', fontSize:'0.875rem', outline:'none' }} />
         </div>
+        <select value={filterSource} onChange={e => { setFilterSource(e.target.value as any); setPage(0); }}
+          style={{ padding:'9px 12px', borderRadius:'8px',
+            border: filterSource === 'staff' ? '2px solid #059669' : '1px solid #E2E8F0',
+            fontSize:'0.875rem',
+            backgroundColor: filterSource === 'staff' ? '#F0FFF4' : '#fff',
+            color: filterSource === 'staff' ? '#065F46' : '#0F172A',
+            fontWeight: filterSource === 'staff' ? 700 : 500, outline:'none' }}>
+          <option value="all">All Sources (Staff & Syllabus)</option>
+          <option value="staff">Staff Submissions Only</option>
+          <option value="syllabus">Syllabus Bank Only (820 MCQs)</option>
+        </select>
         <select value={filterSubject} onChange={e => { setFilterSubject(e.target.value); setFilterTopic(''); setPage(0); }}
           style={{ padding:'9px 12px', borderRadius:'8px', border:'1px solid #E2E8F0',
             fontSize:'0.875rem', backgroundColor:'#fff', outline:'none' }}>
@@ -523,7 +621,7 @@ export default function AdminQuestionBankPage() {
       ) : questions.length === 0 ? (
         <div style={{ textAlign:'center', padding:'60px 20px', color:'#94A3B8' }}>
           <BookOpen size={40} strokeWidth={1} />
-          <p style={{ marginTop:'12px', fontSize:'0.9rem' }}>No questions yet. Add your first or import a CSV.</p>
+          <p style={{ marginTop:'12px', fontSize:'0.9rem' }}>No questions found. Add your first or adjust filters.</p>
         </div>
       ) : (
         <div style={{ backgroundColor:'#fff', borderRadius:'12px', border:'1px solid #E2E8F0', overflow:'hidden' }}>
@@ -543,6 +641,17 @@ export default function AdminQuestionBankPage() {
               {questions.map((q, i) => (
                 <tr key={q.id} style={{ borderBottom:'1px solid #F1F5F9', backgroundColor: i%2===0?'#fff':'#FAFAFA' }}>
                   <td style={{ padding:'10px 14px', maxWidth:'320px' }}>
+                    <div style={{ display:'flex', alignItems:'center', gap:'6px', marginBottom:'4px' }}>
+                      {q.source_reference?.startsWith('Staff:') ? (
+                        <span style={{ fontSize:'0.7rem', padding:'2px 8px', borderRadius:'4px', backgroundColor:'#DCFCE7', color:'#166534', fontWeight:700 }}>
+                          {q.source_reference}
+                        </span>
+                      ) : (
+                        <span style={{ fontSize:'0.7rem', padding:'2px 6px', borderRadius:'4px', backgroundColor:'#F1F5F9', color:'#64748B', fontWeight:500 }}>
+                          {q.source_reference || 'Syllabus'}
+                        </span>
+                      )}
+                    </div>
                     <div style={{ fontWeight:500, color:'#0F172A', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>
                       {q.question_text}
                     </div>

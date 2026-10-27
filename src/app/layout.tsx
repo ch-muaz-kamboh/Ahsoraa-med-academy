@@ -13,11 +13,12 @@ export const metadata: Metadata = {
     'The most comprehensive IMAT preparation platform. Master Biology, Chemistry, Physics & Math, and Critical Reasoning with 2,800+ questions, 12 full mock tests, and expert-led courses. Get into Italian medical school.',
   icons: {
     icon: [
-      { url: '/favicon.ico' },
+      { url: '/ahsora-emblem.png', type: 'image/png' },
       { url: '/icon.png', type: 'image/png' },
+      { url: '/favicon.ico' },
     ],
-    shortcut: '/favicon.ico',
-    apple: '/icon.png',
+    shortcut: '/ahsora-emblem.png',
+    apple: '/ahsora-emblem.png',
   },
 };
 
