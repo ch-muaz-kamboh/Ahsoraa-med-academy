@@ -5,7 +5,7 @@ import { createClient } from '@/lib/supabase/client';
 import { useAppStore, MedpathEliteStudent, MedpathStageStatus } from '@/lib/store';
 import { getPackageByIdOrName, canAccessMedpath, resolveEffectivePackage, getStudentPackageMapping } from '@/lib/packages';
 import {
-  Lock, Star, CheckCircle2, Clock, ArrowRight, Sparkles,
+  Lock, Star, CheckCircle2, XCircle, Clock, ArrowRight, Sparkles,
   FileCheck, Building2, GraduationCap, Globe, Home, Loader2,
   ChevronRight, AlertCircle, MessageCircle,
 } from 'lucide-react';
@@ -344,6 +344,8 @@ export default function MedpathPage() {
         const val = eliteRecord.stages?.[st.key];
         const status = typeof val === 'object' ? val?.status : val;
         const decision = typeof val === 'object' ? val?.decision : undefined;
+        const isRej = status === 'rejected' || decision === 'rejected';
+        if (isRej) return false;
         return (
           status === 'completed' ||
           status === 'approved' ||
@@ -359,6 +361,10 @@ export default function MedpathPage() {
   const progressPercent = Math.round((completedCount / totalStages) * 100);
 
   const getStatusDisplay = (status: string, decision?: string) => {
+    // 1. REJECTED MUST BE EVALUATED FIRST!
+    if (status === 'rejected' || decision === 'rejected') {
+      return { bg: '#FEF2F2', color: '#DC2626', border: '#FECACA', label: 'Rejected' };
+    }
     if (status === 'secured_medical_seat') {
       return { bg: '#F0FDF4', color: '#16A34A', border: '#86EFAC', label: '🎉 Seat Secured!' };
     }
@@ -376,9 +382,6 @@ export default function MedpathPage() {
     }
     if (status === 'missing_documents') {
       return { bg: '#FFFBEB', color: '#D97706', border: '#FDE68A', label: 'Missing Documents' };
-    }
-    if (status === 'rejected' || decision === 'rejected') {
-      return { bg: '#FEF2F2', color: '#DC2626', border: '#FECACA', label: 'Rejected' };
     }
     return { bg: '#F8FAFC', color: '#64748B', border: '#CBD5E1', label: 'Pending' };
   };
@@ -467,13 +470,16 @@ export default function MedpathPage() {
           const stageDate = typeof rawStage === 'object' ? (rawStage?.actionDate || rawStage?.appliedDate) : undefined;
           const stageReviewer = typeof rawStage === 'object' ? (rawStage?.reviewerName || rawStage?.responsiblePerson) : undefined;
 
-          const isCompleted =
+          const isRejected = stageStatus === 'rejected' || stageDecision === 'rejected';
+
+          const isCompleted = !isRejected && (
             stageStatus === 'completed' ||
             stageStatus === 'approved' ||
             stageStatus === 'received' ||
             stageStatus === 'secured_medical_seat' ||
             stageDecision === 'accepted' ||
-            stageDecision === 'forwarded_to_embassy';
+            stageDecision === 'forwarded_to_embassy'
+          );
 
           const badge = getStatusDisplay(stageStatus, stageDecision);
 
@@ -481,14 +487,18 @@ export default function MedpathPage() {
             <div
               key={stage.key}
               style={{
-                backgroundColor: '#FFFFFF',
-                border: `1.5px solid ${isCompleted ? '#86EFAC' : '#E2E8F0'}`,
+                backgroundColor: isRejected ? '#FFF5F5' : '#FFFFFF',
+                border: `1.5px solid ${isRejected ? '#FCA5A5' : isCompleted ? '#86EFAC' : '#E2E8F0'}`,
                 borderRadius: '18px',
                 padding: '22px 26px',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '14px',
-                boxShadow: isCompleted ? '0 4px 14px rgba(22, 163, 74, 0.06)' : '0 2px 6px rgba(0,0,0,0.02)',
+                boxShadow: isRejected
+                  ? '0 4px 14px rgba(220, 38, 38, 0.08)'
+                  : isCompleted
+                  ? '0 4px 14px rgba(22, 163, 74, 0.06)'
+                  : '0 2px 6px rgba(0,0,0,0.02)',
                 transition: 'all 0.2s ease',
               }}
             >
@@ -498,19 +508,19 @@ export default function MedpathPage() {
                     width: '48px',
                     height: '48px',
                     borderRadius: '14px',
-                    backgroundColor: isCompleted ? '#F0FDF4' : stage.color + '15',
-                    color: isCompleted ? '#16A34A' : stage.color,
+                    backgroundColor: isRejected ? '#FEE2E2' : isCompleted ? '#F0FDF4' : stage.color + '15',
+                    color: isRejected ? '#DC2626' : isCompleted ? '#16A34A' : stage.color,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    border: `1.5px solid ${isCompleted ? '#86EFAC' : stage.color + '40'}`,
+                    border: `1.5px solid ${isRejected ? '#F87171' : isCompleted ? '#86EFAC' : stage.color + '40'}`,
                     flexShrink: 0,
                   }}>
-                    {isCompleted ? <CheckCircle2 size={24} color="#16A34A" /> : stage.icon}
+                    {isRejected ? <XCircle size={24} color="#DC2626" /> : isCompleted ? <CheckCircle2 size={24} color="#16A34A" /> : stage.icon}
                   </div>
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                      <span style={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 800 }}>STEP {idx + 1}</span>
+                      <span style={{ fontSize: '0.72rem', color: isRejected ? '#DC2626' : '#64748B', fontWeight: 800 }}>STEP {idx + 1}</span>
                       <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>{stage.label}</h3>
                     </div>
                     <p style={{ color: '#64748B', fontSize: '0.85rem', margin: '3px 0 0' }}>{stage.description}</p>
@@ -530,6 +540,7 @@ export default function MedpathPage() {
                     padding: '4px 12px',
                     borderRadius: '20px',
                   }}>
+                    {isRejected && '✗ '}
                     {isCompleted && '✓ '}
                     {badge.label}
                   </span>
@@ -558,25 +569,25 @@ export default function MedpathPage() {
               {/* Reviewer / Advisor Comments Card */}
               {(stageComments || stageDate || stageReviewer) && (
                 <div style={{
-                  backgroundColor: '#F8FAFC',
-                  border: '1px solid #E2E8F0',
+                  backgroundColor: isRejected ? '#FEF2F2' : '#F8FAFC',
+                  border: `1px solid ${isRejected ? '#FECACA' : '#E2E8F0'}`,
                   borderRadius: '12px',
                   padding: '12px 16px',
                   fontSize: '0.85rem',
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: stageComments ? '6px' : 0, flexWrap: 'wrap', gap: '6px' }}>
-                    <span style={{ fontWeight: 700, color: '#334155', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <MessageCircle size={14} color="#EA580C" />
-                      Advisor Notes {stageReviewer ? `(${stageReviewer})` : ''}
+                    <span style={{ fontWeight: 700, color: isRejected ? '#B91C1C' : '#334155', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      {isRejected ? <AlertCircle size={15} color="#DC2626" /> : <MessageCircle size={14} color="#EA580C" />}
+                      {isRejected ? 'Advisor Feedback (Stage Rejected / Action Required)' : `Advisor Notes ${stageReviewer ? `(${stageReviewer})` : ''}`}
                     </span>
                     {stageDate && (
-                      <span style={{ fontSize: '0.75rem', color: '#64748B' }}>
+                      <span style={{ fontSize: '0.75rem', color: isRejected ? '#DC2626' : '#64748B', fontWeight: isRejected ? 700 : 500 }}>
                         Date: {stageDate}
                       </span>
                     )}
                   </div>
                   {stageComments && (
-                    <p style={{ color: '#475569', margin: 0, lineHeight: 1.5 }}>
+                    <p style={{ color: isRejected ? '#991B1B' : '#475569', margin: 0, lineHeight: 1.5, fontWeight: isRejected ? 600 : 400 }}>
                       {stageComments}
                     </p>
                   )}

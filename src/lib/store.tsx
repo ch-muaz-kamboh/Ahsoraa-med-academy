@@ -53,7 +53,16 @@ export interface LiveTestSession {
   isLive: boolean;
 }
 
-export type MedpathStageStatus = 'pending' | 'in_progress' | 'completed';
+export type MedpathStageStatus =
+  | 'pending'
+  | 'in_progress'
+  | 'completed'
+  | 'rejected'
+  | 'approved'
+  | 'reviewed'
+  | 'missing_documents'
+  | 'applied'
+  | 'secured_medical_seat';
 
 export interface MedpathStageDetail {
   status: string;

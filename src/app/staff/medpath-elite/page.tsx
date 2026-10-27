@@ -690,15 +690,17 @@ export default function StaffMedpathElitePage() {
       const st = stages[cfg.key];
       const statusVal = typeof st === 'object' ? st?.status : st;
       const decisionVal = typeof st === 'object' ? st?.decision : undefined;
+      const isRej = statusVal === 'rejected' || decisionVal === 'rejected';
 
       if (
-        statusVal === 'approved' ||
+        !isRej &&
+        (statusVal === 'approved' ||
         statusVal === 'completed' ||
         statusVal === 'received' ||
         decisionVal === 'accepted' ||
         decisionVal === 'forwarded_to_embassy' ||
         decisionVal === 'approved' ||
-        statusVal === 'secured_medical_seat'
+        statusVal === 'secured_medical_seat')
       ) {
         completedCount++;
       }
@@ -722,17 +724,26 @@ export default function StaffMedpathElitePage() {
       ? existingStageVal
       : { status: existingStageVal || 'pending' };
 
-    const updatedStageObj = {
+    const updatedStageObj: any = {
       ...prevObj,
       [field]: value,
       updatedAt: new Date().toISOString(),
     };
 
+    // If decision is rejected, ensure both decision and status reflect rejection
+    if (field === 'decision' && value === 'rejected') {
+      updatedStageObj.decision = 'rejected';
+      updatedStageObj.status = 'rejected';
+    } else if (field === 'status' && value === 'rejected') {
+      updatedStageObj.status = 'rejected';
+      updatedStageObj.decision = 'rejected';
+    }
+
     // Auto fill reviewer or responsible person if empty and updating
     if (field === 'status' && !updatedStageObj.reviewerName) {
       updatedStageObj.reviewerName = staffProfile.displayName || 'Staff Advisor';
     }
-    if (field === 'status' && !updatedStageObj.actionDate) {
+    if ((field === 'status' || field === 'decision') && !updatedStageObj.actionDate) {
       updatedStageObj.actionDate = new Date().toISOString().split('T')[0];
     }
 
