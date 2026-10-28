@@ -11,6 +11,10 @@ export async function updateSession(request: NextRequest) {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
+  if (!supabaseUrl || !supabaseAnonKey || !supabaseUrl.startsWith('http')) {
+    return supabaseResponse;
+  }
+
   const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
     cookies: {
       getAll() {
@@ -30,8 +34,14 @@ export async function updateSession(request: NextRequest) {
     },
   });
 
-  // Fetch the user
-  const { data: { user } } = await supabase.auth.getUser();
+  // Fetch the user safely
+  let user: any = null;
+  try {
+    const { data } = await supabase.auth.getUser();
+    user = data?.user;
+  } catch (err) {
+    return supabaseResponse;
+  }
 
   // If the user is accessing a protected route
   if (request.nextUrl.pathname.startsWith('/portal')) {
