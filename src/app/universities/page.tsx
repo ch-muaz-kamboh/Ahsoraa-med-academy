@@ -27,192 +27,16 @@ import {
 } from 'lucide-react';
 import { mockUniversities } from '@/lib/mock-data';
 
+import {
+  getCutoffStore,
+  syncCutoffStoreFromSupabase,
+  CutoffStoreState,
+  DEFAULT_CUTOFF_COLUMNS,
+} from '@/lib/cutoff-store';
+
 // ─── Types ─────────────────────────────────────────────────────
 type University = (typeof mockUniversities)[0];
 
-interface CutoffRecord {
-  university: string;
-  seats: number;
-  seatsLeft: string;
-  round1Cutoff: string;
-  finalCutoff: string;
-}
-
-// ─── Static Data ───────────────────────────────────────────────
-const cutoffData: Record<string, Record<string, CutoffRecord[]>> = {
-  EU: {
-    '2025': [
-      { university: 'Università degli Studi di Milano (La Statale)', seats: 60, seatsLeft: '4', round1Cutoff: '66.2', finalCutoff: '61.5' },
-      { university: 'Università degli Studi di Milano-Bicocca', seats: 40, seatsLeft: '2', round1Cutoff: '64.5', finalCutoff: '59.8' },
-      { university: 'Università di Roma «La Sapienza»', seats: 52, seatsLeft: '—', round1Cutoff: '62.4', finalCutoff: '58.0' },
-      { university: 'Università di Bologna', seats: 140, seatsLeft: '7', round1Cutoff: '61.2', finalCutoff: '57.1' },
-      { university: 'Università degli Studi di Pavia', seats: 103, seatsLeft: '4', round1Cutoff: '60.5', finalCutoff: '56.4' },
-      { university: 'Università degli Studi di Padova (Venice)', seats: 75, seatsLeft: '5', round1Cutoff: '59.8', finalCutoff: '55.8' },
-      { university: 'Università degli Studi di Torino', seats: 73, seatsLeft: '5', round1Cutoff: '59.2', finalCutoff: '55.1' },
-      { university: 'Università di Roma «Tor Vergata»', seats: 65, seatsLeft: '3', round1Cutoff: '58.5', finalCutoff: '54.6' },
-      { university: 'Università degli Studi di Parma (Piacenza)', seats: 80, seatsLeft: '6', round1Cutoff: '57.1', finalCutoff: '53.2' },
-      { university: 'Università di Napoli Federico II', seats: 35, seatsLeft: '2', round1Cutoff: '56.5', finalCutoff: '52.8' },
-      { university: 'Università degli Studi di Siena (Dentistry LM-46)', seats: 30, seatsLeft: '2', round1Cutoff: '55.9', finalCutoff: '52.1' },
-      { university: 'Università Politecnica delle Marche', seats: 30, seatsLeft: '5', round1Cutoff: '55.4', finalCutoff: '51.7' },
-      { university: 'Università degli Studi di Bari Aldo Moro', seats: 89, seatsLeft: '6', round1Cutoff: '55.0', finalCutoff: '51.2' },
-      { university: 'Università degli Studi di Cagliari', seats: 80, seatsLeft: '8', round1Cutoff: '54.8', finalCutoff: '50.9' },
-      { university: 'Università della Campania «Luigi Vanvitelli»', seats: 70, seatsLeft: '7', round1Cutoff: '54.2', finalCutoff: '50.4' },
-      { university: 'Università degli Studi di Messina', seats: 55, seatsLeft: '5', round1Cutoff: '53.2', finalCutoff: '49.5' },
-      { university: 'Università degli Studi di Catania', seats: 40, seatsLeft: '0', round1Cutoff: 'N/A', finalCutoff: 'N/A (40 EU seats)' },
-      { university: 'Università degli Studi di Firenze', seats: 50, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — In fase di accreditamento (50 EU seats)' },
-      { university: 'Università degli Studi di Padova — MedTech', seats: 70, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — In fase di accreditamento (70 EU seats)' },
-    ],
-    '2024': [
-      { university: 'Università degli Studi di Milano (La Statale)', seats: 55, seatsLeft: '6', round1Cutoff: '84.7', finalCutoff: '78.2' },
-      { university: 'Università degli Studi di Milano-Bicocca', seats: 30, seatsLeft: '3', round1Cutoff: '81.2', finalCutoff: '73.8' },
-      { university: 'Università di Roma «La Sapienza»', seats: 45, seatsLeft: '—', round1Cutoff: '79.3', finalCutoff: '72.1' },
-      { university: 'Università degli Studi di Padova (Venice)', seats: 76, seatsLeft: '7', round1Cutoff: '78.6', finalCutoff: '71.8' },
-      { university: 'Università di Bologna', seats: 97, seatsLeft: '8', round1Cutoff: '76.4', finalCutoff: '70.5' },
-      { university: 'Università degli Studi di Torino', seats: 70, seatsLeft: '6', round1Cutoff: '75.8', finalCutoff: '69.5' },
-      { university: 'Università di Roma «Tor Vergata»', seats: 40, seatsLeft: '4', round1Cutoff: '74.2', finalCutoff: '68.9' },
-      { university: 'Università degli Studi di Pavia', seats: 103, seatsLeft: '5', round1Cutoff: '73.5', finalCutoff: '68.3' },
-      { university: 'Università degli Studi di Parma (Piacenza)', seats: 75, seatsLeft: '7', round1Cutoff: '71.8', finalCutoff: '66.7' },
-      { university: 'Università di Napoli Federico II', seats: 25, seatsLeft: '2', round1Cutoff: '71.0', finalCutoff: '66.0' },
-      { university: 'Università degli Studi di Siena (Dentistry LM-46)', seats: 28, seatsLeft: '3', round1Cutoff: '70.2', finalCutoff: '65.4' },
-      { university: 'Università Politecnica delle Marche', seats: 60, seatsLeft: '6', round1Cutoff: '69.8', finalCutoff: '64.9' },
-      { university: 'Università degli Studi di Bari Aldo Moro', seats: 69, seatsLeft: '7', round1Cutoff: '69.1', finalCutoff: '64.2' },
-      { university: 'Università degli Studi di Cagliari', seats: 80, seatsLeft: '9', round1Cutoff: '68.4', finalCutoff: '63.5' },
-      { university: 'Università della Campania «Luigi Vanvitelli»', seats: 60, seatsLeft: '8', round1Cutoff: '67.8', finalCutoff: '62.8' },
-      { university: 'Università degli Studi di Catania', seats: 30, seatsLeft: '4', round1Cutoff: '67.0', finalCutoff: '62.4' },
-      { university: 'Università degli Studi di Messina', seats: 55, seatsLeft: '6', round1Cutoff: '66.2', finalCutoff: '61.9' },
-      { university: 'Università degli Studi di Firenze', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — New for 2026/27' },
-      { university: 'Università degli Studi di Padova — MedTech', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — Launched 2026/27' },
-    ],
-    '2023': [
-      { university: 'Università degli Studi di Milano (La Statale)', seats: 55, seatsLeft: '5', round1Cutoff: '82.1', finalCutoff: '75.9' },
-      { university: 'Università degli Studi di Milano-Bicocca', seats: 30, seatsLeft: '2', round1Cutoff: '79.0', finalCutoff: '71.5' },
-      { university: 'Università di Roma «La Sapienza»', seats: 45, seatsLeft: '—', round1Cutoff: '77.6', finalCutoff: '70.3' },
-      { university: 'Università degli Studi di Padova (Venice)', seats: 76, seatsLeft: '6', round1Cutoff: '76.8', finalCutoff: '69.8' },
-      { university: 'Università di Bologna', seats: 97, seatsLeft: '11', round1Cutoff: '74.2', finalCutoff: '68.0' },
-      { university: 'Università degli Studi di Torino', seats: 70, seatsLeft: '7', round1Cutoff: '73.5', finalCutoff: '67.6' },
-      { university: 'Università di Roma «Tor Vergata»', seats: 40, seatsLeft: '3', round1Cutoff: '72.0', finalCutoff: '66.5' },
-      { university: 'Università degli Studi di Pavia', seats: 103, seatsLeft: '3', round1Cutoff: '71.4', finalCutoff: '65.7' },
-      { university: 'Università degli Studi di Parma (Piacenza)', seats: 75, seatsLeft: '6', round1Cutoff: '69.6', finalCutoff: '64.2' },
-      { university: 'Università di Napoli Federico II', seats: 25, seatsLeft: '1', round1Cutoff: '68.9', finalCutoff: '63.5' },
-      { university: 'Università degli Studi di Siena (Dentistry LM-46)', seats: 28, seatsLeft: '2', round1Cutoff: '68.0', finalCutoff: '62.8' },
-      { university: 'Università Politecnica delle Marche', seats: 60, seatsLeft: '5', round1Cutoff: '67.4', finalCutoff: '62.1' },
-      { university: 'Università degli Studi di Bari Aldo Moro', seats: 69, seatsLeft: '6', round1Cutoff: '66.7', finalCutoff: '61.4' },
-      { university: 'Università degli Studi di Cagliari', seats: 80, seatsLeft: '7', round1Cutoff: '65.9', finalCutoff: '60.8' },
-      { university: 'Università della Campania «Luigi Vanvitelli»', seats: 60, seatsLeft: '6', round1Cutoff: '65.0', finalCutoff: '60.1' },
-      { university: 'Università degli Studi di Catania', seats: 30, seatsLeft: '3', round1Cutoff: '64.5', finalCutoff: '59.7' },
-      { university: 'Università degli Studi di Messina', seats: 55, seatsLeft: '5', round1Cutoff: '63.8', finalCutoff: '59.0' },
-      { university: 'Università degli Studi di Firenze', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — New for 2026/27' },
-      { university: 'Università degli Studi di Padova — MedTech', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — Launched 2026/27' },
-    ],
-    '2022': [
-      { university: 'Università degli Studi di Milano (La Statale)', seats: 50, seatsLeft: '7', round1Cutoff: '79.8', finalCutoff: '73.4' },
-      { university: 'Università degli Studi di Milano-Bicocca', seats: 30, seatsLeft: '3', round1Cutoff: '76.8', finalCutoff: '69.2' },
-      { university: 'Università di Roma «La Sapienza»', seats: 45, seatsLeft: '—', round1Cutoff: '75.0', finalCutoff: '68.5' },
-      { university: 'Università degli Studi di Padova (Venice)', seats: 70, seatsLeft: '6', round1Cutoff: '74.2', finalCutoff: '67.5' },
-      { university: 'Università di Bologna', seats: 90, seatsLeft: '7', round1Cutoff: '71.6', finalCutoff: '65.2' },
-      { university: 'Università degli Studi di Torino', seats: 70, seatsLeft: '5', round1Cutoff: '70.8', finalCutoff: '64.8' },
-      { university: 'Università di Roma «Tor Vergata»', seats: 35, seatsLeft: '3', round1Cutoff: '69.5', finalCutoff: '63.9' },
-      { university: 'Università degli Studi di Pavia', seats: 100, seatsLeft: '6', round1Cutoff: '68.7', finalCutoff: '62.1' },
-      { university: 'Università degli Studi di Parma (Piacenza)', seats: 70, seatsLeft: '5', round1Cutoff: '67.0', finalCutoff: '60.7' },
-      { university: 'Università di Napoli Federico II', seats: 25, seatsLeft: '1', round1Cutoff: '66.3', finalCutoff: '59.9' },
-      { university: 'Università degli Studi di Siena (Dentistry LM-46)', seats: 28, seatsLeft: '2', round1Cutoff: '65.5', finalCutoff: '59.2' },
-      { university: 'Università Politecnica delle Marche', seats: 55, seatsLeft: '4', round1Cutoff: '64.8', finalCutoff: '58.6' },
-      { university: 'Università degli Studi di Bari Aldo Moro', seats: 60, seatsLeft: '5', round1Cutoff: '64.1', finalCutoff: '58.0' },
-      { university: 'Università degli Studi di Cagliari', seats: 75, seatsLeft: '6', round1Cutoff: '63.5', finalCutoff: '57.4' },
-      { university: 'Università della Campania «Luigi Vanvitelli»', seats: 55, seatsLeft: '5', round1Cutoff: '62.8', finalCutoff: '56.8' },
-      { university: 'Università degli Studi di Catania', seats: 30, seatsLeft: '3', round1Cutoff: '62.0', finalCutoff: '56.2' },
-      { university: 'Università degli Studi di Messina', seats: 50, seatsLeft: '4', round1Cutoff: '61.2', finalCutoff: '55.5' },
-      { university: 'Università degli Studi di Firenze', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — New for 2026/27' },
-      { university: 'Università degli Studi di Padova — MedTech', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — Launched 2026/27' },
-    ],
-  },
-  'Non-EU': {
-    '2025': [
-      { university: 'Università degli Studi di Milano (La Statale)', seats: 15, seatsLeft: '2', round1Cutoff: '76.5', finalCutoff: '72.9' },
-      { university: 'Università degli Studi di Pavia', seats: 40, seatsLeft: '1', round1Cutoff: '75.8', finalCutoff: '71.9' },
-      { university: 'Università di Bologna', seats: 20, seatsLeft: '2', round1Cutoff: '74.0', finalCutoff: '71.1' },
-      { university: 'Università degli Studi di Milano-Bicocca', seats: 20, seatsLeft: '1', round1Cutoff: '73.2', finalCutoff: '69.5' },
-      { university: 'Università di Roma «La Sapienza»', seats: 13, seatsLeft: '—', round1Cutoff: '71.0', finalCutoff: '65.8' },
-      { university: 'Università della Campania «Luigi Vanvitelli»', seats: 50, seatsLeft: '4', round1Cutoff: '62.0', finalCutoff: '66.2' },
-      { university: 'Università degli Studi di Padova (Venice)', seats: 25, seatsLeft: '2', round1Cutoff: '69.8', finalCutoff: '65.4' },
-      { university: 'Università degli Studi di Torino', seats: 32, seatsLeft: '3', round1Cutoff: '68.5', finalCutoff: '64.8' },
-      { university: 'Università di Roma «Tor Vergata»', seats: 20, seatsLeft: '1', round1Cutoff: '67.9', finalCutoff: '64.2' },
-      { university: 'Università degli Studi di Parma (Piacenza)', seats: 50, seatsLeft: '3', round1Cutoff: '66.2', finalCutoff: '62.8' },
-      { university: 'Università di Napoli Federico II', seats: 45, seatsLeft: '2', round1Cutoff: '65.5', finalCutoff: '62.1' },
-      { university: 'Università degli Studi di Catania', seats: 40, seatsLeft: '3', round1Cutoff: '61.2', finalCutoff: '61.6' },
-      { university: 'Università degli Studi di Siena (Dentistry LM-46)', seats: 5, seatsLeft: '1', round1Cutoff: '64.8', finalCutoff: '61.5' },
-      { university: 'Università Politecnica delle Marche', seats: 50, seatsLeft: '2', round1Cutoff: '64.0', finalCutoff: '60.9' },
-      { university: 'Università degli Studi di Cagliari', seats: 18, seatsLeft: '2', round1Cutoff: '62.8', finalCutoff: '59.6' },
-      { university: 'Università degli Studi di Messina', seats: 61, seatsLeft: '3', round1Cutoff: '60.5', finalCutoff: '57.8' },
-      { university: 'Università degli Studi di Bari Aldo Moro', seats: 11, seatsLeft: '1', round1Cutoff: '63.5', finalCutoff: '50.9' },
-      { university: 'Università degli Studi di Firenze', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — In fase di accreditamento' },
-      { university: 'Università degli Studi di Padova — MedTech', seats: 15, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — In fase di accreditamento' },
-    ],
-    '2024': [
-      { university: 'Università degli Studi di Milano (La Statale)', seats: 25, seatsLeft: '2', round1Cutoff: '88.2', finalCutoff: '82.5' },
-      { university: 'Università degli Studi di Milano-Bicocca', seats: 15, seatsLeft: '1', round1Cutoff: '84.6', finalCutoff: '77.9' },
-      { university: 'Università di Roma «La Sapienza»', seats: 13, seatsLeft: '—', round1Cutoff: '84.0', finalCutoff: '76.8' },
-      { university: 'Università degli Studi di Padova (Venice)', seats: 25, seatsLeft: '2', round1Cutoff: '82.0', finalCutoff: '75.2' },
-      { university: 'Università di Bologna', seats: 20, seatsLeft: '2', round1Cutoff: '80.1', finalCutoff: '74.3' },
-      { university: 'Università degli Studi di Torino', seats: 32, seatsLeft: '3', round1Cutoff: '79.3', finalCutoff: '73.0' },
-      { university: 'Università di Roma «Tor Vergata»', seats: 15, seatsLeft: '1', round1Cutoff: '78.5', finalCutoff: '72.4' },
-      { university: 'Università degli Studi di Pavia', seats: 40, seatsLeft: '1', round1Cutoff: '77.2', finalCutoff: '71.0' },
-      { university: 'Università degli Studi di Parma (Piacenza)', seats: 45, seatsLeft: '3', round1Cutoff: '75.6', finalCutoff: '69.4' },
-      { university: 'Università di Napoli Federico II', seats: 25, seatsLeft: '2', round1Cutoff: '74.5', finalCutoff: '68.2' },
-      { university: 'Università degli Studi di Siena (Dentistry LM-46)', seats: 14, seatsLeft: '1', round1Cutoff: '73.8', finalCutoff: '68.0' },
-      { university: 'Università Politecnica delle Marche', seats: 25, seatsLeft: '2', round1Cutoff: '73.0', finalCutoff: '67.2' },
-      { university: 'Università degli Studi di Bari Aldo Moro', seats: 11, seatsLeft: '1', round1Cutoff: '72.3', finalCutoff: '66.8' },
-      { university: 'Università degli Studi di Cagliari', seats: 20, seatsLeft: '2', round1Cutoff: '71.5', finalCutoff: '65.1' },
-      { university: 'Università della Campania «Luigi Vanvitelli»', seats: 50, seatsLeft: '4', round1Cutoff: '70.8', finalCutoff: '64.9' },
-      { university: 'Università degli Studi di Catania', seats: 30, seatsLeft: '3', round1Cutoff: '70.1', finalCutoff: '64.5' },
-      { university: 'Università degli Studi di Messina', seats: 40, seatsLeft: '3', round1Cutoff: '69.2', finalCutoff: '63.8' },
-      { university: 'Università degli Studi di Firenze', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — New for 2026/27' },
-      { university: 'Università degli Studi di Padova — MedTech', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — Launched 2026/27' },
-    ],
-    '2023': [
-      { university: 'Università degli Studi di Milano (La Statale)', seats: 25, seatsLeft: '3', round1Cutoff: '85.9', finalCutoff: '79.7' },
-      { university: 'Università degli Studi di Milano-Bicocca', seats: 15, seatsLeft: '1', round1Cutoff: '82.3', finalCutoff: '75.6' },
-      { university: 'Università di Roma «La Sapienza»', seats: 13, seatsLeft: '—', round1Cutoff: '81.3', finalCutoff: '74.2' },
-      { university: 'Università degli Studi di Padova (Venice)', seats: 25, seatsLeft: '2', round1Cutoff: '79.4', finalCutoff: '72.8' },
-      { university: 'Università di Bologna', seats: 20, seatsLeft: '3', round1Cutoff: '77.5', finalCutoff: '71.8' },
-      { university: 'Università degli Studi di Torino', seats: 32, seatsLeft: '3', round1Cutoff: '76.8', finalCutoff: '70.5' },
-      { university: 'Università di Roma «Tor Vergata»', seats: 15, seatsLeft: '2', round1Cutoff: '75.9', finalCutoff: '69.9' },
-      { university: 'Università degli Studi di Pavia', seats: 40, seatsLeft: '2', round1Cutoff: '74.8', finalCutoff: '68.4' },
-      { university: 'Università degli Studi di Parma (Piacenza)', seats: 45, seatsLeft: '4', round1Cutoff: '73.0', finalCutoff: '66.9' },
-      { university: 'Università di Napoli Federico II', seats: 25, seatsLeft: '2', round1Cutoff: '72.1', finalCutoff: '65.8' },
-      { university: 'Università degli Studi di Siena (Dentistry LM-46)', seats: 14, seatsLeft: '1', round1Cutoff: '71.4', finalCutoff: '65.3' },
-      { university: 'Università Politecnica delle Marche', seats: 25, seatsLeft: '2', round1Cutoff: '70.6', finalCutoff: '64.7' },
-      { university: 'Università degli Studi di Bari Aldo Moro', seats: 11, seatsLeft: '1', round1Cutoff: '69.8', finalCutoff: '64.0' },
-      { university: 'Università degli Studi di Cagliari', seats: 20, seatsLeft: '2', round1Cutoff: '69.0', finalCutoff: '63.2' },
-      { university: 'Università della Campania «Luigi Vanvitelli»', seats: 50, seatsLeft: '4', round1Cutoff: '68.2', finalCutoff: '62.7' },
-      { university: 'Università degli Studi di Catania', seats: 30, seatsLeft: '3', round1Cutoff: '67.6', finalCutoff: '62.0' },
-      { university: 'Università degli Studi di Messina', seats: 40, seatsLeft: '3', round1Cutoff: '66.8', finalCutoff: '61.4' },
-      { university: 'Università degli Studi di Firenze', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — New for 2026/27' },
-      { university: 'Università degli Studi di Padova — MedTech', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — Launched 2026/27' },
-    ],
-    '2022': [
-      { university: 'Università degli Studi di Milano (La Statale)', seats: 25, seatsLeft: '4', round1Cutoff: '83.1', finalCutoff: '77.0' },
-      { university: 'Università degli Studi di Milano-Bicocca', seats: 15, seatsLeft: '2', round1Cutoff: '79.5', finalCutoff: '73.0' },
-      { university: 'Università di Roma «La Sapienza»', seats: 13, seatsLeft: '—', round1Cutoff: '78.6', finalCutoff: '72.1' },
-      { university: 'Università degli Studi di Padova (Venice)', seats: 25, seatsLeft: '3', round1Cutoff: '76.9', finalCutoff: '70.2' },
-      { university: 'Università di Bologna', seats: 20, seatsLeft: '4', round1Cutoff: '75.2', finalCutoff: '69.0' },
-      { university: 'Università degli Studi di Torino', seats: 30, seatsLeft: '4', round1Cutoff: '74.4', finalCutoff: '68.0' },
-      { university: 'Università di Roma «Tor Vergata»', seats: 15, seatsLeft: '2', round1Cutoff: '73.5', finalCutoff: '67.2' },
-      { university: 'Università degli Studi di Pavia', seats: 35, seatsLeft: '3', round1Cutoff: '72.3', finalCutoff: '65.8' },
-      { university: 'Università degli Studi di Parma (Piacenza)', seats: 40, seatsLeft: '4', round1Cutoff: '70.8', finalCutoff: '64.3' },
-      { university: 'Università di Napoli Federico II', seats: 25, seatsLeft: '2', round1Cutoff: '69.9', finalCutoff: '63.2' },
-      { university: 'Università degli Studi di Siena (Dentistry LM-46)', seats: 14, seatsLeft: '1', round1Cutoff: '69.0', finalCutoff: '62.7' },
-      { university: 'Università Politecnica delle Marche', seats: 25, seatsLeft: '3', round1Cutoff: '68.2', finalCutoff: '62.0' },
-      { university: 'Università degli Studi di Bari Aldo Moro', seats: 11, seatsLeft: '1', round1Cutoff: '67.5', finalCutoff: '61.4' },
-      { university: 'Università degli Studi di Cagliari', seats: 20, seatsLeft: '3', round1Cutoff: '66.7', finalCutoff: '60.6' },
-      { university: 'Università della Campania «Luigi Vanvitelli»', seats: 45, seatsLeft: '4', round1Cutoff: '66.0', finalCutoff: '60.0' },
-      { university: 'Università degli Studi di Catania', seats: 30, seatsLeft: '3', round1Cutoff: '65.2', finalCutoff: '59.3' },
-      { university: 'Università degli Studi di Messina', seats: 35, seatsLeft: '3', round1Cutoff: '64.4', finalCutoff: '58.6' },
-      { university: 'Università degli Studi di Firenze', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — New for 2026/27' },
-      { university: 'Università degli Studi di Padova — MedTech', seats: 0, seatsLeft: '—', round1Cutoff: 'N/A', finalCutoff: 'N/A — Launched 2026/27' },
-    ],
-  },
-};
 
 const cityProfiles = [
   { city: 'Milan', emoji: '🏙️', tag: 'Global Metropolis · North', desc: 'Financial capital, top hospitals (San Raffaele & Niguarda), world-class transport network', budget: '€950–€1,400/mo', cost: 'Higher' },
@@ -345,7 +169,22 @@ export default function UniversitiesPage() {
 
   // Cutoff state
   const [cutoffPool, setCutoffPool] = useState<'EU' | 'Non-EU'>('EU');
-  const [cutoffYear, setCutoffYear] = useState('2025');
+  const [cutoffYear, setCutoffYear] = useState('2026');
+  const [cutoffStore, setCutoffStore] = useState<CutoffStoreState>(() => getCutoffStore());
+
+  useEffect(() => {
+    syncCutoffStoreFromSupabase().then((data) => {
+      setCutoffStore(data);
+    });
+
+    const handleCutoffUpdate = (e: any) => {
+      if (e.detail) setCutoffStore(e.detail);
+      else setCutoffStore(getCutoffStore());
+    };
+
+    window.addEventListener('ahsora_cms_cutoffs_updated', handleCutoffUpdate);
+    return () => window.removeEventListener('ahsora_cms_cutoffs_updated', handleCutoffUpdate);
+  }, []);
 
   // Official seats table state
   const [seatSearch, setSeatSearch] = useState('');
@@ -1401,53 +1240,91 @@ export default function UniversitiesPage() {
           </FadeUp>
 
           <FadeUp delay={80}>
-            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '20px' }}>
-              <div style={{ display: 'flex', background: '#f1f5f9', borderRadius: '10px', padding: '4px' }}>
-                {(['EU', 'Non-EU'] as const).map(pool => (
-                  <button key={pool} onClick={() => setCutoffPool(pool)} style={{ padding: '8px 20px', borderRadius: '8px', fontWeight: 700, fontSize: '0.875rem', background: cutoffPool === pool ? '#0f172a' : 'transparent', color: cutoffPool === pool ? '#fff' : '#64748b', border: 'none', cursor: 'pointer', transition: 'all 0.2s' }}>
-                    {pool}
-                  </button>
-                ))}
-              </div>
-              <div style={{ display: 'flex', gap: '6px' }}>
-                {['2025', '2024', '2023', '2022'].map(yr => (
-                  <button key={yr} onClick={() => setCutoffYear(yr)} style={{ padding: '8px 16px', borderRadius: '8px', fontWeight: 600, fontSize: '0.875rem', background: cutoffYear === yr ? '#059669' : '#f1f5f9', color: cutoffYear === yr ? '#fff' : '#64748b', border: 'none', cursor: 'pointer', transition: 'all 0.2s' }}>
-                    {yr}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </FadeUp>
+            {(() => {
+              const currentPoolData = cutoffStore[cutoffPool] || {};
+              const yearsList = Object.keys(currentPoolData).sort((a, b) => Number(b) - Number(a));
+              const activeTable = currentPoolData[cutoffYear] || currentPoolData['2026'] || { columns: DEFAULT_CUTOFF_COLUMNS, rows: [] };
 
-          <FadeUp delay={120}>
-            <div style={{ overflowX: 'auto', borderRadius: '16px', border: '1.5px solid #e2e8f0', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.875rem', background: '#fff' }}>
-                <thead>
-                  <tr style={{ background: '#f8fafc', borderBottom: '1.5px solid #e2e8f0' }}>
-                    {[`University (${cutoffPool} Pool · ${cutoffYear})`, 'Total Seats', 'Seats Left After Round 1', 'Round 1 Cutoff', 'Final Cutoff'].map((h, i) => (
-                      <th key={i} style={{ textAlign: i === 0 ? 'left' : 'center', padding: '12px 16px', color: '#475569', fontWeight: 700, fontSize: '0.7875rem', textTransform: 'uppercase', letterSpacing: '0.04em', whiteSpace: 'nowrap' }}>{h}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {cutoffData[cutoffPool]?.[cutoffYear]?.map((row, i) => (
-                    <tr key={i} style={{ borderBottom: '1px solid #f1f5f9', background: i % 2 === 0 ? '#fff' : '#fafcfa' }}
-                      onMouseEnter={e => (e.currentTarget as HTMLTableRowElement).style.background = '#f0fff4'}
-                      onMouseLeave={e => (e.currentTarget as HTMLTableRowElement).style.background = i % 2 === 0 ? '#fff' : '#fafcfa'}
-                    >
-                      <td style={{ padding: '13px 16px', fontWeight: 700, color: '#0f172a', whiteSpace: 'nowrap' }}>{row.university}</td>
-                      <td style={{ padding: '13px 16px', textAlign: 'center', color: '#334155' }}>{row.seats}</td>
-                      <td style={{ padding: '13px 16px', textAlign: 'center' }}>
-                        <span style={{ color: row.seatsLeft === '—' ? '#d97706' : '#334155', fontStyle: row.seatsLeft === '—' ? 'italic' : 'normal' }}>{row.seatsLeft}</span>
-                        {row.seatsLeft === '—' && <div style={{ fontSize: '0.7rem', color: '#d97706' }}>Still being assigned via later rounds</div>}
-                      </td>
-                      <td style={{ padding: '13px 16px', textAlign: 'center', color: row.round1Cutoff === 'Not published' ? '#94a3b8' : '#334155', fontStyle: row.round1Cutoff === 'Not published' ? 'italic' : 'normal' }}>{row.round1Cutoff}</td>
-                      <td style={{ padding: '13px 16px', textAlign: 'center', fontWeight: 700, color: '#059669' }}>{row.finalCutoff}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+              return (
+                <>
+                  <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '20px' }}>
+                    <div style={{ display: 'flex', background: '#f1f5f9', borderRadius: '10px', padding: '4px' }}>
+                      {(['EU', 'Non-EU'] as const).map(pool => (
+                        <button key={pool} onClick={() => setCutoffPool(pool)} style={{ padding: '8px 20px', borderRadius: '8px', fontWeight: 700, fontSize: '0.875rem', background: cutoffPool === pool ? '#0f172a' : 'transparent', color: cutoffPool === pool ? '#fff' : '#64748b', border: 'none', cursor: 'pointer', transition: 'all 0.2s' }}>
+                          {pool}
+                        </button>
+                      ))}
+                    </div>
+                    <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                      {yearsList.map(yr => (
+                        <button key={yr} onClick={() => setCutoffYear(yr)} style={{ padding: '8px 16px', borderRadius: '8px', fontWeight: 600, fontSize: '0.875rem', background: cutoffYear === yr ? '#059669' : '#f1f5f9', color: cutoffYear === yr ? '#fff' : '#64748b', border: 'none', cursor: 'pointer', transition: 'all 0.2s' }}>
+                          {yr} {yr === '2026' ? '⚡ (Latest)' : ''}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div style={{ overflowX: 'auto', borderRadius: '16px', border: '1.5px solid #e2e8f0', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
+                    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.875rem', background: '#fff' }}>
+                      <thead>
+                        <tr style={{ background: '#f8fafc', borderBottom: '1.5px solid #e2e8f0' }}>
+                          {activeTable.columns.map((col, i) => (
+                            <th key={col.id} style={{ textAlign: col.align || (i === 0 ? 'left' : 'center'), padding: '12px 16px', color: '#475569', fontWeight: 700, fontSize: '0.7875rem', textTransform: 'uppercase', letterSpacing: '0.04em', whiteSpace: 'nowrap' }}>
+                              {col.label} {i === 0 && `(${cutoffPool} Pool · ${cutoffYear})`}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {activeTable.rows.map((row, i) => (
+                          <tr key={row.id || i} style={{ borderBottom: '1px solid #f1f5f9', background: i % 2 === 0 ? '#fff' : '#fafcfa' }}
+                            onMouseEnter={e => (e.currentTarget as HTMLTableRowElement).style.background = '#f0fff4'}
+                            onMouseLeave={e => (e.currentTarget as HTMLTableRowElement).style.background = i % 2 === 0 ? '#fff' : '#fafcfa'}
+                          >
+                            {activeTable.columns.map((col, ci) => {
+                              const val = row[col.id] !== undefined ? String(row[col.id]) : '—';
+                              const isUniv = col.id === 'university';
+                              const isRound1 = col.id === 'round1Cutoff';
+                              const isFinal = col.id === 'finalCutoff';
+                              const isSeatsLeft = col.id === 'seatsLeft';
+
+                              return (
+                                <td
+                                  key={col.id}
+                                  style={{
+                                    padding: '13px 16px',
+                                    fontWeight: isUniv || isFinal || isRound1 ? 700 : 500,
+                                    color: isRound1 ? '#059669' : isUniv ? '#0f172a' : isFinal && val !== 'Pending' ? '#059669' : '#334155',
+                                    textAlign: col.align || (ci === 0 ? 'left' : 'center'),
+                                    whiteSpace: isUniv ? 'nowrap' : 'normal',
+                                  }}
+                                >
+                                  {isSeatsLeft && (val === '—' || !val) ? (
+                                    <>
+                                      <span style={{ color: '#d97706', fontStyle: 'italic' }}>—</span>
+                                      <div style={{ fontSize: '0.7rem', color: '#d97706' }}>Still being assigned via later rounds</div>
+                                    </>
+                                  ) : val === 'Pending' ? (
+                                    <span style={{ color: '#d97706', backgroundColor: '#fef3c7', padding: '2px 8px', borderRadius: '4px', fontSize: '0.78rem' }}>
+                                      Pending
+                                    </span>
+                                  ) : val === 'N/A' ? (
+                                    <span style={{ color: '#94a3b8', fontStyle: 'italic' }}>N/A</span>
+                                  ) : (
+                                    val
+                                  )}
+                                </td>
+                              );
+                            })}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </>
+              );
+            })()}
+
             <div style={{ marginTop: '14px', display: 'flex', gap: '20px', flexWrap: 'wrap', fontSize: '0.8125rem', color: '#64748b' }}>
               <span><strong style={{ color: '#d97706' }}>—</strong> = seats still being assigned through later rounds (a real result, not a data gap)</span>
               <span><em style={{ color: '#94a3b8' }}>Not published</em> = figure not made available by the source (a data-availability gap)</span>

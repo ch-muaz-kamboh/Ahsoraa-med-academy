@@ -29,8 +29,13 @@ import {
   ListOrdered,
   Megaphone,
   Sliders,
-  Bookmark
+  Bookmark,
+  Table as TableIcon,
+  ArrowUp,
+  ArrowDown,
 } from 'lucide-react';
+import { parseHeadingsFromHtml } from '@/components/news/ArticleTableOfContents';
+import CutoffTableManager from '@/components/admin/CutoffTableManager';
 
 import {
   getNewsPosts,
@@ -80,7 +85,7 @@ import { createClient } from '@/lib/supabase/client';
 import RichTextEditor from '@/components/admin/RichTextEditor';
 
 export default function AdminContentPage() {
-  const [activeTab, setActiveTab] = useState<'news' | 'docs' | 'ticker' | 'pricing' | 'offer' | 'hero'>('news');
+  const [activeTab, setActiveTab] = useState<'news' | 'cutoffs' | 'docs' | 'ticker' | 'pricing' | 'offer' | 'hero'>('news');
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
@@ -301,6 +306,53 @@ export default function AdminContentPage() {
     });
   };
 
+  // ── Table of Contents (TOC) Handlers ─────────────────────────────────────
+  const handleAutoDetectToc = () => {
+    const detected = parseHeadingsFromHtml(newNews.content);
+    if (detected.length > 0) {
+      setNewNews((prev) => ({ ...prev, indexes: detected }));
+      showToast('success', `⚡ Auto-detected ${detected.length} section headings from content!`);
+    } else {
+      showToast('error', 'No <h2> or <h3> headings found in content. Add headings in editor or add manually.');
+    }
+  };
+
+  const handleAddManualToc = () => {
+    if (!customIndexTitle.trim()) {
+      showToast('error', 'Please enter a section heading title for Table of Contents.');
+      return;
+    }
+    const slug = (customIndexId.trim() || slugify(customIndexTitle)).toLowerCase();
+    const newItem: ArticleIndexItem = {
+      id: slug,
+      title: customIndexTitle.trim(),
+    };
+    setNewNews((prev) => ({
+      ...prev,
+      indexes: [...(prev.indexes || []), newItem],
+    }));
+    setCustomIndexTitle('');
+    setCustomIndexId('');
+    showToast('success', `Added "${newItem.title}" to Table of Contents`);
+  };
+
+  const handleDeleteToc = (indexToDelete: number) => {
+    setNewNews((prev) => ({
+      ...prev,
+      indexes: (prev.indexes || []).filter((_, i) => i !== indexToDelete),
+    }));
+  };
+
+  const handleMoveToc = (index: number, direction: 'up' | 'down') => {
+    const current = [...(newNews.indexes || [])];
+    const targetIndex = direction === 'up' ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= current.length) return;
+    const temp = current[index];
+    current[index] = current[targetIndex];
+    current[targetIndex] = temp;
+    setNewNews((prev) => ({ ...prev, indexes: current }));
+  };
+
   const handleAddNews = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newNews.title || !newNews.excerpt) {
@@ -329,6 +381,7 @@ export default function AdminContentPage() {
         metaTitle: finalMetaTitle,
         metaDescription: finalMetaDesc,
         faqItems: newNews.faqItems,
+        indexes: newNews.indexes || [],
       };
 
       updateNewsPost(updatedPost);
@@ -351,7 +404,7 @@ export default function AdminContentPage() {
         faqItems: [],
         indexes: [],
       });
-      showToast('success', '✅ Article, URL slug & SEO metadata updated and synced live!');
+      showToast('success', '✅ Article, URL slug, TOC & SEO metadata updated and synced live!');
       return;
     }
 
@@ -368,6 +421,7 @@ export default function AdminContentPage() {
       metaTitle: finalMetaTitle,
       metaDescription: finalMetaDesc,
       faqItems: newNews.faqItems,
+      indexes: newNews.indexes || [],
     });
     setNewsPosts([created, ...newsPosts]);
     setIsSlugCustom(false);
@@ -387,7 +441,7 @@ export default function AdminContentPage() {
       faqItems: [],
       indexes: [],
     });
-    showToast('success', '✅ News & Update published with SEO metadata & URL Slug!');
+    showToast('success', '✅ News & Update published with Table of Contents & SEO metadata!');
   };
 
   const handleDeleteNews = (id: string) => {
@@ -566,6 +620,7 @@ export default function AdminContentPage() {
       <div style={{ display: 'flex', gap: '8px', borderBottom: '2px solid #E2E8F0', paddingBottom: '12px', marginBottom: '32px', flexWrap: 'wrap' }}>
         {[
           { id: 'news', label: 'News & Blogs', icon: <Newspaper size={18} />, badge: newsPosts.length },
+          { id: 'cutoffs', label: 'IMAT Cutoff Tables (EU & Non-EU)', icon: <TableIcon size={18} /> },
           { id: 'docs', label: 'Resource Vault (Docs Only)', icon: <FileText size={18} />, badge: documents.length },
           { id: 'ticker', label: 'Moving Strips (Home, IMAT, Portal)', icon: <Zap size={18} />, badge: tickerItems.length + (imatTickerConfig?.items?.length ?? 0) + (portalTickerConfig?.items?.length ?? 0) },
           { id: 'pricing', label: 'Course Pricing & Discounts', icon: <Tag size={18} />, badge: prices.length },
@@ -672,6 +727,11 @@ export default function AdminContentPage() {
                           {post.featured && (
                             <span style={{ backgroundColor: '#FEF3C7', color: '#92400E', fontSize: '0.75rem', fontWeight: 700, padding: '2px 8px', borderRadius: '6px' }}>
                               Featured
+                            </span>
+                          )}
+                          {post.indexes && post.indexes.length > 0 && (
+                            <span style={{ backgroundColor: '#E0E7FF', color: '#3730A3', fontSize: '0.72rem', fontWeight: 700, padding: '2px 8px', borderRadius: '6px' }}>
+                              📋 {post.indexes.length} TOC Sections
                             </span>
                           )}
                           {isCurrentEditing && (
@@ -1129,6 +1189,277 @@ export default function AdminContentPage() {
                 />
               </div>
 
+              {/* ── TABLE OF CONTENTS (TOC) ARTICLE NAVIGATION BUILDER ── */}
+              <div
+                style={{
+                  backgroundColor: '#F8FAFC',
+                  padding: '16px',
+                  borderRadius: '12px',
+                  border: '1.5px solid #CBD5E1',
+                  boxShadow: '0 2px 6px rgba(0,0,0,0.02)',
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', flexWrap: 'wrap', gap: '8px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <ListOrdered size={18} color="#059669" />
+                    <div>
+                      <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#0F172A', display: 'block' }}>
+                        Article Table of Contents (Public Index)
+                      </span>
+                      <span style={{ fontSize: '0.72rem', color: '#64748B' }}>
+                        Readers click these to smoothly jump to specific headings in the article
+                      </span>
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', gap: '6px' }}>
+                    <button
+                      type="button"
+                      onClick={handleAutoDetectToc}
+                      style={{
+                        padding: '5px 10px',
+                        backgroundColor: '#ECFDF5',
+                        color: '#059669',
+                        border: '1px solid #A7F3D0',
+                        borderRadius: '6px',
+                        fontSize: '0.74rem',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                      }}
+                      title="Scan <h2> and <h3> tags from article content automatically"
+                    >
+                      <Sparkles size={12} /> Auto-Detect from Content
+                    </button>
+                    <span
+                      style={{
+                        fontSize: '0.72rem',
+                        fontWeight: 700,
+                        backgroundColor: '#E2E8F0',
+                        color: '#475569',
+                        padding: '3px 8px',
+                        borderRadius: '12px',
+                      }}
+                    >
+                      {newNews.indexes?.length || 0} Sections
+                    </span>
+                  </div>
+                </div>
+
+                {/* Existing TOC Items List */}
+                {newNews.indexes && newNews.indexes.length > 0 ? (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '14px' }}>
+                    {newNews.indexes.map((item, idx) => (
+                      <div
+                        key={idx}
+                        style={{
+                          backgroundColor: '#FFFFFF',
+                          border: '1px solid #E2E8F0',
+                          borderRadius: '8px',
+                          padding: '8px 10px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                        }}
+                      >
+                        <span
+                          style={{
+                            width: '20px',
+                            height: '20px',
+                            borderRadius: '50%',
+                            backgroundColor: '#059669',
+                            color: '#FFFFFF',
+                            fontSize: '0.7rem',
+                            fontWeight: 800,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexShrink: 0,
+                          }}
+                        >
+                          {idx + 1}
+                        </span>
+
+                        <input
+                          type="text"
+                          value={item.title}
+                          placeholder="Heading title..."
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setNewNews((prev) => {
+                              const updated = [...(prev.indexes || [])];
+                              updated[idx] = { ...updated[idx], title: val };
+                              return { ...prev, indexes: updated };
+                            });
+                          }}
+                          style={{
+                            flex: 2,
+                            padding: '4px 8px',
+                            fontSize: '0.78rem',
+                            fontWeight: 600,
+                            border: '1px solid #CBD5E1',
+                            borderRadius: '6px',
+                            outline: 'none',
+                          }}
+                        />
+
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '2px', flex: 1 }}>
+                          <span style={{ fontSize: '0.72rem', color: '#94A3B8' }}>#</span>
+                          <input
+                            type="text"
+                            value={item.id}
+                            placeholder="anchor-slug"
+                            onChange={(e) => {
+                              const val = e.target.value;
+                              setNewNews((prev) => {
+                                const updated = [...(prev.indexes || [])];
+                                updated[idx] = { ...updated[idx], id: val };
+                                return { ...prev, indexes: updated };
+                              });
+                            }}
+                            style={{
+                              width: '100%',
+                              padding: '4px 8px',
+                              fontSize: '0.74rem',
+                              fontFamily: 'monospace',
+                              border: '1px solid #CBD5E1',
+                              borderRadius: '6px',
+                              outline: 'none',
+                            }}
+                          />
+                        </div>
+
+                        <div style={{ display: 'flex', gap: '2px' }}>
+                          <button
+                            type="button"
+                            onClick={() => handleMoveToc(idx, 'up')}
+                            disabled={idx === 0}
+                            style={{
+                              padding: '4px',
+                              border: 'none',
+                              background: 'none',
+                              cursor: idx === 0 ? 'default' : 'pointer',
+                              color: idx === 0 ? '#CBD5E1' : '#64748B',
+                            }}
+                            title="Move Up"
+                          >
+                            <ArrowUp size={13} />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleMoveToc(idx, 'down')}
+                            disabled={idx === (newNews.indexes?.length || 0) - 1}
+                            style={{
+                              padding: '4px',
+                              border: 'none',
+                              background: 'none',
+                              cursor: idx === (newNews.indexes?.length || 0) - 1 ? 'default' : 'pointer',
+                              color: idx === (newNews.indexes?.length || 0) - 1 ? '#CBD5E1' : '#64748B',
+                            }}
+                            title="Move Down"
+                          >
+                            <ArrowDown size={13} />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteToc(idx)}
+                            style={{
+                              padding: '4px',
+                              border: 'none',
+                              background: 'none',
+                              cursor: 'pointer',
+                              color: '#EF4444',
+                            }}
+                            title="Delete TOC section"
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div
+                    style={{
+                      padding: '12px',
+                      backgroundColor: '#FFFFFF',
+                      borderRadius: '8px',
+                      border: '1px dashed #CBD5E1',
+                      fontSize: '0.78rem',
+                      color: '#94A3B8',
+                      textAlign: 'center',
+                      marginBottom: '12px',
+                    }}
+                  >
+                    No Table of Contents sections defined yet. Click "Auto-Detect from Content" or add section anchors below.
+                  </div>
+                )}
+
+                {/* Manual Add Input Strip */}
+                <div
+                  style={{
+                    backgroundColor: '#FFFFFF',
+                    padding: '10px',
+                    borderRadius: '8px',
+                    border: '1px solid #E2E8F0',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '6px',
+                  }}
+                >
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <input
+                      type="text"
+                      placeholder="Section Title: e.g. 1. Official MUR Announcement"
+                      value={customIndexTitle}
+                      onChange={(e) => setCustomIndexTitle(e.target.value)}
+                      style={{
+                        flex: 2,
+                        padding: '6px 8px',
+                        borderRadius: '6px',
+                        border: '1px solid #CBD5E1',
+                        fontSize: '0.78rem',
+                        outline: 'none',
+                      }}
+                    />
+                    <input
+                      type="text"
+                      placeholder="Anchor Slug: mur-announcement"
+                      value={customIndexId}
+                      onChange={(e) => setCustomIndexId(e.target.value)}
+                      style={{
+                        flex: 1,
+                        padding: '6px 8px',
+                        borderRadius: '6px',
+                        border: '1px solid #CBD5E1',
+                        fontSize: '0.74rem',
+                        fontFamily: 'monospace',
+                        outline: 'none',
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={handleAddManualToc}
+                      style={{
+                        padding: '6px 12px',
+                        backgroundColor: '#059669',
+                        color: '#FFFFFF',
+                        border: 'none',
+                        borderRadius: '6px',
+                        fontSize: '0.75rem',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      + Add Section
+                    </button>
+                  </div>
+                </div>
+              </div>
+
               <div style={{ display: 'flex', gap: '12px' }}>
                 <div style={{ flex: 1 }}>
                   <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>Author</label>
@@ -1191,6 +1522,13 @@ export default function AdminContentPage() {
             </form>
           </div>
 
+        </div>
+      )}
+
+      {/* ── TAB: IMAT CUTOFF TABLES MANAGER ───────────────────────────────── */}
+      {activeTab === 'cutoffs' && (
+        <div style={{ marginBottom: '40px' }}>
+          <CutoffTableManager />
         </div>
       )}
 

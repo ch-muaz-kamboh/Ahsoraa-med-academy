@@ -21,8 +21,21 @@ import {
   Building2,
   GraduationCap
 } from 'lucide-react';
+import ArticleShareBar from '@/components/news/ArticleShareBar';
+import ArticleTableOfContents from '@/components/news/ArticleTableOfContents';
 
 export const revalidate = 60; // ISR: Incremental Static Regeneration every 60 seconds
+
+function injectHeadingIds(html: string): string {
+  if (!html) return '';
+  let counter = 1;
+  return html.replace(/<h([23])(?:\s+id=["']([^"']*)["'])?([^>]*)>(.*?)<\/h\1>/gi, (match, tag, existingId, otherAttrs, text) => {
+    if (existingId) return match;
+    const cleanText = text.replace(/<[^>]*>/g, '').trim();
+    const slug = cleanText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || `section-${counter++}`;
+    return `<h${tag} id="${slug}"${otherAttrs}>${text}</h${tag}>`;
+  });
+}
 
 // ── Fallback articles database for SSR when Supabase is offline / demo mode ──
 const SSR_FALLBACK_NEWS: NewsItem[] = [
@@ -211,6 +224,7 @@ async function getArticleBySlug(slug: string): Promise<NewsItem | null> {
         metaTitle: data.meta_title || undefined,
         metaDescription: data.meta_description || undefined,
         faqItems: Array.isArray(data.faq_items) ? data.faq_items : undefined,
+        indexes: Array.isArray(data.indexes) ? data.indexes : undefined,
       };
     }
   } catch (err) {
@@ -321,6 +335,7 @@ export default async function NewsArticlePage({
     notFound();
   }
 
+  const enrichedContent = injectHeadingIds(post.content);
   const articleUrl = `https://ahsorameds.com/news/${post.slug}`;
   const ogImage = post.imageUrl || 'https://ahsorameds.com/icon.png';
   const cleanDescription = (
@@ -568,25 +583,7 @@ export default async function NewsArticlePage({
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <a
-                  href={`https://wa.me/?text=${encodeURIComponent(`${post.title} - Read more on Ahsora: ${articleUrl}`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    backgroundColor: '#16A34A',
-                    color: '#FFFFFF',
-                    padding: '8px 14px',
-                    borderRadius: '8px',
-                    fontSize: '0.78rem',
-                    fontWeight: 700,
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                  }}
-                >
-                  <Share2 size={13} /> Share on WhatsApp
-                </a>
+                <ArticleShareBar title={post.title} url={articleUrl} variant="header" />
               </div>
             </div>
           </div>
@@ -649,6 +646,9 @@ export default async function NewsArticlePage({
               </div>
             </div>
 
+            {/* Table of Contents / Article Index */}
+            <ArticleTableOfContents indexes={post.indexes} htmlContent={enrichedContent} />
+
             {/* Article Content */}
             <article
               className="prose-article"
@@ -657,8 +657,11 @@ export default async function NewsArticlePage({
                 lineHeight: 1.8,
                 color: '#334155',
               }}
-              dangerouslySetInnerHTML={{ __html: post.content }}
+              dangerouslySetInnerHTML={{ __html: enrichedContent }}
             />
+
+            {/* Bottom Multi-Platform Social Virality Share Card */}
+            <ArticleShareBar title={post.title} url={articleUrl} variant="footer" />
 
             {/* Dynamic Q&A / FAQ Section with FAQPage Schema */}
             {faqList.length > 0 && (

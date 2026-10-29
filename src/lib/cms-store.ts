@@ -430,6 +430,7 @@ export async function syncNewsFromSupabase(): Promise<NewsItem[]> {
         metaTitle: item.meta_title || undefined,
         metaDescription: item.meta_description || undefined,
         faqItems: Array.isArray(item.faq_items) ? item.faq_items : undefined,
+        indexes: Array.isArray(item.indexes) ? item.indexes : undefined,
       }));
       saveNewsPosts(formatted);
       return formatted;
@@ -469,6 +470,7 @@ export function addNewsPost(post: Omit<NewsItem, 'id'>): NewsItem {
       meta_title: newPost.metaTitle || null,
       meta_description: newPost.metaDescription || null,
       faq_items: newPost.faqItems || [],
+      indexes: newPost.indexes || [],
     }).then(({ error }) => {
       if (error) console.warn('Supabase news insert warning:', error.message);
     });
@@ -503,6 +505,7 @@ export function updateNewsPost(updatedPost: NewsItem): NewsItem {
       meta_title: updatedPost.metaTitle || null,
       meta_description: updatedPost.metaDescription || null,
       faq_items: updatedPost.faqItems || [],
+      indexes: updatedPost.indexes || [],
     }).then(({ error }) => {
       if (error) console.warn('Supabase news update warning:', error.message);
     });
