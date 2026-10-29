@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/client';
-import { NewsItem } from '@/lib/cms-store';
+import { NewsItem, extractContentAndIndexes } from '@/lib/cms-store';
 import {
   Calendar,
   Clock,
@@ -209,12 +209,13 @@ async function getArticleBySlug(slug: string): Promise<NewsItem | null> {
       .maybeSingle();
 
     if (!error && data) {
+      const { content, indexes: embeddedIndexes } = extractContentAndIndexes(data.content || '');
       return {
         id: data.id,
         title: data.title,
         slug: data.slug,
         excerpt: data.excerpt,
-        content: data.content,
+        content,
         category: data.category,
         author: data.author,
         date: data.date,
@@ -224,7 +225,7 @@ async function getArticleBySlug(slug: string): Promise<NewsItem | null> {
         metaTitle: data.meta_title || undefined,
         metaDescription: data.meta_description || undefined,
         faqItems: Array.isArray(data.faq_items) ? data.faq_items : undefined,
-        indexes: Array.isArray(data.indexes) ? data.indexes : undefined,
+        indexes: Array.isArray(data.indexes) && data.indexes.length > 0 ? data.indexes : embeddedIndexes,
       };
     }
   } catch (err) {

@@ -114,6 +114,7 @@ export default function AdminContentPage() {
     metaDescription: string;
     faqItems: { question: string; answer: string }[];
     indexes: ArticleIndexItem[];
+    imageUrl?: string;
   }>({
     title: '',
     slug: '',
@@ -127,6 +128,7 @@ export default function AdminContentPage() {
     metaDescription: '',
     faqItems: [],
     indexes: [],
+    imageUrl: '',
   });
   const [isSlugCustom, setIsSlugCustom] = useState(false);
   const [isMetaTitleCustom, setIsMetaTitleCustom] = useState(false);
@@ -281,6 +283,7 @@ export default function AdminContentPage() {
       metaDescription: post.metaDescription || post.excerpt.replace(/<[^>]*>/g, '').slice(0, 160),
       faqItems: post.faqItems || [],
       indexes: (post as any).indexes || [],
+      imageUrl: post.imageUrl || '',
     });
     showToast('success', `✏️ Editing "${post.title}". Update the fields and click "Save & Update Article".`);
   };
@@ -303,6 +306,7 @@ export default function AdminContentPage() {
       metaDescription: '',
       faqItems: [],
       indexes: [],
+      imageUrl: '',
     });
   };
 
@@ -363,6 +367,7 @@ export default function AdminContentPage() {
     const finalSlug = (newNews.slug.trim() || slugify(newNews.title)).toLowerCase();
     const finalMetaTitle = (newNews.metaTitle.trim() || newNews.title).slice(0, 60);
     const finalMetaDesc = (newNews.metaDescription.trim() || newNews.excerpt.replace(/<[^>]*>/g, '')).slice(0, 160);
+    const finalImageUrl = newNews.imageUrl?.trim() || undefined;
 
     if (editingNewsId) {
       const existing = newsPosts.find((p) => p.id === editingNewsId);
@@ -377,7 +382,7 @@ export default function AdminContentPage() {
         date: existing?.date || new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
         readTime: newNews.readTime,
         featured: newNews.featured,
-        imageUrl: existing?.imageUrl,
+        imageUrl: finalImageUrl || existing?.imageUrl,
         metaTitle: finalMetaTitle,
         metaDescription: finalMetaDesc,
         faqItems: newNews.faqItems,
@@ -403,6 +408,7 @@ export default function AdminContentPage() {
         metaDescription: '',
         faqItems: [],
         indexes: [],
+        imageUrl: '',
       });
       showToast('success', '✅ Article, URL slug, TOC & SEO metadata updated and synced live!');
       return;
@@ -418,6 +424,7 @@ export default function AdminContentPage() {
       date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
       readTime: newNews.readTime,
       featured: newNews.featured,
+      imageUrl: finalImageUrl,
       metaTitle: finalMetaTitle,
       metaDescription: finalMetaDesc,
       faqItems: newNews.faqItems,
@@ -440,8 +447,9 @@ export default function AdminContentPage() {
       metaDescription: '',
       faqItems: [],
       indexes: [],
+      imageUrl: '',
     });
-    showToast('success', '✅ News & Update published with Table of Contents & SEO metadata!');
+    showToast('success', '✅ News & Update published with Table of Contents & synced to public website!');
   };
 
   const handleDeleteNews = (id: string) => {
@@ -1458,6 +1466,19 @@ export default function AdminContentPage() {
                     </button>
                   </div>
                 </div>
+              </div>
+
+              <div>
+                <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>
+                  Cover / Banner Image URL (Optional)
+                </label>
+                <input
+                  type="text"
+                  placeholder="https://... or /images/blog-banner.jpg"
+                  value={newNews.imageUrl || ''}
+                  onChange={(e) => setNewNews({ ...newNews, imageUrl: e.target.value })}
+                  style={{ width: '100%', padding: '8px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.8125rem', outline: 'none', boxSizing: 'border-box' }}
+                />
               </div>
 
               <div style={{ display: 'flex', gap: '12px' }}>

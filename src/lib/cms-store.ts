@@ -410,30 +410,108 @@ export function saveNewsPosts(posts: NewsItem[]) {
   }
 }
 
+export function serializeContentWithIndexes(content: string, indexes?: ArticleIndexItem[]): string {
+  if (!content) return '';
+  const cleanContent = content.replace(/<!--\s*TOC_INDEXES:[\s\S]*?-->/g, '').trim();
+  if (!indexes || indexes.length === 0) return cleanContent;
+  return `${cleanContent}\n\n<!-- TOC_INDEXES:${JSON.stringify(indexes)} -->`;
+}
+
+export function extractContentAndIndexes(rawContent: string): { content: string; indexes?: ArticleIndexItem[] } {
+  if (!rawContent) return { content: '', indexes: undefined };
+  const match = rawContent.match(/<!--\s*TOC_INDEXES:([\s\S]*?)-->/);
+  let indexes: ArticleIndexItem[] | undefined = undefined;
+  if (match && match[1]) {
+    try {
+      const parsed = JSON.parse(match[1]);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        indexes = parsed;
+      }
+    } catch {}
+  }
+  const content = rawContent.replace(/<!--\s*TOC_INDEXES:[\s\S]*?-->/g, '').trim();
+  return { content, indexes };
+}
+
+export function toSupabaseNewsPayload(post: NewsItem | Omit<NewsItem, 'id'>, id?: string) {
+  const finalId = id || (post as NewsItem).id;
+  return {
+    id: finalId,
+    title: post.title,
+    slug: post.slug,
+    excerpt: post.excerpt,
+    content: serializeContentWithIndexes(post.content, post.indexes),
+    category: post.category,
+    author: post.author,
+    date: post.date,
+    read_time: post.readTime,
+    image_url: post.imageUrl || null,
+    featured: post.featured || false,
+    meta_title: post.metaTitle || null,
+    meta_description: post.metaDescription || null,
+    faq_items: post.faqItems || [],
+  };
+}
+
+export async function syncSingleNewsPostToSupabase(post: NewsItem): Promise<boolean> {
+  try {
+    const supabase = createClient();
+    const payload = toSupabaseNewsPayload(post);
+    const { error } = await supabase.from('news_posts').upsert(payload);
+    if (error) {
+      console.warn('Supabase news upload warning:', error.message);
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.warn('Failed to upload post to Supabase:', err);
+    return false;
+  }
+}
+
 export async function syncNewsFromSupabase(): Promise<NewsItem[]> {
   try {
     const supabase = createClient();
     const { data, error } = await supabase.from('news_posts').select('*').order('created_at', { ascending: false });
     if (!error && data && data.length > 0) {
-      const formatted: NewsItem[] = data.map((item: any) => ({
-        id: item.id,
-        title: item.title,
-        slug: item.slug,
-        excerpt: item.excerpt,
-        content: item.content,
-        category: item.category,
-        author: item.author,
-        date: item.date,
-        readTime: item.read_time,
-        imageUrl: item.image_url,
-        featured: item.featured,
-        metaTitle: item.meta_title || undefined,
-        metaDescription: item.meta_description || undefined,
-        faqItems: Array.isArray(item.faq_items) ? item.faq_items : undefined,
-        indexes: Array.isArray(item.indexes) ? item.indexes : undefined,
-      }));
-      saveNewsPosts(formatted);
-      return formatted;
+      const remotePosts: NewsItem[] = data.map((item: any) => {
+        const { content, indexes: embeddedIndexes } = extractContentAndIndexes(item.content || '');
+        return {
+          id: item.id,
+          title: item.title,
+          slug: item.slug,
+          excerpt: item.excerpt,
+          content,
+          category: item.category,
+          author: item.author,
+          date: item.date,
+          readTime: item.read_time,
+          imageUrl: item.image_url,
+          featured: item.featured,
+          metaTitle: item.meta_title || undefined,
+          metaDescription: item.meta_description || undefined,
+          faqItems: Array.isArray(item.faq_items) ? item.faq_items : undefined,
+          indexes: Array.isArray(item.indexes) && item.indexes.length > 0 ? item.indexes : embeddedIndexes,
+        };
+      });
+
+      // Non-destructive merge: preserve local-only posts created by admin
+      const localPosts = getNewsPosts();
+      const remoteIds = new Set(remotePosts.map((p) => p.id));
+      const remoteSlugs = new Set(remotePosts.map((p) => p.slug.toLowerCase()));
+
+      const localOnly = localPosts.filter((p) => !remoteIds.has(p.id) && !remoteSlugs.has(p.slug.toLowerCase()));
+
+      // Automatically push any local-only posts to Supabase in the background
+      if (localOnly.length > 0) {
+        for (const localPost of localOnly) {
+          syncSingleNewsPostToSupabase(localPost);
+        }
+      }
+
+      const merged = [...localOnly, ...remotePosts];
+      saveNewsPosts(merged);
+      return merged;
     }
   } catch (e) {
     console.warn('Supabase news fetch skipped/fallback to local:', e);
@@ -454,26 +532,7 @@ export function addNewsPost(post: Omit<NewsItem, 'id'>): NewsItem {
   if (typeof window !== 'undefined') {
     window.dispatchEvent(new CustomEvent('ahsora_cms_news_updated', { detail: newPost }));
     window.dispatchEvent(new Event('storage'));
-    const supabase = createClient();
-    supabase.from('news_posts').insert({
-      id: newPost.id,
-      title: newPost.title,
-      slug: newPost.slug,
-      excerpt: newPost.excerpt,
-      content: newPost.content,
-      category: newPost.category,
-      author: newPost.author,
-      date: newPost.date,
-      read_time: newPost.readTime,
-      image_url: newPost.imageUrl || null,
-      featured: newPost.featured || false,
-      meta_title: newPost.metaTitle || null,
-      meta_description: newPost.metaDescription || null,
-      faq_items: newPost.faqItems || [],
-      indexes: newPost.indexes || [],
-    }).then(({ error }) => {
-      if (error) console.warn('Supabase news insert warning:', error.message);
-    });
+    syncSingleNewsPostToSupabase(newPost);
   }
 
   return newPost;
@@ -489,26 +548,8 @@ export function updateNewsPost(updatedPost: NewsItem): NewsItem {
 
   if (typeof window !== 'undefined') {
     window.dispatchEvent(new CustomEvent('ahsora_cms_news_updated', { detail: updatedPost }));
-    const supabase = createClient();
-    supabase.from('news_posts').upsert({
-      id: updatedPost.id,
-      title: updatedPost.title,
-      slug: updatedPost.slug,
-      excerpt: updatedPost.excerpt,
-      content: updatedPost.content,
-      category: updatedPost.category,
-      author: updatedPost.author,
-      date: updatedPost.date,
-      read_time: updatedPost.readTime,
-      image_url: updatedPost.imageUrl || null,
-      featured: updatedPost.featured || false,
-      meta_title: updatedPost.metaTitle || null,
-      meta_description: updatedPost.metaDescription || null,
-      faq_items: updatedPost.faqItems || [],
-      indexes: updatedPost.indexes || [],
-    }).then(({ error }) => {
-      if (error) console.warn('Supabase news update warning:', error.message);
-    });
+    window.dispatchEvent(new Event('storage'));
+    syncSingleNewsPostToSupabase(updatedPost);
   }
 
   return updatedPost;
@@ -520,6 +561,7 @@ export function deleteNewsPost(id: string) {
 
   if (typeof window !== 'undefined') {
     window.dispatchEvent(new CustomEvent('ahsora_cms_news_updated'));
+    window.dispatchEvent(new Event('storage'));
     const supabase = createClient();
     supabase.from('news_posts').delete().eq('id', id).then(({ error }) => {
       if (error) console.warn('Supabase news delete warning:', error.message);
