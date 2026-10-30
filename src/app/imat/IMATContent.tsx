@@ -258,6 +258,27 @@ export default function IMATContent() {
             <h1 style={{ fontSize: 'clamp(2.1rem, 3.8vw, 3rem)', fontWeight: 800, color: '#FFFFFF', marginTop: '14px', marginBottom: '14px', letterSpacing: '-0.8px', lineHeight: 1.16 }}>
               IMAT 2027 Complete Guide
             </h1>
+            {/* GEO Direct Answer Callout for AI & Bot Scraping */}
+            <div
+              style={{
+                marginTop: '16px',
+                marginBottom: '20px',
+                padding: '14px 18px',
+                borderRadius: '12px',
+                backgroundColor: 'rgba(92, 237, 115, 0.08)',
+                border: '1px solid rgba(92, 237, 115, 0.28)',
+                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.15)',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+                <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#5CED73', textTransform: 'uppercase', letterSpacing: '0.08em', backgroundColor: 'rgba(92, 237, 115, 0.18)', padding: '2px 8px', borderRadius: '4px' }}>
+                  Official Exam Definition · IMAT 2027
+                </span>
+              </div>
+              <p style={{ margin: 0, color: '#E2E8F0', fontSize: '0.94rem', lineHeight: 1.6, fontWeight: 500 }}>
+                The IMAT is a 100-minute, 60-question entrance exam required for English-taught Medicine &amp; Surgery (LM41) degrees at Italian public universities. The maximum score is 90 points.
+              </p>
+            </div>
             <p style={{ color: '#CBD5E1', fontSize: '1.05rem', lineHeight: 1.65, marginBottom: '24px', maxWidth: '540px' }}>
               Understand the exam, master the syllabus, practise under realistic conditions, and measure your progress — with a preparation system built for students pursuing Medicine in Italy.
             </p>
@@ -350,7 +371,7 @@ export default function IMATContent() {
       <section id="dates" style={{ padding: '70px 0 0 0', backgroundColor: '#0F172A' }}>
         <div className="container" style={{ paddingBottom: '32px' }}>
           <div style={{ textAlign: 'center' }}>
-            <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#FFFFFF' }}>Mark Your Calendar</h2>
+            <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#FFFFFF' }}>IMAT 2027 Exam Dates &amp; Deadlines</h2>
             <p style={{ color: '#94A3B8', marginTop: '12px' }}>Live announcements, official ministerial timeline milestones &amp; admissions notices.</p>
           </div>
         </div>
@@ -415,7 +436,7 @@ export default function IMATContent() {
             {/* Left: intro + subject pie */}
             <div>
               <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#16A34A', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Verified Format</span>
-              <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A', marginBottom: '16px', marginTop: '12px' }}>Exam Structure &amp; Syllabus</h2>
+              <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0F172A', marginBottom: '16px', marginTop: '12px' }}>IMAT 2027 Syllabus &amp; Exam Structure</h2>
               <p style={{ color: '#475569', lineHeight: 1.8, marginBottom: '32px' }}>60 questions across 5 subjects, sat in a single 100-minute session. Each subject has a fixed number of questions — knowing the breakdown helps you allocate prep time strategically.</p>
               {/* Visual subject breakdown */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -694,7 +715,7 @@ export default function IMATContent() {
           {/* Centred heading on image */}
           <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', paddingBottom: '20px', textAlign: 'center' }}>
             <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#5CED73', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '6px' }}>Study Medicine in Italy</span>
-            <h2 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', fontWeight: 800, color: '#FFFFFF', margin: 0, letterSpacing: '-0.5px' }}>Where Can You Study?</h2>
+            <h2 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', fontWeight: 800, color: '#FFFFFF', margin: 0, letterSpacing: '-0.5px' }}>Italian Medical Universities Accepting IMAT</h2>
             <p style={{ color: '#94A3B8', marginTop: '6px', fontSize: '0.95rem' }}>A snapshot of top universities participating in the IMAT.</p>
           </div>
         </div>

@@ -65,9 +65,9 @@ export default function Footer() {
               Courses &amp; Tests
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.84rem', color: '#94A3B8' }}>
-              <li><Link href="/courses" style={{ color: '#94A3B8', textDecoration: 'none' }}>All Courses</Link></li>
-              <li><Link href="/courses" style={{ color: '#94A3B8', textDecoration: 'none' }}>Admissions Prep Programs</Link></li>
-              <li><Link href="/courses" style={{ color: '#94A3B8', textDecoration: 'none' }}>Language &amp; Placement Courses</Link></li>
+              <li><Link href="/imat-preparation-courses" style={{ color: '#94A3B8', textDecoration: 'none' }}>All Courses</Link></li>
+              <li><Link href="/imat-preparation-courses" style={{ color: '#94A3B8', textDecoration: 'none' }}>Admissions Prep Programs</Link></li>
+              <li><Link href="/imat-preparation-courses" style={{ color: '#94A3B8', textDecoration: 'none' }}>Language &amp; Placement Courses</Link></li>
               <li><Link href="/free-mock" style={{ color: '#94A3B8', textDecoration: 'none' }}>Mock Tests &amp; Assessments</Link></li>
               <li>
                 <a
@@ -89,8 +89,8 @@ export default function Footer() {
               University Admissions
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.84rem', color: '#94A3B8' }}>
-              <li><Link href="/universities" style={{ color: '#94A3B8', textDecoration: 'none' }}>Universities in Italy</Link></li>
-              <li><Link href="/universities/scholarships" style={{ color: '#94A3B8', textDecoration: 'none' }}>Scholarships &amp; Grants</Link></li>
+              <li><Link href="/medical-universities-italy" style={{ color: '#94A3B8', textDecoration: 'none' }}>Universities in Italy</Link></li>
+              <li><Link href="/medical-universities-italy/scholarships" style={{ color: '#94A3B8', textDecoration: 'none' }}>Scholarships &amp; Grants</Link></li>
               <li><Link href="/licensing-exams" style={{ color: '#94A3B8', textDecoration: 'none' }}>Student Visa Roadmap</Link></li>
               <li><Link href="/about" style={{ color: '#94A3B8', textDecoration: 'none' }}>About Ahsora Meds</Link></li>
             </ul>

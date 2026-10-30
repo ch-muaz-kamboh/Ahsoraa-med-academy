@@ -57,17 +57,17 @@ export default function Navbar() {
   }
 
   const universitySubLinks = [
-    { href: '/universities', label: '1. Universities', desc: 'Browse all 28 Italian medical faculties' },
-    { href: '/universities/scholarships', label: '2. Scholarships', desc: '20 Italian regions DSU & financial aid directory' },
-    { href: '/universities#cutoff-history', label: '3. IMAT Cutoff Scores', desc: 'EU & Non-EU historical score rankings' },
+    { href: '/medical-universities-italy', label: '1. Universities', desc: 'Browse all 28 Italian medical faculties' },
+    { href: '/medical-universities-italy/scholarships', label: '2. Scholarships', desc: '20 Italian regions DSU & financial aid directory' },
+    { href: '/medical-universities-italy#cutoff-history', label: '3. IMAT Cutoff Scores', desc: 'EU & Non-EU historical score rankings' },
   ];
 
   const navLinks = [
     { href: '/', label: t('nav.home', 'Home'), icon: null },
-    { href: '/courses', label: t('nav.courses', 'Courses'), icon: <BookOpen size={14} /> },
-    { href: '/imat', label: t('nav.imat', 'IMAT'), icon: <FileCheck size={14} /> },
-    { href: '/universities', label: t('nav.universities', 'Universities'), icon: <Globe size={14} />, isDropdown: true },
-    { href: '/resources', label: t('nav.resources', 'Resources'), icon: <Book size={14} /> },
+    { href: '/imat-preparation-courses', label: t('nav.courses', 'Courses'), icon: <BookOpen size={14} /> },
+    { href: '/imat-exam-guide', label: t('nav.imat', 'IMAT'), icon: <FileCheck size={14} /> },
+    { href: '/medical-universities-italy', label: t('nav.universities', 'Universities'), icon: <Globe size={14} />, isDropdown: true },
+    { href: '/imat-past-papers-and-resources', label: t('nav.resources', 'Resources'), icon: <Book size={14} /> },
     { href: '/news', label: t('nav.news', 'News & Blogs'), icon: <Newspaper size={14} /> },
     { href: '/licensing-exams', label: t('nav.licensing', 'Licensing Exams'), icon: <Scale size={14} /> },
     { href: '/contact', label: t('nav.contact', 'Contact Us'), icon: <MessageSquare size={14} /> },

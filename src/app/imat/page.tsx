@@ -2,8 +2,11 @@ import { Metadata } from 'next';
 import IMATContent from './IMATContent';
 
 export const metadata: Metadata = {
-  title: 'IMAT 2027 Guide: Exam Date, Syllabus, Scoring & Preparation | Ahsora Med Academy',
-  description: 'The complete IMAT guide: exam structure, syllabus, scoring, eligibility, registration, university options and costs. Take a free IMAT mock and explore Ahsora\'s live teaching system.',
+  title: 'IMAT 2027 Exam Guide: Syllabus, Scoring & Dates | Ahsora',
+  description: 'The ultimate guide to the International Medical Admissions Test (IMAT). Learn the 60-question syllabus, +1.5/-0.4 scoring penalty, and 2027 registration dates.',
+  alternates: {
+    canonical: 'https://ahsora.com/imat-exam-guide',
+  },
 };
 
 export default function IMATPage() {
