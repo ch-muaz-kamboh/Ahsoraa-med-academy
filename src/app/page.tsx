@@ -2277,6 +2277,7 @@ export default function HomePage() {
                     title: 'Admissions Open — Italy 2027/2028',
                     excerpt: 'Applications are now open for the upcoming academic year. Start your IMAT preparation early to secure your seat at a top Italian university.',
                     readTime: '3 min read',
+                    slug: 'admissions-open-italy-2027',
                   },
                   {
                     id: 'fb-2',
@@ -2285,6 +2286,7 @@ export default function HomePage() {
                     title: 'New Weekly Live Class Schedule Released',
                     excerpt: 'Biology, Chemistry, and Critical Thinking live sessions have been scheduled. Enroll in Mastery or Ahsora MedPath Elite to join.',
                     readTime: '4 min read',
+                    slug: '12-week-imat-study-plan',
                   },
                   {
                     id: 'fb-3',
@@ -2293,6 +2295,7 @@ export default function HomePage() {
                     title: 'IMAT 2026 Mock Test Series — Now Available',
                     excerpt: '12 full-length IMAT mock tests updated with 2026-pattern questions and analytics. Practice under real exam conditions.',
                     readTime: '5 min read',
+                    slug: 'score-60-plus-imat-guide',
                   },
                 ]
             ).map((item, i) => {
@@ -2306,6 +2309,7 @@ export default function HomePage() {
               const borderColor = isAdmissions ? '#F59E0B' : isLive ? '#059669' : isMock ? '#8B5CF6' : '#10B981';
 
               const cleanExcerpt = (item.excerpt || '').replace(/<[^>]*>/g, '');
+              const articleHref = 'slug' in item && item.slug ? `/imat-news-and-updates/${item.slug}` : '/imat-news-and-updates';
 
               return (
                 <div
@@ -2383,7 +2387,7 @@ export default function HomePage() {
                   </div>
 
                   <Link
-                    href="/news"
+                    href={articleHref}
                     style={{
                       display: 'inline-flex',
                       alignItems: 'center',
@@ -2403,7 +2407,7 @@ export default function HomePage() {
 
           <div style={{ textAlign: 'center', marginTop: '28px' }}>
             <Link
-              href="/news"
+              href="/imat-news-and-updates"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',

@@ -262,7 +262,7 @@ export async function generateMetadata({
     post.excerpt.replace(/<[^>]*>/g, '').trim()
   ).slice(0, 160);
 
-  const articleUrl = `https://ahsorameds.com/news/${post.slug}`;
+  const articleUrl = `https://ahsorameds.com/imat-news-and-updates/${post.slug}`;
   const ogImage = post.imageUrl || 'https://ahsorameds.com/icon.png';
 
   return {
@@ -337,7 +337,7 @@ export default async function NewsArticlePage({
   }
 
   const enrichedContent = injectHeadingIds(post.content);
-  const articleUrl = `https://ahsorameds.com/news/${post.slug}`;
+  const articleUrl = `https://ahsorameds.com/imat-news-and-updates/${post.slug}`;
   const ogImage = post.imageUrl || 'https://ahsorameds.com/icon.png';
   const cleanDescription = (
     post.metaDescription ||
@@ -439,8 +439,8 @@ export default async function NewsArticlePage({
       {
         '@type': 'ListItem',
         position: 2,
-        name: 'News & Guides',
-        item: 'https://ahsorameds.com/news',
+        name: 'IMAT News & Updates',
+        item: 'https://ahsorameds.com/imat-news-and-updates',
       },
       {
         '@type': 'ListItem',
@@ -511,8 +511,8 @@ export default async function NewsArticlePage({
                 Home
               </Link>
               <ChevronRight size={14} color="#64748B" />
-              <Link href="/news" style={{ color: '#A7F3D0', textDecoration: 'none', fontWeight: 600 }}>
-                News &amp; Guides
+              <Link href="/imat-news-and-updates" style={{ color: '#A7F3D0', textDecoration: 'none', fontWeight: 600 }}>
+                IMAT News &amp; Updates
               </Link>
               <ChevronRight size={14} color="#64748B" />
               <span style={{ color: '#E2E8F0', fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '300px' }}>
@@ -737,7 +737,7 @@ export default async function NewsArticlePage({
                 </p>
               </div>
               <Link
-                href="/courses"
+                href="/imat-preparation-courses"
                 style={{
                   backgroundColor: '#059669',
                   color: '#FFFFFF',
@@ -762,7 +762,7 @@ export default async function NewsArticlePage({
               <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>
                 Related News &amp; Exam Updates
               </h3>
-              <Link href="/news" style={{ fontSize: '0.85rem', color: '#059669', fontWeight: 700, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <Link href="/imat-news-and-updates" style={{ fontSize: '0.85rem', color: '#059669', fontWeight: 700, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px' }}>
                 View All News &rarr;
               </Link>
             </div>
@@ -771,7 +771,7 @@ export default async function NewsArticlePage({
               {otherPosts.map((other) => (
                 <Link
                   key={other.id}
-                  href={`/news/${other.slug}`}
+                  href={`/imat-news-and-updates/${other.slug}`}
                   style={{
                     backgroundColor: '#FFFFFF',
                     borderRadius: '16px',

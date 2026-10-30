@@ -48,87 +48,112 @@ export default function LanguageSwitcher({
     setIsOpen(false);
   };
 
-  // Mobile drawer inline card selector
+  // Mobile drawer variant - Collapsed by default so it never forces an open dropdown when menu is accessed
   if (variant === 'mobile') {
     return (
       <div
+        ref={containerRef}
         className={`mobile-lang-switcher notranslate ${className}`}
         translate="no"
         style={{
-          padding: '12px 0',
+          padding: '12px 0 6px',
           borderTop: '1px solid #E2E8F0',
           marginTop: '6px',
         }}
       >
-        <div
+        <button
+          type="button"
+          onClick={() => setIsOpen(!isOpen)}
           className="notranslate"
           translate="no"
+          aria-expanded={isOpen}
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '8px',
-            marginBottom: '10px',
-            color: '#475569',
-            fontSize: '0.8rem',
-            fontWeight: 700,
-            textTransform: 'uppercase',
-            letterSpacing: '0.5px',
+            justifyContent: 'space-between',
+            width: '100%',
+            padding: '10px 12px',
+            borderRadius: '9px',
+            border: '1px solid #E2E8F0',
+            backgroundColor: isOpen ? '#F0FFF4' : '#F8FAFC',
+            color: '#1E293B',
+            cursor: 'pointer',
+            fontWeight: 600,
+            fontSize: '0.84rem',
+            transition: 'all 0.15s ease',
           }}
         >
-          <Globe size={15} color="#059669" />
-          <span className="notranslate" translate="no">Language / ভাষা / اللغة / زبان / Dil</span>
-        </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Globe size={16} color="#059669" />
+            <span style={{ fontSize: '0.84rem', color: '#475569' }}>Language:</span>
+            <span style={{ fontWeight: 700, color: '#0F172A' }}>
+              {currentLangInfo.flag} {currentLangInfo.name} ({currentLangInfo.code.toUpperCase()})
+            </span>
+          </div>
+          <ChevronDown
+            size={16}
+            color="#64748B"
+            style={{
+              transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+              transition: 'transform 0.2s ease',
+            }}
+          />
+        </button>
 
-        <div
-          className="notranslate"
-          translate="no"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '8px',
-            maxHeight: '360px',
-            overflowY: 'auto',
-            paddingRight: '4px',
-          }}
-        >
-          {languages.map((item) => {
-            const isSelected = language === item.code;
-            return (
-              <button
-                key={item.code}
-                type="button"
-                className="notranslate"
-                translate="no"
-                onClick={() => handleSelectLanguage(item.code)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  gap: '8px',
-                  padding: '9px 12px',
-                  borderRadius: '9px',
-                  border: isSelected ? '1.5px solid #059669' : '1px solid #E2E8F0',
-                  backgroundColor: isSelected ? '#F0FFF4' : '#FFFFFF',
-                  color: isSelected ? '#065F46' : '#1E293B',
-                  fontWeight: isSelected ? 700 : 500,
-                  fontSize: '0.825rem',
-                  cursor: 'pointer',
-                  textAlign: 'left',
-                  transition: 'all 0.15s ease',
-                }}
-              >
-                <div className="notranslate" translate="no" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span className="notranslate" translate="no" style={{ fontSize: '1.05rem', lineHeight: 1 }}>{item.flag}</span>
-                  <div className="notranslate" translate="no" style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.2 }}>
-                    <span className="notranslate" translate="no">{item.nativeName}</span>
-                    <span className="notranslate" translate="no" style={{ fontSize: '0.68rem', color: '#64748B' }}>{item.name}</span>
+        {isOpen && (
+          <div
+            className="notranslate"
+            translate="no"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(2, 1fr)',
+              gap: '8px',
+              maxHeight: '320px',
+              overflowY: 'auto',
+              paddingRight: '4px',
+              marginTop: '10px',
+              animation: 'fadeInMenu 0.18s ease-out',
+            }}
+          >
+            {languages.map((item) => {
+              const isSelected = language === item.code;
+              return (
+                <button
+                  key={item.code}
+                  type="button"
+                  className="notranslate"
+                  translate="no"
+                  onClick={() => handleSelectLanguage(item.code)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: '8px',
+                    padding: '9px 12px',
+                    borderRadius: '9px',
+                    border: isSelected ? '1.5px solid #059669' : '1px solid #E2E8F0',
+                    backgroundColor: isSelected ? '#F0FFF4' : '#FFFFFF',
+                    color: isSelected ? '#065F46' : '#1E293B',
+                    fontWeight: isSelected ? 700 : 500,
+                    fontSize: '0.825rem',
+                    cursor: 'pointer',
+                    textAlign: 'left',
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  <div className="notranslate" translate="no" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span className="notranslate" translate="no" style={{ fontSize: '1.05rem', lineHeight: 1 }}>{item.flag}</span>
+                    <div className="notranslate" translate="no" style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.2 }}>
+                      <span className="notranslate" translate="no">{item.nativeName}</span>
+                      <span className="notranslate" translate="no" style={{ fontSize: '0.68rem', color: '#64748B' }}>{item.name}</span>
+                    </div>
                   </div>
-                </div>
-                {isSelected && <Check size={14} color="#059669" strokeWidth={3} />}
-              </button>
-            );
-          })}
-        </div>
+                  {isSelected && <Check size={14} color="#059669" strokeWidth={3} />}
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
     );
   }

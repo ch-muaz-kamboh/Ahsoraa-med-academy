@@ -757,7 +757,7 @@ export default function AdminContentPage() {
                         </p>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px', flexWrap: 'wrap' }}>
                           <span style={{ fontSize: '0.72rem', color: '#0E7490', fontFamily: 'monospace', backgroundColor: '#ECFEFF', padding: '2px 8px', borderRadius: '4px', border: '1px solid #CFFAFE' }}>
-                            🔗 /news/{post.slug}
+                            🔗 /imat-news-and-updates/{post.slug}
                           </span>
                           {post.metaTitle && (
                             <span style={{ fontSize: '0.68rem', color: '#047857', backgroundColor: '#DCFCE7', padding: '1px 6px', borderRadius: '4px', fontWeight: 700 }}>
@@ -775,7 +775,7 @@ export default function AdminContentPage() {
                             </span>
                           )}
                           <a
-                            href={`/news/${post.slug}`}
+                            href={`/imat-news-and-updates/${post.slug}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             style={{
@@ -924,7 +924,7 @@ export default function AdminContentPage() {
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', backgroundColor: '#FFFFFF', borderRadius: '8px', border: '1px solid #CBD5E1', overflow: 'hidden' }}>
                   <span style={{ padding: '0 10px', fontSize: '0.8125rem', color: '#64748B', backgroundColor: '#F1F5F9', borderRight: '1px solid #CBD5E1', fontWeight: 600, userSelect: 'none', lineHeight: '38px' }}>
-                    /news/
+                    /imat-news-and-updates/
                   </span>
                   <input
                     type="text"
@@ -939,7 +939,7 @@ export default function AdminContentPage() {
                   />
                 </div>
                 <div style={{ fontSize: '0.73rem', color: '#059669', marginTop: '6px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  🌐 Public URL: https://ahsorameds.com/news/{newNews.slug || slugify(newNews.title) || 'your-slug'}
+                  🌐 Public URL: https://ahsorameds.com/imat-news-and-updates/{newNews.slug || slugify(newNews.title) || 'your-slug'}
                 </div>
               </div>
 

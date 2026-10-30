@@ -45,6 +45,16 @@ const nextConfig = {
         destination: '/medical-universities-italy/:id',
         permanent: true,
       },
+      {
+        source: '/news',
+        destination: '/imat-news-and-updates',
+        permanent: true,
+      },
+      {
+        source: '/news/:slug',
+        destination: '/imat-news-and-updates/:slug',
+        permanent: true,
+      },
     ];
   },
 };

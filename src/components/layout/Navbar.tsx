@@ -68,7 +68,7 @@ export default function Navbar() {
     { href: '/imat-exam-guide', label: t('nav.imat', 'IMAT'), icon: <FileCheck size={14} /> },
     { href: '/medical-universities-italy', label: t('nav.universities', 'Universities'), icon: <Globe size={14} />, isDropdown: true },
     { href: '/imat-past-papers-and-resources', label: t('nav.resources', 'Resources'), icon: <Book size={14} /> },
-    { href: '/news', label: t('nav.news', 'News & Blogs'), icon: <Newspaper size={14} /> },
+    { href: '/imat-news-and-updates', label: t('nav.news', 'News & Blogs'), icon: <Newspaper size={14} /> },
     { href: '/licensing-exams', label: t('nav.licensing', 'Licensing Exams'), icon: <Scale size={14} /> },
     { href: '/contact', label: t('nav.contact', 'Contact Us'), icon: <MessageSquare size={14} /> },
     { href: '/about', label: t('nav.about', 'About'), icon: null },
@@ -323,9 +323,6 @@ export default function Navbar() {
               boxShadow: '0 12px 28px rgba(0,0,0,0.12)',
             }}
           >
-            {/* Language Switcher in Mobile Drawer */}
-            <LanguageSwitcher variant="mobile" />
-
             {/* Quick Actions in Mobile Drawer */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', paddingBottom: '12px', borderBottom: '1px solid #E2E8F0' }}>
               <Link
@@ -441,6 +438,11 @@ export default function Navbar() {
               >
                 <span>Faculty &amp; Staff Login &rarr;</span>
               </Link>
+            </div>
+
+            {/* Optional Collapsed Language Switcher at Bottom of Mobile Drawer */}
+            <div style={{ paddingTop: '8px' }}>
+              <LanguageSwitcher variant="mobile" />
             </div>
           </div>
         )}
