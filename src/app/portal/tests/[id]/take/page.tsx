@@ -131,8 +131,8 @@ export default function TakeTestPage({
   const timeLeftRef = React.useRef(timeLeft);
   timeLeftRef.current = timeLeft;
 
-  // Submit test calculations with exact user scoring rules (total 90 marks):
-  // Correct: +1.5 marks | Wrong: -1.9 marks | Unanswered/Blank: -1.5 marks
+  // Submit test calculations with scoring rules (total 90 marks):
+  // Correct: +1.5 marks | Wrong: -0.4 marks | Unanswered/Blank: 0 marks
   const handleSubmitTest = React.useCallback(async () => {
     if (isSubmittingRef.current) return;
     isSubmittingRef.current = true;
@@ -159,8 +159,7 @@ export default function TakeTestPage({
 
       if (!selected) {
         unansweredCount += 1;
-        rawScore -= 1.5; // Deduct 1.5 for blank/unanswered
-        subjectBreakdown[subj].score -= 1.5;
+        // No score change for blank/skipped answers
       } else if (selected === q.correctOption) {
         correctCount += 1;
         rawScore += 1.5; // +1.5 for correct
@@ -168,8 +167,8 @@ export default function TakeTestPage({
         subjectBreakdown[subj].score += 1.5;
       } else {
         incorrectCount += 1;
-        rawScore -= 1.9; // Deduct 1.9 for incorrect
-        subjectBreakdown[subj].score -= 1.9;
+        rawScore -= 0.4; // Deduct 0.4 for incorrect
+        subjectBreakdown[subj].score -= 0.4;
 
         // Push to My Mistakes Notebook
         addMistake({
