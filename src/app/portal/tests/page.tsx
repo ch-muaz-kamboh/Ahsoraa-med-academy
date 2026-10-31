@@ -456,7 +456,7 @@ export default function PortalTestsPage() {
                       </span>
                     </div>
                     <div style={{ fontSize: '0.72rem', color: '#64748B' }}>
-                      Official +1.5 / -0.4 scoring
+                      Scoring: +1.5 / -1.9 / -1.5 blank
                     </div>
                   </div>
 
