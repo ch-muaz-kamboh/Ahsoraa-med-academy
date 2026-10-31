@@ -165,7 +165,7 @@ export default function PortalTestsPage() {
               <>
                 {bestAttempt.totalScore}{' '}
                 <span style={{ fontSize: '1rem', color: '#94A3B8', fontWeight: 600 }}>
-                  / {bestAttempt.maxScore || 90} pts
+                  / 90 pts
                 </span>
               </>
             ) : (
@@ -346,7 +346,7 @@ export default function PortalTestsPage() {
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {displayedAttempts.map((attempt) => {
-            const maxScore = attempt.maxScore || 90;
+            const maxScore = 90;
             const isPassed =
               attempt.isPassed !== undefined
                 ? attempt.isPassed

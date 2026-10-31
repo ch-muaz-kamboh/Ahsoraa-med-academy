@@ -131,8 +131,8 @@ export default function TakeTestPage({
   const timeLeftRef = React.useRef(timeLeft);
   timeLeftRef.current = timeLeft;
 
-  // Submit test calculations with exact user scoring rules:
-  // Correct: +1.5 marks | Wrong: -1.9 marks | Unanswered/Blank: -1.5 marks
+  // Submit test calculations with official IMAT scoring rules (total 90 marks):
+  // Correct: +1.5 marks | Wrong: -0.4 marks | Unanswered/Blank: 0 marks
   const handleSubmitTest = React.useCallback(async () => {
     if (isSubmittingRef.current) return;
     isSubmittingRef.current = true;
@@ -187,7 +187,7 @@ export default function TakeTestPage({
     });
 
     const attemptedCount = correctCount + incorrectCount;
-    const maxScore = activeTest.totalMarks || (activeTest.questions.length > 0 ? Number((activeTest.questions.length * 1.5).toFixed(1)) : 90);
+    const maxScore = 90; // Fixed official total
     const finalScore = Number(rawScore.toFixed(2));
     const percentage = Math.max(0, Math.round((Math.max(0, finalScore) / maxScore) * 100));
     const accuracyRate = attemptedCount > 0 ? Math.round((correctCount / attemptedCount) * 100) : 0;

@@ -82,7 +82,7 @@ export default function TestResultsPage({
       subjectBreakdown: {},
     };
 
-  const totalMaxMarks = attempt.maxScore || (test.questions.length > 0 ? Number((test.questions.length * 1.5).toFixed(1)) : (test.totalMarks || 90));
+  const totalMaxMarks = 90;
   const passingScoreRequired = attempt.passingMarks !== undefined ? attempt.passingMarks : (test.passingMarks !== undefined ? test.passingMarks : Number(((test.passingPercentage || 50) / 100 * totalMaxMarks).toFixed(1)));
   const isPassed = attempt.isPassed !== undefined ? attempt.isPassed : (test.passingMarks !== undefined ? attempt.totalScore >= test.passingMarks : attempt.percentage >= (test.passingPercentage || 50));
 
