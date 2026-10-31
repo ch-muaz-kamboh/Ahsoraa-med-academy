@@ -33,6 +33,7 @@ import {
   saveCustomTestQuestions,
   saveTestSettingsAsync,
   resetCustomTestQuestions,
+  getMockAttemptsAsync,
 } from '@/lib/test-utils';
 import { Test, TestQuestion, TestAttempt, TestDifficulty } from '@/types';
 
@@ -271,6 +272,7 @@ const DEFAULT_STUDENT_ATTEMPTS: TestAttempt[] = [
     submittedAt: new Date(Date.now() - 3600000 * 4.5).toISOString(),
     timeSpentSeconds: 1650,
     totalScore: 5.6,
+    maxScore: 6,
     percentage: 93,
     totalAttempted: 4,
     totalCorrect: 4,
@@ -292,6 +294,7 @@ const DEFAULT_STUDENT_ATTEMPTS: TestAttempt[] = [
     submittedAt: new Date(Date.now() - 3600000 * 11.5).toISOString(),
     timeSpentSeconds: 1720,
     totalScore: 3.7,
+    maxScore: 6,
     percentage: 62,
     totalAttempted: 4,
     totalCorrect: 3,
@@ -313,6 +316,7 @@ const DEFAULT_STUDENT_ATTEMPTS: TestAttempt[] = [
     submittedAt: new Date(Date.now() - 3600000 * 23.2).toISOString(),
     timeSpentSeconds: 2450,
     totalScore: 7.1,
+    maxScore: 9,
     percentage: 79,
     totalAttempted: 6,
     totalCorrect: 5,
@@ -334,6 +338,7 @@ const DEFAULT_STUDENT_ATTEMPTS: TestAttempt[] = [
     submittedAt: new Date(Date.now() - 3600000 * 7).toISOString(),
     timeSpentSeconds: 3200,
     totalScore: 16.5,
+    maxScore: 22.5,
     percentage: 73,
     totalAttempted: 14,
     totalCorrect: 12,
@@ -381,16 +386,19 @@ export default function AdminTestsPage() {
   const [formError, setFormError] = useState('');
   const [saveToast, setSaveToast] = useState('');
 
-  const loadStudentAttempts = useCallback(() => {
-    if (typeof window === 'undefined') return;
+  const loadStudentAttempts = useCallback(async () => {
     try {
-      const raw = localStorage.getItem('ahsora_all_mock_attempts');
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        setStudentAttempts(parsed.length > 0 ? parsed : DEFAULT_STUDENT_ATTEMPTS);
+      const fetched = await getMockAttemptsAsync();
+      if (fetched && fetched.length > 0) {
+        setStudentAttempts(fetched);
       } else {
-        localStorage.setItem('ahsora_all_mock_attempts', JSON.stringify(DEFAULT_STUDENT_ATTEMPTS));
-        setStudentAttempts(DEFAULT_STUDENT_ATTEMPTS);
+        const raw = typeof window !== 'undefined' ? localStorage.getItem('ahsora_all_mock_attempts') : null;
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          setStudentAttempts(parsed.length > 0 ? parsed : DEFAULT_STUDENT_ATTEMPTS);
+        } else {
+          setStudentAttempts(DEFAULT_STUDENT_ATTEMPTS);
+        }
       }
     } catch {
       setStudentAttempts(DEFAULT_STUDENT_ATTEMPTS);
@@ -406,7 +414,7 @@ export default function AdminTestsPage() {
     }
   }, [activeTest]);
 
-  // Fetch current live session from DB on mount
+  // Fetch current live session and student attempts from DB on mount
   const fetchLiveSession = useCallback(async () => {
     setLoading(true);
     const supabase = createClient();
@@ -423,13 +431,24 @@ export default function AdminTestsPage() {
 
     setLiveSession(data ?? null);
     setTests(customTests);
-    loadStudentAttempts();
+    await loadStudentAttempts();
     setLoading(false);
   }, [loadStudentAttempts]);
 
   useEffect(() => {
     fetchLiveSession();
-  }, [fetchLiveSession]);
+    const supabase = createClient();
+    const channel = supabase
+      .channel('admin-cbt-attempts-sync')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'cbt_test_questions' }, () => {
+        loadStudentAttempts();
+      })
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [fetchLiveSession, loadStudentAttempts]);
 
   const handleSaveTestSettings = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -1155,8 +1174,8 @@ export default function AdminTestsPage() {
                 ) : (
                   filteredResults.map((att) => {
                     const testMatch = tests.find((t) => t.id === att.testId);
-                    const maxScore = testMatch?.totalMarks || 90;
-                    const isPassed = testMatch?.passingMarks !== undefined ? att.totalScore >= testMatch.passingMarks : att.percentage >= (testMatch?.passingPercentage ?? 50);
+                    const maxScore = att.maxScore || testMatch?.totalMarks || 90;
+                    const isPassed = att.isPassed !== undefined ? att.isPassed : (testMatch?.passingMarks !== undefined ? att.totalScore >= testMatch.passingMarks : att.percentage >= (testMatch?.passingPercentage ?? 50));
                     const formattedDate = att.submittedAt
                       ? new Date(att.submittedAt).toLocaleDateString([], {
                           month: 'short',

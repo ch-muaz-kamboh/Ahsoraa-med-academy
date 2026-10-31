@@ -82,9 +82,9 @@ export default function TestResultsPage({
       subjectBreakdown: {},
     };
 
-  const totalMaxMarks = test.questions.length > 0 ? Number((test.questions.length * 1.5).toFixed(1)) : (test.totalMarks || 90);
-  const passingScoreRequired = test.passingMarks !== undefined ? test.passingMarks : Number(((test.passingPercentage || 50) / 100 * totalMaxMarks).toFixed(1));
-  const isPassed = test.passingMarks !== undefined ? attempt.totalScore >= test.passingMarks : attempt.percentage >= (test.passingPercentage || 50);
+  const totalMaxMarks = attempt.maxScore || (test.questions.length > 0 ? Number((test.questions.length * 1.5).toFixed(1)) : (test.totalMarks || 90));
+  const passingScoreRequired = attempt.passingMarks !== undefined ? attempt.passingMarks : (test.passingMarks !== undefined ? test.passingMarks : Number(((test.passingPercentage || 50) / 100 * totalMaxMarks).toFixed(1)));
+  const isPassed = attempt.isPassed !== undefined ? attempt.isPassed : (test.passingMarks !== undefined ? attempt.totalScore >= test.passingMarks : attempt.percentage >= (test.passingPercentage || 50));
 
   return (
     <div style={{ maxWidth: '1100px', margin: '0 auto', paddingBottom: '60px' }}>
@@ -120,18 +120,11 @@ export default function TestResultsPage({
 
         <div style={{ display: 'flex', gap: '12px' }}>
           <Link
-            href={`/portal/tests/${test.id}/take`}
-            className="btn-outline"
-            style={{ backgroundColor: '#FFFFFF', fontSize: '0.875rem' }}
-          >
-            <RotateCcw size={16} /> Re-attempt Block
-          </Link>
-          <Link
             href="/portal/tests"
             className="btn-primary"
             style={{ fontSize: '0.875rem' }}
           >
-            All Tests Series
+            ← Back to CBT Mock Results
           </Link>
         </div>
       </div>
@@ -255,11 +248,11 @@ export default function TestResultsPage({
                   You did not select answers for any questions during this mock exam block. Per exam policy, unanswered questions are not revealed.
                 </p>
                 <Link
-                  href={`/portal/tests/${test.id}/take`}
+                  href="/portal/tests"
                   className="btn-primary"
                   style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '0.875rem' }}
                 >
-                  <RotateCcw size={15} /> Re-attempt Mock Now
+                  Return to CBT Mock Results
                 </Link>
               </div>
             );

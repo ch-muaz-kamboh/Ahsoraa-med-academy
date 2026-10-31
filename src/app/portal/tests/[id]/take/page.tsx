@@ -14,7 +14,7 @@ import {
   X,
   Flag,
 } from 'lucide-react';
-import { getMockTestWithCustom, getMockTestWithCustomAsync } from '@/lib/test-utils';
+import { getMockTestWithCustom, getMockTestWithCustomAsync, saveMockAttemptAsync } from '@/lib/test-utils';
 import { useAppStore } from '@/lib/store';
 import { Test, TestAttempt } from '@/types';
 
@@ -187,11 +187,13 @@ export default function TakeTestPage({
     });
 
     const attemptedCount = correctCount + incorrectCount;
-    const maxScore = activeTest.questions.length > 0 ? Number((activeTest.questions.length * 1.5).toFixed(1)) : 90;
+    const maxScore = activeTest.totalMarks || (activeTest.questions.length > 0 ? Number((activeTest.questions.length * 1.5).toFixed(1)) : 90);
     const finalScore = Number(rawScore.toFixed(2));
     const percentage = Math.max(0, Math.round((Math.max(0, finalScore) / maxScore) * 100));
     const accuracyRate = attemptedCount > 0 ? Math.round((correctCount / attemptedCount) * 100) : 0;
     const percentile = Math.min(99, Math.max(10, Math.round(percentage * 0.95 + 8)));
+    const passingMarks = activeTest.passingMarks ?? Number((maxScore * ((activeTest.passingPercentage ?? 50) / 100)).toFixed(1));
+    const isPassed = finalScore >= passingMarks;
 
     const attemptId = `att-${Date.now()}`;
     const timeSpent = activeTest.durationMinutes * 60 - (timeLeftRef.current || 0);
@@ -214,6 +216,7 @@ export default function TakeTestPage({
       submittedAt: new Date().toISOString(),
       timeSpentSeconds: timeSpent,
       totalScore: finalScore,
+      maxScore: maxScore,
       percentage: percentage,
       totalAttempted: attemptedCount,
       totalCorrect: correctCount,
@@ -221,24 +224,14 @@ export default function TakeTestPage({
       totalUnanswered: unansweredCount,
       accuracyRate: accuracyRate,
       percentile: percentile,
+      passingMarks: passingMarks,
+      isPassed: isPassed,
       subjectBreakdown: subjectBreakdown,
       userAnswers: activeAnswers,
     };
 
     recordTestAttempt(newAttempt);
-
-    if (typeof window !== 'undefined') {
-      try {
-        localStorage.setItem('cbt_attempt_' + attemptId, JSON.stringify(newAttempt));
-        localStorage.setItem('cbt_latest_attempt_' + activeTest.id, JSON.stringify(newAttempt));
-
-        // Append to global attempts registry for Admin Results & Score Publishing
-        const allAttemptsRaw = localStorage.getItem('ahsora_all_mock_attempts');
-        const allAttempts = allAttemptsRaw ? JSON.parse(allAttemptsRaw) : [];
-        allAttempts.unshift(newAttempt);
-        localStorage.setItem('ahsora_all_mock_attempts', JSON.stringify(allAttempts.slice(0, 500)));
-      } catch (e) {}
-    }
+    await saveMockAttemptAsync(newAttempt);
 
     router.push(`/portal/tests/${activeTest.id}/results?attemptId=${attemptId}`);
   }, [addMistake, currentUser, recordTestAttempt, router, test]);

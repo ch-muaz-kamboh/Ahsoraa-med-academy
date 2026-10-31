@@ -209,6 +209,7 @@ export interface TestAttempt {
   submittedAt?: string;
   timeSpentSeconds: number;
   totalScore: number;
+  maxScore?: number;
   percentage: number;
   totalAttempted: number;
   totalCorrect: number;
@@ -216,6 +217,8 @@ export interface TestAttempt {
   totalUnanswered: number;
   accuracyRate: number;
   percentile: number;
+  passingMarks?: number;
+  isPassed?: boolean;
   subjectBreakdown: Record<string, { total: number; correct: number; score: number }>;
   userAnswers?: Record<string, string>;
   createdAt?: string;

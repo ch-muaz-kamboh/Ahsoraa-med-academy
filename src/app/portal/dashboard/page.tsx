@@ -99,7 +99,7 @@ export default function StudentDashboardPage() {
           </p>
         </div>
         <Link href="/portal/tests" style={{ backgroundColor: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)', color: '#FFFFFF', padding: '12px 22px', borderRadius: '10px', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '0.875rem' }}>
-          Start Practice Test <ChevronRight size={16} />
+          View Mock Results <ChevronRight size={16} />
         </Link>
       </div>
 
@@ -188,30 +188,36 @@ export default function StudentDashboardPage() {
           {/* Recent Test Attempts */}
           <div className="card" style={{ backgroundColor: '#FFFFFF', padding: '24px' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
-              <h3 style={{ fontSize: '1.125rem', color: '#0F172A' }}>Recent Test Attempts</h3>
-              <Link href="/portal/tests" style={{ fontSize: '0.8125rem', color: '#059669', fontWeight: 600 }}>All Tests &rarr;</Link>
+              <h3 style={{ fontSize: '1.125rem', color: '#0F172A' }}>Recent Mock Results</h3>
+              <Link href="/portal/tests" style={{ fontSize: '0.8125rem', color: '#059669', fontWeight: 600 }}>All Results &rarr;</Link>
             </div>
             {testAttempts.length === 0 ? (
               <div style={{ textAlign: 'center', padding: '24px', color: '#94A3B8' }}>
                 <FileCheck2 size={32} style={{ marginBottom: '8px', opacity: 0.5 }} />
                 <p style={{ fontSize: '0.875rem', margin: 0 }}>No tests attempted yet.</p>
-                <Link href="/portal/tests" className="btn-primary" style={{ marginTop: '12px', display: 'inline-flex', padding: '8px 20px', fontSize: '0.875rem' }}>Start a Test</Link>
+                <Link href="/portal/practice" className="btn-primary" style={{ marginTop: '12px', display: 'inline-flex', padding: '8px 20px', fontSize: '0.875rem' }}>Practice Questions</Link>
               </div>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {testAttempts.slice(0, 4).map((attempt) => {
                   const acc = (attempt.totalAttempted || 0) > 0 ? Math.round(((attempt.totalCorrect || 0) / attempt.totalAttempted) * 100) : 0;
                   return (
-                    <div key={attempt.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 14px', borderRadius: '10px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0' }}>
+                    <Link
+                      key={attempt.id}
+                      href={`/portal/tests/${attempt.testId}/results?attemptId=${attempt.id}`}
+                      style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 14px', borderRadius: '10px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', transition: 'background-color 0.15s ease' }}
+                    >
                       <div>
-                        <div style={{ fontWeight: 700, color: '#0F172A', fontSize: '0.9rem' }}>{attempt.testTitle || 'Practice Session'}</div>
-                        <div style={{ fontSize: '0.75rem', color: '#64748B', marginTop: '2px' }}>{attempt.totalAttempted} questions</div>
+                        <div style={{ fontWeight: 700, color: '#0F172A', fontSize: '0.9rem' }}>{attempt.testTitle || 'Mock Assessment'}</div>
+                        <div style={{ fontSize: '0.75rem', color: '#64748B', marginTop: '2px' }}>
+                          Score: {attempt.totalScore} / {attempt.maxScore || 90} pts ({attempt.percentage}%)
+                        </div>
                       </div>
                       <div style={{ textAlign: 'right' }}>
                         <div style={{ fontWeight: 800, fontSize: '1rem', color: acc >= 70 ? '#059669' : acc >= 50 ? '#D97706' : '#DC2626' }}>{acc}%</div>
                         <div style={{ fontSize: '0.7rem', color: '#94A3B8' }}>accuracy</div>
                       </div>
-                    </div>
+                    </Link>
                   );
                 })}
               </div>

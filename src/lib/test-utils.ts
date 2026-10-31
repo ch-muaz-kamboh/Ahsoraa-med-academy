@@ -1,4 +1,4 @@
-import { Test, TestQuestion, TestDifficulty } from '@/types';
+import { Test, TestQuestion, TestDifficulty, TestAttempt } from '@/types';
 import { mockTests } from '@/lib/mock-data';
 import { createClient } from '@/lib/supabase/client';
 
@@ -70,7 +70,7 @@ export async function getMockTestWithCustomAsync(testId: string): Promise<Test> 
       }
 
       const questions: TestQuestion[] = qData
-        .filter((q: any) => q.subject !== '__META__' && !q.id.startsWith('__test_meta__'))
+        .filter((q: any) => q.subject !== '__META__' && !q.id.startsWith('__test_meta__') && q.subject !== '__ATTEMPT__' && !q.id.startsWith('__attempt__'))
         .map((q: any, idx: number) => ({
           id: q.id,
           orderIndex: q.order_index || idx + 1,
@@ -141,6 +141,10 @@ export async function getAllMockTestsWithCustomAsync(): Promise<Test[]> {
             title: q.question_text || existing.title,
             duration_minutes: (q.explanation && !isNaN(Number(q.explanation))) ? Number(q.explanation) : existing.duration_minutes,
           });
+          return;
+        }
+
+        if (q.subject === '__ATTEMPT__' || q.id.startsWith('__attempt__')) {
           return;
         }
 
@@ -321,5 +325,101 @@ export function resetCustomTestQuestions(testId: string): void {
   } catch (e) {
     console.error('Failed to reset custom test questions', e);
   }
+}
+
+export async function saveMockAttemptAsync(attempt: TestAttempt): Promise<void> {
+  if (typeof window !== 'undefined') {
+    try {
+      localStorage.setItem('cbt_attempt_' + attempt.id, JSON.stringify(attempt));
+      localStorage.setItem('cbt_latest_attempt_' + attempt.testId, JSON.stringify(attempt));
+
+      const allAttemptsRaw = localStorage.getItem('ahsora_all_mock_attempts');
+      const allAttempts: TestAttempt[] = allAttemptsRaw ? JSON.parse(allAttemptsRaw) : [];
+      const updated = [attempt, ...allAttempts.filter((a) => a.id !== attempt.id)];
+      localStorage.setItem('ahsora_all_mock_attempts', JSON.stringify(updated.slice(0, 500)));
+    } catch (e) {
+      console.warn('LocalStorage save error:', e);
+    }
+  }
+
+  try {
+    const supabase = createClient();
+    await supabase.from('cbt_test_questions').upsert({
+      id: '__attempt__' + attempt.id,
+      test_id: attempt.testId,
+      order_index: -99,
+      subject: '__ATTEMPT__',
+      topic: attempt.studentEmail || attempt.studentId,
+      difficulty: 'medium',
+      question_text: attempt.studentName || 'Student',
+      options: [],
+      correct_option: 'A',
+      explanation: JSON.stringify(attempt),
+      updated_at: new Date().toISOString(),
+    });
+  } catch (err) {
+    console.warn('Supabase mock attempt sync warning:', err);
+  }
+}
+
+export async function getMockAttemptsAsync(): Promise<TestAttempt[]> {
+  const attemptsMap = new Map<string, TestAttempt>();
+
+  // 1. Populate from localStorage
+  if (typeof window !== 'undefined') {
+    try {
+      const raw = localStorage.getItem('ahsora_all_mock_attempts');
+      if (raw) {
+        const parsed: TestAttempt[] = JSON.parse(raw);
+        parsed.forEach((att) => {
+          if (att && att.id) {
+            attemptsMap.set(att.id, att);
+          }
+        });
+      }
+    } catch (e) {
+      console.warn('Error reading attempts from localStorage:', e);
+    }
+  }
+
+  // 2. Fetch shared attempts from Supabase
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from('cbt_test_questions')
+      .select('*')
+      .eq('subject', '__ATTEMPT__')
+      .order('updated_at', { ascending: false });
+
+    if (!error && data && data.length > 0) {
+      data.forEach((row: any) => {
+        try {
+          if (row.explanation) {
+            const parsedAttempt: TestAttempt = JSON.parse(row.explanation);
+            if (parsedAttempt && parsedAttempt.id) {
+              attemptsMap.set(parsedAttempt.id, parsedAttempt);
+            }
+          }
+        } catch {}
+      });
+    }
+  } catch (err) {
+    console.warn('Error fetching attempts from Supabase:', err);
+  }
+
+  const list = Array.from(attemptsMap.values());
+  list.sort((a, b) => {
+    const timeA = new Date(a.submittedAt || a.startedAt || 0).getTime();
+    const timeB = new Date(b.submittedAt || b.startedAt || 0).getTime();
+    return timeB - timeA;
+  });
+
+  if (typeof window !== 'undefined' && list.length > 0) {
+    try {
+      localStorage.setItem('ahsora_all_mock_attempts', JSON.stringify(list.slice(0, 500)));
+    } catch {}
+  }
+
+  return list;
 }
 

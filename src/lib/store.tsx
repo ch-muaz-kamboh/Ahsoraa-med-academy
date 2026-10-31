@@ -217,7 +217,15 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       return saved ? JSON.parse(saved) : mockDoubts;
     } catch { return mockDoubts; }
   });
-  const [testAttempts, setTestAttempts] = useState<TestAttempt[]>([]);
+  const [testAttempts, setTestAttempts] = useState<TestAttempt[]>(() => {
+    if (typeof window === 'undefined') return [];
+    try {
+      const saved = localStorage.getItem('ahsora_all_mock_attempts');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
   const [adminLoggedIn, setAdminLoggedInState] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false;
     return localStorage.getItem('ahsora_adminLoggedIn') === 'true';
@@ -1504,7 +1512,16 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   };
 
   const recordTestAttempt = (attempt: TestAttempt) => {
-    setTestAttempts((prev) => [attempt, ...prev]);
+    setTestAttempts((prev) => {
+      const filtered = prev.filter((a) => a.id !== attempt.id);
+      const updated = [attempt, ...filtered];
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem('ahsora_all_mock_attempts', JSON.stringify(updated.slice(0, 500)));
+        } catch {}
+      }
+      return updated;
+    });
   };
 
   const toggleLessonCompletion = (courseId: string, lessonId: string) => {
