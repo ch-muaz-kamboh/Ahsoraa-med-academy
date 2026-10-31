@@ -133,7 +133,7 @@ export default function TakeTestPage({
 
   // Submit test calculations with exact user scoring rules:
   // Correct: +1.5 marks | Wrong: -1.9 marks | Unanswered/Blank: -1.5 marks
-  const handleSubmitTest = React.useCallback(() => {
+  const handleSubmitTest = React.useCallback(async () => {
     if (isSubmittingRef.current) return;
     isSubmittingRef.current = true;
     setIsSubmitting(true);
