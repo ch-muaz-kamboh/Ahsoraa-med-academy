@@ -377,7 +377,7 @@ export default async function IMATNewsArticlePage({
     description:
       'Premier preparatory institute and admissions agency for English-taught public medical universities across Italy and the IMAT examination.',
     telephone: '+39 333 3444 479',
-    email: 'admissions@ahsorameds.com',
+    email: 'ahsoramedsacademy@gmail.com',
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Milan',

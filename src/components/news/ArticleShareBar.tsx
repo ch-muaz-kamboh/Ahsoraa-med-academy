@@ -31,7 +31,7 @@ export default function ArticleShareBar({
   const [copied, setCopied] = useState(false);
   const [showInstaModal, setShowInstaModal] = useState(false);
 
-  const cleanUrl = url.startsWith('http') ? url : `https://ahsorameds.com${url.startsWith('/') ? '' : '/'}${url}`;
+  const cleanUrl = url.startsWith('http') ? url : `https://www.ahsorameds.com${url.startsWith('/') ? '' : '/'}${url}`;
   const shareText = `${title} — Ahsora Meds Academy`;
 
   const handleCopyLink = async () => {

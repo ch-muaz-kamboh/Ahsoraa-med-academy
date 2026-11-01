@@ -981,7 +981,7 @@ export default function AdminContentPage() {
                   />
                 </div>
                 <div style={{ fontSize: '0.73rem', color: '#059669', marginTop: '6px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  🌐 Public URL: https://ahsorameds.com/imat-news-and-updates/{newNews.slug || slugify(newNews.title) || 'your-slug'}
+                  🌐 Public URL: https://www.ahsorameds.com/imat-news-and-updates/{newNews.slug || slugify(newNews.title) || 'your-slug'}
                 </div>
               </div>
 

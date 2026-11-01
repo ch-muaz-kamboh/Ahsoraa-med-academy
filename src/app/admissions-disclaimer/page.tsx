@@ -123,8 +123,8 @@ export default function AdmissionsDisclaimerPage() {
 
           <div style={{ border: '1px solid #BBF7D0', backgroundColor: '#F0FFF4', borderRadius: '12px', padding: '18px', marginTop: '12px' }}>
             <div style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#166534', textTransform: 'uppercase' }}>Questions?</div>
-            <a href="mailto:admissions@ahsorameds.com" style={{ color: '#059669', fontWeight: 800, fontSize: '1.05rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px', marginTop: '4px' }}>
-              <Mail size={16} /> admissions@ahsorameds.com
+            <a href="mailto:ahsoramedsacademy@gmail.com" style={{ color: '#059669', fontWeight: 800, fontSize: '1.05rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px', marginTop: '4px' }}>
+              <Mail size={16} /> ahsoramedsacademy@gmail.com
             </a>
           </div>
         </article>

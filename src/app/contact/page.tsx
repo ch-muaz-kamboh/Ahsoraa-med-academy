@@ -38,7 +38,7 @@ export default function ContactPage() {
           '@type': 'ContactPoint',
           telephone: '+39 327 891 2345',
           contactType: 'student support',
-          email: 'contact@ahsorameds.com',
+          email: 'ahsoramedsacademy@gmail.com',
           availableLanguage: ['English', 'Italian', 'Urdu', 'Hindi'],
           contactOption: 'TollFree',
           areaServed: 'Worldwide',

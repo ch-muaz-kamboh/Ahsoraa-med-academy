@@ -78,8 +78,8 @@ export default function PrivacyContent() {
                 <div style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#64748B', marginBottom: '4px' }}>PRIVACY INQUIRIES & DATA RIGHTS DESK</div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <Mail size={16} color="#059669" />
-                  <a href="mailto:admissions@ahsorameds.com?subject=Privacy%20Request" style={{ color: '#059669', fontWeight: 700, textDecoration: 'none' }}>
-                    admissions@ahsorameds.com
+                  <a href="mailto:ahsoramedsacademy@gmail.com?subject=Privacy%20Request" style={{ color: '#059669', fontWeight: 700, textDecoration: 'none' }}>
+                    ahsoramedsacademy@gmail.com
                   </a>
                   <span style={{ fontSize: '0.8125rem', color: '#64748B' }}>(Include “Privacy Request” in the subject line)</span>
                 </div>
@@ -237,7 +237,7 @@ export default function PrivacyContent() {
                 Depending on applicable jurisdiction (including under GDPR), students have the right to request access to their personal data, correct inaccurate details, request deletion, restrict processing, or receive a portable copy of test attempts.
               </p>
               <p>
-                To exercise any of these rights, email <strong>admissions@ahsorameds.com</strong> with “Privacy Request”.
+                To exercise any of these rights, email <strong>ahsoramedsacademy@gmail.com</strong> with “Privacy Request”.
               </p>
             </section>
 
@@ -323,10 +323,10 @@ export default function PrivacyContent() {
                 Have questions or wish to request data correction or deletion?
               </p>
               <a
-                href="mailto:admissions@ahsorameds.com?subject=Privacy%20Request"
+                href="mailto:ahsoramedsacademy@gmail.com?subject=Privacy%20Request"
                 style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8125rem', fontWeight: 700, color: '#166534', textDecoration: 'none' }}
               >
-                <Mail size={14} /> admissions@ahsorameds.com
+                <Mail size={14} /> ahsoramedsacademy@gmail.com
               </a>
             </div>
 

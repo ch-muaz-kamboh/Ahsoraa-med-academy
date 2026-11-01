@@ -70,7 +70,7 @@ export const AHSO_PACKAGES: PackageDetail[] = [
 ];
 
 export const AHSO_CONTACT = {
-  email: 'admissions@ahsorameds.com',
+  email: 'ahsoramedsacademy@gmail.com',
   phone: '+39 333 3444 479',
   hours: 'Monday – Friday, 9:00 AM – 6:00 PM (CET)',
   offices: [
@@ -123,7 +123,7 @@ export const OFFICIAL_IMAT_INFO = {
   },
 };
 
-export const CHATBOT_SYSTEM_PROMPT = `You are "Ahsora Support AI", the official customer support assistant for Ahsora Med Academy (website: https://ahsorameds.com).
+export const CHATBOT_SYSTEM_PROMPT = `You are "Ahsora Support AI", the official customer support assistant for Ahsora Med Academy (website: https://www.ahsorameds.com).
 
 YOUR PURPOSE:
 You are a friendly, professional, and knowledgeable customer-support specialist.
@@ -171,7 +171,7 @@ HOW TO ENROL:
 - After submitting registration, payment instructions (credit card or bank transfer) are provided, and access to the portal ([Login](/login)) is activated.
 
 CONTACT CHANNELS:
-- Email: admissions@ahsorameds.com
+- Email: ahsoramedsacademy@gmail.com
 - Phone / WhatsApp: +39 333 3444 479 (Mon-Fri 9am-6pm CET)
 - Dedicated contact page: [Contact Us](/contact)
 - Offices in Messina, Italy and Lahore, Pakistan.
@@ -343,7 +343,7 @@ Enrolling is simple, secure, and takes less than 2 minutes:
 3. **Complete Payment:** Our admissions desk accepts secure bank transfers and card payments. You will receive immediate payment confirmation and account activation.
 4. **Access the Portal:** Log in at [Login](/login) to access your video lectures, question bank, live class schedules, and CBT mock exam simulator!
 
-Need help with registration? Reach out to our admissions team directly on WhatsApp at **+39 333 3444 479** or email [admissions@ahsorameds.com](mailto:admissions@ahsorameds.com).`;
+Need help with registration? Reach out to our admissions team directly on WhatsApp at **+39 333 3444 479** or email [ahsoramedsacademy@gmail.com](mailto:ahsoramedsacademy@gmail.com).`;
   }
 
   // 4. Exam Format, Scoring & Syllabus
@@ -605,7 +605,7 @@ Read our complete breakdown on the [Scholarships Hub](/universities/scholarships
 Our admissions team is available to assist you with enrollment, package choices, and Italian visa questions:
 
 * **WhatsApp & Phone:** **+39 333 3444 479**
-* **Email:** [admissions@ahsorameds.com](mailto:admissions@ahsorameds.com)
+* **Email:** [ahsoramedsacademy@gmail.com](mailto:ahsoramedsacademy@gmail.com)
 * **Hours:** Monday – Friday, 9:00 AM – 6:00 PM (Central European Time)
 * **Offices:**
   * **Italy:** Via Roma, 98124 Messina, Italy
@@ -627,5 +627,5 @@ We are the premier preparation and guidance platform for students aspiring to st
 * **Official IMAT Schedule:** The exam is held annually in mid-September by MUR, with registration on [Universitaly](https://www.universitaly.it/) in July.
 * **Directory & Guides:** Browse the [Universities Directory](/universities) and [Scholarships Hub](/universities/scholarships).
 
-Need direct support? Message our team on WhatsApp at **+39 333 3444 479** or email [admissions@ahsorameds.com](mailto:admissions@ahsorameds.com).`;
+Need direct support? Message our team on WhatsApp at **+39 333 3444 479** or email [ahsoramedsacademy@gmail.com](mailto:ahsoramedsacademy@gmail.com).`;
 }

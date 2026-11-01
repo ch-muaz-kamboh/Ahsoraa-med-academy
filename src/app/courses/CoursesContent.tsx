@@ -1124,7 +1124,7 @@ export default function CoursesContent() {
 
                         {/* Email CTA */}
                         <a
-                          href={`mailto:admissions@ahsorameds.com?subject=${encodeURIComponent(`Enrollment Inquiry - ${prog.name}`)}&body=${encodeURIComponent(`Hello Ahsora Med Academy,\n\nI would like to enroll in ${prog.name}. Please provide enrollment details.\n\nThank you!`)}`}
+                          href={`mailto:ahsoramedsacademy@gmail.com?subject=${encodeURIComponent(`Enrollment Inquiry - ${prog.name}`)}&body=${encodeURIComponent(`Hello Ahsora Med Academy,\n\nI would like to enroll in ${prog.name}. Please provide enrollment details.\n\nThank you!`)}`}
                           style={{
                             display: 'flex',
                             alignItems: 'center',

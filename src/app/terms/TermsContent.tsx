@@ -158,7 +158,7 @@ export default function TermsAndConditionsPage() {
                 <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '14px 18px', marginTop: '12px' }}>
                   <div>
                     <span style={{ fontSize: '0.75rem', color: '#64748B', display: 'block', fontWeight: 600 }}>OFFICIAL EMAIL</span>
-                    <a href="mailto:admissions@ahsorameds.com" style={{ color: '#059669', fontWeight: 700, textDecoration: 'none' }}>admissions@ahsorameds.com</a>
+                    <a href="mailto:ahsoramedsacademy@gmail.com" style={{ color: '#059669', fontWeight: 700, textDecoration: 'none' }}>ahsoramedsacademy@gmail.com</a>
                   </div>
                   <div>
                     <span style={{ fontSize: '0.75rem', color: '#64748B', display: 'block', fontWeight: 600 }}>WHATSAPP ADMISSIONS DESK</span>
@@ -372,7 +372,7 @@ export default function TermsAndConditionsPage() {
                   Complaints and payment disputes
                 </h2>
                 <p>
-                  If you encounter any problem, please write to <strong>admissions@ahsorameds.com</strong> with your order reference. We aim to acknowledge complaints within 48 hours and investigate promptly.
+                  If you encounter any problem, please write to <strong>ahsoramedsacademy@gmail.com</strong> with your order reference. We aim to acknowledge complaints within 48 hours and investigate promptly.
                 </p>
               </section>
 
@@ -455,10 +455,10 @@ export default function TermsAndConditionsPage() {
                   Reach our admissions and legal support desk directly via email or WhatsApp.
                 </p>
                 <a
-                  href="mailto:admissions@ahsorameds.com"
+                  href="mailto:ahsoramedsacademy@gmail.com"
                   style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8125rem', fontWeight: 700, color: '#047857', textDecoration: 'none', marginBottom: '8px' }}
                 >
-                  <Mail size={14} /> admissions@ahsorameds.com
+                  <Mail size={14} /> ahsoramedsacademy@gmail.com
                 </a>
                 <a
                   href="https://wa.me/393333444479"
@@ -522,8 +522,8 @@ export default function TermsAndConditionsPage() {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px', margin: '20px 0' }}>
                 <div style={{ border: '1px solid #BBF7D0', backgroundColor: '#F0FFF4', borderRadius: '12px', padding: '16px' }}>
                   <div style={{ fontWeight: 700, color: '#166534', marginBottom: '4px' }}>Email Support</div>
-                  <a href="mailto:admissions@ahsorameds.com" style={{ color: '#059669', fontWeight: 700, textDecoration: 'none' }}>
-                    admissions@ahsorameds.com
+                  <a href="mailto:ahsoramedsacademy@gmail.com" style={{ color: '#059669', fontWeight: 700, textDecoration: 'none' }}>
+                    ahsoramedsacademy@gmail.com
                   </a>
                 </div>
                 <div style={{ border: '1px solid #A7F3D0', backgroundColor: '#ECFDF5', borderRadius: '12px', padding: '16px' }}>

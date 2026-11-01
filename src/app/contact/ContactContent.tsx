@@ -152,7 +152,7 @@ export default function ContactPage() {
                   <div>
                     <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0F172A', marginBottom: '4px' }}>Email Us</h3>
                     <p style={{ color: '#64748B', fontSize: '0.9375rem', marginBottom: '8px' }}>For general inquiries and support.</p>
-                    <a href="mailto:admissions@ahsorameds.com" style={{ color: '#16A34A', fontWeight: 600, fontSize: '0.9375rem', textDecoration: 'none' }}>admissions@ahsorameds.com</a>
+                    <a href="mailto:ahsoramedsacademy@gmail.com" style={{ color: '#16A34A', fontWeight: 600, fontSize: '0.9375rem', textDecoration: 'none' }}>ahsoramedsacademy@gmail.com</a>
                   </div>
                 </div>
 

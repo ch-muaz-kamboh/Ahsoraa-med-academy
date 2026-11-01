@@ -3,7 +3,7 @@
  * Ahsora Med Academy
  */
 
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://ahsorameds.com';
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.ahsorameds.com';
 export const SITE_NAME = 'Ahsora Med Academy';
 export const SITE_TAGLINE = 'Study Medicine in Italy in English | Premier IMAT Preparation & Admissions Platform';
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/icon.png`;
@@ -35,7 +35,7 @@ export function getOrganizationJsonLd() {
     image: `${SITE_URL}/ahsora-emblem.png`,
     description:
       'Premier European medical admissions academy specialized in English-taught Medicine and Surgery (LM41) in Italy, IMAT preparation courses, 100-minute CBT mock exams, and DSU scholarship mentorship.',
-    email: 'contact@ahsorameds.com',
+    email: 'ahsoramedsacademy@gmail.com',
     telephone: '+39 327 891 2345',
     sameAs: OFFICIAL_SOCIAL_LINKS,
     founder: {

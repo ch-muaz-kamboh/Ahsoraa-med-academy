@@ -248,7 +248,7 @@ function PendingPaymentContent() {
             </div>
 
             <p style={{ color: '#92400E', fontSize: '0.8125rem', marginTop: '16px', lineHeight: 1.6 }}>
-              📨 After completing payment, send your transaction screenshot/receipt to <strong>admissions@ahsorameds.com</strong> or via WhatsApp to <a href="https://wa.me/393333444479" target="_blank" rel="noopener noreferrer" style={{ color: '#059669', fontWeight: 800 }}>+39 333 3444 479</a> with your email (<strong>{studentDetails?.email}</strong>). Our admissions team will verify and activate your portal access within 12-24 hours.
+              📨 After completing payment, send your transaction screenshot/receipt to <strong>ahsoramedsacademy@gmail.com</strong> or via WhatsApp to <a href="https://wa.me/393333444479" target="_blank" rel="noopener noreferrer" style={{ color: '#059669', fontWeight: 800 }}>+39 333 3444 479</a> with your email (<strong>{studentDetails?.email}</strong>). Our admissions team will verify and activate your portal access within 12-24 hours.
             </p>
           </div>
 

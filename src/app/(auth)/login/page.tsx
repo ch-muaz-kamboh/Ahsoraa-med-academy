@@ -503,7 +503,7 @@ export default function LoginPage() {
                   gap: '4px',
                 }}
               >
-                ahsoramedsacademy.com <ExternalLink size={12} />
+                www.ahsorameds.com <ExternalLink size={12} />
               </Link>
             </div>
 

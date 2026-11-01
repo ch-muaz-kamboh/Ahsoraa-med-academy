@@ -104,8 +104,8 @@ export default function Footer() {
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.84rem', color: '#94A3B8' }}>
               <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Mail size={15} color="#5CED73" />
-                <a href="mailto:admissions@ahsorameds.com" style={{ color: '#94A3B8', textDecoration: 'none', transition: 'color 0.15s ease' }} onMouseEnter={e => e.currentTarget.style.color = '#5CED73'} onMouseLeave={e => e.currentTarget.style.color = '#94A3B8'}>
-                  admissions@ahsorameds.com
+                <a href="mailto:ahsoramedsacademy@gmail.com" style={{ color: '#94A3B8', textDecoration: 'none', transition: 'color 0.15s ease' }} onMouseEnter={e => e.currentTarget.style.color = '#5CED73'} onMouseLeave={e => e.currentTarget.style.color = '#94A3B8'}>
+                  ahsoramedsacademy@gmail.com
                 </a>
               </li>
               <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>

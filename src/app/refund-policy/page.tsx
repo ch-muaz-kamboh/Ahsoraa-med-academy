@@ -124,8 +124,8 @@ export default function RefundPolicyPage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px', margin: '20px 0' }}>
             <div style={{ border: '1px solid #BBF7D0', backgroundColor: '#F0FFF4', borderRadius: '12px', padding: '18px' }}>
               <div style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#166534', textTransform: 'uppercase' }}>Email Cancellation Desk</div>
-              <a href="mailto:admissions@ahsorameds.com" style={{ color: '#059669', fontWeight: 800, fontSize: '1.05rem', textDecoration: 'none', display: 'block', marginTop: '4px' }}>
-                admissions@ahsorameds.com
+              <a href="mailto:ahsoramedsacademy@gmail.com" style={{ color: '#059669', fontWeight: 800, fontSize: '1.05rem', textDecoration: 'none', display: 'block', marginTop: '4px' }}>
+                ahsoramedsacademy@gmail.com
               </a>
               <div style={{ fontSize: '0.75rem', color: '#64748B', marginTop: '4px' }}>Subject: "Cancellation Request - [Order ID]"</div>
             </div>
