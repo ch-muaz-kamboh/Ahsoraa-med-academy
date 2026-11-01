@@ -55,6 +55,8 @@ export default function AdminDashboardPage() {
 
   const fetchStudentsData = useCallback(async () => {
     setLoadingStudents(true);
+    let list: StudentRecord[] = [];
+
     // 0. One-time clean out of legacy mock accounts from client storage so publishing site starts fresh
     if (typeof window !== 'undefined') {
       try {
