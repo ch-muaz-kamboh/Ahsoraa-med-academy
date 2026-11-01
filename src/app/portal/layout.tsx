@@ -7,6 +7,8 @@ import { useAppStore } from '@/lib/store';
 import { Bell, Lock, Mail, User, Eye, EyeOff, Check, Loader2, LogOut, Flame, Clock, Sparkles, GraduationCap, AlertTriangle, CheckCircle2, ChevronRight, X } from 'lucide-react';
 import Link from 'next/link';
 import { getStudentNotifications, markAllNotificationsAsRead, markNotificationAsRead, StudentPortalNotification } from '@/lib/notifications';
+import { createClient } from '@/lib/supabase/client';
+
 
 import {
   getStudentPackageMapping,

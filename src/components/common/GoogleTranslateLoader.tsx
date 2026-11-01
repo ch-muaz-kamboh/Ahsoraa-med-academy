@@ -71,14 +71,42 @@ export default function GoogleTranslateLoader() {
       };
     }
 
-    // Only inject script once
-    const SCRIPT_ID = 'google-translate-script';
-    if (!document.getElementById(SCRIPT_ID)) {
-      const script = document.createElement('script');
-      script.id = SCRIPT_ID;
-      script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-      script.async = true;
-      document.body.appendChild(script);
+    // Check if non-English language was explicitly requested
+    const savedLang = typeof window !== 'undefined' ? localStorage.getItem('ahsora_selected_lang') : null;
+    const isNonEnglish = savedLang && savedLang !== 'en';
+
+    const loadScript = () => {
+      const SCRIPT_ID = 'google-translate-script';
+      if (!document.getElementById(SCRIPT_ID)) {
+        const script = document.createElement('script');
+        script.id = SCRIPT_ID;
+        script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+        script.async = true;
+        document.body.appendChild(script);
+      }
+    };
+
+    if (isNonEnglish) {
+      loadScript();
+    } else {
+      // Defer loading on mobile/desktop until idle or user interaction
+      let timer: any;
+      if (typeof window !== 'undefined') {
+        const triggerHandler = () => {
+          loadScript();
+          window.removeEventListener('ahsora_trigger_translate', triggerHandler);
+        };
+        window.addEventListener('ahsora_trigger_translate', triggerHandler, { once: true });
+
+        if ('requestIdleCallback' in window) {
+          (window as any).requestIdleCallback(loadScript, { timeout: 4000 });
+        } else {
+          timer = setTimeout(loadScript, 3500);
+        }
+      }
+      return () => {
+        if (timer) clearTimeout(timer);
+      };
     }
   }, [isExcluded]);
 

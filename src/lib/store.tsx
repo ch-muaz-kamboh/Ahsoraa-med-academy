@@ -474,6 +474,26 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   // Initial Supabase Sync on Mount
   useEffect(() => {
+    // Skip heavy portal Supabase queries on public marketing pages to maximize mobile page speed
+    if (typeof window !== 'undefined') {
+      const pathname = window.location.pathname || '';
+      const isPortalOrStaffOrAdmin =
+        pathname.startsWith('/portal') ||
+        pathname.startsWith('/staff') ||
+        pathname.startsWith('/admin') ||
+        pathname.startsWith('/login') ||
+        pathname.startsWith('/pending-payment');
+
+      const hasActiveSession =
+        localStorage.getItem('ahsora_studentLoggedIn') === 'true' ||
+        localStorage.getItem('ahsora_staffLoggedIn') === 'true' ||
+        localStorage.getItem('ahsora_adminLoggedIn') === 'true';
+
+      if (!isPortalOrStaffOrAdmin && !hasActiveSession) {
+        return;
+      }
+    }
+
     const syncFromSupabase = async () => {
       try {
         const supabase = createClient();
@@ -633,6 +653,26 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   // Real-time subscriptions for data changes
   useEffect(() => {
+    // Skip opening multiple real-time WebSocket channels on public pages for non-logged-in visitors
+    if (typeof window !== 'undefined') {
+      const pathname = window.location.pathname || '';
+      const isPortalOrStaffOrAdmin =
+        pathname.startsWith('/portal') ||
+        pathname.startsWith('/staff') ||
+        pathname.startsWith('/admin') ||
+        pathname.startsWith('/login') ||
+        pathname.startsWith('/pending-payment');
+
+      const hasActiveSession =
+        localStorage.getItem('ahsora_studentLoggedIn') === 'true' ||
+        localStorage.getItem('ahsora_staffLoggedIn') === 'true' ||
+        localStorage.getItem('ahsora_adminLoggedIn') === 'true';
+
+      if (!isPortalOrStaffOrAdmin && !hasActiveSession) {
+        return;
+      }
+    }
+
     const supabase = createClient();
 
     // Helper formatters

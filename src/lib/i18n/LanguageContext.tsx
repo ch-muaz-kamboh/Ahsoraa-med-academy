@@ -156,6 +156,9 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
           return;
         }
       } else {
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new Event('ahsora_trigger_translate'));
+        }
         setGoogleTranslateCookie(code);
       }
     },
