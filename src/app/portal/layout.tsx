@@ -5,7 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import PortalSidebar from '@/components/layout/PortalSidebar';
 import { useAppStore } from '@/lib/store';
 import { createClient } from '@/lib/supabase/client';
-import { Bell, Lock, Mail, User, Eye, EyeOff, Check, Loader2, LogOut } from 'lucide-react';
+import { Bell, Lock, Mail, User, Eye, EyeOff, Check, Loader2, LogOut, Flame, Clock, Sparkles, GraduationCap } from 'lucide-react';
 import Link from 'next/link';
 
 import {
@@ -13,6 +13,7 @@ import {
   saveStudentPackageMapping,
   resolveEffectivePackage,
   getPackageByIdOrName,
+  getStudentTier,
 } from '@/lib/packages';
 import Logo from '@/components/brand/Logo';
 import PortalMovingStrip from '@/components/portal/PortalMovingStrip';
@@ -212,94 +213,215 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
         <PortalMovingStrip />
 
         {/* Top bar */}
-        <header
-          style={{
-            height: '64px',
-            backgroundColor: '#FFFFFF',
-            borderBottom: '1px solid #E2E8F0',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: '0 28px',
-            position: 'sticky',
-            top: 0,
-            zIndex: 30,
-            pointerEvents: isPortalLocked ? 'none' : 'auto',
-            opacity: isPortalLocked ? 0.6 : 1,
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0F172A' }}>
-              {t('portal.welcome_back', 'Welcome back')},{' '}
-              <span style={{ color: '#059669' }}>
-                {realUser ? realUser.firstName : t('portal.student', 'Student')}!
-              </span>
-            </span>
-          </div>
+        {(() => {
+          const effectivePkg = resolveEffectivePackage(currentUser);
+          const studentTier = getStudentTier(effectivePkg);
+          const currentPkgObj = getPackageByIdOrName(effectivePkg);
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-            {/* Functional Language Switcher for Student Portal */}
-            <LanguageSwitcher variant="portal" />
-
-            <div
+          return (
+            <header
               style={{
-                width: '36px',
-                height: '36px',
-                borderRadius: '50%',
-                backgroundColor: '#F0FFF4',
-                color: '#059669',
+                height: '70px',
+                backgroundColor: 'rgba(255, 255, 255, 0.94)',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
+                borderBottom: '1px solid rgba(226, 232, 240, 0.85)',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
+                justifyContent: 'space-between',
+                padding: '0 28px',
+                position: 'sticky',
+                top: 0,
+                zIndex: 30,
+                pointerEvents: isPortalLocked ? 'none' : 'auto',
+                opacity: isPortalLocked ? 0.6 : 1,
+                boxShadow: '0 4px 20px -4px rgba(15, 23, 42, 0.04)',
               }}
-              title={t('portal.notifications', 'Notifications')}
             >
-              <Bell size={18} />
-            </div>
+              {/* Left: Candidate Greeting & Academic Badges */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div
+                    style={{
+                      width: '8px',
+                      height: '8px',
+                      borderRadius: '50%',
+                      backgroundColor: '#10B981',
+                      boxShadow: '0 0 10px #10B981',
+                    }}
+                    title="Active Study Session"
+                  />
+                  <span style={{ fontSize: '0.925rem', fontWeight: 700, color: '#0F172A', letterSpacing: '-0.2px' }}>
+                    {t('portal.welcome_back', 'Welcome')},{' '}
+                    <span style={{ color: '#059669', fontWeight: 800 }}>
+                      Dr. {realUser ? realUser.firstName : t('portal.student', 'Student')}
+                    </span>
+                  </span>
+                </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <div
-                style={{
-                  width: '36px',
-                  height: '36px',
-                  borderRadius: '50%',
-                  backgroundColor: '#DCFCE7',
-                  color: '#047857',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontWeight: 700,
-                  fontSize: '0.875rem',
-                }}
-              >
-                {realUser ? realUser.initials : 'ST'}
+                <div
+                  style={{
+                    display: 'none',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '4px 10px',
+                    borderRadius: '20px',
+                    backgroundColor: '#FEF3C7',
+                    border: '1px solid #FDE68A',
+                    color: '#B45309',
+                    fontSize: '0.75rem',
+                    fontWeight: 700,
+                  }}
+                  className="sm:inline-flex"
+                >
+                  <Flame size={13} color="#F59E0B" />
+                  <span>5-Day Streak</span>
+                </div>
+
+                <div
+                  style={{
+                    display: 'none',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '4px 11px',
+                    borderRadius: '20px',
+                    backgroundColor: '#F0FDF4',
+                    border: '1px solid #BBF7D0',
+                    color: '#15803D',
+                    fontSize: '0.75rem',
+                    fontWeight: 700,
+                  }}
+                  className="md:inline-flex"
+                >
+                  <Clock size={13} color="#16A34A" />
+                  <span>IMAT 2027: ~150 Days</span>
+                </div>
               </div>
 
-              <button
-                onClick={handleLogout}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  padding: '7px 14px',
-                  borderRadius: '8px',
-                  border: '1px solid #FECACA',
-                  backgroundColor: '#FEF2F2',
-                  color: '#DC2626',
-                  fontWeight: 600,
-                  fontSize: '0.8125rem',
-                  cursor: 'pointer',
-                  transition: 'all 0.15s ease',
-                }}
-                title={t('portal.logout', 'Sign out of student portal')}
-              >
-                <LogOut size={15} />
-                <span>{t('portal.logout', 'Log Out')}</span>
-              </button>
-            </div>
-          </div>
-        </header>
+              {/* Right: Tier Badge, Language, Notifications, Avatar, Logout */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                {/* Student Package Tier Badge */}
+                <div
+                  style={{
+                    padding: '5px 12px',
+                    borderRadius: '20px',
+                    fontSize: '0.75rem',
+                    fontWeight: 800,
+                    letterSpacing: '0.3px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '5px',
+                    background:
+                      studentTier === 'elite'
+                        ? 'linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%)'
+                        : studentTier === 'mastery'
+                        ? 'linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%)'
+                        : 'linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%)',
+                    color:
+                      studentTier === 'elite'
+                        ? '#C2410C'
+                        : studentTier === 'mastery'
+                        ? '#047857'
+                        : '#334155',
+                    border:
+                      studentTier === 'elite'
+                        ? '1px solid #FDBA74'
+                        : studentTier === 'mastery'
+                        ? '1px solid #86EFAC'
+                        : '1px solid #CBD5E1',
+                    boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+                  }}
+                >
+                  <Sparkles size={12} />
+                  <span>{currentPkgObj.name}</span>
+                </div>
+
+                {/* Functional Language Switcher for Student Portal */}
+                <LanguageSwitcher variant="portal" />
+
+                {/* Notification Bell */}
+                <div
+                  style={{
+                    width: '38px',
+                    height: '38px',
+                    borderRadius: '10px',
+                    backgroundColor: '#F8FAFC',
+                    border: '1px solid #E2E8F0',
+                    color: '#64748B',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    position: 'relative',
+                    transition: 'all 0.15s ease',
+                  }}
+                  title={t('portal.notifications', 'Notifications')}
+                >
+                  <Bell size={17} />
+                  <span
+                    style={{
+                      position: 'absolute',
+                      top: '7px',
+                      right: '8px',
+                      width: '7px',
+                      height: '7px',
+                      borderRadius: '50%',
+                      backgroundColor: '#10B981',
+                      border: '1.5px solid #FFFFFF',
+                    }}
+                  />
+                </div>
+
+                {/* Profile Pill & Avatar */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <div
+                    style={{
+                      width: '38px',
+                      height: '38px',
+                      borderRadius: '11px',
+                      background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+                      color: '#FFFFFF',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontWeight: 800,
+                      fontSize: '0.875rem',
+                      boxShadow: '0 4px 10px rgba(5, 150, 105, 0.25)',
+                      border: '2px solid #FFFFFF',
+                    }}
+                    title={realUser?.fullName || 'Candidate Profile'}
+                  >
+                    {realUser ? realUser.initials : 'MD'}
+                  </div>
+
+                  <button
+                    onClick={handleLogout}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: '7px 13px',
+                      borderRadius: '9px',
+                      border: '1px solid #FEE2E2',
+                      backgroundColor: '#FFF5F5',
+                      color: '#DC2626',
+                      fontWeight: 600,
+                      fontSize: '0.8rem',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                    }}
+                    title={t('portal.logout', 'Sign out of student portal')}
+                  >
+                    <LogOut size={14} />
+                    <span style={{ display: 'none' }} className="sm:inline">
+                      {t('portal.logout', 'Log Out')}
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </header>
+          );
+        })()}
 
         {/* Live Broadcast Exam Alert for All Students */}
         {liveTestSession?.isLive && !isPortalLocked && (
