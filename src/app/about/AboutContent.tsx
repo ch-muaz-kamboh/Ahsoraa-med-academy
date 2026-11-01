@@ -178,7 +178,7 @@ export default function AboutPage() {
         <section className="about-hero" style={{ position: 'relative', minHeight: '620px', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
           {/* Full-bleed background */}
           <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-            <Image src="/messina-university.jpg" alt="University of Messina, Italy" fill style={{ objectFit: 'cover', objectPosition: 'center 30%' }} priority />
+            <Image src="/messina-university.jpg" alt="University of Messina, Italy" fill style={{ objectFit: 'cover', objectPosition: 'center 30%' }} priority sizes="100vw" />
           </div>
           {/* Dark overlay */}
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(8,18,10,0.95) 0%, rgba(5,50,30,0.85) 50%, rgba(15,23,42,0.9) 100%)', zIndex: 1 }} />
@@ -211,7 +211,7 @@ export default function AboutPage() {
               <div className="reveal reveal-delay-2" style={{ display: 'flex', justifyContent: 'flex-end', position: 'relative' }}>
                 <div style={{ background: 'rgba(15,23,42,0.45)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '20px', padding: '18px', maxWidth: '320px', width: '100%', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.45)' }}>
                   <div style={{ borderRadius: '14px', overflow: 'hidden', position: 'relative', height: '260px', width: '100%', marginBottom: '16px' }}>
-                    <Image src="/founder-about.jpg" alt="Ahsan Jahangir, Founder" fill style={{ objectFit: 'cover', objectPosition: 'center 20%' }} />
+                    <Image src="/founder-about.jpg" alt="Ahsan Jahangir, Founder" fill style={{ objectFit: 'cover', objectPosition: 'center 20%' }} sizes="(max-width: 768px) 100vw, 320px" priority />
                     <div style={{ position: 'absolute', top: '12px', right: '12px', backgroundColor: 'var(--primary-400)', color: '#0a140c', fontWeight: 900, fontSize: '0.72rem', padding: '4px 12px', borderRadius: 'var(--radius-full)', textTransform: 'uppercase', letterSpacing: '0.8px', boxShadow: '0 4px 16px rgba(92,237,115,0.35)' }}>
                       Founder-Led
                     </div>
@@ -391,7 +391,7 @@ export default function AboutPage() {
           <div className="container">
             <div className="about-story-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.15fr', gap: '48px', alignItems: 'center' }}>
               <div className="reveal" style={{ position: 'relative', height: '360px', borderRadius: 'var(--radius-xl)', overflow: 'hidden', boxShadow: 'var(--shadow-xl)' }}>
-                <Image src="/italian-med-faculty.jpg" alt="Italian University Medical Faculty Campus" fill style={{ objectFit: 'cover' }} priority />
+                <Image src="/italian-med-faculty.jpg" alt="Italian University Medical Faculty Campus" fill style={{ objectFit: 'cover' }} sizes="(max-width: 900px) 100vw, 50vw" />
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <span className="reveal section-tagline">Ahsora Today</span>
@@ -548,7 +548,7 @@ export default function AboutPage() {
                 </div>
               </div>
               <div className="reveal reveal-delay-2" style={{ position: 'relative', height: '320px', borderRadius: 'var(--radius-xl)', overflow: 'hidden', boxShadow: 'var(--shadow-xl)' }}>
-                <Image src="/live-classes.jpg" alt="Ahsora live teaching session" fill style={{ objectFit: 'cover' }} />
+                <Image src="/live-classes.jpg" alt="Ahsora live teaching session" fill style={{ objectFit: 'cover' }} sizes="(max-width: 900px) 100vw, 50vw" />
               </div>
             </div>
           </div>
@@ -569,7 +569,7 @@ export default function AboutPage() {
                 { img: '/live-classes.jpg', label: 'Your Journey', sub: 'Performance analytics and feedback' },
               ].map((t, i) => (
                 <div key={i} style={{ borderRadius: 'var(--radius-xl)', overflow: 'hidden', boxShadow: 'var(--shadow-md)', position: 'relative', aspectRatio: '16/10', transition: 'transform 0.3s, box-shadow 0.3s' }} onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.boxShadow = 'var(--shadow-xl)'; }} onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'var(--shadow-md)'; }}>
-                  <Image src={t.img} alt={t.label} fill style={{ objectFit: 'cover' }} />
+                  <Image src={t.img} alt={t.label} fill style={{ objectFit: 'cover' }} sizes="(max-width: 900px) 100vw, 33vw" />
                   <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '18px 16px 16px', background: 'linear-gradient(to top, rgba(15,23,42,0.88) 0%, transparent 100%)' }}>
                     <div style={{ color: 'var(--primary-400)', fontWeight: 800, fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.8px' }}>{t.label}</div>
                     <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.8rem', marginTop: '3px' }}>{t.sub}</div>
@@ -588,26 +588,83 @@ export default function AboutPage() {
               <h2 className="reveal reveal-delay-1" style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '10px' }}>People Who Teach. People Who Know the Journey.</h2>
             </div>
             <div className="about-three-col reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
-              <div style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', overflow: 'hidden' }}>
-                <div style={{ position: 'relative', height: '220px' }}>
-                  <Image src="/founder-about.jpg" alt="Founder" fill style={{ objectFit: 'cover', objectPosition: 'top' }} />
+              {/* Card 1: Founder */}
+              <div style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+                <div style={{ position: 'relative', height: '230px' }}>
+                  <Image src="/founder-about.jpg" alt="Ahsan Jahangir" fill style={{ objectFit: 'cover', objectPosition: 'top' }} sizes="(max-width: 900px) 100vw, 33vw" />
                 </div>
-                <div style={{ padding: '22px' }}>
-                  <div style={{ fontWeight: 900, fontSize: '1.15rem', color: 'var(--text-primary)', marginBottom: '3px' }}>Ahsan Jahangir</div>
-                  <div style={{ color: 'var(--primary-600)', fontWeight: 700, fontSize: '0.85rem', marginBottom: '10px' }}>Founder &amp; Academic Director</div>
-                  <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '12px' }}>Final-Year Medicine &amp; Surgery student at the University of Messina. Shapes every programme from firsthand experience.</p>
+                <div style={{ padding: '22px', display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'space-between' }}>
+                  <div>
+                    <div style={{ fontWeight: 900, fontSize: '1.15rem', color: 'var(--text-primary)', marginBottom: '3px' }}>Ahsan Jahangir</div>
+                    <div style={{ color: 'var(--primary-600)', fontWeight: 700, fontSize: '0.85rem', marginBottom: '10px' }}>Founder &amp; Academic Director</div>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '16px' }}>Final-Year Medicine &amp; Surgery student at the University of Messina. Shapes every programme from firsthand experience.</p>
+                  </div>
                   <a href="#story" style={{ color: 'var(--primary-600)', fontWeight: 700, fontSize: '0.85rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>Read story <ArrowRight size={14} /></a>
                 </div>
               </div>
-              {['Academic Faculty', 'Student Success & Admissions'].map((group, i) => (
-                <div key={i} style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', padding: '32px 24px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px', textAlign: 'center', justifyContent: 'center', minHeight: '260px' }}>
-                  <div style={{ width: '64px', height: '64px', borderRadius: '50%', backgroundColor: '#E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Users size={28} color="var(--text-light)" />
-                  </div>
-                  <div style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '1.05rem' }}>{group}</div>
-                  <div style={{ color: 'var(--text-light)', fontSize: '0.85rem', fontStyle: 'italic' }}>Senior tutors &amp; medical alumni mentors</div>
-                </div>
-              ))}
+
+              {/* Card 2: Tehreem Tahir (Biology Lead) */}
+              <div style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+  <div style={{ position: 'relative', height: '230px' }}>
+    <Image src="/team/muaaz-aslam.jpg" alt="Muaaz Aslam" fill loading="lazy" style={{ objectFit: 'cover', objectPosition: 'top' }} sizes="(max-width: 900px) 100vw, 33vw" />
+  </div>
+  <div style={{ padding: '22px', display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'space-between' }}>
+    <div>
+      <div style={{ fontWeight: 900, fontSize: '1.15rem', color: 'var(--text-primary)', marginBottom: '3px' }}>Muaaz Aslam</div>
+      <div style={{ color: 'var(--primary-600)', fontWeight: 700, fontSize: '0.85rem', marginBottom: '10px' }}>Expert Chemistry Tutor</div>
+      <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '16px' }}>Providing comprehensive chemistry tutoring and exam strategies for IMAT preparation.</p>
+    </div>
+    <Link href="/courses#faculty" style={{ color: 'var(--primary-600)', fontWeight: 700, fontSize: '0.85rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>See all faculty <ArrowRight size={14} /></Link>
+  </div>
+</div>
+
+              {/* Card 3: Adv Ahmad Jahangir (Legal Counsel & Admissions) */}
+              <div style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+  <div style={{ position: 'relative', height: '230px' }}>
+    <Image src="/team/maths-tutor.jpg" alt="Maths Tutor" fill loading="lazy" style={{ objectFit: 'cover', objectPosition: 'top' }} sizes="(max-width: 900px) 100vw, 33vw" />
+  </div>
+  <div style={{ padding: '22px', display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'space-between' }}>
+    <div>
+      <div style={{ fontWeight: 900, fontSize: '1.15rem', color: 'var(--text-primary)', marginBottom: '3px' }}>John Doe</div>
+      <div style={{ color: 'var(--primary-600)', fontWeight: 700, fontSize: '0.85rem', marginBottom: '10px' }}>Mathematics Tutor</div>
+      <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '16px' }}>Specializes in advanced mathematics topics for IMAT preparation.</p>
+    </div>
+    <Link href="/courses#faculty" style={{ color: 'var(--primary-600)', fontWeight: 700, fontSize: '0.85rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>See all faculty <ArrowRight size={14} /></Link>
+  </div>
+</div>
+            </div>
+
+            {/* Prominent CTA to see all faculty */}
+            <div className="reveal reveal-delay-2" style={{ textAlign: 'center', marginTop: '36px' }}>
+              <Link
+                href="/courses#faculty"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  backgroundColor: '#059669',
+                  color: '#FFFFFF',
+                  fontWeight: 800,
+                  fontSize: '0.95rem',
+                  padding: '13px 30px',
+                  borderRadius: '9999px',
+                  textDecoration: 'none',
+                  boxShadow: '0 4px 18px rgba(5, 150, 105, 0.28)',
+                  transition: 'all 0.2s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#047857';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#059669';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                <Users size={18} />
+                <span>View All Ahsora Faculty &amp; Mentors</span>
+                <ArrowRight size={16} />
+              </Link>
             </div>
           </div>
         </section>
