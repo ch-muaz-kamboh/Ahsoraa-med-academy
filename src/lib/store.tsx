@@ -1,5 +1,6 @@
 "use client";
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import {
   UserRole,
@@ -472,27 +473,24 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     return [];
   });
 
-  // Initial Supabase Sync on Mount
+  // Portal data (schedules, lectures, library, mistakes, staff) is only needed inside
+  // portal/staff/admin areas or for logged-in users. Re-evaluated on every route/login
+  // change so client-side navigation after login still triggers the sync.
+  const currentPath = usePathname() || '';
+  const isPortalArea =
+    currentPath.startsWith('/portal') ||
+    currentPath.startsWith('/staff') ||
+    currentPath.startsWith('/admin') ||
+    currentPath.startsWith('/login') ||
+    currentPath.startsWith('/pending-payment');
+  const needsPortalData = isPortalArea || adminLoggedIn || studentLoggedIn || staffLoggedIn;
+  const hasSyncedPortalDataRef = useRef(false);
+
+  // Initial Supabase Sync (runs once, as soon as portal data is needed)
   useEffect(() => {
     // Skip heavy portal Supabase queries on public marketing pages to maximize mobile page speed
-    if (typeof window !== 'undefined') {
-      const pathname = window.location.pathname || '';
-      const isPortalOrStaffOrAdmin =
-        pathname.startsWith('/portal') ||
-        pathname.startsWith('/staff') ||
-        pathname.startsWith('/admin') ||
-        pathname.startsWith('/login') ||
-        pathname.startsWith('/pending-payment');
-
-      const hasActiveSession =
-        localStorage.getItem('ahsora_studentLoggedIn') === 'true' ||
-        localStorage.getItem('ahsora_staffLoggedIn') === 'true' ||
-        localStorage.getItem('ahsora_adminLoggedIn') === 'true';
-
-      if (!isPortalOrStaffOrAdmin && !hasActiveSession) {
-        return;
-      }
-    }
+    if (!needsPortalData || hasSyncedPortalDataRef.current) return;
+    hasSyncedPortalDataRef.current = true;
 
     const syncFromSupabase = async () => {
       try {
@@ -649,29 +647,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     };
 
     syncFromSupabase();
-  }, []);
+  }, [needsPortalData]);
 
   // Real-time subscriptions for data changes
   useEffect(() => {
     // Skip opening multiple real-time WebSocket channels on public pages for non-logged-in visitors
-    if (typeof window !== 'undefined') {
-      const pathname = window.location.pathname || '';
-      const isPortalOrStaffOrAdmin =
-        pathname.startsWith('/portal') ||
-        pathname.startsWith('/staff') ||
-        pathname.startsWith('/admin') ||
-        pathname.startsWith('/login') ||
-        pathname.startsWith('/pending-payment');
-
-      const hasActiveSession =
-        localStorage.getItem('ahsora_studentLoggedIn') === 'true' ||
-        localStorage.getItem('ahsora_staffLoggedIn') === 'true' ||
-        localStorage.getItem('ahsora_adminLoggedIn') === 'true';
-
-      if (!isPortalOrStaffOrAdmin && !hasActiveSession) {
-        return;
-      }
-    }
+    if (!needsPortalData) return;
 
     const supabase = createClient();
 
@@ -867,7 +848,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       supabase.removeChannel(mistakesChannel);
       supabase.removeChannel(staffChannel);
     };
-  }, []);
+  }, [needsPortalData]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
