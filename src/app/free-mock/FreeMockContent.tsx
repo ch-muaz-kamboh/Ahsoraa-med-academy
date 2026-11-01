@@ -229,8 +229,54 @@ export default function FreeMockPage() {
                     fontFamily: 'var(--font-serif), Georgia, serif',
                   }}
                 >
-                  FREE IMAT MOCK TEST
+                  Free IMAT Mock Test (2027 Syllabus &amp; Scoring)
                 </h1>
+
+                {/* GEO Direct Answer Snippet (AI Bot & Search Scraper Callout Box) */}
+                <div
+                  id="geo-imat-mock-snippet"
+                  style={{
+                    backgroundColor: '#F0FDF4',
+                    border: '1.5px solid #86EFAC',
+                    borderLeft: '5px solid #059669',
+                    borderRadius: '14px',
+                    padding: '18px 22px',
+                    marginBottom: '20px',
+                    boxShadow: '0 4px 14px -2px rgba(5, 150, 105, 0.08)',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                    <span
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        fontSize: '0.75rem',
+                        fontWeight: 800,
+                        color: '#047857',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.75px',
+                        backgroundColor: '#DCFCE7',
+                        padding: '3px 10px',
+                        borderRadius: '6px',
+                      }}
+                    >
+                      <Sparkles size={13} color="#059669" />
+                      Official MUR Testing Engine
+                    </span>
+                  </div>
+                  <p
+                    style={{
+                      fontSize: '0.98rem',
+                      lineHeight: 1.7,
+                      color: '#14532D',
+                      margin: 0,
+                      fontWeight: 500,
+                    }}
+                  >
+                    Ahsora Meds Academy provides a free, full-length diagnostic IMAT mock exam featuring 60 questions and a 100-minute timer. The testing engine perfectly replicates the official Italian Ministry of University and Research (MUR) scoring logic: +1.5 points for correct answers, -0.4 points for incorrect answers, and 0 points for blank answers.
+                  </p>
+                </div>
 
                 {/* Subtitle Spec Bar */}
                 <div
@@ -379,7 +425,7 @@ export default function FreeMockPage() {
                   </div>
 
                   <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F172A', marginBottom: '8px' }}>
-                    FREE IMAT MOCK TEST
+                    Start Your Diagnostic IMAT Exam
                   </h2>
                   <p style={{ fontSize: '0.875rem', color: '#64748B', marginBottom: '24px' }}>
                     Real exam conditions, official Italian scoring (+1.5 / -0.4), and instant score calculation out of 90.
@@ -492,7 +538,7 @@ export default function FreeMockPage() {
                     fontFamily: 'var(--font-serif), Georgia, serif',
                   }}
                 >
-                  THIS IS JUST A TASTE OF WHAT WE OFFER INSIDE OUR STUDENT PORTAL
+                  Unlock the Full Ahsora IMAT Preparation Portal
                 </h2>
                 <p style={{ color: '#475569', fontSize: '1rem', lineHeight: 1.7 }}>
                   The free mock gives you a small look at the preparation system our students use throughout their IMAT journey.
@@ -635,7 +681,7 @@ export default function FreeMockPage() {
                     fontFamily: 'var(--font-serif), Georgia, serif',
                   }}
                 >
-                  AND WE DON’T STOP AT IMAT PREPARATION
+                  Italian Medical School Admissions Mentorship
                 </h2>
                 <p style={{ color: '#475569', fontSize: '1rem', lineHeight: 1.7 }}>
                   Getting into medical school in Italy involves much more than passing the IMAT. Our students can also receive support with:

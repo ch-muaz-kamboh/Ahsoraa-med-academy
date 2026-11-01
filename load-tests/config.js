@@ -10,7 +10,7 @@ export const CORE_PAGES = [
   '/universities',
   '/about',
   '/contact',
-  '/free-mock',
+  '/free-imat-mock-test',
   '/licensing-exams',
   '/visa',
   '/news',

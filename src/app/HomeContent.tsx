@@ -657,7 +657,7 @@ export default function HomePage() {
                 </Link>
 
                 <Link
-                  href="/free-mock"
+                  href="/free-imat-mock-test"
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -2111,7 +2111,7 @@ export default function HomePage() {
 
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                   <Link
-                    href="/free-mock"
+                    href="/free-imat-mock-test"
                     style={{
                       display: 'inline-flex',
                       alignItems: 'center',

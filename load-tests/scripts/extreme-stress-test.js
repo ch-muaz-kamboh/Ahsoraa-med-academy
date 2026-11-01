@@ -120,7 +120,7 @@ export default function () {
       getPage(`${TARGET_URL}/imat`, 'IMAT_Hub');
       randomSleep(0.4, 1.0);
 
-      getPage(`${TARGET_URL}/free-mock`, 'Free_Mock');
+      getPage(`${TARGET_URL}/free-imat-mock-test`, 'Free_Mock');
       randomSleep(0.5, 1.2);
 
       const mockSlug = pickRandom(MOCK_TEST_SLUGS);

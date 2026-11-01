@@ -68,7 +68,7 @@ export default function Footer() {
               <li><Link href="/imat-preparation-courses" style={{ color: '#94A3B8', textDecoration: 'none' }}>All Courses</Link></li>
               <li><Link href="/imat-preparation-courses" style={{ color: '#94A3B8', textDecoration: 'none' }}>Admissions Prep Programs</Link></li>
               <li><Link href="/imat-preparation-courses" style={{ color: '#94A3B8', textDecoration: 'none' }}>Language &amp; Placement Courses</Link></li>
-              <li><Link href="/free-mock" style={{ color: '#94A3B8', textDecoration: 'none' }}>Mock Tests &amp; Assessments</Link></li>
+              <li><Link href="/free-imat-mock-test" style={{ color: '#94A3B8', textDecoration: 'none' }}>Mock Tests &amp; Assessments</Link></li>
               <li>
                 <a
                   href="https://wa.me/393333444479?text=Hi%20Ahsora,%20I%20have%20an%20inquiry%20about%20courses%20and%20test%20prep"

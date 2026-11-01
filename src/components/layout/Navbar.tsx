@@ -253,7 +253,7 @@ export default function Navbar() {
             <LanguageSwitcher variant="navbar" />
 
             <Link
-              href="/free-mock"
+              href="/free-imat-mock-test"
               className="nav-free-mock-btn"
               style={{
                 padding: '6px 13px',
@@ -326,7 +326,7 @@ export default function Navbar() {
             {/* Quick Actions in Mobile Drawer */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', paddingBottom: '12px', borderBottom: '1px solid #E2E8F0' }}>
               <Link
-                href="/free-mock"
+                href="/free-imat-mock-test"
                 onClick={() => setMobileMenuOpen(false)}
                 style={{
                   display: 'flex',

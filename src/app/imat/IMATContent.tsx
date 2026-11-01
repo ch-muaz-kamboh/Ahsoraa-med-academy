@@ -283,7 +283,7 @@ export default function IMATContent() {
               Understand the exam, master the syllabus, practise under realistic conditions, and measure your progress — with a preparation system built for students pursuing Medicine in Italy.
             </p>
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-              <Link href="/free-mock" className="btn-primary" style={{ padding: '13px 28px', fontSize: '0.98rem', textDecoration: 'none' }}>
+              <Link href="/free-imat-mock-test" className="btn-primary" style={{ padding: '13px 28px', fontSize: '0.98rem', textDecoration: 'none' }}>
                 <span>Take the Free IMAT Mock</span>
               </Link>
               <Link href="/resources" className="btn-outline" style={{ padding: '13px 24px', fontSize: '0.98rem', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.3)', backgroundColor: 'rgba(255,255,255,0.06)', textDecoration: 'none' }}>
@@ -518,7 +518,7 @@ export default function IMATContent() {
                 ))}
               </div>
               <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                 <Link href="/free-mock" className="btn-primary">Take the Full Free IMAT Mock</Link>
+                 <Link href="/free-imat-mock-test" className="btn-primary">Take the Full Free IMAT Mock</Link>
                  <a href="https://wa.me/393333444479?text=Hi%20Ahsora%2C%20I%20would%20like%20to%20get%20a%20personalized%20IMAT%20prep%20plan." target="_blank" rel="noopener noreferrer" className="btn-outline" style={{ textDecoration: 'none' }}>Get a Personalised Prep Plan</a>
               </div>
             </div>

@@ -106,7 +106,7 @@ function FloatingCornerBar() {
       </a>
 
       <a
-        href="/free-mock"
+        href="/free-imat-mock-test"
         style={{
           display: 'inline-flex',
           alignItems: 'center',
@@ -792,7 +792,7 @@ export default function CoursesContent() {
                 <p style={{ color: 'var(--text-secondary)', lineHeight: 1.75, fontSize: '1.05rem' }}>{block.desc}</p>
                 {i === 2 && (
                   <div style={{ marginTop: '24px' }}>
-                    <Link href="/free-mock" className="btn-primary" style={{ padding: '12px 24px', fontSize: '0.95rem' }}>Try a Free Diagnostic Mock →</Link>
+                    <Link href="/free-imat-mock-test" className="btn-primary" style={{ padding: '12px 24px', fontSize: '0.95rem' }}>Try a Free Diagnostic Mock →</Link>
                   </div>
                 )}
               </div>
@@ -1158,7 +1158,7 @@ export default function CoursesContent() {
                         Unavailable — Enrollment Paused
                       </div>
                     )}
-                    <Link href="/free-mock" style={{ display: 'block', textAlign: 'center', color: prog.accentColor, border: `1.5px solid ${prog.accentColor}40`, borderRadius: 'var(--radius-full)', padding: '10px', fontWeight: 700, fontSize: '0.86rem', textDecoration: 'none', marginTop: '4px', transition: 'background-color 0.2s' }} onMouseEnter={e => (e.currentTarget.style.backgroundColor = `${prog.accentColor}10`)} onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}>Try Free Diagnostic Mock</Link>
+                    <Link href="/free-imat-mock-test" style={{ display: 'block', textAlign: 'center', color: prog.accentColor, border: `1.5px solid ${prog.accentColor}40`, borderRadius: 'var(--radius-full)', padding: '10px', fontWeight: 700, fontSize: '0.86rem', textDecoration: 'none', marginTop: '4px', transition: 'background-color 0.2s' }} onMouseEnter={e => (e.currentTarget.style.backgroundColor = `${prog.accentColor}10`)} onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}>Try Free Diagnostic Mock</Link>
                   </div>
                 </div>
               </div>

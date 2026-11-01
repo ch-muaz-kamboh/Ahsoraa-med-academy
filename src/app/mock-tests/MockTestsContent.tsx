@@ -59,7 +59,7 @@ export default function MockTestsPage() {
               </p>
             </div>
             <Link
-              href="/free-mock"
+              href="/free-imat-mock-test"
               style={{
                 padding: '12px 24px',
                 backgroundColor: '#059669',

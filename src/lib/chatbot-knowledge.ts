@@ -393,7 +393,7 @@ The IMAT (International Medical Admissions Test) is a 100-minute, paper-based ex
 5. **Reading Skills & General Knowledge (4 Questions · ~6.7% of exam):**
    * Text comprehension and cultural, scientific, or historical literacy.
 
-Prepare with all 10 timed CBT mock simulations and our 2,500+ question bank on [Ahsora IMAT Packages](/register) or try our [Free Mock](/free-mock).`;
+Prepare with all 10 timed CBT mock simulations and our 2,500+ question bank on [Ahsora IMAT Packages](/register) or try our [Free Mock](/free-imat-mock-test).`;
   }
 
   // 4b. IMAT Test Centres Worldwide

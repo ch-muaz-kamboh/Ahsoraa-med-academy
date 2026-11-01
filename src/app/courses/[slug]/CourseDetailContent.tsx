@@ -131,7 +131,7 @@ export default function CourseDetailPage({
             </Link>
 
             <Link
-              href="/free-mock"
+              href="/free-imat-mock-test"
               className="btn-outline"
               style={{ width: '100%', padding: '12px', fontSize: '0.9375rem', backgroundColor: '#FFFFFF' }}
             >

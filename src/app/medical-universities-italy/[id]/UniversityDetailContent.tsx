@@ -211,7 +211,7 @@ export default function UniversityDetailPage({
               </a>
 
               <Link
-                href="/free-mock"
+                href="/free-imat-mock-test"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -687,7 +687,7 @@ export default function UniversityDetailPage({
               <ArrowRight size={18} />
             </a>
             <Link
-              href="/free-mock"
+              href="/free-imat-mock-test"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',

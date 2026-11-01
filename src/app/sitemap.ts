@@ -74,10 +74,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.85,
     },
     {
-      url: `${SITE_URL}/free-mock`,
+      url: `${SITE_URL}/free-imat-mock-test`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
-      priority: 0.85,
+      priority: 0.9,
     },
     {
       url: `${SITE_URL}/licensing-exams`,

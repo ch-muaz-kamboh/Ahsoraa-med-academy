@@ -35,6 +35,11 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: '/free-mock',
+        destination: '/free-imat-mock-test',
+        permanent: true,
+      },
+      {
         source: '/imat',
         destination: '/imat-exam-guide',
         permanent: true,
