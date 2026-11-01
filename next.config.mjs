@@ -41,6 +41,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/scholarships',
+        destination: '/medical-universities-italy/scholarships',
+        permanent: true,
+      },
+      {
         source: '/universities/:id',
         destination: '/medical-universities-italy/:id',
         permanent: true,

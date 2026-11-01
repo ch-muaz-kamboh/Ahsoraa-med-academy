@@ -254,8 +254,8 @@ export async function generateMetadata({
     post.excerpt.replace(/<[^>]*>/g, '').trim()
   ).slice(0, 160);
 
-  const articleUrl = `https://ahsorameds.com/imat-news-and-updates/${post.slug}`;
-  const ogImage = post.imageUrl || 'https://ahsorameds.com/icon.png';
+  const articleUrl = `https://ahsora.com/imat-news-and-updates/${post.slug}`;
+  const ogImage = post.imageUrl || 'https://ahsora.com/icon.png';
 
   return {
     title: cleanTitle,
@@ -270,7 +270,7 @@ export async function generateMetadata({
       'Study Medicine in Italy',
       'Italian Public Universities',
     ],
-    authors: [{ name: post.author, url: 'https://ahsorameds.com' }],
+    authors: [{ name: post.author, url: 'https://ahsora.com' }],
     creator: 'Ahsora Meds Academy',
     publisher: 'Ahsora Meds Academy',
     alternates: {
@@ -329,8 +329,8 @@ export default async function IMATNewsArticlePage({
   }
 
   const enrichedContent = injectHeadingIds(post.content);
-  const articleUrl = `https://ahsorameds.com/imat-news-and-updates/${post.slug}`;
-  const ogImage = post.imageUrl || 'https://ahsorameds.com/icon.png';
+  const articleUrl = `https://ahsora.com/imat-news-and-updates/${post.slug}`;
+  const ogImage = post.imageUrl || 'https://ahsora.com/icon.png';
   const cleanDescription = (
     post.metaDescription ||
     post.excerpt.replace(/<[^>]*>/g, '').trim()
@@ -352,15 +352,15 @@ export default async function IMATNewsArticlePage({
     author: {
       '@type': 'Person',
       name: post.author,
-      url: 'https://ahsorameds.com/about',
+      url: 'https://ahsora.com/about',
     },
     publisher: {
       '@type': 'EducationalOrganization',
       name: 'Ahsora Meds Academy',
-      url: 'https://ahsorameds.com',
+      url: 'https://ahsora.com',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://ahsorameds.com/icon.png',
+        url: 'https://ahsora.com/icon.png',
       },
     },
     inLanguage: 'en-US',
@@ -371,8 +371,8 @@ export default async function IMATNewsArticlePage({
     '@context': 'https://schema.org',
     '@type': 'EducationalOrganization',
     name: 'Ahsora Meds Academy',
-    url: 'https://ahsorameds.com',
-    logo: 'https://ahsorameds.com/icon.png',
+    url: 'https://ahsora.com',
+    logo: 'https://ahsora.com/icon.png',
     description:
       'Premier preparatory institute and admissions agency for English-taught public medical universities across Italy and the IMAT examination.',
     telephone: '+39 333 3444 479',
@@ -422,13 +422,13 @@ export default async function IMATNewsArticlePage({
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://ahsorameds.com',
+        item: 'https://ahsora.com',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'IMAT News & Updates',
-        item: 'https://ahsorameds.com/imat-news-and-updates',
+        item: 'https://ahsora.com/imat-news-and-updates',
       },
       {
         '@type': 'ListItem',

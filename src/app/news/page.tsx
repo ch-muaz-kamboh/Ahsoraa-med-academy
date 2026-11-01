@@ -1,16 +1,19 @@
 import { Metadata } from 'next';
 import NewsContent from './NewsContent';
+import { SITE_URL } from '@/lib/seo-constants';
 
 export const metadata: Metadata = {
   title: 'IMAT News & Updates: Italian Medical Universities Admissions | Ahsora',
-  description: 'Read the latest news on the IMAT 2027 exam, official MUR decree announcements, Universitaly registration deadlines, and Italian medical school cut-offs.',
+  description:
+    'Read the latest news on the IMAT 2027 exam, official MUR decree announcements, Universitaly registration deadlines, and Italian medical school cut-offs.',
   alternates: {
-    canonical: 'https://ahsorameds.com/imat-news-and-updates',
+    canonical: `${SITE_URL}/imat-news-and-updates`,
   },
   openGraph: {
     title: 'IMAT News & Updates: Italian Medical Universities Admissions | Ahsora',
-    description: 'Read the latest news on the IMAT 2027 exam, official MUR decree announcements, Universitaly registration deadlines, and Italian medical school cut-offs.',
-    url: 'https://ahsorameds.com/imat-news-and-updates',
+    description:
+      'Read the latest news on the IMAT 2027 exam, official MUR decree announcements, Universitaly registration deadlines, and Italian medical school cut-offs.',
+    url: `${SITE_URL}/imat-news-and-updates`,
     type: 'website',
   },
 };
@@ -26,26 +29,27 @@ export default function NewsPage() {
             '@type': 'ListItem',
             position: 1,
             name: 'Home',
-            item: 'https://ahsorameds.com/',
+            item: `${SITE_URL}/`,
           },
           {
             '@type': 'ListItem',
             position: 2,
-            name: 'News & Guides',
-            item: 'https://ahsorameds.com/imat-news-and-updates',
+            name: 'IMAT News & Updates',
+            item: `${SITE_URL}/imat-news-and-updates`,
           },
         ],
       },
       {
         '@type': 'CollectionPage',
         name: 'IMAT News & Updates: Italian Medical Universities Admissions | Ahsora',
-        description: 'Read the latest news on the IMAT 2027 exam, official MUR decree announcements, Universitaly registration deadlines, and Italian medical school cut-offs.',
-        url: 'https://ahsorameds.com/imat-news-and-updates',
+        description:
+          'Read the latest news on the IMAT 2027 exam, official MUR decree announcements, Universitaly registration deadlines, and Italian medical school cut-offs.',
+        url: `${SITE_URL}/imat-news-and-updates`,
         publisher: {
           '@type': 'EducationalOrganization',
-          name: 'Ahsora Meds Academy',
-          url: 'https://ahsorameds.com',
-          logo: 'https://ahsorameds.com/icon.png',
+          name: 'Ahsora Med Academy',
+          url: SITE_URL,
+          logo: `${SITE_URL}/icon.png`,
         },
       },
     ],

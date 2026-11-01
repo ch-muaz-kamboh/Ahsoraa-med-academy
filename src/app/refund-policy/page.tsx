@@ -1,12 +1,38 @@
-'use client';
-
 import React from 'react';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+import { SITE_URL, getBreadcrumbJsonLd } from '@/lib/seo-constants';
 import { RotateCcw, ShieldCheck, Mail, Phone, ArrowLeft, CheckCircle2 } from 'lucide-react';
 
+export const metadata: Metadata = {
+  title: 'Cancellation & Refund Policy | Ahsora',
+  description:
+    'Ahsora Med Academy transparent cancellation, statutory cooling-off periods, and fee refund procedures for IMAT course purchases.',
+  alternates: {
+    canonical: `${SITE_URL}/refund-policy`,
+  },
+  openGraph: {
+    title: 'Cancellation & Refund Policy | Ahsora',
+    description:
+      'Understand our policies on course enrollment cancellations, cooling-off rights, and payment processing.',
+    url: `${SITE_URL}/refund-policy`,
+    type: 'website',
+  },
+};
+
 export default function RefundPolicyPage() {
+  const breadcrumbJsonLd = getBreadcrumbJsonLd([
+    { name: 'Home', url: '/' },
+    { name: 'Refund Policy', url: '/refund-policy' },
+  ]);
+
   return (
-    <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', paddingBottom: '80px' }}>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', paddingBottom: '80px' }}>
       {/* Header */}
       <div
         style={{
@@ -123,5 +149,6 @@ export default function RefundPolicyPage() {
         </article>
       </div>
     </div>
+  </>
   );
 }

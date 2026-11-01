@@ -1,8 +1,24 @@
-'use client';
-
 import React from 'react';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+import { SITE_URL, getBreadcrumbJsonLd } from '@/lib/seo-constants';
 import { GraduationCap, ArrowLeft, AlertTriangle, Mail } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Admissions Disclaimer & Institutional Limits | Ahsora',
+  description:
+    'Important institutional disclaimer regarding university admissions authority, test score expectations, visa decisions, and regional scholarship allocations.',
+  alternates: {
+    canonical: `${SITE_URL}/admissions-disclaimer`,
+  },
+  openGraph: {
+    title: 'Admissions Disclaimer & Institutional Limits | Ahsora',
+    description:
+      'Ahsora Med Academy educational scope, mentoring limits, and independent third-party admissions responsibilities.',
+    url: `${SITE_URL}/admissions-disclaimer`,
+    type: 'website',
+  },
+};
 
 const SECTIONS: { title: string; body: string[] }[] = [
   {
@@ -41,8 +57,18 @@ const SECTIONS: { title: string; body: string[] }[] = [
 ];
 
 export default function AdmissionsDisclaimerPage() {
+  const breadcrumbJsonLd = getBreadcrumbJsonLd([
+    { name: 'Home', url: '/' },
+    { name: 'Admissions Disclaimer', url: '/admissions-disclaimer' },
+  ]);
+
   return (
-    <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', paddingBottom: '80px' }}>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', paddingBottom: '80px' }}>
       {/* Header */}
       <div
         style={{
@@ -104,5 +130,6 @@ export default function AdmissionsDisclaimerPage() {
         </article>
       </div>
     </div>
+  </>
   );
 }
