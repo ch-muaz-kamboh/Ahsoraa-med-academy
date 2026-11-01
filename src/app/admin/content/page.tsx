@@ -549,19 +549,36 @@ export default function AdminContentPage() {
     val: any
   ) => {
     setPrices((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, [field]: val } : p))
+      prev.map((p) => {
+        if (p.id === id) {
+          const updated = { ...p, [field]: val };
+          if (field === 'price') {
+            const num = Number(String(val).replace(/[^0-9.]/g, ''));
+            if (!isNaN(num) && num > 0) updated.numericPrice = num;
+          }
+          if (field === 'originalPrice') {
+            const num = Number(String(val).replace(/[^0-9.]/g, ''));
+            if (!isNaN(num) && num > 0) updated.numericOriginalPrice = num;
+          }
+          return updated;
+        }
+        return p;
+      })
     );
   };
 
   const handleSavePrice = (id: string) => {
     const target = prices.find((p) => p.id === id);
     if (!target) return;
+    const derivedNumeric = Number(target.numericPrice) || Number(String(target.price).replace(/[^0-9.]/g, '')) || 0;
+    const derivedOrigNumeric = Number(target.numericOriginalPrice) || (target.originalPrice ? Number(String(target.originalPrice).replace(/[^0-9.]/g, '')) : undefined);
+    
     updatePackagePricing(
       target.id,
       target.price,
-      Number(target.numericPrice) || 0,
+      derivedNumeric,
       target.originalPrice,
-      target.numericOriginalPrice ? Number(target.numericOriginalPrice) : undefined,
+      derivedOrigNumeric,
       target.discountBadge,
       target.isDiscountActive ?? true,
       target.isAvailable ?? true,

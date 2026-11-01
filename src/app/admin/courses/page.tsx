@@ -24,6 +24,7 @@ import {
   togglePackageAvailability,
   syncPricesFromSupabase,
   DynamicPackagePrice,
+  updatePackagePricing,
 } from '@/lib/cms-store';
 import Link from 'next/link';
 
@@ -37,6 +38,9 @@ export default function AdminCoursesPage() {
   const [packagePrices, setPackagePrices] = useState<DynamicPackagePrice[]>([]);
   const [customNotices, setCustomNotices] = useState<Record<string, string>>({});
   const [editingNoticeId, setEditingNoticeId] = useState<string | null>(null);
+  const [editingPkgId, setEditingPkgId] = useState<string | null>(null);
+  const [editingPkgPrice, setEditingPkgPrice] = useState<string>('');
+  const [editingPkgOrigPrice, setEditingPkgOrigPrice] = useState<string>('');
 
   useEffect(() => {
     setPackagePrices(getDynamicPackagePrices());
@@ -85,8 +89,38 @@ export default function AdminCoursesPage() {
     setTimeout(() => setSuccessMsg(''), 4000);
   };
 
+  const handleSavePackagePrice = (pkgId: string) => {
+    const dynamicInfo = packagePrices.find((p) => p.id === pkgId);
+    const priceStr = editingPkgPrice.trim();
+    if (!priceStr) return;
+    const numeric = Number(priceStr.replace(/[^0-9.]/g, '')) || 0;
+    const origPriceStr = editingPkgOrigPrice.trim() || dynamicInfo?.originalPrice;
+    const origNumeric = origPriceStr ? Number(origPriceStr.replace(/[^0-9.]/g, '')) : undefined;
+
+    updatePackagePricing(
+      pkgId,
+      priceStr,
+      numeric,
+      origPriceStr,
+      origNumeric,
+      dynamicInfo?.discountBadge,
+      dynamicInfo?.isDiscountActive ?? true,
+      dynamicInfo?.isAvailable ?? true,
+      dynamicInfo?.disabledNotice
+    );
+    setPackagePrices(getDynamicPackagePrices());
+    setEditingPkgId(null);
+    const pkgName = ACADEMY_PACKAGES.find((p) => p.id === pkgId)?.name || pkgId;
+    setSuccessMsg(`✅ Price for "${pkgName}" updated to ${priceStr}! Synced instantly to public site and registration page.`);
+    setTimeout(() => setSuccessMsg(''), 6000);
+  };
+
   const handleUpdatePrice = (courseId: string) => {
-    setSuccessMsg(`Price updated successfully for Course ID ${courseId}. Synced to all public pages.`);
+    const course = courses.find((c) => c.id === courseId);
+    if (course) {
+      course.price = newPrice;
+    }
+    setSuccessMsg(`Price updated successfully for ${course?.title || `Course ${courseId}`} ($${newPrice}). Synced to all public pages.`);
     setEditingId(null);
     setTimeout(() => setSuccessMsg(''), 4000);
   };
@@ -236,9 +270,85 @@ export default function AdminCoursesPage() {
                       {isAvailable ? 'AVAILABLE (OPEN)' : 'DISABLED (UNAVAILABLE)'}
                     </span>
 
-                    <span style={{ fontSize: '1.2rem', fontWeight: 900, color: '#0F172A' }}>
-                      {priceDisplay}
-                    </span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      {editingPkgId === pkg.id ? (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                          <input
+                            type="text"
+                            value={editingPkgPrice}
+                            onChange={(e) => setEditingPkgPrice(e.target.value)}
+                            style={{
+                              width: '80px',
+                              padding: '3px 6px',
+                              borderRadius: '6px',
+                              border: '1.5px solid #059669',
+                              fontSize: '0.875rem',
+                              fontWeight: 800,
+                              color: '#0F172A',
+                            }}
+                            placeholder="e.g. €299"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => handleSavePackagePrice(pkg.id)}
+                            style={{
+                              padding: '4px 8px',
+                              borderRadius: '6px',
+                              backgroundColor: '#059669',
+                              color: '#FFFFFF',
+                              border: 'none',
+                              fontSize: '0.75rem',
+                              fontWeight: 700,
+                              cursor: 'pointer',
+                            }}
+                          >
+                            Save
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setEditingPkgId(null)}
+                            style={{
+                              padding: '4px 6px',
+                              borderRadius: '6px',
+                              backgroundColor: '#F1F5F9',
+                              color: '#64748B',
+                              border: '1px solid #CBD5E1',
+                              fontSize: '0.75rem',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      ) : (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          <span style={{ fontSize: '1.2rem', fontWeight: 900, color: '#0F172A' }}>
+                            {priceDisplay}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setEditingPkgId(pkg.id);
+                              setEditingPkgPrice(priceDisplay);
+                              setEditingPkgOrigPrice(dynamicInfo?.originalPrice || '');
+                            }}
+                            title="Edit this package price"
+                            style={{
+                              padding: '3px 8px',
+                              borderRadius: '6px',
+                              border: '1px solid #CBD5E1',
+                              backgroundColor: '#FFFFFF',
+                              color: '#334155',
+                              fontSize: '0.72rem',
+                              fontWeight: 700,
+                              cursor: 'pointer',
+                            }}
+                          >
+                            ✏️ Edit Price
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#0F172A', marginBottom: '6px' }}>

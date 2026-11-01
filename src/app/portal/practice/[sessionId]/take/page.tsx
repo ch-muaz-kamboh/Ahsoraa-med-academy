@@ -8,6 +8,8 @@ import importedQuestions, { getImportedQuestions } from '@/lib/imported_question
 import { useAppStore } from '@/lib/store';
 
 const getPool = (): any[] => {
+  const isDocxSynced = typeof window !== 'undefined' && localStorage.getItem('ahsora_qb_docx_synced') === 'true';
+  if (!isDocxSynced) return [];
   const q = getImportedQuestions();
   return (q && q.length > 0) ? q : (importedQuestions as any[]);
 };
@@ -79,39 +81,15 @@ export default function PracticeTakePage() {
               const qMap = Object.fromEntries(qs.map((q: QBQuestion) => [q.id, q]));
               loadedQuestions = sq.map((s: SessionQ) => qMap[s.question_id]).filter(Boolean);
             }
-            // Fallback: match by local qb-xxx IDs from localStorage / bundled JSON
-            if (loadedQuestions.length === 0) {
+            // Fallback: match by local synced IDs if synced
+            const isDocxSynced = typeof window !== 'undefined' && localStorage.getItem('ahsora_qb_docx_synced') === 'true';
+            if (loadedQuestions.length === 0 && isDocxSynced) {
               const localPool = getPool();
               const qMap = Object.fromEntries(localPool.map((q: any) => [q.id, q]));
               loadedQuestions = ids.map(id => qMap[id]).filter(Boolean);
             }
           }
         } catch (e) {}
-      }
-
-      // THIRD: filter bundled 820 pool by session criteria if still empty
-      if (loadedQuestions.length === 0) {
-        let pool = getPool();
-        if (session.subject_filter) {
-          const sf = session.subject_filter.toLowerCase();
-          const sFiltered = pool.filter((q: any) => {
-            if (!q.subject) return false;
-            const qs = q.subject.toLowerCase();
-            return qs === sf || (qs.includes('chem') && sf.includes('chem')) || (qs.includes('bio') && sf.includes('bio'));
-          });
-          if (sFiltered.length > 0) pool = sFiltered;
-        }
-        if (session.topic_filter) {
-          const tFiltered = pool.filter((q: any) => q.topic && q.topic.toLowerCase() === session.topic_filter.toLowerCase());
-          if (tFiltered.length > 0) pool = tFiltered;
-        }
-        if (session.difficulty_filter) {
-          const dFiltered = pool.filter((q: any) => q.difficulty && q.difficulty.toLowerCase() === session.difficulty_filter.toLowerCase());
-          if (dFiltered.length > 0) pool = dFiltered;
-        }
-        const count = session.question_count || 20;
-        const shuffled = [...pool].sort(() => Math.random() - 0.5);
-        loadedQuestions = shuffled.slice(0, count);
       }
 
       // Cache resolved questions to localStorage for fast subsequent loads

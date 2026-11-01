@@ -1015,15 +1015,23 @@ export function updatePackagePricing(
   isAvailable = true,
   disabledNotice?: string
 ) {
+  const derivedNumeric = (numericPrice && numericPrice > 0)
+    ? numericPrice
+    : Number(String(price).replace(/[^0-9.]/g, '')) || 0;
+
+  const derivedOriginalNumeric = (numericOriginalPrice && numericOriginalPrice > 0)
+    ? numericOriginalPrice
+    : originalPrice ? Number(String(originalPrice).replace(/[^0-9.]/g, '')) || undefined : undefined;
+
   const prices = getDynamicPackagePrices();
   const updated = prices.map((p) => {
     if (p.id === id) {
       return {
         ...p,
         price,
-        numericPrice,
+        numericPrice: derivedNumeric,
         originalPrice,
-        numericOriginalPrice,
+        numericOriginalPrice: derivedOriginalNumeric,
         discountBadge,
         isDiscountActive,
         isAvailable: isAvailable !== undefined ? isAvailable : (p.isAvailable ?? true),
@@ -1040,6 +1048,7 @@ export function updatePackagePricing(
     const supabase = createClient();
     const target = updated.find((p) => p.id === id);
     if (target) {
+      // 1. Try full upsert with availability columns
       supabase.from('package_prices').upsert({
         id: target.id,
         name: target.name,
@@ -1053,7 +1062,23 @@ export function updatePackagePricing(
         disabled_notice: target.disabledNotice || null,
         updated_at: new Date().toISOString(),
       }).then(({ error }) => {
-        if (error) console.warn('Supabase pricing upsert warning:', error.message);
+        if (error) {
+          console.warn('Full pricing upsert note, falling back to base columns:', error.message);
+          // 2. Fallback upsert without is_available/disabled_notice if table schema lacks them
+          supabase.from('package_prices').upsert({
+            id: target.id,
+            name: target.name,
+            price: target.price,
+            numeric_price: target.numericPrice,
+            original_price: target.originalPrice || null,
+            numeric_original_price: target.numericOriginalPrice || null,
+            discount_badge: target.discountBadge || null,
+            is_discount_active: target.isDiscountActive,
+            updated_at: new Date().toISOString(),
+          }).then(({ error: baseErr }) => {
+            if (baseErr) console.warn('Supabase base pricing upsert warning:', baseErr.message);
+          });
+        }
       });
     }
   }

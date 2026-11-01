@@ -373,8 +373,9 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                 {/* Functional Language Switcher for Student Portal */}
                 <LanguageSwitcher variant="portal" />
 
-                {/* Notification Bell with interactive dropdown */}
-                <div style={{ position: 'relative' }} ref={notifDropdownRef}>
+                {/* Notification Bell with interactive dropdown - Only for MedPath Elite students */}
+                {studentTier === 'elite' && (
+                  <div style={{ position: 'relative' }} ref={notifDropdownRef}>
                   <button
                     type="button"
                     onClick={() => setShowNotifMenu(!showNotifMenu)}
@@ -662,6 +663,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                     </div>
                   )}
                 </div>
+              )}
 
                 {/* Profile Pill & Avatar */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>

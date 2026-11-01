@@ -605,33 +605,33 @@ export default function AboutPage() {
 
               {/* Card 2: Tehreem Tahir (Biology Lead) */}
               <div style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-  <div style={{ position: 'relative', height: '230px' }}>
-    <Image src="/team/muaaz-aslam.jpg" alt="Muaaz Aslam" fill loading="lazy" style={{ objectFit: 'cover', objectPosition: 'top' }} sizes="(max-width: 900px) 100vw, 33vw" />
-  </div>
-  <div style={{ padding: '22px', display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'space-between' }}>
-    <div>
-      <div style={{ fontWeight: 900, fontSize: '1.15rem', color: 'var(--text-primary)', marginBottom: '3px' }}>Muaaz Aslam</div>
-      <div style={{ color: 'var(--primary-600)', fontWeight: 700, fontSize: '0.85rem', marginBottom: '10px' }}>Expert Chemistry Tutor</div>
-      <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '16px' }}>Providing comprehensive chemistry tutoring and exam strategies for IMAT preparation.</p>
-    </div>
-    <Link href="/courses#faculty" style={{ color: 'var(--primary-600)', fontWeight: 700, fontSize: '0.85rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>See all faculty <ArrowRight size={14} /></Link>
-  </div>
-</div>
+                <div style={{ position: 'relative', height: '230px' }}>
+                  <Image src="/team/tehreem-tahir.jpg" alt="Tehreem Tahir" fill loading="lazy" style={{ objectFit: 'cover', objectPosition: 'top' }} sizes="(max-width: 900px) 100vw, 33vw" />
+                </div>
+                <div style={{ padding: '22px', display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'space-between' }}>
+                  <div>
+                    <div style={{ fontWeight: 900, fontSize: '1.15rem', color: 'var(--text-primary)', marginBottom: '3px' }}>Tehreem Tahir</div>
+                    <div style={{ color: 'var(--primary-600)', fontWeight: 700, fontSize: '0.85rem', marginBottom: '10px' }}>Gold Medalist Biotechnologist &amp; Biology Lead</div>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '16px' }}>Gold Medalist Biotechnologist leading comprehensive IMAT Biology mastery, cytology, bioenergetics, and high-yield physiology walkthroughs.</p>
+                  </div>
+                  <Link href="/courses#faculty" style={{ color: 'var(--primary-600)', fontWeight: 700, fontSize: '0.85rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>See all faculty <ArrowRight size={14} /></Link>
+                </div>
+              </div>
 
               {/* Card 3: Adv Ahmad Jahangir (Legal Counsel & Admissions) */}
               <div style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-  <div style={{ position: 'relative', height: '230px' }}>
-    <Image src="/team/maths-tutor.jpg" alt="Maths Tutor" fill loading="lazy" style={{ objectFit: 'cover', objectPosition: 'top' }} sizes="(max-width: 900px) 100vw, 33vw" />
-  </div>
-  <div style={{ padding: '22px', display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'space-between' }}>
-    <div>
-      <div style={{ fontWeight: 900, fontSize: '1.15rem', color: 'var(--text-primary)', marginBottom: '3px' }}>John Doe</div>
-      <div style={{ color: 'var(--primary-600)', fontWeight: 700, fontSize: '0.85rem', marginBottom: '10px' }}>Mathematics Tutor</div>
-      <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '16px' }}>Specializes in advanced mathematics topics for IMAT preparation.</p>
-    </div>
-    <Link href="/courses#faculty" style={{ color: 'var(--primary-600)', fontWeight: 700, fontSize: '0.85rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>See all faculty <ArrowRight size={14} /></Link>
-  </div>
-</div>
+                <div style={{ position: 'relative', height: '230px' }}>
+                  <Image src="/team/ahmad-jahangir.png" alt="Adv Ahmad Jahangir" fill loading="lazy" style={{ objectFit: 'cover', objectPosition: 'top' }} sizes="(max-width: 900px) 100vw, 33vw" />
+                </div>
+                <div style={{ padding: '22px', display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'space-between' }}>
+                  <div>
+                    <div style={{ fontWeight: 900, fontSize: '1.15rem', color: 'var(--text-primary)', marginBottom: '3px' }}>Adv Ahmad Jahangir</div>
+                    <div style={{ color: 'var(--primary-600)', fontWeight: 700, fontSize: '0.85rem', marginBottom: '10px' }}>Chairman of the Law Firm &amp; Legal Counsel</div>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '16px' }}>Directs full legal compliance for Italian student study visas, CIMEA verification, Declaration of Value (DOV), and embassy appeal dossiers.</p>
+                  </div>
+                  <Link href="/courses#faculty" style={{ color: 'var(--primary-600)', fontWeight: 700, fontSize: '0.85rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>See all faculty <ArrowRight size={14} /></Link>
+                </div>
+              </div>
             </div>
 
             {/* Prominent CTA to see all faculty */}

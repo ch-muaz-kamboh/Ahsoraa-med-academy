@@ -207,7 +207,7 @@ export default function RegisterPage() {
             whatsapp_number: finalWhatsApp,
             phone: finalWhatsApp,
             selected_package: pkgObj.name,
-            package_price: pkgObj.price,
+            package_price: priceCheck.price || pkgObj.price,
             ama_id: generatedAmaId,
           },
         },
@@ -229,7 +229,7 @@ export default function RegisterPage() {
           whatsapp_number: finalWhatsApp,
           phone: finalWhatsApp,
           selected_package: pkgObj.name,
-          package_price: pkgObj.price,
+          package_price: priceCheck.price || pkgObj.price,
           payment_approved: true,
           ama_id: generatedAmaId,
           created_at: new Date().toISOString(),
@@ -239,8 +239,10 @@ export default function RegisterPage() {
       console.warn('Supabase fallback:', err);
     }
 
+    const effectivePrice = priceCheck.price || pkgObj.price;
+
     // Persist package mapping for instant resolution across admin and student portals
-    saveStudentPackageMapping(formData.email, pkgObj.name, pkgObj.price);
+    saveStudentPackageMapping(formData.email, pkgObj.name, effectivePrice);
 
     // Store in localStorage for demo fallback persistence
     const pendingStudent = {
@@ -255,7 +257,7 @@ export default function RegisterPage() {
       whatsappNumber: finalWhatsApp,
       phone: finalWhatsApp,
       selectedPackage: pkgObj.name,
-      packagePrice: pkgObj.price,
+      packagePrice: effectivePrice,
       paymentApproved: true,
       payment_approved: true,
       createdAt: new Date().toISOString(),

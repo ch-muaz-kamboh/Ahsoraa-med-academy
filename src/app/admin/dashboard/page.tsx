@@ -205,41 +205,21 @@ export default function AdminDashboardPage() {
         }
       } catch {}
 
-      // Fallback sample records if empty
-      if (list.length === 0) {
-        list = [
-          {
-            id: 'demo-1',
-            full_name: 'Zainab Al-Mansoor',
-            email: 'zainab.mansoor@example.com',
-            country: 'Italy',
-            selected_package: 'Ahsora IMAT Ascend',
-            package_price: '€299',
-            payment_approved: true,
-            created_at: new Date(Date.now() - 86400000 * 2).toISOString(),
-          },
-          {
-            id: 'demo-2',
-            full_name: 'Mateo Kovacic',
-            email: 'mateo.k@example.com',
-            country: 'Croatia',
-            selected_package: 'Ahsora IMAT Mastery',
-            package_price: '€499',
-            payment_approved: true,
-            created_at: new Date(Date.now() - 86400000 * 4).toISOString(),
-          },
-          {
-            id: 'demo-3',
-            full_name: 'Amina El-Sayed',
-            email: 'amina.sayed@example.com',
-            country: 'Egypt',
-            selected_package: 'Ahsora MedPath Elite',
-            package_price: '€500',
-            payment_approved: true,
-            created_at: new Date(Date.now() - 86400000 * 1).toISOString(),
-          },
-        ];
-      }
+      // Filter out any demo/sample test accounts
+      list = list.filter((s) => {
+        if (!s) return false;
+        const id = (s.id || '').toLowerCase();
+        const em = (s.email || '').toLowerCase().trim();
+        if (
+          id.startsWith('demo-') ||
+          em.endsWith('@example.com') ||
+          em.includes('student.ahsora.com') ||
+          em === 'ahsank746@gmail.com'
+        ) {
+          return false;
+        }
+        return true;
+      });
     }
 
     setStudents(list);

@@ -11,6 +11,9 @@ import {
 import importedQuestions, { getImportedQuestions } from '@/lib/imported_questions';
 
 const getPool = (): any[] => {
+  const isDocxSynced = typeof window !== 'undefined' && localStorage.getItem('ahsora_qb_docx_synced') === 'true';
+  if (!isDocxSynced) return [];
+
   let basePool = getImportedQuestions();
   if (!basePool || basePool.length === 0) basePool = importedQuestions as any[];
 
@@ -144,13 +147,15 @@ export default function PracticePage() {
         }
       } catch (e) {}
 
-      // Merge local storage approved questions (for instant availability before DB roundtrip)
+      // Merge local storage approved questions (filtering out un-synced legacy bundled docx items)
       try {
         const local = localStorage.getItem('ahsora_local_qb_questions');
         if (local) {
           const parsed = JSON.parse(local);
           if (Array.isArray(parsed)) {
+            const isDocxSynced = typeof window !== 'undefined' && localStorage.getItem('ahsora_qb_docx_synced') === 'true';
             parsed.forEach((q: any) => {
+              if (!isDocxSynced && q.id && (q.id.startsWith('qb-BIO-') || q.id.startsWith('qb-CHEM-'))) return;
               if (q.subject && !allQuestions.some((existing: any) => existing.id === q.id || (existing.question_text && existing.question_text.trim() === (q.question_text || '').trim()))) {
                 allQuestions.push(q);
               }
@@ -232,14 +237,20 @@ export default function PracticePage() {
         }
       } catch (e) {}
 
-      const filtered = getPool().filter(q => normalizeSubject(q.subject).toLowerCase() === subject.toLowerCase());
-      const uniqueChapters = [...new Set(filtered.map(q => q.chapter).filter(Boolean))].sort();
-      setAvailableChapters(uniqueChapters as string[]);
-      
-      let topicsData = filtered;
-      if (chapter) topicsData = topicsData.filter(q => q.chapter === chapter);
-      const uniqueTopics = [...new Set(topicsData.map(q => q.topic).filter(Boolean))].sort();
-      setAvailableTopics(uniqueTopics as string[]);
+      const pool = getPool();
+      if (pool.length > 0) {
+        const filtered = pool.filter(q => normalizeSubject(q.subject).toLowerCase() === subject.toLowerCase());
+        const uniqueChapters = [...new Set(filtered.map(q => q.chapter).filter(Boolean))].sort();
+        setAvailableChapters(uniqueChapters as string[]);
+        
+        let topicsData = filtered;
+        if (chapter) topicsData = topicsData.filter(q => q.chapter === chapter);
+        const uniqueTopics = [...new Set(topicsData.map(q => q.topic).filter(Boolean))].sort();
+        setAvailableTopics(uniqueTopics as string[]);
+      } else {
+        setAvailableChapters([]);
+        setAvailableTopics([]);
+      }
     };
     fetchStructure();
   }, [subject, chapter, supabase]);
@@ -278,7 +289,7 @@ export default function PracticePage() {
 
     if (sErr || !session) { alert('Failed to create session: '+(sErr?.message||'Unknown')); setCreating(false); return; }
 
-    // Draw questions from pool (local 820 bank or Supabase)
+    // Draw questions directly from Supabase qb_questions
     let pickedQuestions: any[] = [];
     try {
       const { data: qids } = await supabase.rpc('get_random_question_ids', {
@@ -300,29 +311,68 @@ export default function PracticePage() {
       }
     } catch (e) {}
 
-    // Fallback: If DB returned 0 questions, draw from local 820 MCQs pool
+    // Direct query fallback if RPC returned 0
     if (pickedQuestions.length === 0) {
-      let pool = getPool();
       try {
-        const cached = localStorage.getItem('ahsora_local_qb_questions');
-        if (cached) {
-          const parsed = JSON.parse(cached);
-          if (Array.isArray(parsed) && parsed.length > 0) pool = parsed;
+        let dbQuery = supabase
+          .from('qb_questions')
+          .select('id,subject,chapter,topic,difficulty,question_text,question_image_url,option_a,option_b,option_c,option_d,option_e,correct_option,explanation')
+          .eq('is_active', true);
+        
+        const { data: allDbQs } = await dbQuery;
+        if (allDbQs && allDbQs.length > 0) {
+          let filtered = allDbQs;
+          if (subject) {
+            filtered = filtered.filter(q => q.subject && (q.subject.toLowerCase() === subject.toLowerCase() || normalizeSubject(q.subject).toLowerCase() === subject.toLowerCase()));
+          }
+          if (topic) {
+            filtered = filtered.filter(q => q.topic && q.topic.toLowerCase() === topic.toLowerCase());
+          }
+          if (chapter) {
+            filtered = filtered.filter(q => q.chapter && q.chapter.toLowerCase() === chapter.toLowerCase());
+          }
+          if (difficulty) {
+            filtered = filtered.filter(q => q.difficulty && q.difficulty.toLowerCase() === difficulty.toLowerCase());
+          }
+          if (filtered.length === 0 && subject) {
+            // If topic/chapter was too restrictive, relax to subject
+            filtered = allDbQs.filter(q => q.subject && (q.subject.toLowerCase() === subject.toLowerCase() || normalizeSubject(q.subject).toLowerCase() === subject.toLowerCase()));
+          }
+          if (filtered.length === 0 && !subject) {
+            filtered = allDbQs;
+          }
+
+          if (filtered.length > 0) {
+            const shuffled = [...filtered].sort(() => Math.random() - 0.5);
+            pickedQuestions = shuffled.slice(0, Math.min(questionCount, shuffled.length));
+          }
         }
       } catch (e) {}
+    }
 
+    // Only if docx was explicitly synced by admin can we draw from getPool
+    const isDocxSynced = typeof window !== 'undefined' && localStorage.getItem('ahsora_qb_docx_synced') === 'true';
+    if (pickedQuestions.length === 0 && isDocxSynced) {
+      const pool = getPool();
       let filtered = pool;
       if (subject) filtered = filtered.filter(q => q.subject && (q.subject.toLowerCase() === subject.toLowerCase() || normalizeSubject(q.subject).toLowerCase() === subject.toLowerCase()));
       if (topic) filtered = filtered.filter(q => q.topic && q.topic.toLowerCase() === topic.toLowerCase());
       if (chapter) filtered = filtered.filter(q => q.chapter && q.chapter.toLowerCase() === chapter.toLowerCase());
       if (difficulty) filtered = filtered.filter(q => q.difficulty && q.difficulty.toLowerCase() === difficulty.toLowerCase());
-      if (filtered.length === 0) filtered = pool; // Widen criteria if too narrow
-
-      const shuffled = [...filtered].sort(() => Math.random() - 0.5);
-      pickedQuestions = shuffled.slice(0, Math.min(questionCount, shuffled.length));
+      if (filtered.length > 0) {
+        const shuffled = [...filtered].sort(() => Math.random() - 0.5);
+        pickedQuestions = shuffled.slice(0, Math.min(questionCount, shuffled.length));
+      }
     }
 
-    // ALWAYS store resolved questions in localStorage for instant access on take page
+    if (pickedQuestions.length === 0) {
+      alert('No MCQs currently found in the Question Bank matching your selected filters. Please choose another subject or check back soon.');
+      await supabase.from('practice_sessions').delete().eq('id', session.id);
+      setCreating(false);
+      return;
+    }
+
+    // Store resolved questions in localStorage for take page
     try {
       localStorage.setItem(`practice_session_local_${session.id}`, JSON.stringify(pickedQuestions));
     } catch (e) {}
@@ -335,8 +385,12 @@ export default function PracticePage() {
       await supabase.from('practice_session_questions').insert(linkRows);
     } catch (e) {}
 
-    // Update session status
-    await supabase.from('practice_sessions').update({ status:'in_progress', started_at: new Date().toISOString() }).eq('id', session.id);
+    // Update session status and question count with actual picked count
+    await supabase.from('practice_sessions').update({ 
+      status: 'in_progress', 
+      started_at: new Date().toISOString(),
+      question_count: pickedQuestions.length,
+    }).eq('id', session.id);
 
     router.push(`/portal/practice/${session.id}/take`);
   };

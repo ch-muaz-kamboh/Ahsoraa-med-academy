@@ -156,73 +156,7 @@ export default function AdminStudentsPage() {
     return null;
   };
 
-  const PRESET_STUDENTS: StudentProfile[] = [
-    {
-      id: 'demo-1',
-      ama_id: 'AMA-849201',
-      full_name: 'Zainab Al-Mansoor',
-      email: 'zainab.mansoor@example.com',
-      country: 'Italy',
-      whatsapp_number: '+39 340 1234567',
-      selected_package: 'Ahsora IMAT Ascend',
-      selectedPackage: 'Ahsora IMAT Ascend',
-      package_price: '€299',
-      payment_approved: true,
-      created_at: '2026-03-01T10:00:00Z',
-    },
-    {
-      id: 'demo-2',
-      ama_id: 'AMA-392018',
-      full_name: 'Hamza Tariq',
-      email: 'hamza.tariq@student.ahsora.com',
-      country: 'United Arab Emirates',
-      whatsapp_number: '+971 50 9876543',
-      selected_package: 'Ahsora MedPath Elite',
-      selectedPackage: 'Ahsora MedPath Elite',
-      package_price: '€799',
-      payment_approved: true,
-      created_at: '2026-03-05T10:00:00Z',
-    },
-    {
-      id: 'demo-3',
-      ama_id: 'AMA-501928',
-      full_name: 'Elena Vance',
-      email: 'elena.vance@example.com',
-      country: 'United Arab Emirates',
-      whatsapp_number: '+971 50 1234567',
-      selected_package: 'Ahsora IMAT Mastery',
-      selectedPackage: 'Ahsora IMAT Mastery',
-      package_price: '€499',
-      payment_approved: true,
-      created_at: '2026-03-08T10:00:00Z',
-    },
-    {
-      id: 'demo-4',
-      ama_id: 'AMA-2026-1049',
-      full_name: 'Zainab Fatima',
-      email: 'zainab.fatima@student.ahsora.com',
-      country: 'Pakistan',
-      whatsapp_number: '+92 300 1234567',
-      selected_package: 'Ahsora MedPath Elite',
-      selectedPackage: 'Ahsora MedPath Elite',
-      package_price: '€799',
-      payment_approved: true,
-      created_at: '2026-03-10T10:00:00Z',
-    },
-    {
-      id: 'demo-5',
-      ama_id: 'AMA-27-0003',
-      full_name: 'Ahsan Khan',
-      email: 'ahsank746@gmail.com',
-      country: 'Pakistan',
-      whatsapp_number: '+92 334 5214013',
-      selected_package: 'Ahsora MedPath Elite',
-      selectedPackage: 'Ahsora MedPath Elite',
-      package_price: '€799',
-      payment_approved: true,
-      created_at: '2026-03-15T10:00:00Z',
-    },
-  ];
+  const PRESET_STUDENTS: StudentProfile[] = [];
 
   const fetchStudents = useCallback(async () => {
     setLoading(true);
@@ -232,6 +166,18 @@ export default function AdminStudentsPage() {
       if (!s) return;
       const rawEmail = (s.email || '').toLowerCase().trim();
       const rawId = s.id || '';
+      // Exclude preset/demo/sample accounts
+      if (
+        rawId.startsWith('demo-') ||
+        rawEmail.endsWith('@example.com') ||
+        rawEmail.includes('student.ahsora.com') ||
+        rawEmail === 'ahsank746@gmail.com' ||
+        rawEmail === 'zainab.mansoor@example.com' ||
+        rawEmail === 'mateo.k@example.com' ||
+        rawEmail === 'amina.sayed@example.com'
+      ) {
+        return;
+      }
       const key = rawEmail || rawId;
       if (!key) return;
 
@@ -292,10 +238,14 @@ export default function AdminStudentsPage() {
       }
     };
 
-    // 1. Initialize with preset test accounts (guarantees MedPath Elite and Mastery demo accounts are always present)
-    PRESET_STUDENTS.forEach(mergeIn);
+    // 1. Clean out any legacy mock accounts from storage
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.removeItem('ahsora_elite_students');
+      } catch (e) {}
+    }
 
-    // 2. Load from ahsora_cached_admin_students (preserves previous registrations and accounts across sessions)
+    // 2. Load from ahsora_cached_admin_students (filtering demo accounts)
     try {
       const cachedStr = localStorage.getItem('ahsora_cached_admin_students');
       if (cachedStr) {
@@ -310,32 +260,6 @@ export default function AdminStudentsPage() {
       if (localListStr) {
         const localList: any[] = JSON.parse(localListStr);
         if (Array.isArray(localList)) localList.forEach(mergeIn);
-      }
-    } catch (e) {}
-
-    // 4. Load from ahsora_elite_students (guarantees all MedPath Elite test accounts are merged into admin view)
-    try {
-      const eliteStr = localStorage.getItem('ahsora_elite_students');
-      if (eliteStr) {
-        const eliteList: any[] = JSON.parse(eliteStr);
-        if (Array.isArray(eliteList)) {
-          eliteList.forEach((e: any) => {
-            mergeIn({
-              id: e.studentId || e.id,
-              ama_id: e.enrollmentNumber || e.ama_id,
-              full_name: e.studentName || e.fullName,
-              email: e.email,
-              whatsapp_number: e.phone || '',
-              country: e.country,
-              selected_package: 'Ahsora MedPath Elite',
-              selectedPackage: 'Ahsora MedPath Elite',
-              package_price: '€799',
-              packagePrice: '€799',
-              payment_approved: true,
-              created_at: e.registeredAt,
-            });
-          });
-        }
       }
     } catch (e) {}
 
@@ -913,7 +837,12 @@ export default function AdminStudentsPage() {
         ) : filtered.length === 0 ? (
           <div style={{ padding: '60px', textAlign: 'center' }}>
             <User size={44} color="#CBD5E1" style={{ margin: '0 auto 16px' }} />
-            <div style={{ color: '#64748B', fontWeight: 600, fontSize: '1rem' }}>No student records found matching "{search}"</div>
+            <div style={{ color: '#0F172A', fontWeight: 800, fontSize: '1.1rem', marginBottom: '6px' }}>
+              {search ? `No student records found matching "${search}"` : 'No Enrolled Students Yet'}
+            </div>
+            <p style={{ color: '#64748B', fontSize: '0.875rem', maxWidth: '420px', margin: '0 auto' }}>
+              {search ? 'Try clearing your search query or filter.' : 'Live registrations will automatically appear here with their contact details, selected packages, and payment status as students enroll.'}
+            </p>
           </div>
         ) : (
           <div style={{ overflowX: 'auto' }}>
