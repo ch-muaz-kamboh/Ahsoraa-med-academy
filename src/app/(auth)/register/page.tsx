@@ -189,6 +189,7 @@ export default function RegisterPage() {
     const fullName = `${formData.firstName} ${formData.lastName}`.trim();
     const pkgObj = getPackageByIdOrName(formData.selectedPackage);
     const generatedAmaId = `AMA-${Math.floor(100000 + Math.random() * 900000)}`;
+    let confirmedStudentId: string | undefined = undefined;
 
     try {
       const supabase = createClient();
@@ -218,6 +219,10 @@ export default function RegisterPage() {
         console.warn('Supabase auth warning:', signUpError.message);
       }
 
+      if (authData?.user?.id) {
+        confirmedStudentId = authData.user.id;
+      }
+
       // 2. Safe upsert into profiles table if user created (using schema columns)
       if (authData?.user) {
         try {
@@ -237,12 +242,13 @@ export default function RegisterPage() {
 
       // 3. Sync full student profile and typed address via server route
       try {
-        await fetch('/api/admin/students', {
+        const syncRes = await fetch('/api/admin/students', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             id: authData?.user?.id,
             email: formData.email,
+            password: formData.password,
             fullName,
             firstName: formData.firstName,
             lastName: formData.lastName,
@@ -255,6 +261,12 @@ export default function RegisterPage() {
             ama_id: generatedAmaId,
           }),
         });
+        if (syncRes.ok) {
+          const syncJson = await syncRes.json();
+          if (syncJson?.studentId) {
+            confirmedStudentId = syncJson.studentId;
+          }
+        }
       } catch (syncErr) {
         console.warn('Server sync address note:', syncErr);
       }
@@ -267,9 +279,9 @@ export default function RegisterPage() {
     // Persist package mapping for instant resolution across admin and student portals
     saveStudentPackageMapping(formData.email, pkgObj.name, effectivePrice);
 
-    // Store in localStorage for demo fallback persistence
+    // Store in localStorage for client persistence
     const pendingStudent = {
-      id: `usr-reg-${Date.now()}`,
+      id: confirmedStudentId || `usr-reg-${Date.now()}`,
       ama_id: generatedAmaId,
       firstName: formData.firstName,
       lastName: formData.lastName,

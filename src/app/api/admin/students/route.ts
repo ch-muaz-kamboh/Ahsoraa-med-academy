@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+export const fetchCache = 'force-no-store';
+
 export async function GET() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://sample-project.supabase.co';
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'sample-anon-key';
@@ -126,7 +130,16 @@ export async function GET() {
       }
     });
 
-    return NextResponse.json({ success: true, students: mergedStudents });
+    return NextResponse.json(
+      { success: true, students: mergedStudents },
+      {
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+          'CDN-Cache-Control': 'no-store',
+          'Vercel-CDN-Cache-Control': 'no-store',
+        },
+      }
+    );
   } catch (error: any) {
     console.error('API /api/admin/students error:', error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
@@ -156,6 +169,7 @@ export async function POST(request: Request) {
       selectedPackage,
       packagePrice,
       ama_id,
+      password,
     } = body;
 
     const finalPhone = whatsappNumber || phone || '';
@@ -169,6 +183,36 @@ export async function POST(request: Request) {
         if (found) targetUserId = found.id;
       } catch (err) {
         console.warn('Auth lookup warning:', err);
+      }
+    }
+
+    // If auth user does not exist yet (e.g. client signup failed or had network/rate-limit issues), create it server-side
+    if (!targetUserId && rawEmail) {
+      try {
+        const { data: created, error: createErr } = await supabase.auth.admin.createUser({
+          email: rawEmail,
+          password: password || 'AhsoraStudent2027!',
+          email_confirm: true,
+          user_metadata: {
+            full_name: fullName,
+            first_name: firstName || fullName?.split(' ')[0],
+            last_name: lastName || fullName?.split(' ').slice(1).join(' '),
+            address: address || '',
+            country: country || 'Italy',
+            whatsapp_number: finalPhone,
+            phone: finalPhone,
+            selected_package: selectedPackage,
+            package_price: packagePrice,
+            ama_id: ama_id,
+          },
+        });
+        if (created?.user) {
+          targetUserId = created.user.id;
+        } else if (createErr) {
+          console.warn('Server auth.admin.createUser note:', createErr.message);
+        }
+      } catch (cErr) {
+        console.warn('Server auth.admin.createUser exception:', cErr);
       }
     }
 
@@ -194,22 +238,24 @@ export async function POST(request: Request) {
     }
 
     // 2. Safe upsert to profiles table only with columns that exist in the schema
-    try {
-      const profileData: any = {
-        full_name: fullName,
-        email: rawEmail,
-        payment_approved: true,
-        role: 'student',
-      };
-      if (targetUserId) profileData.id = targetUserId;
-      if (ama_id) profileData.ama_id = ama_id;
+    if (targetUserId) {
+      try {
+        const profileData: any = {
+          id: targetUserId,
+          full_name: fullName,
+          email: rawEmail,
+          payment_approved: true,
+          role: 'student',
+        };
+        if (ama_id) profileData.ama_id = ama_id;
 
-      await supabase.from('profiles').upsert(profileData);
-    } catch (pErr) {
-      console.warn('Profile upsert warning:', pErr);
+        await supabase.from('profiles').upsert(profileData);
+      } catch (pErr) {
+        console.warn('Profile upsert warning:', pErr);
+      }
     }
 
-    return NextResponse.json({ success: true, message: 'Student registered and address synced' });
+    return NextResponse.json({ success: true, studentId: targetUserId, message: 'Student registered and address synced' });
   } catch (error: any) {
     console.error('API /api/admin/students POST error:', error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });

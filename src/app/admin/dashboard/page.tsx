@@ -89,7 +89,10 @@ export default function AdminDashboardPage() {
 
     // 2. Fetch from Server API Route to capture any new remote registrations
     try {
-      const res = await fetch('/api/admin/students');
+      const res = await fetch('/api/admin/students', {
+        cache: 'no-store',
+        headers: { 'Cache-Control': 'no-cache, no-store' },
+      });
       if (res.ok) {
         const json = await res.json();
         if (json.success && Array.isArray(json.students) && json.students.length > 0) {

@@ -258,47 +258,12 @@ export default function AdminStudentsPage() {
       } catch (e) {}
     }
 
-    // 2. Load from ahsora_cached_admin_students (filtering demo accounts)
+    // 1. Fetch live accounts directly from Server API Route (Supabase Auth and profiles)
     try {
-      const cachedStr = localStorage.getItem('ahsora_cached_admin_students');
-      if (cachedStr) {
-        const list: any[] = JSON.parse(cachedStr);
-        if (Array.isArray(list)) list.forEach(mergeIn);
-      }
-    } catch (e) {}
-
-    // 3. Load from adminStudentList (locally submitted student registrations)
-    try {
-      const localListStr = localStorage.getItem('adminStudentList');
-      if (localListStr) {
-        const localList: any[] = JSON.parse(localListStr);
-        if (Array.isArray(localList)) localList.forEach(mergeIn);
-      }
-    } catch (e) {}
-
-    // 5. Load from recentRegistration
-    try {
-      const recentStr = localStorage.getItem('recentRegistration');
-      if (recentStr) {
-        const r = JSON.parse(recentStr);
-        if (r.email) mergeIn(r);
-      }
-    } catch (e) {}
-
-    // 6. Load from ahsora_currentUser
-    try {
-      const curStr = localStorage.getItem('ahsora_currentUser');
-      if (curStr) {
-        const cur = JSON.parse(curStr);
-        if (cur.email && cur.role !== 'admin' && cur.role !== 'staff') {
-          mergeIn(cur);
-        }
-      }
-    } catch (e) {}
-
-    // 7. Overlay live accounts from Server API Route (Supabase Auth and profiles)
-    try {
-      const res = await fetch('/api/admin/students');
+      const res = await fetch('/api/admin/students', {
+        cache: 'no-store',
+        headers: { 'Cache-Control': 'no-cache, no-store' },
+      });
       if (res.ok) {
         const json = await res.json();
         if (json.success && Array.isArray(json.students) && json.students.length > 0) {
@@ -308,6 +273,44 @@ export default function AdminStudentsPage() {
     } catch (apiErr) {
       console.warn('API /api/admin/students fetch note:', apiErr);
     }
+
+    // 2. Supplementary: load from ahsora_cached_admin_students
+    try {
+      const cachedStr = localStorage.getItem('ahsora_cached_admin_students');
+      if (cachedStr) {
+        const list: any[] = JSON.parse(cachedStr);
+        if (Array.isArray(list)) list.forEach(mergeIn);
+      }
+    } catch (e) {}
+
+    // 3. Supplementary: load from adminStudentList
+    try {
+      const localListStr = localStorage.getItem('adminStudentList');
+      if (localListStr) {
+        const localList: any[] = JSON.parse(localListStr);
+        if (Array.isArray(localList)) localList.forEach(mergeIn);
+      }
+    } catch (e) {}
+
+    // 4. Supplementary: load from recentRegistration
+    try {
+      const recentStr = localStorage.getItem('recentRegistration');
+      if (recentStr) {
+        const r = JSON.parse(recentStr);
+        if (r.email) mergeIn(r);
+      }
+    } catch (e) {}
+
+    // 5. Supplementary: load from ahsora_currentUser
+    try {
+      const curStr = localStorage.getItem('ahsora_currentUser');
+      if (curStr) {
+        const cur = JSON.parse(curStr);
+        if (cur.email && cur.role !== 'admin' && cur.role !== 'staff') {
+          mergeIn(cur);
+        }
+      }
+    } catch (e) {}
 
     // 8. Ensure all approved emails are marked approved
     try {
