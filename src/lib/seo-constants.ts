@@ -3,7 +3,7 @@
  * Ahsora Med Academy
  */
 
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://ahsora.com';
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://ahsorameds.com';
 export const SITE_NAME = 'Ahsora Med Academy';
 export const SITE_TAGLINE = 'Study Medicine in Italy in English | Premier IMAT Preparation & Admissions Platform';
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/icon.png`;

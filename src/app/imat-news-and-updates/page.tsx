@@ -1,16 +1,17 @@
 import { Metadata } from 'next';
 import NewsContent from '../news/NewsContent';
+import { SITE_URL } from '@/lib/seo-constants';
 
 export const metadata: Metadata = {
   title: 'IMAT News & Updates: Italian Medical Universities Admissions | Ahsora',
   description: 'Read the latest news on the IMAT 2027 exam, official MUR decree announcements, Universitaly registration deadlines, and Italian medical school cut-offs.',
   alternates: {
-    canonical: 'https://ahsora.com/imat-news-and-updates',
+    canonical: `${SITE_URL}/imat-news-and-updates`,
   },
   openGraph: {
     title: 'IMAT News & Updates: Italian Medical Universities Admissions | Ahsora',
     description: 'Read the latest news on the IMAT 2027 exam, official MUR decree announcements, Universitaly registration deadlines, and Italian medical school cut-offs.',
-    url: 'https://ahsora.com/imat-news-and-updates',
+    url: `${SITE_URL}/imat-news-and-updates`,
     type: 'website',
   },
 };
@@ -26,13 +27,13 @@ export default function IMATNewsAndUpdatesPage() {
             '@type': 'ListItem',
             position: 1,
             name: 'Home',
-            item: 'https://ahsora.com/',
+            item: `${SITE_URL}/`,
           },
           {
             '@type': 'ListItem',
             position: 2,
             name: 'IMAT News & Updates',
-            item: 'https://ahsora.com/imat-news-and-updates',
+            item: `${SITE_URL}/imat-news-and-updates`,
           },
         ],
       },
@@ -40,12 +41,12 @@ export default function IMATNewsAndUpdatesPage() {
         '@type': 'CollectionPage',
         name: 'IMAT News & Updates: Italian Medical Universities Admissions | Ahsora',
         description: 'Read the latest news on the IMAT 2027 exam, official MUR decree announcements, Universitaly registration deadlines, and Italian medical school cut-offs.',
-        url: 'https://ahsora.com/imat-news-and-updates',
+        url: `${SITE_URL}/imat-news-and-updates`,
         publisher: {
           '@type': 'EducationalOrganization',
           name: 'Ahsora Meds Academy',
-          url: 'https://ahsora.com',
-          logo: 'https://ahsora.com/icon.png',
+          url: SITE_URL,
+          logo: `${SITE_URL}/icon.png`,
         },
       },
     ],

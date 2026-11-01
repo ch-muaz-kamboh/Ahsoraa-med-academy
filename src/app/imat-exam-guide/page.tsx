@@ -1,16 +1,17 @@
 import { Metadata } from 'next';
 import IMATContent from '../imat/IMATContent';
+import { SITE_URL } from '@/lib/seo-constants';
 
 export const metadata: Metadata = {
   title: 'IMAT 2027 Exam Guide: Syllabus, Scoring & Dates | Ahsora',
   description: 'The ultimate guide to the International Medical Admissions Test (IMAT). Learn the 60-question syllabus, +1.5/-0.4 scoring penalty, and 2027 registration dates.',
   alternates: {
-    canonical: 'https://ahsora.com/imat-exam-guide',
+    canonical: `${SITE_URL}/imat-exam-guide`,
   },
   openGraph: {
     title: 'IMAT 2027 Exam Guide: Syllabus, Scoring & Dates | Ahsora',
     description: 'The ultimate guide to the International Medical Admissions Test (IMAT). Learn the 60-question syllabus, +1.5/-0.4 scoring penalty, and 2027 registration dates.',
-    url: 'https://ahsora.com/imat-exam-guide',
+    url: `${SITE_URL}/imat-exam-guide`,
     type: 'website',
   },
 };
@@ -26,13 +27,13 @@ export default function IMATExamGuidePage() {
             '@type': 'ListItem',
             position: 1,
             name: 'Home',
-            item: 'https://ahsora.com/'
+            item: `${SITE_URL}/`
           },
           {
             '@type': 'ListItem',
             position: 2,
             name: 'IMAT Exam Guide',
-            item: 'https://ahsora.com/imat-exam-guide'
+            item: `${SITE_URL}/imat-exam-guide`
           }
         ]
       },
@@ -43,7 +44,7 @@ export default function IMATExamGuidePage() {
         provider: {
           '@type': 'Organization',
           name: 'Ahsora Med Academy',
-          sameAs: 'https://ahsora.com'
+          sameAs: SITE_URL
         },
         hasCourseInstance: [
           {

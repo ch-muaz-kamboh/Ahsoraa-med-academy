@@ -125,6 +125,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'score-60-plus-imat-guide',
     'top-5-italian-universities-2027',
     '12-week-imat-study-plan',
+    'after-imat-global-licensing',
+    'student-visa-guide-italy-2027',
   ];
 
   const newsRoutes: MetadataRoute.Sitemap = newsSlugs.map((slug) => ({

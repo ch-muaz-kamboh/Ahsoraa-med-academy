@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import UniversitiesContent from '../universities/UniversitiesContent';
 import { getDefaultCutoffStore } from '@/lib/cutoff-store';
+import { SITE_URL } from '@/lib/seo-constants';
 
 export const revalidate = 3600; // ISR - revalidate every hour
 
@@ -8,12 +9,12 @@ export const metadata: Metadata = {
   title: '17 IMAT Medical Universities in Italy (2027) | Ahsora',
   description: 'Explore all 17 Italian public medical universities offering English-taught Medicine (LM41). Compare 2027 IMAT cut-offs, EU/Non-EU seat quotas, and tuition.',
   alternates: {
-    canonical: 'https://ahsora.com/medical-universities-italy',
+    canonical: `${SITE_URL}/medical-universities-italy`,
   },
   openGraph: {
     title: '17 IMAT Medical Universities in Italy (2027) | Ahsora',
     description: 'Explore all 17 Italian public medical universities offering English-taught Medicine (LM41). Compare 2027 IMAT cut-offs, EU/Non-EU seat quotas, and tuition.',
-    url: 'https://ahsora.com/medical-universities-italy',
+    url: `${SITE_URL}/medical-universities-italy`,
     type: 'website',
   },
 };
@@ -31,13 +32,13 @@ export default function MedicalUniversitiesItalyPage() {
             '@type': 'ListItem',
             position: 1,
             name: 'Home',
-            item: 'https://ahsora.com/'
+            item: `${SITE_URL}/`
           },
           {
             '@type': 'ListItem',
             position: 2,
             name: 'Medical Universities in Italy',
-            item: 'https://ahsora.com/medical-universities-italy'
+            item: `${SITE_URL}/medical-universities-italy`
           }
         ]
       },
@@ -48,7 +49,7 @@ export default function MedicalUniversitiesItalyPage() {
         creator: {
           '@type': 'Organization',
           name: 'Ahsora Meds Academy',
-          url: 'https://ahsora.com'
+          url: SITE_URL
         },
         temporalCoverage: '2023/2027',
         spatialCoverage: 'Italy'

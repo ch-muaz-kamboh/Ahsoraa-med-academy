@@ -1,16 +1,17 @@
 import { Metadata } from 'next';
 import CoursesContent from '../courses/CoursesContent';
+import { SITE_URL } from '@/lib/seo-constants';
 
 export const metadata: Metadata = {
   title: 'IMAT Preparation Courses & Mock Exams | Ahsora',
   description: 'Prepare for the IMAT with Ahsora Meds Academy. Choose between self-paced study or live classes. Access our exact +1.5/-0.4 mock exam engine and analytics.',
   alternates: {
-    canonical: 'https://ahsora.com/imat-preparation-courses',
+    canonical: `${SITE_URL}/imat-preparation-courses`,
   },
   openGraph: {
     title: 'IMAT Preparation Courses & Mock Exams | Ahsora',
     description: 'Prepare for the IMAT with Ahsora Meds Academy. Choose between self-paced study or live classes. Access our exact +1.5/-0.4 mock exam engine and analytics.',
-    url: 'https://ahsora.com/imat-preparation-courses',
+    url: `${SITE_URL}/imat-preparation-courses`,
     type: 'website',
   },
 };
@@ -26,13 +27,13 @@ export default function IMATPreparationCoursesPage() {
             '@type': 'ListItem',
             position: 1,
             name: 'Home',
-            item: 'https://ahsora.com/'
+            item: `${SITE_URL}/`
           },
           {
             '@type': 'ListItem',
             position: 2,
             name: 'IMAT Preparation Courses',
-            item: 'https://ahsora.com/imat-preparation-courses'
+            item: `${SITE_URL}/imat-preparation-courses`
           }
         ]
       },
