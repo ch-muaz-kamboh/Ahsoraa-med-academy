@@ -198,13 +198,15 @@ export default function PracticeTakePage() {
     setCurrent(Math.max(0, Math.min(questions.length - 1, idx)));
   };
 
-  const { addMistake } = useAppStore();
+  const { addMistake, addMistakes } = useAppStore();
 
   const handleSubmit = useCallback(async (auto = false) => {
     if (submitting || submitted) return;
     if (!auto && !confirm('Submit this practice test?')) return;
     setSubmitting(true);
     let correct = 0, incorrect = 0, unanswered = 0;
+    const mistakesBatch: any[] = [];
+
     const updates = questions.map(q => {
       const ans = answers[q.id];
       const sel = ans?.selected_option || null;
@@ -224,7 +226,7 @@ export default function PracticeTakePage() {
           { id: 'E', text: q.option_e || '' },
         ].filter(opt => opt.text);
 
-        addMistake({
+        mistakesBatch.push({
           questionId: q.id,
           questionText: q.question_text || 'Practice MCQ',
           options: formattedOptions.length > 0 ? formattedOptions : [
@@ -246,6 +248,10 @@ export default function PracticeTakePage() {
         is_marked_review: ans?.is_marked_review || false, time_spent_seconds: ans?.time_spent_seconds || 0,
         answered_at: new Date().toISOString() };
     });
+
+    if (mistakesBatch.length > 0) {
+      addMistakes(mistakesBatch);
+    }
     await supabase.from('practice_answers').upsert(updates, { onConflict: 'session_id,question_id' });
     const total = questions.length;
     const percentage = total > 0 ? (correct / total) * 100 : 0;

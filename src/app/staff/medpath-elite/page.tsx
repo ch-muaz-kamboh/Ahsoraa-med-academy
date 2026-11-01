@@ -11,6 +11,7 @@ import {
   Download, Eye, Phone, Mail, Award, FileText, CheckCircle, ShieldCheck,
   ChevronLeft, ExternalLink, Send, Plus, FolderLock
 } from 'lucide-react';
+import { addStudentNotification } from '@/lib/notifications';
 
 interface StageConfig {
   key: string;
@@ -798,6 +799,66 @@ export default function StaffMedpathElitePage() {
       localStorage.setItem('ahsora_elite_students', JSON.stringify(currentArr));
       window.dispatchEvent(new Event('ahsora_elite_updated'));
 
+      // ── Dispatch Real-time Notification to Student Portal Bell Icon ──
+      const stageCfg = STAGES_CONFIG.find((s) => s.key === stageKey) || { label: stageKey };
+      let notifPayload: any = null;
+      const isRejection = updatedStageObj.status === 'rejected' || updatedStageObj.decision === 'rejected';
+      const isApproval = updatedStageObj.status === 'approved' || updatedStageObj.status === 'completed' || updatedStageObj.decision === 'accepted';
+
+      if (isRejection) {
+        notifPayload = {
+          studentEmail: selectedStudent.email,
+          type: 'medpath_rejected',
+          title: `⚠️ Stage Rejected: ${stageCfg.label}`,
+          message: updatedStageObj.comments
+            ? `Advisor Feedback: "${updatedStageObj.comments}"`
+            : `Your submission for "${stageCfg.label}" was reviewed and rejected. Please review required documentation and contact your advisor.`,
+          stageKey,
+          stageLabel: stageCfg.label,
+          level: 'urgent',
+          actionUrl: '/portal/medpath',
+        };
+        addStudentNotification(notifPayload);
+      } else if (isApproval && (field === 'status' || field === 'decision')) {
+        notifPayload = {
+          studentEmail: selectedStudent.email,
+          type: 'medpath_approved',
+          title: `🎉 Stage Approved: ${stageCfg.label}`,
+          message: updatedStageObj.comments
+            ? `Advisor Note: "${updatedStageObj.comments}"`
+            : `Great progress! Your stage "${stageCfg.label}" has been officially reviewed and approved by Ahsora faculty!`,
+          stageKey,
+          stageLabel: stageCfg.label,
+          level: 'success',
+          actionUrl: '/portal/medpath',
+        };
+        addStudentNotification(notifPayload);
+      } else if (field === 'comments' && value.trim()) {
+        notifPayload = {
+          studentEmail: selectedStudent.email,
+          type: 'medpath_update',
+          title: `📝 Faculty Note: ${stageCfg.label}`,
+          message: `Advisor Feedback: "${value}"`,
+          stageKey,
+          stageLabel: stageCfg.label,
+          level: 'info',
+          actionUrl: '/portal/medpath',
+        };
+        addStudentNotification(notifPayload);
+      } else if (field === 'status' && !isRejection && !isApproval) {
+        notifPayload = {
+          studentEmail: selectedStudent.email,
+          type: 'medpath_update',
+          title: `📋 MedPath Update: ${stageCfg.label}`,
+          message: `Status updated to "${value.replace(/_/g, ' ')}". Check your MedPath timeline.`,
+          stageKey,
+          stageLabel: stageCfg.label,
+          level: 'info',
+          actionUrl: '/portal/medpath',
+        };
+        addStudentNotification(notifPayload);
+      }
+
       // Sync to cloud API for multi-device sync with student portal
       fetch('/api/medpath/stages', {
         method: 'POST',
@@ -807,6 +868,7 @@ export default function StaffMedpathElitePage() {
           studentId: selectedStudent.studentId || selectedStudent.id,
           stageKey,
           stageData: updatedStageObj,
+          notification: notifPayload,
         }),
       }).catch((err) => console.warn('Cloud stage sync warning:', err));
     } catch (e) {}

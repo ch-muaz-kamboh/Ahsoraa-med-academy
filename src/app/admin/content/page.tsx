@@ -33,6 +33,10 @@ import {
   Table as TableIcon,
   ArrowUp,
   ArrowDown,
+  RotateCcw,
+  Power,
+  Play,
+  EyeOff,
 } from 'lucide-react';
 import { parseHeadingsFromHtml } from '@/components/news/ArticleTableOfContents';
 import CutoffTableManager from '@/components/admin/CutoffTableManager';
@@ -262,6 +266,27 @@ export default function AdminContentPage() {
     e.preventDefault();
     updateSaleOfferConfig(saleOffer);
     showToast('success', '🔥 Flash Sale offer configuration & countdown end date updated live across website!');
+  };
+
+  const handleRemoveOffer = () => {
+    const updated = { ...saleOffer, isSaleActive: false };
+    setSaleOffer(updated);
+    updateSaleOfferConfig(updated);
+    showToast('success', '🚫 Offer has been removed & hidden from all website visitors!');
+  };
+
+  const handleRestartOffer = (days: number = 7) => {
+    const target = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
+    const pad = (n: number) => String(n).padStart(2, '0');
+    const newEnd = `${target.getFullYear()}-${pad(target.getMonth() + 1)}-${pad(target.getDate())}T23:59:59`;
+    const updated: SaleOfferConfig = {
+      ...saleOffer,
+      isSaleActive: true,
+      endDate: newEnd,
+    };
+    setSaleOffer(updated);
+    updateSaleOfferConfig(updated);
+    showToast('success', `🚀 Flash Sale offer restarted live for ${days} days! Active until ${newEnd.replace('T', ' ')}`);
   };
 
   // ── News Handlers ────────────────────────────────────────────────────────
@@ -2468,24 +2493,180 @@ export default function AdminContentPage() {
 
       {/* ── TAB 5: FLASH SALE & OFFER MANAGER ─────────────────────────────── */}
       {activeTab === 'offer' && (
-        <div style={{ backgroundColor: '#FFFFFF', padding: '32px', borderRadius: '16px', border: '1px solid #E2E8F0', maxWidth: '780px', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
-            <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#FEF2F2', color: '#DC2626', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Flame size={22} />
+        <div style={{ backgroundColor: '#FFFFFF', padding: '32px', borderRadius: '16px', border: '1px solid #E2E8F0', maxWidth: '820px', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', marginBottom: '24px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div style={{ width: '44px', height: '44px', borderRadius: '12px', backgroundColor: saleOffer.isSaleActive ? '#FEF2F2' : '#F1F5F9', color: saleOffer.isSaleActive ? '#DC2626' : '#64748B', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Flame size={24} />
+              </div>
+              <div>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+                  Special Sale &amp; Flash Offer Manager
+                </h3>
+                <p style={{ color: '#64748B', fontSize: '0.875rem', margin: '2px 0 0 0' }}>
+                  Control live top offer banner, discount countdown, promo codes, and package sales across Ahsora.
+                </p>
+              </div>
             </div>
-            <div>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>
-                Special Sale &amp; Flash Offer Manager
-              </h3>
-              <p style={{ color: '#64748B', fontSize: '0.875rem', margin: '2px 0 0 0' }}>
-                Configure live sale banners, discount offer titles, promo codes, and countdown end-dates synced live across the site.
-              </p>
+
+            {/* Current Live Status Pill */}
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '8px 16px',
+              borderRadius: '24px',
+              backgroundColor: saleOffer.isSaleActive ? '#ECFDF5' : '#FEF2F2',
+              border: `1.5px solid ${saleOffer.isSaleActive ? '#A7F3D0' : '#FECACA'}`,
+              color: saleOffer.isSaleActive ? '#065F46' : '#991B1B',
+              fontWeight: 800,
+              fontSize: '0.8125rem',
+            }}>
+              <span style={{
+                width: '10px',
+                height: '10px',
+                borderRadius: '50%',
+                backgroundColor: saleOffer.isSaleActive ? '#10B981' : '#EF4444',
+                boxShadow: saleOffer.isSaleActive ? '0 0 8px #10B981' : 'none',
+              }} />
+              {saleOffer.isSaleActive ? '🔥 OFFER IS LIVE ON WEBSITE' : '⏸️ OFFER CURRENTLY REMOVED / HIDDEN'}
             </div>
+          </div>
+
+          {/* Quick Action Control Bar for Remove & Restart */}
+          <div style={{
+            padding: '20px',
+            borderRadius: '14px',
+            backgroundColor: saleOffer.isSaleActive ? '#F8FAFC' : '#FFFBEB',
+            border: `1px solid ${saleOffer.isSaleActive ? '#E2E8F0' : '#FDE68A'}`,
+            marginBottom: '28px',
+          }}>
+            <div style={{ fontSize: '0.8125rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px', color: '#475569', marginBottom: '12px' }}>
+              ⚡ 1-Click Quick Offer Actions
+            </div>
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', alignItems: 'center' }}>
+              {saleOffer.isSaleActive ? (
+                <button
+                  type="button"
+                  onClick={handleRemoveOffer}
+                  style={{
+                    backgroundColor: '#DC2626',
+                    color: '#FFFFFF',
+                    border: 'none',
+                    borderRadius: '10px',
+                    padding: '10px 18px',
+                    fontWeight: 800,
+                    fontSize: '0.875rem',
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    boxShadow: '0 4px 12px rgba(220, 38, 38, 0.25)',
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  <EyeOff size={16} /> 🚫 Remove Offer From Website
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => handleRestartOffer(7)}
+                  style={{
+                    backgroundColor: '#059669',
+                    color: '#FFFFFF',
+                    border: 'none',
+                    borderRadius: '10px',
+                    padding: '10px 20px',
+                    fontWeight: 800,
+                    fontSize: '0.875rem',
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    boxShadow: '0 4px 12px rgba(5, 150, 105, 0.25)',
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  <Play size={16} /> 🚀 Restart Offer (Launch for 7 Days)
+                </button>
+              )}
+
+              {/* Duration Presets to Restart or Extend */}
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', marginLeft: 'auto' }}>
+                <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700, marginRight: '4px' }}>
+                  Restart / Set Timer:
+                </span>
+                <button
+                  type="button"
+                  onClick={() => handleRestartOffer(7)}
+                  style={{
+                    backgroundColor: '#FFFFFF',
+                    border: '1px solid #CBD5E1',
+                    borderRadius: '8px',
+                    padding: '8px 12px',
+                    fontSize: '0.8125rem',
+                    fontWeight: 700,
+                    color: '#334155',
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                  }}
+                >
+                  <RotateCcw size={13} /> 7 Days
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleRestartOffer(14)}
+                  style={{
+                    backgroundColor: '#FFFFFF',
+                    border: '1px solid #CBD5E1',
+                    borderRadius: '8px',
+                    padding: '8px 12px',
+                    fontSize: '0.8125rem',
+                    fontWeight: 700,
+                    color: '#334155',
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                  }}
+                >
+                  <RotateCcw size={13} /> 14 Days
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleRestartOffer(30)}
+                  style={{
+                    backgroundColor: '#FFFFFF',
+                    border: '1px solid #CBD5E1',
+                    borderRadius: '8px',
+                    padding: '8px 12px',
+                    fontSize: '0.8125rem',
+                    fontWeight: 700,
+                    color: '#334155',
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                  }}
+                >
+                  <RotateCcw size={13} /> 30 Days
+                </button>
+              </div>
+            </div>
+
+            <p style={{ margin: '12px 0 0 0', fontSize: '0.8125rem', color: '#64748B', lineHeight: 1.5 }}>
+              {saleOffer.isSaleActive
+                ? `Active until: ${saleOffer.endDate ? new Date(saleOffer.endDate).toLocaleString() : 'Not set'}. Clicking "Remove Offer" will instantly hide the countdown bar across every page.`
+                : 'Offer is currently turned off. Click "Restart Offer" to re-activate it and reset the countdown timer automatically.'}
+            </p>
           </div>
 
           <form onSubmit={handleSaveSaleOffer} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             
-            {/* Active Toggle */}
+            {/* Active Toggle Checkbox */}
             <label style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '16px', backgroundColor: saleOffer.isSaleActive ? '#F0FFF4' : '#F8FAFC', border: `1.5px solid ${saleOffer.isSaleActive ? '#86EFAC' : '#E2E8F0'}`, borderRadius: '12px', cursor: 'pointer' }}>
               <input
                 type="checkbox"
@@ -2564,27 +2745,51 @@ export default function AdminContentPage() {
               </div>
             </div>
 
-            <button
-              type="submit"
-              style={{
-                backgroundColor: '#059669',
-                color: '#FFFFFF',
-                border: 'none',
-                borderRadius: '10px',
-                padding: '14px',
-                fontWeight: 700,
-                fontSize: '0.9375rem',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-                marginTop: '10px',
-                boxShadow: '0 4px 12px rgba(5,150,105,0.25)',
-              }}
-            >
-              <Save size={18} /> Save &amp; Sync Sale Offer Live
-            </button>
+            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '10px' }}>
+              <button
+                type="submit"
+                style={{
+                  flex: 1,
+                  backgroundColor: '#059669',
+                  color: '#FFFFFF',
+                  border: 'none',
+                  borderRadius: '10px',
+                  padding: '14px',
+                  fontWeight: 700,
+                  fontSize: '0.9375rem',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  boxShadow: '0 4px 12px rgba(5,150,105,0.25)',
+                }}
+              >
+                <Save size={18} /> Save &amp; Sync Sale Offer Live
+              </button>
+
+              {saleOffer.isSaleActive && (
+                <button
+                  type="button"
+                  onClick={handleRemoveOffer}
+                  style={{
+                    backgroundColor: '#FEF2F2',
+                    color: '#DC2626',
+                    border: '1px solid #FECACA',
+                    borderRadius: '10px',
+                    padding: '14px 20px',
+                    fontWeight: 700,
+                    fontSize: '0.9375rem',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                  }}
+                >
+                  <EyeOff size={16} /> Hide / Remove Offer
+                </button>
+              )}
+            </div>
           </form>
         </div>
       )}

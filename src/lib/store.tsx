@@ -152,6 +152,7 @@ interface AppContextType {
   // Student Mistakes
   studentMistakes: StudentMistake[];
   addMistake: (item: Omit<StudentMistake, 'id' | 'failedAt' | 'isResolved'>) => void;
+  addMistakes: (items: Omit<StudentMistake, 'id' | 'failedAt' | 'isResolved'>[]) => void;
   toggleMistakeResolved: (id: string) => void;
   deleteMistake: (id: string) => void;
 
@@ -448,15 +449,23 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [studentMistakes, setStudentMistakes] = useState<StudentMistake[]>(() => {
     if (typeof window !== 'undefined') {
       try {
+        let emailLower = '';
         const cur = localStorage.getItem('ahsora_currentUser');
         if (cur) {
           const parsed = JSON.parse(cur);
-          const emailLower = (parsed.email || '').toLowerCase().trim();
-          if (emailLower && emailLower !== 'student@ahsora.com') {
-            const userMistakes = localStorage.getItem(`ahsora_mistakes_${emailLower}`);
-            if (userMistakes) return JSON.parse(userMistakes);
-            return [];
+          emailLower = (parsed.email || '').toLowerCase().trim();
+        }
+        if (emailLower) {
+          const userMistakes = localStorage.getItem(`ahsora_mistakes_${emailLower}`);
+          if (userMistakes) {
+            const parsed = JSON.parse(userMistakes);
+            if (Array.isArray(parsed) && parsed.length > 0) return parsed;
           }
+        }
+        const fallback = localStorage.getItem('ahsora_mistakes');
+        if (fallback) {
+          const parsed = JSON.parse(fallback);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
         }
       } catch (e) {}
     }
@@ -537,44 +546,58 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           localStorage.setItem('ahsora_library', JSON.stringify(formatted));
         }
 
-        // 4. Student Mistakes (scoped to the logged-in student)
-        const { data: dbMistakes } = await supabase.from('portal_mistakes').select('*').order('failed_at', { ascending: false });
-        if (dbMistakes && dbMistakes.length > 0) {
-          const studentEmailLower = (currentUser.email || '').toLowerCase().trim();
-          const studentId = currentUser.id || '';
-          const isRealStudent = studentEmailLower && studentEmailLower !== 'student@ahsora.com';
+        // 4. Student Mistakes (scoped to student and merged safely without wiping)
+        try {
+          const { data: dbMistakes } = await supabase.from('portal_mistakes').select('*').order('failed_at', { ascending: false });
+          if (dbMistakes && dbMistakes.length > 0) {
+            const studentEmailLower = (currentUser?.email || '').toLowerCase().trim();
+            const studentId = currentUser?.id || '';
 
-          const formatted: StudentMistake[] = dbMistakes
-            .filter((m: any) => {
-              if (!isRealStudent) return false;
-              const mEmail = (m.student_email || '').toLowerCase().trim();
-              const mId = m.student_id || '';
-              if (mEmail && studentEmailLower) return mEmail === studentEmailLower;
-              if (mId && studentId) return mId === studentId;
-              return false;
-            })
-            .map((m: any) => ({
-              id: m.id,
-              questionId: m.question_id,
-              questionText: m.question_text,
-              options: typeof m.options === 'string' ? JSON.parse(m.options) : m.options,
-              correctOption: m.correct_option,
-              selectedOption: m.selected_option,
-              explanation: m.explanation || '',
-              source: m.source,
-              testTitle: m.test_title || '',
-              subject: m.subject,
-              topic: m.topic || '',
-              failedAt: m.failed_at,
-              isResolved: m.is_resolved,
-              studentId: m.student_id,
-              studentEmail: m.student_email,
-            }));
+            const formatted: StudentMistake[] = dbMistakes
+              .filter((m: any) => {
+                const mEmail = (m.student_email || '').toLowerCase().trim();
+                const mId = m.student_id || '';
+                if (studentEmailLower && mEmail && mEmail === studentEmailLower) return true;
+                if (studentId && mId && mId === studentId) return true;
+                return !mEmail && !mId;
+              })
+              .map((m: any) => ({
+                id: m.id,
+                questionId: m.question_id,
+                questionText: m.question_text,
+                options: typeof m.options === 'string' ? JSON.parse(m.options) : (m.options || []),
+                correctOption: m.correct_option,
+                selectedOption: m.selected_option,
+                explanation: m.explanation || '',
+                source: m.source,
+                testTitle: m.test_title || '',
+                subject: m.subject,
+                topic: m.topic || '',
+                failedAt: m.failed_at,
+                isResolved: m.is_resolved,
+                studentId: m.student_id,
+                studentEmail: m.student_email,
+              }));
 
-          setStudentMistakes(formatted);
-          if (typeof window !== 'undefined' && isRealStudent) {
-            localStorage.setItem(`ahsora_mistakes_${studentEmailLower}`, JSON.stringify(formatted));
+            if (formatted.length > 0) {
+              setStudentMistakes((prev) => {
+                const map = new Map<string, StudentMistake>();
+                prev.forEach((m) => map.set(m.questionId || m.id, m));
+                formatted.forEach((m) => map.set(m.questionId || m.id, m));
+                const merged = Array.from(map.values()).sort(
+                  (a, b) => new Date(b.failedAt).getTime() - new Date(a.failedAt).getTime()
+                );
+                if (typeof window !== 'undefined') {
+                  const key = studentEmailLower || 'student';
+                  localStorage.setItem(`ahsora_mistakes_${key}`, JSON.stringify(merged));
+                  localStorage.setItem('ahsora_mistakes', JSON.stringify(merged));
+                }
+                return merged;
+              });
+            }
           }
+        } catch (mistakeErr) {
+          console.warn('portal_mistakes sync notice:', mistakeErr);
         }
 
         // 5. Staff Accounts (Cross-Device Cloud Sync)
@@ -827,9 +850,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const emailLower = (currentUser?.email || '').toLowerCase().trim();
-      if (emailLower && emailLower !== 'student@ahsora.com') {
-        localStorage.setItem(`ahsora_mistakes_${emailLower}`, JSON.stringify(studentMistakes));
-      }
+      const key = emailLower || 'student';
+      localStorage.setItem(`ahsora_mistakes_${key}`, JSON.stringify(studentMistakes));
+      localStorage.setItem('ahsora_mistakes', JSON.stringify(studentMistakes));
     }
   }, [studentMistakes, currentUser?.email]);
 
@@ -1007,36 +1030,82 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     } catch (e) { console.error('Supabase library delete error:', e); }
   };
 
-  const addMistake = async (item: Omit<StudentMistake, 'id' | 'failedAt' | 'isResolved'>) => {
-    const newItem: StudentMistake = {
+  const addMistakes = async (items: Omit<StudentMistake, 'id' | 'failedAt' | 'isResolved'>[]) => {
+    if (!items || items.length === 0) return;
+    const nowIso = new Date().toISOString();
+    const email = currentUser?.email || 'student@ahsora.com';
+    const studentId = currentUser?.id || 'usr-student';
+    const emailLower = email.toLowerCase().trim();
+
+    const newItems: StudentMistake[] = items.map((item, idx) => ({
       ...item,
-      id: `mst-${Date.now()}`,
-      failedAt: new Date().toISOString(),
+      id: `mst-${Date.now()}-${idx}-${Math.random().toString(36).slice(2, 7)}`,
+      failedAt: nowIso,
       isResolved: false,
-      studentId: currentUser.id,
-      studentEmail: currentUser.email,
-    };
-    setStudentMistakes((prev) => [newItem, ...prev]);
+      studentId: studentId,
+      studentEmail: email,
+    }));
+
+    setStudentMistakes((prev) => {
+      const map = new Map<string, StudentMistake>();
+      prev.forEach((m) => {
+        const key = m.questionId || m.id;
+        map.set(key, m);
+      });
+      newItems.forEach((m) => {
+        const key = m.questionId || m.id;
+        const existing = map.get(key);
+        if (existing) {
+          map.set(key, {
+            ...existing,
+            ...m,
+            id: existing.id,
+            failedAt: m.failedAt,
+            selectedOption: m.selectedOption,
+            isResolved: false,
+          });
+        } else {
+          map.set(key, m);
+        }
+      });
+      const updated = Array.from(map.values()).sort(
+        (a, b) => new Date(b.failedAt).getTime() - new Date(a.failedAt).getTime()
+      );
+      if (typeof window !== 'undefined') {
+        const key = emailLower || 'student';
+        localStorage.setItem(`ahsora_mistakes_${key}`, JSON.stringify(updated));
+        localStorage.setItem('ahsora_mistakes', JSON.stringify(updated));
+      }
+      return updated;
+    });
+
     try {
       const supabase = createClient();
-      await supabase.from('portal_mistakes').insert({
-        id: newItem.id,
-        question_id: newItem.questionId,
-        question_text: newItem.questionText,
-        options: newItem.options,
-        correct_option: newItem.correctOption,
-        selected_option: newItem.selectedOption,
-        explanation: newItem.explanation,
-        source: newItem.source,
-        test_title: newItem.testTitle,
-        subject: newItem.subject,
-        topic: newItem.topic,
-        failed_at: newItem.failedAt,
-        is_resolved: newItem.isResolved,
-        student_id: currentUser.id,
-        student_email: currentUser.email,
-      });
-    } catch (e) { console.error('Supabase mistake insert error:', e); }
+      const rows = newItems.map((m) => ({
+        id: m.id,
+        question_id: m.questionId,
+        question_text: m.questionText,
+        options: m.options,
+        correct_option: m.correctOption,
+        selected_option: m.selectedOption,
+        explanation: m.explanation || '',
+        source: m.source,
+        test_title: m.testTitle || '',
+        subject: m.subject,
+        topic: m.topic || '',
+        failed_at: m.failedAt,
+        is_resolved: m.isResolved,
+        student_id: studentId,
+        student_email: email,
+      }));
+      await supabase.from('portal_mistakes').upsert(rows, { onConflict: 'id' });
+    } catch (e) {
+      console.warn('Supabase batch mistakes insert notice:', e);
+    }
+  };
+
+  const addMistake = async (item: Omit<StudentMistake, 'id' | 'failedAt' | 'isResolved'>) => {
+    await addMistakes([item]);
   };
 
   const toggleMistakeResolved = async (id: string) => {
@@ -1891,6 +1960,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
         studentMistakes,
         addMistake,
+        addMistakes,
         toggleMistakeResolved,
         deleteMistake,
 

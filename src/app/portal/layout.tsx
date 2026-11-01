@@ -4,9 +4,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import PortalSidebar from '@/components/layout/PortalSidebar';
 import { useAppStore } from '@/lib/store';
-import { createClient } from '@/lib/supabase/client';
-import { Bell, Lock, Mail, User, Eye, EyeOff, Check, Loader2, LogOut, Flame, Clock, Sparkles, GraduationCap } from 'lucide-react';
+import { Bell, Lock, Mail, User, Eye, EyeOff, Check, Loader2, LogOut, Flame, Clock, Sparkles, GraduationCap, AlertTriangle, CheckCircle2, ChevronRight, X } from 'lucide-react';
 import Link from 'next/link';
+import { getStudentNotifications, markAllNotificationsAsRead, markNotificationAsRead, StudentPortalNotification } from '@/lib/notifications';
 
 import {
   getStudentPackageMapping,
@@ -30,6 +30,38 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
   const isAlreadyLoggedIn = studentLoggedIn || (typeof window !== 'undefined' && localStorage.getItem('ahsora_studentLoggedIn') === 'true');
   const [checkingAuth, setCheckingAuth] = useState(!isAlreadyLoggedIn);
   const hasFetchedRef = useRef(false);
+
+  // Student Notifications State
+  const [notifications, setNotifications] = useState<StudentPortalNotification[]>([]);
+  const [showNotifMenu, setShowNotifMenu] = useState(false);
+  const notifDropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const email = currentUser?.email || 'student@ahsora.com';
+    const loadNotifs = () => setNotifications(getStudentNotifications(email));
+    loadNotifs();
+
+    window.addEventListener('ahsora_portal_notifications_updated', loadNotifs);
+    window.addEventListener('ahsora_elite_updated', loadNotifs);
+    window.addEventListener('storage', loadNotifs);
+
+    const handleClickOutside = (e: MouseEvent) => {
+      if (notifDropdownRef.current && !notifDropdownRef.current.contains(e.target as Node)) {
+        setShowNotifMenu(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      window.removeEventListener('ahsora_portal_notifications_updated', loadNotifs);
+      window.removeEventListener('ahsora_elite_updated', loadNotifs);
+      window.removeEventListener('storage', loadNotifs);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [currentUser?.email]);
+
+  const unreadCount = notifications.filter((n) => !n.read).length;
+  const hasUrgentNotif = notifications.some((n) => !n.read && (n.level === 'urgent' || n.type === 'medpath_rejected'));
 
   const isPortalLocked = liveTestSession && currentUser && testAttempts.some(attempt => attempt.testId === liveTestSession.testId && attempt.studentId === currentUser.id && attempt.status === 'in_progress');
   const hasCompletedLiveTest = liveTestSession && currentUser && testAttempts.some(attempt => attempt.testId === liveTestSession.testId && attempt.studentId === currentUser.id && attempt.status === 'completed');
@@ -339,37 +371,294 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                 {/* Functional Language Switcher for Student Portal */}
                 <LanguageSwitcher variant="portal" />
 
-                {/* Notification Bell */}
-                <div
-                  style={{
-                    width: '38px',
-                    height: '38px',
-                    borderRadius: '10px',
-                    backgroundColor: '#F8FAFC',
-                    border: '1px solid #E2E8F0',
-                    color: '#64748B',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    position: 'relative',
-                    transition: 'all 0.15s ease',
-                  }}
-                  title={t('portal.notifications', 'Notifications')}
-                >
-                  <Bell size={17} />
-                  <span
+                {/* Notification Bell with interactive dropdown */}
+                <div style={{ position: 'relative' }} ref={notifDropdownRef}>
+                  <button
+                    type="button"
+                    onClick={() => setShowNotifMenu(!showNotifMenu)}
                     style={{
-                      position: 'absolute',
-                      top: '7px',
-                      right: '8px',
-                      width: '7px',
-                      height: '7px',
-                      borderRadius: '50%',
-                      backgroundColor: '#10B981',
-                      border: '1.5px solid #FFFFFF',
+                      width: '38px',
+                      height: '38px',
+                      borderRadius: '10px',
+                      backgroundColor: showNotifMenu ? '#EEF2FF' : '#F8FAFC',
+                      border: showNotifMenu ? '1.5px solid #6366F1' : '1px solid #E2E8F0',
+                      color: showNotifMenu ? '#4F46E5' : '#64748B',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      cursor: 'pointer',
+                      position: 'relative',
+                      transition: 'all 0.15s ease',
+                      outline: 'none',
                     }}
-                  />
+                    title={t('portal.notifications', 'Notifications')}
+                  >
+                    <Bell size={17} />
+                    {unreadCount > 0 ? (
+                      <span
+                        style={{
+                          position: 'absolute',
+                          top: '-4px',
+                          right: '-4px',
+                          minWidth: '18px',
+                          height: '18px',
+                          borderRadius: '10px',
+                          backgroundColor: hasUrgentNotif ? '#DC2626' : '#10B981',
+                          color: '#FFFFFF',
+                          fontSize: '0.65rem',
+                          fontWeight: 800,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          padding: '0 4px',
+                          border: '2px solid #FFFFFF',
+                          boxShadow: hasUrgentNotif ? '0 0 8px rgba(220,38,38,0.5)' : 'none',
+                        }}
+                      >
+                        {unreadCount > 9 ? '9+' : unreadCount}
+                      </span>
+                    ) : (
+                      <span
+                        style={{
+                          position: 'absolute',
+                          top: '7px',
+                          right: '8px',
+                          width: '7px',
+                          height: '7px',
+                          borderRadius: '50%',
+                          backgroundColor: '#94A3B8',
+                          border: '1.5px solid #FFFFFF',
+                        }}
+                      />
+                    )}
+                  </button>
+
+                  {/* Notification Dropdown Menu */}
+                  {showNotifMenu && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: '48px',
+                        right: 0,
+                        width: '380px',
+                        maxWidth: '90vw',
+                        backgroundColor: '#FFFFFF',
+                        borderRadius: '16px',
+                        border: '1px solid #E2E8F0',
+                        boxShadow: '0 20px 40px -10px rgba(0,0,0,0.15), 0 0 1px 1px rgba(0,0,0,0.05)',
+                        zIndex: 600,
+                        overflow: 'hidden',
+                      }}
+                    >
+                      {/* Dropdown Header */}
+                      <div
+                        style={{
+                          padding: '16px 20px',
+                          borderBottom: '1px solid #F1F5F9',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          backgroundColor: '#F8FAFC',
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <span style={{ fontWeight: 800, fontSize: '0.9375rem', color: '#0F172A' }}>
+                            Notifications
+                          </span>
+                          {unreadCount > 0 && (
+                            <span
+                              style={{
+                                backgroundColor: hasUrgentNotif ? '#FEE2E2' : '#DCFCE7',
+                                color: hasUrgentNotif ? '#DC2626' : '#15803D',
+                                fontSize: '0.72rem',
+                                fontWeight: 800,
+                                padding: '2px 8px',
+                                borderRadius: '12px',
+                              }}
+                            >
+                              {unreadCount} unread
+                            </span>
+                          )}
+                        </div>
+                        {unreadCount > 0 && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              markAllNotificationsAsRead(currentUser?.email || 'student@ahsora.com');
+                              setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+                            }}
+                            style={{
+                              backgroundColor: 'transparent',
+                              border: 'none',
+                              color: '#6366F1',
+                              fontSize: '0.75rem',
+                              fontWeight: 700,
+                              cursor: 'pointer',
+                              padding: '4px 6px',
+                            }}
+                          >
+                            Mark all read
+                          </button>
+                        )}
+                      </div>
+
+                      {/* Notification List */}
+                      <div style={{ maxHeight: '380px', overflowY: 'auto' }}>
+                        {notifications.length === 0 ? (
+                          <div style={{ padding: '36px 20px', textAlign: 'center', color: '#64748B' }}>
+                            <Bell size={28} color="#CBD5E1" style={{ margin: '0 auto 8px' }} />
+                            <div style={{ fontWeight: 700, fontSize: '0.875rem', color: '#334155' }}>
+                              No notifications yet
+                            </div>
+                            <div style={{ fontSize: '0.78rem', marginTop: '4px' }}>
+                              Updates regarding your MedPath stages, mock test results, and reviews will appear here.
+                            </div>
+                          </div>
+                        ) : (
+                          notifications.slice(0, 20).map((notif) => {
+                            const isRej = notif.type === 'medpath_rejected' || notif.level === 'urgent';
+                            const isApp = notif.type === 'medpath_approved' || notif.level === 'success';
+
+                            return (
+                              <div
+                                key={notif.id}
+                                onClick={() => {
+                                  markNotificationAsRead(notif.id, currentUser?.email || 'student@ahsora.com');
+                                  setNotifications((prev) =>
+                                    prev.map((n) => (n.id === notif.id ? { ...n, read: true } : n))
+                                  );
+                                  if (notif.actionUrl) {
+                                    setShowNotifMenu(false);
+                                    router.push(notif.actionUrl);
+                                  }
+                                }}
+                                style={{
+                                  padding: '14px 18px',
+                                  borderBottom: '1px solid #F1F5F9',
+                                  backgroundColor: !notif.read
+                                    ? isRej
+                                      ? '#FEF2F2'
+                                      : isApp
+                                      ? '#F0FDF4'
+                                      : '#F8FAFC'
+                                    : '#FFFFFF',
+                                  cursor: 'pointer',
+                                  display: 'flex',
+                                  gap: '12px',
+                                  alignItems: 'flex-start',
+                                  transition: 'background-color 0.15s ease',
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    width: '32px',
+                                    height: '32px',
+                                    borderRadius: '8px',
+                                    backgroundColor: isRej ? '#FEE2E2' : isApp ? '#DCFCE7' : '#EEF2FF',
+                                    color: isRej ? '#DC2626' : isApp ? '#16A34A' : '#4F46E5',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    flexShrink: 0,
+                                    marginTop: '2px',
+                                  }}
+                                >
+                                  {isRej ? <AlertTriangle size={16} /> : isApp ? <CheckCircle2 size={16} /> : <Bell size={16} />}
+                                </div>
+                                <div style={{ flex: 1, minWidth: 0 }}>
+                                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '6px' }}>
+                                    <div
+                                      style={{
+                                        fontSize: '0.8125rem',
+                                        fontWeight: notif.read ? 600 : 800,
+                                        color: isRej ? '#991B1B' : '#0F172A',
+                                      }}
+                                    >
+                                      {notif.title}
+                                    </div>
+                                    {!notif.read && (
+                                      <span
+                                        style={{
+                                          width: '6px',
+                                          height: '6px',
+                                          borderRadius: '50%',
+                                          backgroundColor: isRej ? '#DC2626' : '#10B981',
+                                          flexShrink: 0,
+                                        }}
+                                      />
+                                    )}
+                                  </div>
+                                  <div
+                                    style={{
+                                      fontSize: '0.78rem',
+                                      color: isRej ? '#7F1D1D' : '#475569',
+                                      marginTop: '3px',
+                                      lineHeight: 1.4,
+                                      wordBreak: 'break-word',
+                                    }}
+                                  >
+                                    {notif.message}
+                                  </div>
+                                  <div
+                                    style={{
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      justifyContent: 'space-between',
+                                      marginTop: '6px',
+                                    }}
+                                  >
+                                    <span style={{ fontSize: '0.6875rem', color: '#94A3B8' }}>
+                                      {notif.createdAt ? new Date(notif.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Recently'}
+                                    </span>
+                                    {notif.actionUrl && (
+                                      <span
+                                        style={{
+                                          fontSize: '0.72rem',
+                                          color: isRej ? '#DC2626' : '#6366F1',
+                                          fontWeight: 700,
+                                          display: 'inline-flex',
+                                          alignItems: 'center',
+                                          gap: '2px',
+                                        }}
+                                      >
+                                        Open Track <ChevronRight size={12} />
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          })
+                        )}
+                      </div>
+
+                      {/* Dropdown Footer */}
+                      <div
+                        style={{
+                          padding: '10px 16px',
+                          borderTop: '1px solid #F1F5F9',
+                          backgroundColor: '#F8FAFC',
+                          textAlign: 'center',
+                        }}
+                      >
+                        <Link
+                          href="/portal/medpath"
+                          onClick={() => setShowNotifMenu(false)}
+                          style={{
+                            fontSize: '0.78rem',
+                            fontWeight: 700,
+                            color: '#4F46E5',
+                            textDecoration: 'none',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '4px',
+                          }}
+                        >
+                          View MedPath Elite Application Track <ChevronRight size={14} />
+                        </Link>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Profile Pill & Avatar */}

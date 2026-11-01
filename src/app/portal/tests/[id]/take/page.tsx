@@ -25,7 +25,7 @@ export default function TakeTestPage({
 }) {
   const resolvedParams = use(params);
   const router = useRouter();
-  const { recordTestAttempt, testAttempts, currentUser, addMistake } = useAppStore();
+  const { recordTestAttempt, testAttempts, currentUser, addMistake, addMistakes } = useAppStore();
 
   const [test, setTest] = useState<Test>(() => getMockTestWithCustom(resolvedParams.id));
 
@@ -148,6 +148,8 @@ export default function TakeTestPage({
 
     const subjectBreakdown: Record<string, { total: number; correct: number; score: number }> = {};
 
+    const mistakesBatch: any[] = [];
+
     activeTest.questions.forEach((q) => {
       const selected = activeAnswers[q.id];
       const subj = q.subject || 'General Medical';
@@ -170,8 +172,8 @@ export default function TakeTestPage({
         rawScore -= 0.4; // Deduct 0.4 for incorrect
         subjectBreakdown[subj].score -= 0.4;
 
-        // Push to My Mistakes Notebook
-        addMistake({
+        // Collect for My Mistakes Notebook
+        mistakesBatch.push({
           questionId: q.id,
           questionText: q.questionText,
           options: q.options,
@@ -185,6 +187,10 @@ export default function TakeTestPage({
         });
       }
     });
+
+    if (mistakesBatch.length > 0) {
+      addMistakes(mistakesBatch);
+    }
 
     const attemptedCount = correctCount + incorrectCount;
     const maxScore = 90; // Fixed official total

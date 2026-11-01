@@ -36,6 +36,7 @@ export async function GET(request: Request) {
       return NextResponse.json({
         success: true,
         stages,
+        notifications: user.user_metadata?.medpath_notifications || [],
         student: { id: user.id, email: user.email, ama_id: amaId },
       });
     }
@@ -74,7 +75,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const rawEmail = (body.email || body.studentEmail || '').toLowerCase().trim();
     const rawStudentId = body.studentId || body.id || '';
-    const { stageKey, stageData, allStages, enrollmentNumber, ama_id } = body;
+    const { stageKey, stageData, allStages, enrollmentNumber, ama_id, notification } = body;
     const resolvedAmaId = enrollmentNumber || ama_id;
 
     if (!rawEmail && !rawStudentId) {
@@ -112,6 +113,10 @@ export async function POST(request: Request) {
       };
       if (resolvedAmaId) {
         updatedMeta.ama_id = resolvedAmaId;
+      }
+      if (notification) {
+        const currentNotifs = targetUser.user_metadata?.medpath_notifications || [];
+        updatedMeta.medpath_notifications = [notification, ...currentNotifs.filter((n: any) => n.id !== notification.id)].slice(0, 50);
       }
 
       await supabase.auth.admin.updateUserById(targetUser.id, {

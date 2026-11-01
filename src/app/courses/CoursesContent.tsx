@@ -498,14 +498,23 @@ export default function CoursesContent() {
       else setDynamicPrices(getDynamicPackagePrices());
     };
 
+    const handleOfferUpdated = (e: any) => {
+      if (e?.detail) setSaleOffer(e.detail);
+      else setSaleOffer(getSaleOfferConfig());
+    };
+
     window.addEventListener('ahsora_cms_prices_updated', handlePricesUpdated);
     window.addEventListener('ahsora_cms_package_availability_updated', handlePricesUpdated);
+    window.addEventListener('ahsora_cms_sale_offer_updated', handleOfferUpdated);
     window.addEventListener('storage', handlePricesUpdated);
+    window.addEventListener('storage', handleOfferUpdated);
 
     return () => {
       window.removeEventListener('ahsora_cms_prices_updated', handlePricesUpdated);
       window.removeEventListener('ahsora_cms_package_availability_updated', handlePricesUpdated);
+      window.removeEventListener('ahsora_cms_sale_offer_updated', handleOfferUpdated);
       window.removeEventListener('storage', handlePricesUpdated);
+      window.removeEventListener('storage', handleOfferUpdated);
     };
   }, []);
 
