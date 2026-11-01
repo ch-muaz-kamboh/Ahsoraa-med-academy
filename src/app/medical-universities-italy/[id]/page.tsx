@@ -74,7 +74,7 @@ export default async function UniversityDetailPage({
           addressLocality: university.city,
           addressCountry: 'IT',
         },
-        description: university.description,
+        description: university.overview,
         hasCourse: {
           '@type': 'Course',
           name: 'Medicine and Surgery (LM-41 Single-Cycle MD)',

@@ -20,7 +20,7 @@ export async function generateMetadata({
   }
 
   const title = `${course.title} — IMAT Preparation | Ahsora`;
-  const description = course.description.slice(0, 160);
+  const description = (course.summary || course.overview || '').slice(0, 160);
 
   return {
     title,
@@ -56,7 +56,7 @@ export default async function CourseDetailPage({
         '@context': 'https://schema.org',
         '@type': 'Course',
         name: course.title,
-        description: course.description,
+        description: course.summary || course.overview || course.title,
         provider: {
           '@type': 'EducationalOrganization',
           name: 'Ahsora Med Academy',
@@ -66,7 +66,7 @@ export default async function CourseDetailPage({
           '@type': 'Offer',
           price: course.price,
           priceCurrency: 'EUR',
-          category: course.tier || 'IMAT Preparation',
+          category: course.category || 'IMAT Preparation',
         },
       }
     : null;
