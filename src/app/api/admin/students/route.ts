@@ -31,11 +31,20 @@ export async function GET() {
     const profMap = new Map(profiles.map((p: any) => [p.id, p]));
     const profEmailMap = new Map(profiles.map((p: any) => [(p.email || '').toLowerCase().trim(), p]));
 
-    // Filter out staff accounts and map student users
+    // Filter out staff/admin accounts and map student users
     const mergedStudents = users
       .filter((u: any) => {
         const meta = u.user_metadata || {};
-        return meta.accountType !== 'staff' && meta.role !== 'staff' && !meta.staff_data;
+        const emailLower = (u.email || '').toLowerCase().trim();
+        return (
+          meta.accountType !== 'staff' &&
+          meta.role !== 'staff' &&
+          meta.role !== 'admin' &&
+          meta.accountType !== 'admin' &&
+          !meta.staff_data &&
+          emailLower !== 'moaz27632@gmail.com' &&
+          emailLower !== 'ahsank746@gmail.com'
+        );
       })
       .map((u: any) => {
         const emailLower = (u.email || '').toLowerCase().trim();
@@ -53,7 +62,7 @@ export async function GET() {
         const pkgPrice = meta.package_price || meta.packagePrice || p.package_price || p.packagePrice || '€299';
         const country = meta.country || p.country || 'Italy';
         const whatsapp = meta.whatsapp_number || meta.whatsappNumber || meta.phone || p.whatsapp_number || p.phone || 'Not specified';
-        const address = meta.address || p.address || meta.physical_address || 'Address on file';
+        const address = meta.address || meta.physical_address || meta.street_address || p.address || 'Address on file';
         const paymentApproved = p.payment_approved !== undefined ? p.payment_approved : false;
         const cleanAmaId = p.ama_id ? p.ama_id.trim() : (meta.ama_id || `AMA-${u.id.substring(0, 6).toUpperCase()}`);
 
@@ -82,7 +91,17 @@ export async function GET() {
     // Also include any profiles that might not have been matched in auth.users
     const authUserIds = new Set(users.map((u: any) => u.id));
     profiles.forEach((p: any) => {
-      if (!authUserIds.has(p.id) && p.email && p.role !== 'staff' && p.accountType !== 'staff') {
+      const emailLower = (p.email || '').toLowerCase().trim();
+      if (
+        !authUserIds.has(p.id) &&
+        p.email &&
+        p.role !== 'staff' &&
+        p.role !== 'admin' &&
+        p.accountType !== 'staff' &&
+        p.accountType !== 'admin' &&
+        emailLower !== 'moaz27632@gmail.com' &&
+        emailLower !== 'ahsank746@gmail.com'
+      ) {
         const cleanAmaId = p.ama_id ? p.ama_id.trim() : `AMA-${p.id.substring(0, 6).toUpperCase()}`;
         mergedStudents.push({
           id: p.id,
@@ -110,6 +129,89 @@ export async function GET() {
     return NextResponse.json({ success: true, students: mergedStudents });
   } catch (error: any) {
     console.error('API /api/admin/students error:', error);
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+  }
+}
+
+export async function POST(request: Request) {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://sample-project.supabase.co';
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'sample-anon-key';
+
+  const supabase = createClient(supabaseUrl, serviceKey, {
+    auth: { autoRefreshToken: false, persistSession: false },
+  });
+
+  try {
+    const body = await request.json();
+    const rawEmail = (body.email || '').toLowerCase().trim();
+    const rawId = body.id || body.studentId;
+    const {
+      fullName,
+      firstName,
+      lastName,
+      address,
+      country,
+      whatsappNumber,
+      phone,
+      selectedPackage,
+      packagePrice,
+      ama_id,
+    } = body;
+
+    const finalPhone = whatsappNumber || phone || '';
+
+    // 1. Locate auth user and update user_metadata with address and full student details
+    let targetUserId = rawId;
+    if (rawEmail) {
+      try {
+        const { data: usersData } = await supabase.auth.admin.listUsers({ page: 1, perPage: 1000 });
+        const found = (usersData?.users || []).find((u: any) => (u.email || '').toLowerCase().trim() === rawEmail);
+        if (found) targetUserId = found.id;
+      } catch (err) {
+        console.warn('Auth lookup warning:', err);
+      }
+    }
+
+    if (targetUserId) {
+      try {
+        await supabase.auth.admin.updateUserById(targetUserId, {
+          user_metadata: {
+            full_name: fullName,
+            first_name: firstName || fullName?.split(' ')[0],
+            last_name: lastName || fullName?.split(' ').slice(1).join(' '),
+            address: address || '',
+            country: country || 'Italy',
+            whatsapp_number: finalPhone,
+            phone: finalPhone,
+            selected_package: selectedPackage,
+            package_price: packagePrice,
+            ama_id: ama_id,
+          },
+        });
+      } catch (uErr) {
+        console.warn('Auth metadata update warning:', uErr);
+      }
+    }
+
+    // 2. Safe upsert to profiles table only with columns that exist in the schema
+    try {
+      const profileData: any = {
+        full_name: fullName,
+        email: rawEmail,
+        payment_approved: true,
+        role: 'student',
+      };
+      if (targetUserId) profileData.id = targetUserId;
+      if (ama_id) profileData.ama_id = ama_id;
+
+      await supabase.from('profiles').upsert(profileData);
+    } catch (pErr) {
+      console.warn('Profile upsert warning:', pErr);
+    }
+
+    return NextResponse.json({ success: true, message: 'Student registered and address synced' });
+  } catch (error: any) {
+    console.error('API /api/admin/students POST error:', error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }

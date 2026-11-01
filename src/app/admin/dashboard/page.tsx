@@ -55,7 +55,19 @@ export default function AdminDashboardPage() {
 
   const fetchStudentsData = useCallback(async () => {
     setLoadingStudents(true);
-    let list: StudentRecord[] = [];
+    // 0. One-time clean out of legacy mock accounts from client storage so publishing site starts fresh
+    if (typeof window !== 'undefined') {
+      try {
+        if (localStorage.getItem('ahsora_cleanup_v3') !== 'true') {
+          localStorage.removeItem('ahsora_cached_admin_students');
+          localStorage.removeItem('adminStudentList');
+          localStorage.removeItem('ahsora_approved_emails');
+          localStorage.removeItem('ahsora_elite_students');
+          localStorage.removeItem('recentRegistration');
+          localStorage.setItem('ahsora_cleanup_v3', 'true');
+        }
+      } catch (e) {}
+    }
 
     // 1. Prioritize verified single source of truth from Student Management cache
     if (typeof window !== 'undefined') {
@@ -214,7 +226,8 @@ export default function AdminDashboardPage() {
           id.startsWith('demo-') ||
           em.endsWith('@example.com') ||
           em.includes('student.ahsora.com') ||
-          em === 'ahsank746@gmail.com'
+          em === 'ahsank746@gmail.com' ||
+          em === 'moaz27632@gmail.com'
         ) {
           return false;
         }

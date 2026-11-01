@@ -166,18 +166,20 @@ export default function AdminStudentsPage() {
       if (!s) return;
       const rawEmail = (s.email || '').toLowerCase().trim();
       const rawId = s.id || '';
-      // Exclude preset/demo/sample accounts
+      // Exclude preset/demo/sample accounts and staff/admin accounts
       if (
         rawId.startsWith('demo-') ||
         rawEmail.endsWith('@example.com') ||
         rawEmail.includes('student.ahsora.com') ||
         rawEmail === 'ahsank746@gmail.com' ||
+        rawEmail === 'moaz27632@gmail.com' ||
         rawEmail === 'zainab.mansoor@example.com' ||
         rawEmail === 'mateo.k@example.com' ||
         rawEmail === 'amina.sayed@example.com'
       ) {
         return;
       }
+
       const key = rawEmail || rawId;
       if (!key) return;
 
@@ -197,6 +199,9 @@ export default function AdminStudentsPage() {
 
       const finalPrice = resolved?.packagePrice || s.package_price || s.packagePrice || existing?.package_price || getPackageByIdOrName(finalPkg).price;
       const cleanAma = s.ama_id || existing?.ama_id || (rawId ? `AMA-${rawId.substring(0, 6).toUpperCase()}` : undefined);
+      const resolvedAddress = (s.address && s.address !== 'Address on file')
+        ? s.address
+        : (existing?.address && existing.address !== 'Address on file' ? existing.address : s.address || existing?.address || 'Address on file');
 
       if (existing) {
         const updated: StudentProfile = {
@@ -207,6 +212,7 @@ export default function AdminStudentsPage() {
           firstName: s.firstName || existing.firstName,
           lastName: s.lastName || existing.lastName,
           country: s.country || existing.country,
+          address: resolvedAddress,
           whatsapp_number: s.whatsapp_number || s.whatsappNumber || existing.whatsapp_number,
           selected_package: finalPkg,
           selectedPackage: finalPkg,
@@ -225,7 +231,7 @@ export default function AdminStudentsPage() {
           lastName: s.lastName,
           email: s.email,
           country: s.country || 'International',
-          address: s.address || 'Address on file',
+          address: resolvedAddress,
           whatsapp_number: s.whatsapp_number || s.whatsappNumber || '',
           whatsappNumber: s.whatsapp_number || s.whatsappNumber || '',
           selected_package: finalPkg,
@@ -238,10 +244,17 @@ export default function AdminStudentsPage() {
       }
     };
 
-    // 1. Clean out any legacy mock accounts from storage
+    // 1. One-time clean out of legacy mock accounts from client storage so publishing site starts fresh
     if (typeof window !== 'undefined') {
       try {
-        localStorage.removeItem('ahsora_elite_students');
+        if (localStorage.getItem('ahsora_cleanup_v3') !== 'true') {
+          localStorage.removeItem('ahsora_cached_admin_students');
+          localStorage.removeItem('adminStudentList');
+          localStorage.removeItem('ahsora_approved_emails');
+          localStorage.removeItem('ahsora_elite_students');
+          localStorage.removeItem('recentRegistration');
+          localStorage.setItem('ahsora_cleanup_v3', 'true');
+        }
       } catch (e) {}
     }
 

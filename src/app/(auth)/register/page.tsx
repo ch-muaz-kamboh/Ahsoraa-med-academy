@@ -218,22 +218,45 @@ export default function RegisterPage() {
         console.warn('Supabase auth warning:', signUpError.message);
       }
 
-      // 2. Insert or Upsert into profiles table if user created
+      // 2. Safe upsert into profiles table if user created (using schema columns)
       if (authData?.user) {
-        await supabase.from('profiles').upsert({
-          id: authData.user.id,
-          full_name: fullName,
-          email: formData.email,
-          address: formData.address,
-          country: formData.country,
-          whatsapp_number: finalWhatsApp,
-          phone: finalWhatsApp,
-          selected_package: pkgObj.name,
-          package_price: priceCheck.price || pkgObj.price,
-          payment_approved: true,
-          ama_id: generatedAmaId,
-          created_at: new Date().toISOString(),
+        try {
+          await supabase.from('profiles').upsert({
+            id: authData.user.id,
+            full_name: fullName,
+            email: formData.email,
+            ama_id: generatedAmaId,
+            payment_approved: true,
+            role: 'student',
+            created_at: new Date().toISOString(),
+          });
+        } catch (pErr) {
+          console.warn('Profiles upsert note:', pErr);
+        }
+      }
+
+      // 3. Sync full student profile and typed address via server route
+      try {
+        await fetch('/api/admin/students', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id: authData?.user?.id,
+            email: formData.email,
+            fullName,
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            address: formData.address,
+            country: formData.country,
+            whatsappNumber: finalWhatsApp,
+            phone: finalWhatsApp,
+            selectedPackage: pkgObj.name,
+            packagePrice: priceCheck.price || pkgObj.price,
+            ama_id: generatedAmaId,
+          }),
         });
+      } catch (syncErr) {
+        console.warn('Server sync address note:', syncErr);
       }
     } catch (err) {
       console.warn('Supabase fallback:', err);
@@ -268,6 +291,19 @@ export default function RegisterPage() {
       localStorage.removeItem('ahsora_mistakes');
       localStorage.removeItem('ahsora_testAttempts');
       localStorage.removeItem('ahsora_practice_sessions');
+
+      // Update admin student caches with the newly enrolled student including their address
+      try {
+        const localListStr = localStorage.getItem('adminStudentList');
+        const localList = localListStr ? JSON.parse(localListStr) : [];
+        localList.unshift(pendingStudent);
+        localStorage.setItem('adminStudentList', JSON.stringify(localList));
+
+        const cachedAdminStr = localStorage.getItem('ahsora_cached_admin_students');
+        const cachedList = cachedAdminStr ? JSON.parse(cachedAdminStr) : [];
+        cachedList.unshift(pendingStudent);
+        localStorage.setItem('ahsora_cached_admin_students', JSON.stringify(cachedList));
+      } catch (cErr) {}
 
       localStorage.setItem('recentRegistration', JSON.stringify(pendingStudent));
       localStorage.setItem('ahsora_currentUser', JSON.stringify({
