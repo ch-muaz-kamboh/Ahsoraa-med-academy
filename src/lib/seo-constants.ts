@@ -9,10 +9,11 @@ export const SITE_TAGLINE = 'Study Medicine in Italy in English | Premier IMAT P
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/icon.png`;
 
 export const OFFICIAL_SOCIAL_LINKS = [
-  'https://www.instagram.com/ahsorameds',
+  'https://www.instagram.com/imat.ahsorameds',
+  'https://www.facebook.com/share/1G62YBEV2U/',
+  'https://www.facebook.com/share/g/1CTfwgZzpN/',
   'https://www.youtube.com/@AhsoraMedsAcademy',
-  'https://wa.me/393278912345',
-  'https://www.linkedin.com/company/ahsora-med-academy',
+  'https://wa.me/393333444479',
 ];
 
 /**

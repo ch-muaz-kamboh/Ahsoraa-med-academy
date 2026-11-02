@@ -384,7 +384,10 @@ export default async function IMATNewsArticlePage({
       addressCountry: 'Italy',
     },
     sameAs: [
-      'https://instagram.com/ahsora.meds',
+      'https://www.instagram.com/imat.ahsorameds',
+      'https://www.facebook.com/share/1G62YBEV2U/',
+      'https://www.facebook.com/share/g/1CTfwgZzpN/',
+      'https://youtube.com/@ahsoramedsacademy',
       'https://wa.me/393333444479',
     ],
   };

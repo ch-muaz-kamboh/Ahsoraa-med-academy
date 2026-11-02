@@ -85,9 +85,10 @@ export const AHSO_CONTACT = {
     scholarships: '/universities/scholarships',
   },
   socials: {
-    instagram: 'https://www.instagram.com/ahsorameds.imat',
+    instagram: 'https://www.instagram.com/imat.ahsorameds?srtk=MXdkZ3J1eXgwcmxocQ==',
     youtube: 'https://youtube.com/@ahsoramedsacademy',
-    facebook: 'https://www.facebook.com/share/g/1Gu5u6Xoao/',
+    facebookPage: 'https://www.facebook.com/share/1G62YBEV2U/',
+    facebookGroup: 'https://www.facebook.com/share/g/1CTfwgZzpN/',
   },
 };
 
@@ -611,7 +612,7 @@ Our admissions team is available to assist you with enrollment, package choices,
   * **Italy:** Via Roma, 98124 Messina, Italy
   * **Pakistan:** S19 Panoramic Complex, Mall Road, Lahore, Pakistan
 * **Dedicated Contact Page:** [Contact Us](/contact)
-* **Social Channels:** [YouTube Channel](https://youtube.com/@ahsoramedsacademy) · [Instagram](https://www.instagram.com/ahsorameds.imat)`;
+* **Social Channels:** [Instagram (@imat.ahsorameds)](https://www.instagram.com/imat.ahsorameds?srtk=MXdkZ3J1eXgwcmxocQ==) · [Facebook Page](https://www.facebook.com/share/1G62YBEV2U/) · [Facebook Group](https://www.facebook.com/share/g/1CTfwgZzpN/) · [YouTube Channel](https://youtube.com/@ahsoramedsacademy)`;
   }
 
   // 8. General Comprehensive Fallback

@@ -5,7 +5,8 @@ import React from 'react';
 export const SOCIAL_LINKS = [
   {
     name: 'Instagram',
-    url: 'https://www.instagram.com/ahsorameds.imat?utm_source=qr&rpxt=MXdkZ3J1eXgwcmxocQ==',
+    label: 'Instagram',
+    url: 'https://www.instagram.com/imat.ahsorameds?srtk=MXdkZ3J1eXgwcmxocQ==',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
@@ -15,9 +16,40 @@ export const SOCIAL_LINKS = [
     ),
     color: '#E1306C',
     hoverBg: 'rgba(225, 48, 108, 0.15)',
+    tooltip: 'Follow Ahsora on Instagram (@imat.ahsorameds)',
+  },
+  {
+    name: 'Facebook Page',
+    label: 'FB Page',
+    url: 'https://www.facebook.com/share/1G62YBEV2U/',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+      </svg>
+    ),
+    color: '#1877F2',
+    hoverBg: 'rgba(24, 119, 242, 0.15)',
+    tooltip: 'Follow Ahsora Official Facebook Page',
+  },
+  {
+    name: 'Facebook Group',
+    label: 'FB Group',
+    url: 'https://www.facebook.com/share/g/1CTfwgZzpN/',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+      </svg>
+    ),
+    color: '#0D8AF0',
+    hoverBg: 'rgba(13, 138, 240, 0.15)',
+    tooltip: 'Join Ahsora IMAT Community Facebook Group',
   },
   {
     name: 'YouTube',
+    label: 'YouTube',
     url: 'https://youtube.com/@ahsoramedsacademy?si=RN6b0xCofOXTexCr',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -26,20 +58,11 @@ export const SOCIAL_LINKS = [
     ),
     color: '#FF0000',
     hoverBg: 'rgba(255, 0, 0, 0.15)',
-  },
-  {
-    name: 'Facebook',
-    url: 'https://www.facebook.com/share/g/1Gu5u6Xoao/',
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-      </svg>
-    ),
-    color: '#1877F2',
-    hoverBg: 'rgba(24, 119, 242, 0.15)',
+    tooltip: 'Subscribe to Ahsora on YouTube',
   },
   {
     name: 'WhatsApp',
+    label: 'WhatsApp',
     url: 'https://wa.me/393333444479',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -48,6 +71,7 @@ export const SOCIAL_LINKS = [
     ),
     color: '#25D366',
     hoverBg: 'rgba(37, 211, 102, 0.15)',
+    tooltip: 'Direct WhatsApp Admissions Desk',
   },
 ];
 
@@ -106,7 +130,7 @@ export default function SocialLinks({
           href={item.url}
           target="_blank"
           rel="noopener noreferrer"
-          title={`Follow Ahsora on ${item.name}`}
+          title={(item as any).tooltip || `Follow Ahsora on ${item.name}`}
           aria-label={item.name}
           style={baseItemStyle}
           onMouseEnter={(e) => {

@@ -115,6 +115,7 @@ export default function HomePage() {
     sameAs: [
       'https://www.instagram.com/imat.ahsorameds',
       'https://www.facebook.com/share/1G62YBEV2U/',
+      'https://www.facebook.com/share/g/1CTfwgZzpN/',
       'https://t.me/ahsoramedsacademy',
       'https://whatsapp.com/channel/0029Vb8YFTkKWEKpUsrmy946',
       'https://youtube.com/@ahsoramedsacademy',
