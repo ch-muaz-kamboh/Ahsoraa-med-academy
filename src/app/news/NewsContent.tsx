@@ -119,6 +119,7 @@ export default function NewsContent() {
     <div style={{ backgroundColor: '#FFFFFF', minHeight: '100vh' }}>
       {/* ── HERO ── */}
       <section
+        className="news-hero page-hero"
         style={{
           background: 'linear-gradient(135deg, #064E3B 0%, #065F46 50%, #0F172A 100%)',
           color: '#FFFFFF',

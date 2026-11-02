@@ -587,7 +587,7 @@ export default function AboutPage() {
               <span className="reveal section-tagline">The Team</span>
               <h2 className="reveal reveal-delay-1" style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '10px' }}>People Who Teach. People Who Know the Journey.</h2>
             </div>
-            <div className="reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '24px' }}>
+            <div className="about-three-col reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
               {/* Card 1: Founder */}
               <div style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
                 <div style={{ position: 'relative', height: '230px' }}>
@@ -628,21 +628,6 @@ export default function AboutPage() {
                     <div style={{ fontWeight: 900, fontSize: '1.15rem', color: 'var(--text-primary)', marginBottom: '3px' }}>Adv Ahmad Jahangir</div>
                     <div style={{ color: 'var(--primary-600)', fontWeight: 700, fontSize: '0.85rem', marginBottom: '10px' }}>CEO LeyNexo Law Firm &amp; Legal Advisor Ahsora Meds Academy</div>
                     <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '16px' }}>Directs full legal compliance for Italian student study visas, CIMEA verification, Declaration of Value (DOV), and embassy appeal dossiers.</p>
-                  </div>
-                  <Link href="/courses#faculty" style={{ color: 'var(--primary-600)', fontWeight: 700, fontSize: '0.85rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>See all faculty <ArrowRight size={14} /></Link>
-                </div>
-              </div>
-
-              {/* Card 4: Muaaz Aslam (Director of IT Department) */}
-              <div style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-                <div style={{ position: 'relative', height: '230px' }}>
-                  <Image src="/team/muaaz-aslam.jpg" alt="Muaaz Aslam" fill loading="lazy" style={{ objectFit: 'cover', objectPosition: 'top' }} sizes="(max-width: 900px) 100vw, 33vw" />
-                </div>
-                <div style={{ padding: '22px', display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'space-between' }}>
-                  <div>
-                    <div style={{ fontWeight: 900, fontSize: '1.15rem', color: 'var(--text-primary)', marginBottom: '3px' }}>Muaaz Aslam</div>
-                    <div style={{ color: 'var(--primary-600)', fontWeight: 700, fontSize: '0.85rem', marginBottom: '10px' }}>Director of IT &amp; Digital Infrastructure</div>
-                    <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '16px' }}>Architects Ahsora&apos;s high-concurrency CBT exam simulation platform, real-time score analytics engine, and secure student learning portal.</p>
                   </div>
                   <Link href="/courses#faculty" style={{ color: 'var(--primary-600)', fontWeight: 700, fontSize: '0.85rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>See all faculty <ArrowRight size={14} /></Link>
                 </div>

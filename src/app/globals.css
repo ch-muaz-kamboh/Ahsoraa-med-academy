@@ -650,10 +650,24 @@ html[dir="rtl"] .portal-marquee-wrapper {
   .about-hero,
   .contact-hero,
   .resources-hero,
+  .resources-hero-section,
   .news-hero,
-  .universities-hero {
-    padding-top: calc(82px + var(--top-offer-bar-height, 0px)) !important;
+  .universities-hero,
+  .universities-hero-section,
+  .scholarships-hero,
+  .licensing-hero,
+  .imat-hero,
+  .visa-hero,
+  .page-hero,
+  .subpage-hero {
+    padding-top: calc(75px + var(--top-offer-bar-height, 68px)) !important;
     padding-bottom: 45px !important;
+    box-sizing: border-box !important;
+  }
+
+  .about-hero {
+    min-height: auto !important;
+    display: block !important;
   }
 
   .hero-grid {

@@ -477,9 +477,15 @@ export default function Navbar() {
         @media (max-width: 640px) {
           .nav-main-row {
             height: 54px !important;
+            padding-left: 12px !important;
+            padding-right: 12px !important;
           }
           .nav-free-mock-btn {
             display: none !important;
+          }
+          .nav-portal-btn {
+            padding: 5px 10px !important;
+            font-size: 0.78rem !important;
           }
         }
       `}</style>

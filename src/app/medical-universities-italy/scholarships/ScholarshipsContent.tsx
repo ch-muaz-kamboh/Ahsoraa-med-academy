@@ -424,6 +424,7 @@ export default function ScholarshipsHubPage() {
       <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', paddingBottom: '90px' }}>
         {/* ── HERO BANNER ────────────────────────────────────────── */}
         <div
+          className="scholarships-hero page-hero"
           style={{
             background: 'linear-gradient(135deg, #022C22 0%, #064E3B 45%, #0B192C 100%)',
             color: '#FFFFFF',
