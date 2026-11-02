@@ -47,101 +47,7 @@ function useIntersectionObserver(options = {}) {
   return { observe };
 }
 
-// ─── Floating Corner Actions (Compact, Transparent & Unobtrusive) ─────────────
-function FloatingCornerBar() {
-  const [show, setShow] = useState(false);
-  useEffect(() => {
-    const handler = () => setShow(window.scrollY > 300);
-    window.addEventListener('scroll', handler, { passive: true });
-    return () => window.removeEventListener('scroll', handler);
-  }, []);
 
-  if (!show) return null;
-
-  return (
-    <div style={{
-      position: 'fixed',
-      bottom: '24px',
-      right: '24px',
-      zIndex: 999,
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '8px',
-      alignItems: 'flex-end',
-      pointerEvents: 'auto',
-      animation: 'fadeInUp 0.3s ease-out'
-    }}>
-      <a
-        href="https://wa.me/393333444479"
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '6px',
-          backgroundColor: 'rgba(22, 163, 74, 0.88)',
-          backdropFilter: 'blur(10px)',
-          WebkitBackdropFilter: 'blur(10px)',
-          color: '#ffffff',
-          padding: '7px 14px',
-          borderRadius: '9999px',
-          fontSize: '0.8rem',
-          fontWeight: 700,
-          textDecoration: 'none',
-          boxShadow: '0 4px 14px rgba(0,0,0,0.18)',
-          border: '1px solid rgba(255,255,255,0.25)',
-          transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
-        }}
-        onMouseEnter={e => {
-          e.currentTarget.style.transform = 'scale(1.04) translateY(-1px)';
-          e.currentTarget.style.backgroundColor = 'rgba(22, 163, 74, 1)';
-        }}
-        onMouseLeave={e => {
-          e.currentTarget.style.transform = 'scale(1) translateY(0)';
-          e.currentTarget.style.backgroundColor = 'rgba(22, 163, 74, 0.88)';
-        }}
-      >
-        <MessageCircle size={15} />
-        <span>WhatsApp</span>
-      </a>
-
-      <a
-        href="/free-imat-mock-test"
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '6px',
-          backgroundColor: 'rgba(15, 23, 42, 0.82)',
-          backdropFilter: 'blur(10px)',
-          WebkitBackdropFilter: 'blur(10px)',
-          color: '#5CED73',
-          padding: '7px 14px',
-          borderRadius: '9999px',
-          fontSize: '0.8rem',
-          fontWeight: 700,
-          border: '1px solid rgba(92, 237, 115, 0.35)',
-          cursor: 'pointer',
-          boxShadow: '0 4px 14px rgba(0,0,0,0.2)',
-          transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-          textDecoration: 'none',
-        }}
-        onMouseEnter={e => {
-          e.currentTarget.style.transform = 'scale(1.04) translateY(-1px)';
-          e.currentTarget.style.borderColor = 'rgba(92, 237, 115, 0.8)';
-          e.currentTarget.style.backgroundColor = 'rgba(15, 23, 42, 0.95)';
-        }}
-        onMouseLeave={e => {
-          e.currentTarget.style.transform = 'scale(1) translateY(0)';
-          e.currentTarget.style.borderColor = 'rgba(92, 237, 115, 0.35)';
-          e.currentTarget.style.backgroundColor = 'rgba(15, 23, 42, 0.82)';
-        }}
-      >
-        <Zap size={14} color="#5CED73" />
-        <span>Try Free Mock</span>
-      </a>
-    </div>
-  );
-}
 
 // ─── Animated Dashboard Mockup Component ─────────────────────────────────────
 function AnimatedDashboardMockup() {
@@ -1597,8 +1503,7 @@ export default function CoursesContent() {
         </div>
       </section>
 
-      {/* Floating corner quick action buttons */}
-      <FloatingCornerBar />
+
 
       {leadOpen && (
         <LeadCaptureModal
