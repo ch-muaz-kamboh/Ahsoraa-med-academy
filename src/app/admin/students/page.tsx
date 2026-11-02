@@ -158,8 +158,12 @@ export default function AdminStudentsPage() {
 
   const PRESET_STUDENTS: StudentProfile[] = [];
 
-  const fetchStudents = useCallback(async () => {
-    setLoading(true);
+  const isInitialLoad = useRef(true);
+
+  const fetchStudents = useCallback(async (showSpinner = false) => {
+    if (showSpinner || isInitialLoad.current) {
+      setLoading(true);
+    }
     const studentMap = new Map<string, StudentProfile>();
 
     const mergeIn = (s: Partial<StudentProfile>) => {
@@ -328,29 +332,41 @@ export default function AdminStudentsPage() {
     } catch (e) {}
 
     const result = Array.from(studentMap.values());
-    setStudents(result);
+    setStudents((prev) => {
+      if (prev.length === result.length) {
+        const prevKey = prev.map((s) => `${s.id}-${s.email}-${s.payment_approved}-${s.selected_package}`).join('|');
+        const nextKey = result.map((s) => `${s.id}-${s.email}-${s.payment_approved}-${s.selected_package}`).join('|');
+        if (prevKey === nextKey) return prev;
+      }
+      return result;
+    });
+
     try {
       localStorage.setItem('ahsora_cached_admin_students', JSON.stringify(result));
     } catch (e) {}
-    setLoading(false);
+
+    if (isInitialLoad.current) {
+      isInitialLoad.current = false;
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
-    fetchStudents();
+    fetchStudents(true);
 
-    // Auto-sync polling every 6 seconds to capture new registrations in real time across all devices
+    // Silent background sync every 20 seconds (never flashes loading spinner or resets table)
     const interval = setInterval(() => {
       if (typeof document !== 'undefined' && !document.hidden) {
-        fetchStudents();
+        fetchStudents(false);
       }
-    }, 6000);
+    }, 20000);
 
-    const handleSyncEvent = () => fetchStudents();
+    const handleSyncEvent = () => fetchStudents(false);
     window.addEventListener('storage', handleSyncEvent);
     window.addEventListener('ahsora_student_updated', handleSyncEvent);
     window.addEventListener('ahsora_student_registered', handleSyncEvent);
     document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible') fetchStudents();
+      if (document.visibilityState === 'visible') fetchStudents(false);
     });
 
     return () => {

@@ -3,16 +3,16 @@ import HomeContent from './HomeContent';
 import { SITE_URL, getBreadcrumbJsonLd, getFaqJsonLd } from '@/lib/seo-constants';
 
 export const metadata: Metadata = {
-  title: 'Ahsora Med Academy | #1 IMAT Preparation Platform — Study Medicine in Italy',
+  title: 'Ahsora Meds Academy | IMAT 2027 Preparation & Italian Admissions',
   description:
-    'Master the IMAT with Italy’s premier medical entrance academy. 2,800+ practice questions, 12 realistic CBT mock exams (+1.5/-0.4 scoring), live lectures, and Italian medical school admissions mentorship.',
+    'The premier IMAT preparation platform for students aiming to study Medicine in Italy in English. Access live classes, +1.5/-0.4 scoring mock exams, and full admissions consultancy.',
   alternates: {
     canonical: `${SITE_URL}/`,
   },
   openGraph: {
-    title: 'Ahsora Med Academy | #1 IMAT Preparation Platform — Study Medicine in Italy',
+    title: 'Ahsora Meds Academy | IMAT 2027 Preparation & Italian Admissions',
     description:
-      'Master the IMAT with Italy’s premier medical entrance academy. 2,800+ practice questions, 12 realistic CBT mock exams (+1.5/-0.4 scoring), live lectures, and Italian medical school admissions mentorship.',
+      'The premier IMAT preparation platform for students aiming to study Medicine in Italy in English. Access live classes, +1.5/-0.4 scoring mock exams, and full admissions consultancy.',
     url: `${SITE_URL}/`,
     type: 'website',
     images: [
@@ -20,15 +20,15 @@ export const metadata: Metadata = {
         url: '/icon.png',
         width: 512,
         height: 512,
-        alt: 'Ahsora Med Academy — Study Medicine in Italy',
+        alt: 'Ahsora Meds Academy — Study Medicine in Italy',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ahsora Med Academy | #1 IMAT Preparation Platform — Study Medicine in Italy',
+    title: 'Ahsora Meds Academy | IMAT 2027 Preparation & Italian Admissions',
     description:
-      'Master the IMAT with Italy’s premier medical entrance academy. 2,800+ practice questions, 12 realistic CBT mock exams (+1.5/-0.4 scoring), and medical admissions mentorship.',
+      'The premier IMAT preparation platform for students aiming to study Medicine in Italy in English. Access live classes, +1.5/-0.4 scoring mock exams, and full admissions consultancy.',
     images: ['/icon.png'],
   },
 };
@@ -105,8 +105,34 @@ export default function HomePage() {
     ],
   };
 
+  const knowledgePanelJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'EducationalOrganization',
+    name: 'Ahsora Meds Academy',
+    url: 'https://ahsorameds.com',
+    logo: 'https://ahsorameds.com/ahsora-logo.png',
+    description: 'IMAT preparation platform and medical admissions consultancy for English-taught medicine in Italy.',
+    sameAs: [
+      'https://www.instagram.com/imat.ahsorameds',
+      'https://www.facebook.com/share/1G62YBEV2U/',
+      'https://t.me/ahsoramedsacademy',
+      'https://whatsapp.com/channel/0029Vb8YFTkKWEKpUsrmy946',
+      'https://youtube.com/@ahsoramedsacademy',
+    ],
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+39-333-344-4479',
+      contactType: 'Customer Support',
+      availableLanguage: ['English', 'Italian'],
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(knowledgePanelJsonLd) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}

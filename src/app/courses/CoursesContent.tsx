@@ -1259,15 +1259,31 @@ export default function CoursesContent() {
           >
             {[
               {
+                name: 'Ahsan Jahangir',
+                role: 'Academic Director, IMAT Chemistry Tutor',
+                tag: 'Founder & Academic Director',
+                tagBg: '#ECFDF5',
+                tagColor: '#059669',
+                tagBorder: '#A7F3D0',
+                description: 'Final Year Medicine and Surgery Student in Italy. Shapes every course from firsthand IMAT success and coaches students to top scores in high-yield Chemistry and exam strategy.',
+                image: '/ahsan-jahangir.jpg',
+                highlight: 'Final Year Medicine Student Italy',
+                imageFit: 'cover',
+                imagePosition: 'center 15%',
+              },
+              {
                 name: 'Adv Ahmad Jahangir',
-                role: 'Chairman of the Law Firm & Legal Counsel',
+                role: 'CEO LeyNexo Law Firm & Legal Advisor Ahsora Meds Academy',
                 tag: 'Legal & Admissions Counsel',
                 tagBg: '#EFF6FF',
                 tagColor: '#1D4ED8',
                 tagBorder: '#BFDBFE',
-                description: 'Directs full legal compliance for Italian student visas, CIMEA comparability verification, Declaration of Value (DOV), and international embassy appeal dossiers.',
+                description: 'Directs full legal compliance for Italian student study visas, CIMEA comparability verification, Declaration of Value (DOV), and international embassy appeal dossiers.',
                 image: '/team/ahmad-jahangir.png',
-                highlight: 'Legal Partner Firm Chairman',
+                highlight: 'CEO LeyNexo Law Firm',
+                imageFit: 'contain',
+                imagePadding: '16px',
+                imageBg: '#F1F5F9',
               },
               {
                 name: 'Tehreem Tahir',
@@ -1358,19 +1374,20 @@ export default function CoursesContent() {
                 }}
               >
                 {/* Photo container */}
-                <div style={{ position: 'relative', width: '100%', height: '280px', backgroundColor: '#F8FAFC', overflow: 'hidden' }}>
+                <div style={{ position: 'relative', width: '100%', height: '280px', backgroundColor: (member as any).imageBg || '#F8FAFC', overflow: 'hidden' }}>
                   <img
                     src={member.image}
                     alt={member.name}
                     style={{
                       width: '100%',
                       height: '100%',
-                      objectFit: 'cover',
-                      objectPosition: 'top center',
+                      objectFit: ((member as any).imageFit as any) || 'cover',
+                      objectPosition: (member as any).imagePosition || 'top center',
+                      padding: (member as any).imagePadding || '0',
                       transition: 'transform 0.5s ease',
                     }}
                     onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.05)';
+                      (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.04)';
                     }}
                     onMouseLeave={(e) => {
                       (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)';

@@ -585,14 +585,44 @@ export default function HomePage() {
                   color: '#0F172A',
                   letterSpacing: '-1.5px',
                   lineHeight: 1.1,
-                  marginBottom: '24px',
+                  marginBottom: '20px',
                   fontFamily: 'var(--font-serif), Georgia, serif',
                   animation: 'fadeInUp 0.7s 0.1s cubic-bezier(0.16,1,0.3,1) both',
                 }}
               >
-                <span>THE IMAT IS THE TEST.</span><br />
-                <span style={{ color: '#059669' }}>YOUR JOURNEY IS MUCH BIGGER.</span>
+                <span>Ahsora Meds Academy:</span><br />
+                <span style={{ color: '#059669' }}>The Ultimate IMAT 2027 Preparation Platform</span>
               </h1>
+
+              {/* GEO Direct Answer Snippet (Callout Box) for AI & Search Engine Scraping */}
+              <div
+                style={{
+                  backgroundColor: 'rgba(5, 150, 105, 0.05)',
+                  borderLeft: '4px solid #059669',
+                  borderRadius: '12px',
+                  padding: '14px 18px',
+                  marginBottom: '24px',
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '12px',
+                  animation: 'fadeInUp 0.7s 0.15s cubic-bezier(0.16,1,0.3,1) both',
+                }}
+              >
+                <div style={{ color: '#059669', marginTop: '2px', flexShrink: 0 }}>
+                  <Shield size={20} />
+                </div>
+                <p
+                  style={{
+                    fontSize: '0.925rem',
+                    color: '#1E293B',
+                    lineHeight: 1.6,
+                    margin: 0,
+                    fontWeight: 500,
+                  }}
+                >
+                  <strong>Ahsora Meds Academy</strong> is the premier International Medical Admissions Test (IMAT) preparation platform and admissions consultancy. We provide live expert tutoring, a +1.5/-0.4 scoring CBT mock exam simulator, and verified guidance for international students applying to English-taught Medicine and Surgery (LM-41) programs at Italian public universities.
+                </p>
+              </div>
 
               {/* Supporting copy */}
               <p
@@ -964,8 +994,8 @@ export default function HomePage() {
                   fontFamily: 'var(--font-serif), Georgia, serif',
                 }}
               >
-                We don&apos;t just sell courses.{' '}
-                <span style={{ color: '#059669', fontStyle: 'italic' }}>We teach you live.</span>
+                <span>Live IMAT Preparation Classes &amp;</span>{' '}
+                <span style={{ color: '#059669', fontStyle: 'italic' }}>Expert Mentorship</span>
               </h2>
               <p
                 style={{
@@ -1335,7 +1365,7 @@ export default function HomePage() {
                 letterSpacing: '-0.5px',
               }}
             >
-              Choose your IMAT journey
+              IMAT Preparation Courses for Every Budget
             </h2>
             <p style={{ color: '#64748B', fontSize: '1rem', marginTop: '12px', lineHeight: 1.7 }}>
               Every plan includes our complete subject library and IMAT question bank. Upgrade for live classes and 1-on-1 support.
@@ -2070,7 +2100,7 @@ export default function HomePage() {
                     lineHeight: 1.2,
                   }}
                 >
-                  Practice Under Real IMAT Conditions
+                  The Only Exact +1.5/-0.4 IMAT Mock Exam Simulator
                 </h2>
                 <p
                   style={{
@@ -2443,7 +2473,7 @@ export default function HomePage() {
               <Star size={14} fill="#F59E0B" color="#F59E0B" /> Verified Medical Student Results
             </div>
             <h2 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)', color: '#0F172A', letterSpacing: '-0.5px', margin: '4px 0 10px' }}>
-              From Ahsora Candidates to Medical Doctors in Italy
+              Verified Student Results &amp; Medical School Admissions
             </h2>
             <p style={{ color: '#64748B', fontSize: '1rem', maxWidth: '640px', margin: '0 auto', lineHeight: 1.65 }}>
               Realistic feedback from candidates who conquered the IMAT and secured their seats in Italy's top English-taught medical faculties.

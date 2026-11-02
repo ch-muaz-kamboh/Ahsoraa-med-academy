@@ -618,15 +618,15 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              {/* Card 3: Adv Ahmad Jahangir (Legal Counsel & Admissions) */}
+              {/* Card 3: Adv Ahmad Jahangir (CEO LeyNexo Law Firm & Legal Advisor) */}
               <div style={{ backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-light)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-                <div style={{ position: 'relative', height: '230px' }}>
-                  <Image src="/team/ahmad-jahangir.png" alt="Adv Ahmad Jahangir" fill loading="lazy" style={{ objectFit: 'cover', objectPosition: 'top' }} sizes="(max-width: 900px) 100vw, 33vw" />
+                <div style={{ position: 'relative', height: '230px', backgroundColor: '#F1F5F9' }}>
+                  <Image src="/team/ahmad-jahangir.png" alt="Adv Ahmad Jahangir" fill loading="lazy" style={{ objectFit: 'contain', padding: '12px' }} sizes="(max-width: 900px) 100vw, 33vw" />
                 </div>
                 <div style={{ padding: '22px', display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'space-between' }}>
                   <div>
                     <div style={{ fontWeight: 900, fontSize: '1.15rem', color: 'var(--text-primary)', marginBottom: '3px' }}>Adv Ahmad Jahangir</div>
-                    <div style={{ color: 'var(--primary-600)', fontWeight: 700, fontSize: '0.85rem', marginBottom: '10px' }}>Chairman of the Law Firm &amp; Legal Counsel</div>
+                    <div style={{ color: 'var(--primary-600)', fontWeight: 700, fontSize: '0.85rem', marginBottom: '10px' }}>CEO LeyNexo Law Firm &amp; Legal Advisor Ahsora Meds Academy</div>
                     <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '16px' }}>Directs full legal compliance for Italian student study visas, CIMEA verification, Declaration of Value (DOV), and embassy appeal dossiers.</p>
                   </div>
                   <Link href="/courses#faculty" style={{ color: 'var(--primary-600)', fontWeight: 700, fontSize: '0.85rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>See all faculty <ArrowRight size={14} /></Link>
