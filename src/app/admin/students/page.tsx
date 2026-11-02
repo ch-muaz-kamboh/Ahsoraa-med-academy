@@ -337,6 +337,28 @@ export default function AdminStudentsPage() {
 
   useEffect(() => {
     fetchStudents();
+
+    // Auto-sync polling every 6 seconds to capture new registrations in real time across all devices
+    const interval = setInterval(() => {
+      if (typeof document !== 'undefined' && !document.hidden) {
+        fetchStudents();
+      }
+    }, 6000);
+
+    const handleSyncEvent = () => fetchStudents();
+    window.addEventListener('storage', handleSyncEvent);
+    window.addEventListener('ahsora_student_updated', handleSyncEvent);
+    window.addEventListener('ahsora_student_registered', handleSyncEvent);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') fetchStudents();
+    });
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('storage', handleSyncEvent);
+      window.removeEventListener('ahsora_student_updated', handleSyncEvent);
+      window.removeEventListener('ahsora_student_registered', handleSyncEvent);
+    };
   }, [fetchStudents]);
 
   const handleUpdatePackage = (studentId: string, studentEmail: string | undefined, newPkgName: string) => {

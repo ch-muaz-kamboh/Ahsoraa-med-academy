@@ -5,19 +5,27 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 export const fetchCache = 'force-no-store';
 
-export async function GET() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://sample-project.supabase.co';
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'sample-anon-key';
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://couhzxvhzdipbffrkerf.supabase.co';
+const SERVICE_KEY =
+  process.env.SUPABASE_SERVICE_ROLE_KEY ||
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+  '';
 
-  const supabase = createClient(supabaseUrl, serviceKey, {
+function getAdminClient() {
+  return createClient(SUPABASE_URL, SERVICE_KEY, {
     auth: { autoRefreshToken: false, persistSession: false },
   });
+}
+
+export async function GET() {
+  const supabase = getAdminClient();
 
   try {
     let users: any[] = [];
     let profiles: any[] = [];
+    let enrolledLeads: any[] = [];
 
-    // Safely fetch auth users and profiles without failing if admin auth is restricted
+    // 1. Fetch auth users
     try {
       const { data: usersData } = await supabase.auth.admin.listUsers({ page: 1, perPage: 1000 });
       users = usersData?.users || [];
@@ -25,6 +33,7 @@ export async function GET() {
       console.warn('Supabase auth.admin.listUsers note:', authErr);
     }
 
+    // 2. Fetch profiles
     try {
       const { data: profilesData } = await supabase.from('profiles').select('*');
       profiles = profilesData || [];
@@ -32,8 +41,30 @@ export async function GET() {
       console.warn('Supabase profiles fetch note:', profErr);
     }
 
+    // 3. Fetch enrolled leads for cross-device backup
+    try {
+      const { data: leadsData } = await supabase.from('leads').select('*').eq('status', 'enrolled');
+      enrolledLeads = leadsData || [];
+    } catch (leadsErr) {
+      console.warn('Supabase enrolled leads fetch note:', leadsErr);
+    }
+
     const profMap = new Map(profiles.map((p: any) => [p.id, p]));
     const profEmailMap = new Map(profiles.map((p: any) => [(p.email || '').toLowerCase().trim(), p]));
+
+    const leadsEmailMap = new Map();
+    for (const l of enrolledLeads) {
+      const em = (l.email || '').toLowerCase().trim();
+      if (em) {
+        let meta: any = {};
+        try {
+          if (l.academic_background && l.academic_background.startsWith('{')) {
+            meta = JSON.parse(l.academic_background);
+          }
+        } catch {}
+        leadsEmailMap.set(em, { ...l, leadMeta: meta });
+      }
+    }
 
     // Filter out staff/admin accounts and map student users
     const mergedStudents = users
@@ -53,22 +84,55 @@ export async function GET() {
       .map((u: any) => {
         const emailLower = (u.email || '').toLowerCase().trim();
         const p = profMap.get(u.id) || profEmailMap.get(emailLower) || {};
+        const lead = leadsEmailMap.get(emailLower) || {};
+        const leadMeta = lead.leadMeta || {};
         const meta = u.user_metadata || {};
 
         const fullName =
           meta.full_name ||
           p.full_name ||
+          lead.name ||
           `${meta.first_name || ''} ${meta.last_name || ''}`.trim() ||
           u.email?.split('@')[0] ||
           'Student';
 
-        const pkgName = meta.selected_package || meta.selectedPackage || p.selected_package || p.selectedPackage || 'Ahsora IMAT Ascend';
-        const pkgPrice = meta.package_price || meta.packagePrice || p.package_price || p.packagePrice || '€299';
-        const country = meta.country || p.country || 'Italy';
-        const whatsapp = meta.whatsapp_number || meta.whatsappNumber || meta.phone || p.whatsapp_number || p.phone || 'Not specified';
-        const address = meta.address || meta.physical_address || meta.street_address || p.address || 'Address on file';
-        const paymentApproved = p.payment_approved !== undefined ? p.payment_approved : false;
-        const cleanAmaId = p.ama_id ? p.ama_id.trim() : (meta.ama_id || `AMA-${u.id.substring(0, 6).toUpperCase()}`);
+        const pkgName =
+          meta.selected_package ||
+          meta.selectedPackage ||
+          p.selected_package ||
+          p.selectedPackage ||
+          leadMeta.selected_package ||
+          'Ahsora IMAT Ascend';
+
+        const pkgPrice =
+          meta.package_price ||
+          meta.packagePrice ||
+          p.package_price ||
+          p.packagePrice ||
+          leadMeta.package_price ||
+          '€299';
+
+        const country = meta.country || p.country || lead.target_country || 'Italy';
+        const whatsapp =
+          meta.whatsapp_number ||
+          meta.whatsappNumber ||
+          meta.phone ||
+          p.whatsapp_number ||
+          p.phone ||
+          lead.phone ||
+          'Not specified';
+
+        const address =
+          meta.address ||
+          meta.physical_address ||
+          meta.street_address ||
+          p.address ||
+          leadMeta.address ||
+          'Address on file';
+
+        const paymentApproved = p.payment_approved !== undefined ? p.payment_approved : true;
+        const cleanAmaId =
+          p.ama_id ? p.ama_id.trim() : (meta.ama_id || leadMeta.ama_id || `AMA-${u.id.substring(0, 6).toUpperCase()}`);
 
         return {
           id: u.id,
@@ -94,10 +158,13 @@ export async function GET() {
 
     // Also include any profiles that might not have been matched in auth.users
     const authUserIds = new Set(users.map((u: any) => u.id));
+    const processedEmails = new Set(mergedStudents.map((s: any) => (s.email || '').toLowerCase().trim()));
+
     profiles.forEach((p: any) => {
       const emailLower = (p.email || '').toLowerCase().trim();
       if (
         !authUserIds.has(p.id) &&
+        !processedEmails.has(emailLower) &&
         p.email &&
         p.role !== 'staff' &&
         p.role !== 'admin' &&
@@ -106,29 +173,64 @@ export async function GET() {
         emailLower !== 'moaz27632@gmail.com' &&
         emailLower !== 'ahsank746@gmail.com'
       ) {
-        const cleanAmaId = p.ama_id ? p.ama_id.trim() : `AMA-${p.id.substring(0, 6).toUpperCase()}`;
+        processedEmails.add(emailLower);
+        const lead = leadsEmailMap.get(emailLower) || {};
+        const leadMeta = lead.leadMeta || {};
+        const cleanAmaId = p.ama_id ? p.ama_id.trim() : (leadMeta.ama_id || `AMA-${p.id.substring(0, 6).toUpperCase()}`);
+
         mergedStudents.push({
           id: p.id,
           ama_id: cleanAmaId,
-          full_name: p.full_name || p.email.split('@')[0],
-          firstName: (p.full_name || '').split(' ')[0] || 'Student',
-          lastName: (p.full_name || '').split(' ').slice(1).join(' ') || '',
+          full_name: p.full_name || lead.name || p.email.split('@')[0],
+          firstName: (p.full_name || lead.name || '').split(' ')[0] || 'Student',
+          lastName: (p.full_name || lead.name || '').split(' ').slice(1).join(' ') || '',
           email: p.email,
-          country: p.country || 'Italy',
-          address: p.address || 'Address on file',
-          whatsapp_number: p.whatsapp_number || p.phone || 'Not specified',
-          whatsappNumber: p.whatsapp_number || p.phone || 'Not specified',
-          phone: p.whatsapp_number || p.phone || 'Not specified',
-          selected_package: p.selected_package || p.selectedPackage || 'Ahsora IMAT Ascend',
-          selectedPackage: p.selected_package || p.selectedPackage || 'Ahsora IMAT Ascend',
-          package_price: p.package_price || p.packagePrice || '€299',
-          packagePrice: p.package_price || p.packagePrice || '€299',
-          payment_approved: p.payment_approved || false,
+          country: p.country || lead.target_country || 'Italy',
+          address: p.address || leadMeta.address || 'Address on file',
+          whatsapp_number: p.whatsapp_number || p.phone || lead.phone || 'Not specified',
+          whatsappNumber: p.whatsapp_number || p.phone || lead.phone || 'Not specified',
+          phone: p.whatsapp_number || p.phone || lead.phone || 'Not specified',
+          selected_package: p.selected_package || p.selectedPackage || leadMeta.selected_package || 'Ahsora IMAT Ascend',
+          selectedPackage: p.selected_package || p.selectedPackage || leadMeta.selected_package || 'Ahsora IMAT Ascend',
+          package_price: p.package_price || p.packagePrice || leadMeta.package_price || '€299',
+          packagePrice: p.package_price || p.packagePrice || leadMeta.package_price || '€299',
+          payment_approved: p.payment_approved !== undefined ? p.payment_approved : true,
           stages: p.stages || null,
           created_at: p.created_at || new Date().toISOString(),
         });
       }
     });
+
+    // Also include any enrolled leads that weren't matched in auth or profiles
+    for (const [em, lead] of leadsEmailMap.entries()) {
+      if (!processedEmails.has(em)) {
+        processedEmails.add(em);
+        const leadMeta = lead.leadMeta || {};
+        const studentId = leadMeta.studentId || lead.id || `lead-${Date.now()}`;
+        const cleanAmaId = leadMeta.ama_id || `AMA-${studentId.substring(0, 6).toUpperCase()}`;
+
+        mergedStudents.push({
+          id: studentId,
+          ama_id: cleanAmaId,
+          full_name: lead.name || em.split('@')[0],
+          firstName: (lead.name || '').split(' ')[0] || 'Student',
+          lastName: (lead.name || '').split(' ').slice(1).join(' ') || '',
+          email: em,
+          country: lead.target_country || 'Italy',
+          address: leadMeta.address || 'Address on file',
+          whatsapp_number: lead.phone || 'Not specified',
+          whatsappNumber: lead.phone || 'Not specified',
+          phone: lead.phone || 'Not specified',
+          selected_package: leadMeta.selected_package || 'Ahsora IMAT Ascend',
+          selectedPackage: leadMeta.selected_package || 'Ahsora IMAT Ascend',
+          package_price: leadMeta.package_price || '€299',
+          packagePrice: leadMeta.package_price || '€299',
+          payment_approved: true,
+          stages: null,
+          created_at: lead.created_at || new Date().toISOString(),
+        });
+      }
+    }
 
     return NextResponse.json(
       { success: true, students: mergedStudents },
@@ -147,12 +249,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://sample-project.supabase.co';
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'sample-anon-key';
-
-  const supabase = createClient(supabaseUrl, serviceKey, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  });
+  const supabase = getAdminClient();
 
   try {
     const body = await request.json();
@@ -246,6 +343,8 @@ export async function POST(request: Request) {
           email: rawEmail,
           payment_approved: true,
           role: 'student',
+          account_type: 'student',
+          is_active: true,
         };
         if (ama_id) profileData.ama_id = ama_id;
 
@@ -253,6 +352,28 @@ export async function POST(request: Request) {
       } catch (pErr) {
         console.warn('Profile upsert warning:', pErr);
       }
+    }
+
+    // 3. Backup to leads table with enrolled status for immediate cross-device sync
+    try {
+      await supabase.from('leads').insert({
+        name: fullName,
+        email: rawEmail,
+        phone: finalPhone,
+        target_exam: 'IMAT',
+        target_country: country || 'Italy',
+        academic_background: JSON.stringify({
+          studentId: targetUserId,
+          ama_id: ama_id,
+          address: address || '',
+          selected_package: selectedPackage,
+          package_price: packagePrice,
+          registered_at: new Date().toISOString(),
+        }),
+        status: 'enrolled',
+      });
+    } catch (lErr) {
+      console.warn('Leads enrolled backup notice:', lErr);
     }
 
     return NextResponse.json({ success: true, studentId: targetUserId, message: 'Student registered and address synced' });
@@ -263,12 +384,7 @@ export async function POST(request: Request) {
 }
 
 export async function PATCH(request: Request) {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://sample-project.supabase.co';
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'sample-anon-key';
-
-  const supabase = createClient(supabaseUrl, serviceKey, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  });
+  const supabase = getAdminClient();
 
   try {
     const body = await request.json();

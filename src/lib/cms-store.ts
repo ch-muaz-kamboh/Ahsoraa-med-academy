@@ -475,18 +475,62 @@ export function toSupabaseNewsPayload(post: NewsItem | Omit<NewsItem, 'id'>, id?
   };
 }
 
+const DELETED_NEWS_KEY = 'ahsora_deleted_news_ids';
+
+export function getDeletedNewsIds(): Set<string> {
+  if (typeof window === 'undefined') return new Set();
+  try {
+    const raw = localStorage.getItem(DELETED_NEWS_KEY);
+    return raw ? new Set(JSON.parse(raw)) : new Set();
+  } catch {
+    return new Set();
+  }
+}
+
+export function markNewsIdDeleted(id: string) {
+  if (typeof window === 'undefined') return;
+  try {
+    const ids = getDeletedNewsIds();
+    ids.add(id);
+    localStorage.setItem(DELETED_NEWS_KEY, JSON.stringify(Array.from(ids)));
+  } catch (e) {
+    console.warn('Failed to record deleted news id:', e);
+  }
+}
+
+export function unmarkNewsIdDeleted(id: string) {
+  if (typeof window === 'undefined') return;
+  try {
+    const ids = getDeletedNewsIds();
+    ids.delete(id);
+    localStorage.setItem(DELETED_NEWS_KEY, JSON.stringify(Array.from(ids)));
+  } catch (e) {}
+}
+
 export async function syncSingleNewsPostToSupabase(post: NewsItem): Promise<boolean> {
   try {
+    // 1. Direct Supabase client upsert
     const supabase = createClient();
     const payload = toSupabaseNewsPayload(post);
     const { error } = await supabase.from('news_posts').upsert(payload);
-    if (error) {
-      console.warn('Supabase news upload warning:', error.message);
-      return false;
+    if (!error) {
+      return true;
     }
-    return true;
+    console.warn('Supabase client news upload warning, trying API route:', error.message);
   } catch (err) {
-    console.warn('Failed to upload post to Supabase:', err);
+    console.warn('Supabase client upload exception, trying API route:', err);
+  }
+
+  // 2. Server API route backup with service role key
+  try {
+    const res = await fetch('/api/admin/news', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'upsert', post }),
+    });
+    return res.ok;
+  } catch (apiErr) {
+    console.warn('API route news upload warning:', apiErr);
     return false;
   }
 }
@@ -497,48 +541,62 @@ export async function syncNewsFromSupabase(): Promise<NewsItem[]> {
 
   const p = (async () => {
     try {
-      const supabase = createClient();
-      const { data, error } = await supabase.from('news_posts').select('*').order('created_at', { ascending: false });
-      if (!error && data && data.length > 0) {
-        const remotePosts: NewsItem[] = data.map((item: any) => {
-          const { content, indexes: embeddedIndexes } = extractContentAndIndexes(item.content || '');
-          return {
-            id: item.id,
-            title: item.title,
-            slug: item.slug,
-            excerpt: item.excerpt,
-            content,
-            category: item.category,
-            author: item.author,
-            date: item.date,
-            readTime: item.read_time,
-            imageUrl: item.image_url,
-            featured: item.featured,
-            metaTitle: item.meta_title || undefined,
-            metaDescription: item.meta_description || undefined,
-            faqItems: Array.isArray(item.faq_items) ? item.faq_items : undefined,
-            indexes: Array.isArray(item.indexes) && item.indexes.length > 0 ? item.indexes : embeddedIndexes,
-          };
-        });
+      const deletedIds = getDeletedNewsIds();
+      let rawData: any[] = [];
 
-        // Non-destructive merge: preserve local-only posts created by admin
-        const localPosts = getNewsPosts();
-        const remoteIds = new Set(remotePosts.map((p) => p.id));
-        const remoteSlugs = new Set(remotePosts.map((p) => p.slug.toLowerCase()));
-
-        const localOnly = localPosts.filter((p) => !remoteIds.has(p.id) && !remoteSlugs.has(p.slug.toLowerCase()));
-
-        // Automatically push any local-only posts to Supabase in the background
-        if (localOnly.length > 0) {
-          for (const localPost of localOnly) {
-            syncSingleNewsPostToSupabase(localPost);
-          }
+      // 1. Try direct Supabase query
+      try {
+        const supabase = createClient();
+        const { data, error } = await supabase.from('news_posts').select('*').order('created_at', { ascending: false });
+        if (!error && Array.isArray(data) && data.length > 0) {
+          rawData = data;
         }
+      } catch (clientErr) {
+        console.warn('Client Supabase news fetch notice:', clientErr);
+      }
 
-        const merged = [...localOnly, ...remotePosts];
-        saveNewsPosts(merged);
+      // 2. Fallback to server API route if client query returned nothing
+      if (rawData.length === 0) {
+        try {
+          const apiRes = await fetch('/api/admin/news', { cache: 'no-store' });
+          if (apiRes.ok) {
+            const json = await apiRes.json();
+            if (json.success && Array.isArray(json.posts) && json.posts.length > 0) {
+              rawData = json.posts;
+            }
+          }
+        } catch (apiErr) {
+          console.warn('API route news fetch notice:', apiErr);
+        }
+      }
+
+      if (rawData.length > 0) {
+        const remotePosts: NewsItem[] = rawData
+          .map((item: any) => {
+            const { content, indexes: embeddedIndexes } = extractContentAndIndexes(item.content || '');
+            return {
+              id: item.id,
+              title: item.title,
+              slug: item.slug,
+              excerpt: item.excerpt,
+              content,
+              category: item.category,
+              author: item.author,
+              date: item.date,
+              readTime: item.read_time,
+              imageUrl: item.image_url,
+              featured: item.featured,
+              metaTitle: item.meta_title || undefined,
+              metaDescription: item.meta_description || undefined,
+              faqItems: Array.isArray(item.faq_items) ? item.faq_items : undefined,
+              indexes: Array.isArray(item.indexes) && item.indexes.length > 0 ? item.indexes : embeddedIndexes,
+            };
+          })
+          .filter((p) => !deletedIds.has(p.id));
+
+        saveNewsPosts(remotePosts);
         markSynced('news');
-        return merged;
+        return remotePosts;
       }
     } catch (e) {
       console.warn('Supabase news fetch skipped/fallback to local:', e);
@@ -559,11 +617,11 @@ export function addNewsPost(post: Omit<NewsItem, 'id'>): NewsItem {
     ...post,
     id: `news-${Date.now()}`,
   };
+  unmarkNewsIdDeleted(newPost.id);
   const updated = [newPost, ...posts];
   saveNewsPosts(updated);
   invalidateCmsCache('news');
 
-  // Async Supabase Sync & Live Broadcast
   if (typeof window !== 'undefined') {
     window.dispatchEvent(new CustomEvent('ahsora_cms_news_updated', { detail: newPost }));
     window.dispatchEvent(new Event('storage'));
@@ -573,7 +631,14 @@ export function addNewsPost(post: Omit<NewsItem, 'id'>): NewsItem {
   return newPost;
 }
 
+export async function addNewsPostAsync(post: Omit<NewsItem, 'id'>): Promise<NewsItem> {
+  const created = addNewsPost(post);
+  await syncSingleNewsPostToSupabase(created);
+  return created;
+}
+
 export function updateNewsPost(updatedPost: NewsItem): NewsItem {
+  unmarkNewsIdDeleted(updatedPost.id);
   const posts = getNewsPosts();
   const index = posts.findIndex((p) => p.id === updatedPost.id);
   const updated = index !== -1
@@ -591,18 +656,50 @@ export function updateNewsPost(updatedPost: NewsItem): NewsItem {
   return updatedPost;
 }
 
+export async function updateNewsPostAsync(updatedPost: NewsItem): Promise<NewsItem> {
+  const res = updateNewsPost(updatedPost);
+  await syncSingleNewsPostToSupabase(res);
+  return res;
+}
+
 export function deleteNewsPost(id: string) {
+  markNewsIdDeleted(id);
   const posts = getNewsPosts().filter((p) => p.id !== id);
   saveNewsPosts(posts);
   invalidateCmsCache('news');
 
   if (typeof window !== 'undefined') {
-    window.dispatchEvent(new CustomEvent('ahsora_cms_news_updated'));
+    window.dispatchEvent(new CustomEvent('ahsora_cms_news_updated', { detail: { deletedId: id } }));
     window.dispatchEvent(new Event('storage'));
-    const supabase = createClient();
-    supabase.from('news_posts').delete().eq('id', id).then(({ error }) => {
-      if (error) console.warn('Supabase news delete warning:', error.message);
+
+    // 1. Direct Supabase client delete
+    try {
+      const supabase = createClient();
+      supabase.from('news_posts').delete().eq('id', id).then(({ error }) => {
+        if (error) console.warn('Supabase news delete warning:', error.message);
+      });
+    } catch (e) {}
+
+    // 2. Server API route delete backup with service role
+    fetch('/api/admin/news', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'delete', id }),
+    }).catch((err) => console.warn('Server news delete notice:', err));
+  }
+}
+
+export async function deleteNewsPostAsync(id: string): Promise<boolean> {
+  deleteNewsPost(id);
+  try {
+    const res = await fetch('/api/admin/news', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'delete', id }),
     });
+    return res.ok;
+  } catch {
+    return true;
   }
 }
 
