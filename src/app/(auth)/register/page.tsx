@@ -507,7 +507,7 @@ export default function RegisterPage() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '116px 20px 60px',
+        padding: '175px 20px 60px',
         fontFamily: 'sans-serif',
       }}
     >

@@ -186,7 +186,7 @@
 /* Responsive Overrides */
 @media (max-width: 768px) {
   .courses-hero {
-    padding: 70px 0 50px;
+    padding: 170px 0 50px !important;
   }
   .prog-card {
     padding: 24px;

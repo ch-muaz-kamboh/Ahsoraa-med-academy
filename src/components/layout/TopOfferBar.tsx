@@ -362,32 +362,42 @@ export default function TopOfferBar() {
         @media (max-width: 640px) {
           .top-offer-container {
             flex-direction: column !important;
-            padding: 5px 12px 6px !important;
-            gap: 5px !important;
+            padding: 7px 12px 8px !important;
+            gap: 6px !important;
             min-height: auto !important;
+            position: relative !important;
           }
           .top-offer-row-main {
             width: 100% !important;
-            justify-content: space-between !important;
+            display: flex !important;
             align-items: center !important;
-            gap: 6px !important;
+            justify-content: flex-start !important;
+            gap: 8px !important;
+            padding-right: 28px !important;
           }
           .top-offer-badge {
-            font-size: 0.62rem !important;
-            padding: 2px 6px !important;
+            font-size: 0.65rem !important;
+            font-weight: 800 !important;
+            padding: 2px 7px !important;
+            border-radius: 9999px !important;
+            letter-spacing: 0.4px !important;
+            flex-shrink: 0 !important;
+            text-transform: uppercase !important;
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%) !important;
+            color: #FFFFFF !important;
           }
           .top-offer-title-wrap {
             flex: 1 1 auto !important;
-            overflow: hidden !important;
             min-width: 0 !important;
           }
           .top-offer-title {
-            font-size: 0.76rem !important;
-            white-space: nowrap !important;
-            overflow: hidden !important;
-            text-overflow: ellipsis !important;
+            font-size: 0.8125rem !important;
+            font-weight: 700 !important;
+            white-space: normal !important;
+            line-height: 1.25 !important;
+            color: #FFFFFF !important;
             display: block !important;
-            color: #5CED73 !important;
+            letter-spacing: -0.2px !important;
           }
           .top-offer-code-desktop {
             display: none !important;
@@ -396,23 +406,21 @@ export default function TopOfferBar() {
             display: none !important;
           }
           .top-offer-dismiss-mobile {
+            position: absolute !important;
+            top: 7px !important;
+            right: 8px !important;
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
-            width: 24px !important;
-            height: 24px !important;
+            width: 22px !important;
+            height: 22px !important;
             border-radius: 50% !important;
-            background: rgba(255, 255, 255, 0.1) !important;
-            border: 1px solid rgba(255, 255, 255, 0.16) !important;
-            color: rgba(255, 255, 255, 0.8) !important;
+            background: rgba(255, 255, 255, 0.15) !important;
+            border: 1px solid rgba(255, 255, 255, 0.25) !important;
+            color: #FFFFFF !important;
             cursor: pointer !important;
             padding: 0 !important;
             flex-shrink: 0 !important;
-            transition: all 0.15s ease !important;
-          }
-          .top-offer-dismiss-mobile:active {
-            background: rgba(255, 255, 255, 0.25) !important;
-            transform: scale(0.92) !important;
           }
           .top-offer-row-actions {
             width: 100% !important;
@@ -420,64 +428,49 @@ export default function TopOfferBar() {
             align-items: center !important;
             justify-content: space-between !important;
             gap: 6px !important;
+            flex-wrap: nowrap !important;
           }
           .top-offer-code-mobile {
             display: inline-flex !important;
             align-items: center !important;
-            gap: 3px !important;
-            font-size: 0.68rem !important;
+            gap: 4px !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
             padding: 3px 8px !important;
-            border-radius: 9999px !important;
+            border-radius: 6px !important;
+            background-color: rgba(245, 158, 11, 0.2) !important;
+            border: 1px solid rgba(245, 158, 11, 0.6) !important;
+            color: #FDE68A !important;
             flex-shrink: 0 !important;
           }
           .top-offer-countdown {
-            padding: 3px 8px !important;
-            gap: 3px !important;
-            border-radius: 9999px !important;
+            padding: 3px 7px !important;
+            gap: 2px !important;
+            border-radius: 6px !important;
+            background: rgba(0, 0, 0, 0.45) !important;
+            border: 1px solid rgba(255, 255, 255, 0.18) !important;
             flex-shrink: 0 !important;
           }
           .top-offer-timer-num {
-            font-size: 0.72rem !important;
+            font-size: 0.74rem !important;
+            font-weight: 700 !important;
+            color: #FFFFFF !important;
           }
           .top-offer-cta {
-            font-size: 0.72rem !important;
-            padding: 3px 10px !important;
-            border-radius: 9999px !important;
+            font-size: 0.74rem !important;
+            font-weight: 700 !important;
+            padding: 4px 10px !important;
+            border-radius: 6px !important;
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important;
+            color: #FFFFFF !important;
             flex-shrink: 0 !important;
-          }
-        }
-
-        /* ── Phones under 480px ── */
-        @media (max-width: 480px) {
-          .top-offer-timer-sec {
-            display: none !important;
+            box-shadow: 0 2px 6px rgba(16, 185, 129, 0.35) !important;
           }
           .top-offer-cta-full {
             display: none !important;
           }
           .top-offer-cta-short {
             display: inline !important;
-          }
-        }
-
-        /* ── Narrow Phones (<= 360px) ── */
-        @media (max-width: 360px) {
-          .top-offer-container {
-            padding: 4px 8px 5px !important;
-          }
-          .top-offer-title {
-            font-size: 0.7rem !important;
-          }
-          .top-offer-code-mobile {
-            font-size: 0.64rem !important;
-            padding: 2px 6px !important;
-          }
-          .top-offer-timer-num {
-            font-size: 0.66rem !important;
-          }
-          .top-offer-cta {
-            font-size: 0.66rem !important;
-            padding: 2px 7px !important;
           }
         }
       `}</style>

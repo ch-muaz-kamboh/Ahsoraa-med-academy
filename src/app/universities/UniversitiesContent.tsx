@@ -294,7 +294,7 @@ export default function UniversitiesContent({ initialCutoffStore }: { initialCut
     <div style={{ background: '#fff', minHeight: '100vh' }}>
 
       {/* ── 01 HERO ───────────────────────────────────────────── */}
-      <section className="universities-hero-section" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f2d1a 100%)', padding: '160px 0 80px', position: 'relative', overflow: 'hidden' }}>
+      <section className="universities-hero-section page-hero" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f2d1a 100%)', padding: '175px 0 80px', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
           <div style={{ position: 'absolute', top: '-80px', right: '-80px', width: '500px', height: '500px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(92,237,115,0.12) 0%, transparent 70%)' }} />
           <div style={{ position: 'absolute', bottom: '-60px', left: '-60px', width: '400px', height: '400px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(92,237,115,0.08) 0%, transparent 70%)' }} />
@@ -1657,7 +1657,7 @@ export default function UniversitiesContent({ initialCutoffStore }: { initialCut
       <style jsx global>{`
         @media (max-width: 768px) {
           .universities-hero-section {
-            padding-top: 110px !important;
+            padding-top: 175px !important;
             padding-bottom: 50px !important;
           }
         }

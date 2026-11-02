@@ -428,7 +428,7 @@ export default function ScholarshipsHubPage() {
           style={{
             background: 'linear-gradient(135deg, #022C22 0%, #064E3B 45%, #0B192C 100%)',
             color: '#FFFFFF',
-            padding: '116px 20px 60px',
+            padding: '175px 20px 60px',
             borderBottom: '1px solid #1E293B',
             position: 'relative',
             overflow: 'hidden',

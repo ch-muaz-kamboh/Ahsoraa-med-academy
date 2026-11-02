@@ -518,7 +518,7 @@ export default function HomePage() {
         className="home-hero-section"
         style={{
           backgroundColor: '#FFFFFF',
-          padding: 'calc(88px + var(--top-offer-bar-height, 0px)) 0 100px 0',
+          padding: '175px 0 100px 0',
           position: 'relative',
           overflow: 'hidden',
           borderBottom: '1px solid #E2E8F0',

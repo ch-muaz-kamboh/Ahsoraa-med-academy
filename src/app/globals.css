@@ -641,7 +641,7 @@ html[dir="rtl"] .portal-marquee-wrapper {
 
   /* Hero: stack columns & responsive styling */
   .home-hero-section {
-    padding-top: calc(76px + var(--top-offer-bar-height, 0px)) !important;
+    padding-top: 175px !important;
     padding-bottom: 50px !important;
   }
 
@@ -658,10 +658,14 @@ html[dir="rtl"] .portal-marquee-wrapper {
   .licensing-hero,
   .imat-hero,
   .visa-hero,
+  .course-detail-page,
+  .mock-tests-page,
+  .free-mock-page,
+  .legal-page-hero,
   .page-hero,
   .subpage-hero {
-    padding-top: calc(75px + var(--top-offer-bar-height, 68px)) !important;
-    padding-bottom: 45px !important;
+    padding-top: 175px !important;
+    padding-bottom: 50px !important;
     box-sizing: border-box !important;
   }
 

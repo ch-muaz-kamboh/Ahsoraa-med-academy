@@ -124,12 +124,12 @@ export default function ResourcesContent({ initialDocuments }: { initialDocument
 
       {/* ── FULL-WIDTH HERO SECTION: AHSORA IMAT RESOURCE LIBRARY ── */}
       <section
-        className="resources-hero-section"
+        className="resources-hero-section page-hero"
         style={{
           width: '100%',
           backgroundColor: '#042F2E',
           backgroundImage: 'linear-gradient(135deg, #022C22 0%, #064E3B 45%, #0F172A 100%)',
-          padding: '160px 20px 70px',
+          padding: '175px 20px 70px',
           color: '#FFFFFF',
           position: 'relative',
           overflow: 'hidden',
@@ -1192,7 +1192,7 @@ export default function ResourcesContent({ initialDocuments }: { initialDocument
       <style jsx global>{`
         @media (max-width: 768px) {
           .resources-hero-section {
-            padding-top: 110px !important;
+            padding-top: 175px !important;
             padding-bottom: 50px !important;
           }
         }

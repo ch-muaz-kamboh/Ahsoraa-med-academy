@@ -123,7 +123,7 @@ export default function NewsContent() {
         style={{
           background: 'linear-gradient(135deg, #064E3B 0%, #065F46 50%, #0F172A 100%)',
           color: '#FFFFFF',
-          padding: '116px 0 60px',
+          padding: '175px 0 60px',
           borderBottom: '1px solid #1E293B',
         }}
       >

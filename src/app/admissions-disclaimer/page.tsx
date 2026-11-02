@@ -71,10 +71,11 @@ export default function AdmissionsDisclaimerPage() {
       <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', paddingBottom: '80px' }}>
       {/* Header */}
       <div
+        className="legal-page-hero page-hero"
         style={{
           background: 'linear-gradient(135deg, #064E3B 0%, #065F46 50%, #0F172A 100%)',
           color: '#FFFFFF',
-          padding: '116px 20px 60px',
+          padding: '175px 20px 60px',
           borderBottom: '1px solid #334155',
         }}
       >

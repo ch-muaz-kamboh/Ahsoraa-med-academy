@@ -170,7 +170,7 @@ export default function FreeMockPage() {
   ══════════════════════════════════════════════════════════ */
   if (view === 'intro') {
     return (
-      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#FAFCFA', paddingTop: '115px' }}>
+      <div className="free-mock-page page-hero" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#FAFCFA', paddingTop: '175px' }}>
         <main style={{ flex: 1, paddingBottom: '80px' }}>
           {/* Breadcrumb Bar */}
           <div style={{ backgroundColor: '#FFFFFF', borderBottom: '1px solid #E2E8F0', padding: '14px 0' }}>
@@ -803,7 +803,7 @@ export default function FreeMockPage() {
     const answeredCount = Object.keys(answers).length;
 
     return (
-      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#F8FAFC', paddingTop: '115px' }}>
+      <div className="free-mock-page page-hero" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#F8FAFC', paddingTop: '175px' }}>
         <div className="container" style={{ flex: 1, marginTop: '20px', marginBottom: '60px', display: 'flex', flexDirection: 'column' }}>
           {/* Header Bar with synchronized timer and submit button */}
           <header
@@ -1296,7 +1296,7 @@ export default function FreeMockPage() {
      VIEW 3: RESULTS & ATTEMPTED MCQS REVIEW
   ══════════════════════════════════════════════════════════ */
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#FAFCFA', paddingTop: '115px' }}>
+    <div className="free-mock-page page-hero" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#FAFCFA', paddingTop: '175px' }}>
       <main className="container" style={{ flex: 1, marginTop: '24px', marginBottom: '60px' }}>
         <div style={{ maxWidth: '860px', margin: '0 auto' }}>
           {/* Top Result Score Card */}

@@ -17,7 +17,7 @@ export default function MockTestsPage() {
   }, []);
 
   return (
-    <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', paddingBottom: '80px' }}>
+    <div className="mock-tests-page page-hero" style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', paddingTop: '175px', paddingBottom: '80px' }}>
       <div className="container">
         {/* Header */}
         <div style={{ marginBottom: '36px', textAlign: 'center', maxWidth: '720px', margin: '0 auto 40px auto' }}>

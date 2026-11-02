@@ -151,7 +151,7 @@ export default function AboutPage() {
 
         @media (max-width: 900px) {
           .about-hero {
-            padding-top: 130px !important;
+            padding-top: 175px !important;
             padding-bottom: 56px !important;
           }
           .about-hero-grid { grid-template-columns: 1fr !important; }
@@ -175,7 +175,7 @@ export default function AboutPage() {
       <div style={{ backgroundColor: 'var(--bg-main)', minHeight: '100vh' }}>
 
         {/* ── 01 HERO ─────────────────────────────────────────────────────── */}
-        <section className="about-hero" style={{ position: 'relative', minHeight: '620px', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
+        <section className="about-hero page-hero" style={{ position: 'relative', padding: '175px 0 60px', overflow: 'hidden' }}>
           {/* Full-bleed background */}
           <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
             <Image src="/messina-university.jpg" alt="University of Messina, Italy" fill style={{ objectFit: 'cover', objectPosition: 'center 30%' }} priority sizes="100vw" />
