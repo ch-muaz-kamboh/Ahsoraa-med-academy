@@ -88,24 +88,15 @@ export default function GoogleTranslateLoader() {
 
     if (isNonEnglish) {
       loadScript();
-    } else {
-      // Defer loading on mobile/desktop until idle or user interaction
-      let timer: any;
-      if (typeof window !== 'undefined') {
-        const triggerHandler = () => {
-          loadScript();
-          window.removeEventListener('ahsora_trigger_translate', triggerHandler);
-        };
-        window.addEventListener('ahsora_trigger_translate', triggerHandler, { once: true });
-
-        if ('requestIdleCallback' in window) {
-          (window as any).requestIdleCallback(loadScript, { timeout: 4000 });
-        } else {
-          timer = setTimeout(loadScript, 3500);
-        }
-      }
+    } else if (typeof window !== 'undefined') {
+      // For English users, only load external Google scripts when the user explicitly triggers translation
+      const triggerHandler = () => {
+        loadScript();
+        window.removeEventListener('ahsora_trigger_translate', triggerHandler);
+      };
+      window.addEventListener('ahsora_trigger_translate', triggerHandler, { once: true });
       return () => {
-        if (timer) clearTimeout(timer);
+        window.removeEventListener('ahsora_trigger_translate', triggerHandler);
       };
     }
   }, [isExcluded]);

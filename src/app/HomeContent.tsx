@@ -725,6 +725,7 @@ export default function HomePage() {
                     src="/student-clinical-bp.jpg" 
                     alt="Medical student wearing white coat measuring blood pressure" 
                     fill 
+                    sizes="(max-width: 768px) 92vw, (max-width: 1200px) 45vw, 550px"
                     style={{ objectFit: 'cover' }} 
                     priority 
                   />
@@ -774,6 +775,8 @@ export default function HomePage() {
                     src="/student-clinical-injection.jpg" 
                     alt="Medical student in white coat preparing injection in hospital setting" 
                     fill 
+                    sizes="(max-width: 768px) 55vw, 320px"
+                    loading="lazy"
                     style={{ objectFit: 'cover' }} 
                   />
                   <div
@@ -821,6 +824,7 @@ export default function HomePage() {
                     alt="Ahsora Student Portal Dashboard"
                     width={300}
                     height={225}
+                    loading="lazy"
                     style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }}
                   />
                 </div>

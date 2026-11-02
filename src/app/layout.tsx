@@ -1,12 +1,45 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
+import dynamic from 'next/dynamic';
+import { Plus_Jakarta_Sans, Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import { AppProvider } from '@/lib/store';
 import { LanguageProvider } from '@/lib/i18n/LanguageContext';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-import SupportChatWidget from '@/components/chat/SupportChatWidget';
 import GoogleTranslateLoader from '@/components/common/GoogleTranslateLoader';
 import { SITE_URL, SITE_NAME, getOrganizationJsonLd, getWebSiteJsonLd } from '@/lib/seo-constants';
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-heading',
+  display: 'swap',
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-body',
+  display: 'swap',
+});
+
+const playfairDisplay = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['600', '700', '800', '900'],
+  style: ['normal', 'italic'],
+  variable: '--font-serif',
+  display: 'swap',
+});
+
+// Lazy-load floating chat widget in layout
+const SupportChatWidget = dynamic(() => import('@/components/chat/SupportChatWidget'));
+
+export const viewport: Viewport = {
+  themeColor: '#059669',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -94,12 +127,11 @@ export default function RootLayout({
   const webSiteJsonLd = getWebSiteJsonLd();
 
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${plusJakartaSans.variable} ${inter.variable} ${playfairDisplay.variable}`}
+    >
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}

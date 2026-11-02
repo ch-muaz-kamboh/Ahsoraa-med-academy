@@ -56,6 +56,30 @@ export interface DynamicPackagePrice {
   disabledNotice?: string;
 }
 
+// ── TTL & Request Deduplication Cache ──────────────────────────────────────
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes cache to prevent aggressive client queries
+const syncTimestamps: Record<string, number> = {};
+const pendingSyncs: Record<string, Promise<any>> = {};
+
+function shouldSkipSync(key: string): boolean {
+  const lastSync = syncTimestamps[key] || 0;
+  return Date.now() - lastSync < CACHE_TTL_MS;
+}
+
+function markSynced(key: string) {
+  syncTimestamps[key] = Date.now();
+}
+
+export function invalidateCmsCache(key?: string) {
+  if (key) {
+    delete syncTimestamps[key];
+    delete pendingSyncs[key];
+  } else {
+    for (const k of Object.keys(syncTimestamps)) delete syncTimestamps[k];
+    for (const k of Object.keys(pendingSyncs)) delete pendingSyncs[k];
+  }
+}
+
 // ── Initial Mock Data Fallbacks ──────────────────────────────────────────────
 
 const INITIAL_NEWS: NewsItem[] = [
@@ -468,53 +492,65 @@ export async function syncSingleNewsPostToSupabase(post: NewsItem): Promise<bool
 }
 
 export async function syncNewsFromSupabase(): Promise<NewsItem[]> {
-  try {
-    const supabase = createClient();
-    const { data, error } = await supabase.from('news_posts').select('*').order('created_at', { ascending: false });
-    if (!error && data && data.length > 0) {
-      const remotePosts: NewsItem[] = data.map((item: any) => {
-        const { content, indexes: embeddedIndexes } = extractContentAndIndexes(item.content || '');
-        return {
-          id: item.id,
-          title: item.title,
-          slug: item.slug,
-          excerpt: item.excerpt,
-          content,
-          category: item.category,
-          author: item.author,
-          date: item.date,
-          readTime: item.read_time,
-          imageUrl: item.image_url,
-          featured: item.featured,
-          metaTitle: item.meta_title || undefined,
-          metaDescription: item.meta_description || undefined,
-          faqItems: Array.isArray(item.faq_items) ? item.faq_items : undefined,
-          indexes: Array.isArray(item.indexes) && item.indexes.length > 0 ? item.indexes : embeddedIndexes,
-        };
-      });
+  if (shouldSkipSync('news')) return getNewsPosts();
+  if (pendingSyncs['news']) return pendingSyncs['news'];
 
-      // Non-destructive merge: preserve local-only posts created by admin
-      const localPosts = getNewsPosts();
-      const remoteIds = new Set(remotePosts.map((p) => p.id));
-      const remoteSlugs = new Set(remotePosts.map((p) => p.slug.toLowerCase()));
+  const p = (async () => {
+    try {
+      const supabase = createClient();
+      const { data, error } = await supabase.from('news_posts').select('*').order('created_at', { ascending: false });
+      if (!error && data && data.length > 0) {
+        const remotePosts: NewsItem[] = data.map((item: any) => {
+          const { content, indexes: embeddedIndexes } = extractContentAndIndexes(item.content || '');
+          return {
+            id: item.id,
+            title: item.title,
+            slug: item.slug,
+            excerpt: item.excerpt,
+            content,
+            category: item.category,
+            author: item.author,
+            date: item.date,
+            readTime: item.read_time,
+            imageUrl: item.image_url,
+            featured: item.featured,
+            metaTitle: item.meta_title || undefined,
+            metaDescription: item.meta_description || undefined,
+            faqItems: Array.isArray(item.faq_items) ? item.faq_items : undefined,
+            indexes: Array.isArray(item.indexes) && item.indexes.length > 0 ? item.indexes : embeddedIndexes,
+          };
+        });
 
-      const localOnly = localPosts.filter((p) => !remoteIds.has(p.id) && !remoteSlugs.has(p.slug.toLowerCase()));
+        // Non-destructive merge: preserve local-only posts created by admin
+        const localPosts = getNewsPosts();
+        const remoteIds = new Set(remotePosts.map((p) => p.id));
+        const remoteSlugs = new Set(remotePosts.map((p) => p.slug.toLowerCase()));
 
-      // Automatically push any local-only posts to Supabase in the background
-      if (localOnly.length > 0) {
-        for (const localPost of localOnly) {
-          syncSingleNewsPostToSupabase(localPost);
+        const localOnly = localPosts.filter((p) => !remoteIds.has(p.id) && !remoteSlugs.has(p.slug.toLowerCase()));
+
+        // Automatically push any local-only posts to Supabase in the background
+        if (localOnly.length > 0) {
+          for (const localPost of localOnly) {
+            syncSingleNewsPostToSupabase(localPost);
+          }
         }
-      }
 
-      const merged = [...localOnly, ...remotePosts];
-      saveNewsPosts(merged);
-      return merged;
+        const merged = [...localOnly, ...remotePosts];
+        saveNewsPosts(merged);
+        markSynced('news');
+        return merged;
+      }
+    } catch (e) {
+      console.warn('Supabase news fetch skipped/fallback to local:', e);
+    } finally {
+      delete pendingSyncs['news'];
     }
-  } catch (e) {
-    console.warn('Supabase news fetch skipped/fallback to local:', e);
-  }
-  return getNewsPosts();
+    markSynced('news');
+    return getNewsPosts();
+  })();
+
+  pendingSyncs['news'] = p;
+  return p;
 }
 
 export function addNewsPost(post: Omit<NewsItem, 'id'>): NewsItem {
@@ -525,6 +561,7 @@ export function addNewsPost(post: Omit<NewsItem, 'id'>): NewsItem {
   };
   const updated = [newPost, ...posts];
   saveNewsPosts(updated);
+  invalidateCmsCache('news');
 
   // Async Supabase Sync & Live Broadcast
   if (typeof window !== 'undefined') {
@@ -543,6 +580,7 @@ export function updateNewsPost(updatedPost: NewsItem): NewsItem {
     ? posts.map((p) => (p.id === updatedPost.id ? updatedPost : p))
     : [updatedPost, ...posts];
   saveNewsPosts(updated);
+  invalidateCmsCache('news');
 
   if (typeof window !== 'undefined') {
     window.dispatchEvent(new CustomEvent('ahsora_cms_news_updated', { detail: updatedPost }));
@@ -556,6 +594,7 @@ export function updateNewsPost(updatedPost: NewsItem): NewsItem {
 export function deleteNewsPost(id: string) {
   const posts = getNewsPosts().filter((p) => p.id !== id);
   saveNewsPosts(posts);
+  invalidateCmsCache('news');
 
   if (typeof window !== 'undefined') {
     window.dispatchEvent(new CustomEvent('ahsora_cms_news_updated'));
@@ -674,7 +713,9 @@ export function getTickerItems(): TickerItem[] {
   if (typeof window === 'undefined') return INITIAL_TICKER;
   try {
     const data = localStorage.getItem(TICKER_KEY);
-    return data ? JSON.parse(data) : INITIAL_TICKER;
+    if (!data) return INITIAL_TICKER;
+    const parsed: TickerItem[] = JSON.parse(data);
+    return Array.isArray(parsed) ? parsed.filter((item) => !item.id?.startsWith('cms_')) : INITIAL_TICKER;
   } catch {
     return INITIAL_TICKER;
   }
@@ -690,22 +731,36 @@ export function saveTickerItems(items: TickerItem[]) {
 }
 
 export async function syncTickerFromSupabase(): Promise<TickerItem[]> {
-  try {
-    const supabase = createClient();
-    const { data, error } = await supabase.from('ticker_items').select('*').order('created_at', { ascending: true });
-    if (!error && data && data.length > 0) {
-      const formatted: TickerItem[] = data.map((item: any) => ({
-        id: item.id,
-        text: item.text,
-        icon: item.icon || '✨',
-      }));
-      saveTickerItems(formatted);
-      return formatted;
+  if (shouldSkipSync('ticker')) return getTickerItems();
+  if (pendingSyncs['ticker']) return pendingSyncs['ticker'];
+
+  const p = (async () => {
+    try {
+      const supabase = createClient();
+      const { data, error } = await supabase.from('ticker_items').select('*').order('created_at', { ascending: true });
+      if (!error && data && data.length > 0) {
+        const formatted: TickerItem[] = data
+          .filter((item: any) => !item.id?.startsWith('cms_'))
+          .map((item: any) => ({
+            id: item.id,
+            text: item.text,
+            icon: item.icon || '✨',
+          }));
+        saveTickerItems(formatted);
+        markSynced('ticker');
+        return formatted;
+      }
+    } catch (e) {
+      console.warn('Supabase ticker fetch skipped/fallback:', e);
+    } finally {
+      delete pendingSyncs['ticker'];
     }
-  } catch (e) {
-    console.warn('Supabase ticker fetch skipped/fallback:', e);
-  }
-  return getTickerItems();
+    markSynced('ticker');
+    return getTickerItems();
+  })();
+
+  pendingSyncs['ticker'] = p;
+  return p;
 }
 
 export function addTickerItem(text: string, icon = '✨'): TickerItem {
@@ -713,6 +768,7 @@ export function addTickerItem(text: string, icon = '✨'): TickerItem {
   const newItem: TickerItem = { id: `t-${Date.now()}`, text, icon };
   const updated = [...items, newItem];
   saveTickerItems(updated);
+  invalidateCmsCache('ticker');
 
   if (typeof window !== 'undefined') {
     const supabase = createClient();
@@ -731,6 +787,7 @@ export function addTickerItem(text: string, icon = '✨'): TickerItem {
 export function deleteTickerItem(id: string) {
   const items = getTickerItems().filter((t) => t.id !== id);
   saveTickerItems(items);
+  invalidateCmsCache('ticker');
 
   if (typeof window !== 'undefined') {
     const supabase = createClient();
@@ -979,29 +1036,104 @@ export function saveDynamicPackagePrices(prices: DynamicPackagePrice[]) {
 }
 
 export async function syncPricesFromSupabase(): Promise<DynamicPackagePrice[]> {
-  try {
-    const supabase = createClient();
-    const { data, error } = await supabase.from('package_prices').select('*');
-    if (!error && data && data.length > 0) {
-      const formatted: DynamicPackagePrice[] = data.map((item: any) => ({
-        id: item.id,
-        name: item.name,
-        price: item.price,
-        numericPrice: Number(item.numeric_price),
-        originalPrice: item.original_price,
-        numericOriginalPrice: item.numeric_original_price ? Number(item.numeric_original_price) : undefined,
-        discountBadge: item.discount_badge,
-        isDiscountActive: item.is_discount_active ?? true,
-        isAvailable: item.is_available ?? true,
-        disabledNotice: item.disabled_notice || undefined,
-      }));
-      saveDynamicPackagePrices(formatted);
-      return formatted;
+  if (shouldSkipSync('prices')) return getDynamicPackagePrices();
+  if (pendingSyncs['prices']) return pendingSyncs['prices'];
+
+  const p = (async () => {
+    try {
+      const supabase = createClient();
+
+      // 1. Fetch package prices from Supabase
+      const { data, error } = await supabase.from('package_prices').select('*');
+
+      // 2. Fetch cross-device availability config from Supabase
+      let availabilityMap: Record<string, { isAvailable: boolean; disabledNotice?: string }> = {};
+      try {
+        const { data: availRow } = await supabase
+          .from('ticker_items')
+          .select('text')
+          .eq('id', 'cms_package_availability')
+          .maybeSingle();
+        if (availRow && availRow.text) {
+          availabilityMap = JSON.parse(availRow.text);
+        }
+      } catch (err) {
+        console.warn('Could not read package availability config from Supabase:', err);
+      }
+
+      // Always apply availabilityMap to local state if present
+      if (Object.keys(availabilityMap).length > 0) {
+        const currentPrices = getDynamicPackagePrices();
+        let changed = false;
+        const merged = currentPrices.map((p) => {
+          const cfg = availabilityMap[p.id];
+          if (cfg && typeof cfg.isAvailable === 'boolean') {
+            if (p.isAvailable !== cfg.isAvailable || (cfg.disabledNotice && p.disabledNotice !== cfg.disabledNotice)) {
+              changed = true;
+              return {
+                ...p,
+                isAvailable: cfg.isAvailable,
+                disabledNotice: cfg.disabledNotice || p.disabledNotice,
+              };
+            }
+          }
+          return p;
+        });
+        if (changed) {
+          saveDynamicPackagePrices(merged);
+        }
+      }
+
+      if (!error && data && data.length > 0) {
+        const localPrices = getDynamicPackagePrices();
+        const localMap = new Map(localPrices.map((p) => [p.id, p]));
+
+        const formatted: DynamicPackagePrice[] = data.map((item: any) => {
+          const availConfig = availabilityMap[item.id];
+          const localItem = localMap.get(item.id);
+
+          let isAvailable = true;
+          let disabledNotice = item.disabled_notice || undefined;
+
+          if (availConfig && typeof availConfig.isAvailable === 'boolean') {
+            isAvailable = availConfig.isAvailable;
+            if (availConfig.disabledNotice) disabledNotice = availConfig.disabledNotice;
+          } else if (typeof item.is_available === 'boolean') {
+            isAvailable = item.is_available;
+          } else if (localItem && typeof localItem.isAvailable === 'boolean') {
+            isAvailable = localItem.isAvailable;
+            if (localItem.disabledNotice) disabledNotice = localItem.disabledNotice;
+          }
+
+          return {
+            id: item.id,
+            name: item.name,
+            price: item.price,
+            numericPrice: Number(item.numeric_price),
+            originalPrice: item.original_price,
+            numericOriginalPrice: item.numeric_original_price ? Number(item.numeric_original_price) : undefined,
+            discountBadge: item.discount_badge,
+            isDiscountActive: item.is_discount_active ?? true,
+            isAvailable,
+            disabledNotice,
+          };
+        });
+
+        saveDynamicPackagePrices(formatted);
+        markSynced('prices');
+        return formatted;
+      }
+    } catch (e) {
+      console.warn('Supabase package prices fetch skipped/fallback:', e);
+    } finally {
+      delete pendingSyncs['prices'];
     }
-  } catch (e) {
-    console.warn('Supabase package prices fetch skipped/fallback:', e);
-  }
-  return getDynamicPackagePrices();
+    markSynced('prices');
+    return getDynamicPackagePrices();
+  })();
+
+  pendingSyncs['prices'] = p;
+  return p;
 }
 
 export function updatePackagePricing(
@@ -1041,10 +1173,13 @@ export function updatePackagePricing(
     return p;
   });
   saveDynamicPackagePrices(updated);
+  invalidateCmsCache('prices');
 
   if (typeof window !== 'undefined') {
     window.dispatchEvent(new CustomEvent('ahsora_cms_prices_updated', { detail: updated }));
     window.dispatchEvent(new CustomEvent('ahsora_cms_package_availability_updated', { detail: updated }));
+    window.dispatchEvent(new Event('storage'));
+
     const supabase = createClient();
     const target = updated.find((p) => p.id === id);
     if (target) {
@@ -1063,7 +1198,6 @@ export function updatePackagePricing(
         updated_at: new Date().toISOString(),
       }).then(({ error }) => {
         if (error) {
-          console.warn('Full pricing upsert note, falling back to base columns:', error.message);
           // 2. Fallback upsert without is_available/disabled_notice if table schema lacks them
           supabase.from('package_prices').upsert({
             id: target.id,
@@ -1097,11 +1231,34 @@ export function togglePackageAvailability(id: string, isAvailable: boolean, noti
     return p;
   });
   saveDynamicPackagePrices(updated);
+  invalidateCmsCache('prices');
 
   if (typeof window !== 'undefined') {
     window.dispatchEvent(new CustomEvent('ahsora_cms_prices_updated', { detail: updated }));
     window.dispatchEvent(new CustomEvent('ahsora_cms_package_availability_updated', { detail: updated }));
+    window.dispatchEvent(new Event('storage'));
+
+    // Build full availability map to persist to Supabase across all devices
+    const availMap: Record<string, { isAvailable: boolean; disabledNotice?: string }> = {};
+    for (const p of updated) {
+      availMap[p.id] = {
+        isAvailable: p.isAvailable !== false,
+        disabledNotice: p.disabledNotice,
+      };
+    }
+
     const supabase = createClient();
+
+    // 1. Cross-device storage in ticker_items (always accessible via anon key)
+    supabase.from('ticker_items').upsert({
+      id: 'cms_package_availability',
+      text: JSON.stringify(availMap),
+      icon: 'SYS_CONFIG',
+    }).then(({ error }) => {
+      if (error) console.warn('Supabase package availability ticker config notice:', error.message);
+    });
+
+    // 2. Attempt native column upsert
     const target = updated.find((p) => p.id === id);
     if (target) {
       supabase.from('package_prices').upsert({
@@ -1113,7 +1270,7 @@ export function togglePackageAvailability(id: string, isAvailable: boolean, noti
         disabled_notice: target.disabledNotice || null,
         updated_at: new Date().toISOString(),
       }).then(({ error }) => {
-        if (error) console.warn('Supabase package availability upsert warning:', error.message);
+        if (error) console.warn('Supabase package availability column note:', error.message);
       });
     }
   }
@@ -1193,31 +1350,76 @@ export function saveSaleOfferConfig(config: SaleOfferConfig) {
 }
 
 export async function syncSaleOfferFromSupabase(): Promise<SaleOfferConfig> {
-  try {
-    const supabase = createClient();
-    const { data, error } = await supabase.from('site_content').select('*').eq('id', 1).single();
-    if (!error && data && data.sale_offer_config) {
-      const parsed: SaleOfferConfig = data.sale_offer_config;
-      saveSaleOfferConfig(parsed);
-      return parsed;
+  if (shouldSkipSync('sale_offer')) return getSaleOfferConfig();
+  if (pendingSyncs['sale_offer']) return pendingSyncs['sale_offer'];
+
+  const p = (async () => {
+    try {
+      const supabase = createClient();
+
+      // 1. Fetch from cross-device ticker_items store (accessible by anon key on all devices)
+      try {
+        const { data: offerRow } = await supabase
+          .from('ticker_items')
+          .select('text')
+          .eq('id', 'cms_sale_offer_config')
+          .maybeSingle();
+        if (offerRow && offerRow.text) {
+          const parsed: SaleOfferConfig = JSON.parse(offerRow.text);
+          saveSaleOfferConfig(parsed);
+          markSynced('sale_offer');
+          return parsed;
+        }
+      } catch (err) {
+        console.warn('Could not read offer config from ticker_items:', err);
+      }
+
+      // 2. Fallback to site_content table
+      const { data, error } = await supabase.from('site_content').select('*').eq('id', 1).single();
+      if (!error && data && data.sale_offer_config) {
+        const parsed: SaleOfferConfig = data.sale_offer_config;
+        saveSaleOfferConfig(parsed);
+        markSynced('sale_offer');
+        return parsed;
+      }
+    } catch (e) {
+      console.warn('Supabase sale offer fetch skipped/fallback:', e);
+    } finally {
+      delete pendingSyncs['sale_offer'];
     }
-  } catch (e) {
-    console.warn('Supabase sale offer fetch skipped/fallback:', e);
-  }
-  return getSaleOfferConfig();
+    markSynced('sale_offer');
+    return getSaleOfferConfig();
+  })();
+
+  pendingSyncs['sale_offer'] = p;
+  return p;
 }
 
 export function updateSaleOfferConfig(config: SaleOfferConfig) {
   saveSaleOfferConfig(config);
+  invalidateCmsCache('sale_offer');
   if (typeof window !== 'undefined') {
     window.dispatchEvent(new CustomEvent('ahsora_cms_sale_offer_updated', { detail: config }));
+    window.dispatchEvent(new Event('storage'));
+
     const supabase = createClient();
+
+    // 1. Persist to cross-device ticker_items table so changes appear on mobile devices immediately
+    supabase.from('ticker_items').upsert({
+      id: 'cms_sale_offer_config',
+      text: JSON.stringify(config),
+      icon: 'SYS_CONFIG',
+    }).then(({ error }) => {
+      if (error) console.warn('Supabase offer config ticker upsert notice:', error.message);
+    });
+
+    // 2. Also attempt site_content column upsert
     supabase.from('site_content').upsert({
       id: 1,
       sale_offer_config: config,
       updated_at: new Date().toISOString(),
     }).then(({ error }) => {
-      if (error) console.warn('Supabase sale offer upsert notice:', error.message);
+      if (error) console.warn('Supabase sale offer column upsert note:', error.message);
     });
   }
 }
