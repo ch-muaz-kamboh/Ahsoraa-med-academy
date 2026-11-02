@@ -20,7 +20,7 @@ EXCEPTION
     WHEN duplicate_object THEN null;
 END $$;
 
--- 2. Profiles Table (Extends Supabase auth.users)
+-- 2. Profiles Table (Ensure columns exist on existing profiles table)
 CREATE TABLE IF NOT EXISTS public.profiles (
     id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
     email TEXT NOT NULL,
@@ -30,6 +30,10 @@ CREATE TABLE IF NOT EXISTS public.profiles (
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+-- Ensure account_type and is_active exist on existing profiles table
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS account_type TEXT DEFAULT 'student';
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS is_active BOOLEAN NOT NULL DEFAULT true;
 
 -- 3. Staff Roles Table
 CREATE TABLE IF NOT EXISTS public.staff_roles (
@@ -96,20 +100,27 @@ ALTER TABLE public.staff_roles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.staff_subject_assignments ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.staff_cohort_assignments ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.audit_logs ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.imat_mock_snapshots ENABLE ROW LEVEL SECURITY;
 
 -- 9. RLS Policies
--- Profiles: Users can read their own profile, staff/admin can read profiles
+DROP POLICY IF EXISTS "Users view own profile" ON public.profiles;
 CREATE POLICY "Users view own profile" ON public.profiles
     FOR SELECT USING (auth.uid() = id);
 
+DROP POLICY IF EXISTS "Staff view all profiles" ON public.profiles;
 CREATE POLICY "Staff view all profiles" ON public.profiles
     FOR SELECT USING (
         EXISTS (
-            SELECT 1 FROM public.profiles p WHERE p.id = auth.uid() AND p.account_type IN ('staff', 'admin')
+            SELECT 1 FROM public.profiles p 
+            WHERE p.id = auth.uid() 
+              AND (
+                (p.role IS NOT NULL AND p.role IN ('staff', 'admin', 'super_admin'))
+                OR (p.account_type IS NOT NULL AND p.account_type IN ('staff', 'admin'))
+              )
         )
     );
 
--- Audit logs: readable by super_admin only
+DROP POLICY IF EXISTS "Super Admins view audit logs" ON public.audit_logs;
 CREATE POLICY "Super Admins view audit logs" ON public.audit_logs
     FOR SELECT USING (
         EXISTS (
@@ -117,3 +128,15 @@ CREATE POLICY "Super Admins view audit logs" ON public.audit_logs
             WHERE sr.user_id = auth.uid() AND sr.role = 'super_admin'
         )
     );
+
+DROP POLICY IF EXISTS "Public read staff_roles" ON public.staff_roles;
+CREATE POLICY "Public read staff_roles" ON public.staff_roles FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public read staff_subject_assignments" ON public.staff_subject_assignments;
+CREATE POLICY "Public read staff_subject_assignments" ON public.staff_subject_assignments FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public read staff_cohort_assignments" ON public.staff_cohort_assignments;
+CREATE POLICY "Public read staff_cohort_assignments" ON public.staff_cohort_assignments FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public read imat_mock_snapshots" ON public.imat_mock_snapshots;
+CREATE POLICY "Public read imat_mock_snapshots" ON public.imat_mock_snapshots FOR SELECT USING (true);

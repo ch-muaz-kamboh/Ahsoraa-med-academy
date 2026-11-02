@@ -1,10 +1,10 @@
 -- =============================================================================
--- AHSORA MEDS ACADEMY - ALL PENDING MIGRATIONS
+-- AHSORA MEDS ACADEMY - ALL PENDING MIGRATIONS (FIXED & SAFE TO RUN)
 -- Copy and paste this into: Supabase Dashboard -> SQL Editor -> New Query -> Run
 -- =============================================================================
 
 -- -----------------------------------------------------------------------------
--- 1. CMS & Package Availability Columns (Migration 20261102_cms_add_columns.sql)
+-- 1. CMS & Package Availability Columns (Already applied or will be safely applied)
 -- -----------------------------------------------------------------------------
 ALTER TABLE public.package_prices 
 ADD COLUMN IF NOT EXISTS is_available BOOLEAN DEFAULT true,
@@ -14,7 +14,6 @@ ALTER TABLE public.site_content
 ADD COLUMN IF NOT EXISTS sale_offer_config JSONB,
 ADD COLUMN IF NOT EXISTS imat_ticker_config JSONB;
 
--- Ensure RLS policies allow public read/write for dynamic CMS features
 DO $$ BEGIN
   DROP POLICY IF EXISTS "Allow public write on package_prices" ON public.package_prices;
   CREATE POLICY "Allow public write on package_prices" ON public.package_prices FOR ALL USING (true);
@@ -28,7 +27,7 @@ EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 
 -- -----------------------------------------------------------------------------
--- 2. Staff Portal RBAC & Mock Snapshots (Migration 20260920_staff_portal_rbac.sql)
+-- 2. Staff Portal RBAC & Mock Snapshots (Fixed to handle existing profiles table)
 -- -----------------------------------------------------------------------------
 DO $$ BEGIN
     CREATE TYPE account_type_enum AS ENUM ('student', 'staff', 'admin');
@@ -47,6 +46,10 @@ DO $$ BEGIN
 EXCEPTION
     WHEN duplicate_object THEN null;
 END $$;
+
+-- Ensure account_type and is_active exist on existing profiles table
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS account_type TEXT DEFAULT 'student';
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS is_active BOOLEAN NOT NULL DEFAULT true;
 
 -- Staff Roles Table
 CREATE TABLE IF NOT EXISTS public.staff_roles (
@@ -114,22 +117,40 @@ ALTER TABLE public.staff_cohort_assignments ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.audit_logs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.imat_mock_snapshots ENABLE ROW LEVEL SECURITY;
 
-DO $$ BEGIN
-  CREATE POLICY "Public read staff_roles" ON public.staff_roles FOR SELECT USING (true);
-EXCEPTION WHEN OTHERS THEN NULL;
-END $$;
+DROP POLICY IF EXISTS "Users view own profile" ON public.profiles;
+CREATE POLICY "Users view own profile" ON public.profiles
+    FOR SELECT USING (auth.uid() = id);
 
-DO $$ BEGIN
-  CREATE POLICY "Public read staff_subject_assignments" ON public.staff_subject_assignments FOR SELECT USING (true);
-EXCEPTION WHEN OTHERS THEN NULL;
-END $$;
+DROP POLICY IF EXISTS "Staff view all profiles" ON public.profiles;
+CREATE POLICY "Staff view all profiles" ON public.profiles
+    FOR SELECT USING (
+        EXISTS (
+            SELECT 1 FROM public.profiles p 
+            WHERE p.id = auth.uid() 
+              AND (
+                (p.role IS NOT NULL AND p.role IN ('staff', 'admin', 'super_admin'))
+                OR (p.account_type IS NOT NULL AND p.account_type IN ('staff', 'admin'))
+              )
+        )
+    );
 
-DO $$ BEGIN
-  CREATE POLICY "Public read staff_cohort_assignments" ON public.staff_cohort_assignments FOR SELECT USING (true);
-EXCEPTION WHEN OTHERS THEN NULL;
-END $$;
+DROP POLICY IF EXISTS "Super Admins view audit logs" ON public.audit_logs;
+CREATE POLICY "Super Admins view audit logs" ON public.audit_logs
+    FOR SELECT USING (
+        EXISTS (
+            SELECT 1 FROM public.staff_roles sr 
+            WHERE sr.user_id = auth.uid() AND sr.role = 'super_admin'
+        )
+    );
 
-DO $$ BEGIN
-  CREATE POLICY "Public read imat_mock_snapshots" ON public.imat_mock_snapshots FOR SELECT USING (true);
-EXCEPTION WHEN OTHERS THEN NULL;
-END $$;
+DROP POLICY IF EXISTS "Public read staff_roles" ON public.staff_roles;
+CREATE POLICY "Public read staff_roles" ON public.staff_roles FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public read staff_subject_assignments" ON public.staff_subject_assignments;
+CREATE POLICY "Public read staff_subject_assignments" ON public.staff_subject_assignments FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public read staff_cohort_assignments" ON public.staff_cohort_assignments;
+CREATE POLICY "Public read staff_cohort_assignments" ON public.staff_cohort_assignments FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public read imat_mock_snapshots" ON public.imat_mock_snapshots;
+CREATE POLICY "Public read imat_mock_snapshots" ON public.imat_mock_snapshots FOR SELECT USING (true);
