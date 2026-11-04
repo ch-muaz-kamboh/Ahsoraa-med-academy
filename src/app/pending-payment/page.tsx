@@ -79,7 +79,7 @@ function PendingPaymentContent() {
         currentData = {
           ...currentData,
           selectedPackage: queryPkgName,
-          packagePrice: queryPrice || currentData?.packagePrice,
+          packagePrice: queryPrice || currentData?.packagePrice || getPackageByIdOrName(queryPkgName).price,
         };
       }
 
@@ -279,9 +279,10 @@ function PendingPaymentContent() {
     );
   }
 
-  const matchedPkg: CoursePackage = getPackageByIdOrName(studentDetails?.selectedPackage);
-  const pkgPrice = studentDetails?.packagePrice || matchedPkg.price;
-  const pkgName = studentDetails?.selectedPackage || matchedPkg.name;
+  const effectivePackageName = queryPkgName || studentDetails?.selectedPackage || studentDetails?.selected_package;
+  const matchedPkg: CoursePackage = getPackageByIdOrName(effectivePackageName);
+  const pkgName = matchedPkg.name;
+  const pkgPrice = queryPrice || studentDetails?.packagePrice || studentDetails?.package_price || matchedPkg.price;
 
   return (
     <div

@@ -9,11 +9,25 @@ export default function StaffStudentsPage() {
 
   const loadStudents = async () => {
     setLoading(true);
+    // 1. One-time clean out of legacy mock/placeholder accounts from client storage
+    if (typeof window !== 'undefined') {
+      try {
+        if (localStorage.getItem('ahsora_cleanup_v7') !== 'true') {
+          localStorage.removeItem('adminStudentList');
+          localStorage.removeItem('ahsora_cached_admin_students');
+          localStorage.setItem('ahsora_cleanup_v7', 'true');
+        }
+      } catch (e) { }
+    }
+
     try {
-      const res = await fetch(`/api/admin/students?t=${Date.now()}`, { cache: 'no-store' });
+      const res = await fetch(`/api/admin/students?t=${Date.now()}`, {
+        cache: 'no-store',
+        headers: { 'Cache-Control': 'no-cache, no-store' },
+      });
       if (res.ok) {
         const json = await res.json();
-        if (json.success && Array.isArray(json.students)) {
+        if (json.success && Array.isArray(json.students) && json.students.length > 0) {
           setStudents(json.students);
           setLoading(false);
           return;
@@ -126,9 +140,28 @@ export default function StaffStudentsPage() {
                       {stu.email} {stu.ama_id ? `• ID: ${stu.ama_id}` : ''}
                     </div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px', fontSize: '0.8rem', color: '#475569' }}>
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                        <Package size={13} color="#059669" /> <strong>{pkg}</strong> {price ? `(${price})` : ''}
-                      </span>
+                      {(() => {
+                        const isElite = pkg.toLowerCase().includes('elite');
+                        const isMastery = pkg.toLowerCase().includes('mastery');
+                        return (
+                          <span
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '6px',
+                              padding: '3px 8px',
+                              borderRadius: '6px',
+                              backgroundColor: isElite ? '#FFF7ED' : isMastery ? '#F0FFF4' : '#F0F9FF',
+                              border: `1px solid ${isElite ? '#FED7AA' : isMastery ? '#BBF7D0' : '#BAE6FD'}`,
+                              color: isElite ? '#C2410C' : isMastery ? '#047857' : '#0369A1',
+                              fontWeight: 700,
+                            }}
+                          >
+                            <Package size={13} color={isElite ? '#EA580C' : isMastery ? '#059669' : '#0284C7'} />
+                            <span>{pkg}</span> {price ? <span style={{ opacity: 0.85 }}>({price})</span> : ''}
+                          </span>
+                        );
+                      })()}
                       <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                         <Globe size={13} color="#64748B" /> {country}
                       </span>

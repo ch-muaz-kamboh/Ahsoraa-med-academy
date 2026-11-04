@@ -268,15 +268,16 @@ export default function AdminStudentsPage() {
     // 1. One-time clean out of legacy mock/placeholder accounts from client storage
     if (typeof window !== 'undefined') {
       try {
-        if (localStorage.getItem('ahsora_cleanup_v6') !== 'true') {
+        if (localStorage.getItem('ahsora_cleanup_v7') !== 'true') {
           localStorage.removeItem('ahsora_cached_admin_students');
           localStorage.removeItem('adminStudentList');
-          localStorage.setItem('ahsora_cleanup_v6', 'true');
+          localStorage.setItem('ahsora_cleanup_v7', 'true');
         }
       } catch (e) { }
     }
 
     // 1. Fetch live accounts directly from Server API Route (Supabase Auth, profiles, and enrolled leads)
+    let apiFetched = false;
     try {
       const res = await fetch('/api/admin/students', {
         cache: 'no-store',
@@ -286,36 +287,41 @@ export default function AdminStudentsPage() {
         const json = await res.json();
         if (json.success && Array.isArray(json.students) && json.students.length > 0) {
           json.students.forEach((st: any) => mergeIn(st, true));
+          apiFetched = true;
         }
       }
     } catch (apiErr) {
       console.warn('API /api/admin/students fetch note:', apiErr);
     }
 
-    // 2. Supplementary: load from adminStudentList (exact client registration records)
-    try {
-      const localListStr = localStorage.getItem('adminStudentList');
-      if (localListStr) {
-        const localList: any[] = JSON.parse(localListStr);
-        if (Array.isArray(localList)) localList.forEach((st) => mergeIn(st, false));
-      }
-    } catch (e) { }
+    // Only if API failed (offline / network error), fallback to cached local lists
+    if (!apiFetched) {
+      try {
+        const localListStr = localStorage.getItem('adminStudentList');
+        if (localListStr) {
+          const localList: any[] = JSON.parse(localListStr);
+          if (Array.isArray(localList)) localList.forEach((st) => mergeIn(st, false));
+        }
+      } catch (e) { }
 
-    // 3. Supplementary: load from recentRegistration
+      try {
+        const cachedStr = localStorage.getItem('ahsora_cached_admin_students');
+        if (cachedStr) {
+          const list: any[] = JSON.parse(cachedStr);
+          if (Array.isArray(list)) list.forEach((st) => mergeIn(st, false));
+        }
+      } catch (e) { }
+    }
+
+    // Supplementary: load recentRegistration only if not already in studentMap
     try {
       const recentStr = localStorage.getItem('recentRegistration');
       if (recentStr) {
         const r = JSON.parse(recentStr);
-        if (r.email) mergeIn(r, false);
-      }
-    } catch (e) { }
-
-    // 4. Supplementary: load from ahsora_cached_admin_students
-    try {
-      const cachedStr = localStorage.getItem('ahsora_cached_admin_students');
-      if (cachedStr) {
-        const list: any[] = JSON.parse(cachedStr);
-        if (Array.isArray(list)) list.forEach((st) => mergeIn(st, false));
+        const em = (r.email || '').toLowerCase().trim();
+        if (em && !studentMap.has(em)) {
+          mergeIn(r, false);
+        }
       }
     } catch (e) { }
 
@@ -383,139 +389,6 @@ export default function AdminStudentsPage() {
       window.removeEventListener('ahsora_student_registered', handleSyncEvent);
     };
   }, [fetchStudents]);
-
-  const handleUpdatePackage = (studentId: string, studentEmail: string | undefined, newPkgName: string) => {
-    const matched = getPackageByIdOrName(newPkgName);
-    const newPrice = matched.price;
-
-    // Update in students state and cache
-    setStudents((prev) => {
-      const updated = prev.map((s) => {
-        if (s.id === studentId || (studentEmail && s.email && s.email.toLowerCase() === studentEmail.toLowerCase())) {
-          return {
-            ...s,
-            selected_package: matched.name,
-            selectedPackage: matched.name,
-            package_price: newPrice,
-            packagePrice: newPrice,
-          };
-        }
-        return s;
-      });
-      try {
-        localStorage.setItem('ahsora_cached_admin_students', JSON.stringify(updated));
-      } catch (e) { }
-      return updated;
-    });
-
-    // If viewing this student in modal, update modal view as well
-    setViewingStudent((prev) => {
-      if (prev && (prev.id === studentId || (studentEmail && prev.email && prev.email.toLowerCase() === studentEmail.toLowerCase()))) {
-        return {
-          ...prev,
-          selected_package: matched.name,
-          selectedPackage: matched.name,
-          package_price: newPrice,
-          packagePrice: newPrice,
-        };
-      }
-      return prev;
-    });
-
-    if (studentEmail) {
-      saveStudentPackageMapping(studentEmail, matched.name, newPrice);
-    }
-
-    // Update adminStudentList in localStorage
-    try {
-      const localListStr = localStorage.getItem('adminStudentList');
-      const localList: any[] = localListStr ? JSON.parse(localListStr) : [];
-      const foundIdx = localList.findIndex(
-        (item) => (item.id && item.id === studentId) || (studentEmail && item.email && item.email.toLowerCase() === studentEmail.toLowerCase())
-      );
-      if (foundIdx !== -1) {
-        localList[foundIdx].selectedPackage = matched.name;
-        localList[foundIdx].selected_package = matched.name;
-        localList[foundIdx].packagePrice = newPrice;
-        localList[foundIdx].package_price = newPrice;
-      } else {
-        localList.push({
-          id: studentId,
-          email: studentEmail,
-          selectedPackage: matched.name,
-          packagePrice: newPrice,
-        });
-      }
-      localStorage.setItem('adminStudentList', JSON.stringify(localList));
-    } catch (e) { }
-
-    // If changing to Elite, add to ahsora_elite_students
-    try {
-      const eliteStr = localStorage.getItem('ahsora_elite_students');
-      const eliteList: any[] = eliteStr ? JSON.parse(eliteStr) : [];
-      const emailLower = (studentEmail || '').toLowerCase().trim();
-      const existingEliteIdx = eliteList.findIndex((el) => (el.email || '').toLowerCase().trim() === emailLower);
-
-      if (matched.id === 'elite') {
-        if (existingEliteIdx === -1) {
-          eliteList.unshift({
-            id: `elite-${Date.now()}`,
-            studentId: studentId,
-            studentName: studentEmail || 'Elite Student',
-            email: studentEmail || '',
-            registeredAt: new Date().toISOString(),
-            stages: {
-              pre_enrollment: 'pending',
-              dov_submission: 'pending',
-              university_application: 'pending',
-              admission_decision: 'pending',
-              visa_process: 'pending',
-              housing_arrival: 'pending',
-            },
-          });
-          localStorage.setItem('ahsora_elite_students', JSON.stringify(eliteList));
-          window.dispatchEvent(new Event('ahsora_elite_updated'));
-        }
-      } else {
-        // If changed to non-elite, remove from elite list
-        if (existingEliteIdx !== -1) {
-          eliteList.splice(existingEliteIdx, 1);
-          localStorage.setItem('ahsora_elite_students', JSON.stringify(eliteList));
-          window.dispatchEvent(new Event('ahsora_elite_updated'));
-        }
-      }
-    } catch (e) { }
-
-    // If current logged in student is this user, update ahsora_currentUser
-    try {
-      const savedUserStr = localStorage.getItem('ahsora_currentUser');
-      if (savedUserStr) {
-        const savedUser = JSON.parse(savedUserStr);
-        if (studentEmail && savedUser.email && savedUser.email.toLowerCase().trim() === studentEmail.toLowerCase().trim()) {
-          savedUser.selectedPackage = matched.name;
-          savedUser.packagePrice = newPrice;
-          localStorage.setItem('ahsora_currentUser', JSON.stringify(savedUser));
-        }
-      }
-    } catch (e) { }
-
-    // Persist to Server API Route (Supabase Auth metadata & profiles)
-    try {
-      fetch('/api/admin/students', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          studentId,
-          studentEmail,
-          selectedPackage: matched.name,
-          packagePrice: newPrice,
-        }),
-      }).catch((e) => console.warn('API update package error:', e));
-    } catch (e) { }
-
-    window.dispatchEvent(new Event('ahsora_student_updated'));
-    window.dispatchEvent(new Event('storage'));
-  };
 
   const toggleApproval = async (studentId: string, currentStatus: boolean, studentEmail?: string) => {
     setUpdating(studentId);
@@ -884,7 +757,7 @@ export default function AdminStudentsPage() {
         </button>
 
         <button
-          onClick={fetchStudents}
+          onClick={() => fetchStudents(true)}
           style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '11px 20px', borderRadius: '10px', border: '1px solid #CBD5E1', backgroundColor: '#FFF', cursor: 'pointer', fontWeight: 600, color: '#475569', fontSize: '0.9375rem' }}
         >
           <RefreshCw size={16} /> Refresh Data
@@ -953,46 +826,23 @@ export default function AdminStudentsPage() {
                           <div style={{
                             display: 'inline-flex',
                             alignItems: 'center',
-                            gap: '6px',
-                            backgroundColor: matchedPkg.id === 'elite' ? '#FFF7ED' : matchedPkg.id === 'mastery' ? '#F0FFF4' : '#F0FFF4',
-                            border: `1px solid ${matchedPkg.id === 'elite' ? '#FED7AA' : matchedPkg.id === 'mastery' ? '#BBF7D0' : '#BBF7D0'}`,
-                            padding: '6px 10px',
+                            gap: '8px',
+                            backgroundColor: matchedPkg.id === 'elite' ? '#FFF7ED' : matchedPkg.id === 'mastery' ? '#F0FFF4' : '#F0F9FF',
+                            border: `1px solid ${matchedPkg.id === 'elite' ? '#FED7AA' : matchedPkg.id === 'mastery' ? '#BBF7D0' : '#BAE6FD'}`,
+                            padding: '8px 12px',
                             borderRadius: '10px',
                             width: 'fit-content',
                           }}>
-                            <Package size={15} color={matchedPkg.id === 'elite' ? '#EA580C' : '#059669'} />
+                            <Package size={16} color={matchedPkg.id === 'elite' ? '#EA580C' : matchedPkg.id === 'mastery' ? '#059669' : '#0284C7'} />
                             <div>
-                              <div style={{ fontWeight: 800, fontSize: '0.8125rem', color: matchedPkg.id === 'elite' ? '#C2410C' : '#047857' }}>
+                              <div style={{ fontWeight: 800, fontSize: '0.8125rem', color: matchedPkg.id === 'elite' ? '#C2410C' : matchedPkg.id === 'mastery' ? '#047857' : '#0369A1' }}>
                                 {matchedPkg.name}
                               </div>
-                              <div style={{ fontSize: '0.75rem', fontWeight: 900, color: matchedPkg.id === 'elite' ? '#EA580C' : '#059669' }}>
+                              <div style={{ fontSize: '0.75rem', fontWeight: 900, color: matchedPkg.id === 'elite' ? '#EA580C' : matchedPkg.id === 'mastery' ? '#059669' : '#0284C7' }}>
                                 Amount: {pkgPrice}
                               </div>
                             </div>
                           </div>
-
-                          {/* Package Selector to allow Admin to sync/update package */}
-                          <select
-                            value={matchedPkg.name}
-                            onChange={(e) => handleUpdatePackage(student.id, student.email, e.target.value)}
-                            style={{
-                              fontSize: '0.75rem',
-                              fontWeight: 700,
-                              padding: '4px 8px',
-                              borderRadius: '6px',
-                              border: '1px solid #CBD5E1',
-                              backgroundColor: '#F8FAFC',
-                              color: '#334155',
-                              cursor: 'pointer',
-                              width: 'fit-content',
-                            }}
-                          >
-                            {ACADEMY_PACKAGES.map((p) => (
-                              <option key={p.id} value={p.name}>
-                                {p.name} ({p.price})
-                              </option>
-                            ))}
-                          </select>
                         </div>
                       </td>
 

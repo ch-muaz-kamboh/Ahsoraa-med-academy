@@ -110,7 +110,7 @@ const COUNTRY_DIAL_CODES: CountryDialCode[] = [
 
 const COUNTRIES = COUNTRY_DIAL_CODES.map((c) => c.name);
 
-export function RegisterContent() {
+function RegisterContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const urlPkgParam = searchParams ? searchParams.get('package') : null;

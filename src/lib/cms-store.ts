@@ -59,7 +59,7 @@ export interface DynamicPackagePrice {
 // ── TTL & Request Deduplication Cache ──────────────────────────────────────
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes cache to prevent aggressive client queries
 const syncTimestamps: Record<string, number> = {};
-const pendingSyncs: Record<string, Promise<any>> = {};
+const pendingSyncs: Record<string, Promise<any> | undefined> = {};
 
 function shouldSkipSync(key: string): boolean {
   const lastSync = syncTimestamps[key] || 0;
