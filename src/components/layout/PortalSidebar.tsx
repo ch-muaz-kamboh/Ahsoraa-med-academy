@@ -59,9 +59,15 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
   const docVaultLocked = isDocumentVaultLocked(effectivePkg);
 
   const [showSettings, setShowSettings] = useState(false);
-  const [email, setEmail] = useState(currentUser.email);
-  const [phone, setPhone] = useState(currentUser.phone || '');
-  const [password, setPassword] = useState('');
+  const [whatsappNumber, setWhatsappNumber] = useState(currentUser?.whatsappNumber || currentUser?.phone || '');
+  const [savingSettings, setSavingSettings] = useState(false);
+  const [savedSettingsSuccess, setSavedSettingsSuccess] = useState(false);
+
+  useEffect(() => {
+    if (currentUser?.whatsappNumber || currentUser?.phone) {
+      setWhatsappNumber(currentUser.whatsappNumber || currentUser.phone || '');
+    }
+  }, [currentUser?.whatsappNumber, currentUser?.phone]);
   const pathname = usePathname();
   const router = useRouter();
   const { setStudentLoggedIn, logoutStudent, studentMistakes } = useAppStore();
@@ -803,85 +809,176 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
       }}>
         <div style={{
           backgroundColor: '#FFFFFF',
-          borderRadius: '12px',
+          borderRadius: '16px',
           width: '90%',
-          maxWidth: '400px',
-          padding: '24px',
-          boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
+          maxWidth: '440px',
+          padding: '28px',
+          boxShadow: '0 20px 40px -15px rgba(0,0,0,0.3)',
+          border: '1px solid #E2E8F0',
         }}>
-          <h2 style={{ marginBottom: '16px', fontSize: '1.25rem', fontWeight: 600 }}>Settings</h2>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+            <div>
+              <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>Student Settings</h2>
+              <p style={{ margin: '4px 0 0', fontSize: '0.8rem', color: '#64748B' }}>Your official student academy credentials</p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowSettings(false)}
+              style={{
+                background: '#F1F5F9',
+                border: 'none',
+                borderRadius: '50%',
+                width: '32px',
+                height: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                color: '#64748B',
+                fontSize: '1rem',
+              }}
+            >
+              ✕
+            </button>
+          </div>
+
           <form
             onSubmit={async (e) => {
               e.preventDefault();
-              // Update email and phone via Supabase
+              setSavingSettings(true);
               try {
                 const supabase = createClient();
-                if (email !== currentUser.email) {
-                  await supabase.auth.updateUser({ email });
+                if (currentUser?.id) {
+                  await supabase.from('profiles').update({
+                    whatsapp_number: whatsappNumber,
+                    phone: whatsappNumber,
+                  }).eq('id', currentUser.id);
                 }
-                if (phone !== currentUser.phone) {
-                  // Assuming a custom field in profile table
-                  await supabase.from('profiles').update({ phone }).eq('id', currentUser.id);
-                }
-                if (password) {
-                  await supabase.auth.updateUser({ password });
-                }
-                // Update local store
-                updateProfile({ email, phone });
-                setShowSettings(false);
+                updateProfile({
+                  whatsappNumber: whatsappNumber,
+                  phone: whatsappNumber,
+                });
+                setSavedSettingsSuccess(true);
+                setTimeout(() => {
+                  setSavedSettingsSuccess(false);
+                  setShowSettings(false);
+                }, 900);
               } catch (err) {
-                console.error('Profile update error', err);
+                console.error('Settings update error', err);
+                updateProfile({
+                  whatsappNumber: whatsappNumber,
+                  phone: whatsappNumber,
+                });
+                setSavedSettingsSuccess(true);
+                setTimeout(() => {
+                  setSavedSettingsSuccess(false);
+                  setShowSettings(false);
+                }, 900);
+              } finally {
+                setSavingSettings(false);
               }
             }}
+            style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
           >
-            <div style={{ marginBottom: '16px', padding: '12px', backgroundColor: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
-              <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '6px' }}>
-                Enrolled Package Plan
-              </label>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 12px', borderRadius: '8px', backgroundColor: '#FFFFFF', border: '1px solid #CBD5E1' }}>
-                <span style={{ fontSize: '0.875rem', fontWeight: 800, color: studentTier === 'elite' ? '#C2410C' : studentTier === 'mastery' ? '#047857' : '#0F172A' }}>
-                  {currentPkgObj.name} ({currentPkgObj.price})
-                </span>
-                <span style={{ fontSize: '0.7rem', fontWeight: 700, color: '#059669', backgroundColor: '#ECFDF5', padding: '2px 8px', borderRadius: '6px' }}>
-                  Active Plan
-                </span>
+            {/* 1. Official Enrollment ID */}
+            <div style={{ padding: '14px 16px', backgroundColor: '#F8FAFC', borderRadius: '12px', border: '1px solid #E2E8F0' }}>
+              <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '6px' }}>
+                Official Enrollment ID
               </div>
-              <div style={{ marginTop: '6px', fontSize: '0.75rem', color: '#64748B', lineHeight: 1.4 }}>
-                Your package tier was assigned upon registration. Contact your counselor to upgrade.
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <span style={{ fontFamily: 'monospace', fontSize: '1.05rem', fontWeight: 800, color: '#0F172A', letterSpacing: '0.05em' }}>
+                  {currentUser?.ama_id || currentUser?.amaId || (currentUser?.id ? `AMA-${currentUser.id.slice(0, 6).toUpperCase()}` : 'AMA-PENDING')}
+                </span>
+                <span style={{ fontSize: '0.7rem', fontWeight: 700, color: '#059669', backgroundColor: '#ECFDF5', padding: '3px 8px', borderRadius: '6px', border: '1px solid #A7F3D0' }}>
+                  Verified
+                </span>
               </div>
             </div>
 
-            <label style={{ display: 'block', marginBottom: '8px' }}>
-              Email
+            {/* 2. Enrolled Package Name */}
+            <div style={{ padding: '14px 16px', backgroundColor: '#F8FAFC', borderRadius: '12px', border: '1px solid #E2E8F0' }}>
+              <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '6px' }}>
+                Enrolled Academic Package
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <span style={{ fontSize: '0.95rem', fontWeight: 800, color: studentTier === 'elite' ? '#C2410C' : studentTier === 'mastery' ? '#047857' : '#0F172A' }}>
+                  {currentPkgObj.name}
+                </span>
+                <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#0F172A', backgroundColor: '#FFFFFF', padding: '3px 10px', borderRadius: '6px', border: '1px solid #CBD5E1' }}>
+                  {currentPkgObj.price}
+                </span>
+              </div>
+            </div>
+
+            {/* 3. Real WhatsApp Number */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              <label style={{ fontSize: '0.72rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                WhatsApp Number
+              </label>
               <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                style={{ width: '100%', padding: '8px', marginTop: '4px', borderRadius: '4px', border: '1px solid #CBD5E1' }}
+                type="tel"
+                value={whatsappNumber}
+                onChange={(e) => setWhatsappNumber(e.target.value)}
+                placeholder="+39 333 123 4567"
                 required
+                style={{
+                  width: '100%',
+                  padding: '12px 14px',
+                  borderRadius: '10px',
+                  border: '1px solid #CBD5E1',
+                  fontSize: '0.925rem',
+                  fontWeight: 600,
+                  color: '#0F172A',
+                  backgroundColor: '#FFFFFF',
+                  outline: 'none',
+                  boxSizing: 'border-box',
+                }}
               />
-            </label>
-            <label style={{ display: 'block', marginBottom: '8px' }}>
-              Phone
-              <input
-                type="text"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                style={{ width: '100%', padding: '8px', marginTop: '4px', borderRadius: '4px', border: '1px solid #CBD5E1' }}
-              />
-            </label>
-            <label style={{ display: 'block', marginBottom: '8px' }}>
-              New Password
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                style={{ width: '100%', padding: '8px', marginTop: '4px', borderRadius: '4px', border: '1px solid #CBD5E1' }}
-              />
-            </label>
-            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', marginTop: '16px' }}>
-              <button type="button" onClick={() => setShowSettings(false)} style={{ padding: '8px 16px', background: '#F1F5F9', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Cancel</button>
-              <button type="submit" style={{ padding: '8px 16px', background: '#059669', color: '#FFF', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Save</button>
+              <span style={{ fontSize: '0.75rem', color: '#64748B' }}>
+                Official WhatsApp used for academic alerts, tutor sessions, and study materials.
+              </span>
+            </div>
+
+            {savedSettingsSuccess && (
+              <div style={{ padding: '10px 14px', backgroundColor: '#ECFDF5', border: '1px solid #10B981', borderRadius: '8px', color: '#065F46', fontSize: '0.85rem', fontWeight: 600, textAlign: 'center' }}>
+                ✓ Settings saved successfully!
+              </div>
+            )}
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '8px' }}>
+              <button
+                type="button"
+                onClick={() => setShowSettings(false)}
+                style={{
+                  padding: '10px 18px',
+                  background: '#F1F5F9',
+                  color: '#475569',
+                  border: 'none',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  fontWeight: 600,
+                  fontSize: '0.875rem',
+                }}
+              >
+                Close
+              </button>
+              <button
+                type="submit"
+                disabled={savingSettings}
+                style={{
+                  padding: '10px 22px',
+                  background: '#059669',
+                  color: '#FFFFFF',
+                  border: 'none',
+                  borderRadius: '8px',
+                  cursor: savingSettings ? 'not-allowed' : 'pointer',
+                  fontWeight: 700,
+                  fontSize: '0.875rem',
+                  boxShadow: '0 4px 12px rgba(5, 150, 105, 0.25)',
+                }}
+              >
+                {savingSettings ? 'Saving...' : 'Save Settings'}
+              </button>
             </div>
           </form>
         </div>

@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { getPackageByIdOrName, CoursePackage } from '@/lib/packages';
 import { useAppStore } from '@/lib/store';
-import { Clock, Globe, LogOut, Phone, User, Mail, MapPin, Hash, RefreshCw, CheckCircle2 } from 'lucide-react';
+import { Clock, Globe, LogOut, Phone, User, Mail, MapPin, Hash, RefreshCw, CheckCircle2, MessageCircle, ExternalLink, ShieldCheck, ArrowRight } from 'lucide-react';
 import Logo from '@/components/brand/Logo';
 
 function PendingPaymentContent() {
@@ -284,6 +284,49 @@ function PendingPaymentContent() {
   const pkgName = matchedPkg.name;
   const pkgPrice = queryPrice || studentDetails?.packagePrice || studentDetails?.package_price || matchedPkg.price;
 
+  const studentName = studentDetails?.fullName || studentDetails?.full_name || 'Student';
+  const studentEmail = studentDetails?.email || queryEmail || '';
+  const studentPhone = studentDetails?.whatsappNumber || studentDetails?.whatsapp_number || studentDetails?.phone || '';
+  const studentCountry = studentDetails?.country || 'International';
+  const studentAmaId = studentDetails?.ama_id || '';
+
+  // Template message for WhatsApp
+  const whatsappTemplate = `Hi Ahsora Med Academy Admissions Team! 🎓
+
+I have just completed my registration. Here are my enrollment details:
+• Name: ${studentName}
+• Email: ${studentEmail}
+• WhatsApp Number: ${studentPhone || 'Not specified'}
+• Package Name: ${pkgName} (${pkgPrice})
+• Enrollment ID: ${studentAmaId || 'Pending'}
+• Country: ${studentCountry}
+
+Please let me know the payment method suitable for me and provide instructions so I can complete payment and receive portal access within 24 hours. Thank you!`;
+
+  const whatsappUrl = `https://wa.me/393333444479?text=${encodeURIComponent(whatsappTemplate)}`;
+
+  // Template for Gmail / Email
+  const emailSubject = `Registration Received - Payment Method Inquiry (${studentName} - ${studentAmaId || pkgName})`;
+  const emailTemplate = `Dear Ahsora Meds Academy Admissions Team,
+
+I have submitted my registration for Ahsora Med Academy. Here are my registration details:
+
+• Name: ${studentName}
+• Email: ${studentEmail}
+• WhatsApp Number: ${studentPhone || 'Not specified'}
+• Package Name: ${pkgName} (${pkgPrice})
+• Enrollment ID: ${studentAmaId || 'Pending'}
+• Country: ${studentCountry}
+
+Please let me know the payment method suitable for me and provide instructions so I can complete payment and receive my portal access within 24 hours.
+
+Thank you!
+${studentName}`;
+
+  // Direct Gmail web compose link
+  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=ahsoramedsacademy@gmail.com&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailTemplate)}`;
+  const mailtoUrl = `mailto:ahsoramedsacademy@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailTemplate)}`;
+
   return (
     <div
       style={{
@@ -301,38 +344,108 @@ function PendingPaymentContent() {
       <div
         style={{
           width: '100%',
-          maxWidth: '780px',
+          maxWidth: '820px',
           backgroundColor: '#FFFFFF',
           borderRadius: '24px',
           boxShadow: '0 25px 50px -12px rgba(15, 23, 42, 0.12)',
           overflow: 'hidden',
+          border: '1px solid #E2E8F0',
         }}
       >
         {/* Top Header */}
-        <div style={{ backgroundColor: '#0F172A', color: '#FFFFFF', padding: '24px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ backgroundColor: '#0F172A', color: '#FFFFFF', padding: '24px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
           <Logo height={40} />
-          <div style={{ backgroundColor: '#FEF3C7', color: '#92400E', padding: '6px 14px', borderRadius: '20px', fontSize: '0.8125rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <Clock size={16} /> Payment Pending Review
+          <div style={{ backgroundColor: '#DCFCE7', color: '#166534', padding: '6px 16px', borderRadius: '20px', fontSize: '0.8125rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <CheckCircle2 size={16} /> Registration Received
           </div>
         </div>
 
         <div style={{ padding: '36px 32px' }}>
-          <div style={{ textAlign: 'center', marginBottom: '28px' }}>
-            <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', marginBottom: '8px' }}>
+          {/* Main Hero Header */}
+          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+            <div
+              style={{
+                width: '72px',
+                height: '72px',
+                borderRadius: '50%',
+                backgroundColor: '#ECFDF5',
+                color: '#059669',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '16px',
+                boxShadow: '0 10px 25px -5px rgba(5, 150, 105, 0.25)',
+              }}
+            >
+              <CheckCircle2 size={38} />
+            </div>
+            <h1 style={{ fontSize: '2rem', fontWeight: 900, color: '#0F172A', marginBottom: '10px', letterSpacing: '-0.5px' }}>
               Registration Received!
             </h1>
-            <p style={{ color: '#64748B', fontSize: '0.9375rem', maxWidth: '560px', margin: '0 auto' }}>
-              Thank you for registering with Ahsora Meds Academy. Please complete your package payment below to activate full portal access.
+            <p style={{ color: '#475569', fontSize: '1.05rem', maxWidth: '640px', margin: '0 auto', lineHeight: 1.6, fontWeight: 500 }}>
+              Our team will contact you and let you know the payment method suitable for you. After the payment, you will receive full portal access within 24 hours.
             </p>
+          </div>
+
+          {/* 3-Step Enrollment Timeline Card */}
+          <div
+            style={{
+              backgroundColor: '#F8FAFC',
+              border: '1.5px solid #E2E8F0',
+              borderRadius: '18px',
+              padding: '24px',
+              marginBottom: '28px',
+            }}
+          >
+            <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '18px' }}>
+              ⚡ What Happens Next
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: '16px' }}>
+              <div style={{ display: 'flex', gap: '12px' }}>
+                <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#10B981', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.875rem', flexShrink: 0 }}>
+                  ✓
+                </div>
+                <div>
+                  <div style={{ fontWeight: 800, fontSize: '0.9rem', color: '#0F172A' }}>1. Registration Logged</div>
+                  <div style={{ fontSize: '0.8rem', color: '#64748B', marginTop: '2px', lineHeight: 1.4 }}>
+                    Your student file &amp; package choice have been safely recorded in our admissions directory.
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', gap: '12px' }}>
+                <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#0284C7', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.875rem', flexShrink: 0 }}>
+                  2
+                </div>
+                <div>
+                  <div style={{ fontWeight: 800, fontSize: '0.9rem', color: '#0F172A' }}>2. Payment Coordination</div>
+                  <div style={{ fontSize: '0.8rem', color: '#64748B', marginTop: '2px', lineHeight: 1.4 }}>
+                    Our team will contact you via WhatsApp or Email to coordinate the easiest payment method for your country.
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', gap: '12px' }}>
+                <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#8B5CF6', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.875rem', flexShrink: 0 }}>
+                  3
+                </div>
+                <div>
+                  <div style={{ fontWeight: 800, fontSize: '0.9rem', color: '#0F172A' }}>3. Portal Access Within 24h</div>
+                  <div style={{ fontSize: '0.8rem', color: '#64748B', marginTop: '2px', lineHeight: 1.4 }}>
+                    Once payment is received, your portal access and course materials unlock immediately within 24 hours.
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Selected Package Banner */}
           <div
             style={{
-              backgroundColor: '#F0FFF4',
-              border: '2px solid #10B981',
+              backgroundColor: matchedPkg.id === 'elite' ? '#FFF7ED' : '#F0FDF4',
+              border: matchedPkg.id === 'elite' ? '2px solid #F97316' : '2px solid #10B981',
               borderRadius: '18px',
-              padding: '20px 24px',
+              padding: '20px 26px',
               marginBottom: '28px',
               display: 'flex',
               alignItems: 'center',
@@ -342,89 +455,192 @@ function PendingPaymentContent() {
             }}
           >
             <div>
-              <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#059669', textTransform: 'uppercase', letterSpacing: '1px' }}>
+              <div style={{ fontSize: '0.75rem', fontWeight: 800, color: matchedPkg.id === 'elite' ? '#C2410C' : '#059669', textTransform: 'uppercase', letterSpacing: '1px' }}>
                 Selected Academy Package
               </div>
-              <div style={{ fontSize: '1.35rem', fontWeight: 900, color: '#0F172A', marginTop: '2px' }}>
+              <div style={{ fontSize: '1.45rem', fontWeight: 900, color: '#0F172A', marginTop: '3px' }}>
                 {pkgName}
               </div>
-              <div style={{ fontSize: '0.8125rem', color: '#475569', marginTop: '4px' }}>
+              <div style={{ fontSize: '0.84rem', color: '#475569', marginTop: '4px', maxWidth: '520px', lineHeight: 1.4 }}>
                 {matchedPkg.description}
               </div>
             </div>
             <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 600 }}>Total Payable</div>
-              <div style={{ fontSize: '2.2rem', fontWeight: 900, color: '#16A34A' }}>
+              <div style={{ fontSize: '0.78rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Package Fee</div>
+              <div style={{ fontSize: '2.3rem', fontWeight: 900, color: matchedPkg.id === 'elite' ? '#EA580C' : '#16A34A', lineHeight: 1.1 }}>
                 {pkgPrice}
               </div>
             </div>
           </div>
 
           {/* Student Profile Overview Card */}
-          <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '24px', marginBottom: '28px' }}>
-            <div style={{ fontSize: '0.8125rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '16px' }}>
-              📋 Student Information Summary
+          <div style={{ backgroundColor: '#FFFFFF', border: '1.5px solid #E2E8F0', borderRadius: '18px', padding: '24px', marginBottom: '32px' }}>
+            <div style={{ fontSize: '0.8125rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <span>📋</span> Official Enrollment Summary
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <User size={18} color="#059669" />
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ width: '38px', height: '38px', borderRadius: '10px', backgroundColor: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <User size={18} color="#059669" />
+                </div>
                 <div>
-                  <div style={{ fontSize: '0.75rem', color: '#64748B' }}>Full Name</div>
-                  <div style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#0F172A' }}>{studentDetails?.fullName || studentDetails?.full_name || 'Student'}</div>
+                  <div style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 600 }}>Student Full Name</div>
+                  <div style={{ fontSize: '0.95rem', fontWeight: 800, color: '#0F172A' }}>{studentName}</div>
                 </div>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <Mail size={18} color="#059669" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ width: '38px', height: '38px', borderRadius: '10px', backgroundColor: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Mail size={18} color="#059669" />
+                </div>
                 <div>
-                  <div style={{ fontSize: '0.75rem', color: '#64748B' }}>Email</div>
-                  <div style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#0F172A' }}>{studentDetails?.email || '—'}</div>
+                  <div style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 600 }}>Registered Email</div>
+                  <div style={{ fontSize: '0.92rem', fontWeight: 700, color: '#0F172A', wordBreak: 'break-all' }}>{studentEmail || '—'}</div>
                 </div>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <Globe size={18} color="#059669" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ width: '38px', height: '38px', borderRadius: '10px', backgroundColor: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Phone size={18} color="#059669" />
+                </div>
                 <div>
-                  <div style={{ fontSize: '0.75rem', color: '#64748B' }}>Country</div>
-                  <div style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#0F172A' }}>{studentDetails?.country || '—'}</div>
+                  <div style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 600 }}>WhatsApp Number</div>
+                  <div style={{ fontSize: '0.95rem', fontWeight: 800, color: '#059669' }}>{studentPhone || '—'}</div>
                 </div>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <Phone size={18} color="#059669" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ width: '38px', height: '38px', borderRadius: '10px', backgroundColor: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Globe size={18} color="#059669" />
+                </div>
                 <div>
-                  <div style={{ fontSize: '0.75rem', color: '#64748B' }}>WhatsApp Number</div>
-                  <div style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#0F172A' }}>{studentDetails?.whatsappNumber || studentDetails?.whatsapp_number || studentDetails?.phone || '—'}</div>
+                  <div style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 600 }}>Country of Residence</div>
+                  <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#0F172A' }}>{studentCountry}</div>
                 </div>
               </div>
 
-              {studentDetails?.address && (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <MapPin size={18} color="#059669" />
+              {studentAmaId && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div style={{ width: '38px', height: '38px', borderRadius: '10px', backgroundColor: '#ECFDF5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Hash size={18} color="#059669" />
+                  </div>
                   <div>
-                    <div style={{ fontSize: '0.75rem', color: '#64748B' }}>Physical Address</div>
-                    <div style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#0F172A' }}>{studentDetails.address}</div>
+                    <div style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 600 }}>Enrollment ID</div>
+                    <div style={{ fontSize: '0.95rem', fontWeight: 800, color: '#059669', fontFamily: 'monospace' }}>{studentAmaId}</div>
                   </div>
                 </div>
               )}
 
-              {studentDetails?.ama_id && (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <Hash size={18} color="#059669" />
+              {studentDetails?.address && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div style={{ width: '38px', height: '38px', borderRadius: '10px', backgroundColor: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <MapPin size={18} color="#EA580C" />
+                  </div>
                   <div>
-                    <div style={{ fontSize: '0.75rem', color: '#64748B' }}>Enrollment ID</div>
-                    <div style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#059669', fontFamily: 'monospace' }}>{studentDetails.ama_id}</div>
+                    <div style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 600 }}>Physical Address</div>
+                    <div style={{ fontSize: '0.9rem', fontWeight: 600, color: '#0F172A' }}>{studentDetails.address}</div>
                   </div>
                 </div>
               )}
             </div>
           </div>
 
+          {/* Two Direct Contact Action Buttons (Requested) */}
+          <div style={{ marginBottom: '28px' }}>
+            <div style={{ textAlign: 'center', marginBottom: '14px' }}>
+              <div style={{ fontSize: '0.95rem', fontWeight: 800, color: '#0F172A' }}>
+                Want to accelerate your payment and get your portal access even faster?
+              </div>
+              <div style={{ fontSize: '0.84rem', color: '#64748B', marginTop: '2px' }}>
+                Click below to instantly connect with our admissions team with your details pre-filled:
+              </div>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
+              {/* Button 1: Contact via Email (Direct Gmail Compose) */}
+              <a
+                href={gmailUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '10px',
+                  backgroundColor: '#DC2626',
+                  color: '#FFFFFF',
+                  padding: '16px 24px',
+                  borderRadius: '14px',
+                  fontWeight: 800,
+                  fontSize: '0.98rem',
+                  textDecoration: 'none',
+                  boxShadow: '0 8px 20px -4px rgba(220, 38, 38, 0.35)',
+                  transition: 'all 0.2s ease',
+                  cursor: 'pointer',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#B91C1C';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#DC2626';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                <Mail size={20} />
+                <span>Contact via Email</span>
+                <ExternalLink size={14} style={{ opacity: 0.8 }} />
+              </a>
+
+              {/* Button 2: Contact via WhatsApp */}
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '10px',
+                  backgroundColor: '#16A34A',
+                  color: '#FFFFFF',
+                  padding: '16px 24px',
+                  borderRadius: '14px',
+                  fontWeight: 800,
+                  fontSize: '0.98rem',
+                  textDecoration: 'none',
+                  boxShadow: '0 8px 20px -4px rgba(22, 163, 74, 0.35)',
+                  transition: 'all 0.2s ease',
+                  cursor: 'pointer',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#15803D';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#16A34A';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                <MessageCircle size={20} />
+                <span>Contact via WhatsApp</span>
+                <ExternalLink size={14} style={{ opacity: 0.8 }} />
+              </a>
+            </div>
+
+            <div style={{ textAlign: 'center', marginTop: '10px' }}>
+              <span style={{ fontSize: '0.78rem', color: '#94A3B8' }}>
+                Don't use web Gmail? <a href={mailtoUrl} style={{ color: '#0284C7', textDecoration: 'underline' }}>Open in default mail client</a>
+              </span>
+            </div>
+          </div>
+
+          {/* Status Alert if Manual Check Ran */}
           {statusMessage && (
             <div
               style={{
                 backgroundColor: '#EFF6FF',
-                border: '1px solid #BFDBFE',
+                border: '1.5px solid #BFDBFE',
                 borderRadius: '12px',
                 padding: '14px 18px',
                 marginBottom: '20px',
@@ -438,97 +654,61 @@ function PendingPaymentContent() {
             </div>
           )}
 
-          {/* Bank Transfer Details */}
-          <div style={{ backgroundColor: '#FFFBEB', border: '1px solid #FDE68A', borderRadius: '16px', padding: '24px', marginBottom: '28px' }}>
-            <div style={{ fontSize: '0.875rem', fontWeight: 800, color: '#92400E', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '16px' }}>
-              💳 Payment Instructions & Bank Details
-            </div>
-            <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #FEF3C7', borderRadius: '12px', padding: '16px' }}>
-              {[
-                { label: 'Bank Name', value: 'Ahsora Global Partner Bank (HBL / Meezan)' },
-                { label: 'Account Title', value: 'Ahsora Meds Academy Pvt Ltd' },
-                { label: 'Account Number', value: '0123-4567890-001' },
-                { label: 'IBAN Code', value: 'PK01DEMO0000000001234567' },
-                { label: 'SWIFT / BIC', value: 'DEMOPKKAXXX' },
-              ].map(({ label, value }) => (
-                <div key={label} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px dashed #F1F5F9' }}>
-                  <span style={{ color: '#64748B', fontSize: '0.875rem' }}>{label}</span>
-                  <span style={{ color: '#0F172A', fontWeight: 700, fontSize: '0.875rem', fontFamily: 'monospace' }}>{value}</span>
-                </div>
-              ))}
-            </div>
-
-            <p style={{ color: '#92400E', fontSize: '0.8125rem', marginTop: '16px', lineHeight: 1.6 }}>
-              📨 After completing payment, send your transaction screenshot/receipt to <strong>ahsoramedsacademy@gmail.com</strong> or via WhatsApp to <a href="https://wa.me/393333444479" target="_blank" rel="noopener noreferrer" style={{ color: '#059669', fontWeight: 800 }}>+39 333 3444 479</a> with your email (<strong>{studentDetails?.email}</strong>). Our admissions team will verify and activate your portal access within 12-24 hours.
-            </p>
-          </div>
-
-          {/* Action Buttons */}
-          <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
-            <a
-              href={`https://wa.me/393333444479?text=${encodeURIComponent(`Hi Ahsora Admissions, I have submitted payment for ${pkgName} (${pkgPrice}) under email ${studentDetails?.email}. Here is my payment receipt:`)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-                backgroundColor: '#16A34A',
-                borderColor: '#16A34A',
-                padding: '14px 24px',
-                borderRadius: '10px',
-                color: '#FFFFFF',
-                fontWeight: 700,
-                fontSize: '0.9375rem',
-                textDecoration: 'none',
-                flex: 1,
-                minWidth: '220px',
-              }}
-            >
-              Send Receipt via WhatsApp
-            </a>
+          {/* Bottom Utility Controls */}
+          <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', borderTop: '1px solid #F1F5F9', paddingTop: '24px' }}>
             <button
               onClick={() => loadProfileAndRegistration(true)}
               disabled={checkingStatus}
               style={{
                 flex: 1,
-                minWidth: '180px',
-                padding: '14px',
-                fontSize: '0.9375rem',
+                minWidth: '220px',
+                padding: '14px 20px',
+                fontSize: '0.92rem',
                 fontWeight: 700,
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: '8px',
-                borderRadius: '10px',
-                border: '1px solid #CBD5E1',
+                borderRadius: '12px',
+                border: '1.5px solid #CBD5E1',
                 backgroundColor: '#FFFFFF',
                 color: '#0F172A',
                 cursor: checkingStatus ? 'wait' : 'pointer',
+                transition: 'all 0.15s ease',
               }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#F8FAFC')}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#FFFFFF')}
             >
-              <RefreshCw size={16} />
-              {checkingStatus ? 'Checking Status...' : 'Check Approval Status'}
+              <RefreshCw size={16} className={checkingStatus ? 'animate-spin' : ''} />
+              {checkingStatus ? 'Verifying with Admissions Server...' : 'Check Approval Status'}
             </button>
+
             <button
               onClick={handleLogout}
               style={{
                 padding: '14px 24px',
-                borderRadius: '10px',
-                border: '1px solid #CBD5E1',
+                borderRadius: '12px',
+                border: '1.5px solid #E2E8F0',
                 backgroundColor: '#FFFFFF',
-                color: '#475569',
+                color: '#64748B',
                 fontWeight: 600,
-                fontSize: '0.9375rem',
+                fontSize: '0.92rem',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
+                transition: 'all 0.15s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = '#EF4444';
+                e.currentTarget.style.borderColor = '#FCA5A5';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = '#64748B';
+                e.currentTarget.style.borderColor = '#E2E8F0';
               }}
             >
-              <LogOut size={16} /> Sign Out
+              <LogOut size={16} /> Exit / Sign Out
             </button>
           </div>
         </div>

@@ -26,8 +26,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     setLoading(true);
     setError('');
 
-    // Default admin fallback
-    if (username === 'admin' && password === 'password123') {
+    // Official admin authentication
+    const trimmedUser = username.trim();
+    if (
+      (trimmedUser === 'Ahsan.admin.000' ||
+       trimmedUser.toLowerCase() === 'ahsan.admin.000' ||
+       trimmedUser.toLowerCase() === 'ahsan.admin.000@ahsora.com' ||
+       (trimmedUser === 'admin' && password === 'ahsoramed@ahsan00')) &&
+      password === 'ahsoramed@ahsan00'
+    ) {
       setAdminLoggedIn(true);
       setLoading(false);
       return;
@@ -135,7 +142,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 <input
                   type="text"
                   required
-                  placeholder="admin@example.com"
+                  placeholder="Ahsan.admin.000"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   style={{

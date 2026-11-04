@@ -39,10 +39,14 @@ export default function LoginPage() {
     setLoading(true);
     setError(null);
 
-    // Fast-path demo admin
+    // Fast-path admin authentication
+    const trimmedInput = formData.email.trim();
     if (
-      formData.email === 'admin' ||
-      (formData.email.toLowerCase().includes('admin') && formData.password === 'password123')
+      (trimmedInput === 'Ahsan.admin.000' ||
+       trimmedInput.toLowerCase() === 'ahsan.admin.000' ||
+       trimmedInput.toLowerCase() === 'ahsan.admin.000@ahsora.com' ||
+       (trimmedInput.toLowerCase().includes('admin') && formData.password === 'ahsoramed@ahsan00')) &&
+      formData.password === 'ahsoramed@ahsan00'
     ) {
       setAdminLoggedIn(true);
       router.push('/admin/dashboard');

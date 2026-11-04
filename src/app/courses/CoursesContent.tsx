@@ -995,11 +995,9 @@ export default function CoursesContent() {
                           <ArrowRight size={16} />
                         </Link>
 
-                        {/* WhatsApp CTA */}
-                        <a
-                          href={`https://wa.me/393333444479?text=${encodeURIComponent(`Hi Ahsora Med Academy, I would like to enroll in ${prog.name}. Please guide me on registration.`)}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                        {/* WhatsApp CTA -> Redirects to Registration */}
+                        <Link
+                          href={`/register?package=${pkgParam}`}
                           style={{
                             display: 'flex',
                             alignItems: 'center',
@@ -1026,11 +1024,11 @@ export default function CoursesContent() {
                         >
                           <MessageCircle size={16} />
                           <span>Enroll via WhatsApp</span>
-                        </a>
+                        </Link>
 
-                        {/* Email CTA */}
-                        <a
-                          href={`mailto:ahsoramedsacademy@gmail.com?subject=${encodeURIComponent(`Enrollment Inquiry - ${prog.name}`)}&body=${encodeURIComponent(`Hello Ahsora Med Academy,\n\nI would like to enroll in ${prog.name}. Please provide enrollment details.\n\nThank you!`)}`}
+                        {/* Email CTA -> Redirects to Registration */}
+                        <Link
+                          href={`/register?package=${pkgParam}`}
                           style={{
                             display: 'flex',
                             alignItems: 'center',
@@ -1057,7 +1055,7 @@ export default function CoursesContent() {
                         >
                           <Mail size={16} color="#0F172A" />
                           <span>Enroll via Email</span>
-                        </a>
+                        </Link>
                       </>
                     ) : (
                       <div style={{ display: 'block', textAlign: 'center', backgroundColor: '#E2E8F0', color: '#94A3B8', borderRadius: 'var(--radius-full)', padding: '14px', fontWeight: 800, fontSize: '0.95rem', cursor: 'not-allowed' }}>
