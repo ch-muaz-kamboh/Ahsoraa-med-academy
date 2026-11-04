@@ -483,7 +483,7 @@ export default async function IMATNewsArticlePage({
             borderBottom: '1px solid #1E293B',
           }}
         >
-          <div style={{ maxWidth: '960px', margin: '0 auto' }}>
+          <div style={{ maxWidth: '1440px', margin: '0 auto', width: '100%' }}>
             {/* Breadcrumb nav */}
             <nav
               aria-label="Breadcrumb"
@@ -580,170 +580,256 @@ export default async function IMATNewsArticlePage({
           </div>
         </section>
 
-        {/* Main Article Body Container */}
-        <main style={{ maxWidth: '960px', margin: '-24px auto 0', padding: '0 20px', position: 'relative', zIndex: 10 }}>
-          <div
-            style={{
-              backgroundColor: '#FFFFFF',
-              borderRadius: '20px',
-              padding: '36px 40px',
-              boxShadow: '0 10px 30px -5px rgba(15, 23, 42, 0.08), 0 0 0 1px #E2E8F0',
-            }}
-          >
-            {/* Lead Excerpt Callout */}
-            <div
-              style={{
-                backgroundColor: '#ECFDF5',
-                borderLeft: '4px solid #059669',
-                padding: '20px 24px',
-                borderRadius: '0 12px 12px 0',
-                marginBottom: '32px',
-                fontSize: '1.05rem',
-                lineHeight: 1.7,
-                color: '#064E3B',
-                fontWeight: 500,
-              }}
-              dangerouslySetInnerHTML={{ __html: post.excerpt }}
-            />
+        {/* Main Article Body Container - Utilizing Full Horizontal Space */}
+        <main style={{ maxWidth: '1440px', width: '100%', margin: '-24px auto 0', padding: '0 20px', position: 'relative', zIndex: 10 }}>
+          <style>{`
+            .ahsora-article-wide-layout {
+              display: grid;
+              grid-template-columns: minmax(0, 1fr) 360px;
+              gap: 32px;
+              align-items: start;
+            }
+            .ahsora-main-card {
+              padding: 40px 48px;
+            }
+            @media (max-width: 1080px) {
+              .ahsora-article-wide-layout {
+                grid-template-columns: 1fr;
+                gap: 24px;
+              }
+            }
+            @media (max-width: 768px) {
+              .ahsora-main-card {
+                padding: 24px 18px !important;
+                border-radius: 16px !important;
+              }
+            }
+          `}</style>
 
-            {/* SEO Quick Facts Sheet for AI bots & readers */}
+          <div className="ahsora-article-wide-layout">
+            {/* Left / Main Reading Column */}
             <div
+              className="ahsora-main-card"
               style={{
-                backgroundColor: '#F8FAFC',
-                border: '1px solid #E2E8F0',
-                borderRadius: '12px',
-                padding: '16px 20px',
-                marginBottom: '32px',
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                gap: '14px',
+                backgroundColor: '#FFFFFF',
+                borderRadius: '20px',
+                boxShadow: '0 10px 30px -5px rgba(15, 23, 42, 0.08), 0 0 0 1px #E2E8F0',
+                minWidth: 0,
               }}
             >
-              <div>
-                <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase' }}>Target Exam / Field</span>
-                <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '0.9rem', marginTop: '2px' }}>IMAT (Medicine &amp; Surgery)</div>
-              </div>
-              <div>
-                <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase' }}>Jurisdiction</span>
-                <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '0.9rem', marginTop: '2px' }}>Italy / MUR Ministry</div>
-              </div>
-              <div>
-                <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase' }}>Degree Code</span>
-                <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '0.9rem', marginTop: '2px' }}>LM-41 (EU Accredited MD)</div>
-              </div>
-              <div>
-                <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase' }}>Authoritative Verification</span>
-                <div style={{ fontWeight: 800, color: '#059669', fontSize: '0.9rem', marginTop: '2px' }}>Ahsora Academic Panel ✓</div>
-              </div>
-            </div>
-
-            {/* Table of Contents / Article Index */}
-            <ArticleTableOfContents indexes={post.indexes} htmlContent={enrichedContent} />
-
-            {/* Article Content */}
-            <article
-              className="prose-article"
-              style={{
-                fontSize: '1rem',
-                lineHeight: 1.8,
-                color: '#334155',
-              }}
-              dangerouslySetInnerHTML={{ __html: enrichedContent }}
-            />
-
-            {/* Bottom Multi-Platform Social Virality Share Card */}
-            <ArticleShareBar title={post.title} url={articleUrl} variant="footer" />
-
-            {/* Dynamic Q&A / FAQ Section with FAQPage Schema */}
-            {faqList.length > 0 && (
-              <section style={{ marginTop: '48px', paddingTop: '32px', borderTop: '1px solid #E2E8F0' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
-                  <HelpCircle size={22} color="#059669" />
-                  <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>
-                    Frequently Asked Questions (Q&amp;A)
-                  </h2>
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                  {faqList.map((faq, idx) => (
-                    <div
-                      key={idx}
-                      style={{
-                        backgroundColor: '#F8FAFC',
-                        border: '1px solid #E2E8F0',
-                        borderRadius: '12px',
-                        padding: '18px 22px',
-                      }}
-                    >
-                      <h3 style={{ fontSize: '0.98rem', fontWeight: 800, color: '#0F172A', margin: '0 0 6px 0' }}>
-                        {faq.question}
-                      </h3>
-                      <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, margin: 0 }}>
-                        {faq.answer}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
-
-            {/* Author Bio Box */}
-            <div
-              style={{
-                marginTop: '48px',
-                padding: '24px',
-                backgroundColor: '#F0FDF4',
-                border: '1px solid #BBF7D0',
-                borderRadius: '16px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '18px',
-                flexWrap: 'wrap',
-              }}
-            >
+              {/* Lead Excerpt Callout */}
               <div
                 style={{
-                  width: '56px',
-                  height: '56px',
-                  borderRadius: '50%',
-                  backgroundColor: '#059669',
-                  color: '#FFFFFF',
+                  backgroundColor: '#ECFDF5',
+                  borderLeft: '4px solid #059669',
+                  padding: '20px 24px',
+                  borderRadius: '0 12px 12px 0',
+                  marginBottom: '32px',
+                  fontSize: '1.05rem',
+                  lineHeight: 1.7,
+                  color: '#064E3B',
+                  fontWeight: 500,
+                }}
+                dangerouslySetInnerHTML={{ __html: post.excerpt }}
+              />
+
+              {/* Mobile Table of Contents (visible only on smaller screens) */}
+              <div className="lg:hidden" style={{ marginBottom: '28px' }}>
+                <ArticleTableOfContents indexes={post.indexes} htmlContent={enrichedContent} />
+              </div>
+
+              {/* Article Content */}
+              <article
+                className="prose-article"
+                style={{
+                  fontSize: '1.05rem',
+                  lineHeight: 1.85,
+                  color: '#334155',
+                  wordBreak: 'break-word',
+                }}
+                dangerouslySetInnerHTML={{ __html: enrichedContent }}
+              />
+
+              {/* Bottom Multi-Platform Social Virality Share Card */}
+              <ArticleShareBar title={post.title} url={articleUrl} variant="footer" />
+
+              {/* Dynamic Q&A / FAQ Section with FAQPage Schema */}
+              {faqList.length > 0 && (
+                <section style={{ marginTop: '48px', paddingTop: '32px', borderTop: '1px solid #E2E8F0' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
+                    <HelpCircle size={22} color="#059669" />
+                    <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+                      Frequently Asked Questions (Q&amp;A)
+                    </h2>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                    {faqList.map((faq, idx) => (
+                      <div
+                        key={idx}
+                        style={{
+                          backgroundColor: '#F8FAFC',
+                          border: '1px solid #E2E8F0',
+                          borderRadius: '12px',
+                          padding: '18px 22px',
+                        }}
+                      >
+                        <h3 style={{ fontSize: '0.98rem', fontWeight: 800, color: '#0F172A', margin: '0 0 6px 0' }}>
+                          {faq.question}
+                        </h3>
+                        <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6, margin: 0 }}>
+                          {faq.answer}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
+
+              {/* Author Bio Box */}
+              <div
+                style={{
+                  marginTop: '48px',
+                  padding: '24px',
+                  backgroundColor: '#F0FDF4',
+                  border: '1px solid #BBF7D0',
+                  borderRadius: '16px',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  fontWeight: 900,
-                  fontSize: '1.25rem',
-                  flexShrink: 0,
+                  gap: '18px',
+                  flexWrap: 'wrap',
                 }}
               >
-                AM
-              </div>
-              <div style={{ flex: 1, minWidth: '220px' }}>
-                <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#059669', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                  PUBLISHED BY
+                <div
+                  style={{
+                    width: '56px',
+                    height: '56px',
+                    borderRadius: '50%',
+                    backgroundColor: '#059669',
+                    color: '#FFFFFF',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontWeight: 900,
+                    fontSize: '1.25rem',
+                    flexShrink: 0,
+                  }}
+                >
+                  AM
                 </div>
-                <div style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0F172A' }}>{post.author}</div>
-                <p style={{ fontSize: '0.8125rem', color: '#475569', margin: '4px 0 0 0', lineHeight: 1.5 }}>
-                  Ahsora Meds Academy mentors students globally for the Italian IMAT medical examination, Universitaly pre-enrollment legalizations, and full residency transitions.
-                </p>
+                <div style={{ flex: 1, minWidth: '220px' }}>
+                  <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#059669', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    PUBLISHED BY
+                  </div>
+                  <div style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0F172A' }}>{post.author}</div>
+                  <p style={{ fontSize: '0.8125rem', color: '#475569', margin: '4px 0 0 0', lineHeight: 1.5 }}>
+                    Ahsora Meds Academy mentors students globally for the Italian IMAT medical examination, Universitaly pre-enrollment legalizations, and full residency transitions.
+                  </p>
+                </div>
+                <Link
+                  href="/imat-preparation-courses"
+                  style={{
+                    backgroundColor: '#059669',
+                    color: '#FFFFFF',
+                    padding: '10px 18px',
+                    borderRadius: '8px',
+                    fontSize: '0.8125rem',
+                    fontWeight: 700,
+                    textDecoration: 'none',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                  }}
+                >
+                  View Prep Courses <ArrowRight size={14} />
+                </Link>
               </div>
-              <Link
-                href="/imat-preparation-courses"
+            </div>
+
+            {/* Right / Sticky Sidebar Column Utilizing Full Horizontal Space */}
+            <aside
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '24px',
+                position: 'sticky',
+                top: '90px',
+              }}
+            >
+              {/* Desktop Table of Contents */}
+              <div className="hidden lg:block">
+                <ArticleTableOfContents indexes={post.indexes} htmlContent={enrichedContent} />
+              </div>
+
+              {/* Quick Facts Sheet */}
+              <div
                 style={{
-                  backgroundColor: '#059669',
-                  color: '#FFFFFF',
-                  padding: '10px 18px',
-                  borderRadius: '8px',
-                  fontSize: '0.8125rem',
-                  fontWeight: 700,
-                  textDecoration: 'none',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '6px',
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #E2E8F0',
+                  borderRadius: '16px',
+                  padding: '22px 24px',
+                  boxShadow: '0 4px 14px rgba(15, 23, 42, 0.04)',
                 }}
               >
-                View Prep Courses <ArrowRight size={14} />
-              </Link>
-            </div>
+                <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '14px' }}>
+                  Article Quick Facts
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <div style={{ borderBottom: '1px solid #F1F5F9', paddingBottom: '8px' }}>
+                    <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase' }}>Target Exam / Field</span>
+                    <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '0.88rem', marginTop: '2px' }}>IMAT (Medicine &amp; Surgery)</div>
+                  </div>
+                  <div style={{ borderBottom: '1px solid #F1F5F9', paddingBottom: '8px' }}>
+                    <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase' }}>Jurisdiction</span>
+                    <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '0.88rem', marginTop: '2px' }}>Italy / MUR Ministry</div>
+                  </div>
+                  <div style={{ borderBottom: '1px solid #F1F5F9', paddingBottom: '8px' }}>
+                    <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase' }}>Degree Code</span>
+                    <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '0.88rem', marginTop: '2px' }}>LM-41 (EU Accredited MD)</div>
+                  </div>
+                  <div>
+                    <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase' }}>Authoritative Verification</span>
+                    <div style={{ fontWeight: 800, color: '#059669', fontSize: '0.88rem', marginTop: '2px' }}>Ahsora Academic Panel ✓</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Course Mentorship Card */}
+              <div
+                style={{
+                  background: 'linear-gradient(135deg, #064E3B 0%, #065F46 100%)',
+                  borderRadius: '16px',
+                  padding: '24px',
+                  color: '#FFFFFF',
+                  boxShadow: '0 8px 24px -6px rgba(5, 150, 105, 0.4)',
+                }}
+              >
+                <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#5CED73', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '6px' }}>
+                  IMAT 2027 Admissions
+                </div>
+                <h4 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#FFFFFF', margin: '0 0 8px 0', lineHeight: 1.3 }}>
+                  Prepare with Doctor Mentors
+                </h4>
+                <p style={{ fontSize: '0.8125rem', color: '#D1FAE5', margin: '0 0 16px 0', lineHeight: 1.5 }}>
+                  Access syllabus question banks, timed CBT mock simulations, and comprehensive admission support.
+                </p>
+                <Link
+                  href="/imat-preparation-courses"
+                  style={{
+                    display: 'block',
+                    textAlign: 'center',
+                    backgroundColor: '#5CED73',
+                    color: '#064E3B',
+                    padding: '10px 16px',
+                    borderRadius: '10px',
+                    fontSize: '0.8125rem',
+                    fontWeight: 800,
+                    textDecoration: 'none',
+                  }}
+                >
+                  View Packages &rarr;
+                </Link>
+              </div>
+            </aside>
           </div>
 
           {/* Related Articles Section */}

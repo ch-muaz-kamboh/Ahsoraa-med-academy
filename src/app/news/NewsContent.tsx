@@ -233,7 +233,7 @@ export default function NewsContent() {
       {/* ── FEATURED POST ── */}
       {featured && (
         <section style={{ padding: '60px 0 40px', backgroundColor: '#FFFFFF' }}>
-          <div className="container" style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 20px' }}>
+          <div className="container" style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 20px' }}>
             <div style={{ marginBottom: '20px' }}>
               <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#059669', textTransform: 'uppercase', letterSpacing: '1px' }}>
                 ⭐ Featured Announcement
@@ -309,7 +309,7 @@ export default function NewsContent() {
 
       {/* ── ALL POSTS GRID OR EMPTY STATE ── */}
       <section style={{ padding: '20px 0 80px', backgroundColor: '#FFFFFF' }}>
-        <div className="container" style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 20px' }}>
+        <div className="container" style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 20px' }}>
           <div style={{ marginBottom: '24px', fontSize: '1.25rem', fontWeight: 800, color: '#0F172A' }}>
             Latest Articles &amp; Updates ({posts.length})
           </div>
