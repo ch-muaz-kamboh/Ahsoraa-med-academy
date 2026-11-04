@@ -12,7 +12,6 @@ import {
   AlertTriangle,
   ChevronRight,
   Sparkles,
-  Flame,
   Award,
   Clock,
   CheckCircle2,
@@ -106,18 +105,6 @@ export default function StudentDashboardPage() {
   const avgAccuracy = totalAttempted > 0 ? Math.round((totalCorrect / totalAttempted) * 100) : 0;
   const unresolvedMistakes = studentMistakes.filter((m) => !m.isResolved).length;
   const firstName = currentUser?.firstName || 'Student';
-
-  const activeStreakDays = React.useMemo(() => {
-    const dates = new Set<string>();
-    testAttempts.forEach((a) => {
-      const d = a.submittedAt || a.startedAt;
-      if (d) dates.add(new Date(d).toDateString());
-    });
-    studentMistakes.forEach((m) => {
-      if (m.failedAt) dates.add(new Date(m.failedAt).toDateString());
-    });
-    return dates.size;
-  }, [testAttempts, studentMistakes]);
 
   // Dynamic per-subject mastery (0% initially for new accounts, updates as attempts/mistakes accumulate)
   const subjectMastery = React.useMemo(() => {
@@ -346,46 +333,6 @@ export default function StudentDashboardPage() {
                 <Sparkles size={13} />
                 <span>{currentPkgObj.name} ({currentPkgObj.price})</span>
               </span>
-            </div>
-
-            {/* Streak & Countdown Tracker */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  padding: '6px 14px',
-                  borderRadius: '12px',
-                  backgroundColor: 'rgba(245, 158, 11, 0.15)',
-                  border: '1px solid rgba(245, 158, 11, 0.45)',
-                  color: '#FDE68A',
-                  fontSize: '0.8rem',
-                  fontWeight: 700,
-                  backdropFilter: 'blur(8px)',
-                }}
-              >
-                <Flame size={15} color="#F59E0B" />
-                <span>{activeStreakDays}-Day Study Streak</span>
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  padding: '6px 14px',
-                  borderRadius: '12px',
-                  backgroundColor: 'rgba(16, 185, 129, 0.15)',
-                  border: '1px solid rgba(16, 185, 129, 0.45)',
-                  color: '#A7F3D0',
-                  fontSize: '0.8rem',
-                  fontWeight: 700,
-                  backdropFilter: 'blur(8px)',
-                }}
-              >
-                <Clock size={15} color="#34D399" />
-                <span>~150 Days to Official IMAT</span>
-              </div>
             </div>
           </div>
 
@@ -1031,161 +978,8 @@ export default function StudentDashboardPage() {
 
       {/* ── Two-Column Main Content Section ── */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '28px' }}>
-        {/* Left Column: Learning Continuation & Mock Results */}
+        {/* Left Column: Mock Results & Analytics */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '26px' }}>
-          {/* Active Course & Player Launch */}
-          <div
-            style={{
-              backgroundColor: '#FFFFFF',
-              borderRadius: '20px',
-              border: '1.5px solid #E2E8F0',
-              padding: '26px 28px',
-              boxShadow: '0 4px 18px rgba(15, 23, 42, 0.04)',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <div
-                  style={{
-                    width: '38px',
-                    height: '38px',
-                    borderRadius: '10px',
-                    backgroundColor: '#ECFDF5',
-                    color: '#059669',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    border: '1px solid #A7F3D0',
-                  }}
-                >
-                  <BookOpen size={18} />
-                </div>
-                <h3 style={{ fontSize: '1.2rem', color: '#0F172A', fontWeight: 900, margin: 0 }}>
-                  Continue Curriculum
-                </h3>
-              </div>
-              <Link
-                href="/portal/courses"
-                style={{
-                  fontSize: '0.825rem',
-                  color: '#059669',
-                  fontWeight: 800,
-                  textDecoration: 'none',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '4px',
-                }}
-              >
-                <span>All Syllabus Courses</span>
-                <ChevronRight size={14} />
-              </Link>
-            </div>
-
-            {activeCourse ? (
-              <div
-                style={{
-                  border: '1.5px solid #E2E8F0',
-                  borderRadius: '16px',
-                  padding: '22px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  flexWrap: 'wrap',
-                  gap: '16px',
-                  backgroundColor: '#F8FAFC',
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                  <div
-                    style={{
-                      width: '56px',
-                      height: '56px',
-                      borderRadius: '14px',
-                      background: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
-                      color: '#FFFFFF',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      boxShadow: '0 4px 14px rgba(5, 150, 105, 0.35)',
-                    }}
-                  >
-                    <BookOpen size={26} />
-                  </div>
-                  <div>
-                    <h4 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0F172A', margin: '0 0 4px 0' }}>
-                      {activeCourse.title}
-                    </h4>
-                    <div style={{ fontSize: '0.825rem', color: '#475569', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span>Progress: <strong style={{ color: '#0F172A' }}>{activeCourse.progressPercent ?? 0}%</strong></span>
-                      <span>•</span>
-                      <span style={{ color: '#059669', fontWeight: 800 }}>48 Lectures</span>
-                    </div>
-                    <div
-                      style={{
-                        marginTop: '10px',
-                        height: '7px',
-                        backgroundColor: '#E2E8F0',
-                        borderRadius: '4px',
-                        width: '240px',
-                        overflow: 'hidden',
-                      }}
-                    >
-                      <div
-                        style={{
-                          height: '100%',
-                          width: `${activeCourse.progressPercent ?? 0}%`,
-                          backgroundColor: '#059669',
-                          borderRadius: '4px',
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <Link
-                  href={`/portal/courses/${activeCourse.id}/player`}
-                  style={{
-                    backgroundColor: '#059669',
-                    color: '#FFFFFF',
-                    padding: '12px 22px',
-                    borderRadius: '12px',
-                    fontWeight: 800,
-                    fontSize: '0.875rem',
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    boxShadow: '0 4px 14px rgba(5, 150, 105, 0.3)',
-                  }}
-                >
-                  <PlayCircle size={16} />
-                  <span>Resume Lecture</span>
-                </Link>
-              </div>
-            ) : (
-              <div style={{ textAlign: 'center', padding: '36px', color: '#64748B' }}>
-                <BookOpen size={36} style={{ marginBottom: '10px', opacity: 0.4 }} />
-                <p style={{ fontSize: '0.925rem', margin: 0, fontWeight: 600 }}>You are not enrolled in any courses yet.</p>
-                <Link
-                  href="/portal/courses"
-                  style={{
-                    marginTop: '14px',
-                    display: 'inline-flex',
-                    padding: '10px 22px',
-                    backgroundColor: '#059669',
-                    color: '#FFF',
-                    borderRadius: '10px',
-                    fontWeight: 800,
-                    textDecoration: 'none',
-                    fontSize: '0.875rem',
-                  }}
-                >
-                  Browse IMAT Courses
-                </Link>
-              </div>
-            )}
-          </div>
-
           {/* Recent Mock Results */}
           <div
             style={{

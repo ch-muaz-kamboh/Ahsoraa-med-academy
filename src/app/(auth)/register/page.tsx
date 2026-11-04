@@ -520,65 +520,116 @@ function RegisterContent() {
       style={{
         minHeight: '100vh',
         backgroundColor: '#F8FAFC',
-        background: 'linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%)',
+        backgroundImage: 'radial-gradient(ellipse 90% 60% at 50% -10%, rgba(5, 150, 105, 0.12) 0%, rgba(248, 250, 252, 0) 70%), linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 100%)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '175px 20px 60px',
-        fontFamily: 'sans-serif',
+        padding: 'clamp(140px, 16vw, 185px) 20px 70px',
+        fontFamily: 'var(--font-heading), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
       }}
     >
       <div
         className="register-card"
         style={{
           width: '100%',
-          maxWidth: '920px',
+          maxWidth: '960px',
           backgroundColor: '#FFFFFF',
-          borderRadius: '24px',
-          boxShadow: '0 25px 50px -12px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(226, 232, 240, 0.8)',
+          borderRadius: '28px',
+          boxShadow: '0 25px 60px -15px rgba(6, 78, 59, 0.12), 0 0 0 1px rgba(226, 232, 240, 0.9)',
           overflow: 'hidden',
+          border: '1px solid #E2E8F0',
         }}
       >
-        {/* Top Header Bar */}
+        {/* Top Header Bar - Luxury Emerald Gradient */}
         <div
           className="register-card-header"
           style={{
-            backgroundColor: '#0F172A',
+            background: 'linear-gradient(135deg, #064E3B 0%, #065F46 45%, #047857 85%, #059669 100%)',
             color: '#FFFFFF',
-            padding: '24px 36px',
+            padding: 'clamp(24px, 3.5vw, 32px) clamp(24px, 4vw, 40px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             flexWrap: 'wrap',
             gap: '16px',
+            position: 'relative',
+            overflow: 'hidden',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.15)',
+            boxShadow: '0 10px 30px -10px rgba(6, 78, 59, 0.35)',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-            <Logo height={42} />
+          {/* Subtle ambient light overlay */}
+          <div
+            style={{
+              position: 'absolute',
+              top: '-40px',
+              right: '-40px',
+              width: '180px',
+              height: '180px',
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(110, 231, 183, 0.25) 0%, rgba(110, 231, 183, 0) 70%)',
+              pointerEvents: 'none',
+            }}
+          />
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', position: 'relative', zIndex: 1 }}>
+            <Logo height={44} />
             <div>
-              <h1 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#FFFFFF', margin: 0 }}>
+              <h1
+                style={{
+                  fontSize: 'clamp(1.2rem, 2.5vw, 1.45rem)',
+                  fontWeight: 900,
+                  color: '#FFFFFF',
+                  margin: 0,
+                  letterSpacing: '-0.3px',
+                }}
+              >
                 Student Registration Portal
               </h1>
-              <p style={{ fontSize: '0.8125rem', color: '#94A3B8', margin: '2px 0 0' }}>
-                Join Ahsora Meds Academy • Medical Entrance & Licensing Prep
+              <p
+                style={{
+                  fontSize: '0.84rem',
+                  color: 'rgba(255, 255, 255, 0.85)',
+                  margin: '3px 0 0',
+                  fontWeight: 500,
+                }}
+              >
+                Join Ahsora Meds Academy • Official Medical Entrance &amp; Pre-Med Program
               </p>
             </div>
           </div>
+
           <div
             style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.1)',
-              padding: '6px 14px',
-              borderRadius: '20px',
+              position: 'relative',
+              zIndex: 1,
+              backgroundColor: 'rgba(255, 255, 255, 0.16)',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
+              backdropFilter: 'blur(10px)',
+              padding: '7px 18px',
+              borderRadius: '999px',
               fontSize: '0.8125rem',
-              fontWeight: 600,
-              color: '#5CED73',
-              display: 'flex',
+              fontWeight: 800,
+              color: '#FFFFFF',
+              display: 'inline-flex',
               alignItems: 'center',
-              gap: '6px',
+              gap: '8px',
+              letterSpacing: '0.3px',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
             }}
           >
-            <ShieldCheck size={16} /> Official Admission Portal
+            <span
+              style={{
+                width: '8px',
+                height: '8px',
+                borderRadius: '50%',
+                backgroundColor: '#34D399',
+                boxShadow: '0 0 8px #34D399',
+                display: 'inline-block',
+              }}
+            />
+            <ShieldCheck size={16} /> Official Admission 2026/27
           </div>
         </div>
 
@@ -606,32 +657,34 @@ function RegisterContent() {
             <div>
               <div
                 style={{
-                  fontSize: '0.875rem',
-                  fontWeight: 800,
-                  color: '#059669',
-                  textTransform: 'uppercase',
-                  letterSpacing: '1px',
-                  marginBottom: '16px',
+                  fontSize: '0.95rem',
+                  fontWeight: 900,
+                  color: '#0F172A',
+                  letterSpacing: '-0.2px',
+                  marginBottom: '18px',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px',
+                  gap: '10px',
                 }}
               >
                 <span
                   style={{
-                    backgroundColor: '#F0FFF4',
-                    width: '24px',
-                    height: '24px',
+                    background: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
+                    color: '#FFFFFF',
+                    width: '28px',
+                    height: '28px',
                     borderRadius: '50%',
                     display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '0.75rem',
+                    fontSize: '0.8125rem',
+                    fontWeight: 900,
+                    boxShadow: '0 4px 10px rgba(5, 150, 105, 0.3)',
                   }}
                 >
                   1
                 </span>
-                Personal & Contact Details
+                <span>Personal &amp; Contact Details</span>
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px' }}>
@@ -943,36 +996,38 @@ function RegisterContent() {
               </div>
             </div>
 
-            {/* Section 2: Package Selection (4 Packages) */}
+            {/* Section 2: Package Selection */}
             <div>
               <div
                 style={{
-                  fontSize: '0.875rem',
-                  fontWeight: 800,
-                  color: '#059669',
-                  textTransform: 'uppercase',
-                  letterSpacing: '1px',
+                  fontSize: '0.95rem',
+                  fontWeight: 900,
+                  color: '#0F172A',
+                  letterSpacing: '-0.2px',
                   marginBottom: '6px',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px',
+                  gap: '10px',
                 }}
               >
                 <span
                   style={{
-                    backgroundColor: '#F0FFF4',
-                    width: '24px',
-                    height: '24px',
+                    background: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
+                    color: '#FFFFFF',
+                    width: '28px',
+                    height: '28px',
                     borderRadius: '50%',
                     display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '0.75rem',
+                    fontSize: '0.8125rem',
+                    fontWeight: 900,
+                    boxShadow: '0 4px 10px rgba(5, 150, 105, 0.3)',
                   }}
                 >
                   2
                 </span>
-                Select Your Academy Package
+                <span>Select Your Academy Package</span>
               </div>
               <p style={{ color: '#64748B', fontSize: '0.875rem', marginBottom: '20px' }}>
                 Choose the preparation plan that best matches your target medical exam goals.
@@ -1101,33 +1156,34 @@ function RegisterContent() {
             <div>
               <div
                 style={{
-                  fontSize: '0.875rem',
-                  fontWeight: 800,
-                  color: '#059669',
-                  textTransform: 'uppercase',
-                  letterSpacing: '1px',
+                  fontSize: '0.95rem',
+                  fontWeight: 900,
+                  color: '#0F172A',
+                  letterSpacing: '-0.2px',
                   marginBottom: '16px',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px',
+                  gap: '10px',
                 }}
               >
                 <span
                   style={{
-                    backgroundColor: '#F0FFF4',
-                    width: '24px',
-                    height: '24px',
+                    background: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
+                    color: '#FFFFFF',
+                    width: '28px',
+                    height: '28px',
                     borderRadius: '50%',
                     display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '0.75rem',
-                    color: '#059669',
+                    fontSize: '0.8125rem',
+                    fontWeight: 900,
+                    boxShadow: '0 4px 10px rgba(5, 150, 105, 0.3)',
                   }}
                 >
                   3
                 </span>
-                Agreement &amp; Consent
+                <span>Agreement &amp; Consent</span>
               </div>
 
               <div
@@ -1344,29 +1400,32 @@ function RegisterContent() {
             <div
               className="register-checkout-bar"
               style={{
-                backgroundColor: '#F8FAFC',
-                border: '1px solid #E2E8F0',
-                borderRadius: '16px',
-                padding: '24px',
+                background: 'linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%)',
+                border: '1.5px solid #E2E8F0',
+                borderRadius: '20px',
+                padding: '24px 28px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 flexWrap: 'wrap',
-                gap: '16px',
+                gap: '18px',
+                boxShadow: '0 4px 16px rgba(15, 23, 42, 0.03)',
               }}
             >
               <div>
-                <div style={{ fontSize: '0.8125rem', color: '#64748B' }}>Selected Package:</div>
-                <div style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                  <span>{selectedPkg.name} —</span>
-                  <span style={{ color: '#059669' }}>{getPriceData(selectedPkg.id).price}</span>
+                <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  Selected Academy Tier:
+                </div>
+                <div style={{ fontSize: '1.18rem', fontWeight: 900, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginTop: '3px' }}>
+                  <span>{selectedPkg.name}</span>
+                  <span style={{ color: '#059669', fontSize: '1.35rem' }}>{getPriceData(selectedPkg.id).price}</span>
                   {getPriceData(selectedPkg.id).originalPrice && (
                     <span style={{ color: '#94A3B8', textDecoration: 'line-through', fontSize: '0.9rem', fontWeight: 600 }}>
                       {getPriceData(selectedPkg.id).originalPrice}
                     </span>
                   )}
                   {getPriceData(selectedPkg.id).badge && (
-                    <span style={{ backgroundColor: '#DCFCE7', color: '#047857', fontSize: '0.75rem', fontWeight: 800, padding: '2px 8px', borderRadius: '6px' }}>
+                    <span style={{ backgroundColor: '#DCFCE7', color: '#047857', fontSize: '0.72rem', fontWeight: 800, padding: '3px 10px', borderRadius: '8px', letterSpacing: '0.4px' }}>
                       {getPriceData(selectedPkg.id).badge}
                     </span>
                   )}
@@ -1378,14 +1437,19 @@ function RegisterContent() {
                 disabled={loading}
                 className="btn-primary register-submit-btn"
                 style={{
-                  padding: '14px 32px',
-                  fontSize: '1rem',
-                  fontWeight: 700,
-                  borderRadius: '12px',
-                  display: 'flex',
+                  background: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
+                  color: '#FFFFFF',
+                  padding: '16px 36px',
+                  fontSize: '1.02rem',
+                  fontWeight: 800,
+                  borderRadius: '14px',
+                  display: 'inline-flex',
                   alignItems: 'center',
                   gap: '10px',
-                  cursor: 'pointer',
+                  cursor: loading ? 'wait' : 'pointer',
+                  border: 'none',
+                  boxShadow: '0 10px 25px -4px rgba(5, 150, 105, 0.4)',
+                  transition: 'all 0.2s ease',
                 }}
               >
                 {loading ? (
