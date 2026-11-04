@@ -902,12 +902,11 @@ export default function AdminStudentsPage() {
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
               <thead>
                 <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '1px solid #E2E8F0' }}>
-                  <th style={{ padding: '14px 18px', fontSize: '0.75rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Student Info</th>
-                  <th style={{ padding: '14px 18px', fontSize: '0.75rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Purchased Package</th>
-                  <th style={{ padding: '14px 18px', fontSize: '0.75rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Address & Contact Details</th>
-                  <th style={{ padding: '14px 18px', fontSize: '0.75rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Status</th>
-                  <th style={{ padding: '14px 18px', fontSize: '0.75rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Access Control</th>
-                  <th style={{ padding: '14px 18px', fontSize: '0.75rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Actions</th>
+                  <th style={{ padding: '14px 16px', fontSize: '0.75rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Student & Quick Delete</th>
+                  <th style={{ padding: '14px 16px', fontSize: '0.75rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Purchased Package</th>
+                  <th style={{ padding: '14px 16px', fontSize: '0.75rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Address & Contact Details</th>
+                  <th style={{ padding: '14px 16px', fontSize: '0.75rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Status & Access</th>
+                  <th style={{ padding: '14px 16px', fontSize: '0.75rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -930,17 +929,48 @@ export default function AdminStudentsPage() {
 
                   return (
                     <tr key={student.id} style={{ borderBottom: i < filtered.length - 1 ? '1px solid #F1F5F9' : 'none' }}>
-                      {/* Student Info */}
-                      <td style={{ padding: '16px 18px' }}>
+                      {/* Student Info & Quick Delete */}
+                      <td style={{ padding: '14px 16px', minWidth: '220px' }}>
                         <div style={{ fontWeight: 700, color: '#0F172A', fontSize: '0.9375rem' }}>{fullName}</div>
-                        <div style={{ color: '#64748B', fontSize: '0.8125rem', marginTop: '2px' }}>{student.email}</div>
-                        <span style={{ fontFamily: 'monospace', fontWeight: 700, color: '#059669', fontSize: '0.75rem', backgroundColor: '#F0FFF4', padding: '2px 8px', borderRadius: '6px', marginTop: '4px', display: 'inline-block' }}>
-                          {student.ama_id || 'AMA-NEW'}
-                        </span>
+                        <div style={{ color: '#64748B', fontSize: '0.8125rem', marginTop: '2px', wordBreak: 'break-all' }}>{student.email}</div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '6px' }}>
+                          <span style={{ fontFamily: 'monospace', fontWeight: 700, color: '#059669', fontSize: '0.75rem', backgroundColor: '#F0FFF4', padding: '2px 8px', borderRadius: '6px' }}>
+                            {student.ama_id || 'AMA-NEW'}
+                          </span>
+                          <button
+                            onClick={() => deleteStudent(student)}
+                            disabled={deletingId === student.id}
+                            title="Permanently delete student from list and database"
+                            style={{
+                              padding: '3px 9px',
+                              borderRadius: '6px',
+                              border: '1px solid #FECACA',
+                              backgroundColor: '#FEF2F2',
+                              cursor: deletingId === student.id ? 'wait' : 'pointer',
+                              fontWeight: 700,
+                              fontSize: '0.75rem',
+                              color: '#DC2626',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '4px',
+                              transition: 'all 0.15s ease',
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.backgroundColor = '#DC2626';
+                              e.currentTarget.style.color = '#FFFFFF';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.backgroundColor = '#FEF2F2';
+                              e.currentTarget.style.color = '#DC2626';
+                            }}
+                          >
+                            <Trash2 size={12} /> {deletingId === student.id ? 'Deleting...' : 'Delete'}
+                          </button>
+                        </div>
                       </td>
 
                       {/* Purchased Package */}
-                      <td style={{ padding: '16px 18px' }}>
+                      <td style={{ padding: '14px 16px' }}>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                           <div style={{
                             display: 'inline-flex',
@@ -966,7 +996,7 @@ export default function AdminStudentsPage() {
                       </td>
 
                       {/* Address & Contact Details */}
-                      <td style={{ padding: '16px 18px', maxWidth: '300px' }}>
+                      <td style={{ padding: '14px 16px', maxWidth: '280px' }}>
                         {/* Physical Address */}
                         <div style={{ fontSize: '0.8125rem', color: '#0F172A', fontWeight: 600, display: 'flex', alignItems: 'flex-start', gap: '6px', marginBottom: '4px' }}>
                           <MapPin size={14} color="#EA580C" style={{ flexShrink: 0, marginTop: '2px' }} />
@@ -996,32 +1026,30 @@ export default function AdminStudentsPage() {
                         </div>
                       </td>
 
-                      {/* Status */}
-                      <td style={{ padding: '16px 18px' }}>
-                        {student.payment_approved ? (
-                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', backgroundColor: '#F0FFF4', color: '#16A34A', padding: '4px 12px', borderRadius: '20px', fontSize: '0.8125rem', fontWeight: 700 }}>
-                            <CheckCircle2 size={14} /> Access Active
-                          </span>
-                        ) : (
-                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', backgroundColor: '#FFFBEB', color: '#D97706', padding: '4px 12px', borderRadius: '20px', fontSize: '0.8125rem', fontWeight: 700 }}>
-                            <Clock size={14} /> Pending Payment
-                          </span>
-                        )}
-                      </td>
-
-                      {/* Access Control */}
-                      <td style={{ padding: '16px 18px' }}>
-                        <div style={{ display: 'flex', gap: '8px' }}>
+                      {/* Status & Access */}
+                      <td style={{ padding: '14px 16px', minWidth: '190px' }}>
+                        <div style={{ marginBottom: '8px' }}>
+                          {student.payment_approved ? (
+                            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', backgroundColor: '#F0FFF4', color: '#16A34A', padding: '4px 10px', borderRadius: '20px', fontSize: '0.78rem', fontWeight: 700 }}>
+                              <CheckCircle2 size={13} /> Access Active
+                            </span>
+                          ) : (
+                            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', backgroundColor: '#FFFBEB', color: '#D97706', padding: '4px 10px', borderRadius: '20px', fontSize: '0.78rem', fontWeight: 700 }}>
+                              <Clock size={13} /> Pending Payment
+                            </span>
+                          )}
+                        </div>
+                        <div style={{ display: 'flex', gap: '6px' }}>
                           <button
                             disabled={updating === student.id || student.payment_approved}
                             onClick={() => toggleApproval(student.id, false, student.email)}
                             style={{
-                              padding: '7px 12px',
-                              borderRadius: '8px',
+                              padding: '5px 10px',
+                              borderRadius: '7px',
                               border: 'none',
                               cursor: updating === student.id || student.payment_approved ? 'not-allowed' : 'pointer',
                               fontWeight: 700,
-                              fontSize: '0.8125rem',
+                              fontSize: '0.75rem',
                               backgroundColor: student.payment_approved ? '#E2E8F0' : '#16A34A',
                               color: student.payment_approved ? '#94A3B8' : '#FFFFFF',
                               display: 'inline-flex',
@@ -1029,18 +1057,18 @@ export default function AdminStudentsPage() {
                               gap: '4px',
                             }}
                           >
-                            <CheckCircle2 size={14} /> Approve
+                            <CheckCircle2 size={12} /> Approve
                           </button>
                           <button
                             disabled={updating === student.id || !student.payment_approved}
                             onClick={() => toggleApproval(student.id, true, student.email)}
                             style={{
-                              padding: '7px 12px',
-                              borderRadius: '8px',
+                              padding: '5px 10px',
+                              borderRadius: '7px',
                               border: 'none',
                               cursor: updating === student.id || !student.payment_approved ? 'not-allowed' : 'pointer',
                               fontWeight: 700,
-                              fontSize: '0.8125rem',
+                              fontSize: '0.75rem',
                               backgroundColor: !student.payment_approved ? '#FEE2E2' : '#DC2626',
                               color: !student.payment_approved ? '#DC2626' : '#FFFFFF',
                               opacity: !student.payment_approved ? 0.6 : 1,
@@ -1049,18 +1077,18 @@ export default function AdminStudentsPage() {
                               gap: '4px',
                             }}
                           >
-                            <XCircle size={14} /> Revoke
+                            <XCircle size={12} /> Revoke
                           </button>
                         </div>
                       </td>
 
                       {/* Actions */}
-                      <td style={{ padding: '16px 18px' }}>
+                      <td style={{ padding: '14px 16px' }}>
                         <div style={{ display: 'flex', gap: '6px' }}>
                           <button
                             onClick={() => setViewingStudent(student)}
                             style={{
-                              padding: '6px 12px',
+                              padding: '6px 10px',
                               borderRadius: '8px',
                               border: '1px solid #CBD5E1',
                               backgroundColor: '#FFFFFF',
@@ -1075,7 +1103,7 @@ export default function AdminStudentsPage() {
                           <button
                             onClick={() => openDocs(student)}
                             style={{
-                              padding: '6px 12px',
+                              padding: '6px 10px',
                               borderRadius: '8px',
                               border: '1px solid #CBD5E1',
                               backgroundColor: '#FFFFFF',
@@ -1088,36 +1116,7 @@ export default function AdminStudentsPage() {
                               gap: '4px',
                             }}
                           >
-                            <FileText size={14} /> Docs
-                          </button>
-                          <button
-                            onClick={() => deleteStudent(student)}
-                            disabled={deletingId === student.id}
-                            title="Permanently delete student from list and database"
-                            style={{
-                              padding: '6px 12px',
-                              borderRadius: '8px',
-                              border: '1px solid #FECACA',
-                              backgroundColor: '#FEF2F2',
-                              cursor: deletingId === student.id ? 'wait' : 'pointer',
-                              fontWeight: 600,
-                              fontSize: '0.8125rem',
-                              color: '#DC2626',
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              gap: '4px',
-                              transition: 'all 0.15s ease',
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = '#DC2626';
-                              e.currentTarget.style.color = '#FFFFFF';
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.backgroundColor = '#FEF2F2';
-                              e.currentTarget.style.color = '#DC2626';
-                            }}
-                          >
-                            <Trash2 size={13} /> {deletingId === student.id ? 'Deleting...' : 'Delete'}
+                            <FileText size={13} /> Docs
                           </button>
                         </div>
                       </td>

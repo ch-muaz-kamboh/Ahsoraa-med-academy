@@ -59,7 +59,6 @@ export const ACADEMY_PACKAGES: CoursePackage[] = [
       'Full Italian University Pre-Enrollment & DOV Guidance',
       'Complete Student Visa Document Preparation & Review',
       'Document Vault for Official University Submissions',
-      'Guaranteed Admission & Housing Support in Italy',
     ],
   },
 ];

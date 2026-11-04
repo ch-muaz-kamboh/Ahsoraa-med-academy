@@ -64,7 +64,6 @@ export const AHSO_PACKAGES: PackageDetail[] = [
       'Full Italian University Pre-Enrollment & DOV (Declaration of Value) Guidance',
       'Complete Student Visa Document Preparation & Review',
       'Document Vault Access for Official University Submissions',
-      'Guaranteed Admission & Housing Support in Italy',
     ],
   },
 ];
@@ -164,7 +163,6 @@ GROUND TRUTH PACKAGES & PRICING (SOURCE OF TRUTH):
    - Italian University Pre-Enrollment & Declaration of Value (DOV) guidance
    - Complete Student Visa Document Preparation & Review
    - Secure Document Vault for official submissions
-   - Guaranteed Admission & Housing Guidance in Italy
 
 HOW TO ENROL:
 - Visitors can register directly at [Register Now](/register).
@@ -290,7 +288,6 @@ Read more about our mission on the [About Page](/about) or connect with our admi
 * **Complete Italian University Pre-Enrollment & DOV (Declaration of Value) Guidance**
 * **Full Student Visa Document Preparation & Review**
 * **Document Vault Access** for university submissions
-* **Guaranteed Admission & Housing Support** in Italy
 
 👉 Ready to get started? You can enroll directly at [Register Now](/register) or review our [Courses Page](/courses).`;
   }

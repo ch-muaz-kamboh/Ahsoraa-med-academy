@@ -655,7 +655,7 @@ function LockedEliteScreen({ currentPackage }: { currentPackage: string | null }
             'Dedicated Senior Medical Student Mentor',
             'Full Italian University Pre-Enrollment & DOV Guidance',
             'Complete Student Visa Document Preparation',
-            'Guaranteed Admission & Housing Support in Italy',
+            'Relocation & Housing Guidance in Italy',
             'Real-time process tracking dashboard',
           ].map((feat, idx) => (
             <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.875rem', color: '#334155' }}>

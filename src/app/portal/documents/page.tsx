@@ -255,7 +255,7 @@ export default function PortalDocumentsPage() {
               'Dedicated Senior Medical Student Advisor Document Review',
               'Full Italian University Pre-Enrollment & DOV Submission',
               'Complete Student Visa Dossier Preparation & Legalization',
-              'Guaranteed Admission & Housing Documentation Support',
+              'Italian Relocation & Housing Documentation Guidance',
             ].map((feat, idx) => (
               <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.875rem', color: '#334155' }}>
                 <CheckCircle2 size={18} color="#EA580C" style={{ flexShrink: 0 }} />
