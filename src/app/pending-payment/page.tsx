@@ -5,7 +5,25 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { getPackageByIdOrName, CoursePackage } from '@/lib/packages';
 import { useAppStore } from '@/lib/store';
-import { Clock, Globe, LogOut, Phone, User, Mail, MapPin, Hash, RefreshCw, CheckCircle2, MessageCircle, ExternalLink, ShieldCheck, ArrowRight } from 'lucide-react';
+import {
+  Clock,
+  Globe,
+  LogOut,
+  Phone,
+  User,
+  Mail,
+  MapPin,
+  Hash,
+  RefreshCw,
+  CheckCircle2,
+  MessageCircle,
+  ExternalLink,
+  ShieldCheck,
+  Sparkles,
+  ArrowRight,
+  Send,
+  Zap,
+} from 'lucide-react';
 import Logo from '@/components/brand/Logo';
 import { event } from '@/lib/gtag';
 
@@ -19,32 +37,37 @@ function PendingPaymentContent() {
   const [checkingStatus, setCheckingStatus] = useState(false);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
-  // Extract from query params if passed from registration or login
+  // Extract from query params safely
   const queryPkgName = searchParams ? searchParams.get('package') : null;
   const queryPrice = searchParams ? searchParams.get('price') : null;
   const queryEmail = searchParams ? searchParams.get('email') : null;
 
   const activateAndEnterPortal = useCallback(
     (data: any) => {
-      const email = (data?.email || queryEmail || '').trim();
-      const fullName = data?.fullName || data?.full_name || 'Student';
-      const firstName = data?.firstName || fullName.split(' ')[0] || 'Student';
-      const lastName = data?.lastName || fullName.split(' ').slice(1).join(' ') || '';
-      const pkg = data?.selectedPackage || data?.selected_package || queryPkgName || 'Ahsora IMAT Ascend';
-      const price = data?.packagePrice || data?.package_price || queryPrice || '€299';
+      try {
+        const email = String(data?.email || queryEmail || '').trim();
+        const fullName = String(data?.fullName || data?.full_name || 'Student');
+        const nameParts = fullName.trim().split(/\s+/);
+        const firstName = data?.firstName || nameParts[0] || 'Student';
+        const lastName = data?.lastName || nameParts.slice(1).join(' ') || '';
+        const pkg = data?.selectedPackage || data?.selected_package || queryPkgName || 'Ahsora IMAT Ascend';
+        const price = data?.packagePrice || data?.package_price || queryPrice || '€299';
 
-      loginStudent(email, firstName, lastName, {
-        selectedPackage: pkg,
-        packagePrice: price,
-        country: data?.country || '',
-        phone: data?.whatsappNumber || data?.whatsapp_number || data?.phone || '',
-        whatsappNumber: data?.whatsappNumber || data?.whatsapp_number || data?.phone || '',
-        address: data?.address || '',
-        ama_id: data?.ama_id || '',
-        id: data?.id,
-      });
+        loginStudent(email, firstName, lastName, {
+          selectedPackage: pkg,
+          packagePrice: price,
+          country: data?.country || '',
+          phone: data?.whatsappNumber || data?.whatsapp_number || data?.phone || '',
+          whatsappNumber: data?.whatsappNumber || data?.whatsapp_number || data?.phone || '',
+          address: data?.address || '',
+          ama_id: data?.ama_id || '',
+          id: data?.id,
+        });
 
-      router.push('/portal/dashboard');
+        router.push('/portal/dashboard');
+      } catch (err) {
+        console.warn('Portal auto-redirect notice:', err);
+      }
     },
     [loginStudent, queryEmail, queryPkgName, queryPrice, router]
   );
@@ -56,26 +79,27 @@ function PendingPaymentContent() {
         setStatusMessage(null);
       }
 
-      // 1. Check query param first (authoritative from the registration checkout button)
       let currentData: any = null;
 
-      // 2. Check local storage recent registration or currentUser
+      // 1. Check local storage recent registration or currentUser
       try {
-        const cached = localStorage.getItem('recentRegistration');
-        if (cached) {
-          currentData = JSON.parse(cached);
-        }
-        if (!currentData) {
-          const curUser = localStorage.getItem('ahsora_currentUser');
-          if (curUser) {
-            currentData = JSON.parse(curUser);
+        if (typeof window !== 'undefined') {
+          const cached = localStorage.getItem('recentRegistration');
+          if (cached) {
+            currentData = JSON.parse(cached);
+          }
+          if (!currentData) {
+            const curUser = localStorage.getItem('ahsora_currentUser');
+            if (curUser) {
+              currentData = JSON.parse(curUser);
+            }
           }
         }
       } catch (e) {
-        console.error(e);
+        console.warn('LocalStorage read notice:', e);
       }
 
-      // If query parameters are present, prioritize them over stale cached records
+      // If query parameters are present, prioritize them
       if (queryPkgName) {
         currentData = {
           ...currentData,
@@ -84,41 +108,57 @@ function PendingPaymentContent() {
         };
       }
 
-      const targetEmail = (queryEmail || currentData?.email || '').toLowerCase().trim();
+      const targetEmail = String(queryEmail || currentData?.email || '').toLowerCase().trim();
 
       // 2. Check local admin approval list (if admin approved on the same device/browser)
       let locallyApproved = false;
-      if (targetEmail) {
+      if (targetEmail && typeof window !== 'undefined') {
         try {
           const approvedEmailsRaw = localStorage.getItem('ahsora_approved_emails');
           if (approvedEmailsRaw) {
             const approvedEmails: string[] = JSON.parse(approvedEmailsRaw);
-            if (approvedEmails.some((em) => em.toLowerCase().trim() === targetEmail)) {
+            if (Array.isArray(approvedEmails) && approvedEmails.some((em) => String(em).toLowerCase().trim() === targetEmail)) {
               locallyApproved = true;
             }
           }
           const adminListRaw = localStorage.getItem('adminStudentList');
           if (adminListRaw) {
             const adminList: any[] = JSON.parse(adminListRaw);
-            const matchedLocal = adminList.find((s) => (s.email || '').toLowerCase().trim() === targetEmail);
-            if (matchedLocal) {
-              currentData = {
-                ...currentData,
-                ...matchedLocal,
-                fullName: matchedLocal.fullName || matchedLocal.full_name || currentData?.fullName,
-                country: matchedLocal.country || currentData?.country,
-                address: matchedLocal.address || currentData?.address,
-                whatsappNumber: matchedLocal.whatsappNumber || matchedLocal.whatsapp_number || matchedLocal.phone || currentData?.whatsappNumber,
-                selectedPackage: matchedLocal.selectedPackage || matchedLocal.selected_package || currentData?.selectedPackage,
-                packagePrice: matchedLocal.packagePrice || matchedLocal.package_price || currentData?.packagePrice,
-                ama_id: matchedLocal.ama_id || currentData?.ama_id,
-              };
-              if (matchedLocal.paymentApproved === true || matchedLocal.payment_approved === true) {
-                locallyApproved = true;
+            if (Array.isArray(adminList)) {
+              const matchedLocal = adminList.find(
+                (s) => s && String(s.email || '').toLowerCase().trim() === targetEmail
+              );
+              if (matchedLocal) {
+                currentData = {
+                  ...currentData,
+                  ...matchedLocal,
+                  fullName: matchedLocal.fullName || matchedLocal.full_name || currentData?.fullName,
+                  country: matchedLocal.country || currentData?.country,
+                  address: matchedLocal.address || currentData?.address,
+                  whatsappNumber:
+                    matchedLocal.whatsappNumber ||
+                    matchedLocal.whatsapp_number ||
+                    matchedLocal.phone ||
+                    currentData?.whatsappNumber,
+                  selectedPackage:
+                    matchedLocal.selectedPackage ||
+                    matchedLocal.selected_package ||
+                    currentData?.selectedPackage,
+                  packagePrice:
+                    matchedLocal.packagePrice ||
+                    matchedLocal.package_price ||
+                    currentData?.packagePrice,
+                  ama_id: matchedLocal.ama_id || currentData?.ama_id,
+                };
+                if (matchedLocal.paymentApproved === true || matchedLocal.payment_approved === true) {
+                  locallyApproved = true;
+                }
               }
             }
           }
-        } catch { }
+        } catch (e) {
+          console.warn('Local admin check notice:', e);
+        }
       }
 
       // 3. Query server API /api/admin/students for live cross-device approval & synced student metadata
@@ -128,9 +168,9 @@ function PendingPaymentContent() {
           const res = await fetch(`/api/admin/students?t=${Date.now()}`, { cache: 'no-store' });
           if (res.ok) {
             const json = await res.json();
-            if (json.success && Array.isArray(json.students)) {
+            if (json && json.success && Array.isArray(json.students)) {
               const matchedServer = json.students.find(
-                (s: any) => (s.email || '').toLowerCase().trim() === targetEmail
+                (s: any) => s && String(s.email || '').toLowerCase().trim() === targetEmail
               );
               if (matchedServer) {
                 serverApproved = Boolean(matchedServer.payment_approved ?? matchedServer.paymentApproved);
@@ -246,7 +286,7 @@ function PendingPaymentContent() {
       if (isManualCheck) {
         setCheckingStatus(false);
         setStatusMessage(
-          'Your account is still awaiting Admin payment verification. Once the admin approves your account in Student Management, click "Check Approval Status" to enter your portal immediately.'
+          'Your registration is safely recorded! Once our admissions team approves your payment, you will instantly get full portal access. You can also recheck status at any time.'
         );
       }
     },
@@ -255,10 +295,10 @@ function PendingPaymentContent() {
 
   useEffect(() => {
     loadProfileAndRegistration(false);
-    // Poll every 8 seconds so when Admin clicks Approve, the student is automatically let in
+    // Poll every 10 seconds so when Admin approves, the student enters seamlessly
     const interval = setInterval(() => {
       loadProfileAndRegistration(false);
-    }, 8000);
+    }, 10000);
     return () => clearInterval(interval);
   }, [loadProfileAndRegistration]);
 
@@ -266,62 +306,65 @@ function PendingPaymentContent() {
     try {
       const supabase = createClient();
       await supabase.auth.signOut();
-    } catch (e) { }
-    localStorage.removeItem('recentRegistration');
-    localStorage.removeItem('ahsora_studentLoggedIn');
+    } catch (e) {
+      console.warn('Signout warning:', e);
+    }
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.removeItem('recentRegistration');
+        localStorage.removeItem('ahsora_studentLoggedIn');
+      } catch {}
+    }
     router.push('/login');
   };
-
-  if (loading) {
-    return (
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#F8FAFC' }}>
-        <div style={{ fontSize: '1rem', color: '#64748B', fontWeight: 600 }}>Loading registration payment details...</div>
-      </div>
-    );
-  }
 
   const effectivePackageName = queryPkgName || studentDetails?.selectedPackage || studentDetails?.selected_package;
   const matchedPkg: CoursePackage = getPackageByIdOrName(effectivePackageName);
   const pkgName = matchedPkg.name;
   const pkgPrice = queryPrice || studentDetails?.packagePrice || studentDetails?.package_price || matchedPkg.price;
 
-  const studentName = studentDetails?.fullName || studentDetails?.full_name || 'Student';
-  const studentEmail = studentDetails?.email || queryEmail || '';
-  const studentPhone = studentDetails?.whatsappNumber || studentDetails?.whatsapp_number || studentDetails?.phone || '';
-  const studentCountry = studentDetails?.country || 'International';
-  const studentAmaId = studentDetails?.ama_id || '';
+  const studentName = String(studentDetails?.fullName || studentDetails?.full_name || 'Student');
+  const studentEmail = String(studentDetails?.email || queryEmail || '');
+  const studentPhone = String(studentDetails?.whatsappNumber || studentDetails?.whatsapp_number || studentDetails?.phone || '');
+  const studentCountry = String(studentDetails?.country || 'International');
+  const studentAmaId = String(studentDetails?.ama_id || '');
+
+  // Log conversion and registration_received Google tag events safely
+  useEffect(() => {
+    if (!loading) {
+      try {
+        const numericVal = parseFloat(String(pkgPrice).replace(/[^0-9.]/g, '')) || 0;
+        event('registration_received', {
+          package_name: pkgName,
+          package_price: numericVal,
+          ama_id: studentAmaId,
+          student_country: studentCountry,
+        });
+        event('conversion', {
+          send_to: 'G-ZLZPB1DD0Y',
+          value: numericVal,
+          currency: 'EUR',
+        });
+      } catch (err) {
+        console.warn('Analytics event warning:', err);
+      }
+    }
+  }, [loading, pkgName, pkgPrice, studentAmaId, studentCountry]);
 
   // Template message for WhatsApp
   const whatsappTemplate = `Hi Ahsora Med Academy Admissions Team! 🎓
 
 I have just completed my registration. Here are my enrollment details:
 • Name: ${studentName}
-• Email: ${studentEmail}
+• Email: ${studentEmail || 'Registered'}
 • WhatsApp Number: ${studentPhone || 'Not specified'}
 • Package Name: ${pkgName} (${pkgPrice})
 • Enrollment ID: ${studentAmaId || 'Pending'}
 • Country: ${studentCountry}
 
-Please let me know the payment method suitable for me and provide instructions so I can complete payment and receive portal access within 24 hours. Thank you!`;
+Please let me know the payment method suitable for me and provide instructions so I can complete payment and receive my portal access within 24 hours. Thank you!`;
 
   const whatsappUrl = `https://wa.me/393333444479?text=${encodeURIComponent(whatsappTemplate)}`;
-
-  // Log conversion and registration_received Google tag events
-  useEffect(() => {
-    if (!loading && (studentDetails || queryPkgName)) {
-      event('registration_received', {
-        package_name: pkgName,
-        package_price: pkgPrice,
-        ama_id: studentAmaId,
-        student_country: studentCountry,
-      });
-      event('conversion', {
-        send_to: 'G-ZLZPB1DD0Y',
-        value: pkgPrice,
-        currency: 'EUR',
-      });
-    }
-  }, [loading, studentDetails, queryPkgName, pkgName, pkgPrice, studentAmaId, studentCountry]);
 
   // Template for Gmail / Email
   const emailSubject = `Registration Received - Payment Method Inquiry (${studentName} - ${studentAmaId || pkgName})`;
@@ -330,7 +373,7 @@ Please let me know the payment method suitable for me and provide instructions s
 I have submitted my registration for Ahsora Med Academy. Here are my registration details:
 
 • Name: ${studentName}
-• Email: ${studentEmail}
+• Email: ${studentEmail || 'Registered'}
 • WhatsApp Number: ${studentPhone || 'Not specified'}
 • Package Name: ${pkgName} (${pkgPrice})
 • Enrollment ID: ${studentAmaId || 'Pending'}
@@ -349,232 +392,166 @@ ${studentName}`;
     <div
       style={{
         minHeight: '100vh',
-        backgroundColor: '#F8FAFC',
-        background: 'linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%)',
+        backgroundColor: '#0A0F1D',
+        backgroundImage: 'radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.15) 0%, rgba(10, 15, 29, 0) 65%), linear-gradient(180deg, #090D1A 0%, #0D1527 100%)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '175px 20px 60px',
-        fontFamily: 'sans-serif',
+        padding: 'clamp(140px, 18vw, 190px) 18px 70px',
+        fontFamily: 'var(--font-heading), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
       }}
     >
       <div
         style={{
           width: '100%',
-          maxWidth: '820px',
+          maxWidth: '860px',
           backgroundColor: '#FFFFFF',
-          borderRadius: '24px',
-          boxShadow: '0 25px 50px -12px rgba(15, 23, 42, 0.12)',
+          borderRadius: '28px',
+          boxShadow: '0 30px 70px -15px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)',
           overflow: 'hidden',
           border: '1px solid #E2E8F0',
         }}
       >
-        {/* Top Header */}
-        <div style={{ backgroundColor: '#0F172A', color: '#FFFFFF', padding: '24px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
-          <Logo height={40} />
-          <div style={{ backgroundColor: '#DCFCE7', color: '#166534', padding: '6px 16px', borderRadius: '20px', fontSize: '0.8125rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <CheckCircle2 size={16} /> Registration Received
+        {/* Top Header Bar */}
+        <div
+          style={{
+            background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)',
+            color: '#FFFFFF',
+            padding: '22px 32px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '12px',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+          }}
+        >
+          <Logo height={38} />
+          <div
+            style={{
+              backgroundColor: 'rgba(16, 185, 129, 0.15)',
+              border: '1px solid rgba(16, 185, 129, 0.35)',
+              color: '#34D399',
+              padding: '6px 16px',
+              borderRadius: '999px',
+              fontSize: '0.8125rem',
+              fontWeight: 800,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '7px',
+              letterSpacing: '0.3px',
+            }}
+          >
+            <span
+              style={{
+                width: '8px',
+                height: '8px',
+                borderRadius: '50%',
+                backgroundColor: '#10B981',
+                boxShadow: '0 0 8px #10B981',
+                display: 'inline-block',
+              }}
+            />
+            Registration Received
           </div>
         </div>
 
-        <div style={{ padding: '36px 32px' }}>
+        <div style={{ padding: 'clamp(28px, 4vw, 44px)' }}>
           {/* Main Hero Header */}
           <div style={{ textAlign: 'center', marginBottom: '32px' }}>
             <div
               style={{
-                width: '72px',
-                height: '72px',
+                width: '76px',
+                height: '76px',
                 borderRadius: '50%',
-                backgroundColor: '#ECFDF5',
+                background: 'linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%)',
                 color: '#059669',
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                marginBottom: '16px',
-                boxShadow: '0 10px 25px -5px rgba(5, 150, 105, 0.25)',
+                marginBottom: '18px',
+                boxShadow: '0 12px 28px -6px rgba(5, 150, 105, 0.3), inset 0 0 0 2px #A7F3D0',
               }}
             >
-              <CheckCircle2 size={38} />
+              <CheckCircle2 size={42} strokeWidth={2.3} />
             </div>
-            <h1 style={{ fontSize: '2rem', fontWeight: 900, color: '#0F172A', marginBottom: '10px', letterSpacing: '-0.5px' }}>
+
+            <h1
+              style={{
+                fontSize: 'clamp(1.75rem, 3.5vw, 2.35rem)',
+                fontWeight: 900,
+                color: '#0F172A',
+                marginBottom: '12px',
+                letterSpacing: '-0.025em',
+                lineHeight: 1.2,
+              }}
+            >
               Registration Received!
             </h1>
-            <p style={{ color: '#475569', fontSize: '1.05rem', maxWidth: '640px', margin: '0 auto', lineHeight: 1.6, fontWeight: 500 }}>
-              Our team will contact you and let you know the payment method suitable for you. After the payment, you will receive full portal access within 24 hours.
+
+            <p
+              style={{
+                color: '#475569',
+                fontSize: 'clamp(0.98rem, 1.8vw, 1.125rem)',
+                maxWidth: '680px',
+                margin: '0 auto',
+                lineHeight: 1.6,
+                fontWeight: 500,
+              }}
+            >
+              Our team will contact you and let you know the payment method suitable for you. After the payment, you will get portal access within 24 hours.
             </p>
           </div>
 
-          {/* 3-Step Enrollment Timeline Card */}
+          {/* TWO PRIMARY ACTION BUTTONS (GMAIL & WHATSAPP) */}
           <div
             style={{
               backgroundColor: '#F8FAFC',
+              borderRadius: '22px',
               border: '1.5px solid #E2E8F0',
-              borderRadius: '18px',
-              padding: '24px',
-              marginBottom: '28px',
+              padding: 'clamp(20px, 3vw, 28px)',
+              marginBottom: '32px',
             }}
           >
-            <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '18px' }}>
-              ⚡ What Happens Next
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: '16px' }}>
-              <div style={{ display: 'flex', gap: '12px' }}>
-                <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#10B981', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.875rem', flexShrink: 0 }}>
-                  ✓
-                </div>
-                <div>
-                  <div style={{ fontWeight: 800, fontSize: '0.9rem', color: '#0F172A' }}>1. Registration Logged</div>
-                  <div style={{ fontSize: '0.8rem', color: '#64748B', marginTop: '2px', lineHeight: 1.4 }}>
-                    Your student file &amp; package choice have been safely recorded in our admissions directory.
-                  </div>
-                </div>
+            <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  backgroundColor: '#EFF6FF',
+                  color: '#2563EB',
+                  padding: '4px 12px',
+                  borderRadius: '20px',
+                  fontSize: '0.75rem',
+                  fontWeight: 800,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.06em',
+                  marginBottom: '8px',
+                }}
+              >
+                <Zap size={14} /> Fast-Track Payment Support
               </div>
-
-              <div style={{ display: 'flex', gap: '12px' }}>
-                <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#0284C7', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.875rem', flexShrink: 0 }}>
-                  2
-                </div>
-                <div>
-                  <div style={{ fontWeight: 800, fontSize: '0.9rem', color: '#0F172A' }}>2. Payment Coordination</div>
-                  <div style={{ fontSize: '0.8rem', color: '#64748B', marginTop: '2px', lineHeight: 1.4 }}>
-                    Our team will contact you via WhatsApp or Email to coordinate the easiest payment method for your country.
-                  </div>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', gap: '12px' }}>
-                <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#8B5CF6', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.875rem', flexShrink: 0 }}>
-                  3
-                </div>
-                <div>
-                  <div style={{ fontWeight: 800, fontSize: '0.9rem', color: '#0F172A' }}>3. Portal Access Within 24h</div>
-                  <div style={{ fontSize: '0.8rem', color: '#64748B', marginTop: '2px', lineHeight: 1.4 }}>
-                    Once payment is received, your portal access and course materials unlock immediately within 24 hours.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Selected Package Banner */}
-          <div
-            style={{
-              backgroundColor: matchedPkg.id === 'elite' ? '#FFF7ED' : '#F0FDF4',
-              border: matchedPkg.id === 'elite' ? '2px solid #F97316' : '2px solid #10B981',
-              borderRadius: '18px',
-              padding: '20px 26px',
-              marginBottom: '28px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              gap: '16px',
-            }}
-          >
-            <div>
-              <div style={{ fontSize: '0.75rem', fontWeight: 800, color: matchedPkg.id === 'elite' ? '#C2410C' : '#059669', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                Selected Academy Package
-              </div>
-              <div style={{ fontSize: '1.45rem', fontWeight: 900, color: '#0F172A', marginTop: '3px' }}>
-                {pkgName}
-              </div>
-              <div style={{ fontSize: '0.84rem', color: '#475569', marginTop: '4px', maxWidth: '520px', lineHeight: 1.4 }}>
-                {matchedPkg.description}
-              </div>
-            </div>
-            <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: '0.78rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Package Fee</div>
-              <div style={{ fontSize: '2.3rem', fontWeight: 900, color: matchedPkg.id === 'elite' ? '#EA580C' : '#16A34A', lineHeight: 1.1 }}>
-                {pkgPrice}
-              </div>
-            </div>
-          </div>
-
-          {/* Student Profile Overview Card */}
-          <div style={{ backgroundColor: '#FFFFFF', border: '1.5px solid #E2E8F0', borderRadius: '18px', padding: '24px', marginBottom: '32px' }}>
-            <div style={{ fontSize: '0.8125rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span>📋</span> Official Enrollment Summary
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <div style={{ width: '38px', height: '38px', borderRadius: '10px', backgroundColor: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <User size={18} color="#059669" />
-                </div>
-                <div>
-                  <div style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 600 }}>Student Full Name</div>
-                  <div style={{ fontSize: '0.95rem', fontWeight: 800, color: '#0F172A' }}>{studentName}</div>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <div style={{ width: '38px', height: '38px', borderRadius: '10px', backgroundColor: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Mail size={18} color="#059669" />
-                </div>
-                <div>
-                  <div style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 600 }}>Registered Email</div>
-                  <div style={{ fontSize: '0.92rem', fontWeight: 700, color: '#0F172A', wordBreak: 'break-all' }}>{studentEmail || '—'}</div>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <div style={{ width: '38px', height: '38px', borderRadius: '10px', backgroundColor: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Phone size={18} color="#059669" />
-                </div>
-                <div>
-                  <div style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 600 }}>WhatsApp Number</div>
-                  <div style={{ fontSize: '0.95rem', fontWeight: 800, color: '#059669' }}>{studentPhone || '—'}</div>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <div style={{ width: '38px', height: '38px', borderRadius: '10px', backgroundColor: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Globe size={18} color="#059669" />
-                </div>
-                <div>
-                  <div style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 600 }}>Country of Residence</div>
-                  <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#0F172A' }}>{studentCountry}</div>
-                </div>
-              </div>
-
-              {studentAmaId && (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <div style={{ width: '38px', height: '38px', borderRadius: '10px', backgroundColor: '#ECFDF5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Hash size={18} color="#059669" />
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 600 }}>Enrollment ID</div>
-                    <div style={{ fontSize: '0.95rem', fontWeight: 800, color: '#059669', fontFamily: 'monospace' }}>{studentAmaId}</div>
-                  </div>
-                </div>
-              )}
-
-              {studentDetails?.address && (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <div style={{ width: '38px', height: '38px', borderRadius: '10px', backgroundColor: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <MapPin size={18} color="#EA580C" />
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 600 }}>Physical Address</div>
-                    <div style={{ fontSize: '0.9rem', fontWeight: 600, color: '#0F172A' }}>{studentDetails.address}</div>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Two Direct Contact Action Buttons (Requested) */}
-          <div style={{ marginBottom: '28px' }}>
-            <div style={{ textAlign: 'center', marginBottom: '14px' }}>
-              <div style={{ fontSize: '0.95rem', fontWeight: 800, color: '#0F172A' }}>
-                Want to accelerate your payment and get your portal access even faster?
-              </div>
-              <div style={{ fontSize: '0.84rem', color: '#64748B', marginTop: '2px' }}>
-                Click below to instantly connect with our admissions team with your details pre-filled:
-              </div>
+              <h2
+                style={{
+                  fontSize: 'clamp(1.05rem, 2vw, 1.25rem)',
+                  fontWeight: 800,
+                  color: '#0F172A',
+                  margin: 0,
+                }}
+              >
+                Connect directly with Admissions to get payment details immediately:
+              </h2>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                gap: '16px',
+              }}
+            >
               {/* Button 1: Contact via Email (Direct Gmail Compose) */}
               <a
                 href={gmailUrl}
@@ -589,32 +566,51 @@ ${studentName}`;
                 }}
                 style={{
                   display: 'flex',
-                  alignItems: 'center',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
                   justifyContent: 'center',
-                  gap: '10px',
-                  backgroundColor: '#DC2626',
+                  padding: '20px 22px',
+                  borderRadius: '16px',
+                  background: 'linear-gradient(135deg, #EA4335 0%, #D93025 100%)',
                   color: '#FFFFFF',
-                  padding: '16px 24px',
-                  borderRadius: '14px',
-                  fontWeight: 800,
-                  fontSize: '0.98rem',
                   textDecoration: 'none',
-                  boxShadow: '0 8px 20px -4px rgba(220, 38, 38, 0.35)',
-                  transition: 'all 0.2s ease',
+                  boxShadow: '0 12px 28px -6px rgba(234, 67, 53, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1) inset',
+                  transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
                   cursor: 'pointer',
+                  position: 'relative',
+                  overflow: 'hidden',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#B91C1C';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.transform = 'translateY(-2px) scale(1.01)';
+                  e.currentTarget.style.boxShadow = '0 18px 36px -8px rgba(234, 67, 53, 0.55)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = '#DC2626';
-                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                  e.currentTarget.style.boxShadow = '0 12px 28px -6px rgba(234, 67, 53, 0.4)';
                 }}
               >
-                <Mail size={20} />
-                <span>Contact via Email</span>
-                <ExternalLink size={14} style={{ opacity: 0.8 }} />
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', marginBottom: '6px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div
+                      style={{
+                        width: '38px',
+                        height: '38px',
+                        borderRadius: '10px',
+                        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <Mail size={20} color="#FFFFFF" />
+                    </div>
+                    <span style={{ fontSize: '1.15rem', fontWeight: 900, letterSpacing: '-0.2px' }}>Contact via Email</span>
+                  </div>
+                  <ExternalLink size={18} style={{ opacity: 0.85 }} />
+                </div>
+                <div style={{ fontSize: '0.8125rem', color: 'rgba(255, 255, 255, 0.92)', lineHeight: 1.4, paddingLeft: '48px' }}>
+                  Opens direct Gmail compose with your registration details pre-filled.
+                </div>
               </a>
 
               {/* Button 2: Contact via WhatsApp */}
@@ -631,39 +627,246 @@ ${studentName}`;
                 }}
                 style={{
                   display: 'flex',
-                  alignItems: 'center',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
                   justifyContent: 'center',
-                  gap: '10px',
-                  backgroundColor: '#16A34A',
+                  padding: '20px 22px',
+                  borderRadius: '16px',
+                  background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
                   color: '#FFFFFF',
-                  padding: '16px 24px',
-                  borderRadius: '14px',
-                  fontWeight: 800,
-                  fontSize: '0.98rem',
                   textDecoration: 'none',
-                  boxShadow: '0 8px 20px -4px rgba(22, 163, 74, 0.35)',
-                  transition: 'all 0.2s ease',
+                  boxShadow: '0 12px 28px -6px rgba(37, 211, 102, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1) inset',
+                  transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
                   cursor: 'pointer',
+                  position: 'relative',
+                  overflow: 'hidden',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#15803D';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.transform = 'translateY(-2px) scale(1.01)';
+                  e.currentTarget.style.boxShadow = '0 18px 36px -8px rgba(37, 211, 102, 0.55)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = '#16A34A';
-                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                  e.currentTarget.style.boxShadow = '0 12px 28px -6px rgba(37, 211, 102, 0.4)';
                 }}
               >
-                <MessageCircle size={20} />
-                <span>Contact via WhatsApp</span>
-                <ExternalLink size={14} style={{ opacity: 0.8 }} />
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', marginBottom: '6px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div
+                      style={{
+                        width: '38px',
+                        height: '38px',
+                        borderRadius: '10px',
+                        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <MessageCircle size={20} color="#FFFFFF" />
+                    </div>
+                    <span style={{ fontSize: '1.15rem', fontWeight: 900, letterSpacing: '-0.2px' }}>Contact via WhatsApp</span>
+                  </div>
+                  <ExternalLink size={18} style={{ opacity: 0.85 }} />
+                </div>
+                <div style={{ fontSize: '0.8125rem', color: 'rgba(255, 255, 255, 0.92)', lineHeight: 1.4, paddingLeft: '48px' }}>
+                  Instant WhatsApp chat with admissions coordinator (+39 333 344 4479).
+                </div>
               </a>
             </div>
 
-            <div style={{ textAlign: 'center', marginTop: '10px' }}>
-              <span style={{ fontSize: '0.78rem', color: '#94A3B8' }}>
-                Don't use web Gmail? <a href={mailtoUrl} style={{ color: '#0284C7', textDecoration: 'underline' }}>Open in default mail client</a>
+            <div style={{ textAlign: 'center', marginTop: '14px' }}>
+              <span style={{ fontSize: '0.8rem', color: '#64748B' }}>
+                Don't use web Gmail?{' '}
+                <a href={mailtoUrl} style={{ color: '#0284C7', textDecoration: 'underline', fontWeight: 600 }}>
+                  Open default email client
+                </a>
               </span>
+            </div>
+          </div>
+
+          {/* Selected Package Banner */}
+          <div
+            style={{
+              background: matchedPkg.id === 'elite'
+                ? 'linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%)'
+                : 'linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%)',
+              border: matchedPkg.id === 'elite' ? '2px solid #F97316' : '2px solid #10B981',
+              borderRadius: '20px',
+              padding: '24px 28px',
+              marginBottom: '28px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '16px',
+            }}
+          >
+            <div>
+              <div
+                style={{
+                  fontSize: '0.75rem',
+                  fontWeight: 800,
+                  color: matchedPkg.id === 'elite' ? '#C2410C' : '#047857',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px',
+                  marginBottom: '4px',
+                }}
+              >
+                Selected Academy Package
+              </div>
+              <div style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0F172A', letterSpacing: '-0.3px' }}>
+                {pkgName}
+              </div>
+              <div style={{ fontSize: '0.875rem', color: '#475569', marginTop: '4px', maxWidth: '500px', lineHeight: 1.45 }}>
+                {matchedPkg.description}
+              </div>
+            </div>
+            <div style={{ textAlign: 'right' }}>
+              <div style={{ fontSize: '0.78rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Package Fee</div>
+              <div
+                style={{
+                  fontSize: 'clamp(2rem, 3.5vw, 2.5rem)',
+                  fontWeight: 900,
+                  color: matchedPkg.id === 'elite' ? '#EA580C' : '#059669',
+                  lineHeight: 1.1,
+                }}
+              >
+                {pkgPrice}
+              </div>
+            </div>
+          </div>
+
+          {/* Student Profile Overview Card */}
+          <div
+            style={{
+              backgroundColor: '#FFFFFF',
+              border: '1.5px solid #E2E8F0',
+              borderRadius: '20px',
+              padding: '24px 28px',
+              marginBottom: '32px',
+            }}
+          >
+            <div
+              style={{
+                fontSize: '0.8125rem',
+                fontWeight: 800,
+                color: '#64748B',
+                textTransform: 'uppercase',
+                letterSpacing: '1px',
+                marginBottom: '18px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+              }}
+            >
+              <ShieldCheck size={18} color="#059669" /> Registered Applicant Details
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '18px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '12px', backgroundColor: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <User size={18} color="#059669" />
+                </div>
+                <div>
+                  <div style={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Full Name</div>
+                  <div style={{ fontSize: '0.98rem', fontWeight: 800, color: '#0F172A' }}>{studentName}</div>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '12px', backgroundColor: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Mail size={18} color="#059669" />
+                </div>
+                <div>
+                  <div style={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Registered Email</div>
+                  <div style={{ fontSize: '0.92rem', fontWeight: 700, color: '#0F172A', wordBreak: 'break-all' }}>{studentEmail || '—'}</div>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '12px', backgroundColor: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Phone size={18} color="#059669" />
+                </div>
+                <div>
+                  <div style={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>WhatsApp Number</div>
+                  <div style={{ fontSize: '0.98rem', fontWeight: 800, color: '#059669' }}>{studentPhone || '—'}</div>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '12px', backgroundColor: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Globe size={18} color="#059669" />
+                </div>
+                <div>
+                  <div style={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Country</div>
+                  <div style={{ fontSize: '0.98rem', fontWeight: 700, color: '#0F172A' }}>{studentCountry}</div>
+                </div>
+              </div>
+
+              {studentAmaId && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div style={{ width: '40px', height: '40px', borderRadius: '12px', backgroundColor: '#ECFDF5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Hash size={18} color="#059669" />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Enrollment ID</div>
+                    <div style={{ fontSize: '0.98rem', fontWeight: 900, color: '#059669', fontFamily: 'monospace' }}>{studentAmaId}</div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* 3-Step Enrollment Timeline Card */}
+          <div
+            style={{
+              backgroundColor: '#F8FAFC',
+              border: '1.5px solid #E2E8F0',
+              borderRadius: '20px',
+              padding: '24px 28px',
+              marginBottom: '32px',
+            }}
+          >
+            <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '18px' }}>
+              ⚡ What Happens Next
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: '18px' }}>
+              <div style={{ display: 'flex', gap: '12px' }}>
+                <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#10B981', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.875rem', flexShrink: 0 }}>
+                  ✓
+                </div>
+                <div>
+                  <div style={{ fontWeight: 800, fontSize: '0.92rem', color: '#0F172A' }}>1. Registration Logged</div>
+                  <div style={{ fontSize: '0.8125rem', color: '#64748B', marginTop: '3px', lineHeight: 1.45 }}>
+                    Your applicant record and package choice are safely saved in our directory.
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', gap: '12px' }}>
+                <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#0284C7', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.875rem', flexShrink: 0 }}>
+                  2
+                </div>
+                <div>
+                  <div style={{ fontWeight: 800, fontSize: '0.92rem', color: '#0F172A' }}>2. Payment Coordination</div>
+                  <div style={{ fontSize: '0.8125rem', color: '#64748B', marginTop: '3px', lineHeight: 1.45 }}>
+                    Our team provides the most convenient payment method (Bank Transfer, Card, etc.).
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', gap: '12px' }}>
+                <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#8B5CF6', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.875rem', flexShrink: 0 }}>
+                  3
+                </div>
+                <div>
+                  <div style={{ fontWeight: 800, fontSize: '0.92rem', color: '#0F172A' }}>3. Portal Access Within 24h</div>
+                  <div style={{ fontSize: '0.8125rem', color: '#64748B', marginTop: '3px', lineHeight: 1.45 }}>
+                    Upon payment confirmation, your student portal and prep materials unlock instantly.
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -673,11 +876,11 @@ ${studentName}`;
               style={{
                 backgroundColor: '#EFF6FF',
                 border: '1.5px solid #BFDBFE',
-                borderRadius: '12px',
-                padding: '14px 18px',
-                marginBottom: '20px',
+                borderRadius: '14px',
+                padding: '16px 20px',
+                marginBottom: '24px',
                 color: '#1E40AF',
-                fontSize: '0.875rem',
+                fontSize: '0.9rem',
                 fontWeight: 600,
                 lineHeight: 1.5,
               }}
@@ -694,14 +897,14 @@ ${studentName}`;
               style={{
                 flex: 1,
                 minWidth: '220px',
-                padding: '14px 20px',
-                fontSize: '0.92rem',
-                fontWeight: 700,
+                padding: '14px 22px',
+                fontSize: '0.95rem',
+                fontWeight: 800,
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: '8px',
-                borderRadius: '12px',
+                gap: '9px',
+                borderRadius: '14px',
                 border: '1.5px solid #CBD5E1',
                 backgroundColor: '#FFFFFF',
                 color: '#0F172A',
@@ -711,22 +914,22 @@ ${studentName}`;
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#F8FAFC')}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#FFFFFF')}
             >
-              <RefreshCw size={16} className={checkingStatus ? 'animate-spin' : ''} />
-              {checkingStatus ? 'Verifying with Admissions Server...' : 'Check Approval Status'}
+              <RefreshCw size={17} className={checkingStatus ? 'animate-spin' : ''} />
+              {checkingStatus ? 'Checking Status with Server...' : 'Check Approval Status'}
             </button>
 
             <button
               onClick={handleLogout}
               style={{
                 padding: '14px 24px',
-                borderRadius: '12px',
+                borderRadius: '14px',
                 border: '1.5px solid #E2E8F0',
                 backgroundColor: '#FFFFFF',
                 color: '#64748B',
-                fontWeight: 600,
+                fontWeight: 700,
                 fontSize: '0.92rem',
                 cursor: 'pointer',
-                display: 'flex',
+                display: 'inline-flex',
                 alignItems: 'center',
                 gap: '8px',
                 transition: 'all 0.15s ease',
@@ -751,7 +954,23 @@ ${studentName}`;
 
 export default function PendingPaymentPage() {
   return (
-    <Suspense fallback={<div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#F8FAFC' }}>Loading...</div>}>
+    <Suspense
+      fallback={
+        <div
+          style={{
+            minHeight: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#0A0F1D',
+            color: '#FFFFFF',
+            fontWeight: 700,
+          }}
+        >
+          Loading registration details...
+        </div>
+      }
+    >
       <PendingPaymentContent />
     </Suspense>
   );
