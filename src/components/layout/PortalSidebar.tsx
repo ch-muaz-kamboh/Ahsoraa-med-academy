@@ -6,7 +6,7 @@ import {
   LayoutDashboard,
   FileCheck2,
   FolderLock,
-  Settings,
+  UserCheck,
   BookOpen,
   LogOut,
   Globe,
@@ -58,16 +58,6 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
   const medpathLocked = isMedpathLocked(effectivePkg);
   const docVaultLocked = isDocumentVaultLocked(effectivePkg);
 
-  const [showSettings, setShowSettings] = useState(false);
-  const [whatsappNumber, setWhatsappNumber] = useState(currentUser?.whatsappNumber || currentUser?.phone || '');
-  const [savingSettings, setSavingSettings] = useState(false);
-  const [savedSettingsSuccess, setSavedSettingsSuccess] = useState(false);
-
-  useEffect(() => {
-    if (currentUser?.whatsappNumber || currentUser?.phone) {
-      setWhatsappNumber(currentUser.whatsappNumber || currentUser.phone || '');
-    }
-  }, [currentUser?.whatsappNumber, currentUser?.phone]);
   const pathname = usePathname();
   const router = useRouter();
   const { setStudentLoggedIn, logoutStudent, studentMistakes } = useAppStore();
@@ -206,7 +196,8 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           width: '100%',
         }}
       >
-        <div
+        <Link
+          href="/portal/account"
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -214,21 +205,24 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
             justifyContent: sidebarExpanded ? 'flex-start' : 'center',
             width: sidebarExpanded ? 'auto' : '100%',
             overflow: 'hidden',
+            textDecoration: 'none',
           }}
-          title={!sidebarExpanded ? `${currentUser.firstName || 'Student'} (${currentPkgObj.name})` : undefined}
+          title={!sidebarExpanded ? `${currentUser.firstName || 'Student'} (My Account)` : undefined}
         >
           <div
             style={{
               width: '40px',
               height: '40px',
               borderRadius: '50%',
-              backgroundColor: '#DCFCE7',
+              backgroundColor: pathname === '/portal/account' ? '#BBF7D0' : '#DCFCE7',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               color: '#059669',
               fontWeight: 'bold',
               flexShrink: 0,
+              boxShadow: pathname === '/portal/account' ? '0 0 0 2px #059669' : 'none',
+              transition: 'all 0.15s ease',
             }}
           >
             {computedInitials}
@@ -237,9 +231,9 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
             <div style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
               <span
                 style={{
-                  fontWeight: 600,
+                  fontWeight: 700,
                   fontSize: '0.9rem',
-                  color: '#1E293B',
+                  color: pathname === '/portal/account' ? '#059669' : '#1E293B',
                   whiteSpace: 'nowrap',
                   textOverflow: 'ellipsis',
                   overflow: 'hidden',
@@ -277,32 +271,33 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
               </div>
             </div>
           )}
-        </div>
-        <button
-          type="button"
-          onClick={() => setShowSettings(true)}
+        </Link>
+        <Link
+          href="/portal/account"
           style={{
-            background: 'none',
-            border: 'none',
+            background: pathname === '/portal/account' ? '#ECFDF5' : 'transparent',
+            border: pathname === '/portal/account' ? '1px solid #A7F3D0' : 'none',
             cursor: 'pointer',
-            color: '#64748B',
+            color: pathname === '/portal/account' ? '#059669' : '#64748B',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '6px',
-            borderRadius: '6px',
+            padding: '7px',
+            borderRadius: '8px',
+            textDecoration: 'none',
+            transition: 'all 0.15s ease',
           }}
-          title="Account Settings"
+          title="My Account"
         >
-          <Settings size={sidebarExpanded ? 19 : 17} />
-        </button>
+          <UserCheck size={sidebarExpanded ? 19 : 17} />
+        </Link>
       </div>
 
       {/* Scrollable Navigation Area */}
       <div style={{ flex: 1, overflowY: 'auto', padding: '12px 0', width: '100%' }}>
 
         {/* Dashboard Link */}
-        <div style={{ padding: sidebarExpanded ? '0 12px' : '0 8px', marginBottom: '6px' }}>
+        <div style={{ padding: sidebarExpanded ? '0 12px' : '0 8px', marginBottom: '4px' }}>
           <Link
             href="/portal/dashboard"
             style={{
@@ -324,6 +319,32 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           >
             <LayoutDashboard size={18} color={pathname === '/portal/dashboard' ? '#059669' : '#64748B'} />
             {sidebarExpanded && <span>{t('portal.dashboard', 'Dashboard')}</span>}
+          </Link>
+        </div>
+
+        {/* My Account Link */}
+        <div style={{ padding: sidebarExpanded ? '0 12px' : '0 8px', marginBottom: '6px' }}>
+          <Link
+            href="/portal/account"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: sidebarExpanded ? 'flex-start' : 'center',
+              gap: '12px',
+              padding: sidebarExpanded ? '10px 14px' : '10px 0',
+              borderRadius: '8px',
+              fontSize: '0.875rem',
+              fontWeight: 600,
+              color: pathname === '/portal/account' ? '#059669' : '#334155',
+              backgroundColor: pathname === '/portal/account' ? '#F0FFF4' : 'transparent',
+              textDecoration: 'none',
+              transition: 'all 0.15s ease',
+              width: '100%',
+            }}
+            title={!sidebarExpanded ? 'My Account' : undefined}
+          >
+            <UserCheck size={18} color={pathname === '/portal/account' ? '#059669' : '#64748B'} />
+            {sidebarExpanded && <span>My Account</span>}
           </Link>
         </div>
 
@@ -796,194 +817,6 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           {sidebarExpanded && <span>Exit to Public Site</span>}
         </Link>
       </div>
-    {/* Settings Modal */}
-    {showSettings && (
-      <div style={{
-        position: 'fixed',
-        inset: 0,
-        backgroundColor: 'rgba(15,23,42,0.6)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        zIndex: 10000,
-      }}>
-        <div style={{
-          backgroundColor: '#FFFFFF',
-          borderRadius: '16px',
-          width: '90%',
-          maxWidth: '440px',
-          padding: '28px',
-          boxShadow: '0 20px 40px -15px rgba(0,0,0,0.3)',
-          border: '1px solid #E2E8F0',
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
-            <div>
-              <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>Student Settings</h2>
-              <p style={{ margin: '4px 0 0', fontSize: '0.8rem', color: '#64748B' }}>Your official student academy credentials</p>
-            </div>
-            <button
-              type="button"
-              onClick={() => setShowSettings(false)}
-              style={{
-                background: '#F1F5F9',
-                border: 'none',
-                borderRadius: '50%',
-                width: '32px',
-                height: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                color: '#64748B',
-                fontSize: '1rem',
-              }}
-            >
-              ✕
-            </button>
-          </div>
-
-          <form
-            onSubmit={async (e) => {
-              e.preventDefault();
-              setSavingSettings(true);
-              try {
-                const supabase = createClient();
-                if (currentUser?.id) {
-                  await supabase.from('profiles').update({
-                    whatsapp_number: whatsappNumber,
-                    phone: whatsappNumber,
-                  }).eq('id', currentUser.id);
-                }
-                updateProfile({
-                  whatsappNumber: whatsappNumber,
-                  phone: whatsappNumber,
-                });
-                setSavedSettingsSuccess(true);
-                setTimeout(() => {
-                  setSavedSettingsSuccess(false);
-                  setShowSettings(false);
-                }, 900);
-              } catch (err) {
-                console.error('Settings update error', err);
-                updateProfile({
-                  whatsappNumber: whatsappNumber,
-                  phone: whatsappNumber,
-                });
-                setSavedSettingsSuccess(true);
-                setTimeout(() => {
-                  setSavedSettingsSuccess(false);
-                  setShowSettings(false);
-                }, 900);
-              } finally {
-                setSavingSettings(false);
-              }
-            }}
-            style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
-          >
-            {/* 1. Official Enrollment ID */}
-            <div style={{ padding: '14px 16px', backgroundColor: '#F8FAFC', borderRadius: '12px', border: '1px solid #E2E8F0' }}>
-              <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '6px' }}>
-                Official Enrollment ID
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <span style={{ fontFamily: 'monospace', fontSize: '1.05rem', fontWeight: 800, color: '#0F172A', letterSpacing: '0.05em' }}>
-                  {currentUser?.ama_id || currentUser?.amaId || (currentUser?.id ? `AMA-${currentUser.id.slice(0, 6).toUpperCase()}` : 'AMA-PENDING')}
-                </span>
-                <span style={{ fontSize: '0.7rem', fontWeight: 700, color: '#059669', backgroundColor: '#ECFDF5', padding: '3px 8px', borderRadius: '6px', border: '1px solid #A7F3D0' }}>
-                  Verified
-                </span>
-              </div>
-            </div>
-
-            {/* 2. Enrolled Package Name */}
-            <div style={{ padding: '14px 16px', backgroundColor: '#F8FAFC', borderRadius: '12px', border: '1px solid #E2E8F0' }}>
-              <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '6px' }}>
-                Enrolled Academic Package
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <span style={{ fontSize: '0.95rem', fontWeight: 800, color: studentTier === 'elite' ? '#C2410C' : studentTier === 'mastery' ? '#047857' : '#0F172A' }}>
-                  {currentPkgObj.name}
-                </span>
-                <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#0F172A', backgroundColor: '#FFFFFF', padding: '3px 10px', borderRadius: '6px', border: '1px solid #CBD5E1' }}>
-                  {currentPkgObj.price}
-                </span>
-              </div>
-            </div>
-
-            {/* 3. Real WhatsApp Number */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <label style={{ fontSize: '0.72rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                WhatsApp Number
-              </label>
-              <input
-                type="tel"
-                value={whatsappNumber}
-                onChange={(e) => setWhatsappNumber(e.target.value)}
-                placeholder="+39 333 123 4567"
-                required
-                style={{
-                  width: '100%',
-                  padding: '12px 14px',
-                  borderRadius: '10px',
-                  border: '1px solid #CBD5E1',
-                  fontSize: '0.925rem',
-                  fontWeight: 600,
-                  color: '#0F172A',
-                  backgroundColor: '#FFFFFF',
-                  outline: 'none',
-                  boxSizing: 'border-box',
-                }}
-              />
-              <span style={{ fontSize: '0.75rem', color: '#64748B' }}>
-                Official WhatsApp used for academic alerts, tutor sessions, and study materials.
-              </span>
-            </div>
-
-            {savedSettingsSuccess && (
-              <div style={{ padding: '10px 14px', backgroundColor: '#ECFDF5', border: '1px solid #10B981', borderRadius: '8px', color: '#065F46', fontSize: '0.85rem', fontWeight: 600, textAlign: 'center' }}>
-                ✓ Settings saved successfully!
-              </div>
-            )}
-
-            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '8px' }}>
-              <button
-                type="button"
-                onClick={() => setShowSettings(false)}
-                style={{
-                  padding: '10px 18px',
-                  background: '#F1F5F9',
-                  color: '#475569',
-                  border: 'none',
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                  fontWeight: 600,
-                  fontSize: '0.875rem',
-                }}
-              >
-                Close
-              </button>
-              <button
-                type="submit"
-                disabled={savingSettings}
-                style={{
-                  padding: '10px 22px',
-                  background: '#059669',
-                  color: '#FFFFFF',
-                  border: 'none',
-                  borderRadius: '8px',
-                  cursor: savingSettings ? 'not-allowed' : 'pointer',
-                  fontWeight: 700,
-                  fontSize: '0.875rem',
-                  boxShadow: '0 4px 12px rgba(5, 150, 105, 0.25)',
-                }}
-              >
-                {savingSettings ? 'Saving...' : 'Save Settings'}
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    )}
     </aside>
   );
 }

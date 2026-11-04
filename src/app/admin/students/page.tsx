@@ -56,6 +56,20 @@ export default function AdminStudentsPage() {
 
   // Helper to accurately extract numerical price paid by a student (honoring promotional discounts)
   const parseStudentPaidAmount = (s: StudentProfile, defaultFallback?: number): number => {
+    // Exclude test accounts from total finance calculation as requested
+    const emailLower = (s.email || '').toLowerCase().trim();
+    if (
+      (s as any).is_test ||
+      (s as any).isTest ||
+      emailLower.startsWith('test.') ||
+      emailLower.startsWith('test_') ||
+      emailLower.includes('test@') ||
+      emailLower.includes('+test') ||
+      emailLower.includes('demo') ||
+      (s.package_price && String(s.package_price).toLowerCase().includes('test'))
+    ) {
+      return 0;
+    }
     const raw = s.package_price || s.packagePrice;
     if (raw) {
       const num = Number(String(raw).replace(/[^0-9.]/g, ''));

@@ -761,9 +761,10 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                 </div>
               )}
 
-                {/* Profile Pill & Avatar */}
+                {/* Profile Pill & Avatar (Links to My Account) */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <div
+                  <Link
+                    href="/portal/account"
                     style={{
                       width: '38px',
                       height: '38px',
@@ -777,11 +778,13 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                       fontSize: '0.875rem',
                       boxShadow: '0 4px 10px rgba(5, 150, 105, 0.25)',
                       border: '2px solid #FFFFFF',
+                      textDecoration: 'none',
+                      transition: 'transform 0.15s ease',
                     }}
-                    title={realUser?.fullName || 'Candidate Profile'}
+                    title={realUser?.fullName ? `${realUser.fullName} (My Account)` : 'My Account'}
                   >
                     {realUser ? realUser.initials : 'MD'}
-                  </div>
+                  </Link>
 
                   <button
                     onClick={handleLogout}

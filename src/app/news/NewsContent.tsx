@@ -14,6 +14,25 @@ export default function NewsContent() {
   const [selectedPost, setSelectedPost] = useState<NewsItem | null>(null);
   const [leadOpen, setLeadOpen] = useState(false);
 
+  // Freeze background scroll & handle Esc key when fullscreen article reader is active
+  useEffect(() => {
+    if (!selectedPost) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedPost(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedPost]);
+
   // Newsletter State
   const [newsName, setNewsName] = useState('');
   const [newsEmail, setNewsEmail] = useState('');
@@ -415,104 +434,421 @@ export default function NewsContent() {
         </div>
       </section>
 
-      {/* ── ARTICLE MODAL (Quick Preview) ── */}
+      {/* ── FULL SCREEN ARTICLE READER MODAL (Utilizes Full Horizontal Space & Mobile Optimized) ── */}
       {selectedPost && (
         <div
           style={{
             position: 'fixed',
             inset: 0,
-            backgroundColor: 'rgba(15, 23, 42, 0.75)',
-            backdropFilter: 'blur(4px)',
-            zIndex: 100,
+            width: '100vw',
+            height: '100vh',
+            backgroundColor: '#0F172A',
+            zIndex: 99999,
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '20px',
+            flexDirection: 'column',
+            overflow: 'hidden',
           }}
-          onClick={() => setSelectedPost(null)}
         >
+          <style>{`
+            .ahsora-article-fullscreen-grid {
+              display: grid;
+              grid-template-columns: minmax(0, 1fr) 340px;
+              gap: 32px;
+              align-items: start;
+            }
+            .ahsora-article-canvas {
+              padding: 40px 48px;
+            }
+            .ahsora-article-scroll-body {
+              padding: 36px 24px 80px;
+            }
+            @media (max-width: 1080px) {
+              .ahsora-article-fullscreen-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+              }
+            }
+            @media (max-width: 768px) {
+              .ahsora-article-canvas {
+                padding: 24px 18px !important;
+                border-radius: 16px !important;
+              }
+              .ahsora-article-scroll-body {
+                padding: 16px 12px 60px !important;
+              }
+            }
+          `}</style>
+
+          {/* Top Fullscreen Header Navigation Bar */}
           <div
+            className="ahsora-article-topbar"
             style={{
-              backgroundColor: '#FFFFFF',
-              borderRadius: '24px',
-              maxWidth: '720px',
-              width: '100%',
-              maxHeight: '90vh',
-              overflowY: 'auto',
-              padding: '36px',
-              boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
-              position: 'relative',
+              minHeight: '60px',
+              backgroundColor: '#0F172A',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '8px 20px',
+              flexShrink: 0,
+              color: '#FFFFFF',
+              gap: '12px',
             }}
-            onClick={(e) => e.stopPropagation()}
           >
-            <button
-              onClick={() => setSelectedPost(null)}
-              style={{
-                position: 'absolute',
-                top: '20px',
-                right: '20px',
-                backgroundColor: '#F1F5F9',
-                border: 'none',
-                borderRadius: '50%',
-                width: '36px',
-                height: '36px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                color: '#64748B',
-              }}
-            >
-              <X size={20} />
-            </button>
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-              <span style={{ backgroundColor: '#ECFDF5', color: '#059669', padding: '4px 12px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 700, border: '1px solid #A7F3D0' }}>
-                {selectedPost.category}
-              </span>
-              <span style={{ fontSize: '0.8125rem', color: '#64748B' }}>{selectedPost.date} • {selectedPost.readTime}</span>
-            </div>
-
-            <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', marginBottom: '16px', lineHeight: 1.3 }}>
-              {selectedPost.title}
-            </h2>
-
-            <div style={{ fontSize: '0.875rem', color: '#059669', fontWeight: 700, marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <User size={16} /> Author: {selectedPost.author}
-            </div>
-
-            <div
-              style={{ backgroundColor: '#F8FAFC', padding: '18px 20px', borderRadius: '12px', borderLeft: '4px solid #059669', marginBottom: '24px', fontSize: '0.95rem', color: '#334155', lineHeight: 1.7 }}
-              dangerouslySetInnerHTML={{ __html: selectedPost.excerpt }}
-            />
-
-            <div
-              className="rich-article-content"
-              style={{ fontSize: '1rem', color: '#334155', lineHeight: 1.85 }}
-              dangerouslySetInnerHTML={{
-                __html: /<[a-z][\s\S]*>/i.test(selectedPost.content || '')
-                  ? selectedPost.content
-                  : (selectedPost.content || '')
-                      .split(/\n\s*\n/)
-                      .map((p) => `<p>${p.replace(/\n/g, '<br/>')}</p>`)
-                      .join(''),
-              }}
-            />
-
-            <div style={{ marginTop: '32px', paddingTop: '20px', borderTop: '1px solid #E2E8F0', display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
-              <Link
-                href={`/imat-news-and-updates/${selectedPost.slug}`}
-                className="btn-primary"
-                style={{ padding: '10px 24px', fontSize: '0.875rem', borderRadius: '10px', textDecoration: 'none' }}
-              >
-                View Full Page
-              </Link>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0, flex: 1 }}>
               <button
                 onClick={() => setSelectedPost(null)}
-                style={{ padding: '10px 20px', fontSize: '0.875rem', borderRadius: '10px', border: '1px solid #E2E8F0', backgroundColor: '#F8FAFC', color: '#64748B', cursor: 'pointer' }}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.12)',
+                  border: '1px solid rgba(255, 255, 255, 0.25)',
+                  color: '#FFFFFF',
+                  padding: '7px 14px',
+                  borderRadius: '10px',
+                  cursor: 'pointer',
+                  fontWeight: 700,
+                  fontSize: '0.825rem',
+                  transition: 'all 0.15s ease',
+                  flexShrink: 0,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#DC2626';
+                  e.currentTarget.style.borderColor = '#DC2626';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.12)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.25)';
+                }}
+                title="Close fullscreen article (or press Esc)"
               >
-                Close
+                <X size={16} /> Close
               </button>
+
+              <span
+                style={{
+                  backgroundColor: '#059669',
+                  color: '#FFFFFF',
+                  padding: '3px 10px',
+                  borderRadius: '20px',
+                  fontSize: '0.72rem',
+                  fontWeight: 800,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px',
+                  flexShrink: 0,
+                }}
+              >
+                {selectedPost.category}
+              </span>
+
+              <span
+                style={{
+                  fontSize: '0.875rem',
+                  fontWeight: 600,
+                  color: '#E2E8F0',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {selectedPost.title}
+              </span>
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
+              <Link
+                href={`/imat-news-and-updates/${selectedPost.slug}`}
+                style={{
+                  backgroundColor: '#059669',
+                  color: '#FFFFFF',
+                  padding: '7px 14px',
+                  borderRadius: '9px',
+                  fontSize: '0.78rem',
+                  fontWeight: 700,
+                  textDecoration: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                  boxShadow: '0 2px 8px rgba(5, 150, 105, 0.3)',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                Dedicated Page <ArrowRight size={13} />
+              </Link>
+            </div>
+          </div>
+
+          {/* Fullscreen Wide Content Body */}
+          <div
+            className="ahsora-article-scroll-body"
+            style={{
+              flex: 1,
+              overflowY: 'auto',
+              backgroundColor: '#F8FAFC',
+            }}
+          >
+            <div
+              className="ahsora-article-fullscreen-grid"
+              style={{
+                maxWidth: '1440px',
+                width: '100%',
+                margin: '0 auto',
+              }}
+            >
+              {/* Main Wide Reading Canvas */}
+              <div
+                className="ahsora-article-canvas"
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  borderRadius: '20px',
+                  border: '1px solid #E2E8F0',
+                  boxShadow: '0 10px 30px -5px rgba(15, 23, 42, 0.05)',
+                  minWidth: 0,
+                }}
+              >
+                {/* Meta details */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', marginBottom: '18px' }}>
+                  <span style={{ backgroundColor: '#ECFDF5', color: '#059669', padding: '4px 12px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 800, border: '1px solid #A7F3D0' }}>
+                    {selectedPost.category}
+                  </span>
+                  <span style={{ fontSize: '0.85rem', color: '#64748B', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <Calendar size={14} color="#059669" /> {selectedPost.date}
+                  </span>
+                  <span style={{ fontSize: '0.85rem', color: '#64748B', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <Clock size={14} color="#059669" /> {selectedPost.readTime}
+                  </span>
+                </div>
+
+                {/* Main Article Title */}
+                <h1
+                  style={{
+                    fontSize: 'clamp(2rem, 3.5vw, 2.75rem)',
+                    fontWeight: 900,
+                    color: '#0F172A',
+                    lineHeight: 1.25,
+                    marginBottom: '22px',
+                    letterSpacing: '-0.02em',
+                  }}
+                >
+                  {selectedPost.title}
+                </h1>
+
+                {/* Author Info Bar */}
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    flexWrap: 'wrap',
+                    gap: '12px',
+                    padding: '14px 18px',
+                    backgroundColor: '#F8FAFC',
+                    borderRadius: '12px',
+                    border: '1px solid #E2E8F0',
+                    marginBottom: '28px',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div
+                      style={{
+                        width: '38px',
+                        height: '38px',
+                        borderRadius: '50%',
+                        backgroundColor: '#10B981',
+                        color: '#FFFFFF',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontWeight: 800,
+                        fontSize: '0.875rem',
+                      }}
+                    >
+                      <User size={18} />
+                    </div>
+                    <div>
+                      <div style={{ fontWeight: 800, fontSize: '0.9rem', color: '#0F172A' }}>
+                        {selectedPost.author}
+                      </div>
+                      <div style={{ fontSize: '0.75rem', color: '#64748B' }}>
+                        Ahsora Academic Medical Advisory & Admissions Panel
+                      </div>
+                    </div>
+                  </div>
+                  <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#059669', backgroundColor: '#ECFDF5', padding: '3px 10px', borderRadius: '12px', border: '1px solid #A7F3D0' }}>
+                    Verified Editorial ✓
+                  </span>
+                </div>
+
+                {/* Lead Excerpt Callout */}
+                <div
+                  style={{
+                    backgroundColor: '#ECFDF5',
+                    borderLeft: '5px solid #059669',
+                    padding: '22px 26px',
+                    borderRadius: '0 14px 14px 0',
+                    marginBottom: '32px',
+                    fontSize: '1.08rem',
+                    lineHeight: 1.75,
+                    color: '#064E3B',
+                    fontWeight: 500,
+                  }}
+                  dangerouslySetInnerHTML={{ __html: selectedPost.excerpt }}
+                />
+
+                {/* Full Article Content Utilizing Wide Horizontal Space */}
+                <div
+                  className="rich-article-content prose-article"
+                  style={{
+                    fontSize: '1.05rem',
+                    color: '#334155',
+                    lineHeight: 1.9,
+                    wordBreak: 'break-word',
+                  }}
+                  dangerouslySetInnerHTML={{
+                    __html: /<[a-z][\s\S]*>/i.test(selectedPost.content || '')
+                      ? selectedPost.content
+                      : (selectedPost.content || '')
+                          .split(/\n\s*\n/)
+                          .map((p) => `<p>${p.replace(/\n/g, '<br/>')}</p>`)
+                          .join(''),
+                  }}
+                />
+
+                {/* Footer Controls */}
+                <div
+                  style={{
+                    marginTop: '44px',
+                    paddingTop: '24px',
+                    borderTop: '1px solid #E2E8F0',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    flexWrap: 'wrap',
+                    gap: '12px',
+                  }}
+                >
+                  <button
+                    onClick={() => setSelectedPost(null)}
+                    style={{
+                      padding: '11px 22px',
+                      fontSize: '0.875rem',
+                      borderRadius: '10px',
+                      border: '1px solid #CBD5E1',
+                      backgroundColor: '#FFFFFF',
+                      color: '#475569',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    ← Close Fullscreen Reader
+                  </button>
+
+                  <Link
+                    href={`/imat-news-and-updates/${selectedPost.slug}`}
+                    style={{
+                      backgroundColor: '#059669',
+                      color: '#FFFFFF',
+                      padding: '11px 26px',
+                      fontSize: '0.875rem',
+                      fontWeight: 700,
+                      borderRadius: '10px',
+                      textDecoration: 'none',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      boxShadow: '0 4px 12px rgba(5, 150, 105, 0.25)',
+                    }}
+                  >
+                    View Full Dedicated Page <ArrowRight size={16} />
+                  </Link>
+                </div>
+              </div>
+
+              {/* Right Sticky Sidebar Utilizing Horizontal Space */}
+              <div
+                style={{
+                  position: 'sticky',
+                  top: '12px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '20px',
+                }}
+              >
+                {/* Article Overview Card */}
+                <div
+                  style={{
+                    backgroundColor: '#FFFFFF',
+                    borderRadius: '18px',
+                    padding: '24px',
+                    border: '1px solid #E2E8F0',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.03)',
+                  }}
+                >
+                  <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '14px' }}>
+                    Article Quick Overview
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #F1F5F9', paddingBottom: '8px' }}>
+                      <span style={{ fontSize: '0.8125rem', color: '#64748B' }}>Category</span>
+                      <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#059669' }}>{selectedPost.category}</span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #F1F5F9', paddingBottom: '8px' }}>
+                      <span style={{ fontSize: '0.8125rem', color: '#64748B' }}>Estimated Read</span>
+                      <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#0F172A' }}>{selectedPost.readTime}</span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #F1F5F9', paddingBottom: '8px' }}>
+                      <span style={{ fontSize: '0.8125rem', color: '#64748B' }}>Published Date</span>
+                      <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#0F172A' }}>{selectedPost.date}</span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={{ fontSize: '0.8125rem', color: '#64748B' }}>Accreditation</span>
+                      <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#059669' }}>Italian IMAT LM-41</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Official Ahsora Course CTA Card */}
+                <div
+                  style={{
+                    background: 'linear-gradient(135deg, #064E3B 0%, #065F46 100%)',
+                    borderRadius: '18px',
+                    padding: '24px',
+                    color: '#FFFFFF',
+                    boxShadow: '0 8px 24px -6px rgba(5, 150, 105, 0.4)',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                    <Sparkles size={16} color="#5CED73" />
+                    <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#5CED73', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                      IMAT 2027 Preparation
+                    </span>
+                  </div>
+                  <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#FFFFFF', margin: '0 0 8px 0', lineHeight: 1.3 }}>
+                    Master Your Medical School Admission
+                  </h3>
+                  <p style={{ fontSize: '0.8125rem', color: '#D1FAE5', margin: '0 0 16px 0', lineHeight: 1.5 }}>
+                    Join hundreds of successful candidates with simulated CBT exams, verified question banks, and doctor tutoring.
+                  </p>
+                  <Link
+                    href="/imat-preparation-courses"
+                    style={{
+                      display: 'block',
+                      textAlign: 'center',
+                      backgroundColor: '#5CED73',
+                      color: '#064E3B',
+                      padding: '10px 16px',
+                      borderRadius: '10px',
+                      fontSize: '0.8125rem',
+                      fontWeight: 800,
+                      textDecoration: 'none',
+                    }}
+                  >
+                    Explore Courses &amp; Enrol
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
