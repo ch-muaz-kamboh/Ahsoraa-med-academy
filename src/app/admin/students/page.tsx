@@ -69,71 +69,13 @@ export default function AdminStudentsPage() {
     if (!email && !id) return null;
     const cleanEmail = (email || '').toLowerCase().trim();
 
-    // 1. Check adminStudentList FIRST (stores exact registration and discounted purchase prices)
-    try {
-      const adminListStr = localStorage.getItem('adminStudentList');
-      if (adminListStr) {
-        const list = JSON.parse(adminListStr);
-        if (Array.isArray(list)) {
-          const found = list.find((item: any) =>
-            (cleanEmail && item.email && item.email.toLowerCase().trim() === cleanEmail) ||
-            (id && item.id === id)
-          );
-          if (found && (found.selectedPackage || found.selected_package)) {
-            return {
-              selectedPackage: found.selectedPackage || found.selected_package,
-              packagePrice: found.packagePrice || found.package_price || getPackageByIdOrName(found.selectedPackage || found.selected_package).price,
-            };
-          }
-        }
-      }
-    } catch (e) { }
-
-    // 2. Check recentRegistration
-    try {
-      const regStr = localStorage.getItem('recentRegistration');
-      if (regStr) {
-        const reg = JSON.parse(regStr);
-        if (
-          (cleanEmail && reg.email && reg.email.toLowerCase().trim() === cleanEmail) ||
-          (id && reg.id === id)
-        ) {
-          if (reg.selectedPackage || reg.selected_package) {
-            return {
-              selectedPackage: reg.selectedPackage || reg.selected_package,
-              packagePrice: reg.packagePrice || reg.package_price || getPackageByIdOrName(reg.selectedPackage || reg.selected_package).price,
-            };
-          }
-        }
-      }
-    } catch (e) { }
-
-    // 3. Check ahsora_currentUser
-    try {
-      const curUserStr = localStorage.getItem('ahsora_currentUser');
-      if (curUserStr) {
-        const cur = JSON.parse(curUserStr);
-        if (
-          (cleanEmail && cur.email && cur.email.toLowerCase().trim() === cleanEmail) ||
-          (id && cur.id === id)
-        ) {
-          if (cur.selectedPackage) {
-            return {
-              selectedPackage: cur.selectedPackage,
-              packagePrice: cur.packagePrice || getPackageByIdOrName(cur.selectedPackage).price,
-            };
-          }
-        }
-      }
-    } catch (e) { }
-
-    // 4. Check persistent mapping
+    // 1. Check persistent mapping (highest priority for student package selection)
     if (cleanEmail) {
       const mapped = getStudentPackageMapping(cleanEmail);
       if (mapped?.selectedPackage) return mapped;
     }
 
-    // 5. Check ahsora_elite_students (dynamically resolve price instead of hardcoding 799)
+    // 2. Check ahsora_elite_students
     try {
       const eliteStr = localStorage.getItem('ahsora_elite_students');
       if (eliteStr) {
@@ -262,6 +204,21 @@ export default function AdminStudentsPage() {
             : undefined;
 
       if (existing) {
+        if (!isAuthoritative) {
+          // If the student record is already loaded from the authoritative server API,
+          // never let unauthoritative local cache or stale lists overwrite their real package or price!
+          const updated: StudentProfile = {
+            ...existing,
+            country: existing.country || resolvedCountry,
+            address: existing.address || resolvedAddress,
+            whatsapp_number: existing.whatsapp_number || resolvedPhone,
+            whatsappNumber: existing.whatsappNumber || resolvedPhone,
+            payment_approved: existing.payment_approved !== undefined ? existing.payment_approved : (incomingApproved ?? false),
+          };
+          studentMap.set(key, updated);
+          return;
+        }
+
         const updated: StudentProfile = {
           ...existing,
           id: (isAuthoritative && rawId) ? rawId : (existing.id || rawId),
@@ -311,10 +268,10 @@ export default function AdminStudentsPage() {
     // 1. One-time clean out of legacy mock/placeholder accounts from client storage
     if (typeof window !== 'undefined') {
       try {
-        if (localStorage.getItem('ahsora_cleanup_v4') !== 'true') {
+        if (localStorage.getItem('ahsora_cleanup_v6') !== 'true') {
           localStorage.removeItem('ahsora_cached_admin_students');
-          localStorage.removeItem('ahsora_approved_emails');
-          localStorage.setItem('ahsora_cleanup_v4', 'true');
+          localStorage.removeItem('adminStudentList');
+          localStorage.setItem('ahsora_cleanup_v6', 'true');
         }
       } catch (e) { }
     }
@@ -1017,7 +974,7 @@ export default function AdminStudentsPage() {
                           {/* Package Selector to allow Admin to sync/update package */}
                           <select
                             value={matchedPkg.name}
-                            onChange={(e) => handlePackageChange(student.id, e.target.value, student.email)}
+                            onChange={(e) => handleUpdatePackage(student.id, student.email, e.target.value)}
                             style={{
                               fontSize: '0.75rem',
                               fontWeight: 700,
