@@ -326,7 +326,11 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
   }
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#F8FAFC' }}>
+    <div style={{
+      display: 'flex',
+      minHeight: '100vh',
+      background: 'radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.04) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.04) 0px, transparent 50%), #F8FAFC',
+    }}>
       {/* Sidebar */}
       <PortalSidebar 
         userFullName={realUser?.fullName || 'Loading...'} 
@@ -872,7 +876,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
         )}
 
         {/* Page Content */}
-        <div style={{ padding: '32px 28px', flex: 1 }}>{children}</div>
+        <div style={{ padding: '36px 32px 64px', flex: 1, minWidth: 0 }}>{children}</div>
       </div>
     </div>
   );

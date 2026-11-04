@@ -167,7 +167,7 @@ export default function StudentDashboardPage() {
   };
 
   return (
-    <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '28px' }}>
+    <div style={{ maxWidth: '1320px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '30px' }}>
       {/* ── Live Exam Alert Banner ── */}
       {liveSession && (
         <div
@@ -250,14 +250,16 @@ export default function StudentDashboardPage() {
 
       {/* ── Welcome Hero Banner with Deep Mesh Gradient ── */}
       <div
+        className="portal-hero-banner"
         style={{
-          background: 'linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #064E3B 100%)',
-          borderRadius: '20px',
-          padding: '32px 36px',
+          background: 'linear-gradient(135deg, #022C22 0%, #064E3B 38%, #0F172A 85%)',
+          borderRadius: '24px',
+          padding: '36px 40px',
           color: '#FFFFFF',
           position: 'relative',
           overflow: 'hidden',
-          boxShadow: '0 20px 35px -10px rgba(15, 23, 42, 0.25)',
+          border: '1px solid rgba(52, 211, 153, 0.28)',
+          boxShadow: '0 20px 45px -12px rgba(6, 78, 59, 0.35), 0 0 1px 1px rgba(52, 211, 153, 0.15)',
         }}
       >
         {/* Subtle decorative glow circles */}
@@ -266,10 +268,10 @@ export default function StudentDashboardPage() {
             position: 'absolute',
             top: '-60px',
             right: '-60px',
-            width: '260px',
-            height: '260px',
+            width: '280px',
+            height: '280px',
             borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0) 70%)',
+            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.22) 0%, rgba(16, 185, 129, 0) 70%)',
             pointerEvents: 'none',
           }}
         />
@@ -278,15 +280,15 @@ export default function StudentDashboardPage() {
             position: 'absolute',
             bottom: '-80px',
             left: '30%',
-            width: '220px',
-            height: '220px',
+            width: '260px',
+            height: '260px',
             borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, rgba(99, 102, 241, 0) 70%)',
+            background: 'radial-gradient(circle, rgba(99, 102, 241, 0.18) 0%, rgba(99, 102, 241, 0) 70%)',
             pointerEvents: 'none',
           }}
         />
 
-        <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', gap: '22px' }}>
           {/* Top Pill Tags */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
@@ -295,15 +297,16 @@ export default function StudentDashboardPage() {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '6px',
-                  fontSize: '0.75rem',
+                  fontSize: '0.72rem',
                   fontWeight: 800,
-                  letterSpacing: '0.5px',
+                  letterSpacing: '0.06em',
                   textTransform: 'uppercase',
-                  padding: '5px 12px',
+                  padding: '6px 14px',
                   borderRadius: '20px',
-                  backgroundColor: 'rgba(255, 255, 255, 0.12)',
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
                   border: '1px solid rgba(255, 255, 255, 0.2)',
                   color: '#A7F3D0',
+                  backdropFilter: 'blur(8px)',
                 }}
               >
                 <Activity size={13} color="#34D399" />
@@ -317,14 +320,14 @@ export default function StudentDashboardPage() {
                   gap: '6px',
                   fontSize: '0.75rem',
                   fontWeight: 800,
-                  padding: '5px 14px',
+                  padding: '6px 14px',
                   borderRadius: '20px',
                   backgroundColor:
                     studentTier === 'elite'
                       ? 'rgba(251, 146, 60, 0.2)'
                       : studentTier === 'mastery'
                       ? 'rgba(52, 211, 153, 0.2)'
-                      : 'rgba(255, 255, 255, 0.15)',
+                      : 'rgba(255, 255, 255, 0.12)',
                   border:
                     studentTier === 'elite'
                       ? '1px solid #FB923C'
@@ -337,6 +340,7 @@ export default function StudentDashboardPage() {
                       : studentTier === 'mastery'
                       ? '#6EE7B7'
                       : '#FFFFFF',
+                  backdropFilter: 'blur(8px)',
                 }}
               >
                 <Sparkles size={13} />
@@ -351,13 +355,14 @@ export default function StudentDashboardPage() {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px',
-                  padding: '5px 12px',
+                  padding: '6px 14px',
                   borderRadius: '12px',
                   backgroundColor: 'rgba(245, 158, 11, 0.15)',
-                  border: '1px solid rgba(245, 158, 11, 0.4)',
-                  color: '#FCD34D',
+                  border: '1px solid rgba(245, 158, 11, 0.45)',
+                  color: '#FDE68A',
                   fontSize: '0.8rem',
                   fontWeight: 700,
+                  backdropFilter: 'blur(8px)',
                 }}
               >
                 <Flame size={15} color="#F59E0B" />
@@ -368,16 +373,17 @@ export default function StudentDashboardPage() {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px',
-                  padding: '5px 12px',
+                  padding: '6px 14px',
                   borderRadius: '12px',
                   backgroundColor: 'rgba(16, 185, 129, 0.15)',
-                  border: '1px solid rgba(16, 185, 129, 0.4)',
-                  color: '#6EE7B7',
+                  border: '1px solid rgba(16, 185, 129, 0.45)',
+                  color: '#A7F3D0',
                   fontSize: '0.8rem',
                   fontWeight: 700,
+                  backdropFilter: 'blur(8px)',
                 }}
               >
-                <Clock size={15} color="#10B981" />
+                <Clock size={15} color="#34D399" />
                 <span>~150 Days to Official IMAT</span>
               </div>
             </div>
@@ -387,17 +393,18 @@ export default function StudentDashboardPage() {
           <div>
             <h1
               style={{
-                fontSize: '2.1rem',
+                fontSize: '2.25rem',
                 fontWeight: 900,
-                margin: '0 0 8px 0',
+                margin: '0 0 10px 0',
                 letterSpacing: '-0.5px',
                 lineHeight: 1.2,
+                color: '#FFFFFF',
               }}
             >
               {timeGreeting},{' '}
               <span
                 style={{
-                  background: 'linear-gradient(135deg, #5CED73 0%, #A7F3D0 100%)',
+                  background: 'linear-gradient(135deg, #A7F3D0 0%, #34D399 50%, #6EE7B7 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                 }}
@@ -405,7 +412,7 @@ export default function StudentDashboardPage() {
                 Dr. {firstName}
               </span>
             </h1>
-            <p style={{ fontSize: '0.95rem', opacity: 0.9, margin: 0, maxWidth: '780px', lineHeight: 1.5 }}>
+            <p style={{ fontSize: '0.975rem', color: '#E2E8F0', margin: 0, maxWidth: '820px', lineHeight: 1.6, fontWeight: 500 }}>
               {studentTier === 'elite'
                 ? '👑 Full VIP Mentorship active: Live masterclasses, verified question bank, personal doctor mentorship, and MedPath Universitaly visa filing unlocked.'
                 : studentTier === 'mastery'
@@ -415,21 +422,21 @@ export default function StudentDashboardPage() {
           </div>
 
           {/* Quick Action Launchpad */}
-          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', paddingTop: '8px' }}>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', paddingTop: '6px' }}>
             <Link
               href="/portal/tests"
               style={{
-                backgroundColor: '#10B981',
+                backgroundColor: '#059669',
                 color: '#FFFFFF',
-                padding: '11px 20px',
-                borderRadius: '10px',
+                padding: '12px 22px',
+                borderRadius: '12px',
                 fontWeight: 800,
                 textDecoration: 'none',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '8px',
-                fontSize: '0.875rem',
-                boxShadow: '0 4px 14px rgba(16, 185, 129, 0.4)',
+                fontSize: '0.9rem',
+                boxShadow: '0 4px 16px rgba(5, 150, 105, 0.45)',
                 transition: 'all 0.15s ease',
               }}
             >
@@ -441,17 +448,17 @@ export default function StudentDashboardPage() {
             <Link
               href="/portal/practice"
               style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.14)',
-                border: '1px solid rgba(255, 255, 255, 0.28)',
+                backgroundColor: 'rgba(255, 255, 255, 0.12)',
+                border: '1px solid rgba(255, 255, 255, 0.25)',
                 color: '#FFFFFF',
-                padding: '11px 20px',
-                borderRadius: '10px',
+                padding: '12px 22px',
+                borderRadius: '12px',
                 fontWeight: 700,
                 textDecoration: 'none',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '8px',
-                fontSize: '0.875rem',
+                fontSize: '0.9rem',
                 backdropFilter: 'blur(8px)',
                 transition: 'all 0.15s ease',
               }}
@@ -463,17 +470,17 @@ export default function StudentDashboardPage() {
             <Link
               href="/portal/practice/mistakes"
               style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.14)',
-                border: '1px solid rgba(255, 255, 255, 0.28)',
+                backgroundColor: 'rgba(255, 255, 255, 0.12)',
+                border: '1px solid rgba(255, 255, 255, 0.25)',
                 color: '#FFFFFF',
-                padding: '11px 20px',
-                borderRadius: '10px',
+                padding: '12px 22px',
+                borderRadius: '12px',
                 fontWeight: 700,
                 textDecoration: 'none',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '8px',
-                fontSize: '0.875rem',
+                fontSize: '0.9rem',
                 backdropFilter: 'blur(8px)',
                 transition: 'all 0.15s ease',
               }}
@@ -489,14 +496,14 @@ export default function StudentDashboardPage() {
                   backgroundColor: 'rgba(245, 158, 11, 0.22)',
                   border: '1px solid rgba(245, 158, 11, 0.5)',
                   color: '#FDE68A',
-                  padding: '11px 20px',
-                  borderRadius: '10px',
+                  padding: '12px 22px',
+                  borderRadius: '12px',
                   fontWeight: 800,
                   textDecoration: 'none',
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '8px',
-                  fontSize: '0.875rem',
+                  fontSize: '0.9rem',
                   backdropFilter: 'blur(8px)',
                 }}
               >
@@ -508,22 +515,23 @@ export default function StudentDashboardPage() {
         </div>
       </div>
 
-      {/* ── KPI Metric Scorecards (4 Cards with Sheen & Halos) ── */}
+      {/* ── KPI Metric Scorecards (4 Cards with Color Coded Accents & High Readability) ── */}
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-          gap: '20px',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+          gap: '22px',
         }}
       >
         {/* Card 1: Active Course Syllabus */}
         <div
           style={{
             backgroundColor: '#FFFFFF',
-            borderRadius: '16px',
-            border: '1px solid #E2E8F0',
-            padding: '24px',
-            boxShadow: '0 4px 14px rgba(0,0,0,0.03)',
+            borderRadius: '18px',
+            border: '1.5px solid #E2E8F0',
+            borderTop: '4px solid #059669',
+            padding: '26px',
+            boxShadow: '0 6px 20px -4px rgba(15, 23, 42, 0.05)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -532,20 +540,21 @@ export default function StudentDashboardPage() {
           }}
         >
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
-              <span style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+              <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                 Course Syllabus
               </span>
               <div
                 style={{
-                  width: '38px',
-                  height: '38px',
-                  borderRadius: '10px',
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '12px',
                   background: 'linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%)',
                   color: '#059669',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
+                  border: '1px solid #A7F3D0',
                 }}
               >
                 <BookOpen size={20} />
@@ -554,29 +563,29 @@ export default function StudentDashboardPage() {
 
             {activeCourse ? (
               <>
-                <div style={{ fontSize: '1.125rem', fontWeight: 800, color: '#0F172A', lineHeight: 1.3 }}>
+                <div style={{ fontSize: '1.18rem', fontWeight: 900, color: '#0F172A', lineHeight: 1.35 }}>
                   {activeCourse.title}
                 </div>
-                <div style={{ fontSize: '0.8rem', color: '#059669', fontWeight: 700, marginTop: '6px' }}>
+                <div style={{ fontSize: '0.825rem', color: '#059669', fontWeight: 700, marginTop: '6px' }}>
                   {activeCourse.targetExam || 'IMAT 2027'} • {activeCourse.totalLectures || 48} Core Modules
                 </div>
               </>
             ) : (
-              <div style={{ fontSize: '0.95rem', color: '#94A3B8', fontWeight: 500 }}>No course active</div>
+              <div style={{ fontSize: '0.95rem', color: '#94A3B8', fontWeight: 600 }}>No course active</div>
             )}
           </div>
 
-          <div style={{ marginTop: '18px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem', color: '#64748B', marginBottom: '6px' }}>
-              <span>Curriculum Progress</span>
-              <strong style={{ color: '#0F172A' }}>{activeCourse?.progressPercent ?? 0}%</strong>
+          <div style={{ marginTop: '20px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', color: '#64748B', marginBottom: '8px' }}>
+              <span style={{ fontWeight: 600 }}>Curriculum Progress</span>
+              <strong style={{ color: '#0F172A', fontWeight: 800 }}>{activeCourse?.progressPercent ?? 0}%</strong>
             </div>
-            <div style={{ height: '7px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden' }}>
+            <div style={{ height: '8px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden' }}>
               <div
                 style={{
                   width: `${activeCourse?.progressPercent ?? 0}%`,
                   height: '100%',
-                  background: 'linear-gradient(90deg, #10B981, #059669)',
+                  background: 'linear-gradient(90deg, #10B981 0%, #059669 100%)',
                   borderRadius: '4px',
                   transition: 'width 0.4s ease',
                 }}
@@ -589,51 +598,53 @@ export default function StudentDashboardPage() {
         <div
           style={{
             backgroundColor: '#FFFFFF',
-            borderRadius: '16px',
-            border: '1px solid #E2E8F0',
-            padding: '24px',
-            boxShadow: '0 4px 14px rgba(0,0,0,0.03)',
+            borderRadius: '18px',
+            border: '1.5px solid #E2E8F0',
+            borderTop: '4px solid #4F46E5',
+            padding: '26px',
+            boxShadow: '0 6px 20px -4px rgba(15, 23, 42, 0.05)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
           }}
         >
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
-              <span style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+              <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                 Full Mocks Done
               </span>
               <div
                 style={{
-                  width: '38px',
-                  height: '38px',
-                  borderRadius: '10px',
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '12px',
                   background: 'linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%)',
                   color: '#4F46E5',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
+                  border: '1px solid #C7D2FE',
                 }}
               >
                 <FileCheck2 size={20} />
               </div>
             </div>
 
-            <div style={{ fontSize: '2.1rem', fontWeight: 900, color: '#0F172A', letterSpacing: '-0.5px' }}>
+            <div style={{ fontSize: '2.3rem', fontWeight: 900, color: '#0F172A', letterSpacing: '-0.5px', lineHeight: 1.1 }}>
               {testAttempts.length}
             </div>
-            <div style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 600, marginTop: '4px' }}>
+            <div style={{ fontSize: '0.825rem', color: '#475569', fontWeight: 600, marginTop: '6px' }}>
               {testAttempts.length > 0 ? 'Full 100-min CBT exams submitted' : '0 CBT sessions taken yet'}
             </div>
           </div>
 
-          <div style={{ marginTop: '16px', paddingTop: '12px', borderTop: '1px solid #F1F5F9' }}>
+          <div style={{ marginTop: '20px', paddingTop: '14px', borderTop: '1px solid #F1F5F9' }}>
             <Link
               href="/portal/tests"
               style={{
-                fontSize: '0.8rem',
+                fontSize: '0.825rem',
                 color: '#4F46E5',
-                fontWeight: 700,
+                fontWeight: 800,
                 textDecoration: 'none',
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -641,7 +652,7 @@ export default function StudentDashboardPage() {
               }}
             >
               <span>Take New CBT Mock</span>
-              <ChevronRight size={14} />
+              <ChevronRight size={15} />
             </Link>
           </div>
         </div>
@@ -650,30 +661,32 @@ export default function StudentDashboardPage() {
         <div
           style={{
             backgroundColor: '#FFFFFF',
-            borderRadius: '16px',
-            border: '1px solid #E2E8F0',
-            padding: '24px',
-            boxShadow: '0 4px 14px rgba(0,0,0,0.03)',
+            borderRadius: '18px',
+            border: '1.5px solid #E2E8F0',
+            borderTop: '4px solid #0D9488',
+            padding: '26px',
+            boxShadow: '0 6px 20px -4px rgba(15, 23, 42, 0.05)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
           }}
         >
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
-              <span style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+              <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                 Diagnostic Accuracy
               </span>
               <div
                 style={{
-                  width: '38px',
-                  height: '38px',
-                  borderRadius: '10px',
-                  background: 'linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%)',
-                  color: '#059669',
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '12px',
+                  background: 'linear-gradient(135deg, #CCFBF1 0%, #99F6E4 100%)',
+                  color: '#0F766E',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
+                  border: '1px solid #5EEAD4',
                 }}
               >
                 <Target size={20} />
@@ -683,43 +696,44 @@ export default function StudentDashboardPage() {
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
               <div
                 style={{
-                  fontSize: '2.1rem',
+                  fontSize: '2.3rem',
                   fontWeight: 900,
-                  color: avgAccuracy >= 70 ? '#059669' : avgAccuracy >= 50 ? '#D97706' : totalAttempted > 0 ? '#DC2626' : '#0F172A',
+                  color: avgAccuracy >= 70 ? '#047857' : avgAccuracy >= 50 ? '#D97706' : totalAttempted > 0 ? '#DC2626' : '#0F172A',
                   letterSpacing: '-0.5px',
+                  lineHeight: 1.1,
                 }}
               >
                 {totalAttempted > 0 ? `${avgAccuracy}%` : '0%'}
               </div>
-              <span style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 600 }}>
-                {totalAttempted > 0 ? `(${totalCorrect}/${totalAttempted} Qs)` : 'diagnostic benchmark'}
+              <span style={{ fontSize: '0.825rem', color: '#64748B', fontWeight: 600 }}>
+                {totalAttempted > 0 ? `(${totalCorrect}/${totalAttempted} Qs)` : 'diagnostic baseline'}
               </span>
             </div>
             <div
               style={{
-                fontSize: '0.8rem',
-                color: avgAccuracy >= 70 ? '#059669' : '#D97706',
+                fontSize: '0.825rem',
+                color: avgAccuracy >= 70 ? '#047857' : avgAccuracy >= 50 ? '#B45309' : '#64748B',
                 fontWeight: 700,
-                marginTop: '4px',
+                marginTop: '6px',
               }}
             >
               {totalAttempted === 0
-                ? 'Ready for first test'
+                ? 'Ready for first assessment'
                 : avgAccuracy >= 70
                 ? '★ Italian Medical School Cut-off Target'
                 : avgAccuracy >= 50
-                ? 'Improving — Focus on High-Yield Qs'
-                : 'Needs Subject Review'}
+                ? 'Improving — Target 70%+ for Rome/Milan'
+                : 'Needs Core Subject Review'}
             </div>
           </div>
 
-          <div style={{ marginTop: '16px', paddingTop: '12px', borderTop: '1px solid #F1F5F9' }}>
+          <div style={{ marginTop: '20px', paddingTop: '14px', borderTop: '1px solid #F1F5F9' }}>
             <Link
               href="/portal/progress"
               style={{
-                fontSize: '0.8rem',
-                color: '#059669',
-                fontWeight: 700,
+                fontSize: '0.825rem',
+                color: '#0F766E',
+                fontWeight: 800,
                 textDecoration: 'none',
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -727,34 +741,35 @@ export default function StudentDashboardPage() {
               }}
             >
               <span>View Detailed Analytics</span>
-              <ChevronRight size={14} />
+              <ChevronRight size={15} />
             </Link>
           </div>
         </div>
 
-        {/* Card 4: Mistakes Log */}
+        {/* Card 4: Mistakes Notebook */}
         <div
           style={{
             backgroundColor: '#FFFFFF',
-            borderRadius: '16px',
-            border: '1px solid #E2E8F0',
-            padding: '24px',
-            boxShadow: '0 4px 14px rgba(0,0,0,0.03)',
+            borderRadius: '18px',
+            border: '1.5px solid #E2E8F0',
+            borderTop: unresolvedMistakes > 0 ? '4px solid #EF4444' : '4px solid #059669',
+            padding: '26px',
+            boxShadow: '0 6px 20px -4px rgba(15, 23, 42, 0.05)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
           }}
         >
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
-              <span style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+              <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                 Mistakes Notebook
               </span>
               <div
                 style={{
-                  width: '38px',
-                  height: '38px',
-                  borderRadius: '10px',
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '12px',
                   background:
                     unresolvedMistakes > 0
                       ? 'linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%)'
@@ -763,21 +778,22 @@ export default function StudentDashboardPage() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
+                  border: unresolvedMistakes > 0 ? '1px solid #FECACA' : '1px solid #A7F3D0',
                 }}
               >
                 {unresolvedMistakes > 0 ? <AlertTriangle size={20} /> : <TrendingUp size={20} />}
               </div>
             </div>
 
-            <div style={{ fontSize: '2.1rem', fontWeight: 900, color: '#0F172A', letterSpacing: '-0.5px' }}>
+            <div style={{ fontSize: '2.3rem', fontWeight: 900, color: '#0F172A', letterSpacing: '-0.5px', lineHeight: 1.1 }}>
               {unresolvedMistakes}
             </div>
             <div
               style={{
-                fontSize: '0.8rem',
+                fontSize: '0.825rem',
                 color: unresolvedMistakes > 0 ? '#DC2626' : '#059669',
                 fontWeight: 700,
-                marginTop: '4px',
+                marginTop: '6px',
               }}
             >
               {studentMistakes.length === 0
@@ -788,13 +804,13 @@ export default function StudentDashboardPage() {
             </div>
           </div>
 
-          <div style={{ marginTop: '16px', paddingTop: '12px', borderTop: '1px solid #F1F5F9' }}>
+          <div style={{ marginTop: '20px', paddingTop: '14px', borderTop: '1px solid #F1F5F9' }}>
             <Link
               href="/portal/practice/mistakes"
               style={{
-                fontSize: '0.8rem',
+                fontSize: '0.825rem',
                 color: unresolvedMistakes > 0 ? '#DC2626' : '#059669',
-                fontWeight: 700,
+                fontWeight: 800,
                 textDecoration: 'none',
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -802,7 +818,7 @@ export default function StudentDashboardPage() {
               }}
             >
               <span>{unresolvedMistakes > 0 ? 'Review & Clear Mistakes' : 'Open Notebook'}</span>
-              <ChevronRight size={14} />
+              <ChevronRight size={15} />
             </Link>
           </div>
         </div>
@@ -812,33 +828,34 @@ export default function StudentDashboardPage() {
       <div
         style={{
           backgroundColor: '#FFFFFF',
-          borderRadius: '18px',
-          border: '1px solid #E2E8F0',
-          padding: '28px',
-          boxShadow: '0 6px 20px -4px rgba(15, 23, 42, 0.05)',
+          borderRadius: '20px',
+          border: '1.5px solid #E2E8F0',
+          padding: '30px',
+          boxShadow: '0 6px 24px -4px rgba(15, 23, 42, 0.05)',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px', flexWrap: 'wrap', gap: '10px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px', flexWrap: 'wrap', gap: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div
               style={{
-                width: '36px',
-                height: '36px',
-                borderRadius: '9px',
-                backgroundColor: '#F0FDF4',
+                width: '42px',
+                height: '42px',
+                borderRadius: '12px',
+                backgroundColor: '#ECFDF5',
                 color: '#059669',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                border: '1px solid #A7F3D0',
               }}
             >
-              <Zap size={20} />
+              <Zap size={22} />
             </div>
             <div>
-              <div style={{ fontSize: '0.72rem', fontWeight: 800, color: '#059669', textTransform: 'uppercase', letterSpacing: '0.8px' }}>
+              <div style={{ fontSize: '0.72rem', fontWeight: 800, color: '#059669', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                 DAILY HIGH-YIELD IMAT DRILL
               </div>
-              <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#0F172A', margin: '2px 0 0' }}>
                 {dailyQ.subject} • {dailyQ.topic}
               </h3>
             </div>
@@ -846,19 +863,19 @@ export default function StudentDashboardPage() {
 
           <div
             style={{
-              padding: '4px 12px',
+              padding: '6px 14px',
               borderRadius: '20px',
               backgroundColor: '#FEF3C7',
               border: '1px solid #FDE68A',
-              color: '#B45309',
-              fontSize: '0.78rem',
-              fontWeight: 700,
+              color: '#92400E',
+              fontSize: '0.8rem',
+              fontWeight: 800,
               display: 'flex',
               alignItems: 'center',
               gap: '6px',
             }}
           >
-            <Award size={14} />
+            <Award size={15} />
             <span>+1.5 / -0.4 Official Scoring</span>
           </div>
         </div>
@@ -866,14 +883,14 @@ export default function StudentDashboardPage() {
         {/* Question Text */}
         <p
           style={{
-            fontSize: '1rem',
-            color: '#1E293B',
+            fontSize: '1.025rem',
+            color: '#0F172A',
             fontWeight: 600,
-            lineHeight: 1.6,
+            lineHeight: 1.65,
             marginBottom: '20px',
-            padding: '16px 20px',
+            padding: '18px 22px',
             backgroundColor: '#F8FAFC',
-            borderRadius: '12px',
+            borderRadius: '14px',
             border: '1px solid #E2E8F0',
           }}
         >
@@ -889,22 +906,22 @@ export default function StudentDashboardPage() {
 
             let bgColor = '#FFFFFF';
             let borderColor = '#E2E8F0';
-            let textColor = '#1E293B';
+            let textColor = '#0F172A';
             let letterBg = '#F1F5F9';
-            let letterColor = '#475569';
+            let letterColor = '#334155';
 
             if (hasSubmittedDaily) {
               if (isCorrect) {
                 bgColor = '#ECFDF5';
                 borderColor = '#10B981';
                 textColor = '#065F46';
-                letterBg = '#10B981';
+                letterBg = '#059669';
                 letterColor = '#FFFFFF';
               } else if (isSelected && !isCorrect) {
                 bgColor = '#FEF2F2';
                 borderColor = '#EF4444';
                 textColor = '#991B1B';
-                letterBg = '#EF4444';
+                letterBg = '#DC2626';
                 letterColor = '#FFFFFF';
               }
             } else if (isSelected) {
@@ -925,7 +942,7 @@ export default function StudentDashboardPage() {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '14px',
-                  padding: '12px 18px',
+                  padding: '14px 20px',
                   borderRadius: '12px',
                   backgroundColor: bgColor,
                   border: `1.5px solid ${borderColor}`,
@@ -933,12 +950,13 @@ export default function StudentDashboardPage() {
                   textAlign: 'left',
                   transition: 'all 0.15s ease',
                   width: '100%',
+                  boxShadow: isSelected ? '0 2px 8px rgba(5, 150, 105, 0.15)' : 'none',
                 }}
               >
                 <div
                   style={{
-                    width: '30px',
-                    height: '30px',
+                    width: '32px',
+                    height: '32px',
                     borderRadius: '8px',
                     backgroundColor: letterBg,
                     color: letterColor,
@@ -946,15 +964,15 @@ export default function StudentDashboardPage() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     fontWeight: 800,
-                    fontSize: '0.85rem',
+                    fontSize: '0.875rem',
                     flexShrink: 0,
                   }}
                 >
                   {letter}
                 </div>
-                <span style={{ fontSize: '0.925rem', fontWeight: 600, color: textColor, flex: 1 }}>{opt}</span>
-                {hasSubmittedDaily && isCorrect && <CheckCircle2 size={18} color="#10B981" />}
-                {hasSubmittedDaily && isSelected && !isCorrect && <XCircle size={18} color="#EF4444" />}
+                <span style={{ fontSize: '0.95rem', fontWeight: 600, color: textColor, flex: 1, lineHeight: 1.4 }}>{opt}</span>
+                {hasSubmittedDaily && isCorrect && <CheckCircle2 size={20} color="#10B981" />}
+                {hasSubmittedDaily && isSelected && !isCorrect && <XCircle size={20} color="#EF4444" />}
               </button>
             );
           })}
@@ -964,8 +982,8 @@ export default function StudentDashboardPage() {
         {hasSubmittedDaily && (
           <div
             style={{
-              padding: '18px 22px',
-              borderRadius: '14px',
+              padding: '20px 24px',
+              borderRadius: '16px',
               backgroundColor: selectedDailyOption === dailyQ.correctIndex ? '#ECFDF5' : '#FFFBEB',
               border: `1.5px solid ${selectedDailyOption === dailyQ.correctIndex ? '#A7F3D0' : '#FDE68A'}`,
               marginTop: '16px',
@@ -974,33 +992,35 @@ export default function StudentDashboardPage() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
               {selectedDailyOption === dailyQ.correctIndex ? (
                 <>
-                  <CheckCircle2 size={18} color="#059669" />
-                  <strong style={{ color: '#065F46', fontSize: '0.95rem' }}>
+                  <CheckCircle2 size={20} color="#059669" />
+                  <strong style={{ color: '#065F46', fontSize: '1rem', fontWeight: 800 }}>
                     Correct! +1.5 Points earned for your daily score.
                   </strong>
                 </>
               ) : (
                 <>
-                  <XCircle size={18} color="#D97706" />
-                  <strong style={{ color: '#92400E', fontSize: '0.95rem' }}>
+                  <XCircle size={20} color="#D97706" />
+                  <strong style={{ color: '#92400E', fontSize: '1rem', fontWeight: 800 }}>
                     Incorrect (-0.4 penalty). Option {String.fromCharCode(65 + dailyQ.correctIndex)} is correct.
                   </strong>
                 </>
               )}
             </div>
 
-            <p style={{ fontSize: '0.875rem', color: '#334155', lineHeight: 1.6, margin: '6px 0 10px 0' }}>
+            <p style={{ fontSize: '0.9rem', color: '#1E293B', lineHeight: 1.6, margin: '8px 0 12px 0', fontWeight: 500 }}>
               {dailyQ.explanation}
             </p>
 
             <div
               style={{
-                fontSize: '0.8125rem',
+                fontSize: '0.85rem',
                 color: '#065F46',
-                backgroundColor: 'rgba(16, 185, 129, 0.12)',
-                padding: '8px 12px',
-                borderRadius: '8px',
-                fontWeight: 600,
+                backgroundColor: 'rgba(16, 185, 129, 0.15)',
+                border: '1px solid rgba(16, 185, 129, 0.3)',
+                padding: '10px 14px',
+                borderRadius: '10px',
+                fontWeight: 700,
+                lineHeight: 1.45,
               }}
             >
               💡 {dailyQ.highYieldFact}
@@ -1010,45 +1030,46 @@ export default function StudentDashboardPage() {
       </div>
 
       {/* ── Two-Column Main Content Section ── */}
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '28px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '28px' }}>
         {/* Left Column: Learning Continuation & Mock Results */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '26px' }}>
           {/* Active Course & Player Launch */}
           <div
             style={{
               backgroundColor: '#FFFFFF',
-              borderRadius: '18px',
-              border: '1px solid #E2E8F0',
-              padding: '24px 28px',
-              boxShadow: '0 4px 14px rgba(0,0,0,0.03)',
+              borderRadius: '20px',
+              border: '1.5px solid #E2E8F0',
+              padding: '26px 28px',
+              boxShadow: '0 4px 18px rgba(15, 23, 42, 0.04)',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <div
                   style={{
-                    width: '36px',
-                    height: '36px',
-                    borderRadius: '9px',
-                    backgroundColor: '#F0FFF4',
+                    width: '38px',
+                    height: '38px',
+                    borderRadius: '10px',
+                    backgroundColor: '#ECFDF5',
                     color: '#059669',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
+                    border: '1px solid #A7F3D0',
                   }}
                 >
                   <BookOpen size={18} />
                 </div>
-                <h3 style={{ fontSize: '1.15rem', color: '#0F172A', fontWeight: 800, margin: 0 }}>
+                <h3 style={{ fontSize: '1.2rem', color: '#0F172A', fontWeight: 900, margin: 0 }}>
                   Continue Curriculum
                 </h3>
               </div>
               <Link
                 href="/portal/courses"
                 style={{
-                  fontSize: '0.8125rem',
+                  fontSize: '0.825rem',
                   color: '#059669',
-                  fontWeight: 700,
+                  fontWeight: 800,
                   textDecoration: 'none',
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -1063,9 +1084,9 @@ export default function StudentDashboardPage() {
             {activeCourse ? (
               <div
                 style={{
-                  border: '1px solid #E2E8F0',
-                  borderRadius: '14px',
-                  padding: '20px',
+                  border: '1.5px solid #E2E8F0',
+                  borderRadius: '16px',
+                  padding: '22px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
@@ -1077,34 +1098,34 @@ export default function StudentDashboardPage() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                   <div
                     style={{
-                      width: '54px',
-                      height: '54px',
+                      width: '56px',
+                      height: '56px',
                       borderRadius: '14px',
-                      background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+                      background: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
                       color: '#FFFFFF',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      boxShadow: '0 4px 12px rgba(5, 150, 105, 0.3)',
+                      boxShadow: '0 4px 14px rgba(5, 150, 105, 0.35)',
                     }}
                   >
                     <BookOpen size={26} />
                   </div>
                   <div>
-                    <h4 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#0F172A', marginBottom: '4px' }}>
+                    <h4 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0F172A', margin: '0 0 4px 0' }}>
                       {activeCourse.title}
                     </h4>
-                    <div style={{ fontSize: '0.8rem', color: '#64748B', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span>Progress: {activeCourse.progressPercent ?? 0}%</span>
+                    <div style={{ fontSize: '0.825rem', color: '#475569', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span>Progress: <strong style={{ color: '#0F172A' }}>{activeCourse.progressPercent ?? 0}%</strong></span>
                       <span>•</span>
-                      <span style={{ color: '#059669', fontWeight: 700 }}>48 Lectures</span>
+                      <span style={{ color: '#059669', fontWeight: 800 }}>48 Lectures</span>
                     </div>
                     <div
                       style={{
-                        marginTop: '8px',
-                        height: '6px',
+                        marginTop: '10px',
+                        height: '7px',
                         backgroundColor: '#E2E8F0',
-                        borderRadius: '3px',
+                        borderRadius: '4px',
                         width: '240px',
                         overflow: 'hidden',
                       }}
@@ -1114,7 +1135,7 @@ export default function StudentDashboardPage() {
                           height: '100%',
                           width: `${activeCourse.progressPercent ?? 0}%`,
                           backgroundColor: '#059669',
-                          borderRadius: '3px',
+                          borderRadius: '4px',
                         }}
                       />
                     </div>
@@ -1126,15 +1147,15 @@ export default function StudentDashboardPage() {
                   style={{
                     backgroundColor: '#059669',
                     color: '#FFFFFF',
-                    padding: '10px 20px',
-                    borderRadius: '10px',
+                    padding: '12px 22px',
+                    borderRadius: '12px',
                     fontWeight: 800,
                     fontSize: '0.875rem',
                     textDecoration: 'none',
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '8px',
-                    boxShadow: '0 4px 12px rgba(5, 150, 105, 0.25)',
+                    boxShadow: '0 4px 14px rgba(5, 150, 105, 0.3)',
                   }}
                 >
                   <PlayCircle size={16} />
@@ -1142,21 +1163,21 @@ export default function StudentDashboardPage() {
                 </Link>
               </div>
             ) : (
-              <div style={{ textAlign: 'center', padding: '36px', color: '#94A3B8' }}>
+              <div style={{ textAlign: 'center', padding: '36px', color: '#64748B' }}>
                 <BookOpen size={36} style={{ marginBottom: '10px', opacity: 0.4 }} />
-                <p style={{ fontSize: '0.9rem', margin: 0 }}>You are not enrolled in any courses yet.</p>
+                <p style={{ fontSize: '0.925rem', margin: 0, fontWeight: 600 }}>You are not enrolled in any courses yet.</p>
                 <Link
                   href="/portal/courses"
                   style={{
                     marginTop: '14px',
                     display: 'inline-flex',
-                    padding: '8px 20px',
+                    padding: '10px 22px',
                     backgroundColor: '#059669',
                     color: '#FFF',
-                    borderRadius: '8px',
-                    fontWeight: 700,
+                    borderRadius: '10px',
+                    fontWeight: 800,
                     textDecoration: 'none',
-                    fontSize: '0.85rem',
+                    fontSize: '0.875rem',
                   }}
                 >
                   Browse IMAT Courses
@@ -1169,38 +1190,39 @@ export default function StudentDashboardPage() {
           <div
             style={{
               backgroundColor: '#FFFFFF',
-              borderRadius: '18px',
-              border: '1px solid #E2E8F0',
-              padding: '24px 28px',
-              boxShadow: '0 4px 14px rgba(0,0,0,0.03)',
+              borderRadius: '20px',
+              border: '1.5px solid #E2E8F0',
+              padding: '26px 28px',
+              boxShadow: '0 4px 18px rgba(15, 23, 42, 0.04)',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <div
                   style={{
-                    width: '36px',
-                    height: '36px',
-                    borderRadius: '9px',
+                    width: '38px',
+                    height: '38px',
+                    borderRadius: '10px',
                     backgroundColor: '#EEF2FF',
                     color: '#4F46E5',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
+                    border: '1px solid #C7D2FE',
                   }}
                 >
                   <FileCheck2 size={18} />
                 </div>
-                <h3 style={{ fontSize: '1.15rem', color: '#0F172A', fontWeight: 800, margin: 0 }}>
+                <h3 style={{ fontSize: '1.2rem', color: '#0F172A', fontWeight: 900, margin: 0 }}>
                   Recent CBT Mock Results
                 </h3>
               </div>
               <Link
                 href="/portal/tests"
                 style={{
-                  fontSize: '0.8125rem',
+                  fontSize: '0.825rem',
                   color: '#4F46E5',
-                  fontWeight: 700,
+                  fontWeight: 800,
                   textDecoration: 'none',
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -1213,21 +1235,21 @@ export default function StudentDashboardPage() {
             </div>
 
             {testAttempts.length === 0 ? (
-              <div style={{ textAlign: 'center', padding: '36px', color: '#94A3B8' }}>
+              <div style={{ textAlign: 'center', padding: '36px', color: '#64748B' }}>
                 <FileCheck2 size={36} style={{ marginBottom: '10px', opacity: 0.4 }} />
-                <p style={{ fontSize: '0.9rem', margin: 0 }}>No mock exams taken yet.</p>
+                <p style={{ fontSize: '0.925rem', margin: 0, fontWeight: 600 }}>No mock exams taken yet.</p>
                 <Link
                   href="/portal/tests"
                   style={{
                     marginTop: '14px',
                     display: 'inline-flex',
-                    padding: '8px 20px',
+                    padding: '10px 22px',
                     backgroundColor: '#059669',
                     color: '#FFF',
-                    borderRadius: '8px',
-                    fontWeight: 700,
+                    borderRadius: '10px',
+                    fontWeight: 800,
                     textDecoration: 'none',
-                    fontSize: '0.85rem',
+                    fontSize: '0.875rem',
                   }}
                 >
                   Start First Diagnostic Mock
@@ -1251,34 +1273,35 @@ export default function StudentDashboardPage() {
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         padding: '14px 18px',
-                        borderRadius: '12px',
+                        borderRadius: '14px',
                         backgroundColor: '#F8FAFC',
-                        border: '1px solid #E2E8F0',
+                        border: '1.5px solid #E2E8F0',
                         transition: 'all 0.15s ease',
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                         <div
                           style={{
-                            width: '40px',
-                            height: '40px',
-                            borderRadius: '10px',
+                            width: '42px',
+                            height: '42px',
+                            borderRadius: '12px',
                             backgroundColor: acc >= 70 ? '#ECFDF5' : acc >= 50 ? '#FFFBEB' : '#FEF2F2',
                             color: acc >= 70 ? '#059669' : acc >= 50 ? '#D97706' : '#DC2626',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            fontWeight: 800,
-                            fontSize: '0.9rem',
+                            fontWeight: 900,
+                            fontSize: '0.925rem',
+                            border: `1px solid ${acc >= 70 ? '#A7F3D0' : acc >= 50 ? '#FDE68A' : '#FECACA'}`,
                           }}
                         >
                           {acc}%
                         </div>
                         <div>
-                          <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '0.95rem' }}>
+                          <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '0.975rem' }}>
                             {attempt.testTitle || 'Full IMAT Mock Assessment'}
                           </div>
-                          <div style={{ fontSize: '0.78rem', color: '#64748B', marginTop: '3px' }}>
+                          <div style={{ fontSize: '0.8rem', color: '#475569', marginTop: '3px' }}>
                             Score: <strong style={{ color: '#0F172A' }}>{attempt.totalScore} / {attempt.maxScore || 90}</strong> pts • {attempt.percentage}% calibration
                           </div>
                         </div>
@@ -1308,75 +1331,76 @@ export default function StudentDashboardPage() {
         </div>
 
         {/* Right Column: Subject Breakdown & Roadmap */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '26px' }}>
           {/* Subject Breakdown Card */}
           <div
             style={{
               backgroundColor: '#FFFFFF',
-              borderRadius: '18px',
-              border: '1px solid #E2E8F0',
-              padding: '24px',
-              boxShadow: '0 4px 14px rgba(0,0,0,0.03)',
+              borderRadius: '20px',
+              border: '1.5px solid #E2E8F0',
+              padding: '26px 28px',
+              boxShadow: '0 4px 18px rgba(15, 23, 42, 0.04)',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '18px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
               <div
                 style={{
-                  width: '34px',
-                  height: '34px',
-                  borderRadius: '9px',
+                  width: '38px',
+                  height: '38px',
+                  borderRadius: '10px',
                   backgroundColor: '#ECFDF5',
                   color: '#059669',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
+                  border: '1px solid #A7F3D0',
                 }}
               >
                 <Layers size={18} />
               </div>
-              <h3 style={{ fontSize: '1.1rem', color: '#0F172A', fontWeight: 800, margin: 0 }}>
+              <h3 style={{ fontSize: '1.2rem', color: '#0F172A', fontWeight: 900, margin: 0 }}>
                 Subject Mastery
               </h3>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
               <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', marginBottom: '6px' }}>
-                  <span style={{ color: '#334155', fontWeight: 700 }}>🧬 Biology (23 Qs)</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.825rem', marginBottom: '6px' }}>
+                  <span style={{ color: '#0F172A', fontWeight: 700 }}>🧬 Biology (23 Qs)</span>
                   <strong style={{ color: subjectMastery.biology > 0 ? '#059669' : '#64748B' }}>{subjectMastery.biology}% Accuracy</strong>
                 </div>
-                <div style={{ height: '7px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden' }}>
+                <div style={{ height: '8px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden' }}>
                   <div style={{ width: `${subjectMastery.biology}%`, height: '100%', backgroundColor: '#059669', borderRadius: '4px', transition: 'width 0.3s ease' }} />
                 </div>
               </div>
 
               <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', marginBottom: '6px' }}>
-                  <span style={{ color: '#334155', fontWeight: 700 }}>🧪 Chemistry (15 Qs)</span>
-                  <strong style={{ color: subjectMastery.chemistry > 0 ? '#059669' : '#64748B' }}>{subjectMastery.chemistry}% Accuracy</strong>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.825rem', marginBottom: '6px' }}>
+                  <span style={{ color: '#0F172A', fontWeight: 700 }}>🧪 Chemistry (15 Qs)</span>
+                  <strong style={{ color: subjectMastery.chemistry > 0 ? '#0891B2' : '#64748B' }}>{subjectMastery.chemistry}% Accuracy</strong>
                 </div>
-                <div style={{ height: '7px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden' }}>
-                  <div style={{ width: `${subjectMastery.chemistry}%`, height: '100%', backgroundColor: '#10B981', borderRadius: '4px', transition: 'width 0.3s ease' }} />
+                <div style={{ height: '8px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden' }}>
+                  <div style={{ width: `${subjectMastery.chemistry}%`, height: '100%', backgroundColor: '#0891B2', borderRadius: '4px', transition: 'width 0.3s ease' }} />
                 </div>
               </div>
 
               <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', marginBottom: '6px' }}>
-                  <span style={{ color: '#334155', fontWeight: 700 }}>📐 Physics & Mathematics (13 Qs)</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.825rem', marginBottom: '6px' }}>
+                  <span style={{ color: '#0F172A', fontWeight: 700 }}>📐 Physics & Mathematics (13 Qs)</span>
                   <strong style={{ color: subjectMastery.physicsMath > 0 ? '#D97706' : '#64748B' }}>{subjectMastery.physicsMath}% Accuracy</strong>
                 </div>
-                <div style={{ height: '7px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden' }}>
-                  <div style={{ width: `${subjectMastery.physicsMath}%`, height: '100%', backgroundColor: '#F59E0B', borderRadius: '4px', transition: 'width 0.3s ease' }} />
+                <div style={{ height: '8px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden' }}>
+                  <div style={{ width: `${subjectMastery.physicsMath}%`, height: '100%', backgroundColor: '#D97706', borderRadius: '4px', transition: 'width 0.3s ease' }} />
                 </div>
               </div>
 
               <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', marginBottom: '6px' }}>
-                  <span style={{ color: '#334155', fontWeight: 700 }}>📖 Reading Skills & Knowledge (9 Qs)</span>
-                  <strong style={{ color: subjectMastery.readingLogic > 0 ? '#059669' : '#64748B' }}>{subjectMastery.readingLogic}% Accuracy</strong>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.825rem', marginBottom: '6px' }}>
+                  <span style={{ color: '#0F172A', fontWeight: 700 }}>📖 Reading Skills & Knowledge (9 Qs)</span>
+                  <strong style={{ color: subjectMastery.readingLogic > 0 ? '#4F46E5' : '#64748B' }}>{subjectMastery.readingLogic}% Accuracy</strong>
                 </div>
-                <div style={{ height: '7px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden' }}>
-                  <div style={{ width: `${subjectMastery.readingLogic}%`, height: '100%', backgroundColor: '#059669', borderRadius: '4px', transition: 'width 0.3s ease' }} />
+                <div style={{ height: '8px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden' }}>
+                  <div style={{ width: `${subjectMastery.readingLogic}%`, height: '100%', backgroundColor: '#4F46E5', borderRadius: '4px', transition: 'width 0.3s ease' }} />
                 </div>
               </div>
             </div>
@@ -1386,10 +1410,10 @@ export default function StudentDashboardPage() {
               style={{
                 display: 'block',
                 textAlign: 'center',
-                marginTop: '18px',
-                fontSize: '0.825rem',
+                marginTop: '20px',
+                fontSize: '0.85rem',
                 color: '#059669',
-                fontWeight: 700,
+                fontWeight: 800,
                 textDecoration: 'none',
               }}
             >
@@ -1401,46 +1425,47 @@ export default function StudentDashboardPage() {
           <div
             style={{
               backgroundColor: '#FFFFFF',
-              borderRadius: '18px',
-              border: '1px solid #E2E8F0',
-              padding: '24px',
-              boxShadow: '0 4px 14px rgba(0,0,0,0.03)',
+              borderRadius: '20px',
+              border: '1.5px solid #E2E8F0',
+              padding: '26px 28px',
+              boxShadow: '0 4px 18px rgba(15, 23, 42, 0.04)',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '18px' }}>
               <div
                 style={{
-                  width: '34px',
-                  height: '34px',
-                  borderRadius: '9px',
+                  width: '38px',
+                  height: '38px',
+                  borderRadius: '10px',
                   backgroundColor: '#FFF7ED',
                   color: '#EA580C',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
+                  border: '1px solid #FFEDD5',
                 }}
               >
                 <Compass size={18} />
               </div>
-              <h3 style={{ fontSize: '1.1rem', color: '#0F172A', fontWeight: 800, margin: 0 }}>
+              <h3 style={{ fontSize: '1.2rem', color: '#0F172A', fontWeight: 900, margin: 0 }}>
                 Admissions Pipeline
               </h3>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
                 <div
                   style={{
-                    width: '22px',
-                    height: '22px',
+                    width: '24px',
+                    height: '24px',
                     borderRadius: '50%',
-                    backgroundColor: testAttempts.length > 0 ? '#10B981' : '#3B82F6',
+                    backgroundColor: testAttempts.length > 0 ? '#10B981' : '#059669',
                     color: '#FFF',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '0.7rem',
-                    fontWeight: 800,
+                    fontSize: '0.75rem',
+                    fontWeight: 900,
                     flexShrink: 0,
                     marginTop: '2px',
                   }}
@@ -1448,28 +1473,28 @@ export default function StudentDashboardPage() {
                   {testAttempts.length > 0 ? '✓' : '1'}
                 </div>
                 <div>
-                  <div style={{ fontSize: '0.875rem', fontWeight: 700, color: '#0F172A' }}>
+                  <div style={{ fontSize: '0.9rem', fontWeight: 800, color: '#0F172A' }}>
                     1. Foundation & Diagnostic
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: testAttempts.length > 0 ? '#64748B' : '#2563EB', fontWeight: testAttempts.length > 0 ? 400 : 600 }}>
+                  <div style={{ fontSize: '0.78rem', color: testAttempts.length > 0 ? '#64748B' : '#059669', fontWeight: testAttempts.length > 0 ? 500 : 700 }}>
                     {testAttempts.length > 0 ? 'Syllabus diagnostic completed.' : 'Start your baseline diagnostic mock'}
                   </div>
                 </div>
               </div>
 
-              <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+              <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
                 <div
                   style={{
-                    width: '22px',
-                    height: '22px',
+                    width: '24px',
+                    height: '24px',
                     borderRadius: '50%',
-                    backgroundColor: testAttempts.length > 0 ? '#3B82F6' : '#E2E8F0',
+                    backgroundColor: testAttempts.length > 0 ? '#4F46E5' : '#E2E8F0',
                     color: testAttempts.length > 0 ? '#FFF' : '#64748B',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '0.7rem',
-                    fontWeight: 800,
+                    fontSize: '0.75rem',
+                    fontWeight: 900,
                     flexShrink: 0,
                     marginTop: '2px',
                   }}
@@ -1477,28 +1502,28 @@ export default function StudentDashboardPage() {
                   2
                 </div>
                 <div>
-                  <div style={{ fontSize: '0.875rem', fontWeight: 700, color: '#0F172A' }}>
+                  <div style={{ fontSize: '0.9rem', fontWeight: 800, color: '#0F172A' }}>
                     2. Full CBT Mocks & Speed
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: testAttempts.length > 0 ? '#2563EB' : '#94A3B8', fontWeight: testAttempts.length > 0 ? 600 : 400 }}>
+                  <div style={{ fontSize: '0.78rem', color: testAttempts.length > 0 ? '#4F46E5' : '#64748B', fontWeight: testAttempts.length > 0 ? 700 : 500 }}>
                     {testAttempts.length > 0 ? 'In progress • Target 60+ Score' : 'Unlocks after baseline diagnostic'}
                   </div>
                 </div>
               </div>
 
-              <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+              <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
                 <div
                   style={{
-                    width: '22px',
-                    height: '22px',
+                    width: '24px',
+                    height: '24px',
                     borderRadius: '50%',
                     backgroundColor: '#E2E8F0',
                     color: '#64748B',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '0.7rem',
-                    fontWeight: 800,
+                    fontSize: '0.75rem',
+                    fontWeight: 900,
                     flexShrink: 0,
                     marginTop: '2px',
                   }}
@@ -1506,28 +1531,28 @@ export default function StudentDashboardPage() {
                   3
                 </div>
                 <div>
-                  <div style={{ fontSize: '0.875rem', fontWeight: 700, color: '#64748B' }}>
+                  <div style={{ fontSize: '0.9rem', fontWeight: 800, color: '#475569' }}>
                     3. Universitaly & DOV Filing
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: '#94A3B8' }}>
+                  <div style={{ fontSize: '0.78rem', color: '#64748B' }}>
                     Pre-enrolment portal opens Summer 2027
                   </div>
                 </div>
               </div>
 
-              <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+              <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
                 <div
                   style={{
-                    width: '22px',
-                    height: '22px',
+                    width: '24px',
+                    height: '24px',
                     borderRadius: '50%',
                     backgroundColor: '#E2E8F0',
                     color: '#64748B',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '0.7rem',
-                    fontWeight: 800,
+                    fontSize: '0.75rem',
+                    fontWeight: 900,
                     flexShrink: 0,
                     marginTop: '2px',
                   }}
@@ -1535,10 +1560,10 @@ export default function StudentDashboardPage() {
                   4
                 </div>
                 <div>
-                  <div style={{ fontSize: '0.875rem', fontWeight: 700, color: '#64748B' }}>
+                  <div style={{ fontSize: '0.9rem', fontWeight: 800, color: '#475569' }}>
                     4. Official Exam & Italian MD Seat
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: '#94A3B8' }}>
+                  <div style={{ fontSize: '0.78rem', color: '#64748B' }}>
                     Matriculation in Milan / Bologna
                   </div>
                 </div>

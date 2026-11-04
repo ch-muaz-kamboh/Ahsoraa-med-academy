@@ -759,10 +759,44 @@ html[dir="rtl"] .portal-marquee-wrapper {
     grid-template-columns: 1fr !important;
   }
 
-  /* Section padding balance on tablets/phones */
-  section:not(.home-hero-section) {
+  /* Section padding balance on tablets/phones - ONLY for content sections, NEVER hero sections */
+  section:not(.home-hero-section):not(.page-hero):not(.subpage-hero):not([class*="hero"]):not([class*="-hero"]):not([class*="hero-"]):not(.course-detail-page):not(.mock-tests-page):not(.free-mock-page):not(.legal-page-hero) {
     padding-top: 48px !important;
     padding-bottom: 48px !important;
+  }
+
+  /* Universal Hero Mobile Spacing - Ensures fixed navbar (60px) + announcement bar (~70-85px on mobile) NEVER overlap hero title/content */
+  .home-hero-section,
+  .courses-hero,
+  .about-hero,
+  .contact-hero,
+  .resources-hero,
+  .resources-hero-section,
+  .news-hero,
+  .universities-hero,
+  .universities-hero-section,
+  .scholarships-hero,
+  .licensing-hero,
+  .imat-hero,
+  .visa-hero,
+  .course-detail-page,
+  .mock-tests-page,
+  .free-mock-page,
+  .legal-page-hero,
+  .page-hero,
+  .subpage-hero,
+  [class*="hero-section"],
+  section[class*="hero"],
+  section.page-hero,
+  div.page-hero {
+    padding-top: clamp(190px, 26vw, 225px) !important;
+    padding-bottom: 50px !important;
+    box-sizing: border-box !important;
+  }
+
+  .portal-hero-banner {
+    padding: 24px 20px !important;
+    border-radius: 18px !important;
   }
 
   /* Headings typography scaling */
