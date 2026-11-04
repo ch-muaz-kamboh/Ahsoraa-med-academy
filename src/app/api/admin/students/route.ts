@@ -639,3 +639,85 @@ export async function PATCH(request: Request) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }
+
+export async function DELETE(request: Request) {
+  const supabase = getAdminClient();
+
+  try {
+    const body = await request.json().catch(() => ({}));
+    const rawStudentId = body.studentId || body.id;
+    const rawEmail = (body.studentEmail || body.email || '').toLowerCase().trim();
+
+    if (!rawStudentId && !rawEmail) {
+      return NextResponse.json({ success: false, error: 'studentId or studentEmail required' }, { status: 400 });
+    }
+
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    let targetUserId = rawStudentId && uuidRegex.test(rawStudentId) ? rawStudentId : null;
+
+    // Look up user in auth to get their real UUID if needed
+    if (!targetUserId && rawEmail) {
+      try {
+        const { data: usersData } = await supabase.auth.admin.listUsers({ page: 1, perPage: 1000 });
+        const found = (usersData?.users || []).find(
+          (u) => (u.email || '').toLowerCase().trim() === rawEmail
+        );
+        if (found) {
+          targetUserId = found.id;
+        }
+      } catch (err) {
+        console.warn('Auth user lookup warning for delete:', err);
+      }
+    }
+
+    // 1. Delete user from Supabase Auth
+    if (targetUserId) {
+      try {
+        await supabase.auth.admin.deleteUser(targetUserId);
+      } catch (authErr) {
+        console.warn('Delete auth user warning:', authErr);
+      }
+    }
+
+    // 2. Delete from profiles table
+    try {
+      if (targetUserId) {
+        await supabase.from('profiles').delete().eq('id', targetUserId);
+      }
+      if (rawEmail) {
+        await supabase.from('profiles').delete().eq('email', rawEmail);
+      }
+    } catch (profErr) {
+      console.warn('Delete profile warning:', profErr);
+    }
+
+    // 3. Delete from leads table
+    if (rawEmail) {
+      try {
+        await supabase.from('leads').delete().eq('email', rawEmail);
+      } catch (leadErr) {
+        console.warn('Delete lead warning:', leadErr);
+      }
+    }
+
+    // 4. Delete related test attempts and mistakes
+    if (targetUserId) {
+      try {
+        await supabase.from('test_attempts').delete().eq('user_id', targetUserId);
+      } catch {}
+      try {
+        await supabase.from('mistake_notebook').delete().eq('user_id', targetUserId);
+      } catch {}
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: 'Student permanently deleted from database and auth',
+      deletedEmail: rawEmail,
+      deletedId: targetUserId || rawStudentId,
+    });
+  } catch (error: any) {
+    console.error('API /api/admin/students delete error:', error);
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+  }
+}

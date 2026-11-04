@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import { CheckCircle2, XCircle, Clock, Search, RefreshCw, User, FileText, Download, X, Globe, Phone, Package, Mail, MapPin, ExternalLink } from 'lucide-react';
+import { CheckCircle2, XCircle, Clock, Search, RefreshCw, User, FileText, Download, X, Globe, Phone, Package, Mail, MapPin, ExternalLink, Trash2 } from 'lucide-react';
 import {
   ACADEMY_PACKAGES,
   getPackageByIdOrName,
@@ -46,6 +46,7 @@ export default function AdminStudentsPage() {
   const [search, setSearch] = useState('');
   const [packageFilter, setPackageFilter] = useState<string>('all');
   const [updating, setUpdating] = useState<string | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   // Modals
   const [viewingStudent, setViewingStudent] = useState<StudentProfile | null>(null);
@@ -487,6 +488,124 @@ export default function AdminStudentsPage() {
     } catch (e) { }
 
     setUpdating(null);
+  };
+
+  const deleteStudent = async (student: StudentProfile) => {
+    const studentName = student.full_name || student.firstName || student.email || 'this student';
+    const confirmDelete = window.confirm(
+      `Are you sure you want to PERMANENTLY delete student:\n\n${studentName} (${student.email || 'No email'})\n\nThis will remove them from the list and delete their account from the database. This action cannot be undone.`
+    );
+    if (!confirmDelete) return;
+
+    setDeletingId(student.id);
+
+    try {
+      // 1. Call API to delete from Supabase DB & Auth
+      await fetch('/api/admin/students', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          studentId: student.id,
+          studentEmail: student.email,
+        }),
+      });
+    } catch (apiErr) {
+      console.warn('API delete error:', apiErr);
+    }
+
+    // 2. Remove from local React state
+    setStudents((prev) =>
+      prev.filter(
+        (s) =>
+          s.id !== student.id &&
+          (!student.email || (s.email || '').toLowerCase().trim() !== (student.email || '').toLowerCase().trim())
+      )
+    );
+
+    // 3. Clean up client local storage records
+    try {
+      const cleanEmail = (student.email || '').toLowerCase().trim();
+
+      // adminStudentList
+      const adminListRaw = localStorage.getItem('adminStudentList');
+      if (adminListRaw) {
+        const list = JSON.parse(adminListRaw);
+        if (Array.isArray(list)) {
+          const filtered = list.filter(
+            (s: any) =>
+              s.id !== student.id &&
+              (!cleanEmail || (s.email || '').toLowerCase().trim() !== cleanEmail)
+          );
+          localStorage.setItem('adminStudentList', JSON.stringify(filtered));
+        }
+      }
+
+      // ahsora_cached_admin_students
+      const cachedStr = localStorage.getItem('ahsora_cached_admin_students');
+      if (cachedStr) {
+        const list = JSON.parse(cachedStr);
+        if (Array.isArray(list)) {
+          const filtered = list.filter(
+            (s: any) =>
+              s.id !== student.id &&
+              (!cleanEmail || (s.email || '').toLowerCase().trim() !== cleanEmail)
+          );
+          localStorage.setItem('ahsora_cached_admin_students', JSON.stringify(filtered));
+        }
+      }
+
+      // ahsora_approved_emails
+      if (cleanEmail) {
+        const approvedEmailsRaw = localStorage.getItem('ahsora_approved_emails');
+        if (approvedEmailsRaw) {
+          const emails: string[] = JSON.parse(approvedEmailsRaw);
+          if (Array.isArray(emails)) {
+            const filtered = emails.filter((em) => (em || '').toLowerCase().trim() !== cleanEmail);
+            localStorage.setItem('ahsora_approved_emails', JSON.stringify(filtered));
+          }
+        }
+      }
+
+      // ahsora_elite_students
+      const eliteStr = localStorage.getItem('ahsora_elite_students');
+      if (eliteStr) {
+        const list = JSON.parse(eliteStr);
+        if (Array.isArray(list)) {
+          const filtered = list.filter(
+            (s: any) =>
+              s.id !== student.id &&
+              s.studentId !== student.id &&
+              (!cleanEmail || (s.email || '').toLowerCase().trim() !== cleanEmail)
+          );
+          localStorage.setItem('ahsora_elite_students', JSON.stringify(filtered));
+        }
+      }
+
+      // recentRegistration
+      const recentStr = localStorage.getItem('recentRegistration');
+      if (recentStr) {
+        const recent = JSON.parse(recentStr);
+        if (
+          recent.id === student.id ||
+          (cleanEmail && (recent.email || '').toLowerCase().trim() === cleanEmail)
+        ) {
+          localStorage.removeItem('recentRegistration');
+        }
+      }
+    } catch (e) {
+      console.warn('LocalStorage cleanup note:', e);
+    }
+
+    setDeletingId(null);
+    if (viewingStudent?.id === student.id) {
+      setViewingStudent(null);
+    }
+
+    // Trigger instant real-time sync across other open admin tabs
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new Event('ahsora_student_updated'));
+      window.dispatchEvent(new Event('storage'));
+    }
   };
 
   const openDocs = async (student: StudentProfile) => {
@@ -971,6 +1090,35 @@ export default function AdminStudentsPage() {
                           >
                             <FileText size={14} /> Docs
                           </button>
+                          <button
+                            onClick={() => deleteStudent(student)}
+                            disabled={deletingId === student.id}
+                            title="Permanently delete student from list and database"
+                            style={{
+                              padding: '6px 12px',
+                              borderRadius: '8px',
+                              border: '1px solid #FECACA',
+                              backgroundColor: '#FEF2F2',
+                              cursor: deletingId === student.id ? 'wait' : 'pointer',
+                              fontWeight: 600,
+                              fontSize: '0.8125rem',
+                              color: '#DC2626',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '4px',
+                              transition: 'all 0.15s ease',
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.backgroundColor = '#DC2626';
+                              e.currentTarget.style.color = '#FFFFFF';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.backgroundColor = '#FEF2F2';
+                              e.currentTarget.style.color = '#DC2626';
+                            }}
+                          >
+                            <Trash2 size={13} /> {deletingId === student.id ? 'Deleting...' : 'Delete'}
+                          </button>
                         </div>
                       </td>
                     </tr>
@@ -1072,7 +1220,26 @@ export default function AdminStudentsPage() {
               </div>
             </div>
 
-            <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
+            <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+              <button
+                onClick={() => deleteStudent(viewingStudent)}
+                style={{
+                  padding: '10px 18px',
+                  borderRadius: '10px',
+                  border: '1px solid #FECACA',
+                  backgroundColor: '#FEF2F2',
+                  color: '#DC2626',
+                  fontWeight: 700,
+                  fontSize: '0.875rem',
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                }}
+              >
+                <Trash2 size={15} /> Delete Student Record
+              </button>
+
               <button
                 onClick={() => {
                   toggleApproval(viewingStudent.id, viewingStudent.payment_approved, viewingStudent.email);
