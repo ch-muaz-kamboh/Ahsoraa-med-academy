@@ -61,8 +61,34 @@ export const SOCIAL_LINKS = [
     tooltip: 'Subscribe to Ahsora on YouTube',
   },
   {
+    name: 'WhatsApp Community',
+    label: 'Community',
+    url: 'https://chat.whatsapp.com/ExHpw9NuQ5mEOpOCqsz1hk',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12.031 2C6.496 2 2 6.495 2 12.03c0 1.97.57 3.82 1.56 5.39L2.2 21.8l4.53-1.33c1.51.91 3.27 1.41 5.3 1.41 5.535 0 10.031-4.495 10.031-10.03C22.062 6.495 17.566 2 12.031 2zm5.88 14.18c-.24.68-1.4 1.3-1.94 1.35-.5.05-1.14.07-3.69-.97-3.15-1.28-5.18-4.49-5.34-4.7-.16-.21-1.27-1.69-1.27-3.23 0-1.54.81-2.3 1.1-2.61.29-.31.63-.39.84-.39.21 0 .42 0 .6.01.19.01.45-.07.7.53.26.63.89 2.16.97 2.32.08.16.13.35.03.56-.1.21-.16.34-.31.52-.16.18-.33.4-.47.54-.16.15-.32.32-.14.63.18.31.81 1.33 1.73 2.15 1.19 1.06 2.19 1.39 2.5 1.55.31.16.49.13.67-.08.18-.21.78-.91.99-1.22.21-.31.42-.26.7-.16.29.1 1.83.86 2.15 1.02.31.16.52.24.6.37.08.13.08.76-.16 1.44z"/>
+      </svg>
+    ),
+    color: '#25D366',
+    hoverBg: 'rgba(37, 211, 102, 0.15)',
+    tooltip: 'Join Official Ahsora WhatsApp Community',
+  },
+  {
+    name: 'WhatsApp Channel',
+    label: 'Channel',
+    url: 'https://whatsapp.com/channel/0029Vb8YFTkKWEKpUsrmy946',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.08L2 22l5.05-1.33C8.5 21.53 10.2 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm1 14.5h-2v-2h2v2zm0-4h-2V7h2v5.5z"/>
+      </svg>
+    ),
+    color: '#25D366',
+    hoverBg: 'rgba(37, 211, 102, 0.15)',
+    tooltip: 'Follow Official Ahsora WhatsApp Channel',
+  },
+  {
     name: 'WhatsApp',
-    label: 'WhatsApp',
+    label: 'WhatsApp Desk',
     url: 'https://wa.me/393333444479',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">

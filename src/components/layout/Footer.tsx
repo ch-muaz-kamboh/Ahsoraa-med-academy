@@ -115,6 +115,48 @@ export default function Footer() {
                   <span style={{ fontSize: '0.7rem', backgroundColor: 'rgba(37, 211, 102, 0.18)', color: '#25D366', padding: '1px 5px', borderRadius: '4px', fontWeight: 700 }}>WhatsApp</span>
                 </a>
               </li>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', paddingTop: '4px' }}>
+                <a
+                  href="https://chat.whatsapp.com/ExHpw9NuQ5mEOpOCqsz1hk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    backgroundColor: 'rgba(37, 211, 102, 0.15)',
+                    border: '1px solid rgba(37, 211, 102, 0.35)',
+                    color: '#5CED73',
+                    padding: '4px 10px',
+                    borderRadius: '6px',
+                    fontSize: '0.75rem',
+                    fontWeight: 700,
+                    textDecoration: 'none',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '5px',
+                  }}
+                >
+                  <span>💬 WhatsApp Community</span>
+                </a>
+                <a
+                  href="https://whatsapp.com/channel/0029Vb8YFTkKWEKpUsrmy946"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    backgroundColor: 'rgba(37, 211, 102, 0.15)',
+                    border: '1px solid rgba(37, 211, 102, 0.35)',
+                    color: '#5CED73',
+                    padding: '4px 10px',
+                    borderRadius: '6px',
+                    fontSize: '0.75rem',
+                    fontWeight: 700,
+                    textDecoration: 'none',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '5px',
+                  }}
+                >
+                  <span>📢 Channel</span>
+                </a>
+              </li>
               <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <MapPin size={15} color="#5CED73" />
                 <span>Messina, Italy • Lahore, Pakistan</span>

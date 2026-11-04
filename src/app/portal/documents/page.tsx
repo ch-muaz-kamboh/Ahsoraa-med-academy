@@ -58,9 +58,23 @@ export default function PortalDocumentsPage() {
     fileName: '',
   });
 
+  const MAX_FILE_SIZE_MB = 5;
+  const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      if (file.size > MAX_FILE_SIZE_BYTES) {
+        const sizeMb = (file.size / (1024 * 1024)).toFixed(2);
+        setUploadError(
+          `File size exceeds the ${MAX_FILE_SIZE_MB} MB limit (Selected: ${sizeMb} MB). Please choose a compressed document under ${MAX_FILE_SIZE_MB} MB.`
+        );
+        setFileObj(null);
+        setFileDataUrl('');
+        e.target.value = '';
+        return;
+      }
+
       setFileObj(file);
       setUploadError(null);
       setIsReadingFile(true);
@@ -86,6 +100,10 @@ export default function PortalDocumentsPage() {
   const handleUploadSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!uploadData.title) return;
+    if (fileObj && fileObj.size > MAX_FILE_SIZE_BYTES) {
+      setUploadError(`File exceeds maximum ${MAX_FILE_SIZE_MB} MB limit.`);
+      return;
+    }
     if (isReadingFile) {
       setUploadError('Please wait for the file to finish reading before uploading.');
       return;
@@ -405,7 +423,12 @@ export default function PortalDocumentsPage() {
               </div>
 
               <div className="form-group">
-                <label className="form-label">Select File (PDF, JPG, PNG)</label>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
+                  <label className="form-label" style={{ margin: 0 }}>Select File (PDF, JPG, PNG)</label>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', padding: '2px 8px', borderRadius: '6px' }}>
+                    Max 5 MB
+                  </span>
+                </div>
                 <input
                   type="file"
                   required
@@ -413,6 +436,9 @@ export default function PortalDocumentsPage() {
                   className="form-input"
                   onChange={handleFileChange}
                 />
+                <span style={{ fontSize: '0.75rem', color: '#64748B', display: 'block', marginTop: '4px' }}>
+                  Maximum allowed file size is <strong>5 MB</strong> per document.
+                </span>
                 {fileObj && (
                   <div style={{ fontSize: '0.8125rem', color: '#059669', marginTop: '6px', fontWeight: 600 }}>
                     ✓ Selected: {fileObj.name} ({(fileObj.size / 1024).toFixed(0)} KB)

@@ -26,6 +26,7 @@ import {
   Compass,
   ChevronLeft,
   Lock,
+  Phone,
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
@@ -771,6 +772,43 @@ export default function PortalSidebar({ userFullName = 'Student', userInitials =
           width: '100%',
         }}
       >
+        {/* Official WhatsApp Community & Channel */}
+        {sidebarExpanded ? (
+          <div style={{ backgroundColor: '#F0FFF4', border: '1px solid #BBF7D0', borderRadius: '10px', padding: '10px 12px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <span style={{ fontSize: '0.68rem', fontWeight: 800, color: '#047857', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+              Official WhatsApp Hubs
+            </span>
+            <div style={{ display: 'flex', gap: '6px' }}>
+              <a
+                href="https://chat.whatsapp.com/ExHpw9NuQ5mEOpOCqsz1hk"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ flex: 1, backgroundColor: '#25D366', color: '#FFFFFF', padding: '6px 8px', borderRadius: '6px', fontSize: '0.72rem', fontWeight: 700, textDecoration: 'none', textAlign: 'center' }}
+              >
+                Community
+              </a>
+              <a
+                href="https://whatsapp.com/channel/0029Vb8YFTkKWEKpUsrmy946"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ flex: 1, backgroundColor: '#FFFFFF', border: '1px solid #86EFAC', color: '#047857', padding: '6px 8px', borderRadius: '6px', fontSize: '0.72rem', fontWeight: 700, textDecoration: 'none', textAlign: 'center' }}
+              >
+                Channel
+              </a>
+            </div>
+          </div>
+        ) : (
+          <a
+            href="https://chat.whatsapp.com/ExHpw9NuQ5mEOpOCqsz1hk"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '8px', borderRadius: '8px', backgroundColor: '#F0FFF4', color: '#25D366', textDecoration: 'none' }}
+            title="Official WhatsApp Community & Channel"
+          >
+            <Phone size={16} />
+          </a>
+        )}
+
         <button
           type="button"
           onClick={handleLogout}
