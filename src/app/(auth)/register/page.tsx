@@ -665,7 +665,7 @@ function RegisterContent() {
             <span>🏆</span> <span>#1 Ranked Italian IMAT Prep</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <span>🎯</span> <span>98.4% Admission Success Rate</span>
+            <span>🎯</span> <span>Solved Past Papers (2011–2025)</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <span>📚</span> <span>2,800+ MCQs &amp; 12 CBT Mocks</span>
