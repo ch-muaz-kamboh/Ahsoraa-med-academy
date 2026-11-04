@@ -117,7 +117,7 @@ function PendingPaymentContent() {
               }
             }
           }
-        } catch {}
+        } catch { }
       }
 
       // 3. Query server API /api/admin/students for live cross-device approval & synced student metadata
@@ -265,7 +265,7 @@ function PendingPaymentContent() {
     try {
       const supabase = createClient();
       await supabase.auth.signOut();
-    } catch (e) {}
+    } catch (e) { }
     localStorage.removeItem('recentRegistration');
     localStorage.removeItem('ahsora_studentLoggedIn');
     router.push('/login');

@@ -46,7 +46,7 @@ export default function AdminStudentsPage() {
   const [search, setSearch] = useState('');
   const [packageFilter, setPackageFilter] = useState<string>('all');
   const [updating, setUpdating] = useState<string | null>(null);
-  
+
   // Modals
   const [viewingStudent, setViewingStudent] = useState<StudentProfile | null>(null);
   const [viewingDocs, setViewingDocs] = useState<StudentProfile | null>(null);
@@ -87,7 +87,7 @@ export default function AdminStudentsPage() {
           }
         }
       }
-    } catch (e) {}
+    } catch (e) { }
 
     // 2. Check recentRegistration
     try {
@@ -106,7 +106,7 @@ export default function AdminStudentsPage() {
           }
         }
       }
-    } catch (e) {}
+    } catch (e) { }
 
     // 3. Check ahsora_currentUser
     try {
@@ -125,7 +125,7 @@ export default function AdminStudentsPage() {
           }
         }
       }
-    } catch (e) {}
+    } catch (e) { }
 
     // 4. Check persistent mapping
     if (cleanEmail) {
@@ -151,7 +151,7 @@ export default function AdminStudentsPage() {
           }
         }
       }
-    } catch (e) {}
+    } catch (e) { }
 
     return null;
   };
@@ -258,8 +258,8 @@ export default function AdminStudentsPage() {
         s.payment_approved !== undefined
           ? Boolean(s.payment_approved)
           : s.paymentApproved !== undefined
-          ? Boolean(s.paymentApproved)
-          : undefined;
+            ? Boolean(s.paymentApproved)
+            : undefined;
 
       if (existing) {
         const updated: StudentProfile = {
@@ -281,8 +281,8 @@ export default function AdminStudentsPage() {
           payment_approved: isAuthoritative && incomingApproved !== undefined
             ? incomingApproved
             : existing.payment_approved !== undefined
-            ? existing.payment_approved
-            : (incomingApproved ?? false),
+              ? existing.payment_approved
+              : (incomingApproved ?? false),
           created_at: existing.created_at || s.created_at,
         };
         studentMap.set(key, updated);
@@ -316,7 +316,7 @@ export default function AdminStudentsPage() {
           localStorage.removeItem('ahsora_approved_emails');
           localStorage.setItem('ahsora_cleanup_v4', 'true');
         }
-      } catch (e) {}
+      } catch (e) { }
     }
 
     // 1. Fetch live accounts directly from Server API Route (Supabase Auth, profiles, and enrolled leads)
@@ -342,7 +342,7 @@ export default function AdminStudentsPage() {
         const localList: any[] = JSON.parse(localListStr);
         if (Array.isArray(localList)) localList.forEach((st) => mergeIn(st, false));
       }
-    } catch (e) {}
+    } catch (e) { }
 
     // 3. Supplementary: load from recentRegistration
     try {
@@ -351,7 +351,7 @@ export default function AdminStudentsPage() {
         const r = JSON.parse(recentStr);
         if (r.email) mergeIn(r, false);
       }
-    } catch (e) {}
+    } catch (e) { }
 
     // 4. Supplementary: load from ahsora_cached_admin_students
     try {
@@ -360,7 +360,7 @@ export default function AdminStudentsPage() {
         const list: any[] = JSON.parse(cachedStr);
         if (Array.isArray(list)) list.forEach((st) => mergeIn(st, false));
       }
-    } catch (e) {}
+    } catch (e) { }
 
     // 5. Ensure explicitly approved emails in localStorage are reflected
     try {
@@ -375,7 +375,7 @@ export default function AdminStudentsPage() {
           }
         });
       }
-    } catch (e) {}
+    } catch (e) { }
 
     const result = Array.from(studentMap.values());
     setStudents((prev) => {
@@ -393,7 +393,7 @@ export default function AdminStudentsPage() {
 
     try {
       localStorage.setItem('ahsora_cached_admin_students', JSON.stringify(result));
-    } catch (e) {}
+    } catch (e) { }
 
     if (isInitialLoad.current) {
       isInitialLoad.current = false;
@@ -447,7 +447,7 @@ export default function AdminStudentsPage() {
       });
       try {
         localStorage.setItem('ahsora_cached_admin_students', JSON.stringify(updated));
-      } catch (e) {}
+      } catch (e) { }
       return updated;
     });
 
@@ -490,7 +490,7 @@ export default function AdminStudentsPage() {
         });
       }
       localStorage.setItem('adminStudentList', JSON.stringify(localList));
-    } catch (e) {}
+    } catch (e) { }
 
     // If changing to Elite, add to ahsora_elite_students
     try {
@@ -527,9 +527,9 @@ export default function AdminStudentsPage() {
           window.dispatchEvent(new Event('ahsora_elite_updated'));
         }
       }
-    } catch (e) {}
+    } catch (e) { }
 
-      // If current logged in student is this user, update ahsora_currentUser
+    // If current logged in student is this user, update ahsora_currentUser
     try {
       const savedUserStr = localStorage.getItem('ahsora_currentUser');
       if (savedUserStr) {
@@ -540,7 +540,7 @@ export default function AdminStudentsPage() {
           localStorage.setItem('ahsora_currentUser', JSON.stringify(savedUser));
         }
       }
-    } catch (e) {}
+    } catch (e) { }
 
     // Persist to Server API Route (Supabase Auth metadata & profiles)
     try {
@@ -554,7 +554,7 @@ export default function AdminStudentsPage() {
           packagePrice: newPrice,
         }),
       }).catch((e) => console.warn('API update package error:', e));
-    } catch (e) {}
+    } catch (e) { }
 
     window.dispatchEvent(new Event('ahsora_student_updated'));
     window.dispatchEvent(new Event('storage'));
@@ -563,7 +563,7 @@ export default function AdminStudentsPage() {
   const toggleApproval = async (studentId: string, currentStatus: boolean, studentEmail?: string) => {
     setUpdating(studentId);
     const newStatus = !currentStatus;
-    
+
     // Update local state and cached students
     setStudents((prev) => {
       const updated = prev.map((s) =>
@@ -573,7 +573,7 @@ export default function AdminStudentsPage() {
       );
       try {
         localStorage.setItem('ahsora_cached_admin_students', JSON.stringify(updated));
-      } catch (e) {}
+      } catch (e) { }
       return updated;
     });
 
@@ -632,7 +632,7 @@ export default function AdminStudentsPage() {
 
       window.dispatchEvent(new Event('ahsora_student_updated'));
       window.dispatchEvent(new Event('storage'));
-    } catch (e) {}
+    } catch (e) { }
 
     // Update Server API Route with both studentId and studentEmail
     try {
@@ -645,7 +645,7 @@ export default function AdminStudentsPage() {
           paymentApproved: newStatus,
         }),
       }).catch((e) => console.warn('API update approval error:', e));
-    } catch (e) {}
+    } catch (e) { }
 
     // Update Supabase profiles directly as well
     try {
@@ -654,7 +654,7 @@ export default function AdminStudentsPage() {
         .from('profiles')
         .update({ payment_approved: newStatus })
         .eq('id', studentId);
-    } catch (e) {}
+    } catch (e) { }
 
     setUpdating(null);
   };
@@ -671,7 +671,7 @@ export default function AdminStudentsPage() {
         .eq('student_id', student.id)
         .order('created_at', { ascending: false });
       setStudentDocs((data as StudentDocument[]) ?? []);
-    } catch (e) {}
+    } catch (e) { }
     setDocsLoading(false);
   };
 
@@ -708,10 +708,10 @@ export default function AdminStudentsPage() {
   const pendingCount = students.filter((s) => !s.payment_approved).length;
 
   const packageColors: Record<string, { bg: string; border: string; badge: string; text: string; accent: string }> = {
-    'Ahsora IMAT Ascend':   { bg: '#F0FFF4', border: '#BBF7D0', badge: '#059669', text: '#14532D', accent: '#10B981' },
-    'Ahsora IMAT Mastery':  { bg: '#F5F3FF', border: '#DDD6FE', badge: '#7C3AED', text: '#3B0764', accent: '#8B5CF6' },
+    'Ahsora IMAT Ascend': { bg: '#F0FFF4', border: '#BBF7D0', badge: '#059669', text: '#14532D', accent: '#10B981' },
+    'Ahsora IMAT Mastery': { bg: '#F5F3FF', border: '#DDD6FE', badge: '#7C3AED', text: '#3B0764', accent: '#8B5CF6' },
     'Ahsora MedPath Elite': { bg: '#FFF7ED', border: '#FED7AA', badge: '#EA580C', text: '#7C2D12', accent: '#F97316' },
-    'Ahsora Path Elite':    { bg: '#FFF7ED', border: '#FED7AA', badge: '#EA580C', text: '#7C2D12', accent: '#F97316' },
+    'Ahsora Path Elite': { bg: '#FFF7ED', border: '#FED7AA', badge: '#EA580C', text: '#7C2D12', accent: '#F97316' },
   };
 
   const getStudentPkgName = (s: StudentProfile) => {
@@ -927,7 +927,7 @@ export default function AdminStudentsPage() {
         </button>
 
         <button
-          onClick={() => fetchStudents(true)}
+          onClick={fetchStudents}
           style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '11px 20px', borderRadius: '10px', border: '1px solid #CBD5E1', backgroundColor: '#FFF', cursor: 'pointer', fontWeight: 600, color: '#475569', fontSize: '0.9375rem' }}
         >
           <RefreshCw size={16} /> Refresh Data
@@ -972,8 +972,8 @@ export default function AdminStudentsPage() {
                     student.whatsapp_number && student.whatsapp_number !== 'Not specified' && student.whatsapp_number !== '+1 555-0199'
                       ? student.whatsapp_number
                       : student.whatsappNumber && student.whatsappNumber !== 'Not specified' && student.whatsappNumber !== '+1 555-0199'
-                      ? student.whatsappNumber
-                      : '';
+                        ? student.whatsappNumber
+                        : '';
                   const physicalAddress =
                     student.address && student.address !== 'Address on file' && student.address !== 'Not specified'
                       ? student.address
@@ -1017,7 +1017,7 @@ export default function AdminStudentsPage() {
                           {/* Package Selector to allow Admin to sync/update package */}
                           <select
                             value={matchedPkg.name}
-                            onChange={(e) => handleUpdatePackage(student.id, student.email, e.target.value)}
+                            onChange={(e) => handlePackageChange(student.id, e.target.value, student.email)}
                             style={{
                               fontSize: '0.75rem',
                               fontWeight: 700,

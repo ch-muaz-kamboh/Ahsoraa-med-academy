@@ -59,7 +59,7 @@ export interface DynamicPackagePrice {
 // ── TTL & Request Deduplication Cache ──────────────────────────────────────
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes cache to prevent aggressive client queries
 const syncTimestamps: Record<string, number> = {};
-const pendingSyncs: Record<string, Promise<any> | undefined> = {};
+const pendingSyncs: Record<string, Promise<any>> = {};
 
 function shouldSkipSync(key: string): boolean {
   const lastSync = syncTimestamps[key] || 0;
@@ -449,7 +449,7 @@ export function extractContentAndIndexes(rawContent: string): { content: string;
       if (Array.isArray(parsed) && parsed.length > 0) {
         indexes = parsed;
       }
-    } catch {}
+    } catch { }
   }
   const content = rawContent.replace(/<!--\s*TOC_INDEXES:[\s\S]*?-->/g, '').trim();
   return { content, indexes };
@@ -504,7 +504,7 @@ export function unmarkNewsIdDeleted(id: string) {
     const ids = getDeletedNewsIds();
     ids.delete(id);
     localStorage.setItem(DELETED_NEWS_KEY, JSON.stringify(Array.from(ids)));
-  } catch (e) {}
+  } catch (e) { }
 }
 
 export async function syncSingleNewsPostToSupabase(post: NewsItem): Promise<boolean> {
@@ -700,7 +700,7 @@ export function deleteNewsPost(id: string) {
       supabase.from('news_posts').delete().eq('id', id).then(({ error }) => {
         if (error) console.warn('Supabase news delete warning:', error.message);
       });
-    } catch (e) {}
+    } catch (e) { }
 
     // 2. Server API route delete backup with service role
     fetch('/api/admin/news', {

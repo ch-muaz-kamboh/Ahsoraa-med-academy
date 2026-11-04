@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
@@ -110,7 +110,7 @@ const COUNTRY_DIAL_CODES: CountryDialCode[] = [
 
 const COUNTRIES = COUNTRY_DIAL_CODES.map((c) => c.name);
 
-export default function RegisterPage() {
+export function RegisterContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const urlPkgParam = searchParams ? searchParams.get('package') : null;
@@ -1432,5 +1432,19 @@ export default function RegisterPage() {
         }
       `}</style>
     </div>
+  );
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense
+      fallback={
+        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#F8FAFC' }}>
+          <div style={{ color: '#64748B', fontWeight: 600 }}>Loading registration...</div>
+        </div>
+      }
+    >
+      <RegisterContent />
+    </Suspense>
   );
 }
