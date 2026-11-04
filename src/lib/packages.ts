@@ -68,8 +68,32 @@ export function getPackageByIdOrName(input?: string | null): CoursePackage {
   const base = (() => {
     if (!input) return ACADEMY_PACKAGES[0]; // default Ascend
     const lower = input.toLowerCase().trim();
+
+    // 1. Exact id matches (highest priority)
+    if (lower === 'elite' || lower === 'ahsora medpath elite' || lower === 'medpath elite' || lower === 'medpath') {
+      return ACADEMY_PACKAGES[2]; // elite
+    }
+    if (lower === 'mastery' || lower === 'ahsora imat mastery' || lower === 'imat mastery') {
+      return ACADEMY_PACKAGES[1]; // mastery
+    }
+    if (lower === 'ascend' || lower === 'ascent' || lower === 'ahsora imat ascend' || lower === 'imat ascend') {
+      return ACADEMY_PACKAGES[0]; // ascend
+    }
+
+    // 2. Specific distinctive keyword matches
+    if (lower.includes('elite') || lower.includes('medpath')) {
+      return ACADEMY_PACKAGES[2]; // elite
+    }
+    if (lower.includes('mastery')) {
+      return ACADEMY_PACKAGES[1]; // mastery
+    }
+    if (lower.includes('ascend') || lower.includes('ascent')) {
+      return ACADEMY_PACKAGES[0]; // ascend
+    }
+
+    // 3. Fallback to general substring match
     const match = ACADEMY_PACKAGES.find(
-      (p) => p.id.toLowerCase() === lower || p.name.toLowerCase() === lower || p.name.toLowerCase().includes(lower) || lower.includes(p.id.toLowerCase())
+      (p) => p.id.toLowerCase() === lower || p.name.toLowerCase() === lower || p.name.toLowerCase().includes(lower)
     );
     return match || ACADEMY_PACKAGES[0];
   })();

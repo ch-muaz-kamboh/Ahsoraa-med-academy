@@ -59,7 +59,7 @@ export interface DynamicPackagePrice {
 // ── TTL & Request Deduplication Cache ──────────────────────────────────────
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes cache to prevent aggressive client queries
 const syncTimestamps: Record<string, number> = {};
-const pendingSyncs: Record<string, Promise<any>> = {};
+const pendingSyncs: Record<string, Promise<any> | undefined> = {};
 
 function shouldSkipSync(key: string): boolean {
   const lastSync = syncTimestamps[key] || 0;
@@ -543,7 +543,7 @@ export async function syncSingleNewsPostToSupabase(post: NewsItem): Promise<bool
 
 export async function syncNewsFromSupabase(): Promise<NewsItem[]> {
   if (shouldSkipSync('news')) return getNewsPosts();
-  if (pendingSyncs['news']) return pendingSyncs['news'];
+  if (pendingSyncs['news']) return (await pendingSyncs['news']) as NewsItem[];
 
   const p = (async () => {
     try {
@@ -851,7 +851,7 @@ export function saveTickerItems(items: TickerItem[]) {
 
 export async function syncTickerFromSupabase(): Promise<TickerItem[]> {
   if (shouldSkipSync('ticker')) return getTickerItems();
-  if (pendingSyncs['ticker']) return pendingSyncs['ticker'];
+  if (pendingSyncs['ticker']) return (await pendingSyncs['ticker']) as TickerItem[];
 
   const p = (async () => {
     try {
@@ -1156,7 +1156,7 @@ export function saveDynamicPackagePrices(prices: DynamicPackagePrice[]) {
 
 export async function syncPricesFromSupabase(): Promise<DynamicPackagePrice[]> {
   if (shouldSkipSync('prices')) return getDynamicPackagePrices();
-  if (pendingSyncs['prices']) return pendingSyncs['prices'];
+  if (pendingSyncs['prices']) return (await pendingSyncs['prices']) as DynamicPackagePrice[];
 
   const p = (async () => {
     try {
@@ -1470,7 +1470,7 @@ export function saveSaleOfferConfig(config: SaleOfferConfig) {
 
 export async function syncSaleOfferFromSupabase(): Promise<SaleOfferConfig> {
   if (shouldSkipSync('sale_offer')) return getSaleOfferConfig();
-  if (pendingSyncs['sale_offer']) return pendingSyncs['sale_offer'];
+  if (pendingSyncs['sale_offer']) return (await pendingSyncs['sale_offer']) as SaleOfferConfig;
 
   const p = (async () => {
     try {

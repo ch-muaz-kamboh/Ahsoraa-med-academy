@@ -209,14 +209,15 @@ export default function AdminStudentsPage() {
 
       const sPkg = s.selected_package || s.selectedPackage;
       const resolved = resolveStudentPkg(s.email, s.id);
-      const pkgCandidate = isAuthoritative
-        ? (sPkg || resolved?.selectedPackage)
-        : (existing?.selected_package || sPkg || resolved?.selectedPackage);
+      const pkgCandidate = sPkg || resolved?.selectedPackage || existing?.selected_package;
 
       const finalPkg = pkgCandidate ? getPackageByIdOrName(pkgCandidate).name : 'Ahsora IMAT Ascend';
-      const finalPrice = isAuthoritative
-        ? (s.package_price || s.packagePrice || resolved?.packagePrice || getPackageByIdOrName(finalPkg).price)
-        : (existing?.package_price || s.package_price || s.packagePrice || resolved?.packagePrice || getPackageByIdOrName(finalPkg).price);
+      const finalPrice =
+        s.package_price ||
+        s.packagePrice ||
+        resolved?.packagePrice ||
+        existing?.package_price ||
+        getPackageByIdOrName(finalPkg).price;
 
       const cleanAma =
         (isAuthoritative ? s.ama_id : existing?.ama_id || s.ama_id) ||
@@ -926,7 +927,7 @@ export default function AdminStudentsPage() {
         </button>
 
         <button
-          onClick={fetchStudents}
+          onClick={() => fetchStudents(true)}
           style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '11px 20px', borderRadius: '10px', border: '1px solid #CBD5E1', backgroundColor: '#FFF', cursor: 'pointer', fontWeight: 600, color: '#475569', fontSize: '0.9375rem' }}
         >
           <RefreshCw size={16} /> Refresh Data
@@ -1016,7 +1017,7 @@ export default function AdminStudentsPage() {
                           {/* Package Selector to allow Admin to sync/update package */}
                           <select
                             value={matchedPkg.name}
-                            onChange={(e) => handlePackageChange(student.id, e.target.value, student.email)}
+                            onChange={(e) => handleUpdatePackage(student.id, student.email, e.target.value)}
                             style={{
                               fontSize: '0.75rem',
                               fontWeight: 700,

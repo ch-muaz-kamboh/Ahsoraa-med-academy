@@ -55,9 +55,10 @@ function PendingPaymentContent() {
         setStatusMessage(null);
       }
 
+      // 1. Check query param first (authoritative from the registration checkout button)
       let currentData: any = null;
 
-      // 1. Check local storage recent registration or currentUser
+      // 2. Check local storage recent registration or currentUser
       try {
         const cached = localStorage.getItem('recentRegistration');
         if (cached) {
@@ -71,6 +72,15 @@ function PendingPaymentContent() {
         }
       } catch (e) {
         console.error(e);
+      }
+
+      // If query parameters are present, prioritize them over stale cached records
+      if (queryPkgName) {
+        currentData = {
+          ...currentData,
+          selectedPackage: queryPkgName,
+          packagePrice: queryPrice || currentData?.packagePrice,
+        };
       }
 
       const targetEmail = (queryEmail || currentData?.email || '').toLowerCase().trim();
@@ -135,10 +145,12 @@ function PendingPaymentContent() {
                     matchedServer.phone ||
                     currentData?.whatsappNumber,
                   selectedPackage:
+                    queryPkgName ||
                     matchedServer.selected_package ||
                     matchedServer.selectedPackage ||
                     currentData?.selectedPackage,
                   packagePrice:
+                    queryPrice ||
                     matchedServer.package_price ||
                     matchedServer.packagePrice ||
                     currentData?.packagePrice,
@@ -215,8 +227,8 @@ function PendingPaymentContent() {
           ama_id: '',
         };
       } else {
-        if (queryPkgName && !currentData.selectedPackage) currentData.selectedPackage = queryPkgName;
-        if (queryPrice && !currentData.packagePrice) currentData.packagePrice = queryPrice;
+        if (queryPkgName) currentData.selectedPackage = queryPkgName;
+        if (queryPrice) currentData.packagePrice = queryPrice;
         if (queryEmail && !currentData.email) currentData.email = queryEmail;
       }
 

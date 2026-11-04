@@ -90,6 +90,7 @@ export interface Profile {
   avatarUrl?: string;
   country: string;
   city?: string;
+  address?: string;
   targetExam?: string;
   targetCountry?: string;
   selectedPackage?: string;

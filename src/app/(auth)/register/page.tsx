@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { ACADEMY_PACKAGES, CoursePackage, getPackageByIdOrName, saveStudentPackageMapping } from '@/lib/packages';
 import { getDynamicPackagePrices, syncPricesFromSupabase, DynamicPackagePrice } from '@/lib/cms-store';
@@ -112,6 +112,8 @@ const COUNTRIES = COUNTRY_DIAL_CODES.map((c) => c.name);
 
 export default function RegisterPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const urlPkgParam = searchParams ? searchParams.get('package') : null;
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -124,8 +126,16 @@ export default function RegisterPage() {
     countryCode: '+39',
     localPhone: '',
     whatsappNumber: '+39',
-    selectedPackage: 'ascend', // default: Ahsora IMAT Ascend (€299)
+    selectedPackage: urlPkgParam ? getPackageByIdOrName(urlPkgParam).id : 'ascend',
   });
+
+  // Sync selectedPackage if URL query parameter package changes
+  useEffect(() => {
+    if (urlPkgParam) {
+      const resolved = getPackageByIdOrName(urlPkgParam).id;
+      setFormData((prev) => ({ ...prev, selectedPackage: resolved }));
+    }
+  }, [urlPkgParam]);
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
