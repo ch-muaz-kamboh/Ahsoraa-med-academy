@@ -1,78 +1,11 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Globe, MapPin, Phone, Package, CheckCircle2, Clock, RefreshCw, Trash2 } from 'lucide-react';
+import { Globe, MapPin, Phone, Package, CheckCircle2, Clock, RefreshCw } from 'lucide-react';
 
 export default function StaffStudentsPage() {
   const [students, setStudents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [deletingId, setDeletingId] = useState<string | null>(null);
-
-  const deleteStudent = async (stu: any) => {
-    const studentName = stu.full_name || stu.fullName || stu.email || 'this student';
-    const confirmDelete = window.confirm(
-      `Are you sure you want to PERMANENTLY delete student:\n\n${studentName} (${stu.email || 'No email'})\n\nThis will remove them from the list and delete their account from the database. This action cannot be undone.`
-    );
-    if (!confirmDelete) return;
-
-    setDeletingId(stu.id || stu.email);
-
-    try {
-      await fetch('/api/admin/students', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          studentId: stu.id,
-          studentEmail: stu.email,
-        }),
-      });
-    } catch (e) {
-      console.warn('API delete error:', e);
-    }
-
-    setStudents((prev) =>
-      prev.filter(
-        (s) =>
-          s.id !== stu.id &&
-          (!stu.email || (s.email || '').toLowerCase().trim() !== (stu.email || '').toLowerCase().trim())
-      )
-    );
-
-    // Clean local storage lists
-    try {
-      const cleanEmail = (stu.email || '').toLowerCase().trim();
-      const adminListRaw = localStorage.getItem('adminStudentList');
-      if (adminListRaw) {
-        const list = JSON.parse(adminListRaw);
-        if (Array.isArray(list)) {
-          const filtered = list.filter(
-            (s: any) =>
-              s.id !== stu.id &&
-              (!cleanEmail || (s.email || '').toLowerCase().trim() !== cleanEmail)
-          );
-          localStorage.setItem('adminStudentList', JSON.stringify(filtered));
-        }
-      }
-      const cachedStr = localStorage.getItem('ahsora_cached_admin_students');
-      if (cachedStr) {
-        const list = JSON.parse(cachedStr);
-        if (Array.isArray(list)) {
-          const filtered = list.filter(
-            (s: any) =>
-              s.id !== stu.id &&
-              (!cleanEmail || (s.email || '').toLowerCase().trim() !== cleanEmail)
-          );
-          localStorage.setItem('ahsora_cached_admin_students', JSON.stringify(filtered));
-        }
-      }
-    } catch (e) {}
-
-    setDeletingId(null);
-    if (typeof window !== 'undefined') {
-      window.dispatchEvent(new Event('ahsora_student_updated'));
-      window.dispatchEvent(new Event('storage'));
-    }
-  };
 
   const loadStudents = async () => {
     setLoading(true);
@@ -242,7 +175,7 @@ export default function StaffStudentsPage() {
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div>
                   {isApproved ? (
                     <span
                       style={{
@@ -276,36 +209,6 @@ export default function StaffStudentsPage() {
                       <Clock size={14} /> Pending Approval
                     </span>
                   )}
-
-                  <button
-                    onClick={() => deleteStudent(stu)}
-                    disabled={deletingId === (stu.id || stu.email)}
-                    title="Permanently delete student from list and database"
-                    style={{
-                      padding: '6px 12px',
-                      borderRadius: '8px',
-                      border: '1px solid #FECACA',
-                      backgroundColor: '#FEF2F2',
-                      color: '#DC2626',
-                      fontSize: '0.8125rem',
-                      fontWeight: 600,
-                      cursor: deletingId === (stu.id || stu.email) ? 'wait' : 'pointer',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '4px',
-                      transition: 'all 0.15s ease',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = '#DC2626';
-                      e.currentTarget.style.color = '#FFFFFF';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = '#FEF2F2';
-                      e.currentTarget.style.color = '#DC2626';
-                    }}
-                  >
-                    <Trash2 size={13} /> {deletingId === (stu.id || stu.email) ? 'Deleting...' : 'Delete'}
-                  </button>
                 </div>
               </div>
             );
