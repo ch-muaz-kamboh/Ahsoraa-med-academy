@@ -2490,7 +2490,7 @@ export default function HomePage() {
             {[
               {
                 name: 'Sofia Rossi',
-                admitted: 'University of Milan (La Statale)',
+                role: 'Verified IMAT Student',
                 score: '71.8/90',
                 rating: 5,
                 quote: 'Organic chemistry, especially reaction mechanisms, was where I struggled the most. The classes and mock tests helped me understand what I was getting wrong, and the mentors helped me work on those weak areas. After a couple of weeks, I started feeling more confident.',
@@ -2499,7 +2499,7 @@ export default function HomePage() {
               },
               {
                 name: 'Hamza Tariq',
-                admitted: 'Sapienza University of Rome · Non-EU Quota',
+                role: 'Verified IMAT Student · Non-EU Candidate',
                 score: '63.2/90',
                 rating: 5,
                 quote: 'As a non-EU student, I found the whole process of applying to medical universities in Italy a bit overwhelming. Ahsora’s MedPath Elite mentorship helped me with my IMAT preparation and made the admission and scholarship procedures much easier to understand.',
@@ -2508,7 +2508,7 @@ export default function HomePage() {
               },
               {
                 name: 'Elena Dumitru',
-                admitted: 'University of Bologna',
+                role: 'Verified IMAT Student',
                 score: '65.0/90',
                 rating: 4,
                 quote: 'I really liked the live classes because I could ask questions whenever something wasn’t clear. The tips for managing time in logical reasoning were particularly helpful. They gave me a better idea of how to approach questions without spending too long on them.',
@@ -2597,8 +2597,8 @@ export default function HomePage() {
                     <h4 style={{ fontSize: '0.92rem', fontWeight: 700, color: '#0F172A', margin: 0 }}>
                       {review.name}
                     </h4>
-                    <p style={{ fontSize: '0.78rem', color: '#64748B', margin: '2px 0 0' }}>
-                      {review.admitted}
+                    <p style={{ fontSize: '0.78rem', color: '#059669', fontWeight: 600, margin: '2px 0 0' }}>
+                      {review.role}
                     </p>
                   </div>
                 </div>
