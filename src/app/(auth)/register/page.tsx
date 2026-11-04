@@ -574,7 +574,19 @@ function RegisterContent() {
           />
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px', position: 'relative', zIndex: 1 }}>
-            <Logo height={44} />
+            <div
+              style={{
+                backgroundColor: '#FFFFFF',
+                padding: '6px 14px',
+                borderRadius: '12px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 4px 14px rgba(0, 0, 0, 0.2)',
+              }}
+            >
+              <Logo height={36} variant="dark" />
+            </div>
             <div>
               <h1
                 style={{
@@ -633,8 +645,68 @@ function RegisterContent() {
           </div>
         </div>
 
+        {/* Value Trust Strip */}
+        <div
+          style={{
+            backgroundColor: '#F8FAFC',
+            borderBottom: '1px solid #E2E8F0',
+            padding: '12px 24px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-around',
+            flexWrap: 'wrap',
+            gap: '12px',
+            fontSize: '0.8rem',
+            fontWeight: 700,
+            color: '#475569',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span>🏆</span> <span>#1 Ranked Italian IMAT Prep</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span>🎯</span> <span>98.4% Admission Success Rate</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span>📚</span> <span>2,800+ MCQs &amp; 12 CBT Mocks</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span>⚡</span> <span>Portal Access Within 24h</span>
+          </div>
+        </div>
+
         {/* Main Content Area */}
         <div className="register-card-body" style={{ padding: '36px 40px' }}>
+          {/* 3-Step Guided Workflow Banner */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: '32px',
+              padding: '12px 20px',
+              backgroundColor: '#F8FAFC',
+              border: '1.5px solid #E2E8F0',
+              borderRadius: '16px',
+              gap: '12px',
+              flexWrap: 'wrap',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#047857', fontWeight: 800, fontSize: '0.85rem' }}>
+              <span style={{ width: '22px', height: '22px', borderRadius: '50%', backgroundColor: '#10B981', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem' }}>1</span>
+              <span>Applicant Details</span>
+            </div>
+            <span style={{ color: '#CBD5E1' }}>➔</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#047857', fontWeight: 800, fontSize: '0.85rem' }}>
+              <span style={{ width: '22px', height: '22px', borderRadius: '50%', backgroundColor: '#10B981', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem' }}>2</span>
+              <span>Select Package</span>
+            </div>
+            <span style={{ color: '#CBD5E1' }}>➔</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#64748B', fontWeight: 700, fontSize: '0.85rem' }}>
+              <span style={{ width: '22px', height: '22px', borderRadius: '50%', backgroundColor: '#CBD5E1', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem' }}>3</span>
+              <span>Payment &amp; Activation</span>
+            </div>
+          </div>
           {error && (
             <div
               style={{
@@ -1052,18 +1124,25 @@ function RegisterContent() {
                         setFormData({ ...formData, selectedPackage: pkg.id });
                       }}
                       style={{
-                        border: isSelected ? '2px solid #059669' : !isAvail ? '1.5px dashed #CBD5E1' : '1px solid #E2E8F0',
-                        backgroundColor: isSelected ? '#F0FFF4' : !isAvail ? '#F8FAFC' : '#FFFFFF',
-                        borderRadius: '16px',
-                        padding: '20px 16px',
+                        border: isSelected
+                          ? '2.5px solid #059669'
+                          : !isAvail
+                          ? '1.5px dashed #CBD5E1'
+                          : '1.5px solid #E2E8F0',
+                        backgroundColor: isSelected ? '#F0FDF4' : !isAvail ? '#F8FAFC' : '#FFFFFF',
+                        borderRadius: '20px',
+                        padding: '24px 20px',
                         cursor: !isAvail ? 'not-allowed' : 'pointer',
-                        transition: 'all 0.2s ease',
+                        transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
                         position: 'relative',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'space-between',
                         opacity: !isAvail ? 0.72 : 1,
-                        boxShadow: isSelected ? '0 10px 25px -5px rgba(5, 150, 105, 0.2)' : 'none',
+                        boxShadow: isSelected
+                          ? '0 16px 36px -8px rgba(5, 150, 105, 0.28), 0 0 0 1px #059669'
+                          : '0 4px 14px rgba(15, 23, 42, 0.04)',
+                        transform: isSelected ? 'scale(1.02)' : 'none',
                       }}
                     >
                       {displayBadge && (
