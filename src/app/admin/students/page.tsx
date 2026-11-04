@@ -166,7 +166,20 @@ export default function AdminStudentsPage() {
     }
     const studentMap = new Map<string, StudentProfile>();
 
-    const mergeIn = (s: Partial<StudentProfile>) => {
+    const isPlaceholderVal = (val?: string) => {
+      if (!val) return true;
+      const v = val.trim();
+      return (
+        v === '' ||
+        v === 'Address on file' ||
+        v === 'Not specified' ||
+        v === 'Not provided' ||
+        v === '+1 555-0199' ||
+        v === 'International'
+      );
+    };
+
+    const mergeIn = (s: Partial<StudentProfile> & { fullName?: string; phone?: string; paymentApproved?: boolean }, isAuthoritative = false) => {
       if (!s) return;
       const rawEmail = (s.email || '').toLowerCase().trim();
       const rawId = s.id || '';
@@ -174,6 +187,7 @@ export default function AdminStudentsPage() {
       if (
         rawId.startsWith('demo-') ||
         rawEmail.endsWith('@example.com') ||
+        rawEmail === 'student@ahsora.com' ||
         rawEmail.includes('student.ahsora.com') ||
         rawEmail === 'ahsank746@gmail.com' ||
         rawEmail === 'moaz27632@gmail.com' ||
@@ -187,82 +201,124 @@ export default function AdminStudentsPage() {
       const key = rawEmail || rawId;
       if (!key) return;
 
-      const existing = studentMap.get(key) || (rawEmail ? Array.from(studentMap.values()).find((x) => (x.email || '').toLowerCase().trim() === rawEmail) : undefined);
+      const existing =
+        studentMap.get(key) ||
+        (rawEmail
+          ? Array.from(studentMap.values()).find((x) => (x.email || '').toLowerCase().trim() === rawEmail)
+          : undefined);
 
+      const sPkg = s.selected_package || s.selectedPackage;
       const resolved = resolveStudentPkg(s.email, s.id);
-      const pkgCandidate = resolved?.selectedPackage || s.selected_package || s.selectedPackage;
-      
-      let finalPkg = 'Ahsora IMAT Ascend';
-      if (pkgCandidate && pkgCandidate !== 'Ahsora IMAT Ascend') {
-        finalPkg = getPackageByIdOrName(pkgCandidate).name;
-      } else if (existing?.selected_package && existing.selected_package !== 'Ahsora IMAT Ascend') {
-        finalPkg = existing.selected_package;
-      } else if (pkgCandidate) {
-        finalPkg = getPackageByIdOrName(pkgCandidate).name;
-      }
+      const pkgCandidate = isAuthoritative
+        ? (sPkg || resolved?.selectedPackage)
+        : (existing?.selected_package || sPkg || resolved?.selectedPackage);
 
-      const finalPrice = resolved?.packagePrice || s.package_price || s.packagePrice || existing?.package_price || getPackageByIdOrName(finalPkg).price;
-      const cleanAma = s.ama_id || existing?.ama_id || (rawId ? `AMA-${rawId.substring(0, 6).toUpperCase()}` : undefined);
-      const resolvedAddress = (s.address && s.address !== 'Address on file')
-        ? s.address
-        : (existing?.address && existing.address !== 'Address on file' ? existing.address : s.address || existing?.address || 'Address on file');
+      const finalPkg = pkgCandidate ? getPackageByIdOrName(pkgCandidate).name : 'Ahsora IMAT Ascend';
+      const finalPrice = isAuthoritative
+        ? (s.package_price || s.packagePrice || resolved?.packagePrice || getPackageByIdOrName(finalPkg).price)
+        : (existing?.package_price || s.package_price || s.packagePrice || resolved?.packagePrice || getPackageByIdOrName(finalPkg).price);
+
+      const cleanAma =
+        (isAuthoritative ? s.ama_id : existing?.ama_id || s.ama_id) ||
+        (rawId ? `AMA-${rawId.substring(0, 6).toUpperCase()}` : undefined);
+
+      const incomingAddr = !isPlaceholderVal(s.address) ? s.address! : '';
+      const existingAddr = existing && !isPlaceholderVal(existing.address) ? existing.address! : '';
+      const resolvedAddress = isAuthoritative
+        ? (incomingAddr || existingAddr)
+        : (existingAddr || incomingAddr);
+
+      const incomingPhone = !isPlaceholderVal(s.whatsapp_number || s.whatsappNumber || s.phone)
+        ? (s.whatsapp_number || s.whatsappNumber || s.phone)!
+        : '';
+      const existingPhone = existing && !isPlaceholderVal(existing.whatsapp_number || existing.whatsappNumber)
+        ? (existing.whatsapp_number || existing.whatsappNumber)!
+        : '';
+      const resolvedPhone = isAuthoritative
+        ? (incomingPhone || existingPhone)
+        : (existingPhone || incomingPhone);
+
+      const incomingCountry =
+        !isPlaceholderVal(s.country) && !(s.country === 'United States' && s.phone === '+1 555-0199')
+          ? s.country!
+          : '';
+      const existingCountry = existing && !isPlaceholderVal(existing.country) ? existing.country! : '';
+      const resolvedCountry = isAuthoritative
+        ? (incomingCountry || existingCountry)
+        : (existingCountry || incomingCountry);
+
+      const incomingFullName = s.full_name || s.fullName || `${s.firstName || ''} ${s.lastName || ''}`.trim();
+      const existingFullName = existing?.full_name || `${existing?.firstName || ''} ${existing?.lastName || ''}`.trim();
+      const resolvedFullName = isAuthoritative
+        ? (incomingFullName || existingFullName || rawEmail.split('@')[0])
+        : (existingFullName || incomingFullName || rawEmail.split('@')[0]);
+
+      const incomingApproved =
+        s.payment_approved !== undefined
+          ? Boolean(s.payment_approved)
+          : s.paymentApproved !== undefined
+          ? Boolean(s.paymentApproved)
+          : undefined;
 
       if (existing) {
         const updated: StudentProfile = {
           ...existing,
-          ...s,
+          id: (isAuthoritative && rawId) ? rawId : (existing.id || rawId),
           ama_id: cleanAma,
-          full_name: s.full_name || existing.full_name,
-          firstName: s.firstName || existing.firstName,
-          lastName: s.lastName || existing.lastName,
-          country: s.country || existing.country,
+          full_name: resolvedFullName,
+          firstName: (isAuthoritative ? s.firstName : existing.firstName) || s.firstName || resolvedFullName.split(' ')[0],
+          lastName: (isAuthoritative ? s.lastName : existing.lastName) || s.lastName || resolvedFullName.split(' ').slice(1).join(' '),
+          email: existing.email || s.email,
+          country: resolvedCountry,
           address: resolvedAddress,
-          whatsapp_number: s.whatsapp_number || s.whatsappNumber || existing.whatsapp_number,
+          whatsapp_number: resolvedPhone,
+          whatsappNumber: resolvedPhone,
           selected_package: finalPkg,
           selectedPackage: finalPkg,
           package_price: finalPrice,
           packagePrice: finalPrice,
-          payment_approved: s.payment_approved !== undefined ? s.payment_approved : existing.payment_approved,
-          created_at: s.created_at || existing.created_at,
+          payment_approved: isAuthoritative && incomingApproved !== undefined
+            ? incomingApproved
+            : existing.payment_approved !== undefined
+            ? existing.payment_approved
+            : (incomingApproved ?? false),
+          created_at: existing.created_at || s.created_at,
         };
         studentMap.set(key, updated);
       } else {
         studentMap.set(key, {
           id: rawId || `stu-${Date.now()}`,
           ama_id: cleanAma,
-          full_name: s.full_name || `${s.firstName || ''} ${s.lastName || ''}`.trim() || rawEmail.split('@')[0],
-          firstName: s.firstName,
-          lastName: s.lastName,
+          full_name: resolvedFullName,
+          firstName: s.firstName || resolvedFullName.split(' ')[0],
+          lastName: s.lastName || resolvedFullName.split(' ').slice(1).join(' '),
           email: s.email,
-          country: s.country || 'International',
+          country: resolvedCountry,
           address: resolvedAddress,
-          whatsapp_number: s.whatsapp_number || s.whatsappNumber || '',
-          whatsappNumber: s.whatsapp_number || s.whatsappNumber || '',
+          whatsapp_number: resolvedPhone,
+          whatsappNumber: resolvedPhone,
           selected_package: finalPkg,
           selectedPackage: finalPkg,
           package_price: finalPrice,
           packagePrice: finalPrice,
-          payment_approved: s.payment_approved ?? false,
+          payment_approved: incomingApproved ?? false,
           created_at: s.created_at || new Date().toISOString(),
         });
       }
     };
 
-    // 1. One-time clean out of legacy mock accounts from client storage so publishing site starts fresh
+    // 1. One-time clean out of legacy mock/placeholder accounts from client storage
     if (typeof window !== 'undefined') {
       try {
-        if (localStorage.getItem('ahsora_cleanup_v3') !== 'true') {
+        if (localStorage.getItem('ahsora_cleanup_v4') !== 'true') {
           localStorage.removeItem('ahsora_cached_admin_students');
-          localStorage.removeItem('adminStudentList');
           localStorage.removeItem('ahsora_approved_emails');
-          localStorage.removeItem('ahsora_elite_students');
-          localStorage.removeItem('recentRegistration');
-          localStorage.setItem('ahsora_cleanup_v3', 'true');
+          localStorage.setItem('ahsora_cleanup_v4', 'true');
         }
       } catch (e) {}
     }
 
-    // 1. Fetch live accounts directly from Server API Route (Supabase Auth and profiles)
+    // 1. Fetch live accounts directly from Server API Route (Supabase Auth, profiles, and enrolled leads)
     try {
       const res = await fetch('/api/admin/students', {
         cache: 'no-store',
@@ -271,52 +327,41 @@ export default function AdminStudentsPage() {
       if (res.ok) {
         const json = await res.json();
         if (json.success && Array.isArray(json.students) && json.students.length > 0) {
-          json.students.forEach(mergeIn);
+          json.students.forEach((st: any) => mergeIn(st, true));
         }
       }
     } catch (apiErr) {
       console.warn('API /api/admin/students fetch note:', apiErr);
     }
 
-    // 2. Supplementary: load from ahsora_cached_admin_students
-    try {
-      const cachedStr = localStorage.getItem('ahsora_cached_admin_students');
-      if (cachedStr) {
-        const list: any[] = JSON.parse(cachedStr);
-        if (Array.isArray(list)) list.forEach(mergeIn);
-      }
-    } catch (e) {}
-
-    // 3. Supplementary: load from adminStudentList
+    // 2. Supplementary: load from adminStudentList (exact client registration records)
     try {
       const localListStr = localStorage.getItem('adminStudentList');
       if (localListStr) {
         const localList: any[] = JSON.parse(localListStr);
-        if (Array.isArray(localList)) localList.forEach(mergeIn);
+        if (Array.isArray(localList)) localList.forEach((st) => mergeIn(st, false));
       }
     } catch (e) {}
 
-    // 4. Supplementary: load from recentRegistration
+    // 3. Supplementary: load from recentRegistration
     try {
       const recentStr = localStorage.getItem('recentRegistration');
       if (recentStr) {
         const r = JSON.parse(recentStr);
-        if (r.email) mergeIn(r);
+        if (r.email) mergeIn(r, false);
       }
     } catch (e) {}
 
-    // 5. Supplementary: load from ahsora_currentUser
+    // 4. Supplementary: load from ahsora_cached_admin_students
     try {
-      const curStr = localStorage.getItem('ahsora_currentUser');
-      if (curStr) {
-        const cur = JSON.parse(curStr);
-        if (cur.email && cur.role !== 'admin' && cur.role !== 'staff') {
-          mergeIn(cur);
-        }
+      const cachedStr = localStorage.getItem('ahsora_cached_admin_students');
+      if (cachedStr) {
+        const list: any[] = JSON.parse(cachedStr);
+        if (Array.isArray(list)) list.forEach((st) => mergeIn(st, false));
       }
     } catch (e) {}
 
-    // 8. Ensure all approved emails are marked approved
+    // 5. Ensure explicitly approved emails in localStorage are reflected
     try {
       const approvedEmailsRaw = localStorage.getItem('ahsora_approved_emails');
       const approvedEmails: string[] = approvedEmailsRaw ? JSON.parse(approvedEmailsRaw) : [];
@@ -334,8 +379,12 @@ export default function AdminStudentsPage() {
     const result = Array.from(studentMap.values());
     setStudents((prev) => {
       if (prev.length === result.length) {
-        const prevKey = prev.map((s) => `${s.id}-${s.email}-${s.payment_approved}-${s.selected_package}`).join('|');
-        const nextKey = result.map((s) => `${s.id}-${s.email}-${s.payment_approved}-${s.selected_package}`).join('|');
+        const prevKey = prev
+          .map((s) => `${s.id}-${s.email}-${s.payment_approved}-${s.selected_package}-${s.country}-${s.address}-${s.whatsapp_number}`)
+          .join('|');
+        const nextKey = result
+          .map((s) => `${s.id}-${s.email}-${s.payment_approved}-${s.selected_package}-${s.country}-${s.address}-${s.whatsapp_number}`)
+          .join('|');
         if (prevKey === nextKey) return prev;
       }
       return result;
@@ -917,8 +966,17 @@ export default function AdminStudentsPage() {
                   const matchedPkg = getPackageByIdOrName(pkgName);
                   const pkgPrice = student.package_price || student.packagePrice || matchedPkg.price;
                   const fullName = student.full_name || `${student.firstName || ''} ${student.lastName || ''}`.trim() || 'Student';
-                  const country = student.country || 'Italy';
-                  const whatsapp = student.whatsapp_number || student.whatsappNumber || 'Not specified';
+                  const country = student.country && student.country !== 'International' ? student.country : '—';
+                  const whatsapp =
+                    student.whatsapp_number && student.whatsapp_number !== 'Not specified' && student.whatsapp_number !== '+1 555-0199'
+                      ? student.whatsapp_number
+                      : student.whatsappNumber && student.whatsappNumber !== 'Not specified' && student.whatsappNumber !== '+1 555-0199'
+                      ? student.whatsappNumber
+                      : '';
+                  const physicalAddress =
+                    student.address && student.address !== 'Address on file' && student.address !== 'Not specified'
+                      ? student.address
+                      : '—';
 
                   return (
                     <tr key={student.id} style={{ borderBottom: i < filtered.length - 1 ? '1px solid #F1F5F9' : 'none' }}>
@@ -955,13 +1013,28 @@ export default function AdminStudentsPage() {
                             </div>
                           </div>
 
-                          {/* Enrolled Package Badge (Non-editable) */}
-                          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '3px 8px', borderRadius: '6px', background: matchedPkg.id === 'elite' ? '#FFF7ED' : matchedPkg.id === 'mastery' ? '#F0FDF4' : '#F8FAFC', border: matchedPkg.id === 'elite' ? '1px solid #FFEDD5' : matchedPkg.id === 'mastery' ? '1px solid #DCFCE7' : '1px solid #E2E8F0' }}>
-                            <span style={{ fontSize: '0.72rem', fontWeight: 800, color: matchedPkg.id === 'elite' ? '#C2410C' : matchedPkg.id === 'mastery' ? '#047857' : '#334155' }}>
-                              {matchedPkg.id === 'elite' ? '👑 Elite' : matchedPkg.id === 'mastery' ? '⚡ Mastery' : '🎓 Ascend'}
-                            </span>
-                            <span style={{ fontSize: '0.65rem', color: '#94A3B8', fontWeight: 600 }}>• Enrolled</span>
-                          </div>
+                          {/* Package Selector to allow Admin to sync/update package */}
+                          <select
+                            value={matchedPkg.name}
+                            onChange={(e) => handlePackageChange(student.id, e.target.value, student.email)}
+                            style={{
+                              fontSize: '0.75rem',
+                              fontWeight: 700,
+                              padding: '4px 8px',
+                              borderRadius: '6px',
+                              border: '1px solid #CBD5E1',
+                              backgroundColor: '#F8FAFC',
+                              color: '#334155',
+                              cursor: 'pointer',
+                              width: 'fit-content',
+                            }}
+                          >
+                            {ACADEMY_PACKAGES.map((p) => (
+                              <option key={p.id} value={p.name}>
+                                {p.name} ({p.price})
+                              </option>
+                            ))}
+                          </select>
                         </div>
                       </td>
 
@@ -970,7 +1043,7 @@ export default function AdminStudentsPage() {
                         {/* Physical Address */}
                         <div style={{ fontSize: '0.8125rem', color: '#0F172A', fontWeight: 600, display: 'flex', alignItems: 'flex-start', gap: '6px', marginBottom: '4px' }}>
                           <MapPin size={14} color="#EA580C" style={{ flexShrink: 0, marginTop: '2px' }} />
-                          <span style={{ wordBreak: 'break-word', lineHeight: 1.4 }}>{student.address || 'Address on file'}</span>
+                          <span style={{ wordBreak: 'break-word', lineHeight: 1.4 }}>{physicalAddress}</span>
                         </div>
                         {/* Country */}
                         <div style={{ fontSize: '0.78rem', color: '#64748B', display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -979,16 +1052,20 @@ export default function AdminStudentsPage() {
                         {/* WhatsApp with click to chat */}
                         <div style={{ fontSize: '0.8125rem', color: '#059669', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px', marginTop: '4px' }}>
                           <Phone size={13} />
-                          <a
-                            href={`https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{ color: '#059669', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
-                            title="Open WhatsApp chat"
-                          >
-                            <span>{whatsapp}</span>
-                            <ExternalLink size={11} color="#059669" />
-                          </a>
+                          {whatsapp ? (
+                            <a
+                              href={`https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style={{ color: '#059669', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                              title="Open WhatsApp chat"
+                            >
+                              <span>{whatsapp}</span>
+                              <ExternalLink size={11} color="#059669" />
+                            </a>
+                          ) : (
+                            <span style={{ color: '#94A3B8', fontWeight: 500 }}>—</span>
+                          )}
                         </div>
                       </td>
 

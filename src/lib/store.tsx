@@ -126,7 +126,34 @@ interface AppContextType {
   loginStaffAccount: (email: string, password?: string) => { success: boolean; message: string; status?: StaffAccountStatus };
   logoutStaffAccount: () => void;
   registerStudent: (data: { firstName: string; lastName: string; email: string; phone: string; targetExam: string }) => void;
-  loginStudent: (email: string, metadata?: { selectedPackage?: string; packagePrice?: string; fullName?: string }) => void;
+  loginStudent: (
+    email: string,
+    firstNameOrMeta?:
+      | string
+      | {
+          selectedPackage?: string;
+          packagePrice?: string;
+          fullName?: string;
+          country?: string;
+          phone?: string;
+          whatsappNumber?: string;
+          address?: string;
+          ama_id?: string;
+          id?: string;
+        },
+    lastNameArg?: string,
+    metadataArg?: {
+      selectedPackage?: string;
+      packagePrice?: string;
+      fullName?: string;
+      country?: string;
+      phone?: string;
+      whatsappNumber?: string;
+      address?: string;
+      ama_id?: string;
+      id?: string;
+    }
+  ) => void;
   logoutStudent: () => void;
   liveTestSession: LiveTestSession | null;
   startLiveTest: (testId: string, testTitle: string) => void;
@@ -195,7 +222,38 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     } catch {}
     return mockCurrentUser;
   });
-  const [courses, setCourses] = useState<Course[]>(mockCourses);
+  const getZeroedCoursesForStudent = (emailLower: string): Course[] => {
+    let completedIds = new Set<string>();
+    if (typeof window !== 'undefined' && emailLower && emailLower !== 'student@ahsora.com') {
+      try {
+        const raw = localStorage.getItem(`ahsora_completed_lessons_${emailLower}`);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) completedIds = new Set(parsed);
+        }
+      } catch {}
+    }
+    return mockCourses.map((c) => {
+      let totalLessons = 0;
+      let doneLessons = 0;
+      const modules = c.modules.map((m) => ({
+        ...m,
+        lessons: m.lessons.map((l) => {
+          totalLessons += 1;
+          const isCompleted = completedIds.has(l.id);
+          if (isCompleted) doneLessons += 1;
+          return { ...l, isCompleted };
+        }),
+      }));
+      const progressPercent = totalLessons > 0 ? Math.round((doneLessons / totalLessons) * 100) : 0;
+      return { ...c, progressPercent, modules };
+    });
+  };
+
+  const [courses, setCourses] = useState<Course[]>(() => {
+    const emailLower = (currentUser?.email || '').toLowerCase().trim();
+    return getZeroedCoursesForStudent(emailLower);
+  });
   const [leads, setLeads] = useState<Lead[]>(mockLeads);
   const [documents, setDocuments] = useState<StudentDocument[]>(() => {
     if (typeof window === 'undefined') return [];
@@ -213,17 +271,33 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
   }, [documents]);
   const [doubts, setDoubts] = useState<DoubtItem[]>(() => {
-    if (typeof window === 'undefined') return mockDoubts;
+    if (typeof window === 'undefined') return [];
     try {
       const saved = localStorage.getItem('ahsora_local_doubts');
-      return saved ? JSON.parse(saved) : mockDoubts;
-    } catch { return mockDoubts; }
+      return saved ? JSON.parse(saved) : [];
+    } catch { return []; }
   });
   const [testAttempts, setTestAttempts] = useState<TestAttempt[]>(() => {
     if (typeof window === 'undefined') return [];
     try {
+      let emailLower = '';
+      let userId = '';
+      const cur = localStorage.getItem('ahsora_currentUser');
+      if (cur) {
+        const parsed = JSON.parse(cur);
+        emailLower = (parsed.email || '').toLowerCase().trim();
+        userId = parsed.id || '';
+      }
+      if (!emailLower || emailLower === 'student@ahsora.com') return [];
       const saved = localStorage.getItem('ahsora_all_mock_attempts');
-      return saved ? JSON.parse(saved) : [];
+      if (!saved) return [];
+      const all: TestAttempt[] = JSON.parse(saved);
+      if (!Array.isArray(all)) return [];
+      return all.filter((a) => {
+        const aEmail = (a.studentEmail || '').toLowerCase().trim();
+        const aId = a.studentId || '';
+        return (emailLower && aEmail === emailLower) || (userId && userId !== 'usr-student-01' && aId === userId);
+      });
     } catch {
       return [];
     }
@@ -456,17 +530,17 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           const parsed = JSON.parse(cur);
           emailLower = (parsed.email || '').toLowerCase().trim();
         }
-        if (emailLower) {
+        if (emailLower && emailLower !== 'student@ahsora.com') {
           const userMistakes = localStorage.getItem(`ahsora_mistakes_${emailLower}`);
           if (userMistakes) {
             const parsed = JSON.parse(userMistakes);
-            if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+            if (Array.isArray(parsed)) {
+              return parsed.filter((m: any) => {
+                const mEmail = (m.studentEmail || m.student_email || '').toLowerCase().trim();
+                return !mEmail || mEmail === emailLower;
+              });
+            }
           }
-        }
-        const fallback = localStorage.getItem('ahsora_mistakes');
-        if (fallback) {
-          const parsed = JSON.parse(fallback);
-          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
         }
       } catch (e) {}
     }
@@ -564,51 +638,56 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           localStorage.setItem('ahsora_library', JSON.stringify(formatted));
         }
 
-        // 4. Student Mistakes (scoped to student and merged safely without wiping)
+        // 4. Student Mistakes (strictly scoped to the current student's email)
         try {
-          const { data: dbMistakes } = await supabase.from('portal_mistakes').select('*').order('failed_at', { ascending: false });
-          if (dbMistakes && dbMistakes.length > 0) {
-            const studentEmailLower = (currentUser?.email || '').toLowerCase().trim();
-            const studentId = currentUser?.id || '';
+          const studentEmailLower = (currentUser?.email || '').toLowerCase().trim();
+          const studentId = currentUser?.id || '';
+          if (studentEmailLower && studentEmailLower !== 'student@ahsora.com') {
+            const { data: dbMistakes } = await supabase
+              .from('portal_mistakes')
+              .select('*')
+              .order('failed_at', { ascending: false });
+            if (dbMistakes && dbMistakes.length > 0) {
+              const formatted: StudentMistake[] = dbMistakes
+                .filter((m: any) => {
+                  const mEmail = (m.student_email || '').toLowerCase().trim();
+                  const mId = m.student_id || '';
+                  if (studentEmailLower && mEmail && mEmail === studentEmailLower) return true;
+                  if (studentId && studentId !== 'usr-student-01' && mId && mId === studentId) return true;
+                  return false;
+                })
+                .map((m: any) => ({
+                  id: m.id,
+                  questionId: m.question_id,
+                  questionText: m.question_text,
+                  options: typeof m.options === 'string' ? JSON.parse(m.options) : (m.options || []),
+                  correctOption: m.correct_option,
+                  selectedOption: m.selected_option,
+                  explanation: m.explanation || '',
+                  source: m.source,
+                  testTitle: m.test_title || '',
+                  subject: m.subject,
+                  topic: m.topic || '',
+                  failedAt: m.failed_at,
+                  isResolved: m.is_resolved,
+                  studentId: m.student_id,
+                  studentEmail: m.student_email,
+                }));
 
-            const formatted: StudentMistake[] = dbMistakes
-              .filter((m: any) => {
-                const mEmail = (m.student_email || '').toLowerCase().trim();
-                const mId = m.student_id || '';
-                if (studentEmailLower && mEmail && mEmail === studentEmailLower) return true;
-                if (studentId && mId && mId === studentId) return true;
-                return !mEmail && !mId;
-              })
-              .map((m: any) => ({
-                id: m.id,
-                questionId: m.question_id,
-                questionText: m.question_text,
-                options: typeof m.options === 'string' ? JSON.parse(m.options) : (m.options || []),
-                correctOption: m.correct_option,
-                selectedOption: m.selected_option,
-                explanation: m.explanation || '',
-                source: m.source,
-                testTitle: m.test_title || '',
-                subject: m.subject,
-                topic: m.topic || '',
-                failedAt: m.failed_at,
-                isResolved: m.is_resolved,
-                studentId: m.student_id,
-                studentEmail: m.student_email,
-              }));
-
-            if (formatted.length > 0) {
               setStudentMistakes((prev) => {
                 const map = new Map<string, StudentMistake>();
-                prev.forEach((m) => map.set(m.questionId || m.id, m));
+                prev
+                  .filter((m) => {
+                    const mEm = (m.studentEmail || '').toLowerCase().trim();
+                    return !mEm || mEm === studentEmailLower;
+                  })
+                  .forEach((m) => map.set(m.questionId || m.id, m));
                 formatted.forEach((m) => map.set(m.questionId || m.id, m));
                 const merged = Array.from(map.values()).sort(
                   (a, b) => new Date(b.failedAt).getTime() - new Date(a.failedAt).getTime()
                 );
                 if (typeof window !== 'undefined') {
-                  const key = studentEmailLower || 'student';
-                  localStorage.setItem(`ahsora_mistakes_${key}`, JSON.stringify(merged));
-                  localStorage.setItem('ahsora_mistakes', JSON.stringify(merged));
+                  localStorage.setItem(`ahsora_mistakes_${studentEmailLower}`, JSON.stringify(merged));
                 }
                 return merged;
               });
@@ -868,12 +947,132 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
   }, [libraryResources]);
 
+  const activeStudentEmailRef = useRef<string>((currentUser?.email || '').toLowerCase().trim());
+
+  // When the logged-in student email changes, reload that specific student's mistakes, attempts, and course progress (starting at 0 for new accounts)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const emailLower = (currentUser?.email || '').toLowerCase().trim();
+    const userId = currentUser?.id || '';
+
+    if (activeStudentEmailRef.current !== emailLower) {
+      activeStudentEmailRef.current = emailLower;
+
+      // 1. Reload courses progress for this student
+      setCourses(getZeroedCoursesForStudent(emailLower));
+
+      // 2. Reload test attempts strictly for this student
+      if (!emailLower || emailLower === 'student@ahsora.com') {
+        setTestAttempts([]);
+      } else {
+        try {
+          const savedAttempts = localStorage.getItem('ahsora_all_mock_attempts');
+          if (savedAttempts) {
+            const all: TestAttempt[] = JSON.parse(savedAttempts);
+            if (Array.isArray(all)) {
+              setTestAttempts(
+                all.filter((a) => {
+                  const aEmail = (a.studentEmail || '').toLowerCase().trim();
+                  const aId = a.studentId || '';
+                  return (emailLower && aEmail === emailLower) || (userId && userId !== 'usr-student-01' && aId === userId);
+                })
+              );
+            } else {
+              setTestAttempts([]);
+            }
+          } else {
+            setTestAttempts([]);
+          }
+        } catch {
+          setTestAttempts([]);
+        }
+      }
+
+      // 3. Reload mistakes strictly for this student
+      if (!emailLower || emailLower === 'student@ahsora.com') {
+        setStudentMistakes([]);
+      } else {
+        let localMistakes: StudentMistake[] = [];
+        try {
+          const raw = localStorage.getItem(`ahsora_mistakes_${emailLower}`);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed)) {
+              localMistakes = parsed.filter((m: any) => {
+                const mEm = (m.studentEmail || m.student_email || '').toLowerCase().trim();
+                return !mEm || mEm === emailLower;
+              });
+            }
+          }
+        } catch {}
+        setStudentMistakes(localMistakes);
+
+        // Also fetch from Supabase portal_mistakes for this specific student email
+        const supabase = createClient();
+        supabase
+          .from('portal_mistakes')
+          .select('*')
+          .order('failed_at', { ascending: false })
+          .then(({ data: dbMistakes }) => {
+            if (dbMistakes && dbMistakes.length > 0) {
+              const formatted: StudentMistake[] = dbMistakes
+                .filter((m: any) => {
+                  const mEmail = (m.student_email || '').toLowerCase().trim();
+                  const mId = m.student_id || '';
+                  if (emailLower && mEmail && mEmail === emailLower) return true;
+                  if (userId && userId !== 'usr-student-01' && mId && mId === userId) return true;
+                  return false;
+                })
+                .map((m: any) => ({
+                  id: m.id,
+                  questionId: m.question_id,
+                  questionText: m.question_text,
+                  options: typeof m.options === 'string' ? JSON.parse(m.options) : (m.options || []),
+                  correctOption: m.correct_option,
+                  selectedOption: m.selected_option,
+                  explanation: m.explanation || '',
+                  source: m.source,
+                  testTitle: m.test_title || '',
+                  subject: m.subject,
+                  topic: m.topic || '',
+                  failedAt: m.failed_at,
+                  isResolved: m.is_resolved,
+                  studentId: m.student_id,
+                  studentEmail: m.student_email,
+                }));
+              if (formatted.length > 0) {
+                setStudentMistakes((prev) => {
+                  const map = new Map<string, StudentMistake>();
+                  prev
+                    .filter((m) => {
+                      const mEm = (m.studentEmail || '').toLowerCase().trim();
+                      return !mEm || mEm === emailLower;
+                    })
+                    .forEach((m) => map.set(m.questionId || m.id, m));
+                  formatted.forEach((m) => map.set(m.questionId || m.id, m));
+                  const merged = Array.from(map.values()).sort(
+                    (a, b) => new Date(b.failedAt).getTime() - new Date(a.failedAt).getTime()
+                  );
+                  localStorage.setItem(`ahsora_mistakes_${emailLower}`, JSON.stringify(merged));
+                  return merged;
+                });
+              }
+            }
+          });
+      }
+    }
+  }, [currentUser?.email, currentUser?.id]);
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const emailLower = (currentUser?.email || '').toLowerCase().trim();
-      const key = emailLower || 'student';
-      localStorage.setItem(`ahsora_mistakes_${key}`, JSON.stringify(studentMistakes));
-      localStorage.setItem('ahsora_mistakes', JSON.stringify(studentMistakes));
+      if (emailLower && emailLower !== 'student@ahsora.com' && activeStudentEmailRef.current === emailLower) {
+        const ownMistakes = studentMistakes.filter((m) => {
+          const mEm = (m.studentEmail || '').toLowerCase().trim();
+          return !mEm || mEm === emailLower;
+        });
+        localStorage.setItem(`ahsora_mistakes_${emailLower}`, JSON.stringify(ownMistakes));
+      }
     }
   }, [studentMistakes, currentUser?.email]);
 
@@ -1344,17 +1543,44 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   const loginStudent = (
     email: string,
-    metadata?: { selectedPackage?: string; packagePrice?: string; fullName?: string }
+    firstNameOrMeta?:
+      | string
+      | {
+          selectedPackage?: string;
+          packagePrice?: string;
+          fullName?: string;
+          country?: string;
+          phone?: string;
+          whatsappNumber?: string;
+          address?: string;
+          ama_id?: string;
+          id?: string;
+        },
+    lastNameArg?: string,
+    metadataArg?: {
+      selectedPackage?: string;
+      packagePrice?: string;
+      fullName?: string;
+      country?: string;
+      phone?: string;
+      whatsappNumber?: string;
+      address?: string;
+      ama_id?: string;
+      id?: string;
+    }
   ) => {
     const rawEmail = (email || '').toLowerCase().trim();
-    let firstName = 'Student';
-    let lastName = '';
+    const metadata =
+      typeof firstNameOrMeta === 'object' && firstNameOrMeta !== null ? firstNameOrMeta : metadataArg;
+
+    let firstName = typeof firstNameOrMeta === 'string' && firstNameOrMeta ? firstNameOrMeta : 'Student';
+    let lastName = typeof lastNameArg === 'string' ? lastNameArg : '';
 
     if (metadata?.fullName) {
       const parts = metadata.fullName.trim().split(/\s+/);
-      firstName = parts[0] || 'Student';
-      lastName = parts.slice(1).join(' ') || '';
-    } else {
+      firstName = parts[0] || firstName;
+      lastName = parts.slice(1).join(' ') || lastName;
+    } else if (typeof firstNameOrMeta !== 'string') {
       const username = email.split('@')[0] || 'student';
       const parts = username.split(/[._-]/);
       firstName = parts[0] ? parts[0].charAt(0).toUpperCase() + parts[0].slice(1) : 'Student';
@@ -1363,6 +1589,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
     let userPkg: string | undefined = metadata?.selectedPackage;
     let userPrice: string | undefined = metadata?.packagePrice;
+    let userCountry: string = metadata?.country || '';
+    let userPhone: string = metadata?.whatsappNumber || metadata?.phone || '';
+    let userAddress: string = metadata?.address || '';
+    let userAmaId: string = metadata?.ama_id || '';
+    let userId: string = metadata?.id || '';
 
     if (typeof window !== 'undefined') {
       // Check persistent package mapping by email
@@ -1374,27 +1605,30 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         }
       }
 
-      // 1. Check admin student list (contains exact registration price)
-      if (!userPkg) {
-        try {
-          const adminListStr = localStorage.getItem('adminStudentList');
-          if (adminListStr) {
-            const adminList = JSON.parse(adminListStr);
-            if (Array.isArray(adminList)) {
-              const found = adminList.find((s: any) => s.email && s.email.toLowerCase().trim() === rawEmail);
-              if (found) {
-                userPkg = found.selectedPackage || found.selected_package;
-                userPrice = found.packagePrice || found.package_price;
-                if (!metadata?.fullName && (found.fullName || found.full_name)) {
-                  const parts = (found.fullName || found.full_name).trim().split(/\s+/);
-                  firstName = parts[0] || firstName;
-                  lastName = parts.slice(1).join(' ') || lastName;
-                }
+      // 1. Check admin student list (contains exact registration details)
+      try {
+        const adminListStr = localStorage.getItem('adminStudentList');
+        if (adminListStr) {
+          const adminList = JSON.parse(adminListStr);
+          if (Array.isArray(adminList)) {
+            const found = adminList.find((s: any) => s.email && s.email.toLowerCase().trim() === rawEmail);
+            if (found) {
+              if (!userPkg) userPkg = found.selectedPackage || found.selected_package;
+              if (!userPrice) userPrice = found.packagePrice || found.package_price;
+              if (!userCountry) userCountry = found.country || '';
+              if (!userPhone) userPhone = found.whatsappNumber || found.whatsapp_number || found.phone || '';
+              if (!userAddress) userAddress = found.address || '';
+              if (!userAmaId) userAmaId = found.ama_id || '';
+              if (!userId) userId = found.id || '';
+              if (!metadata?.fullName && typeof firstNameOrMeta !== 'string' && (found.fullName || found.full_name)) {
+                const parts = (found.fullName || found.full_name).trim().split(/\s+/);
+                firstName = parts[0] || firstName;
+                lastName = parts.slice(1).join(' ') || lastName;
               }
             }
           }
-        } catch {}
-      }
+        }
+      } catch {}
 
       // 2. Check if student email is in ahsora_elite_students
       if (!userPkg) {
@@ -1416,38 +1650,44 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         } catch {}
       }
 
-      // Check ahsora_currentUser
-      if (!userPkg) {
-        try {
-          const savedUser = localStorage.getItem('ahsora_currentUser');
-          if (savedUser) {
-            const parsed = JSON.parse(savedUser);
-            if (parsed.email && parsed.email.toLowerCase().trim() === rawEmail && parsed.selectedPackage) {
-              userPkg = parsed.selectedPackage;
-              userPrice = parsed.packagePrice;
-            }
+      // 3. Check ahsora_currentUser
+      try {
+        const savedUser = localStorage.getItem('ahsora_currentUser');
+        if (savedUser) {
+          const parsed = JSON.parse(savedUser);
+          if (parsed.email && parsed.email.toLowerCase().trim() === rawEmail) {
+            if (!userPkg && parsed.selectedPackage) userPkg = parsed.selectedPackage;
+            if (!userPrice && parsed.packagePrice) userPrice = parsed.packagePrice;
+            if (!userCountry && parsed.country && parsed.country !== 'United States') userCountry = parsed.country;
+            if (!userPhone && parsed.phone && parsed.phone !== '+1 555-0199') userPhone = parsed.phone;
+            if (!userAddress && parsed.address) userAddress = parsed.address;
+            if (!userAmaId && parsed.ama_id) userAmaId = parsed.ama_id;
+            if (!userId && parsed.id) userId = parsed.id;
           }
-        } catch {}
-      }
+        }
+      } catch {}
 
-      // Check recent registration
-      if (!userPkg) {
-        try {
-          const recent = localStorage.getItem('recentRegistration');
-          if (recent) {
-            const parsed = JSON.parse(recent);
-            if (parsed.email && parsed.email.toLowerCase().trim() === rawEmail && (parsed.selectedPackage || parsed.selected_package)) {
-              userPkg = parsed.selectedPackage || parsed.selected_package;
-              userPrice = parsed.packagePrice || parsed.package_price;
-              if (!metadata?.fullName && parsed.fullName) {
-                const parts = parsed.fullName.trim().split(/\s+/);
-                firstName = parts[0] || firstName;
-                lastName = parts.slice(1).join(' ') || lastName;
-              }
+      // 4. Check recent registration
+      try {
+        const recent = localStorage.getItem('recentRegistration');
+        if (recent) {
+          const parsed = JSON.parse(recent);
+          if (parsed.email && parsed.email.toLowerCase().trim() === rawEmail) {
+            if (!userPkg) userPkg = parsed.selectedPackage || parsed.selected_package;
+            if (!userPrice) userPrice = parsed.packagePrice || parsed.package_price;
+            if (!userCountry) userCountry = parsed.country || '';
+            if (!userPhone) userPhone = parsed.whatsappNumber || parsed.whatsapp_number || parsed.phone || '';
+            if (!userAddress) userAddress = parsed.address || '';
+            if (!userAmaId) userAmaId = parsed.ama_id || '';
+            if (!userId) userId = parsed.id || '';
+            if (!metadata?.fullName && typeof firstNameOrMeta !== 'string' && parsed.fullName) {
+              const parts = parsed.fullName.trim().split(/\s+/);
+              firstName = parts[0] || firstName;
+              lastName = parts.slice(1).join(' ') || lastName;
             }
           }
-        } catch {}
-      }
+        }
+      } catch {}
     }
 
     const matchedPkg = getPackageByIdOrName(userPkg || 'Ahsora IMAT Ascend');
@@ -1466,8 +1706,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           const already = Array.isArray(eliteList) && eliteList.some((s: any) => (s?.email || '').toLowerCase().trim() === rawEmail);
           if (!already) {
             eliteList.unshift({
-              id: `elite-${Date.now()}`,
-              studentId: `usr-${Date.now()}`,
+              id: userId || `elite-${Date.now()}`,
+              studentId: userId || `usr-${Date.now()}`,
               studentName: `${firstName} ${lastName}`.trim() || 'Elite Student',
               email: email,
               registeredAt: new Date().toISOString(),
@@ -1498,30 +1738,66 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
 
     const newProfile: Profile = {
-      id: `usr-${Date.now()}`,
+      id: userId || `usr-${Date.now()}`,
+      ama_id: userAmaId || undefined,
       role: 'student',
       firstName,
-      lastName: lastName || 'Student',
+      lastName: lastName || '',
       email,
-      phone: '+1 555-0199',
-      country: 'United States',
-      targetExam: 'IMAT / USMLE',
+      phone: userPhone,
+      whatsappNumber: userPhone,
+      country: userCountry,
+      address: userAddress,
+      targetExam: 'IMAT',
       isVerified: true,
       selectedPackage: finalPkg,
       packagePrice: finalPrice,
       createdAt: new Date().toISOString(),
     };
 
+    activeStudentEmailRef.current = rawEmail;
     setCurrentUser(newProfile);
     if (typeof window !== 'undefined') {
       localStorage.setItem('ahsora_currentUser', JSON.stringify(newProfile));
-      const emailLower = (newProfile.email || '').toLowerCase().trim();
-      const userMistakes = localStorage.getItem(`ahsora_mistakes_${emailLower}`);
+      // Load this student's own mistakes (0 if new student)
+      const userMistakes = localStorage.getItem(`ahsora_mistakes_${rawEmail}`);
       if (userMistakes) {
-        try { setStudentMistakes(JSON.parse(userMistakes)); } catch { setStudentMistakes([]); }
+        try {
+          const parsed = JSON.parse(userMistakes);
+          setStudentMistakes(
+            Array.isArray(parsed)
+              ? parsed.filter((m: any) => {
+                  const mEm = (m.studentEmail || m.student_email || '').toLowerCase().trim();
+                  return !mEm || mEm === rawEmail;
+                })
+              : []
+          );
+        } catch {
+          setStudentMistakes([]);
+        }
       } else {
         setStudentMistakes([]);
       }
+
+      // Load this student's own test attempts (0 if new student)
+      try {
+        const allRaw = localStorage.getItem('ahsora_all_mock_attempts');
+        if (allRaw) {
+          const all: TestAttempt[] = JSON.parse(allRaw);
+          setTestAttempts(
+            Array.isArray(all)
+              ? all.filter((a) => (a.studentEmail || '').toLowerCase().trim() === rawEmail)
+              : []
+          );
+        } else {
+          setTestAttempts([]);
+        }
+      } catch {
+        setTestAttempts([]);
+      }
+
+      // Load this student's own course progress (0% if new student)
+      setCourses(getZeroedCoursesForStudent(rawEmail));
     }
     setStudentLoggedIn(true);
     setRole('student');
@@ -1602,31 +1878,64 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   };
 
   const recordTestAttempt = (attempt: TestAttempt) => {
+    const taggedAttempt: TestAttempt = {
+      ...attempt,
+      studentEmail: attempt.studentEmail || currentUser?.email,
+      studentId: attempt.studentId || currentUser?.id,
+      studentName: attempt.studentName || `${currentUser?.firstName || ''} ${currentUser?.lastName || ''}`.trim() || 'Student',
+    };
     setTestAttempts((prev) => {
-      const filtered = prev.filter((a) => a.id !== attempt.id);
-      const updated = [attempt, ...filtered];
-      if (typeof window !== 'undefined') {
-        try {
-          localStorage.setItem('ahsora_all_mock_attempts', JSON.stringify(updated.slice(0, 500)));
-        } catch {}
-      }
-      return updated;
+      const filtered = prev.filter((a) => a.id !== taggedAttempt.id);
+      return [taggedAttempt, ...filtered];
     });
+    if (typeof window !== 'undefined') {
+      try {
+        const rawAll = localStorage.getItem('ahsora_all_mock_attempts');
+        const allList: TestAttempt[] = rawAll ? JSON.parse(rawAll) : [];
+        const mergedAll = [taggedAttempt, ...allList.filter((a) => a.id !== taggedAttempt.id)];
+        localStorage.setItem('ahsora_all_mock_attempts', JSON.stringify(mergedAll.slice(0, 500)));
+      } catch {}
+    }
   };
 
   const toggleLessonCompletion = (courseId: string, lessonId: string) => {
-    setCourses((prevCourses) =>
-      prevCourses.map((c) => {
+    setCourses((prevCourses) => {
+      const nextCourses = prevCourses.map((c) => {
         if (c.id !== courseId) return c;
+        let total = 0;
+        let done = 0;
         const updatedModules = c.modules.map((m) => ({
           ...m,
-          lessons: m.lessons.map((l) =>
-            l.id === lessonId ? { ...l, isCompleted: !l.isCompleted } : l
-          ),
+          lessons: m.lessons.map((l) => {
+            total += 1;
+            const nextDone = l.id === lessonId ? !l.isCompleted : l.isCompleted;
+            if (nextDone) done += 1;
+            return { ...l, isCompleted: nextDone };
+          }),
         }));
-        return { ...c, modules: updatedModules };
-      })
-    );
+        const progressPercent = total > 0 ? Math.round((done / total) * 100) : 0;
+        return { ...c, progressPercent, modules: updatedModules };
+      });
+
+      if (typeof window !== 'undefined') {
+        const emailLower = (currentUser?.email || '').toLowerCase().trim();
+        if (emailLower && emailLower !== 'student@ahsora.com') {
+          const completedIds: string[] = [];
+          nextCourses.forEach((c) =>
+            c.modules.forEach((m) =>
+              m.lessons.forEach((l) => {
+                if (l.isCompleted) completedIds.push(l.id);
+              })
+            )
+          );
+          try {
+            localStorage.setItem(`ahsora_completed_lessons_${emailLower}`, JSON.stringify(completedIds));
+          } catch {}
+        }
+      }
+
+      return nextCourses;
+    });
   };
 
   const setStaffRole = (role: StaffRole) => {

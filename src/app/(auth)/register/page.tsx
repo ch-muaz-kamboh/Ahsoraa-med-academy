@@ -276,6 +276,7 @@ export default function RegisterPage() {
             selected_package: pkgObj.name,
             package_price: priceCheck.price || pkgObj.price,
             ama_id: generatedAmaId,
+            payment_approved: false,
           },
         },
       });
@@ -297,7 +298,7 @@ export default function RegisterPage() {
             full_name: fullName,
             email: formData.email,
             ama_id: generatedAmaId,
-            payment_approved: true,
+            payment_approved: false,
             role: 'student',
             created_at: new Date().toISOString(),
           });
@@ -306,7 +307,7 @@ export default function RegisterPage() {
         }
       }
 
-      // 3. Sync full student profile and typed address via server route
+      // 3. Sync full student profile and typed address via server route (with paymentApproved: false)
       try {
         const syncRes = await fetch('/api/admin/students', {
           method: 'POST',
@@ -325,6 +326,8 @@ export default function RegisterPage() {
             selectedPackage: pkgObj.name,
             packagePrice: priceCheck.price || pkgObj.price,
             ama_id: generatedAmaId,
+            paymentApproved: false,
+            payment_approved: false,
           }),
         });
         if (syncRes.ok) {
@@ -345,43 +348,51 @@ export default function RegisterPage() {
     // Persist package mapping for instant resolution across admin and student portals
     saveStudentPackageMapping(formData.email, pkgObj.name, effectivePrice);
 
-    // Store in localStorage for client persistence
+    // Store in localStorage for client persistence (unapproved until admin verifies payment)
     const pendingStudent = {
       id: confirmedStudentId || `usr-reg-${Date.now()}`,
       ama_id: generatedAmaId,
       firstName: formData.firstName,
       lastName: formData.lastName,
       fullName: fullName,
+      full_name: fullName,
       email: formData.email,
       address: formData.address,
       country: formData.country,
       whatsappNumber: finalWhatsApp,
+      whatsapp_number: finalWhatsApp,
       phone: finalWhatsApp,
       selectedPackage: pkgObj.name,
+      selected_package: pkgObj.name,
       packagePrice: effectivePrice,
-      paymentApproved: true,
-      payment_approved: true,
+      package_price: effectivePrice,
+      paymentApproved: false,
+      payment_approved: false,
       createdAt: new Date().toISOString(),
+      created_at: new Date().toISOString(),
     };
 
     try {
-      // Clear previous student test data and mistakes so new student starts fresh
+      const cleanEmail = formData.email.toLowerCase().trim();
+
+      // Clear previous student test data and mistakes so new student starts fresh at 0
       localStorage.removeItem('ahsora_mistakes');
+      localStorage.removeItem(`ahsora_mistakes_${cleanEmail}`);
       localStorage.removeItem('ahsora_testAttempts');
+      localStorage.removeItem(`ahsora_testAttempts_${cleanEmail}`);
       localStorage.removeItem('ahsora_practice_sessions');
+      localStorage.removeItem(`ahsora_completed_lessons_${cleanEmail}`);
+      localStorage.removeItem('ahsora_studentLoggedIn');
 
-      // Update admin student caches with the newly enrolled student including their address
+      // Ensure newly registered student is NOT in approved emails until Admin approves
       try {
-        const localListStr = localStorage.getItem('adminStudentList');
-        const localList = localListStr ? JSON.parse(localListStr) : [];
-        localList.unshift(pendingStudent);
-        localStorage.setItem('adminStudentList', JSON.stringify(localList));
-
-        const cachedAdminStr = localStorage.getItem('ahsora_cached_admin_students');
-        const cachedList = cachedAdminStr ? JSON.parse(cachedAdminStr) : [];
-        cachedList.unshift(pendingStudent);
-        localStorage.setItem('ahsora_cached_admin_students', JSON.stringify(cachedList));
-      } catch (cErr) {}
+        const approvedEmailsRaw = localStorage.getItem('ahsora_approved_emails');
+        if (approvedEmailsRaw) {
+          const approvedEmails: string[] = JSON.parse(approvedEmailsRaw);
+          const filteredApproved = approvedEmails.filter((em) => em.toLowerCase().trim() !== cleanEmail);
+          localStorage.setItem('ahsora_approved_emails', JSON.stringify(filteredApproved));
+        }
+      } catch {}
 
       localStorage.setItem('recentRegistration', JSON.stringify(pendingStudent));
       localStorage.setItem('ahsora_currentUser', JSON.stringify({
@@ -395,31 +406,24 @@ export default function RegisterPage() {
         phone: finalWhatsApp,
         whatsappNumber: finalWhatsApp,
         country: formData.country,
-        isVerified: true,
+        isVerified: false,
+        paymentApproved: false,
         selectedPackage: pkgObj.name,
-        packagePrice: pkgObj.price,
+        packagePrice: effectivePrice,
         createdAt: pendingStudent.createdAt,
       }));
       
-      // Also update local pending students list for admin demo view
+      // Update local pending students list for admin view
       const existingListStr = localStorage.getItem('adminStudentList');
       const existingList: any[] = existingListStr ? JSON.parse(existingListStr) : [];
       const filteredList = existingList.filter(
-        (item: any) => !item.email || item.email.toLowerCase() !== formData.email.toLowerCase()
+        (item: any) => !item.email || item.email.toLowerCase().trim() !== cleanEmail
       );
       filteredList.unshift(pendingStudent);
       localStorage.setItem('adminStudentList', JSON.stringify(filteredList));
 
-      // Also ensure student is in approved emails and cached admin students
+      // Update cached admin students with payment_approved: false and complete registration info
       try {
-        const approvedEmailsRaw = localStorage.getItem('ahsora_approved_emails');
-        const approvedEmails: string[] = approvedEmailsRaw ? JSON.parse(approvedEmailsRaw) : [];
-        const cleanEmail = formData.email.toLowerCase().trim();
-        if (cleanEmail && !approvedEmails.includes(cleanEmail)) {
-          approvedEmails.push(cleanEmail);
-          localStorage.setItem('ahsora_approved_emails', JSON.stringify(approvedEmails));
-        }
-
         const cachedAdminStr = localStorage.getItem('ahsora_cached_admin_students');
         const cachedAdmin: any[] = cachedAdminStr ? JSON.parse(cachedAdminStr) : [];
         const filteredCached = cachedAdmin.filter(
@@ -432,13 +436,17 @@ export default function RegisterPage() {
           firstName: pendingStudent.firstName,
           lastName: pendingStudent.lastName,
           email: pendingStudent.email,
+          address: pendingStudent.address,
           country: pendingStudent.country,
           whatsapp_number: pendingStudent.whatsappNumber,
+          whatsappNumber: pendingStudent.whatsappNumber,
+          phone: pendingStudent.whatsappNumber,
           selected_package: pendingStudent.selectedPackage,
           selectedPackage: pendingStudent.selectedPackage,
           package_price: pendingStudent.packagePrice,
           packagePrice: pendingStudent.packagePrice,
-          payment_approved: true,
+          payment_approved: false,
+          paymentApproved: false,
           created_at: pendingStudent.createdAt,
         });
         localStorage.setItem('ahsora_cached_admin_students', JSON.stringify(filteredCached));
@@ -492,7 +500,7 @@ export default function RegisterPage() {
     setLoading(false);
 
     // Redirect to Pending Payment screen with selected package info!
-    const targetUrl = `/pending-payment?package=${encodeURIComponent(pkgObj.name)}&price=${encodeURIComponent(pkgObj.price)}&email=${encodeURIComponent(formData.email)}`;
+    const targetUrl = `/pending-payment?package=${encodeURIComponent(pkgObj.name)}&price=${encodeURIComponent(effectivePrice)}&email=${encodeURIComponent(formData.email)}`;
     router.push(targetUrl);
   };
 

@@ -26,7 +26,19 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
   const router = useRouter();
   const pathname = usePathname();
   const { t } = useLanguage();
-  const { studentLoggedIn, loginStudent, logoutStudent, liveTestSession, testAttempts, currentUser, updateProfile } = useAppStore();
+  const { studentLoggedIn, setStudentLoggedIn, loginStudent, logoutStudent, liveTestSession, testAttempts, studentMistakes, currentUser, updateProfile } = useAppStore();
+
+  const activeStreakDays = React.useMemo(() => {
+    const dates = new Set<string>();
+    testAttempts.forEach((a) => {
+      const d = a.submittedAt || a.startedAt;
+      if (d) dates.add(new Date(d).toDateString());
+    });
+    studentMistakes.forEach((m) => {
+      if (m.failedAt) dates.add(new Date(m.failedAt).toDateString());
+    });
+    return dates.size;
+  }, [testAttempts, studentMistakes]);
 
   // Instant auth determination: do not show blocking loader if already verified in store or localStorage
   const isAlreadyLoggedIn = studentLoggedIn || (typeof window !== 'undefined' && localStorage.getItem('ahsora_studentLoggedIn') === 'true');
@@ -136,46 +148,126 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
           const metaPackage = userMeta.selected_package || userMeta.selectedPackage;
           const metaPrice = userMeta.package_price || userMeta.packagePrice;
           const userEmail = user.email || '';
+          const emailLower = userEmail.toLowerCase().trim();
 
-          // Fetch profile name from profiles table
+          // Fetch profile name and approval status from profiles table
           let dbFullName = '';
+          let profileApproved = false;
           try {
             const { data: profile } = await supabase
               .from('profiles')
-              .select('full_name, email')
+              .select('full_name, email, payment_approved')
               .eq('id', user.id)
               .maybeSingle();
             if (profile?.full_name) dbFullName = profile.full_name;
+            if (profile?.payment_approved === true) profileApproved = true;
           } catch (err) {
             console.warn('Profile fetch note:', err);
           }
 
+          // Check local approval list
+          let locallyApproved = false;
+          try {
+            const approvedRaw = localStorage.getItem('ahsora_approved_emails');
+            if (approvedRaw) {
+              const list: string[] = JSON.parse(approvedRaw);
+              if (list.some((em) => em.toLowerCase().trim() === emailLower)) {
+                locallyApproved = true;
+              }
+            }
+          } catch {}
+
+          // Check server /api/admin/students for authoritative approval & synced student metadata
+          let serverApproved: boolean | null = null;
+          let serverPkg = '';
+          let serverPrice = '';
+          let serverCountry = '';
+          let serverAddress = '';
+          let serverPhone = '';
+          let serverAmaId = '';
+          try {
+            const res = await fetch(`/api/admin/students?t=${Date.now()}`, { cache: 'no-store' });
+            if (res.ok) {
+              const json = await res.json();
+              if (json.success && Array.isArray(json.students)) {
+                const matched = json.students.find(
+                  (s: any) => (s.email || '').toLowerCase().trim() === emailLower
+                );
+                if (matched) {
+                  serverApproved = Boolean(matched.payment_approved ?? matched.paymentApproved);
+                  serverPkg = matched.selected_package || matched.selectedPackage || '';
+                  serverPrice = matched.package_price || matched.packagePrice || '';
+                  serverCountry = matched.country || '';
+                  serverAddress = matched.address || '';
+                  serverPhone = matched.whatsapp_number || matched.whatsappNumber || matched.phone || '';
+                  serverAmaId = matched.ama_id || '';
+                  if (matched.full_name || matched.fullName) {
+                    dbFullName = matched.full_name || matched.fullName;
+                  }
+                }
+              }
+            }
+          } catch {}
+
           // Resolve effective package
           const resolvedPkgName =
+            serverPkg ||
             metaPackage ||
             getStudentPackageMapping(userEmail)?.selectedPackage ||
             resolveEffectivePackage({ email: userEmail, selectedPackage: currentUser?.selectedPackage });
           const matchedPkg = getPackageByIdOrName(resolvedPkgName);
-          const resolvedPrice = metaPrice || getStudentPackageMapping(userEmail)?.packagePrice || matchedPkg.price;
+          const resolvedPrice =
+            serverPrice || metaPrice || getStudentPackageMapping(userEmail)?.packagePrice || matchedPkg.price;
 
           saveStudentPackageMapping(userEmail, matchedPkg.name, resolvedPrice);
+
+          const isApproved =
+            serverApproved === true ||
+            locallyApproved === true ||
+            (serverApproved === null && profileApproved === true);
+
+          if (!isApproved) {
+            setStudentLoggedIn(false);
+            setRealUser(null);
+            router.replace(
+              `/pending-payment?package=${encodeURIComponent(matchedPkg.name)}&price=${encodeURIComponent(resolvedPrice)}&email=${encodeURIComponent(userEmail)}`
+            );
+            return;
+          }
 
           const fullName = dbFullName || userMeta.full_name || `${userMeta.first_name || ''} ${userMeta.last_name || ''}`.trim() || userEmail.split('@')[0] || 'Student';
           const fName = fullName.split(' ')[0] || 'Student';
           const inits = fullName.split(' ').slice(0, 2).map((n: string) => n[0]).join('').toUpperCase() || 'ST';
 
           if (!studentLoggedIn) {
-            loginStudent(userEmail, {
+            loginStudent(userEmail, fName, fullName.split(' ').slice(1).join(' '), {
               selectedPackage: matchedPkg.name,
               packagePrice: resolvedPrice,
               fullName,
+              country: serverCountry || userMeta.country || '',
+              address: serverAddress || userMeta.address || '',
+              phone: serverPhone || userMeta.whatsapp_number || userMeta.phone || '',
+              whatsappNumber: serverPhone || userMeta.whatsapp_number || userMeta.phone || '',
+              ama_id: serverAmaId || userMeta.ama_id || '',
+              id: user.id,
             });
           } else {
             updateProfile({
+              id: user.id,
+              email: userEmail,
               selectedPackage: matchedPkg.name,
               packagePrice: resolvedPrice,
               firstName: fName,
               lastName: fullName.split(' ').slice(1).join(' ') || currentUser.lastName,
+              ...(serverCountry || userMeta.country ? { country: serverCountry || userMeta.country } : {}),
+              ...(serverAddress || userMeta.address ? { address: serverAddress || userMeta.address } : {}),
+              ...(serverPhone || userMeta.whatsapp_number
+                ? {
+                    phone: serverPhone || userMeta.whatsapp_number,
+                    whatsappNumber: serverPhone || userMeta.whatsapp_number,
+                  }
+                : {}),
+              ...(serverAmaId || userMeta.ama_id ? { ama_id: serverAmaId || userMeta.ama_id } : {}),
             });
           }
 
@@ -309,7 +401,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                   className="sm:inline-flex"
                 >
                   <Flame size={13} color="#F59E0B" />
-                  <span>5-Day Streak</span>
+                  <span>{activeStreakDays}-Day Streak</span>
                 </div>
 
                 <div

@@ -79,7 +79,7 @@ export async function POST(request: Request) {
       }
     }
 
-    const payload = {
+    const corePayload = {
       id: postId,
       title: post.title,
       slug: baseSlug,
@@ -91,16 +91,31 @@ export async function POST(request: Request) {
       read_time: post.readTime || post.read_time || '5 min read',
       image_url: post.imageUrl || post.image_url || null,
       featured: Boolean(post.featured),
+    };
+
+    const payload = {
+      ...corePayload,
       meta_title: post.metaTitle || post.meta_title || post.title,
       meta_description: post.metaDescription || post.meta_description || post.excerpt || '',
       faq_items: Array.isArray(post.faqItems) ? post.faqItems : (Array.isArray(post.faq_items) ? post.faq_items : []),
     };
 
-    const { data: saved, error: saveErr } = await supabase
+    let { data: saved, error: saveErr } = await supabase
       .from('news_posts')
       .upsert(payload)
       .select()
       .maybeSingle();
+
+    // Fallback to core columns if optional SEO columns are not present in table schema
+    if (saveErr) {
+      const retry = await supabase
+        .from('news_posts')
+        .upsert(corePayload)
+        .select()
+        .maybeSingle();
+      saved = retry.data;
+      saveErr = retry.error;
+    }
 
     if (saveErr) {
       console.warn('UPSERT in /api/admin/news error:', saveErr.message);

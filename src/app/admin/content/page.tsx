@@ -607,7 +607,7 @@ export default function AdminContentPage() {
   };
 
   return (
-    <div style={{ padding: '32px', maxWidth: '1200px', margin: '0 auto', color: '#0F172A' }}>
+    <div style={{ padding: '28px 32px', maxWidth: '1680px', margin: '0 auto', color: '#0F172A' }}>
       
       {/* Toast Notification */}
       {toast && (
@@ -720,7 +720,7 @@ export default function AdminContentPage() {
 
       {/* ── TAB 1: NEWS & BLOGS MANAGER ────────────────────────────────────── */}
       {activeTab === 'news' && (
-        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1.2fr)', gap: '32px', alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(320px, 0.72fr) minmax(0, 1.65fr)', gap: '28px', alignItems: 'start' }}>
           
           {/* Left: News List */}
           <div style={{ backgroundColor: '#FFFFFF', padding: '24px', borderRadius: '16px', border: '1px solid #E2E8F0' }}>
@@ -1224,18 +1224,18 @@ export default function AdminContentPage() {
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
                   <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>
-                    Full Content &amp; Description (Full Rich Text Editor)
+                    Full Content &amp; Description (Large Rich Text Editor — Drag/Paste or Click + Image)
                   </label>
                   <span style={{ fontSize: '0.75rem', color: '#059669', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                    ✨ Bold, Highlight, Links &amp; Headings Active
+                    ✨ Images, Tables, Graphs, Callouts &amp; Fullscreen Active
                   </span>
                 </div>
                 {/* Full Rich Text Editor Component */}
                 <RichTextEditor
                   value={newNews.content}
                   onChange={(val) => setNewNews({ ...newNews, content: val })}
-                  placeholder="Write the full news and blog content here. Highlight important texts, bold key phrases, add web links, headings, blockquotes, and callouts..."
-                  minHeight="260px"
+                  placeholder="Write the full news and blog content here. Highlight important texts, bold key phrases, insert images (+ Image or paste/drop), tables, headings, blockquotes, and callouts..."
+                  minHeight="520px"
                 />
               </div>
 
@@ -1510,17 +1510,95 @@ export default function AdminContentPage() {
                 </div>
               </div>
 
-              <div>
-                <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>
-                  Cover / Banner Image URL (Optional)
+              <div style={{ backgroundColor: '#F8FAFC', padding: '14px', borderRadius: '10px', border: '1px solid #E2E8F0' }}>
+                <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
+                  🖼️ Cover / Banner Image (URL or Upload from Computer)
                 </label>
-                <input
-                  type="text"
-                  placeholder="https://... or /images/blog-banner.jpg"
-                  value={newNews.imageUrl || ''}
-                  onChange={(e) => setNewNews({ ...newNews, imageUrl: e.target.value })}
-                  style={{ width: '100%', padding: '8px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.8125rem', outline: 'none', boxSizing: 'border-box' }}
-                />
+                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '8px' }}>
+                  <input
+                    type="text"
+                    placeholder="https://... or /images/blog-banner.jpg"
+                    value={newNews.imageUrl || ''}
+                    onChange={(e) => setNewNews({ ...newNews, imageUrl: e.target.value })}
+                    style={{ flex: 1, minWidth: '220px', padding: '8px 10px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.8125rem', outline: 'none', boxSizing: 'border-box', backgroundColor: '#FFFFFF' }}
+                  />
+                  <label
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: '8px 14px',
+                      backgroundColor: '#0284C7',
+                      color: '#FFFFFF',
+                      borderRadius: '8px',
+                      fontSize: '0.78rem',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    <Upload size={14} /> Upload Image
+                    <input
+                      type="file"
+                      accept="image/*"
+                      style={{ display: 'none' }}
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        const reader = new FileReader();
+                        reader.onload = (ev) => {
+                          const raw = ev.target?.result as string;
+                          if (!raw) return;
+                          const img = new window.Image();
+                          img.onload = () => {
+                            let w = img.width;
+                            let h = img.height;
+                            if (w > 1200) {
+                              h = Math.round((h * 1200) / w);
+                              w = 1200;
+                            }
+                            const canvas = document.createElement('canvas');
+                            canvas.width = w;
+                            canvas.height = h;
+                            const ctx = canvas.getContext('2d');
+                            const compressed = ctx ? canvas.toDataURL('image/jpeg', 0.82) : raw;
+                            if (ctx) {
+                              ctx.drawImage(img, 0, 0, w, h);
+                            }
+                            const finalUrl = ctx ? canvas.toDataURL('image/jpeg', 0.82) : raw;
+                            setNewNews((prev) => ({ ...prev, imageUrl: finalUrl }));
+                            showToast('success', `🖼️ Cover image "${file.name}" attached!`);
+                          };
+                          img.onerror = () => {
+                            setNewNews((prev) => ({ ...prev, imageUrl: raw }));
+                          };
+                          img.src = raw;
+                        };
+                        reader.readAsDataURL(file);
+                        e.target.value = '';
+                      }}
+                    />
+                  </label>
+                </div>
+                {newNews.imageUrl && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '8px', padding: '8px', backgroundColor: '#FFFFFF', borderRadius: '8px', border: '1px solid #CBD5E1' }}>
+                    <img
+                      src={newNews.imageUrl}
+                      alt="Cover Preview"
+                      style={{ width: '96px', height: '56px', objectFit: 'cover', borderRadius: '6px', border: '1px solid #E2E8F0' }}
+                    />
+                    <div style={{ flex: 1, fontSize: '0.75rem', color: '#475569', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      Cover Image Ready
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setNewNews((prev) => ({ ...prev, imageUrl: '' }))}
+                      style={{ background: '#FEE2E2', color: '#991B1B', border: 'none', borderRadius: '6px', padding: '4px 8px', fontSize: '0.72rem', fontWeight: 700, cursor: 'pointer' }}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                )}
               </div>
 
               <div style={{ display: 'flex', gap: '12px' }}>

@@ -99,13 +99,57 @@ export default function StudentDashboardPage() {
       });
   }, []);
 
-  // Real computed stats
+  // Real computed stats (starts at 0 for new student accounts and grows over time)
   const activeCourse = courses ? courses.find((c) => c.slug === 'imat-italy-medical-entrance-prep') || courses[0] : null;
   const totalAttempted = testAttempts.reduce((acc, t) => acc + (t.totalAttempted || 0), 0);
   const totalCorrect = testAttempts.reduce((acc, t) => acc + (t.totalCorrect || 0), 0);
   const avgAccuracy = totalAttempted > 0 ? Math.round((totalCorrect / totalAttempted) * 100) : 0;
   const unresolvedMistakes = studentMistakes.filter((m) => !m.isResolved).length;
   const firstName = currentUser?.firstName || 'Student';
+
+  const activeStreakDays = React.useMemo(() => {
+    const dates = new Set<string>();
+    testAttempts.forEach((a) => {
+      const d = a.submittedAt || a.startedAt;
+      if (d) dates.add(new Date(d).toDateString());
+    });
+    studentMistakes.forEach((m) => {
+      if (m.failedAt) dates.add(new Date(m.failedAt).toDateString());
+    });
+    return dates.size;
+  }, [testAttempts, studentMistakes]);
+
+  // Dynamic per-subject mastery (0% initially for new accounts, updates as attempts/mistakes accumulate)
+  const subjectMastery = React.useMemo(() => {
+    if (totalAttempted === 0 && studentMistakes.length === 0) {
+      return {
+        biology: 0,
+        chemistry: 0,
+        physicsMath: 0,
+        readingLogic: 0,
+      };
+    }
+    const countMistakes = (keywords: string[]) =>
+      studentMistakes.filter((m) =>
+        keywords.some((k) => (m.subject || '').toLowerCase().includes(k))
+      ).length;
+
+    const bioMistakes = countMistakes(['bio']);
+    const chemMistakes = countMistakes(['chem']);
+    const physMistakes = countMistakes(['phys', 'math']);
+    const readMistakes = countMistakes(['read', 'logic', 'general']);
+
+    const baseAcc = avgAccuracy > 0 ? avgAccuracy : 0;
+    if (totalAttempted === 0) {
+      return { biology: 0, chemistry: 0, physicsMath: 0, readingLogic: 0 };
+    }
+    return {
+      biology: Math.max(0, Math.min(100, baseAcc - Math.min(15, bioMistakes * 2))),
+      chemistry: Math.max(0, Math.min(100, baseAcc - Math.min(15, chemMistakes * 2))),
+      physicsMath: Math.max(0, Math.min(100, baseAcc - Math.min(15, physMistakes * 2))),
+      readingLogic: Math.max(0, Math.min(100, baseAcc - Math.min(15, readMistakes * 2))),
+    };
+  }, [totalAttempted, avgAccuracy, studentMistakes]);
 
   const effectivePkg = resolveEffectivePackage(currentUser);
   const currentPkgObj = getPackageByIdOrName(effectivePkg);
@@ -317,7 +361,7 @@ export default function StudentDashboardPage() {
                 }}
               >
                 <Flame size={15} color="#F59E0B" />
-                <span>5-Day Study Streak</span>
+                <span>{activeStreakDays}-Day Study Streak</span>
               </div>
               <div
                 style={{
@@ -1299,40 +1343,40 @@ export default function StudentDashboardPage() {
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', marginBottom: '6px' }}>
                   <span style={{ color: '#334155', fontWeight: 700 }}>🧬 Biology (23 Qs)</span>
-                  <strong style={{ color: '#059669' }}>78% Accuracy</strong>
+                  <strong style={{ color: subjectMastery.biology > 0 ? '#059669' : '#64748B' }}>{subjectMastery.biology}% Accuracy</strong>
                 </div>
                 <div style={{ height: '7px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden' }}>
-                  <div style={{ width: '78%', height: '100%', backgroundColor: '#059669', borderRadius: '4px' }} />
+                  <div style={{ width: `${subjectMastery.biology}%`, height: '100%', backgroundColor: '#059669', borderRadius: '4px', transition: 'width 0.3s ease' }} />
                 </div>
               </div>
 
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', marginBottom: '6px' }}>
                   <span style={{ color: '#334155', fontWeight: 700 }}>🧪 Chemistry (15 Qs)</span>
-                  <strong style={{ color: '#059669' }}>72% Accuracy</strong>
+                  <strong style={{ color: subjectMastery.chemistry > 0 ? '#059669' : '#64748B' }}>{subjectMastery.chemistry}% Accuracy</strong>
                 </div>
                 <div style={{ height: '7px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden' }}>
-                  <div style={{ width: '72%', height: '100%', backgroundColor: '#10B981', borderRadius: '4px' }} />
+                  <div style={{ width: `${subjectMastery.chemistry}%`, height: '100%', backgroundColor: '#10B981', borderRadius: '4px', transition: 'width 0.3s ease' }} />
                 </div>
               </div>
 
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', marginBottom: '6px' }}>
                   <span style={{ color: '#334155', fontWeight: 700 }}>📐 Physics & Mathematics (13 Qs)</span>
-                  <strong style={{ color: '#D97706' }}>58% Accuracy</strong>
+                  <strong style={{ color: subjectMastery.physicsMath > 0 ? '#D97706' : '#64748B' }}>{subjectMastery.physicsMath}% Accuracy</strong>
                 </div>
                 <div style={{ height: '7px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden' }}>
-                  <div style={{ width: '58%', height: '100%', backgroundColor: '#F59E0B', borderRadius: '4px' }} />
+                  <div style={{ width: `${subjectMastery.physicsMath}%`, height: '100%', backgroundColor: '#F59E0B', borderRadius: '4px', transition: 'width 0.3s ease' }} />
                 </div>
               </div>
 
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', marginBottom: '6px' }}>
                   <span style={{ color: '#334155', fontWeight: 700 }}>📖 Reading Skills & Knowledge (9 Qs)</span>
-                  <strong style={{ color: '#059669' }}>82% Accuracy</strong>
+                  <strong style={{ color: subjectMastery.readingLogic > 0 ? '#059669' : '#64748B' }}>{subjectMastery.readingLogic}% Accuracy</strong>
                 </div>
                 <div style={{ height: '7px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden' }}>
-                  <div style={{ width: '82%', height: '100%', backgroundColor: '#059669', borderRadius: '4px' }} />
+                  <div style={{ width: `${subjectMastery.readingLogic}%`, height: '100%', backgroundColor: '#059669', borderRadius: '4px', transition: 'width 0.3s ease' }} />
                 </div>
               </div>
             </div>
@@ -1390,7 +1434,7 @@ export default function StudentDashboardPage() {
                     width: '22px',
                     height: '22px',
                     borderRadius: '50%',
-                    backgroundColor: '#10B981',
+                    backgroundColor: testAttempts.length > 0 ? '#10B981' : '#3B82F6',
                     color: '#FFF',
                     display: 'flex',
                     alignItems: 'center',
@@ -1401,14 +1445,14 @@ export default function StudentDashboardPage() {
                     marginTop: '2px',
                   }}
                 >
-                  ✓
+                  {testAttempts.length > 0 ? '✓' : '1'}
                 </div>
                 <div>
                   <div style={{ fontSize: '0.875rem', fontWeight: 700, color: '#0F172A' }}>
                     1. Foundation & Diagnostic
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: '#64748B' }}>
-                    Syllabus diagnostic completed.
+                  <div style={{ fontSize: '0.75rem', color: testAttempts.length > 0 ? '#64748B' : '#2563EB', fontWeight: testAttempts.length > 0 ? 400 : 600 }}>
+                    {testAttempts.length > 0 ? 'Syllabus diagnostic completed.' : 'Start your baseline diagnostic mock'}
                   </div>
                 </div>
               </div>
@@ -1419,8 +1463,8 @@ export default function StudentDashboardPage() {
                     width: '22px',
                     height: '22px',
                     borderRadius: '50%',
-                    backgroundColor: '#3B82F6',
-                    color: '#FFF',
+                    backgroundColor: testAttempts.length > 0 ? '#3B82F6' : '#E2E8F0',
+                    color: testAttempts.length > 0 ? '#FFF' : '#64748B',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -1436,8 +1480,8 @@ export default function StudentDashboardPage() {
                   <div style={{ fontSize: '0.875rem', fontWeight: 700, color: '#0F172A' }}>
                     2. Full CBT Mocks & Speed
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 600 }}>
-                    In progress • Target 60+ Score
+                  <div style={{ fontSize: '0.75rem', color: testAttempts.length > 0 ? '#2563EB' : '#94A3B8', fontWeight: testAttempts.length > 0 ? 600 : 400 }}>
+                    {testAttempts.length > 0 ? 'In progress • Target 60+ Score' : 'Unlocks after baseline diagnostic'}
                   </div>
                 </div>
               </div>

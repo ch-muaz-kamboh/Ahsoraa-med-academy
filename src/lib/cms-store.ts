@@ -516,6 +516,12 @@ export async function syncSingleNewsPostToSupabase(post: NewsItem): Promise<bool
     if (!error) {
       return true;
     }
+    // Retry with core columns if optional columns failed
+    const { meta_title, meta_description, faq_items, ...corePayload } = payload;
+    const { error: coreErr } = await supabase.from('news_posts').upsert(corePayload);
+    if (!coreErr) {
+      return true;
+    }
     console.warn('Supabase client news upload warning, trying API route:', error.message);
   } catch (err) {
     console.warn('Supabase client upload exception, trying API route:', err);
@@ -542,6 +548,8 @@ export async function syncNewsFromSupabase(): Promise<NewsItem[]> {
   const p = (async () => {
     try {
       const deletedIds = getDeletedNewsIds();
+      const localPosts = getNewsPosts();
+      const localMap = new Map(localPosts.map((lp) => [lp.id, lp]));
       let rawData: any[] = [];
 
       // 1. Try direct Supabase query
@@ -571,32 +579,46 @@ export async function syncNewsFromSupabase(): Promise<NewsItem[]> {
       }
 
       if (rawData.length > 0) {
+        const remoteIds = new Set<string>();
         const remotePosts: NewsItem[] = rawData
           .map((item: any) => {
+            remoteIds.add(item.id);
+            const localMatch = localMap.get(item.id);
             const { content, indexes: embeddedIndexes } = extractContentAndIndexes(item.content || '');
+            // Preserve local content if local has embedded images that haven't finished syncing or if remote content is empty
+            const finalContent =
+              localMatch && localMatch.content && localMatch.content.includes('<img') && !content.includes('<img')
+                ? localMatch.content
+                : content;
             return {
               id: item.id,
               title: item.title,
               slug: item.slug,
               excerpt: item.excerpt,
-              content,
+              content: finalContent,
               category: item.category,
               author: item.author,
               date: item.date,
               readTime: item.read_time,
-              imageUrl: item.image_url,
+              imageUrl: item.image_url || localMatch?.imageUrl,
               featured: item.featured,
-              metaTitle: item.meta_title || undefined,
-              metaDescription: item.meta_description || undefined,
-              faqItems: Array.isArray(item.faq_items) ? item.faq_items : undefined,
-              indexes: Array.isArray(item.indexes) && item.indexes.length > 0 ? item.indexes : embeddedIndexes,
+              metaTitle: item.meta_title || localMatch?.metaTitle || undefined,
+              metaDescription: item.meta_description || localMatch?.metaDescription || undefined,
+              faqItems: Array.isArray(item.faq_items) && item.faq_items.length > 0 ? item.faq_items : localMatch?.faqItems,
+              indexes: Array.isArray(item.indexes) && item.indexes.length > 0 ? item.indexes : (embeddedIndexes || localMatch?.indexes),
             };
           })
           .filter((p) => !deletedIds.has(p.id));
 
-        saveNewsPosts(remotePosts);
+        // Preserve any newly created local posts not yet present in remote
+        const unsyncedLocal = localPosts.filter(
+          (lp) => !remoteIds.has(lp.id) && !deletedIds.has(lp.id) && !INITIAL_NEWS.some((init) => init.id === lp.id)
+        );
+        const mergedPosts = [...unsyncedLocal, ...remotePosts];
+
+        saveNewsPosts(mergedPosts);
         markSynced('news');
-        return remotePosts;
+        return mergedPosts;
       }
     } catch (e) {
       console.warn('Supabase news fetch skipped/fallback to local:', e);

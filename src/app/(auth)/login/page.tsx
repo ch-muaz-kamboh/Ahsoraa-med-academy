@@ -62,21 +62,160 @@ export default function LoginPage() {
         return;
       }
 
-      const email = data.user?.email || formData.email;
+      const email = (data.user?.email || formData.email).trim();
+      const emailLower = email.toLowerCase();
       const meta = data.user?.user_metadata || {};
-      const pkg = meta.selected_package || meta.selectedPackage;
-      const price = meta.package_price || meta.packagePrice;
-      const fullName = meta.full_name || `${meta.first_name || ''} ${meta.last_name || ''}`.trim();
 
-      if (pkg) saveStudentPackageMapping(email, pkg, price);
-
-      if (email.toLowerCase().includes('admin')) {
+      if (
+        emailLower.includes('admin') ||
+        emailLower === 'moaz27632@gmail.com' ||
+        emailLower === 'ahsank746@gmail.com'
+      ) {
         setAdminLoggedIn(true);
         router.push('/admin/dashboard');
-      } else {
-        loginStudent(email, { selectedPackage: pkg, packagePrice: price, fullName });
-        router.push('/portal/dashboard');
+        router.refresh();
+        return;
       }
+
+      // Check student approval status and synced details before granting portal access
+      let resolvedPkg = meta.selected_package || meta.selectedPackage || 'Ahsora IMAT Ascend';
+      let resolvedPrice = meta.package_price || meta.packagePrice || '€299';
+      let resolvedFullName =
+        meta.full_name || `${meta.first_name || ''} ${meta.last_name || ''}`.trim() || email.split('@')[0];
+      let resolvedFirstName = meta.first_name || resolvedFullName.split(' ')[0] || 'Student';
+      let resolvedLastName = meta.last_name || resolvedFullName.split(' ').slice(1).join(' ') || '';
+      let resolvedCountry = meta.country || '';
+      let resolvedAddress = meta.address || '';
+      let resolvedPhone = meta.whatsapp_number || meta.whatsappNumber || meta.phone || '';
+      let resolvedAmaId = meta.ama_id || '';
+
+      let serverApproved: boolean | null = null;
+      let locallyApproved = false;
+      let profileApproved = false;
+
+      // 1. Check local approval / adminStudentList
+      try {
+        const approvedRaw = localStorage.getItem('ahsora_approved_emails');
+        if (approvedRaw) {
+          const list: string[] = JSON.parse(approvedRaw);
+          if (list.some((em) => em.toLowerCase().trim() === emailLower)) {
+            locallyApproved = true;
+          }
+        }
+        const adminListRaw = localStorage.getItem('adminStudentList');
+        if (adminListRaw) {
+          const adminList: any[] = JSON.parse(adminListRaw);
+          const localMatch = adminList.find((s) => (s.email || '').toLowerCase().trim() === emailLower);
+          if (localMatch) {
+            if (localMatch.paymentApproved === true || localMatch.payment_approved === true) {
+              locallyApproved = true;
+            }
+            resolvedPkg = localMatch.selectedPackage || localMatch.selected_package || resolvedPkg;
+            resolvedPrice = localMatch.packagePrice || localMatch.package_price || resolvedPrice;
+            resolvedCountry = localMatch.country || resolvedCountry;
+            resolvedAddress = localMatch.address || resolvedAddress;
+            resolvedPhone = localMatch.whatsappNumber || localMatch.whatsapp_number || localMatch.phone || resolvedPhone;
+            resolvedAmaId = localMatch.ama_id || resolvedAmaId;
+            resolvedFullName = localMatch.fullName || localMatch.full_name || resolvedFullName;
+          }
+        }
+      } catch {}
+
+      // 2. Check server /api/admin/students for authoritative cross-device approval and student record
+      try {
+        const res = await fetch(`/api/admin/students?t=${Date.now()}`, { cache: 'no-store' });
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success && Array.isArray(json.students)) {
+            const matched = json.students.find(
+              (s: any) => (s.email || '').toLowerCase().trim() === emailLower
+            );
+            if (matched) {
+              serverApproved = Boolean(matched.payment_approved ?? matched.paymentApproved);
+              resolvedPkg = matched.selected_package || matched.selectedPackage || resolvedPkg;
+              resolvedPrice = matched.package_price || matched.packagePrice || resolvedPrice;
+              resolvedCountry = matched.country || resolvedCountry;
+              resolvedAddress = matched.address || resolvedAddress;
+              resolvedPhone = matched.whatsapp_number || matched.whatsappNumber || matched.phone || resolvedPhone;
+              resolvedAmaId = matched.ama_id || resolvedAmaId;
+              resolvedFullName = matched.full_name || matched.fullName || resolvedFullName;
+              resolvedFirstName = matched.firstName || resolvedFullName.split(' ')[0] || 'Student';
+              resolvedLastName = matched.lastName || resolvedFullName.split(' ').slice(1).join(' ') || '';
+            }
+          }
+        }
+      } catch (apiErr) {
+        console.warn('Login student approval API check warning:', apiErr);
+      }
+
+      // 3. Check profiles table as fallback
+      if (data.user?.id) {
+        try {
+          const { data: prof } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', data.user.id)
+            .maybeSingle();
+          if (prof) {
+            if (prof.payment_approved === true) profileApproved = true;
+            if (prof.ama_id && !resolvedAmaId) resolvedAmaId = prof.ama_id;
+            if (prof.full_name && !resolvedFullName) resolvedFullName = prof.full_name;
+          }
+        } catch {}
+      }
+
+      if (resolvedPkg) saveStudentPackageMapping(email, resolvedPkg, resolvedPrice);
+
+      const isApproved =
+        serverApproved === true ||
+        locallyApproved === true ||
+        (serverApproved === null && profileApproved === true);
+
+      if (!isApproved) {
+        // Student has not been approved by Admin yet -> send to Payment & Verification screen
+        const pendingRecord = {
+          id: data.user?.id || `usr-${Date.now()}`,
+          ama_id: resolvedAmaId,
+          firstName: resolvedFirstName,
+          lastName: resolvedLastName,
+          fullName: resolvedFullName,
+          full_name: resolvedFullName,
+          email,
+          address: resolvedAddress,
+          country: resolvedCountry,
+          whatsappNumber: resolvedPhone,
+          whatsapp_number: resolvedPhone,
+          phone: resolvedPhone,
+          selectedPackage: resolvedPkg,
+          selected_package: resolvedPkg,
+          packagePrice: resolvedPrice,
+          package_price: resolvedPrice,
+          paymentApproved: false,
+          payment_approved: false,
+        };
+        try {
+          localStorage.setItem('recentRegistration', JSON.stringify(pendingRecord));
+          localStorage.removeItem('ahsora_studentLoggedIn');
+        } catch {}
+
+        setLoading(false);
+        router.push(
+          `/pending-payment?package=${encodeURIComponent(resolvedPkg)}&price=${encodeURIComponent(resolvedPrice)}&email=${encodeURIComponent(email)}`
+        );
+        return;
+      }
+
+      loginStudent(email, resolvedFirstName, resolvedLastName, {
+        selectedPackage: resolvedPkg,
+        packagePrice: resolvedPrice,
+        country: resolvedCountry,
+        phone: resolvedPhone,
+        whatsappNumber: resolvedPhone,
+        address: resolvedAddress,
+        ama_id: resolvedAmaId,
+        id: data.user?.id,
+      });
+      router.push('/portal/dashboard');
       router.refresh();
     } catch (err: any) {
       setError(err?.message || 'An unexpected error occurred. Please check your credentials.');

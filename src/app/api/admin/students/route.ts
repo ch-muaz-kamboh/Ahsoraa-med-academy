@@ -43,7 +43,11 @@ export async function GET() {
 
     // 3. Fetch enrolled leads for cross-device backup
     try {
-      const { data: leadsData } = await supabase.from('leads').select('*').eq('status', 'enrolled');
+      const { data: leadsData } = await supabase
+        .from('leads')
+        .select('*')
+        .eq('status', 'enrolled')
+        .order('created_at', { ascending: true });
       enrolledLeads = leadsData || [];
     } catch (leadsErr) {
       console.warn('Supabase enrolled leads fetch note:', leadsErr);
@@ -62,7 +66,13 @@ export async function GET() {
             meta = JSON.parse(l.academic_background);
           }
         } catch {}
-        leadsEmailMap.set(em, { ...l, leadMeta: meta });
+        const prev = leadsEmailMap.get(em);
+        const prevMeta = prev?.leadMeta || {};
+        leadsEmailMap.set(em, {
+          ...prev,
+          ...l,
+          leadMeta: { ...prevMeta, ...meta },
+        });
       }
     }
 
@@ -89,50 +99,66 @@ export async function GET() {
         const meta = u.user_metadata || {};
 
         const fullName =
+          lead.name ||
           meta.full_name ||
           p.full_name ||
-          lead.name ||
           `${meta.first_name || ''} ${meta.last_name || ''}`.trim() ||
           u.email?.split('@')[0] ||
           'Student';
 
         const pkgName =
+          leadMeta.selected_package ||
           meta.selected_package ||
           meta.selectedPackage ||
           p.selected_package ||
           p.selectedPackage ||
-          leadMeta.selected_package ||
           'Ahsora IMAT Ascend';
 
         const pkgPrice =
+          leadMeta.package_price ||
           meta.package_price ||
           meta.packagePrice ||
           p.package_price ||
           p.packagePrice ||
-          leadMeta.package_price ||
           '€299';
 
-        const country = meta.country || p.country || lead.target_country || 'Italy';
+        const country =
+          leadMeta.country ||
+          lead.target_country ||
+          meta.country ||
+          p.country ||
+          '';
+
         const whatsapp =
+          leadMeta.whatsapp_number ||
+          leadMeta.phone ||
+          lead.phone ||
           meta.whatsapp_number ||
           meta.whatsappNumber ||
           meta.phone ||
           p.whatsapp_number ||
           p.phone ||
-          lead.phone ||
-          'Not specified';
+          '';
 
         const address =
+          leadMeta.address ||
           meta.address ||
           meta.physical_address ||
           meta.street_address ||
           p.address ||
-          leadMeta.address ||
-          'Address on file';
+          '';
 
-        const paymentApproved = p.payment_approved !== undefined ? p.payment_approved : true;
+        const paymentApproved =
+          leadMeta.payment_approved !== undefined
+            ? Boolean(leadMeta.payment_approved)
+            : p.payment_approved !== undefined && p.payment_approved !== null
+            ? Boolean(p.payment_approved)
+            : meta.payment_approved !== undefined
+            ? Boolean(meta.payment_approved)
+            : false;
+
         const cleanAmaId =
-          p.ama_id ? p.ama_id.trim() : (meta.ama_id || leadMeta.ama_id || `AMA-${u.id.substring(0, 6).toUpperCase()}`);
+          p.ama_id ? p.ama_id.trim() : (leadMeta.ama_id || meta.ama_id || `AMA-${u.id.substring(0, 6).toUpperCase()}`);
 
         return {
           id: u.id,
@@ -151,7 +177,8 @@ export async function GET() {
           package_price: pkgPrice,
           packagePrice: pkgPrice,
           payment_approved: paymentApproved,
-          stages: meta.medpath_stages || p.stages || null,
+          paymentApproved: paymentApproved,
+          stages: leadMeta.stages || meta.medpath_stages || p.stages || null,
           created_at: p.created_at || u.created_at,
         };
       });
@@ -177,26 +204,34 @@ export async function GET() {
         const lead = leadsEmailMap.get(emailLower) || {};
         const leadMeta = lead.leadMeta || {};
         const cleanAmaId = p.ama_id ? p.ama_id.trim() : (leadMeta.ama_id || `AMA-${p.id.substring(0, 6).toUpperCase()}`);
+        const whatsapp = leadMeta.whatsapp_number || leadMeta.phone || lead.phone || p.whatsapp_number || p.phone || '';
+        const paymentApproved =
+          leadMeta.payment_approved !== undefined
+            ? Boolean(leadMeta.payment_approved)
+            : p.payment_approved !== undefined && p.payment_approved !== null
+            ? Boolean(p.payment_approved)
+            : false;
 
         mergedStudents.push({
           id: p.id,
           ama_id: cleanAmaId,
-          full_name: p.full_name || lead.name || p.email.split('@')[0],
-          firstName: (p.full_name || lead.name || '').split(' ')[0] || 'Student',
-          lastName: (p.full_name || lead.name || '').split(' ').slice(1).join(' ') || '',
+          full_name: lead.name || p.full_name || p.email.split('@')[0],
+          firstName: (lead.name || p.full_name || '').split(' ')[0] || 'Student',
+          lastName: (lead.name || p.full_name || '').split(' ').slice(1).join(' ') || '',
           email: p.email,
-          country: p.country || lead.target_country || 'Italy',
-          address: p.address || leadMeta.address || 'Address on file',
-          whatsapp_number: p.whatsapp_number || p.phone || lead.phone || 'Not specified',
-          whatsappNumber: p.whatsapp_number || p.phone || lead.phone || 'Not specified',
-          phone: p.whatsapp_number || p.phone || lead.phone || 'Not specified',
-          selected_package: p.selected_package || p.selectedPackage || leadMeta.selected_package || 'Ahsora IMAT Ascend',
-          selectedPackage: p.selected_package || p.selectedPackage || leadMeta.selected_package || 'Ahsora IMAT Ascend',
-          package_price: p.package_price || p.packagePrice || leadMeta.package_price || '€299',
-          packagePrice: p.package_price || p.packagePrice || leadMeta.package_price || '€299',
-          payment_approved: p.payment_approved !== undefined ? p.payment_approved : true,
-          stages: p.stages || null,
-          created_at: p.created_at || new Date().toISOString(),
+          country: leadMeta.country || lead.target_country || p.country || '',
+          address: leadMeta.address || p.address || '',
+          whatsapp_number: whatsapp,
+          whatsappNumber: whatsapp,
+          phone: whatsapp,
+          selected_package: leadMeta.selected_package || p.selected_package || p.selectedPackage || 'Ahsora IMAT Ascend',
+          selectedPackage: leadMeta.selected_package || p.selected_package || p.selectedPackage || 'Ahsora IMAT Ascend',
+          package_price: leadMeta.package_price || p.package_price || p.packagePrice || '€299',
+          packagePrice: leadMeta.package_price || p.package_price || p.packagePrice || '€299',
+          payment_approved: paymentApproved,
+          paymentApproved: paymentApproved,
+          stages: leadMeta.stages || p.stages || null,
+          created_at: p.created_at || lead.created_at || new Date().toISOString(),
         });
       }
     });
@@ -207,7 +242,10 @@ export async function GET() {
         processedEmails.add(em);
         const leadMeta = lead.leadMeta || {};
         const studentId = leadMeta.studentId || lead.id || `lead-${Date.now()}`;
-        const cleanAmaId = leadMeta.ama_id || `AMA-${studentId.substring(0, 6).toUpperCase()}`;
+        const cleanAmaId = leadMeta.ama_id || `AMA-${String(studentId).substring(0, 6).toUpperCase()}`;
+        const whatsapp = leadMeta.whatsapp_number || leadMeta.phone || lead.phone || '';
+        const paymentApproved =
+          leadMeta.payment_approved !== undefined ? Boolean(leadMeta.payment_approved) : false;
 
         mergedStudents.push({
           id: studentId,
@@ -216,17 +254,18 @@ export async function GET() {
           firstName: (lead.name || '').split(' ')[0] || 'Student',
           lastName: (lead.name || '').split(' ').slice(1).join(' ') || '',
           email: em,
-          country: lead.target_country || 'Italy',
-          address: leadMeta.address || 'Address on file',
-          whatsapp_number: lead.phone || 'Not specified',
-          whatsappNumber: lead.phone || 'Not specified',
-          phone: lead.phone || 'Not specified',
+          country: leadMeta.country || lead.target_country || '',
+          address: leadMeta.address || '',
+          whatsapp_number: whatsapp,
+          whatsappNumber: whatsapp,
+          phone: whatsapp,
           selected_package: leadMeta.selected_package || 'Ahsora IMAT Ascend',
           selectedPackage: leadMeta.selected_package || 'Ahsora IMAT Ascend',
           package_price: leadMeta.package_price || '€299',
           packagePrice: leadMeta.package_price || '€299',
-          payment_approved: true,
-          stages: null,
+          payment_approved: paymentApproved,
+          paymentApproved: paymentApproved,
+          stages: leadMeta.stages || null,
           created_at: lead.created_at || new Date().toISOString(),
         });
       }
@@ -269,6 +308,7 @@ export async function POST(request: Request) {
       password,
     } = body;
 
+    const isApproved = body.paymentApproved === true || body.payment_approved === true;
     const finalPhone = whatsappNumber || phone || '';
 
     // 1. Locate auth user and update user_metadata with address and full student details
@@ -295,12 +335,13 @@ export async function POST(request: Request) {
             first_name: firstName || fullName?.split(' ')[0],
             last_name: lastName || fullName?.split(' ').slice(1).join(' '),
             address: address || '',
-            country: country || 'Italy',
+            country: country || '',
             whatsapp_number: finalPhone,
             phone: finalPhone,
             selected_package: selectedPackage,
             package_price: packagePrice,
             ama_id: ama_id,
+            payment_approved: isApproved,
           },
         });
         if (created?.user) {
@@ -321,12 +362,13 @@ export async function POST(request: Request) {
             first_name: firstName || fullName?.split(' ')[0],
             last_name: lastName || fullName?.split(' ').slice(1).join(' '),
             address: address || '',
-            country: country || 'Italy',
+            country: country || '',
             whatsapp_number: finalPhone,
             phone: finalPhone,
             selected_package: selectedPackage,
             package_price: packagePrice,
             ama_id: ama_id,
+            payment_approved: isApproved,
           },
         });
       } catch (uErr) {
@@ -334,40 +376,58 @@ export async function POST(request: Request) {
       }
     }
 
-    // 2. Safe upsert to profiles table only with columns that exist in the schema
+    // 2. Safe upsert to profiles table
     if (targetUserId) {
       try {
-        const profileData: any = {
+        const baseProfileData: any = {
           id: targetUserId,
           full_name: fullName,
           email: rawEmail,
-          payment_approved: true,
+          payment_approved: isApproved,
           role: 'student',
-          account_type: 'student',
-          is_active: true,
         };
-        if (ama_id) profileData.ama_id = ama_id;
+        if (ama_id) baseProfileData.ama_id = ama_id;
 
-        await supabase.from('profiles').upsert(profileData);
+        const extendedProfileData: any = {
+          ...baseProfileData,
+          country: country || '',
+          address: address || '',
+          whatsapp_number: finalPhone,
+          phone: finalPhone,
+          selected_package: selectedPackage,
+          package_price: packagePrice,
+        };
+
+        const { error: extErr } = await supabase.from('profiles').upsert(extendedProfileData);
+        if (extErr) {
+          await supabase.from('profiles').upsert(baseProfileData);
+        }
       } catch (pErr) {
         console.warn('Profile upsert warning:', pErr);
       }
     }
 
-    // 3. Backup to leads table with enrolled status for immediate cross-device sync
+    // 3. Upsert/replace in leads table with enrolled status for immediate cross-device sync
     try {
+      if (rawEmail) {
+        await supabase.from('leads').delete().eq('email', rawEmail).eq('status', 'enrolled');
+      }
       await supabase.from('leads').insert({
         name: fullName,
         email: rawEmail,
         phone: finalPhone,
         target_exam: 'IMAT',
-        target_country: country || 'Italy',
+        target_country: country || '',
         academic_background: JSON.stringify({
           studentId: targetUserId,
           ama_id: ama_id,
           address: address || '',
+          country: country || '',
+          whatsapp_number: finalPhone,
+          phone: finalPhone,
           selected_package: selectedPackage,
           package_price: packagePrice,
+          payment_approved: isApproved,
           registered_at: new Date().toISOString(),
         }),
         status: 'enrolled',
@@ -376,7 +436,12 @@ export async function POST(request: Request) {
       console.warn('Leads enrolled backup notice:', lErr);
     }
 
-    return NextResponse.json({ success: true, studentId: targetUserId, message: 'Student registered and address synced' });
+    return NextResponse.json({
+      success: true,
+      studentId: targetUserId,
+      paymentApproved: isApproved,
+      message: 'Student registered and synced',
+    });
   } catch (error: any) {
     console.error('API /api/admin/students POST error:', error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
@@ -390,8 +455,21 @@ export async function PATCH(request: Request) {
     const body = await request.json();
     const rawStudentId = body.studentId || body.id;
     const rawEmail = (body.studentEmail || body.email || '').toLowerCase().trim();
-    const { selectedPackage, packagePrice, paymentApproved, ama_id, enrollmentNumber } = body;
+    const {
+      selectedPackage,
+      packagePrice,
+      paymentApproved,
+      ama_id,
+      enrollmentNumber,
+      country,
+      address,
+      whatsappNumber,
+      phone,
+      fullName,
+      stages,
+    } = body;
     const resolvedAmaId = ama_id || enrollmentNumber;
+    const resolvedPhone = whatsappNumber !== undefined ? whatsappNumber : phone;
 
     if (!rawStudentId && !rawEmail) {
       return NextResponse.json({ success: false, error: 'studentId or studentEmail required' }, { status: 400 });
@@ -399,64 +477,157 @@ export async function PATCH(request: Request) {
 
     const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
     let targetUserId = rawStudentId && uuidRegex.test(rawStudentId) ? rawStudentId : null;
+    let existingUserMeta: any = {};
 
-    // If targetUserId is not a valid UUID, look up real user in Supabase Auth by email
-    if (!targetUserId && rawEmail) {
-      try {
-        const { data: usersData } = await supabase.auth.admin.listUsers({ page: 1, perPage: 1000 });
-        const found = (usersData?.users || []).find((u) => (u.email || '').toLowerCase().trim() === rawEmail);
-        if (found) {
-          targetUserId = found.id;
-        }
-      } catch (lookupErr) {
-        console.warn('Auth user lookup warning:', lookupErr);
+    // Look up real user in Supabase Auth by email or ID
+    try {
+      const { data: usersData } = await supabase.auth.admin.listUsers({ page: 1, perPage: 1000 });
+      const found = (usersData?.users || []).find(
+        (u) =>
+          (rawEmail && (u.email || '').toLowerCase().trim() === rawEmail) ||
+          (targetUserId && u.id === targetUserId)
+      );
+      if (found) {
+        targetUserId = found.id;
+        existingUserMeta = found.user_metadata || {};
       }
+    } catch (lookupErr) {
+      console.warn('Auth user lookup warning:', lookupErr);
     }
 
     // 1. Update Auth metadata if we have a valid UUID
     if (targetUserId) {
       try {
-        const updateData: any = { user_metadata: {} };
-        if (selectedPackage) {
-          updateData.user_metadata.selected_package = selectedPackage;
+        const nextMeta: any = { ...existingUserMeta };
+        if (selectedPackage !== undefined) nextMeta.selected_package = selectedPackage;
+        if (packagePrice !== undefined) nextMeta.package_price = packagePrice;
+        if (resolvedAmaId !== undefined) nextMeta.ama_id = resolvedAmaId;
+        if (paymentApproved !== undefined) nextMeta.payment_approved = Boolean(paymentApproved);
+        if (country !== undefined) nextMeta.country = country;
+        if (address !== undefined) nextMeta.address = address;
+        if (resolvedPhone !== undefined) {
+          nextMeta.whatsapp_number = resolvedPhone;
+          nextMeta.phone = resolvedPhone;
         }
-        if (packagePrice) {
-          updateData.user_metadata.package_price = packagePrice;
-        }
-        if (resolvedAmaId) {
-          updateData.user_metadata.ama_id = resolvedAmaId;
-        }
-        if (Object.keys(updateData.user_metadata).length > 0) {
-          await supabase.auth.admin.updateUserById(targetUserId, updateData);
-        }
+        if (fullName !== undefined) nextMeta.full_name = fullName;
+        if (stages !== undefined) nextMeta.medpath_stages = stages;
+
+        await supabase.auth.admin.updateUserById(targetUserId, { user_metadata: nextMeta });
       } catch (uErr) {
         console.warn('Update user metadata warning:', uErr);
       }
     }
 
-    // 2. Update profiles table
-    const profileUpdate: any = {};
+    // 2. Update profiles table safely (first guaranteed columns, then extended columns)
+    const baseProfileUpdate: any = {};
     if (paymentApproved !== undefined) {
-      profileUpdate.payment_approved = paymentApproved;
+      baseProfileUpdate.payment_approved = Boolean(paymentApproved);
     }
-    if (selectedPackage) {
-      profileUpdate.selected_package = selectedPackage;
+    if (resolvedAmaId !== undefined) {
+      baseProfileUpdate.ama_id = resolvedAmaId;
     }
-    if (packagePrice) {
-      profileUpdate.package_price = packagePrice;
+    if (fullName !== undefined) {
+      baseProfileUpdate.full_name = fullName;
     }
-    if (resolvedAmaId) {
-      profileUpdate.ama_id = resolvedAmaId;
-    }
-    if (Object.keys(profileUpdate).length > 0) {
+
+    if (Object.keys(baseProfileUpdate).length > 0) {
       try {
         if (targetUserId) {
-          await supabase.from('profiles').update(profileUpdate).eq('id', targetUserId);
-        } else if (rawEmail) {
-          await supabase.from('profiles').update(profileUpdate).eq('email', rawEmail);
+          await supabase.from('profiles').update(baseProfileUpdate).eq('id', targetUserId);
+        }
+        if (rawEmail) {
+          await supabase.from('profiles').update(baseProfileUpdate).eq('email', rawEmail);
         }
       } catch (pErr) {
-        console.warn('Update profiles table warning:', pErr);
+        console.warn('Update base profiles table warning:', pErr);
+      }
+    }
+
+    const extendedProfileUpdate: any = { ...baseProfileUpdate };
+    if (selectedPackage !== undefined) extendedProfileUpdate.selected_package = selectedPackage;
+    if (packagePrice !== undefined) extendedProfileUpdate.package_price = packagePrice;
+    if (country !== undefined) extendedProfileUpdate.country = country;
+    if (address !== undefined) extendedProfileUpdate.address = address;
+    if (resolvedPhone !== undefined) {
+      extendedProfileUpdate.whatsapp_number = resolvedPhone;
+      extendedProfileUpdate.phone = resolvedPhone;
+    }
+    if (Object.keys(extendedProfileUpdate).length > Object.keys(baseProfileUpdate).length) {
+      try {
+        if (targetUserId) {
+          await supabase.from('profiles').update(extendedProfileUpdate).eq('id', targetUserId);
+        } else if (rawEmail) {
+          await supabase.from('profiles').update(extendedProfileUpdate).eq('email', rawEmail);
+        }
+      } catch {}
+    }
+
+    // 3. Also update leads table (status='enrolled') so cross-device GET always reflects latest approval & student details
+    if (rawEmail) {
+      try {
+        const { data: existingLeads } = await supabase
+          .from('leads')
+          .select('*')
+          .eq('email', rawEmail)
+          .eq('status', 'enrolled')
+          .order('created_at', { ascending: false });
+
+        if (existingLeads && existingLeads.length > 0) {
+          const latestLead = existingLeads[0];
+          let prevMeta: any = {};
+          try {
+            if (latestLead.academic_background && latestLead.academic_background.startsWith('{')) {
+              prevMeta = JSON.parse(latestLead.academic_background);
+            }
+          } catch {}
+
+          const nextMeta = {
+            ...prevMeta,
+            ...(targetUserId ? { studentId: targetUserId } : {}),
+            ...(resolvedAmaId !== undefined ? { ama_id: resolvedAmaId } : {}),
+            ...(selectedPackage !== undefined ? { selected_package: selectedPackage } : {}),
+            ...(packagePrice !== undefined ? { package_price: packagePrice } : {}),
+            ...(paymentApproved !== undefined ? { payment_approved: Boolean(paymentApproved) } : {}),
+            ...(country !== undefined ? { country } : {}),
+            ...(address !== undefined ? { address } : {}),
+            ...(resolvedPhone !== undefined ? { whatsapp_number: resolvedPhone, phone: resolvedPhone } : {}),
+            ...(stages !== undefined ? { stages } : {}),
+            updated_at: new Date().toISOString(),
+          };
+
+          const leadUpdate: any = {
+            academic_background: JSON.stringify(nextMeta),
+          };
+          if (fullName !== undefined) leadUpdate.name = fullName;
+          if (resolvedPhone !== undefined) leadUpdate.phone = resolvedPhone;
+          if (country !== undefined) leadUpdate.target_country = country;
+
+          await supabase.from('leads').update(leadUpdate).eq('id', latestLead.id);
+        } else {
+          const nextMeta = {
+            studentId: targetUserId || rawStudentId,
+            ...(resolvedAmaId !== undefined ? { ama_id: resolvedAmaId } : {}),
+            ...(selectedPackage !== undefined ? { selected_package: selectedPackage } : {}),
+            ...(packagePrice !== undefined ? { package_price: packagePrice } : {}),
+            ...(paymentApproved !== undefined ? { payment_approved: Boolean(paymentApproved) } : {}),
+            ...(country !== undefined ? { country } : {}),
+            ...(address !== undefined ? { address } : {}),
+            ...(resolvedPhone !== undefined ? { whatsapp_number: resolvedPhone, phone: resolvedPhone } : {}),
+            ...(stages !== undefined ? { stages } : {}),
+            updated_at: new Date().toISOString(),
+          };
+          await supabase.from('leads').insert({
+            name: fullName || rawEmail.split('@')[0],
+            email: rawEmail,
+            phone: resolvedPhone || '',
+            target_exam: 'IMAT',
+            target_country: country || '',
+            academic_background: JSON.stringify(nextMeta),
+            status: 'enrolled',
+          });
+        }
+      } catch (lErr) {
+        console.warn('Update enrolled lead warning:', lErr);
       }
     }
 

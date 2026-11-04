@@ -1,65 +1,200 @@
 'use client';
 
-import React, { useEffect, useState, Suspense } from 'react';
+import React, { useEffect, useState, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
-import { ACADEMY_PACKAGES, CoursePackage, getPackageByIdOrName } from '@/lib/packages';
-import { AlertCircle, ArrowRight, CheckCircle2, Clock, Globe, LogOut, Phone, ShieldCheck, Sparkles, User, Mail } from 'lucide-react';
+import { getPackageByIdOrName, CoursePackage } from '@/lib/packages';
+import { useAppStore } from '@/lib/store';
+import { Clock, Globe, LogOut, Phone, User, Mail, MapPin, Hash, RefreshCw, CheckCircle2 } from 'lucide-react';
 import Logo from '@/components/brand/Logo';
 
 function PendingPaymentContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { loginStudent } = useAppStore();
 
   const [studentDetails, setStudentDetails] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [checkingStatus, setCheckingStatus] = useState(false);
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
-  // Extract from query params if passed from registration
+  // Extract from query params if passed from registration or login
   const queryPkgName = searchParams ? searchParams.get('package') : null;
   const queryPrice = searchParams ? searchParams.get('price') : null;
   const queryEmail = searchParams ? searchParams.get('email') : null;
 
-  useEffect(() => {
-    const loadProfileAndRegistration = async () => {
+  const activateAndEnterPortal = useCallback(
+    (data: any) => {
+      const email = (data?.email || queryEmail || '').trim();
+      const fullName = data?.fullName || data?.full_name || 'Student';
+      const firstName = data?.firstName || fullName.split(' ')[0] || 'Student';
+      const lastName = data?.lastName || fullName.split(' ').slice(1).join(' ') || '';
+      const pkg = data?.selectedPackage || data?.selected_package || queryPkgName || 'Ahsora IMAT Ascend';
+      const price = data?.packagePrice || data?.package_price || queryPrice || '€299';
+
+      loginStudent(email, firstName, lastName, {
+        selectedPackage: pkg,
+        packagePrice: price,
+        country: data?.country || '',
+        phone: data?.whatsappNumber || data?.whatsapp_number || data?.phone || '',
+        whatsappNumber: data?.whatsappNumber || data?.whatsapp_number || data?.phone || '',
+        address: data?.address || '',
+        ama_id: data?.ama_id || '',
+        id: data?.id,
+      });
+
+      router.push('/portal/dashboard');
+    },
+    [loginStudent, queryEmail, queryPkgName, queryPrice, router]
+  );
+
+  const loadProfileAndRegistration = useCallback(
+    async (isManualCheck = false) => {
+      if (isManualCheck) {
+        setCheckingStatus(true);
+        setStatusMessage(null);
+      }
+
       let currentData: any = null;
 
-      // 1. Check local storage recent registration
+      // 1. Check local storage recent registration or currentUser
       try {
         const cached = localStorage.getItem('recentRegistration');
         if (cached) {
           currentData = JSON.parse(cached);
         }
+        if (!currentData) {
+          const curUser = localStorage.getItem('ahsora_currentUser');
+          if (curUser) {
+            currentData = JSON.parse(curUser);
+          }
+        }
       } catch (e) {
         console.error(e);
       }
 
-      // 2. Query Supabase auth user profile if logged in
+      const targetEmail = (queryEmail || currentData?.email || '').toLowerCase().trim();
+
+      // 2. Check local admin approval list (if admin approved on the same device/browser)
+      let locallyApproved = false;
+      if (targetEmail) {
+        try {
+          const approvedEmailsRaw = localStorage.getItem('ahsora_approved_emails');
+          if (approvedEmailsRaw) {
+            const approvedEmails: string[] = JSON.parse(approvedEmailsRaw);
+            if (approvedEmails.some((em) => em.toLowerCase().trim() === targetEmail)) {
+              locallyApproved = true;
+            }
+          }
+          const adminListRaw = localStorage.getItem('adminStudentList');
+          if (adminListRaw) {
+            const adminList: any[] = JSON.parse(adminListRaw);
+            const matchedLocal = adminList.find((s) => (s.email || '').toLowerCase().trim() === targetEmail);
+            if (matchedLocal) {
+              currentData = {
+                ...currentData,
+                ...matchedLocal,
+                fullName: matchedLocal.fullName || matchedLocal.full_name || currentData?.fullName,
+                country: matchedLocal.country || currentData?.country,
+                address: matchedLocal.address || currentData?.address,
+                whatsappNumber: matchedLocal.whatsappNumber || matchedLocal.whatsapp_number || matchedLocal.phone || currentData?.whatsappNumber,
+                selectedPackage: matchedLocal.selectedPackage || matchedLocal.selected_package || currentData?.selectedPackage,
+                packagePrice: matchedLocal.packagePrice || matchedLocal.package_price || currentData?.packagePrice,
+                ama_id: matchedLocal.ama_id || currentData?.ama_id,
+              };
+              if (matchedLocal.paymentApproved === true || matchedLocal.payment_approved === true) {
+                locallyApproved = true;
+              }
+            }
+          }
+        } catch {}
+      }
+
+      // 3. Query server API /api/admin/students for live cross-device approval & synced student metadata
+      let serverApproved: boolean | null = null;
+      if (targetEmail) {
+        try {
+          const res = await fetch(`/api/admin/students?t=${Date.now()}`, { cache: 'no-store' });
+          if (res.ok) {
+            const json = await res.json();
+            if (json.success && Array.isArray(json.students)) {
+              const matchedServer = json.students.find(
+                (s: any) => (s.email || '').toLowerCase().trim() === targetEmail
+              );
+              if (matchedServer) {
+                serverApproved = Boolean(matchedServer.payment_approved ?? matchedServer.paymentApproved);
+                currentData = {
+                  ...currentData,
+                  ...matchedServer,
+                  fullName: matchedServer.full_name || matchedServer.fullName || currentData?.fullName,
+                  country: matchedServer.country || currentData?.country,
+                  address: matchedServer.address || currentData?.address,
+                  whatsappNumber:
+                    matchedServer.whatsapp_number ||
+                    matchedServer.whatsappNumber ||
+                    matchedServer.phone ||
+                    currentData?.whatsappNumber,
+                  selectedPackage:
+                    matchedServer.selected_package ||
+                    matchedServer.selectedPackage ||
+                    currentData?.selectedPackage,
+                  packagePrice:
+                    matchedServer.package_price ||
+                    matchedServer.packagePrice ||
+                    currentData?.packagePrice,
+                  ama_id: matchedServer.ama_id || currentData?.ama_id,
+                };
+              }
+            }
+          }
+        } catch (err) {
+          console.warn('Server approval check warning:', err);
+        }
+      }
+
+      // 4. Query Supabase auth user profile if logged in
+      let profileApproved = false;
       try {
         const supabase = createClient();
-        const { data: { user } } = await supabase.auth.getUser();
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
 
         if (user) {
+          const meta = user.user_metadata || {};
           const { data: profileData } = await supabase
             .from('profiles')
             .select('*')
             .eq('id', user.id)
-            .single();
+            .maybeSingle();
 
           if (profileData) {
-            if (profileData.payment_approved) {
-              router.push('/portal/dashboard');
-              return;
+            if (profileData.payment_approved === true) {
+              profileApproved = true;
             }
             currentData = {
               ...currentData,
               ...profileData,
-              fullName: currentData?.fullName || currentData?.full_name || profileData.full_name,
-              email: currentData?.email || profileData.email,
-              country: currentData?.country || profileData.country,
-              whatsappNumber: currentData?.whatsappNumber || currentData?.whatsapp_number || profileData.whatsapp_number,
-              selectedPackage: currentData?.selectedPackage || currentData?.selected_package || profileData.selected_package,
-              packagePrice: currentData?.packagePrice || currentData?.package_price || profileData.package_price,
-              ama_id: profileData.ama_id || currentData?.ama_id,
+              fullName: currentData?.fullName || currentData?.full_name || profileData.full_name || meta.full_name,
+              email: currentData?.email || profileData.email || user.email,
+              country: currentData?.country || profileData.country || meta.country,
+              address: currentData?.address || profileData.address || meta.address,
+              whatsappNumber:
+                currentData?.whatsappNumber ||
+                currentData?.whatsapp_number ||
+                profileData.whatsapp_number ||
+                meta.whatsapp_number,
+              selectedPackage:
+                currentData?.selectedPackage ||
+                currentData?.selected_package ||
+                profileData.selected_package ||
+                meta.selected_package,
+              packagePrice:
+                currentData?.packagePrice ||
+                currentData?.package_price ||
+                profileData.package_price ||
+                meta.package_price,
+              ama_id: profileData.ama_id || currentData?.ama_id || meta.ama_id,
             };
           }
         }
@@ -67,28 +202,52 @@ function PendingPaymentContent() {
         console.warn('Supabase fetch fallback:', e);
       }
 
-      // 3. Apply query param overrides if present
+      // 5. Apply query param overrides if present
       if (!currentData) {
         currentData = {
           fullName: 'Student Applicant',
-          email: queryEmail || 'student@example.com',
-          country: 'Italy',
-          whatsappNumber: 'Not provided',
+          email: queryEmail || '',
+          country: '',
+          address: '',
+          whatsappNumber: '',
           selectedPackage: queryPkgName || 'Ahsora IMAT Ascend',
           packagePrice: queryPrice || '€299',
-          ama_id: `AMA-${Math.floor(100000 + Math.random() * 900000)}`,
+          ama_id: '',
         };
       } else {
-        if (queryPkgName) currentData.selectedPackage = queryPkgName;
-        if (queryPrice) currentData.packagePrice = queryPrice;
+        if (queryPkgName && !currentData.selectedPackage) currentData.selectedPackage = queryPkgName;
+        if (queryPrice && !currentData.packagePrice) currentData.packagePrice = queryPrice;
+        if (queryEmail && !currentData.email) currentData.email = queryEmail;
+      }
+
+      const isFinalApproved =
+        serverApproved === true || locallyApproved === true || (serverApproved === null && profileApproved === true);
+
+      if (isFinalApproved) {
+        activateAndEnterPortal(currentData);
+        return;
       }
 
       setStudentDetails(currentData);
       setLoading(false);
-    };
+      if (isManualCheck) {
+        setCheckingStatus(false);
+        setStatusMessage(
+          'Your account is still awaiting Admin payment verification. Once the admin approves your account in Student Management, click "Check Approval Status" to enter your portal immediately.'
+        );
+      }
+    },
+    [activateAndEnterPortal, queryEmail, queryPkgName, queryPrice]
+  );
 
-    loadProfileAndRegistration();
-  }, [router, searchParams, queryPkgName, queryPrice, queryEmail]);
+  useEffect(() => {
+    loadProfileAndRegistration(false);
+    // Poll every 8 seconds so when Admin clicks Approve, the student is automatically let in
+    const interval = setInterval(() => {
+      loadProfileAndRegistration(false);
+    }, 8000);
+    return () => clearInterval(interval);
+  }, [loadProfileAndRegistration]);
 
   const handleLogout = async () => {
     try {
@@ -96,7 +255,8 @@ function PendingPaymentContent() {
       await supabase.auth.signOut();
     } catch (e) {}
     localStorage.removeItem('recentRegistration');
-    router.push('/portal');
+    localStorage.removeItem('ahsora_studentLoggedIn');
+    router.push('/login');
   };
 
   if (loading) {
@@ -205,7 +365,7 @@ function PendingPaymentContent() {
                 <Mail size={18} color="#059669" />
                 <div>
                   <div style={{ fontSize: '0.75rem', color: '#64748B' }}>Email</div>
-                  <div style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#0F172A' }}>{studentDetails?.email}</div>
+                  <div style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#0F172A' }}>{studentDetails?.email || '—'}</div>
                 </div>
               </div>
 
@@ -213,7 +373,7 @@ function PendingPaymentContent() {
                 <Globe size={18} color="#059669" />
                 <div>
                   <div style={{ fontSize: '0.75rem', color: '#64748B' }}>Country</div>
-                  <div style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#0F172A' }}>{studentDetails?.country || 'Italy'}</div>
+                  <div style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#0F172A' }}>{studentDetails?.country || '—'}</div>
                 </div>
               </div>
 
@@ -221,11 +381,49 @@ function PendingPaymentContent() {
                 <Phone size={18} color="#059669" />
                 <div>
                   <div style={{ fontSize: '0.75rem', color: '#64748B' }}>WhatsApp Number</div>
-                  <div style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#0F172A' }}>{studentDetails?.whatsappNumber || studentDetails?.whatsapp_number || 'Not specified'}</div>
+                  <div style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#0F172A' }}>{studentDetails?.whatsappNumber || studentDetails?.whatsapp_number || studentDetails?.phone || '—'}</div>
                 </div>
               </div>
+
+              {studentDetails?.address && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <MapPin size={18} color="#059669" />
+                  <div>
+                    <div style={{ fontSize: '0.75rem', color: '#64748B' }}>Physical Address</div>
+                    <div style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#0F172A' }}>{studentDetails.address}</div>
+                  </div>
+                </div>
+              )}
+
+              {studentDetails?.ama_id && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <Hash size={18} color="#059669" />
+                  <div>
+                    <div style={{ fontSize: '0.75rem', color: '#64748B' }}>Enrollment ID</div>
+                    <div style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#059669', fontFamily: 'monospace' }}>{studentDetails.ama_id}</div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
+
+          {statusMessage && (
+            <div
+              style={{
+                backgroundColor: '#EFF6FF',
+                border: '1px solid #BFDBFE',
+                borderRadius: '12px',
+                padding: '14px 18px',
+                marginBottom: '20px',
+                color: '#1E40AF',
+                fontSize: '0.875rem',
+                fontWeight: 600,
+                lineHeight: 1.5,
+              }}
+            >
+              ℹ️ {statusMessage}
+            </div>
+          )}
 
           {/* Bank Transfer Details */}
           <div style={{ backgroundColor: '#FFFBEB', border: '1px solid #FDE68A', borderRadius: '16px', padding: '24px', marginBottom: '28px' }}>
@@ -255,7 +453,7 @@ function PendingPaymentContent() {
           {/* Action Buttons */}
           <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
             <a
-              href={`https://wa.me/393333444479?text=${encodeURIComponent(`Hi Ahsora Admissions, I have submitted payment for ${studentDetails?.packageName || 'course'} under email ${studentDetails?.email}. Here is my payment receipt:`)}`}
+              href={`https://wa.me/393333444479?text=${encodeURIComponent(`Hi Ahsora Admissions, I have submitted payment for ${pkgName} (${pkgPrice}) under email ${studentDetails?.email}. Here is my payment receipt:`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary"
@@ -279,22 +477,27 @@ function PendingPaymentContent() {
               Send Receipt via WhatsApp
             </a>
             <button
-              onClick={() => window.location.reload()}
+              onClick={() => loadProfileAndRegistration(true)}
+              disabled={checkingStatus}
               style={{
                 flex: 1,
                 minWidth: '180px',
                 padding: '14px',
                 fontSize: '0.9375rem',
                 fontWeight: 700,
+                display: 'inline-flex',
+                alignItems: 'center',
                 justifyContent: 'center',
+                gap: '8px',
                 borderRadius: '10px',
                 border: '1px solid #CBD5E1',
                 backgroundColor: '#FFFFFF',
                 color: '#0F172A',
-                cursor: 'pointer',
+                cursor: checkingStatus ? 'wait' : 'pointer',
               }}
             >
-              Check Status
+              <RefreshCw size={16} />
+              {checkingStatus ? 'Checking Status...' : 'Check Approval Status'}
             </button>
             <button
               onClick={handleLogout}

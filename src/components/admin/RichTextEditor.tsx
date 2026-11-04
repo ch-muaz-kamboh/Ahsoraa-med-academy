@@ -32,6 +32,8 @@ import {
   HelpCircle,
   FileSpreadsheet,
   Upload,
+  Maximize2,
+  Minimize2,
 } from 'lucide-react';
 
 interface RichTextEditorProps {
@@ -45,9 +47,10 @@ export default function RichTextEditor({
   value,
   onChange,
   placeholder = 'Write article content details here...',
-  minHeight = '260px',
+  minHeight = '520px',
 }: RichTextEditorProps) {
   const [activeTab, setActiveTab] = useState<'visual' | 'html' | 'preview'>('visual');
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   // Modals state
   const [linkModalOpen, setLinkModalOpen] = useState(false);
@@ -95,20 +98,32 @@ export default function RichTextEditor({
   };
 
   const saveSelection = () => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined' || !editorRef.current) return;
     const sel = window.getSelection();
     if (sel && sel.rangeCount > 0) {
-      savedSelectionRef.current = sel.getRangeAt(0).cloneRange();
+      const range = sel.getRangeAt(0);
+      if (editorRef.current.contains(range.commonAncestorContainer)) {
+        savedSelectionRef.current = range.cloneRange();
+      }
     }
   };
 
-  const restoreSelection = () => {
-    if (typeof window === 'undefined' || !savedSelectionRef.current) return;
-    const sel = window.getSelection();
-    if (sel) {
-      sel.removeAllRanges();
-      sel.addRange(savedSelectionRef.current);
+  const restoreSelection = (): boolean => {
+    if (typeof window === 'undefined' || !savedSelectionRef.current || !editorRef.current) return false;
+    try {
+      if (!editorRef.current.contains(savedSelectionRef.current.commonAncestorContainer)) {
+        return false;
+      }
+      const sel = window.getSelection();
+      if (sel) {
+        sel.removeAllRanges();
+        sel.addRange(savedSelectionRef.current);
+        return true;
+      }
+    } catch {
+      return false;
     }
+    return false;
   };
 
   const execCmd = (command: string, arg: string | undefined = undefined) => {
@@ -123,12 +138,64 @@ export default function RichTextEditor({
   };
 
   const insertHtmlAtCursor = (html: string) => {
-    if (activeTab !== 'visual') return;
-    if (editorRef.current) {
-      editorRef.current.focus();
+    // If currently in HTML or Preview tab, append to value and switch to Visual
+    if (activeTab !== 'visual' || !editorRef.current) {
+      const nextVal = `${value || ''}\n${html}`;
+      onChange(nextVal);
+      setActiveTab('visual');
+      return;
     }
-    restoreSelection();
-    document.execCommand('insertHTML', false, html);
+
+    const editor = editorRef.current;
+    const beforeHtml = editor.innerHTML;
+    editor.focus();
+
+    const restored = restoreSelection();
+    let inserted = false;
+
+    if (restored) {
+      try {
+        inserted = document.execCommand('insertHTML', false, html);
+      } catch {
+        inserted = false;
+      }
+    }
+
+    // Fallback 1: DOM Range insertion if execCommand didn't modify content
+    if (!inserted || editor.innerHTML === beforeHtml) {
+      try {
+        const sel = window.getSelection();
+        if (sel && sel.rangeCount > 0 && editor.contains(sel.getRangeAt(0).commonAncestorContainer)) {
+          const range = sel.getRangeAt(0);
+          range.deleteContents();
+          const temp = document.createElement('div');
+          temp.innerHTML = html;
+          const frag = document.createDocumentFragment();
+          let node: ChildNode | null;
+          let lastNode: ChildNode | null = null;
+          while ((node = temp.firstChild)) {
+            lastNode = frag.appendChild(node);
+          }
+          range.insertNode(frag);
+          if (lastNode) {
+            const newRange = range.cloneRange();
+            newRange.setStartAfter(lastNode);
+            newRange.collapse(true);
+            sel.removeAllRanges();
+            sel.addRange(newRange);
+          }
+          inserted = true;
+        }
+      } catch {
+        inserted = false;
+      }
+    }
+
+    // Fallback 2: Append directly to the end of the editor if cursor wasn't inside editor
+    if (!inserted || editor.innerHTML === beforeHtml) {
+      editor.insertAdjacentHTML('beforeend', html);
+    }
+
     handleInput();
     saveSelection();
   };
@@ -179,11 +246,10 @@ export default function RichTextEditor({
     setLinkModalOpen(true);
   };
 
-  const applyLink = (e: React.FormEvent) => {
-    e.preventDefault();
+  const applyLink = (e?: React.FormEvent | React.MouseEvent) => {
+    if (e) e.preventDefault();
     if (!linkUrl) return;
 
-    restoreSelection();
     const targetAttr = linkNewTab ? ' target="_blank" rel="noopener noreferrer"' : '';
     const displayText = linkText.trim() || linkUrl;
     const formattedUrl = linkUrl.startsWith('http') || linkUrl.startsWith('/') || linkUrl.startsWith('#')
@@ -198,7 +264,48 @@ export default function RichTextEditor({
     setLinkText('');
   };
 
-  // ── Image Insertion ─────────────────────────────────────────────────────────
+  // ── Image Compression & Insertion ───────────────────────────────────────────
+  const compressImageFile = (file: File, maxWidth = 1200, quality = 0.82): Promise<string> => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (loadEvent) => {
+        const rawDataUrl = loadEvent.target?.result as string;
+        if (!rawDataUrl) {
+          resolve('');
+          return;
+        }
+        const img = new window.Image();
+        img.onload = () => {
+          try {
+            let width = img.width;
+            let height = img.height;
+            if (width > maxWidth) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            if (!ctx) {
+              resolve(rawDataUrl);
+              return;
+            }
+            ctx.drawImage(img, 0, 0, width, height);
+            const compressed = canvas.toDataURL('image/jpeg', quality);
+            resolve(compressed.length < rawDataUrl.length ? compressed : rawDataUrl);
+          } catch {
+            resolve(rawDataUrl);
+          }
+        };
+        img.onerror = () => resolve(rawDataUrl);
+        img.src = rawDataUrl;
+      };
+      reader.onerror = () => resolve('');
+      reader.readAsDataURL(file);
+    });
+  };
+
   const openImageModal = () => {
     saveSelection();
     setImageUrl('');
@@ -207,9 +314,9 @@ export default function RichTextEditor({
     setImageModalOpen(true);
   };
 
-  const applyImage = (e?: React.FormEvent) => {
+  const applyImage = (e?: React.FormEvent | React.MouseEvent) => {
     if (e) e.preventDefault();
-    if (!imageUrl) return;
+    if (!imageUrl.trim()) return;
 
     const altText = imageAlt || 'Ahsora Meds Academy Education Article Image';
     const captionHtml = imageCaption
@@ -220,31 +327,61 @@ export default function RichTextEditor({
     if (imageAlign === 'left') marginStyle = '24px 24px 24px 0';
     if (imageAlign === 'right') marginStyle = '24px 0 24px 24px';
 
-    const figureHtml = `
-      <figure style="margin: 28px 0; text-align: ${imageAlign};">
-        <img src="${imageUrl}" alt="${altText}" style="max-width: ${imageWidth}; width: 100%; border-radius: 14px; box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.1); display: block; margin: ${marginStyle}; object-fit: cover;" />
-        ${captionHtml}
-      </figure>
-      <p><br></p>
-    `;
+    const figureHtml = `<figure style="margin: 28px 0; text-align: ${imageAlign};"><img src="${imageUrl.trim()}" alt="${altText}" style="max-width: ${imageWidth}; width: 100%; border-radius: 14px; box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.1); display: block; margin: ${marginStyle}; object-fit: cover;" />${captionHtml}</figure><p><br></p>`;
 
     insertHtmlAtCursor(figureHtml);
     setImageModalOpen(false);
+    setImageUrl('');
+    setImageAlt('');
+    setImageCaption('');
   };
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = (loadEvent) => {
-      const dataUrl = loadEvent.target?.result as string;
-      if (dataUrl) {
-        setImageUrl(dataUrl);
-        setImageAlt(file.name.replace(/\.[^/.]+$/, ''));
+    const dataUrl = await compressImageFile(file);
+    if (dataUrl) {
+      setImageUrl(dataUrl);
+      setImageAlt(file.name.replace(/\.[^/.]+$/, ''));
+    }
+    e.target.value = '';
+  };
+
+  const handleEditorPaste = async (e: React.ClipboardEvent<HTMLDivElement>) => {
+    const items = e.clipboardData?.items;
+    if (!items) return;
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].type.indexOf('image') !== -1) {
+        const file = items[i].getAsFile();
+        if (file) {
+          e.preventDefault();
+          saveSelection();
+          const dataUrl = await compressImageFile(file);
+          if (dataUrl) {
+            const figureHtml = `<figure style="margin: 28px 0; text-align: center;"><img src="${dataUrl}" alt="${file.name || 'Article Image'}" style="max-width: 100%; width: 100%; border-radius: 14px; box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.1); display: block; margin: 24px auto; object-fit: cover;" /></figure><p><br></p>`;
+            insertHtmlAtCursor(figureHtml);
+          }
+          break;
+        }
       }
-    };
-    reader.readAsDataURL(file);
+    }
+  };
+
+  const handleEditorDrop = async (e: React.DragEvent<HTMLDivElement>) => {
+    const files = e.dataTransfer?.files;
+    if (!files || files.length === 0) return;
+    for (let i = 0; i < files.length; i++) {
+      if (files[i].type.startsWith('image/')) {
+        e.preventDefault();
+        saveSelection();
+        const dataUrl = await compressImageFile(files[i]);
+        if (dataUrl) {
+          const figureHtml = `<figure style="margin: 28px 0; text-align: center;"><img src="${dataUrl}" alt="${files[i].name.replace(/\.[^/.]+$/, '') || 'Article Image'}" style="max-width: 100%; width: 100%; border-radius: 14px; box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.1); display: block; margin: 24px auto; object-fit: cover;" /></figure><p><br></p>`;
+          insertHtmlAtCursor(figureHtml);
+        }
+      }
+    }
   };
 
   // ── Table Insertion ─────────────────────────────────────────────────────────
@@ -521,8 +658,8 @@ export default function RichTextEditor({
   };
 
   // ── Call-To-Action (CTA) Inserter ───────────────────────────────────────────
-  const insertCtaButton = (e: React.FormEvent) => {
-    e.preventDefault();
+  const insertCtaButton = (e?: React.FormEvent | React.MouseEvent) => {
+    if (e) e.preventDefault();
     if (!ctaText) return;
 
     const formattedUrl = ctaUrl.startsWith('http') || ctaUrl.startsWith('/') ? ctaUrl : `https://${ctaUrl}`;
@@ -570,13 +707,28 @@ export default function RichTextEditor({
 
   return (
     <div
-      style={{
-        border: '1px solid #CBD5E1',
-        borderRadius: '12px',
-        backgroundColor: '#FFFFFF',
-        overflow: 'hidden',
-        boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
-      }}
+      style={
+        isFullscreen
+          ? {
+              position: 'fixed',
+              inset: '16px',
+              zIndex: 9000,
+              border: '2px solid #059669',
+              borderRadius: '16px',
+              backgroundColor: '#FFFFFF',
+              overflow: 'hidden',
+              boxShadow: '0 25px 50px -12px rgba(15, 23, 42, 0.45)',
+              display: 'flex',
+              flexDirection: 'column',
+            }
+          : {
+              border: '1px solid #CBD5E1',
+              borderRadius: '12px',
+              backgroundColor: '#FFFFFF',
+              overflow: 'hidden',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+            }
+      }
     >
       {/* ── Top Toolbar Header ── */}
       <div
@@ -912,8 +1064,14 @@ export default function RichTextEditor({
           {/* ── NEW FEATURE 3: ADD GRAPHS & CHARTS ── */}
           <button
             type="button"
-            onMouseDown={(e) => e.preventDefault()}
-            onClick={() => setChartModalOpen(true)}
+            onMouseDown={(e) => {
+              e.preventDefault();
+              saveSelection();
+            }}
+            onClick={() => {
+              saveSelection();
+              setChartModalOpen(true);
+            }}
             title="Insert Visual Graph / Comparison Card"
             style={{
               padding: '6px 10px',
@@ -937,8 +1095,14 @@ export default function RichTextEditor({
           <div style={{ position: 'relative' }}>
             <button
               type="button"
-              onMouseDown={(e) => e.preventDefault()}
-              onClick={() => setShowCalloutMenu(!showCalloutMenu)}
+              onMouseDown={(e) => {
+                e.preventDefault();
+                saveSelection();
+              }}
+              onClick={() => {
+                saveSelection();
+                setShowCalloutMenu(!showCalloutMenu);
+              }}
               title="Insert Callout or Alert Box"
               style={{
                 padding: '6px 10px',
@@ -980,6 +1144,7 @@ export default function RichTextEditor({
               >
                 <button
                   type="button"
+                  onMouseDown={(e) => e.preventDefault()}
                   onClick={() => insertCalloutType('tip')}
                   style={{
                     display: 'flex',
@@ -1000,6 +1165,7 @@ export default function RichTextEditor({
                 </button>
                 <button
                   type="button"
+                  onMouseDown={(e) => e.preventDefault()}
                   onClick={() => insertCalloutType('warning')}
                   style={{
                     display: 'flex',
@@ -1020,6 +1186,7 @@ export default function RichTextEditor({
                 </button>
                 <button
                   type="button"
+                  onMouseDown={(e) => e.preventDefault()}
                   onClick={() => insertCalloutType('info')}
                   style={{
                     display: 'flex',
@@ -1040,6 +1207,7 @@ export default function RichTextEditor({
                 </button>
                 <button
                   type="button"
+                  onMouseDown={(e) => e.preventDefault()}
                   onClick={() => insertCalloutType('alert')}
                   style={{
                     display: 'flex',
@@ -1065,8 +1233,14 @@ export default function RichTextEditor({
           {/* ── NEW FEATURE 5: CTA BUTTON ── */}
           <button
             type="button"
-            onMouseDown={(e) => e.preventDefault()}
-            onClick={() => setCtaModalOpen(true)}
+            onMouseDown={(e) => {
+              e.preventDefault();
+              saveSelection();
+            }}
+            onClick={() => {
+              saveSelection();
+              setCtaModalOpen(true);
+            }}
             title="Insert Call-To-Action Button for Readers"
             style={{
               padding: '6px 10px',
@@ -1087,75 +1261,100 @@ export default function RichTextEditor({
           </button>
         </div>
 
-        {/* View Modes (Visual / HTML / Preview) */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', backgroundColor: '#E2E8F0', padding: '2px', borderRadius: '8px' }}>
-          <button
-            type="button"
-            onMouseDown={(e) => e.preventDefault()}
-            onClick={() => setActiveTab('visual')}
-            style={{
-              padding: '4px 10px',
-              borderRadius: '6px',
-              border: 'none',
-              fontSize: '0.75rem',
-              fontWeight: 700,
-              cursor: 'pointer',
-              backgroundColor: activeTab === 'visual' ? '#FFFFFF' : 'transparent',
-              color: activeTab === 'visual' ? '#0F172A' : '#64748B',
-              boxShadow: activeTab === 'visual' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '4px',
-            }}
-          >
-            <Edit3 size={13} />
-            <span>Visual</span>
-          </button>
+        {/* View Modes (Visual / HTML / Preview) + Fullscreen Toggle */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '4px', backgroundColor: '#E2E8F0', padding: '2px', borderRadius: '8px' }}>
+            <button
+              type="button"
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => setActiveTab('visual')}
+              style={{
+                padding: '4px 10px',
+                borderRadius: '6px',
+                border: 'none',
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+                backgroundColor: activeTab === 'visual' ? '#FFFFFF' : 'transparent',
+                color: activeTab === 'visual' ? '#0F172A' : '#64748B',
+                boxShadow: activeTab === 'visual' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+              }}
+            >
+              <Edit3 size={13} />
+              <span>Visual</span>
+            </button>
+
+            <button
+              type="button"
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => setActiveTab('html')}
+              style={{
+                padding: '4px 10px',
+                borderRadius: '6px',
+                border: 'none',
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+                backgroundColor: activeTab === 'html' ? '#FFFFFF' : 'transparent',
+                color: activeTab === 'html' ? '#0F172A' : '#64748B',
+                boxShadow: activeTab === 'html' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+              }}
+            >
+              <Code size={13} />
+              <span>HTML</span>
+            </button>
+
+            <button
+              type="button"
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => setActiveTab('preview')}
+              style={{
+                padding: '4px 10px',
+                borderRadius: '6px',
+                border: 'none',
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+                backgroundColor: activeTab === 'preview' ? '#FFFFFF' : 'transparent',
+                color: activeTab === 'preview' ? '#0F172A' : '#64748B',
+                boxShadow: activeTab === 'preview' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+              }}
+            >
+              <Eye size={13} />
+              <span>Preview</span>
+            </button>
+          </div>
 
           <button
             type="button"
             onMouseDown={(e) => e.preventDefault()}
-            onClick={() => setActiveTab('html')}
+            onClick={() => setIsFullscreen(!isFullscreen)}
+            title={isFullscreen ? 'Exit Fullscreen Editor' : 'Expand Editor Fullscreen'}
             style={{
-              padding: '4px 10px',
-              borderRadius: '6px',
-              border: 'none',
+              padding: '5px 10px',
+              borderRadius: '8px',
+              border: isFullscreen ? '1px solid #059669' : '1px solid #CBD5E1',
+              backgroundColor: isFullscreen ? '#ECFDF5' : '#FFFFFF',
+              color: isFullscreen ? '#065F46' : '#334155',
               fontSize: '0.75rem',
               fontWeight: 700,
               cursor: 'pointer',
-              backgroundColor: activeTab === 'html' ? '#FFFFFF' : 'transparent',
-              color: activeTab === 'html' ? '#0F172A' : '#64748B',
-              boxShadow: activeTab === 'html' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
-              display: 'flex',
+              display: 'inline-flex',
               alignItems: 'center',
               gap: '4px',
             }}
           >
-            <Code size={13} />
-            <span>HTML</span>
-          </button>
-
-          <button
-            type="button"
-            onMouseDown={(e) => e.preventDefault()}
-            onClick={() => setActiveTab('preview')}
-            style={{
-              padding: '4px 10px',
-              borderRadius: '6px',
-              border: 'none',
-              fontSize: '0.75rem',
-              fontWeight: 700,
-              cursor: 'pointer',
-              backgroundColor: activeTab === 'preview' ? '#FFFFFF' : 'transparent',
-              color: activeTab === 'preview' ? '#0F172A' : '#64748B',
-              boxShadow: activeTab === 'preview' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '4px',
-            }}
-          >
-            <Eye size={13} />
-            <span>Preview</span>
+            {isFullscreen ? <Minimize2 size={14} /> : <Maximize2 size={14} />}
+            <span>{isFullscreen ? 'Minimize' : 'Fullscreen'}</span>
           </button>
         </div>
       </div>
@@ -1171,13 +1370,18 @@ export default function RichTextEditor({
           onSelect={saveSelection}
           onMouseUp={saveSelection}
           onKeyUp={saveSelection}
+          onPaste={handleEditorPaste}
+          onDrop={handleEditorDrop}
+          onDragOver={(e) => e.preventDefault()}
           data-placeholder={placeholder}
           style={{
-            minHeight,
-            maxHeight: '520px',
+            minHeight: isFullscreen ? 'calc(100vh - 140px)' : minHeight,
+            maxHeight: isFullscreen ? 'calc(100vh - 140px)' : '850px',
+            flex: isFullscreen ? 1 : undefined,
             overflowY: 'auto',
-            padding: '16px 20px',
-            fontSize: '0.95rem',
+            resize: 'vertical',
+            padding: '20px 24px',
+            fontSize: '1rem',
             lineHeight: 1.8,
             color: '#1E293B',
             outline: 'none',
@@ -1195,11 +1399,12 @@ export default function RichTextEditor({
           placeholder="Edit raw HTML markup..."
           style={{
             width: '100%',
-            minHeight,
-            maxHeight: '520px',
-            padding: '16px 20px',
+            minHeight: isFullscreen ? 'calc(100vh - 140px)' : minHeight,
+            maxHeight: isFullscreen ? 'calc(100vh - 140px)' : '850px',
+            flex: isFullscreen ? 1 : undefined,
+            padding: '20px 24px',
             fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
-            fontSize: '0.84rem',
+            fontSize: '0.88rem',
             lineHeight: 1.6,
             color: '#0F172A',
             border: 'none',
@@ -1215,8 +1420,9 @@ export default function RichTextEditor({
       {activeTab === 'preview' && (
         <div
           style={{
-            minHeight,
-            maxHeight: '520px',
+            minHeight: isFullscreen ? 'calc(100vh - 140px)' : minHeight,
+            maxHeight: isFullscreen ? 'calc(100vh - 140px)' : '850px',
+            flex: isFullscreen ? 1 : undefined,
             overflowY: 'auto',
             padding: '24px 28px',
             backgroundColor: '#FAFAF9',
@@ -1277,7 +1483,7 @@ export default function RichTextEditor({
               </button>
             </div>
 
-            <form onSubmit={applyImage} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>
                   Image Web URL
@@ -1287,6 +1493,12 @@ export default function RichTextEditor({
                   placeholder="https://example.com/banner.jpg"
                   value={imageUrl}
                   onChange={(e) => setImageUrl(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      applyImage();
+                    }
+                  }}
                   style={{
                     width: '100%',
                     padding: '10px 12px',
@@ -1451,7 +1663,7 @@ export default function RichTextEditor({
                   <Check size={16} /> Insert Image into Article
                 </button>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       )}
@@ -1835,17 +2047,22 @@ export default function RichTextEditor({
               </button>
             </div>
 
-            <form onSubmit={insertCtaButton} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>
                   Button Text / Headline
                 </label>
                 <input
                   type="text"
-                  required
                   placeholder="e.g. Enroll in IMAT Masterclass or Check Cutoffs"
                   value={ctaText}
                   onChange={(e) => setCtaText(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      insertCtaButton();
+                    }
+                  }}
                   style={{
                     width: '100%',
                     padding: '10px 12px',
@@ -1863,10 +2080,15 @@ export default function RichTextEditor({
                 </label>
                 <input
                   type="text"
-                  required
                   placeholder="e.g. /courses or /universities or https://..."
                   value={ctaUrl}
                   onChange={(e) => setCtaUrl(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      insertCtaButton();
+                    }
+                  }}
                   style={{
                     width: '100%',
                     padding: '10px 12px',
@@ -1896,7 +2118,8 @@ export default function RichTextEditor({
                   Cancel
                 </button>
                 <button
-                  type="submit"
+                  type="button"
+                  onClick={() => insertCtaButton()}
                   style={{
                     padding: '8px 20px',
                     borderRadius: '8px',
@@ -1911,7 +2134,7 @@ export default function RichTextEditor({
                   Insert CTA Button
                 </button>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       )}
@@ -1957,18 +2180,23 @@ export default function RichTextEditor({
               </button>
             </div>
 
-            <form onSubmit={applyLink} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>
                   Target Web URL
                 </label>
                 <input
                   type="text"
-                  required
                   autoFocus
                   placeholder="e.g. https://universitaly.it or /courses"
                   value={linkUrl}
                   onChange={(e) => setLinkUrl(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      applyLink();
+                    }
+                  }}
                   style={{
                     width: '100%',
                     padding: '10px 12px',
@@ -1990,6 +2218,12 @@ export default function RichTextEditor({
                   placeholder="e.g. Official Italian Portal"
                   value={linkText}
                   onChange={(e) => setLinkText(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      applyLink();
+                    }
+                  }}
                   style={{
                     width: '100%',
                     padding: '10px 12px',
@@ -2029,7 +2263,8 @@ export default function RichTextEditor({
                   Cancel
                 </button>
                 <button
-                  type="submit"
+                  type="button"
+                  onClick={() => applyLink()}
                   style={{
                     padding: '8px 18px',
                     borderRadius: '8px',
@@ -2047,7 +2282,7 @@ export default function RichTextEditor({
                   <Check size={16} /> Insert Link
                 </button>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       )}

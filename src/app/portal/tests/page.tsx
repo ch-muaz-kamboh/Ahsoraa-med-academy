@@ -34,19 +34,23 @@ export default function PortalTestsPage() {
       const currentEmail = currentUser?.email?.toLowerCase().trim();
       const currentId = currentUser?.id;
 
-      // Filter attempts matching current student if available, else show all user's recorded attempts
+      // Filter attempts strictly matching current student
       const filtered = fetched.filter((att) => {
-        if (!currentEmail && !currentId) return true;
+        if (!currentEmail || currentEmail === 'student@ahsora.com') return false;
         const attEmail = att.studentEmail?.toLowerCase().trim();
         const attId = att.studentId;
-        return (currentEmail && attEmail === currentEmail) || (currentId && attId === currentId) || !attEmail;
+        return (
+          (currentEmail && attEmail === currentEmail) ||
+          (currentId && currentId !== 'usr-student-01' && attId === currentId)
+        );
       });
 
       // Merge with store testAttempts (avoiding duplicate IDs)
       const map = new Map<string, TestAttempt>();
       filtered.forEach((a) => map.set(a.id, a));
       testAttempts.forEach((a) => {
-        if (!map.has(a.id)) {
+        const aEmail = (a.studentEmail || '').toLowerCase().trim();
+        if (currentEmail && (!aEmail || aEmail === currentEmail) && !map.has(a.id)) {
           map.set(a.id, a);
         }
       });
