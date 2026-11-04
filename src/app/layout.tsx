@@ -7,6 +7,7 @@ import { LanguageProvider } from '@/lib/i18n/LanguageContext';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import GoogleTranslateLoader from '@/components/common/GoogleTranslateLoader';
+import GoogleAnalyticsTracker from '@/components/common/GoogleAnalyticsTracker';
 import { SITE_URL, SITE_NAME, getOrganizationJsonLd, getWebSiteJsonLd } from '@/lib/seo-constants';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -165,6 +166,7 @@ export default function RootLayout({
             <Footer />
             <SupportChatWidget />
             <GoogleTranslateLoader />
+            <GoogleAnalyticsTracker />
           </LanguageProvider>
         </AppProvider>
       </body>

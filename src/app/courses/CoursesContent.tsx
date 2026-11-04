@@ -17,6 +17,7 @@ import {
   syncSaleOfferFromSupabase,
   SaleOfferConfig
 } from '@/lib/cms-store';
+import { event } from '@/lib/gtag';
 import './courses.css';
 
 
@@ -972,6 +973,7 @@ export default function CoursesContent() {
                         {/* Direct Sign up / Join CTA */}
                         <Link
                           href={`/register?package=${pkgParam}`}
+                          onClick={() => event('select_course_package', { package: prog.name, price: prog.price, action: 'direct_signup' })}
                           style={{
                             display: 'flex',
                             alignItems: 'center',
@@ -998,6 +1000,7 @@ export default function CoursesContent() {
                         {/* WhatsApp CTA -> Redirects to Registration */}
                         <Link
                           href={`/register?package=${pkgParam}`}
+                          onClick={() => event('select_course_package', { package: prog.name, price: prog.price, action: 'whatsapp_enroll' })}
                           style={{
                             display: 'flex',
                             alignItems: 'center',
@@ -1029,6 +1032,7 @@ export default function CoursesContent() {
                         {/* Email CTA -> Redirects to Registration */}
                         <Link
                           href={`/register?package=${pkgParam}`}
+                          onClick={() => event('select_course_package', { package: prog.name, price: prog.price, action: 'email_enroll' })}
                           style={{
                             display: 'flex',
                             alignItems: 'center',

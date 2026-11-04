@@ -7,6 +7,7 @@ import { getPackageByIdOrName, CoursePackage } from '@/lib/packages';
 import { useAppStore } from '@/lib/store';
 import { Clock, Globe, LogOut, Phone, User, Mail, MapPin, Hash, RefreshCw, CheckCircle2, MessageCircle, ExternalLink, ShieldCheck, ArrowRight } from 'lucide-react';
 import Logo from '@/components/brand/Logo';
+import { event } from '@/lib/gtag';
 
 function PendingPaymentContent() {
   const router = useRouter();
@@ -305,6 +306,23 @@ Please let me know the payment method suitable for me and provide instructions s
 
   const whatsappUrl = `https://wa.me/393333444479?text=${encodeURIComponent(whatsappTemplate)}`;
 
+  // Log conversion and registration_received Google tag events
+  useEffect(() => {
+    if (!loading && (studentDetails || queryPkgName)) {
+      event('registration_received', {
+        package_name: pkgName,
+        package_price: pkgPrice,
+        ama_id: studentAmaId,
+        student_country: studentCountry,
+      });
+      event('conversion', {
+        send_to: 'G-ZLZPB1DD0Y',
+        value: pkgPrice,
+        currency: 'EUR',
+      });
+    }
+  }, [loading, studentDetails, queryPkgName, pkgName, pkgPrice, studentAmaId, studentCountry]);
+
   // Template for Gmail / Email
   const emailSubject = `Registration Received - Payment Method Inquiry (${studentName} - ${studentAmaId || pkgName})`;
   const emailTemplate = `Dear Ahsora Meds Academy Admissions Team,
@@ -562,6 +580,13 @@ ${studentName}`;
                 href={gmailUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => {
+                  event('contact_admissions_email', {
+                    package: pkgName,
+                    student_name: studentName,
+                    ama_id: studentAmaId,
+                  });
+                }}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -597,6 +622,13 @@ ${studentName}`;
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => {
+                  event('contact_admissions_whatsapp', {
+                    package: pkgName,
+                    student_name: studentName,
+                    ama_id: studentAmaId,
+                  });
+                }}
                 style={{
                   display: 'flex',
                   alignItems: 'center',

@@ -142,7 +142,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 <input
                   type="text"
                   required
-                  placeholder="Ahsan.admin.000"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   style={{
