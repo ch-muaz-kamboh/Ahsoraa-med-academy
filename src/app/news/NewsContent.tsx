@@ -706,12 +706,16 @@ export default function NewsContent() {
                     wordBreak: 'break-word',
                   }}
                   dangerouslySetInnerHTML={{
-                    __html: /<[a-z][\s\S]*>/i.test(selectedPost.content || '')
+                    __html: (/<[a-z][\s\S]*>/i.test(selectedPost.content || '')
                       ? selectedPost.content
                       : (selectedPost.content || '')
                           .split(/\n\s*\n/)
                           .map((p) => `<p>${p.replace(/\n/g, '<br/>')}</p>`)
-                          .join(''),
+                          .join('')
+                    ).replace(
+                      /(?:<div[^>]*class=["'][^"']*table-responsive[^"']*["'][^>]*>\s*)?(<table[\s\S]*?<\/table>)(?:\s*<\/div>)?/gi,
+                      (m, tbl) => `<div class="table-responsive">${tbl}</div>`
+                    ),
                   }}
                 />
 

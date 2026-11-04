@@ -22,12 +22,20 @@ export const revalidate = 60; // ISR: Incremental Static Regeneration every 60 s
 function injectHeadingIds(html: string): string {
   if (!html) return '';
   let counter = 1;
-  return html.replace(/<h([23])(?:\s+id=["']([^"']*)["'])?([^>]*)>(.*?)<\/h\1>/gi, (match, tag, existingId, otherAttrs, text) => {
+  let processed = html.replace(/<h([23])(?:\s+id=["']([^"']*)["'])?([^>]*)>(.*?)<\/h\1>/gi, (match, tag, existingId, otherAttrs, text) => {
     if (existingId) return match;
     const cleanText = text.replace(/<[^>]*>/g, '').trim();
     const slug = cleanText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || `section-${counter++}`;
     return `<h${tag} id="${slug}"${otherAttrs}>${text}</h${tag}>`;
   });
+
+  // Automatically wrap raw tables into .table-responsive for seamless horizontal scrolling
+  processed = processed.replace(
+    /(?:<div[^>]*class=["'][^"']*table-responsive[^"']*["'][^>]*>\s*)?(<table[\s\S]*?<\/table>)(?:\s*<\/div>)?/gi,
+    (match, table) => `<div class="table-responsive">${table}</div>`
+  );
+
+  return processed;
 }
 
 // ── Fallback articles database for SSR when Supabase is offline / demo mode ──
